@@ -150,9 +150,11 @@ body {
     font-style: normal;
     line-height: normal;
 }
-.footer__block ~ .footer__block{
+
+.footer__block ~ .footer__block {
     margin-top: 30px;
 }
+
 .footer__title {
 
     font-size: 20px;
@@ -164,20 +166,23 @@ body {
     font-size: 16px;
     font-weight: 400;
 }
-.social__list{
+
+.social__list {
     display: inline-flex;
     align-items: center;
     gap: 20px;
 }
 
-.social__item{
+.social__item {
     font-size: 20px;
     padding: 5px;
     color: inherit;
 }
-.social__item:hover{
-   color: var(--blue-color-low);
+
+.social__item:hover {
+    color: var(--blue-color-low);
 }
+
 .footer__form {
     display: flex;
     align-items: center;
@@ -209,4 +214,10 @@ body {
 
 .footer__submit-icon {
     margin-right: 2.5px;
+}
+
+#form__signUp {
+    display: block;
+    text-align: center;
+    margin-top: 36px;
 }
