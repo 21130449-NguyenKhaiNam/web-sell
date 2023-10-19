@@ -9,5 +9,10 @@ document.addEventListener("DOMContentLoaded", function() {
         slider.style.transform = `translateX(-${index * slideWidth}px)`;
     }
 
-
+    nextButton.addEventListener("click", function() {
+        if (currentIndex < slider.childElementCount - 1) {
+            currentIndex++;
+            slideTo(currentIndex);
+        }
+    });
 });
