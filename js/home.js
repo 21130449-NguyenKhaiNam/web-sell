@@ -15,4 +15,11 @@ document.addEventListener("DOMContentLoaded", function() {
             slideTo(currentIndex);
         }
     });
+
+    prevButton.addEventListener("click", function() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            slideTo(currentIndex);
+        }
+    });
 });
