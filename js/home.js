@@ -9,11 +9,17 @@ document.addEventListener("DOMContentLoaded", function() {
         slider.style.transform = `translateX(-${index * slideWidth}px)`;
     }
 
-    nextButton.addEventListener("click", function() {
+    function nextSlide() {
         if (currentIndex < slider.childElementCount - 1) {
             currentIndex++;
-            slideTo(currentIndex);
+        } else {
+            currentIndex = 0;
         }
+        slideTo(currentIndex);
+    }
+
+    nextButton.addEventListener("click", function() {
+        nextSlide();
     });
 
     prevButton.addEventListener("click", function() {
@@ -22,4 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
             slideTo(currentIndex);
         }
     });
+
+    let interval = setInterval(nextSlide, 2000);
+
+    slider.addEventListener('mouseover',function (){
+        clearInterval(interval);
+    });
+
+    slider.addEventListener("mouseout", function (){
+        interval = setInterval(nextSlide, 2000);
+    })
 });
