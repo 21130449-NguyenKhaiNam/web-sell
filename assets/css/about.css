@@ -2,33 +2,44 @@ body{
     margin: 0;
     padding: 0;
     font-family: sans-serif, Arial,Tahoma;
-    font-size: 15px;
+    font-size: 18px;
+}
+.wraper{
+    background-color: #1f1f1f;
 }
 .containers{
     margin: 100px auto;
     width: 1120px;
 }
-.contain1{
-    background-color: #000000;
+.about{
+    background-color: #1f1f1f;
+    padding-top: 150px;
 }
 h1{
     text-align: center;
-    font-size: 30px;
+    font-size: 50px;
     color: white;
 }
 hr{
     width: 100px;
-    margin-top: -10px;
+    margin-top: 20px;
+    margin-bottom: 60px;
+
 }
 .introduce{
     text-align: center;
-    font-size: 17px;
+    font-size: 20px;
     margin: 0 auto;
     width: 900px;
     color: white;
+    margin-bottom: 30px;
+    line-height: 30px;
 }
 .card{
     display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 100px;
 }
 .card__item{
     width: 250px;
@@ -41,6 +52,7 @@ hr{
     height: 100px;
     border: 3px solid white;
     border-radius: 50px;
+    margin-bottom: 20px;
 }
 .card__icon i{
     margin:25px auto;
@@ -48,15 +60,18 @@ hr{
     color: white;
 }
 .card__compo{
-   text-align: center;
+    text-align: center;
     color: #cccccc;
+    margin: 20px auto;
 }
 .text{
     text-align: center;
     color: #a2a2a2;
+    font-size: 18px;
+    line-height: 30px;
 }
-.contain2{
-    background-color: #000000;
+.nmajor{
+    background-color: #1f1f1f;
 }
 .shap{
     display: flex;
@@ -73,11 +88,11 @@ hr{
     border: 1px solid #7d7c7c;
     background-color: #2e2e2e;
     transform: rotate(45deg);
+    cursor: pointer;
 }
 .shap .diamond:hover{
     background-color: #3f3f3f;
 }
-
 .shap .diamond span{
     position: absolute;
     top: 50%;
@@ -93,12 +108,12 @@ hr{
 .diamond.active{}
 .text_show{
     padding-top: 60px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 .text__compo{
     display: none;
     margin: auto;
-    height: 110px;
+    height: 130px;
     width: 1000px;
     border: 2px solid #7d7c7c;
     border-style: dotted;
@@ -107,13 +122,43 @@ hr{
     color: white;
 }
 .text__compo .compo{
-    margin-top: 10px;
+    margin-top: 30px;
     margin-left: 20px;
 }
 .text__compo .text{
     margin-left: 20px;
-
+    margin-top: 20px;
     text-align: left;
 }
+.chosing{
+    display: flex;
+    align-items: center;
+    margin: 0 30px;
+    justify-content: space-between;
+    padding-bottom: 400px;
+}
+
+img{
+    width: 600px;
+    height: 275px;
+    margin-top: 30px;
+    border-radius: 10px;
+}
+.content{
+    width: 600px;
+    margin-top: 30px;
+
+}
+h2{
+    margin-left: 30px;
+    color: white;
+}
+ul li{
+    color: #7a7a7a;
+    list-style-type: circle;
+    line-height: 30px;
+}
+
+
 
 
