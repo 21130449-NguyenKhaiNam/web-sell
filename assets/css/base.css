@@ -1,0 +1,212 @@
+/*Reset CSS*/
+*, ::after, ::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+input, button {
+    border: none;
+    outline: none;
+}
+
+/*Var*/
+
+:root {
+    --primary-font: 'Poppins', sans-serif;
+    --mint-color: #B6FFFA;
+    --blue-color-low: #98E4FF;
+    --blue-color-medium: #80B3FF;
+    --blue-color-high: #687EFF;
+}
+
+html {
+    font-family: var(--primary-font);
+    scroll-behavior: smooth;
+}
+
+body {
+
+}
+
+#main {
+    height: 1000px;
+}
+
+/*Text*/
+/*Button*/
+.button {
+    display: block;
+    height: var(--height);
+    width: var(--width);
+    line-height: var(--height);
+    text-align: center;
+    outline: none;
+    border: none;
+}
+
+.button--hover {
+    background-color: var(--background-color);
+    transition: background-color linear 0.15s;
+}
+
+.button--hover:hover {
+    background-color: var(--background-color-hover);
+    cursor: pointer;
+}
+
+/*Logo*/
+.logo {
+    display: inline-block;
+    width: 258px;
+    height: 50px;
+    background: url("../img/logo.svg") 0% 0% / auto 100% no-repeat content-box;
+}
+
+/*-----------------------------------------------------------*/
+/*Nav*/
+#header {
+    position: sticky;
+    top: -10px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.nav {
+    background-color: var(--blue-color-medium);
+}
+
+.nav__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0 20px;
+}
+
+.nav__list {
+    display: flex;
+    gap: 30px;
+
+}
+
+.nav__link {
+    padding: 10px 5px;
+}
+
+.nav__link, .nav__button {
+    /* font */
+    color: #FFF;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.048px;
+
+}
+
+.nav__link:hover,
+.nav__button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.nav__button {
+    display: inline-block;
+}
+
+.nav__button--signUp {
+    --width: 140px;
+    --height: 50px;
+    border-radius: 20px;
+    margin-left: 15px;
+
+    --background-color-hover: var(--blue-color-low);
+    --background-color: var(--blue-color-high);
+}
+
+.nav__button--signIn {
+    padding: 10px 5px;
+}
+
+/*Footer*/
+#footer {
+    padding: 50px 0;
+    background: linear-gradient(180deg, #1E1E1E 51.14%, rgba(30, 30, 30, 0.20) 100%);
+    color: #fff;
+}
+
+#footer .logo {
+    display: block;
+    margin-bottom: 30px;
+}
+
+.footer__title, .footer__desc {
+    color: #FFF;
+    font-style: normal;
+    line-height: normal;
+}
+.footer__block ~ .footer__block{
+    margin-top: 30px;
+}
+.footer__title {
+
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.footer__desc {
+    padding-top: 5px;
+    font-size: 16px;
+    font-weight: 400;
+}
+.social__list{
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.social__item{
+    font-size: 20px;
+    padding: 5px;
+    color: inherit;
+}
+.social__item:hover{
+   color: var(--blue-color-low);
+}
+.footer__form {
+    display: flex;
+    align-items: center;
+    --border-radius: 10px;
+    height: 50px;
+    margin-top: 5px;
+}
+
+.footer__input {
+    flex: 1;
+    height: 100%;
+    padding: 10px 20px;
+    margin-right: -15px;
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+    font-size: 16px;
+}
+
+.footer__submit {
+    --width: 100px;
+    --height: 100%;
+    --background-color-hover: var(--blue-color-low);
+    --background-color: var(--blue-color-high);
+    border-radius: var(--border-radius);
+
+    font-size: 16px;
+    color: #fff;
+}
+
+.footer__submit-icon {
+    margin-right: 2.5px;
+}
