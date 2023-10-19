@@ -73,3 +73,27 @@
     width: 100%;
     height: 100%;
 }
+
+.navigation-button {
+    cursor: pointer;
+    background-color: white;
+    opacity: 80%;
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.nav_prev{
+    left: 24px;
+}
+
+.nav_next{
+    right: 24px;
+}
