@@ -58,8 +58,9 @@
 
 .slider-container {
     position: relative;
-    width: 750px;
+    width: 700px;
     overflow: hidden;
+    margin: 26px 0px;
 }
 
 .slider {
@@ -97,3 +98,6 @@
 .nav_next{
     right: 24px;
 }
+
+
+

@@ -126,11 +126,12 @@
 
 @font-face {
     font-family: 'Poppins';
-    src: url('poppins/Poppins-SemiBold.woff2') format('woff2'),
-        url('poppins/Poppins-SemiBold.woff') format('woff');
     font-weight: 600;
+    src: url('poppins/Poppins-SemiBold.woff2') format('woff2'),
+    url('poppins/Poppins-SemiBold.woff') format('woff');
     font-style: normal;
     font-display: swap;
+
 }
 
 @font-face {
