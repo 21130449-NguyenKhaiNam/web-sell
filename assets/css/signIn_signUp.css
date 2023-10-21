@@ -129,9 +129,9 @@ article {
 .form__error{
     display: block;
     height: 20px;
-
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 500;
+    margin-top: 5px;
 }
 .invalid .form__error{
     color: red;
