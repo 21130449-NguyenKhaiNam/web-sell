@@ -19,7 +19,7 @@ input, button {
 /*Var*/
 
 :root {
-    --primary-font: 'Poppins', sans-serif;
+    --primary-font: 'Montserrat','Poppins', sans-serif;
     --mint-color: #B6FFFA;
     --blue-color-low: #98E4FF;
     --blue-color-medium: #80B3FF;
