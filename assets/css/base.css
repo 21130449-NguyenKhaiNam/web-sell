@@ -3,6 +3,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    letter-spacing: -1px;
 }
 
 a {
@@ -35,7 +36,8 @@ body {
 }
 
 #main {
-    height: 1000px;
+    /*height: 1000px;*/
+    height: auto;
 }
 
 /*Text*/
