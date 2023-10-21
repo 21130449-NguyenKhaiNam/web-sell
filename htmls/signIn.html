@@ -35,24 +35,39 @@
                 <div class="form__block">
                     <label for="username" class="form__label">Tên đăng nhập</label>
                     <input id="username" type="text" class="form__input">
+                    <p class="form__error"></p>
                 </div>
                 <div class="form__block">
                     <label for="password" class="form__label">Mật khẩu</label>
                     <input id="password" type="password" class="form__input">
+                    <p class="form__error"></p>
                 </div>
                 <div class="form__block">
                     <a href="./forgotPassword.html" id="form__forget-password" class="form__link">Quên mật khẩu</a>
-
-                    <input id="forget-password" type="checkbox" class="form__checkbox"  hidden="hidden">
+                    <input id="forget-password" type="checkbox" class="form__checkbox" hidden="hidden">
                     <label for="forget-password" class="icon_checkbox"></label>
                     <label for="forget-password" class="">Lưu mật khẩu</label>
-
                 </div>
-                <button type="submit" class="form__submit button button--hover">Đăng nhập</button>
+                <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng nhập</button>
             </form>
             <a href="./signUp.html" id="form__link--signUp" class="form__link ">Đăng ký</a>
         </article>
     </div>
 </main>
+<!--JS validate-->
+<script src="../js/validateForm.js"></script>
+<script>
+    var validation = new Validation({
+                formSelector: ".form",
+                formBlockClass: "form__block",
+                errorSelector: ".form__error",
+                rules: [
+                    Validation.isRequired("#username"),
+                    Validation.isRequired("#password"),
+                    Validation.minLength("#password", 6),
+                ],
+                submitSelector: "#form__submit",
+            });
+</script>
 </body>
 </html>

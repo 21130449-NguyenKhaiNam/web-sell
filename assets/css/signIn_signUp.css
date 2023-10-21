@@ -29,24 +29,23 @@ article {
 }
 
 .form__block ~ .form__block {
-    margin-top: 36px;
+    margin-top: 10px;
 }
 .form__label, .form__link{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     color: #fff;
 }
 .form__label {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .form__input {
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: 5px 10px;
     border-radius: 5px;
-
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 1.67;
 }
@@ -125,4 +124,18 @@ article {
     width: 100%;
     text-align: center;
     margin-top: 34px;
+}
+/*Validate form css*/
+.form__error{
+    display: block;
+    height: 20px;
+
+    font-size: 12px;
+    font-weight: 400;
+}
+.invalid .form__error{
+    color: red;
+}
+.invalid .form__input{
+    border: 1px solid red;
 }

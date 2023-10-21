@@ -36,25 +36,49 @@
                 <div class="form__block">
                     <label for="username" class="form__label">Tên đăng nhập</label>
                     <input id="username" type="text" class="form__input">
+                    <p class="form__error"></p>
                 </div>
                 <div class="form__block">
-                    <label for="email" class="form__label">Mật khẩu</label>
+                    <label for="email" class="form__label">Email</label>
                     <input id="email" type="email" class="form__input">
+                    <p class="form__error"></p>
                 </div>
                 <div class="form__block">
                     <label for="password" class="form__label">Mật khẩu</label>
                     <input id="password" type="password" class="form__input">
+                    <p class="form__error"></p>
                 </div>
                 <div class="form__block">
                     <label for="confirm-password" class="form__label">Xác nhận lại mật khẩu</label>
                     <input id="confirm-password" type="password" class="form__input">
-
-            </div>
-                <button type="submit" class="form__submit button button--hover">Đăng ký</button>
+                    <p class="form__error"></p>
+                </div>
+                <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng ký</button>
             </form>
             <a href="./signIn.html" id="form__link--signIn" class="form__link ">Đăng nhập</a>
         </article>
     </div>
 </main>
+<!--JS validate-->
+<script src="../js/validateForm.js"></script>
+<script>
+    var validation = new Validation({
+        formSelector: ".form",
+        formBlockClass: "form__block",
+        errorSelector: ".form__error",
+        rules: [
+            Validation.isRequired("#username"),
+            Validation.isRequired("#email"),
+            Validation.isEmail("#email"),
+            Validation.isRequired("#password"),
+            Validation.minLength("#password", 6),
+            Validation.isRequired("#confirm-password"),
+            Validation.isConfirm("#confirm-password", function () {
+                return document.querySelector("#password").value;
+            })
+        ],
+        submitSelector: "#form__submit",
+    })
+</script>
 </body>
 </html>
