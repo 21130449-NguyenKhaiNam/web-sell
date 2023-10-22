@@ -61,6 +61,7 @@
     width: 700px;
     overflow: hidden;
     margin: 26px 0px;
+    border-radius: 10px;
 }
 
 .slider {
@@ -99,9 +100,6 @@
     right: 24px;
 }
 
-
-
-
 .popular-section .title{
     display: flex;
     justify-content: space-between;
@@ -113,15 +111,23 @@
 }
 
 .popular-section .content{
-    display: flex;
-    justify-content: space-between;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    /*gap: 24px;*/
+    /*flex-wrap: wrap;*/
 }
 
 .model_product{
-    width: 308px;
+    /*width: 500px;*/
+    flex-basis: 308px;
+    min-width: 308px;
+}
+
+.model_product .item-product{
     border: 1px solid #D9D9D9;
     border-radius: 8px;
     overflow: hidden;
+    min-height: 100%;
 }
 
 .model_product img{
@@ -206,15 +212,34 @@
     display: flex;
     width: 100%;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    text-align: left;
 }
 
 .discovery_us-section .content .what_thing{
-    border-left: black 2px solid;
+    border-left: black 4px solid;
     padding-left: 10px;
+    text-align: left;
 }
 
 .discovery_us-section .content .what_thing p:first-child{
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 12px;
+}
+
+.step_guide-section .title{
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    width: 500px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.step_guide-section .content .step-item img{
+    width: 300px;
+    height: 300px;
+    /*object-fit: cover;*/
 }
