@@ -1,67 +1,94 @@
 function Validation(formObj) {
     var formElement = document.querySelector(formObj.formSelector);
     var rules = formObj.rules;
+    var submitElement = document.querySelector(formObj.submitSelector);
+    var ruleFuncs = {};
+    var errorMessageObj = {};
 
+    // Chạy qua rules để lấy các yêu cầu để thực thi validate
     if (formElement) {
-        var ruleFuncs = {};
         rules.forEach(function (rule) {
-            var inputElement = formElement.querySelector(rule.element);
-
+            const inputElement = formElement.querySelector(rule.element);
+            /*
+            -Do mỗi input sẽ có nhiều yêu cầu validate nên ruleFuncs sẽ là 1 một obj gồm có:
+            -Mỗi key sẽ là id của input
+            -Mỗi value tương ứng với key sẽ là một array để chứa các
+            yêu cầu validate hay chính là các function thực thi validate
+            (các hàm test)
+            Ex:
+            username : [isRequired]
+            email: [isEmail, isRequired]
+            */
             if (!Array.isArray(ruleFuncs[inputElement.id])) {
                 ruleFuncs[inputElement.id] = [rule.check];
             } else {
                 ruleFuncs[inputElement.id].push(rule.check);
             }
 
-
             inputElement.oninput = function (e) {
-                handleValidate(inputElement, rule);
+                handleValidate(inputElement);
             }
             inputElement.onblur = function (e) {
-                handleValidate(inputElement, rule);
+                handleValidate(inputElement);
             }
         });
+    }
+    if (submitElement) {
+        // Chặn việc gửi thông tin của form khi nhấn submit
+        submitElement.submit = function (e) {
+            e.preventDefault();
+        };
+        submitElement.onclick = function () {
+            rules.forEach(function (rule) {
+                const inputElement = formElement.querySelector(rule.element);
+                handleValidate(inputElement);
+            });
 
-
-        var submitElement = document.querySelector(formObj.submitSelector);
-        if (submitElement) {
-            submitElement.submit = function (e) {
-                e.preventDefault();
-            };
-
-            submitElement.onclick = function () {
-                rules.forEach(function (rule) {
-                    handleValidate(document.querySelector(rule.element));
-                });
+            //Chỉ được thực thi không form ko có Error Message
+            if (Object.keys(errorMessageObj).length == 0) {
+               formObj.funcAfterSubmit();
+               return false;
             }
         }
+    }
 
-        function handleValidate(inputElement) {
-            const value = inputElement.value;
-            const formBlock = getParent(inputElement, formObj.formBlockClass);
-            const showError = formBlock.querySelector(formObj.errorSelector);
+    function handleValidate(inputElement) {
+        const value = inputElement.value;
+        const formBlock = getParent(inputElement, formObj.formBlockClass);
+        const showError = formBlock.querySelector(formObj.errorSelector);
 
-            let errorMessage;
-            const ruleFunc = ruleFuncs[inputElement.id];
-            for (let i = 0; i < ruleFunc.length; i++) {
-                errorMessage = ruleFunc[i](value);
-                if (errorMessage) {
-                    break;
-                }
-            }
-
+        let errorMessage;
+        const ruleFunc = ruleFuncs[inputElement.id];
+        /*Loop qua từng func của id tương ứng
+        Ex:
+        username : [isRequired] -> Loop qua 1 lần
+        email: [isEmail, isRequired] -> Loop qua 2 lần
+        */
+        for (let i = 0; i < ruleFunc.length; i++) {
+            errorMessage = ruleFunc[i](value);//Chạy các hàm test
             if (errorMessage) {
-                formBlock.classList.add("invalid");
-                showError.innerText = errorMessage;
+                errorMessageObj[inputElement.id] = errorMessage;
+                break;
             } else {
-                formBlock.classList.remove("invalid");
-                showError.innerText = "";
+                (errorMessageObj[inputElement.id]) ? delete errorMessageObj[inputElement.id] : undefined;
             }
         }
-
+        if (errorMessage) {
+            formBlock.classList.add("invalid");
+            showError.innerText = errorMessage;
+        } else {
+            formBlock.classList.remove("invalid");
+            showError.innerText = "";
+        }
     }
 }
 
+/*
+* Quy tắc hiện thực các hàm validate
+* Input: bắt buộc phải có selectorInput (selector của thẻ input)
+* Output: trả về obj gồm element của selectorInput và function check (thực thi việc validate cho selectorInput)
+* Function check sẽ trả về undefined nếu validate, nếu không validate thì trả về lỗi
+* */
 Validation.isRequired = function (selectorInput) {
     return {
         element: selectorInput,
@@ -104,6 +131,7 @@ Validation.isConfirm = function (selectionInput, funcGetConfirmText) {
         }
     }
 }
+
 
 function getParent(child, parent) {
     while (!child.classList.contains(parent)) {

@@ -121,6 +121,7 @@ body {
     display: inline-block;
 }
 
+
 .nav__button--signUp {
     --width: 140px;
     --height: 50px;
@@ -222,4 +223,89 @@ body {
     display: block;
     text-align: center;
     margin-top: 36px;
+}
+
+/*Account*/
+.account {
+    position: relative;
+    z-index: 2;
+    --border-radius: 30px;
+    display: none;
+    /*display: flex to show*/
+    align-items: center;
+    width: 200px;
+    border-radius: var(--border-radius);
+    background-color: var(--blue-color-high);
+    padding: 10px;
+    color: #FFFFFF;
+}
+
+.account__icon {
+    padding: 10px;
+    font-size: 15px;
+    border-radius: var(--border-radius);
+    background-color: var(--blue-color-medium);
+}
+
+.account__name {
+    font-size: 20px;
+    font-weight: 500;
+    overflow: hidden;
+    margin: 0 10px;
+}
+
+.setting__show {
+    margin-left: auto;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s linear;
+}
+
+.setting__show:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    background-color: var(--blue-color-medium);
+}
+
+.setting__list {
+    position: absolute;
+    top: calc(100% - 30px);
+    z-index: -1;
+    left: 0;
+    width: 100%;
+    background-color: var(--blue-color-high);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    opacity: 0;
+    visibility: visible;
+    transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+}
+
+.setting__list.setting__list--show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.setting__list::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 30px;
+}
+
+.setting__link {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 20px 10px;
+    text-align: center;
+    border-top: 1px solid #fff;
+}
+.setting__item:last-child .setting__link{
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+.setting__link:hover{
+    background-color: var(--mint-color);
 }
