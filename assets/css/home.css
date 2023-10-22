@@ -14,11 +14,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
     text-align: center;
     color: #fff;
 }
-
+.hero__slogan h1{
+    font-size: 50px;
+}
 .hero__slogan p {
     color: #FFF;
     font-style: normal;
