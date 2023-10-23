@@ -21,3 +21,40 @@
     font-size: 18px;
     line-height: 24px;
 }
+
+.contact_us .get-in-touch{
+    margin-top: 50px;
+    display: grid;
+    gap: 16px
+}
+
+.contact_us .get-in-touch .contact-method{
+    display: flex;
+    gap: 10px;
+    /*align-items: stretch;*/
+    border: 1px #D9D9D9 solid;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.contact_us .get-in-touch .contact-method .icon-contact{
+    min-width: 46px;
+    background-color: #F8F8F8;
+    border-radius: 4px;
+    display: flex;
+}
+
+.contact_us .get-in-touch .contact-method i{
+    font-size: 20px;
+    margin: auto;
+}
+
+.contact_us .get-in-touch .contact-method .contact-description{
+    font-weight: 600;
+    text-align: left;
+}
+
+.contact_us .get-in-touch .contact-method .contact-description p:last-child{
+    color: var(--blue-color-high);
+    font-weight: 700;
+}
