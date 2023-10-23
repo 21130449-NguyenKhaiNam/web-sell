@@ -58,6 +58,16 @@
             <a href="./signIn.html" id="form__link--signIn" class="form__link ">Đăng nhập</a>
         </article>
     </div>
+    <input type="checkbox" id="modal__hide" class="modal__hide" hidden="hidden" checked>
+    <div class="modal">
+        <div class="modal__notify">
+            <i class="model__checked-icon fa-regular fa-circle-check"></i>
+            <p class="modal__text">Đăng kí thành công, vui lòng kiểm tra email bạn đã đăng kí.</p>
+            <a href="./signIn.html" class="button modal__button button--hover">Đăng nhập</a>
+            <p class="modal__resend ">Nếu bạn chưa nhận được email xác nhận, hãy <span>nhấn vào đây.</span></p>
+        </div>
+        <label for="modal__hide" class="modal__blur"></label>
+    </div>
 </main>
 <!--JS validate-->
 <script src="../js/validateForm.js"></script>
@@ -78,6 +88,9 @@
             })
         ],
         submitSelector: "#form__submit",
+        funcAfterSubmit: function () {
+            document.querySelector("#modal__hide").checked = false;
+        }
     })
 </script>
 </body>

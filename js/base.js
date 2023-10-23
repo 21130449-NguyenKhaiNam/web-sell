@@ -1,3 +1,4 @@
+// Sign in
 var accountElement = document.querySelector(".account");
 var signInSignUp = document.querySelector(".nav__cta");
 window.onload = function () {
@@ -16,6 +17,7 @@ console.log(settingShowElement);
 settingShowElement.onclick = function () {
     settingListElement.classList.toggle("setting__list--show");
 }
+// Log out
 var logOutElement = document.querySelector(".setting__logOut");
 logOutElement.onclick = function () {
     localStorage.removeItem("username");
