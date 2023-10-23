@@ -93,3 +93,14 @@
     border: none;
     background-color: #F8F8F8;
 }
+
+#contact_us-form .form__submit{
+    width: fit-content;
+    padding: 16px 50px;
+    font-family: var(--primary-font);
+    font-weight: 600;
+    border-radius: 4px;
+    font-size: 18px;
+    background-color: var(--blue-color-high);
+    color: white;
+}
