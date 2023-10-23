@@ -72,11 +72,9 @@
             const password = document.querySelector("#password").value;
             account.username = username;
             account.password = password;
-            console.log(username)
             localStorage.setItem("username", username);
             // Redirect to a new URL
             window.location.href = "http://localhost:63342/LTW_project/index.html";
-            console.log(1);
         },
     });
 </script>

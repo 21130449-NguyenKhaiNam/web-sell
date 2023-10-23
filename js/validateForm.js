@@ -7,6 +7,9 @@ function Validation(formObj) {
 
     // Chạy qua rules để lấy các yêu cầu để thực thi validate
     if (formElement) {
+        formElement.onsubmit = function (e) {
+            e.preventDefault();
+        }
         rules.forEach(function (rule) {
             const inputElement = formElement.querySelector(rule.element);
             /*
@@ -35,21 +38,18 @@ function Validation(formObj) {
     }
     if (submitElement) {
         // Chặn việc gửi thông tin của form khi nhấn submit
-        submitElement.submit = function (e) {
-            e.preventDefault();
-        };
         submitElement.onclick = function () {
             rules.forEach(function (rule) {
                 const inputElement = formElement.querySelector(rule.element);
                 handleValidate(inputElement);
             });
-
-            //Chỉ được thực thi không form ko có Error Message
+            //Chỉ được thực thi form ko có Error Message
             if (Object.keys(errorMessageObj).length == 0) {
-               formObj.funcAfterSubmit();
-               return false;
+                formObj.funcAfterSubmit();
+                return false;
             }
         }
+
     }
 
     function handleValidate(inputElement) {
@@ -80,6 +80,7 @@ function Validation(formObj) {
             formBlock.classList.remove("invalid");
             showError.innerText = "";
         }
+        console.log(errorMessageObj)
     }
 }
 
