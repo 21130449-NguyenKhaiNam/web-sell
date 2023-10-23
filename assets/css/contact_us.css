@@ -61,7 +61,7 @@
 
 #contact_us-form{
     display: grid;
-    gap: 30px;
+    gap: 24px;
     border: 1px #D9D9D9 solid;
     padding: 30px;
     border-radius: 8px;
@@ -83,6 +83,11 @@
     background-color: #F8F8F8;
     border-radius: 4px;
     padding: 14px 10px;
+}
+
+#contact_us-form .form__block .error-notice{
+    height: auto;
+    font-size: 14px;
 }
 
 #contact_us-form .form__block .form__textarea{
