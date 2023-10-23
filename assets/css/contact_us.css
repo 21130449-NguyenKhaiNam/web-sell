@@ -84,3 +84,12 @@
     border-radius: 4px;
     padding: 14px 10px;
 }
+
+#contact_us-form .form__block .form__textarea{
+    resize: vertical;
+    padding: 12px 10px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    background-color: #F8F8F8;
+}
