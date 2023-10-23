@@ -1,0 +1,23 @@
+.contact_us{
+    margin: 30px auto;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.contact_us .title_method-contact{
+    flex: 2;
+    padding-left: 0px;
+    text-align: justify;
+}
+
+.contact_us .title_method-contact h2{
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--blue-color-high);
+    padding-bottom: 16px;
+}
+
+.contact_us .title_method-contact p{
+    font-size: 18px;
+    line-height: 24px;
+}
