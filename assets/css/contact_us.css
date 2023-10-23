@@ -76,3 +76,11 @@
     font-weight: 600;
     padding-bottom: 6px;
 }
+
+#contact_us-form .form__block .form__input{
+    width: 100%;
+    /*border: 1px solid black;*/
+    background-color: #F8F8F8;
+    border-radius: 4px;
+    padding: 14px 10px;
+}
