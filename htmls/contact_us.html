@@ -58,16 +58,23 @@
         <div class="contact_us row">
             <div class="title col">
                 <span>Liên hệ</span>
-                <p>Bạn muốn liên lạc với chúng tôi? Nếu có thì bạn hãy điền đầy thông tin vào form và chúng sẽ phản hồi sớm nhất trong vòng 24h</p>
+                <p>Bạn muốn liên lạc với chúng tôi? Nếu có thì bạn hãy điền đầy thông tin vào form và chúng sẽ cố gắng phản hồi sớm nhất trong vòng 24h</p>
             </div>
             <form id="contact_us-form" class="col">
-                <div class="contact-item" id="fullname">
-                    <input class="input__form" type="text" placeholder="Họ" name="firstname">
-                    <input class="input__form" type="text" placeholder="Tên" name="lastname">
+                <div class="form__block">
+                    <label for="fullname" class="form__label">Họ và tên</label>
+                    <input class="form__input" type="text" id="fullname" name="fullname">
+                    <span class="error-notice"></span>
                 </div>
-                <input class="input__form" type="email" class="contact-item" placeholder="Email">
-                <textarea class="input__form"></textarea>
-                <input type="submit" class="input__form" value="Gửi">
+
+                <div class="form__block">
+                    <label for="email" class="form__label">Email</label>
+                    <input class="form__input" type="email" id="email" name="email">
+                    <span class="error-notice"></span>
+                </div>
+
+                <textarea id="message" class="form__input"></textarea>
+                <input type="submit" class="form__submit" value="Gửi">
             </form>
         </div>
     </div>
