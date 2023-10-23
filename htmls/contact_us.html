@@ -54,7 +54,23 @@
 
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main">
-
+    <div class="container-xl">
+        <div class="contact_us row">
+            <div class="title col">
+                <span>Liên hệ</span>
+                <p>Bạn muốn liên lạc với chúng tôi? Nếu có thì bạn hãy điền đầy thông tin vào form và chúng sẽ phản hồi sớm nhất trong vòng 24h</p>
+            </div>
+            <form id="contact_us-form" class="col">
+                <div class="contact-item" id="fullname">
+                    <input class="input__form" type="text" placeholder="Họ" name="firstname">
+                    <input class="input__form" type="text" placeholder="Tên" name="lastname">
+                </div>
+                <input class="input__form" type="email" class="contact-item" placeholder="Email">
+                <textarea class="input__form"></textarea>
+                <input type="submit" class="input__form" value="Gửi">
+            </form>
+        </div>
+    </div>
 </main>
 <!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
 <footer id="footer">
