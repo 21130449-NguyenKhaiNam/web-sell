@@ -57,24 +57,59 @@
     <div class="container-xl">
         <div class="contact_us row">
             <div class="title col">
-                <span>Liên hệ</span>
-                <p>Bạn muốn liên lạc với chúng tôi? Nếu có thì bạn hãy điền đầy thông tin vào form và chúng sẽ cố gắng phản hồi sớm nhất trong vòng 24h</p>
+                <h2>Liên hệ</h2>
+                <p>Bạn có muốn liên lạc với chúng tôi? Nếu có thì bạn hãy điền đầy đủ thông tin vào form và chúng sẽ cố gắng phản hồi sớm nhất trong vòng 24h</p>
+                <div class="get-in-touch">
+                    <h2>Phương thức liên hệ</h2>
+                    <div class="contact-method">
+                        <div class="icon-contact">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div class="contact-description">
+                            <p>Địa chỉ</p>
+                            <p>721 Huỳnh Tấn Phát, Phường Phú Thuận, Quận 7, Tp. Hồ Chí Minh</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="icon-contact">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="contact-description">
+                            <p>Số điện thoại</p>
+                            <p>08xxxxxxxx</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="icon-contact">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="contact-description">
+                            <p>Email</p>
+                            <p>yourstyle@support.com</p>
+                        </div>
+                    </div>
+                </div>
+                <img src="../assets/img/contactus.svg">
             </div>
+
             <form id="contact_us-form" class="col">
                 <div class="form__block">
-                    <label for="fullname" class="form__label">Họ và tên</label>
+                    <label for="fullname" class="form__label">Họ và tên *</label>
                     <input class="form__input" type="text" id="fullname" name="fullname">
                     <span class="error-notice"></span>
                 </div>
 
                 <div class="form__block">
-                    <label for="email" class="form__label">Email</label>
+                    <label for="email" class="form__label">Email *</label>
                     <input class="form__input" type="email" id="email" name="email">
                     <span class="error-notice"></span>
                 </div>
-
-                <textarea id="message" class="form__input"></textarea>
-                <input type="submit" class="form__submit" value="Gửi">
+                <div class="form__block">
+                    <label for="message" class="form__label">Chúng tôi có thể giúp gì được cho bạn?</label>
+                    <textarea id="message" name="message" class="form__textarea" rows="12"></textarea>
+                </div>
+                <button class="form__submit">Gửi</button>
+                <!--                <input type="submit" class="form__submit" value="Gửi">-->
             </form>
         </div>
     </div>
