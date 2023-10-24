@@ -54,7 +54,7 @@ var listProductElement = document.querySelector(".product__list");
 var htmls = listProduct.map(function (product) {
     return `  <div class="col-3">
                  <a href="#!">
-                    <article class="product__cart">
+                    <article class="product__card">
                         <img class="product__img" src="../assets/img/product_img/product1/img1.png"
                              alt="Áo thun cotton unisex basic tee">
                         <div class="product__info">
@@ -75,6 +75,5 @@ var htmls = listProduct.map(function (product) {
                     </article>
                  </a>
              </div>`;
-
 });
 listProductElement.innerHTML = htmls.join("");
