@@ -1,9 +1,19 @@
+/*Var*/
+
+:root {
+    --primary-font: 'Montserrat', sans-serif;
+    --mint-color: #B6FFFA;
+    --blue-color-low: #98E4FF;
+    --blue-color-medium: #80B3FF;
+    --blue-color-high: #687EFF;
+}
+
 /*Reset CSS*/
-*, ::after, ::before {
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    letter-spacing: -1px;
+
 }
 
 a {
@@ -16,23 +26,14 @@ input, button {
     outline: none;
 }
 
-/*Var*/
-
-:root {
-    --primary-font: 'Montserrat', sans-serif;
-    --mint-color: #B6FFFA;
-    --blue-color-low: #98E4FF;
-    --blue-color-medium: #80B3FF;
-    --blue-color-high: #687EFF;
-}
-
 html {
-    font-family: var(--primary-font);
+
     scroll-behavior: smooth;
 }
 
 body {
-
+    scroll-behavior: smooth;
+    font-family: var(--primary-font);
 }
 
 #main {
@@ -302,10 +303,12 @@ body {
     text-align: center;
     border-top: 1px solid #fff;
 }
-.setting__item:last-child .setting__link{
+
+.setting__item:last-child .setting__link {
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
 }
-.setting__link:hover{
+
+.setting__link:hover {
     background-color: var(--mint-color);
 }
