@@ -1,11 +1,15 @@
 function ValidatorContactForm(options){
+    var selectorRules = {};
     function validate(inputElement, rule, errorMessageElement){
         var errorMessage = rule.test(inputElement.value);
+
         if(errorMessage){
             errorMessageElement.innerText = errorMessage;
             errorMessageElement.style.color = '#E40F0A';
+            inputElement.classList.add('input-invalid')
         }else {
             errorMessageElement.innerText = '';
+            inputElement.classList.remove('input-invalid')
         }
     }
 
@@ -20,6 +24,7 @@ function ValidatorContactForm(options){
                 }
                 inputElement.oninput = function (){
                     errorMessageElement.innerText = '';
+                    inputElement.classList.remove('input-invalid')
                 }
             }
         });
@@ -40,7 +45,7 @@ ValidatorContactForm.isEmail = function (selector){
         selector: selector,
         test: function (value){
             var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            return regex.test(value) ? undefined : 'Trường này phải là email'
+            return regex.test(value) ? undefined : 'Thông tin bạn nhập không phải là email'
         }
     }
 }

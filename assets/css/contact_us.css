@@ -89,6 +89,7 @@
     height: auto;
     font-size: 14px;
     font-weight: 500;
+    margin-top: 4px;
 }
 
 #contact_us-form .form__block .form__textarea{
@@ -109,4 +110,8 @@
     font-size: 18px;
     background-color: var(--blue-color-high);
     color: white;
+}
+
+.input-invalid{
+    border: 2px #E40F0A solid;
 }
