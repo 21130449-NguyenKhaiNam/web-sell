@@ -1,5 +1,16 @@
 function ValidatorContactForm(options){
+    var contactFormElement = document.querySelector(options.form);
+    if(contactFormElement){
+        options.rules.forEach(function (rule){
+            var inputElement = contactFormElement.querySelector(rule.selector);
+            var errorMessageElement = inputElement.parentElement.querySelector(options.errorSelector);
+            if (inputElement){
+                inputElement.onblur = function (){
 
+                }
+            }
+        });
+    }
 }
 
 ValidatorContactForm.isRequired = function (selector){
