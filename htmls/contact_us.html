@@ -112,6 +112,18 @@
                 <!--                <input type="submit" class="form__submit" value="Gửi">-->
             </form>
         </div>
+        <script src="../js/validate_contactForm.js"></script>
+        <script>
+            ValidatorContactForm({
+                form: '#contact_us-form',
+                errorSelector: '.error-notice',
+                rules: [
+                    ValidatorContactForm.isRequired('#fullname'),
+                    ValidatorContactForm.isRequired('#email'),
+                    ValidatorContactForm.isEmail('#email')
+                ]
+            });
+        </script>
     </div>
 </main>
 <!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
