@@ -13,6 +13,7 @@ function ValidatorContactForm(options){
                     }else {
                         errorMessageElement.innerText = '';
                     }
+
                 }
             }
         });
