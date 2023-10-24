@@ -6,7 +6,13 @@ function ValidatorContactForm(options){
             var errorMessageElement = inputElement.parentElement.querySelector(options.errorSelector);
             if (inputElement){
                 inputElement.onblur = function (){
-
+                    var errorMessage = rule.test(inputElement.value);
+                    if(errorMessage){
+                        errorMessageElement.innerText = errorMessage;
+                        errorMessageElement.style.color = '#E40F0A';
+                    }else {
+                        errorMessageElement.innerText = '';
+                    }
                 }
             }
         });
