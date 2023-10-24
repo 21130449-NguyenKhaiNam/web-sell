@@ -15,6 +15,10 @@ function ValidatorContactForm(options){
                     }
 
                 }
+
+                inputElement.oninput = function (){
+                    errorMessageElement.innerText = '';
+                }
             }
         });
     }
