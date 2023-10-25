@@ -1,7 +1,10 @@
 function ValidatorContactForm(options){
     var selectorRules = {};
     function validate(inputElement, rule, errorMessageElement){
-        var errorMessage = rule.test(inputElement.value);
+        var errorMessage;
+
+        //Lấy ra các rules của selector
+        var arrayRules = selectorRules[rule.selector];
 
         if(errorMessage){
             errorMessageElement.innerText = errorMessage;
