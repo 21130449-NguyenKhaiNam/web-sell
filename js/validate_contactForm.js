@@ -1,5 +1,15 @@
 function ValidatorContactForm(options){
     var selectorRules = {};
+
+    function getRightParrent(element, selector){
+        while (element.parentElement){
+            if(element.parentElement.matches(selector)){
+                return element.parentElement;
+            }else{
+                element = element.parentElement;
+            }
+        }
+    }
     function validate(inputElement, rule, errorMessageElement){
         var errorMessage;
 
