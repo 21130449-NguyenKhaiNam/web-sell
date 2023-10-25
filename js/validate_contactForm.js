@@ -6,6 +6,15 @@ function ValidatorContactForm(options){
         //Lấy ra các rules của selector
         var arrayRules = selectorRules[rule.selector];
 
+        //Lập qua từng rule và kiểm tra
+        //Nếu có lỗi thì bắt lỗi ngay và dừng việc kiểm tra
+        for(var i = 0; i < arrayRules.length; i++){
+            errorMessage = arrayRules[i](inputElement.value);
+            if(errorMessage){
+                break;
+            }
+        }
+
         if(errorMessage){
             errorMessageElement.innerText = errorMessage;
             errorMessageElement.style.color = '#E40F0A';
