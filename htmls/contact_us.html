@@ -128,7 +128,10 @@
                     ValidatorContactForm.isRequired('#fullname'),
                     ValidatorContactForm.isRequired('#email'),
                     ValidatorContactForm.isEmail('#email')
-                ]
+                ],
+                onSubmit: function (data){
+                    console.log(data)
+                }
             });
         </script>
 
