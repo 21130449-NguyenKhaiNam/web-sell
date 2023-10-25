@@ -33,10 +33,39 @@ function ValidatorContactForm(options){
             errorMessageElement.innerText = '';
             inputElement.classList.remove('input-invalid')
         }
+        return !errorMessage;
     }
 
     var contactFormElement = document.querySelector(options.form);
     if(contactFormElement){
+        contactFormElement.onsubmit = function (e){
+            e.preventDefault();
+            isFormValid = true;
+            options.rules.forEach(function (rule){{
+                var inputElement = contactFormElement.querySelector(rule.selector);
+                var errorMessageElement = getRightParent(inputElement, options.formBlockSelector).querySelector(options.errorSelector);
+                var isValid = validate(inputElement,rule, errorMessageElement);
+                if(!isValid){
+                    isFormValid = false;
+                }
+            }});
+
+
+            if(isFormValid){
+                if(typeof options.onSubmit === 'function'){
+                    var enableInput = contactFormElement.querySelectorAll('[name]:not([disabled])');
+                    var formValues = Array.from(enableInput).reduce(function (values, input){
+                        values[input.name] = input.value
+                        return values;
+                    },{});
+                    options.onSubmit(formValues);
+                }else{
+                    contactFormElement.submit();
+                }
+            }
+        }
+
+
         options.rules.forEach(function (rule){
             if(Array.isArray(selectorRules[rule.selector])){
                 selectorRules[rule.selector].push(rule.test);
