@@ -226,56 +226,114 @@ body {
     margin-top: 36px;
 }
 
+/*Cart*/
+.cart {
+    --color: #fff;
+    position: relative;
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 10px;
+    background-color: var(--blue-color-high);
+    border-radius: 10px;
+}
+
+.cart:hover {
+    cursor: pointer;
+}
+
+.cart:hover .cart__list {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart__list {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background-color: var(--color);
+    width: 300px;
+    box-shadow: 9px 12px 20px -1px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 9px 12px 20px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 9px 12px 20px -1px rgba(0, 0, 0, 0.75);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+}
+
+.cart__list::after, .cart__list::before {
+    content: "";
+    position: absolute;
+    --size: 20px;
+    display: block;
+}
+
+.cart__list::after {
+    bottom: 100%;
+    right: 30px;
+    border-width: 0 var(--size) var(--size) var(--size);
+    border-style: solid;
+    border-color: transparent transparent var(--color) transparent;
+
+}
+
+.cart__list::before {
+    width: 100%;
+    height: calc(var(--size) * 2);
+    bottom: 100%;
+}
+
+.cart__item {
+    display: block;
+    width: 100%;
+    height: 100px;
+}
+
 /*Account*/
+.account__wrapper {
+    width: 200px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
 .account {
     position: relative;
     z-index: 2;
     --border-radius: 30px;
-    display: none;
-    /*display: flex to show*/
-    align-items: center;
-    width: 200px;
-    border-radius: var(--border-radius);
-    background-color: var(--blue-color-high);
-    padding: 10px;
     color: #FFFFFF;
 }
 
 .account__icon {
     padding: 10px;
+    border: 10px solid var(--blue-color-high);
     font-size: 15px;
     border-radius: var(--border-radius);
     background-color: var(--blue-color-medium);
 }
 
-.account__name {
-    font-size: 20px;
-    font-weight: 500;
-    overflow: hidden;
-    margin: 0 10px;
-}
-
-.setting__show {
-    margin-left: auto;
-    font-size: 15px;
-    padding: 10px;
-    border-radius: var(--border-radius);
-    transition: background-color 0.2s linear;
-}
-
-.setting__show:hover {
+.account__icon:hover {
     cursor: pointer;
     opacity: 0.8;
+}
+
+.account:hover .setting__list {
+    opacity: 1;
+    visibility: visible;
     background-color: var(--blue-color-medium);
 }
+
 
 .setting__list {
     position: absolute;
-    top: calc(100% - 30px);
+    top: calc(100% - 5px);
     z-index: -1;
-    left: 0;
-    width: 100%;
-    background-color: var(--blue-color-high);
+    right: 0;
+    width: 200px;
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
     opacity: 0;
@@ -283,16 +341,12 @@ body {
     transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
 }
 
-.setting__list.setting__list--show {
-    opacity: 1;
-    visibility: visible;
-}
 
 .setting__list::before {
     content: "";
     display: block;
     width: 100%;
-    height: 30px;
+    height: 10px;
 }
 
 .setting__link {
@@ -302,13 +356,21 @@ body {
     padding: 20px 10px;
     text-align: center;
     border-top: 1px solid #fff;
-}
-
-.setting__item:last-child .setting__link {
-    border-bottom-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
+    background-color: var(--blue-color-high);
 }
 
 .setting__link:hover {
     background-color: var(--mint-color);
+}
+
+.account__info {
+    display: flex;
+    align-items: center;
+}
+
+.account__name {
+    font-size: 15px;
+    font-weight: 500;
+    overflow: hidden;
+    margin: 0 10px;
 }

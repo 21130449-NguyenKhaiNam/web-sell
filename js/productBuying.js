@@ -1,5 +1,6 @@
 const listProduct = [
     {
+        id: 1,
         img: "https://example.com/product1.jpg",
         name: "Product 1",
         price: 19.99,
@@ -52,28 +53,27 @@ const listProduct = [
 ];
 var listProductElement = document.querySelector(".product__list");
 var htmls = listProduct.map(function (product) {
-    return `  <div class="col-3">
-                 <a href="#!">
-                    <article class="product__card">
-                        <img class="product__img" src="../assets/img/product_img/product1/img1.png"
-                             alt="Áo thun cotton unisex basic tee">
-                        <div class="product__info">
-                            <span class="product__tag">Most required</span>
-                            <h3 class="product__name" href="#!">${product.name}</h3>
-                            <div class="product__stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
+    return `<div class="col-3">
+                <a href="#!">
+                    <div class="model_product item4">
+                        <img src="../assets/img/product_img/product4/img1.png">
+                        <div class="information-product">
+                            <span class="status">Most required</span>
+                            <a class="name-product" href="#">${product.name}</a>
+                            <div class="review-product">
+                                <div class="icon-review">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <a href="#">1000 nhận xét</a>
                             </div>
-                            <p class="product__price">
-                                <strong class="sale-price">${product.price}</strong>
-                                <span class="original-price">300.000₫</span>
-                            </p>
+                            <span class="price"><strong class="sale-price">${product.price}</strong> <s class="original-price">300,000₫</s></span>
                         </div>
-                    </article>
-                 </a>
-             </div>`;
+                    </div> 
+                </a>
+           </div>`;
 });
 listProductElement.innerHTML = htmls.join("");

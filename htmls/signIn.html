@@ -74,7 +74,11 @@
             account.password = password;
             localStorage.setItem("username", username);
             // Redirect to a new URL
-            window.location.href = "http://localhost:63342/LTW_project/index.html";
+            window.history.back();
+
+            setTimeout(function () {
+                window.location.reload()
+            }, 1000);
         },
     });
 </script>
