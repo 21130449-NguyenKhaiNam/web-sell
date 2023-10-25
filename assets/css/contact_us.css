@@ -85,6 +85,10 @@
     padding: 14px 10px;
 }
 
+#contact_us-form .form__block .form__input:focus, #contact_us-form .form__block .form__textarea:focus{
+    border: 2px var(--blue-color-high) solid;
+}
+
 #contact_us-form .form__block .error-notice{
     height: auto;
     font-size: 14px;

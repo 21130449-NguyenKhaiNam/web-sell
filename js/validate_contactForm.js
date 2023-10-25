@@ -43,6 +43,10 @@ function ValidatorContactForm(options){
                     errorMessageElement.innerText = '';
                     inputElement.classList.remove('input-invalid')
                 }
+
+                inputElement.onfocus = function (){
+                    errorMessageElement.innerText = '';
+                }
             }
         });
     }
@@ -62,7 +66,7 @@ ValidatorContactForm.isEmail = function (selector){
         selector: selector,
         test: function (value){
             var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            return regex.test(value) ? undefined : 'Thông tin bạn nhập không phải là email'
+            return regex.test(value.trim()) ? undefined : 'Thông tin bạn nhập không phải là email'
         }
     }
 }
