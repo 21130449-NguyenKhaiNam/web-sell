@@ -168,7 +168,10 @@
     flex: 0 0 auto;
     width: 16.66666667%
 }
-
+.col-2-4{
+    flex: 0 0 auto;
+    width: 20%;
+}
 .col-3 {
     flex: 0 0 auto;
     width: 25%

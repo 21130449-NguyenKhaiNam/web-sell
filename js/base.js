@@ -1,5 +1,5 @@
 // Sign in
-var accountElement = document.querySelector(".account");
+var accountElement = document.querySelector(".account__wrapper");
 var signInSignUp = document.querySelector(".nav__cta");
 window.onload = function () {
     const username = localStorage.getItem("username");
@@ -10,12 +10,6 @@ window.onload = function () {
         const accountNameElement = document.querySelector(".account__name");
         accountNameElement.innerText = username;
     }
-}
-var settingShowElement = document.querySelector(".account .setting__show");
-var settingListElement = document.querySelector(".account .setting__list");
-console.log(settingShowElement);
-settingShowElement.onclick = function () {
-    settingListElement.classList.toggle("setting__list--show");
 }
 // Log out
 var logOutElement = document.querySelector(".setting__logOut");
