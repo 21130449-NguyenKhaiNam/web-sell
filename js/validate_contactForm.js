@@ -1,7 +1,7 @@
 function ValidatorContactForm(options){
     var selectorRules = {};
 
-    function getRightParrent(element, selector){
+    function getRightParent(element, selector){
         while (element.parentElement){
             if(element.parentElement.matches(selector)){
                 return element.parentElement;
@@ -44,7 +44,8 @@ function ValidatorContactForm(options){
                 selectorRules[rule.selector] = [rule.test];
             }
             var inputElement = contactFormElement.querySelector(rule.selector);
-            var errorMessageElement = inputElement.parentElement.querySelector(options.errorSelector);
+            // var errorMessageElement = inputElement.parentElement.querySelector(options.errorSelector);
+            var errorMessageElement = getRightParent(inputElement, options.formBlockSelector).querySelector(options.errorSelector);
             if (inputElement){
                 inputElement.onblur = function (){
                     validate(inputElement,rule,errorMessageElement);
