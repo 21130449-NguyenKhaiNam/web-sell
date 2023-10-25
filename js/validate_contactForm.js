@@ -28,6 +28,11 @@ function ValidatorContactForm(options){
     var contactFormElement = document.querySelector(options.form);
     if(contactFormElement){
         options.rules.forEach(function (rule){
+            if(Array.isArray(selectorRules[rule.selector])){
+                selectorRules[rule.selector].push(rule.test);
+            }else{
+                selectorRules[rule.selector] = [rule.test];
+            }
             var inputElement = contactFormElement.querySelector(rule.selector);
             var errorMessageElement = inputElement.parentElement.querySelector(options.errorSelector);
             if (inputElement){
