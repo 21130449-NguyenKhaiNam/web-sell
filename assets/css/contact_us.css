@@ -114,8 +114,14 @@
     font-size: 18px;
     background-color: var(--blue-color-high);
     color: white;
+    cursor: pointer;
+}
+
+#contact_us-form .form__submit:hover{
+    background-color: var(--blue-color-low);
 }
 
 .input-invalid{
     border: 2px #E40F0A solid;
 }
+
