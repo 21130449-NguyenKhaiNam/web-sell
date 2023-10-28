@@ -1,30 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!--Các thư viện hỗ trợ-->
     <!--Font Awesome-->
-    <link rel="stylesheet" href="./assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-
+    <link rel="stylesheet" href="../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
     <!--Bootstrap-->
-    <link rel="stylesheet" href="./assets/bootstrap/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap/bootstrap-grid.min.css">
     <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="./assets/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../assets/favicon/site.webmanifest">
     <!--Web font-->
-    <link rel="stylesheet" href="./assets/font/webfonts/Montserrat.css">
+    <link rel="stylesheet" href="../assets/font/webfonts/Montserrat.css">
 
     <!--CSS-->
-    <link rel="stylesheet" href="./assets/css/reset.css">
-    <link rel="stylesheet" href="./assets/css/base.css">
-    <link rel="stylesheet" href="./assets/css/home.css">
-
-    <title>May đồ theo yêu cầu</title>
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/home.css">
+    <link rel="stylesheet" href="../assets/css/productBuying.css">
+    <title>Gian hàng</title>
 </head>
 <body>
 <!--Header nơi chứa navigation-->
@@ -32,7 +29,7 @@
     <nav class="nav">
         <div class="container-xl">
             <div class="nav__inner">
-                <a href="#" class="logo">
+                <a href="../index.html" class="logo">
                 </a>
                 <ul class="nav__list">
                     <li class="nav__item">
@@ -46,8 +43,8 @@
                 </ul>
                 <!--cta == call to action-->
                 <div class="nav__cta">
-                    <a href="./htmls/signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="./htmls/signUp.html"
+                    <a href="../htmls/signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
+                    <a href="../htmls/signUp.html"
                        class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
                 </div>
                 <!--Account show (After log in success)-->
@@ -67,10 +64,10 @@
                         <!--                       <i class=" fa-solid fa-chevron-down"></i>-->
                         <div class="setting__list">
                             <div class="setting__item"><a href="#!" class="setting__link">
-                               <div class="account__info">
-                                   <i class="account__icon fa-regular fa-user"></i>
-                                   <p class="account__name"></p>
-                               </div>
+                                <div class="account__info">
+                                    <i class="account__icon fa-regular fa-user"></i>
+                                    <p class="account__name"></p>
+                                </div>
                             </a></div>
                             <div class="setting__item"><a href="#!" class="setting__link">Đơn mua</a></div>
                             <div class="setting__item"><a href="#!" class="setting__link">Tài khoản của tôi</a></div>
@@ -83,18 +80,39 @@
             </div>
     </nav>
 </header>
+<main class="main">
+    <section class="products">
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-2">
+                    <aside class="categories">
+                        <ul class="category__list">
+                            <li class="category__item">
+                                <span class="category__icon">
+                                </span>
+                                Danh mục
+                            </li>
+                            <li class="category__item">Áo</li>
+                            <li class="category__item">Quần</li>
+                            <li class="category__item">Áo khoác</li>
+                            <li class="category__item">Quần</li>
+                        </ul>
+                    </aside>
+                </div>
+                <div class="col-10">
+                    <form action="#!" class="search__form">
+                        <input type="text" class="search__input" placeholder="Nhập sản phẩm bạn muốn tìm tại đây.">
+                        <button class="search__button button button--hover"><i
+                                class="search__icon fa-solid fa-magnifying-glass"></i>Tìm kiếm
+                        </button>
+                    </form>
+                </div>
 
-<!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
-<main id="main">
-    <!--Hero-->
-    <div class="hero">
-        <img src="./assets/img/hero__img.png" alt="" class="hero__img">
-        <div class="hero__slogan">
-            <h1>Change Your Styles Now</h1>
-            <p>Cùng chúng tôi tạo nên thiết kế khác biệt cho quần áo của bạn</p>
-            <button class="hero__button button button--hover">Bắt đầu thiết kế</button>
-        </div>
-    </div>
+            </div>
+            <div class="row product__list">
+
+            </div>
+    </section>
 </main>
 <!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
 <footer id="footer">
@@ -162,6 +180,7 @@
         </div>
     </div>
 </footer>
-<script src="./js/base.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/productBuying.js"></script>
 </body>
 </html>
