@@ -14,5 +14,7 @@ inputForm.forEach(function (input) {
         eyeOpen.style.display = "none";
         eyeClose.style.display = "block";
     }
-    
+
 })
+
+
