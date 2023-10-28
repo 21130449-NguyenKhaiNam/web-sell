@@ -374,3 +374,12 @@ body {
     overflow: hidden;
     margin: 0 10px;
 }
+
+/*Line clamp*/
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /*  3  =  so hang khi hien thi, con lai thi an */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
