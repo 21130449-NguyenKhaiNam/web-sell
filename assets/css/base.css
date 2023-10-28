@@ -226,7 +226,7 @@ body {
     margin-top: 36px;
 }
 
-/*Cart*/
+/*Cart shopping*/
 .cart {
     --color: #fff;
     position: relative;
@@ -382,4 +382,73 @@ body {
     /*  3  =  so hang khi hien thi, con lai thi an */
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+/*Modal hide show*/
+.modal, .modal__blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal__blur {
+    background-color: rgba(0, 0, 0, 0.7);
+
+}
+.modal__content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+.modal__notify {
+    background-color: var(--blue-color-high);
+    padding: 50px 30px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+}
+
+.model__checked-icon {
+    font-size: 50px;
+}
+
+.modal__text, .modal__button {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.modal__text {
+    margin-top: 20px;
+}
+
+.modal__resend {
+    margin-top: 15px;
+    font-size: 17px;
+    font-weight: 500;
+}
+.modal__resend span{
+    text-decoration: underline;
+}
+.modal__resend span:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+#modal__hide:checked + .modal {
+    display: none;
+}
+
+.modal__button {
+    display: block;
+    margin: 20px auto 0;
+    --width: 200px;
+    --height: 50px;
+    border-radius: 10px;
+
+    /*Hover*/
+    --background-color-hover: var(--blue-color-low);
+    --background-color: var(--blue-color-medium);
 }

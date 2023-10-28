@@ -75,3 +75,15 @@ var htmls = listProduct.map(function (product) {
            </div>`;
 });
 listProductElement.innerHTML = htmls.join("");
+
+//Paging for product cart
+var pagingReview = new Paging({
+    itemSelector: `.product__list > [class^="col"]`,
+    limit: 8,
+    listPage: ".review__paging",
+    tagNameItemPage: "li",
+    classNameItemPage: "review__page",
+    activeItemPage: "review__page--current",
+    prevBtn: "review__page--prev",
+    nextBtn: "review__page--next",
+});
