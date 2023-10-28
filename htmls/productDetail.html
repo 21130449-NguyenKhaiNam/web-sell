@@ -75,6 +75,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </nav>
 </header>
 <main class="main">
@@ -169,7 +170,7 @@
                                     <p class="form__error"></p>
                                 </div>
                                 <!--Size Guide-->
-                                <label class="form__guide" for="dialog--show">Hướng dẫn tùy chỉnh thông số</label>
+                                <label class="form__guide" for="modal__hide">Hướng dẫn tùy chỉnh thông số</label>
                             </div>
                             <div class="form__submits">
                                 <button type="submit" class="form__submit form__submit--add button " data="Thêm
@@ -349,15 +350,21 @@
                                 </div>
                             </article>
                             <ul class="review__paging">
-
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
     </section>
+
+    <input type="checkbox" id="modal__hide" class="modal__hide" hidden="hidden" checked>
+    <div class="modal">
+        <div class="modal__content modal__guide">
+            <img src="../assets/img/sizeGuide/sizeGuide.webp" alt="" class="guide__img">
+        </div>
+        <label for="modal__hide" class="modal__blur"></label>
+    </div>
 </main>
 <!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
 <footer id="footer">
@@ -425,7 +432,6 @@
         </div>
     </div>
 </footer>
-<input type="checkbox" id="dialog--show" class="dialog--show">
 <article class="dialog__size-guide"></article>
 <script src="../js/paging.js"></script>
 <script src="../js/productDetail.js"></script>
