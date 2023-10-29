@@ -1,0 +1,27 @@
+.cart_title{
+    font-weight: 700;
+    font-size: 40px;
+    color: var(--blue-color-high);
+}
+
+.cart_container .cart_content{
+    flex: 3;
+}
+
+.cart_container .cart_content .group_card{
+    margin: 16px auto;
+}
+
+.cart_container .cart_content .group_card .cart-item{
+    padding: 16px initial;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.cart_container .cart_content .grid_cart-template{
+    display: grid;
+    grid-template-columns: auto 140px 120px 140px 120px 60px;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    align-items: center;
+}
