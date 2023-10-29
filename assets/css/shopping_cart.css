@@ -60,3 +60,38 @@
     font-weight: 500;
     /*border: black 1px solid;*/
 }
+
+.quality-swapper{
+    height: 36px;
+    display: inline-flex;
+    flex-wrap: nowrap;
+}
+
+#qualityRequired::-webkit-outer-spin-button,
+#qualityRequired::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+#qualityRequired {
+    -moz-appearance: textfield;
+    text-align: center;
+    border-top: 1px solid #D9D9D9;
+    border-bottom: 1px solid #D9D9D9;
+    width: 46px;
+}
+
+.changeQLT{
+    width: 36px;
+    border: 1px solid #D9D9D9;
+    background-color: white;
+}
+
+#plusQLT{
+    border-radius: 0px 4px 4px 0px;
+}
+
+#minusQLT{
+    border-radius: 4px 0px 0px 4px;
+}
