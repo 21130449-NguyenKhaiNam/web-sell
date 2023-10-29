@@ -2,7 +2,7 @@
 var codeColor;
 var colorChooseElement = document.querySelectorAll(".form__color-check");
 var colorResult = document.querySelector(".form__input-color-code");
-console.log(colorResult);
+colorResult.value = "#000";
 //Effect when click
 colorChooseElement.forEach(function (element, index) {
     element.onclick = function (e) {
@@ -89,3 +89,17 @@ var pagingReview = new Paging({
     prevBtn: "review__page--prev",
     nextBtn: "review__page--next",
 });
+//Validation Form
+var validation = new Validation({
+    formSelector: ".product__form",
+    formBlockClass: "form__block",
+    errorSelector: ".form__error",
+    rules: [
+        Validation.isRequired("#color"),
+        Validation.isRequired("#parameter_1"),
+        Validation.isRequired("#parameter_2"),
+        Validation.isRequired("#parameter_3"),
+        Validation.isRequired("#parameter_4"),
+    ],
+    // submitSelector: "#form__submit",
+})
