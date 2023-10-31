@@ -343,7 +343,7 @@ body {
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
     opacity: 0;
-    visibility: visible;
+    visibility: hidden;
     transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
 }
 
