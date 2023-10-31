@@ -89,25 +89,16 @@
             <div class="row">
                 <div class="col-2">
                     <aside class="categories">
-                        <ul class="category__list">
-                            <li class="category__item">
-                                <span class="category__icon">
-                                </span>
-                                Danh mục
-                            </li>
-                            <li class="category__item">Áo</li>
-                            <li class="category__item">Quần</li>
-                            <li class="category__item">Áo khoác</li>
-                            <li class="category__item">Quần</li>
-                        </ul>
+                        <ul class="category__list"></ul>
                     </aside>
                 </div>
                 <div class="col-10">
-                    <form action="#!" class="search__form">
-                        <input type="text" class="search__input" placeholder="Nhập sản phẩm bạn muốn tìm tại đây.">
-                        <button class="search__button button button--hover"><i
+                    <form action="#!" id="search-form" class="search__form">
+                        <input type="text" autocomplete="off" id="search-input" class="search__input" placeholder="Nhập sản phẩm bạn muốn tìm tại đây.">
+                        <button type="button" id="search-button" class="search__button button button--hover"><i
                                 class="search__icon fa-solid fa-magnifying-glass"></i>Tìm kiếm
                         </button>
+                        <div class="result-box"></div>
                     </form>
                 </div>
             </div>
@@ -120,6 +111,7 @@
     </section>
 </main>
 <!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
+
 <footer id="footer">
     <div class="container-xl">
         <a href="#" class="logo"></a>
