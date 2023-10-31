@@ -154,7 +154,7 @@
 
 .product__info {
     padding: 10px;
-    /*overflow-y: scroll;*/
+    color: #fff;
 }
 
 /*.product__info::-webkit-scrollbar{*/
@@ -174,7 +174,7 @@
 }
 
 .product__name {
-    color: red;
+    color: #39434b;
     font-size: 40px;
     line-height: 1.67;
     font-weight: 500;
@@ -275,17 +275,16 @@
 }
 
 .form__color-notify {
-    padding-top: 10px;
-}
-
-.form__color-notify {
     font-size: 15px;
+    padding-top: 10px;
+
 }
 
 .form__input-color-code {
     background-color: transparent;
     user-select: none;
     pointer-events: none;
+    color: #FFFFFF;
 }
 
 .form__color-check--custom {
@@ -316,8 +315,8 @@
 
 .form__guide {
     text-decoration: underline;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .form__guide:hover {
@@ -350,7 +349,7 @@
     width: var(--size);
     height: var(--size);
     border-radius: 5px;
-    background-color: #ccc;
+    background-color: var(--blue-color-medium);
     text-align: center;
     line-height: var(--size);
 }
@@ -389,7 +388,7 @@
     color: #fff;
     border-radius: 10px;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 20px;
     background-color: unset;
 }
 
@@ -434,14 +433,17 @@
     width: 100%;
     left: 0;
 }
-.modal__guide{
+
+.modal__guide {
 
 }
-.guide__img{
+
+.guide__img {
     width: 1000px;
     max-height: 100%;
     object-fit: contain;
 }
+
 /*Product desc + review*/
 .product__desc-review {
     width: 100%;
@@ -487,12 +489,12 @@
     gap: 20px;
     border-radius: 10px;
     padding: 10px;
-    background-color: #fff;
-    color: #000;
+    color: #fff;
+    background-color: var(--blue-color-medium);
 }
 
 .review ~ .review {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .review__avatar {
@@ -516,7 +518,7 @@
 
 .review__name {
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .review__stars {
@@ -569,8 +571,7 @@
     border-radius: 5px;
     border: 1px solid #ccc;
     color: #fff;
-    background-color: var(--blue-color-medium);
-
+    background-color: var(--blue-color-high);;
 }
 
 .review__page:not(.review__page--current):hover {
@@ -578,7 +579,7 @@
 }
 
 .review__page--current {
-    background-color: var(--blue-color-high);
+    background-color: var(--blue-color-medium);
     border: none;
 }
 
