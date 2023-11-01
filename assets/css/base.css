@@ -464,3 +464,37 @@ body {
     --background-color-hover: var(--blue-color-low);
     --background-color: var(--blue-color-medium);
 }
+
+/*Paging*/
+.paging {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.page {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #fff;
+    background-color: var(--blue-color-medium);
+}
+
+.page:not(.page--current):hover {
+    cursor: pointer;
+}
+
+.page--current {
+    background-color: var(--blue-color-high);
+    border: none;
+}
+
+.page--prev, .page--next {
+    width: auto;
+    padding: 0 10px;
+}
