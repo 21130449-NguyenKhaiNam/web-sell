@@ -1,8 +1,19 @@
+/*Var*/
+
+:root {
+    --primary-font: 'Montserrat', sans-serif;
+    --mint-color: #B6FFFA;
+    --blue-color-low: #98E4FF;
+    --blue-color-medium: #80B3FF;
+    --blue-color-high: #687EFF;
+}
+
 /*Reset CSS*/
-*, ::after, ::before {
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+
 }
 
 a {
@@ -15,27 +26,19 @@ input, button {
     outline: none;
 }
 
-/*Var*/
-
-:root {
-    --primary-font: 'Poppins', sans-serif;
-    --mint-color: #B6FFFA;
-    --blue-color-low: #98E4FF;
-    --blue-color-medium: #80B3FF;
-    --blue-color-high: #687EFF;
-}
-
 html {
-    font-family: var(--primary-font);
+
     scroll-behavior: smooth;
 }
 
 body {
-
+    scroll-behavior: smooth;
+    font-family: var(--primary-font);
 }
 
 #main {
-    height: 1000px;
+    /*height: 1000px;*/
+    height: auto;
 }
 
 /*Text*/
@@ -119,6 +122,7 @@ body {
     display: inline-block;
 }
 
+
 .nav__button--signUp {
     --width: 140px;
     --height: 50px;
@@ -136,7 +140,7 @@ body {
 /*Footer*/
 #footer {
     padding: 50px 0;
-    background: linear-gradient(180deg, #1E1E1E 51.14%, rgba(30, 30, 30, 0.20) 100%);
+    background: #35546f;
     color: #fff;
 }
 
@@ -162,20 +166,26 @@ body {
 }
 
 .footer__desc {
-    padding-top: 5px;
+    display: block;
+    padding-top: 10px;
     font-size: 16px;
     font-weight: 400;
+}
+
+.footer__desc:hover {
+    cursor: pointer;
+    opacity: 0.9;
 }
 
 .social__list {
     display: inline-flex;
     align-items: center;
     gap: 20px;
+    padding-top: 10px;
 }
 
 .social__item {
     font-size: 20px;
-    padding: 5px;
     color: inherit;
 }
 
@@ -188,7 +198,7 @@ body {
     align-items: center;
     --border-radius: 10px;
     height: 50px;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .footer__input {
@@ -220,4 +230,237 @@ body {
     display: block;
     text-align: center;
     margin-top: 36px;
+}
+
+/*Cart shopping*/
+.cart {
+    --color: #fff;
+    position: relative;
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 10px;
+    background-color: var(--blue-color-high);
+    border-radius: 10px;
+}
+
+.cart:hover {
+    cursor: pointer;
+}
+
+.cart:hover .cart__list {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart__list {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background-color: var(--color);
+    width: 300px;
+    box-shadow: 9px 12px 20px -1px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 9px 12px 20px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 9px 12px 20px -1px rgba(0, 0, 0, 0.75);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+}
+
+.cart__list::after, .cart__list::before {
+    content: "";
+    position: absolute;
+    --size: 20px;
+    display: block;
+}
+
+.cart__list::after {
+    bottom: 100%;
+    right: 30px;
+    border-width: 0 var(--size) var(--size) var(--size);
+    border-style: solid;
+    border-color: transparent transparent var(--color) transparent;
+
+}
+
+.cart__list::before {
+    width: 100%;
+    height: calc(var(--size) * 2);
+    bottom: 100%;
+}
+
+.cart__item {
+    display: block;
+    width: 100%;
+    height: 100px;
+}
+
+/*Account*/
+.account__wrapper {
+    width: 200px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.account {
+    position: relative;
+    z-index: 2;
+    --border-radius: 30px;
+    color: #FFFFFF;
+}
+
+.account__icon {
+    padding: 10px;
+    border: 10px solid var(--blue-color-high);
+    font-size: 15px;
+    border-radius: var(--border-radius);
+    background-color: var(--blue-color-medium);
+}
+
+.account__icon:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.account:hover .setting__list {
+    opacity: 1;
+    visibility: visible;
+    background-color: var(--blue-color-medium);
+}
+
+
+.setting__list {
+    position: absolute;
+    top: calc(100% - 5px);
+    z-index: -1;
+    right: 0;
+    width: 200px;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+}
+
+
+.setting__list::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 10px;
+}
+
+.setting__link {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 20px 10px;
+    text-align: center;
+    border-top: 1px solid #fff;
+    background-color: var(--blue-color-high);
+}
+
+.setting__link:hover {
+    background-color: var(--mint-color);
+}
+
+.account__info {
+    display: flex;
+    align-items: center;
+}
+
+.account__name {
+    font-size: 18px;
+    font-weight: 500;
+    overflow: hidden;
+    margin: 0 10px;
+}
+
+/*Line clamp*/
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /*  3  =  so hang khi hien thi, con lai thi an */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/*Modal hide show*/
+.modal, .modal__blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal__blur {
+    background-color: rgba(0, 0, 0, 0.7);
+
+}
+
+.modal__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.modal__notify {
+    background-color: var(--blue-color-high);
+    padding: 50px 30px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+}
+
+.model__checked-icon {
+    font-size: 50px;
+}
+
+.modal__text, .modal__button {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.modal__text {
+    margin-top: 20px;
+}
+
+.modal__resend {
+    margin-top: 15px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.modal__resend span {
+    text-decoration: underline;
+}
+
+.modal__resend span:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+#modal__hide:checked + .modal {
+    display: none;
+}
+
+.modal__button {
+    display: block;
+    margin: 20px auto 0;
+    --width: 200px;
+    --height: 50px;
+    border-radius: 10px;
+
+    /*Hover*/
+    --background-color-hover: var(--blue-color-low);
+    --background-color: var(--blue-color-medium);
 }

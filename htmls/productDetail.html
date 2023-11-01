@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--Các thư viện hỗ trợ-->
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="../assets/bootstrap/bootstrap-grid.min.css">
+    <!--Favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../assets/favicon/site.webmanifest">
+    <!--Web font-->
+    <link rel="stylesheet" href="../assets/font/webfonts/Montserrat.css">
+
+    <!--CSS-->
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/product.css">
+    <title>Gian hàng</title>
+</head>
+<body>
+<!--Header nơi chứa navigation-->
+<header id="header">
+    <nav class="nav">
+        <div class="container-xl">
+            <div class="nav__inner">
+                <a href="../index.html" class="logo">
+                </a>
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="./productBuying.html" class="nav__link">Gian hàng</a></li>
+                    <li class="nav__item">
+                        <a href="./contact.html" class="nav__link">Liên hệ</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="./about.html" class="nav__link">Về chúng tôi</a>
+                    </li>
+                </ul>
+                <!--cta == call to action-->
+                <div class="nav__cta">
+                    <a href="./signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
+                    <a href="./signUp.html" class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<main class="main">
+    <section class="product__detail">
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-6 ">
+                    <div class="product__media">
+                        <img class="product__img" src="../assets/img/product_img/product21.jpg" alt="">
+                    </div>
+                </div>
+                <div class="offset-1 col-5">
+                    <div class="product__info">
+                        <form action="#!" class="product__form">
+                            <h1 class="product__name">Sơ mi dài tay Café-DriS</h1>
+                            <div>
+                                <p class="product__price product__price--sale">439.000đ</p>
+                                <p class="product__price product__price--base">499.000đ</p>
+                            </div>
+                            <!--
+                            - size guide: button, when click will open sizeGuide
+                            - Size: input
+                            - color: input
+                            -->
+                            <p class="form__title">Màu sắc</p>
+                            <div class="form__choose-color">
+                                <span class="form__color-check  form__color--checked" style="background-color: black">
+                                </span>
+
+                                <span class="form__color-check" style="background-color: white">
+                                </span>
+
+                                <span class="form__color-check" style="background-color: blue">
+                                </span>
+
+                                <span class="form__color-check" style="background-color: red">
+                                </span>
+
+                                <label for="color-choose" class="form__color-check form__color-check--custom ">
+                                    <img class="form__color-icon"
+                                         src="data:image/png;base64,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">
+                                    <input id="color-choose" type="color" disabled>
+                                </label>
+                            </div>
+                            <div class="form__block">
+                                <p class="form__color-notify">
+                                    Màu bạn chọn là
+                                    <input id="color" readonly class="form__input-color-code">
+                                </p>
+                                <p class="form__error"></p>
+                            </div>
+                            <p class="form__title">Kích thước</p>
+                            <div class="form__parameter">
+                                <label class="form__block form__label">
+                                    Dài áo
+                                    <div class="form__block-inner">
+                                        <input id="parameter_1" type="text" class="form__input">
+                                        <span class="form__unit">cm</span>
+                                    </div>
+                                    <span class="form__error"></span>
+                                </label>
+                                <label class="form__block form__label">
+                                    Ngang ngực
+                                    <div class="form__block-inner">
+                                        <input id="parameter_2" type="text" class="form__input">
+                                        <span class="form__unit">cm</span>
+                                    </div>
+                                    <span class="form__error"></span>
+                                </label>
+                                <label class="form__block form__label">
+                                    Dài tay
+                                    <div class="form__block-inner">
+                                        <input id="parameter_3" type="text" class="form__input">
+                                        <span class="form__unit">cm</span>
+                                    </div>
+                                    <span class="form__error"></span>
+                                </label>
+                                <label class="form__block form__label">
+                                    Rộng vai
+                                    <div class="form__block-inner">
+                                        <input id="parameter_4" type="text" class="form__input">
+                                        <span class="form__unit">cm</span>
+                                    </div>
+                                    <span class="form__error"></span>
+                                </label>
+                            </div>
+                            <div class="form__block">
+                                <div class="form__quantity">
+                                    <label for="quantity" class="form__label">Số lượng</label>
+                                    <div class="form__quantity-inner">
+                                        <div class=" form___quantity-btn form___quantity--decrease"></div>
+                                        <input id="quantity" type="text" value="1" disabled>
+                                        <div class=" form___quantity-btn form___quantity--increase"></div>
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                                <!--Size Guide-->
+                                <label class="form__guide" for="modal__hide">Hướng dẫn tùy chỉnh thông số</label>
+                            </div>
+                            <div class="form__submits">
+                                <button type="submit" class="form__submit form__submit--add button " data="Thêm
+                                                                                    vào giỏ
+                                                                                    hàng">
+                                </button>
+                                <button type="submit" class="form__submit form__submit--buy button " data="Mua
+                                                                                                 ngay">
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="product__desc-review">
+                            <div class="product__page product__page--clicked">Mô tả</div>
+                            <div class="product__page">Đánh giá</div>
+                        </div>
+
+                        <!--Desc product-->
+                        <div class="product__desc">
+                            <h3 class="desc__title">Thông tin sản phẩm</h3>
+                            <div class="desc__para"></div>
+                        </div>
+
+                        <!--Reviews-->
+                        <div class="product__review">
+                            <article class="review">
+                                <div class="review__avatar">
+                                    <img src="../assets/img/user/user__demo.jpg" alt="">
+                                </div>
+                                <div class="review__account">
+                                    <h4 class="review__name">User</h4>
+                                    <ul class="review__stars">
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                    </ul>
+                                    <span class="review__date"></span>
+                                    <p class="review__para line-clamp">Lorem ipsum dolor sit amet, consectetur
+                                                                       adipisicing
+                                                                       elit.
+                                                                       Atque beatae cum dolorem doloribus ducimus
+                                                                       excepturi facere
+                                                                       impedit in modi natus, nihil non perferendis
+                                                                       quasi
+                                                                       recusandae rem similique ut vitae voluptatum?
+                                    </p>
+                                </div>
+                            </article>
+
+                            <article class="review">
+                                <div class="review__avatar">
+                                    <img src="../assets/img/user/user__demo.jpg" alt="">
+                                </div>
+                                <div class="review__account">
+                                    <h4 class="review__name">User</h4>
+                                    <ul class="review__stars">
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                    </ul>
+                                    <span class="review__date"></span>
+                                    <p class="review__para line-clamp">Lorem ipsum dolor sit amet, consectetur
+                                                                       adipisicing
+                                                                       elit.
+                                                                       Atque beatae cum dolorem doloribus ducimus
+                                                                       excepturi facere
+                                                                       impedit in modi natus, nihil non perferendis
+                                                                       quasi
+                                                                       recusandae rem similique ut vitae voluptatum?
+                                    </p>
+                                </div>
+                            </article>
+
+                            <article class="review">
+                                <div class="review__avatar">
+                                    <img src="../assets/img/user/user__demo.jpg" alt="">
+                                </div>
+                                <div class="review__account">
+                                    <h4 class="review__name">User</h4>
+                                    <ul class="review__stars">
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                    </ul>
+                                    <span class="review__date"></span>
+                                    <p class="review__para line-clamp">Lorem ipsum dolor sit amet, consectetur
+                                                                       adipisicing
+                                                                       elit.
+                                                                       Atque beatae cum dolorem doloribus ducimus
+                                                                       excepturi facere
+                                                                       impedit in modi natus, nihil non perferendis
+                                                                       quasi
+                                                                       recusandae rem similique ut vitae voluptatum?
+                                    </p>
+                                </div>
+                            </article>
+
+                            <article class="review">
+                                <div class="review__avatar">
+                                    <img src="../assets/img/user/user__demo.jpg" alt="">
+                                </div>
+                                <div class="review__account">
+                                    <h4 class="review__name">User</h4>
+                                    <ul class="review__stars">
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                    </ul>
+                                    <span class="review__date"></span>
+                                    <p class="review__para line-clamp">Lorem ipsum dolor sit amet, consectetur
+                                                                       adipisicing
+                                                                       elit.
+                                                                       Atque beatae cum dolorem doloribus ducimus
+                                                                       excepturi facere
+                                                                       impedit in modi natus, nihil non perferendis
+                                                                       quasi
+                                                                       recusandae rem similique ut vitae voluptatum?
+                                    </p>
+                                </div>
+                            </article>
+                            <article class="review">
+                                <div class="review__avatar">
+                                    <img src="../assets/img/user/user__demo.jpg" alt="">
+                                </div>
+                                <div class="review__account">
+                                    <h4 class="review__name">User</h4>
+                                    <ul class="review__stars">
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                    </ul>
+                                    <span class="review__date"></span>
+                                    <p class="review__para line-clamp">Lorem ipsum dolor sit amet, consectetur
+                                                                       adipisicing
+                                                                       elit.
+                                                                       Atque beatae cum dolorem doloribus ducimus
+                                                                       excepturi facere
+                                                                       impedit in modi natus, nihil non perferendis
+                                                                       quasi
+                                                                       recusandae rem similique ut vitae voluptatum?
+                                    </p>
+                                </div>
+                            </article>
+                            <article class="review">
+                                <div class="review__avatar">
+                                    <img src="../assets/img/user/user__demo.jpg" alt="">
+                                </div>
+                                <div class="review__account">
+                                    <h4 class="review__name">User</h4>
+                                    <ul class="review__stars">
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                        <li class="review__star review__start--archive"></li>
+                                    </ul>
+                                    <span class="review__date"></span>
+                                    <p class="review__para line-clamp">Lorem ipsum dolor sit amet, consectetur
+                                                                       adipisicing
+                                                                       elit.
+                                                                       Atque beatae cum dolorem doloribus ducimus
+                                                                       excepturi facere
+                                                                       impedit in modi natus, nihil non perferendis
+                                                                       quasi
+                                                                       recusandae rem similique ut vitae voluptatum?
+                                    </p>
+                                </div>
+                            </article>
+                            <ul class="review__paging">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <input type="checkbox" id="modal__hide" class="modal__hide" hidden="hidden" checked>
+    <div class="modal">
+        <div class="modal__content modal__guide">
+            <img src="../assets/img/sizeGuide/aoBaLoSizeGuide.png" alt="" class="guide__img">
+        </div>
+        <label for="modal__hide" class="modal__blur"></label>
+    </div>
+</main>
+<!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
+<footer id="footer">
+    <div class="container-xl">
+        <a href="#" class="logo"></a>
+        <div class="row">
+            <div class="col ">
+                <div class="footer__block">
+                    <p class="footer__title">Giờ làm việc</p>
+                    <p class="footer__desc">9:00 - 17:00</p>
+                </div>
+
+                <div class="footer__block">
+                    <p class="footer__title">Địa chỉ</p>
+                    <a href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh Tấn Phát,
+                                                                                             Phường
+                                                                                             Phú Thuận, Quận 7, Tp.
+                                                                                             Hồ Chí Minh</a></div>
+            </div>
+            <div class="col">
+                <ul class="footer__block">
+                    <li class="footer__desc">
+                        <a href="productBuying.html" class="footer__link">Gian hàng</a>
+                    </li>
+                    <li class="footer__desc">
+                        <a href="./contact.html" class="footer__link">Liên hệ</a>
+                    </li>
+                    <li class="footer__desc">
+                        <a href="./about.html" class="footer__link">Về chúng tôi</a>
+                    </li>
+                    <li class="footer__desc">
+                        <a href="./policy.html" class="footer__link">Chính sách mua hàng</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <div class="footer__block">
+                    <div class="footer__title">Kết nối với chúng tôi thông qua</div>
+                    <div class="footer__block social__list">
+                        <a href="#!" class="social__item">
+                            <i class="social__item-icon fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#!" class="social__item">
+                            <i class="social__item-icon fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="#!" class="social__item">
+                            <i class="social__item-icon fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#!" class="social__item">
+                            <i class="social__item-icon fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </div>
+
+                    <div class="footer__block">
+                        <p class="footer__title">Nhận thêm thông tin thông qua</p>
+                        <form action="#" class="footer__form">
+                            <input placeholder="Email" type="email" class="footer__input" required>
+                            <button type="submit" class="footer__submit button button--hover">
+                                <i class="footer__submit-icon fa-regular fa-paper-plane"></i>
+                                Gửi
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<article class="dialog__size-guide"></article>
+<script src="../js/paging.js"></script>
+<script src="../js/validateForm.js"></script>
+<script src="../js/productDetail.js"></script>
+</body>
+</html>
