@@ -1,80 +1,144 @@
-.cart_title{
+.cart__title {
     font-weight: 700;
     font-size: 40px;
     color: var(--blue-color-high);
+    padding: 30px 0px;
+    position: relative;
+    z-index: 1;
 }
 
-.cart_container .cart_content{
-    flex: 3;
+.cart__container .cart__content {
+
 }
 
-.cart_container .cart_content .group_card{
-    margin: 16px auto;
-}
-
-.cart_container .cart_content .group_card .cart-item{
-    padding: 16px initial;
-    border-bottom: 1px solid #D9D9D9;
-}
-
-.cart_container .cart_content .grid_cart-template{
+.cart__container .cart__content .grid__cart--template {
     display: grid;
-    grid-template-columns: auto 140px 120px 140px 120px 60px;
+    grid-template-columns: auto 120px 140px 140px 80px;
     gap: 20px;
-    position: sticky;
-    top: 0;
     align-items: center;
 }
 
-#cart_description{
-    border-bottom: var(--blue-color-high) 2px solid;
-    padding-bottom: 4px;
+#cart__header {
+    border-bottom: var(--blue-color-high) 6px solid;
+    padding-bottom: 10px;
+    width: 100%;
+    /*position: relative;*/
+    position: sticky;
+    left: 0;
+    right: 0;
+    background-color: white;
+    top: 120px;
+    /*z-index: 999;*/
 }
 
-#cart_description span{
+#cart__header::before {
+    content: "";
+    height: 50px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -50px;
+    /*bottom: 100px;*/
+    background-color: white;
+    z-index: -1;
+}
+
+#cart__header span {
     font-weight: 600;
     font-size: 22px;
 }
 
-.order_product-info, .size-specs{
-    display: grid;
-    gap: 4px;
+.cart__container .cart__content .cart__items {
+    /*margin: 16px auto;*/
+    width: 100%;
 }
 
-.group_card .cart-item .product_item{
+.cart__container .cart__content .cart__items .cart__item {
+
+    height: auto;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.cart__container .cart__content .cart__items .cart__item .cart__detail--info{
+    margin: 24px 0px;
+}
+
+.order__product--info, .order__size--specification {
+    display: grid;
+    gap: 6px;
+}
+
+.order__product--info .order__size--specification li[class="size_spec-item"]{
+
+}
+
+.cart__items .cart__item .product__item {
     display: flex;
     align-items: stretch;
+    gap: 8px;
 }
 
-.group_card .cart-item .product_item a img{
+.cart__items .cart__item .product__item a[class="product__image"] {
     /*width: auto;*/
     /*height: 100%;*/
     /*object-fit: contain;*/
     /*border-radius: 4px;*/
     /*overflow: hidden;*/
     /*border: 1px black solid;*/
+    height: 220px;
+    width: auto;
 }
 
-.group_card .cart-item .product_item .order_product-info .name-product{
-    font-size: 18px;
+.cart__items .cart__item .product__item a[class="product__image"] img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.cart__items .cart__item .product__item .order__product--info .product__name {
+    font-size: 19px;
     font-weight: 500;
     /*border: black 1px solid;*/
 }
 
-.quality-swapper{
+.cart__items .cart__item .product__item .order__product--info .edit__wishlist--button{
+    display: flex;
+    gap: 4px;
+}
+
+.cart__items .cart__item .product__item .order__product--info .edit__wishlist--button button{
+    padding: 8px 14px;
+    border-radius: 4px;
+}
+
+.cart__items .cart__item .product__item .order__product--info .edit__wishlist--button button:hover{
+    background-color: var(--blue-color-medium);
+    color: white;
+    cursor: pointer;
+}
+
+.cart__items .cart__item .cart__detail--info .unit__price,
+.cart__items .cart__item .cart__detail--info .subtotal__item{
+    font-weight: 500;
+    font-size: 20px;
+}
+
+
+.quality__swapper {
     height: 36px;
     display: inline-flex;
     flex-wrap: nowrap;
 }
 
-#qualityRequired::-webkit-outer-spin-button,
-#qualityRequired::-webkit-inner-spin-button {
+.quality__required::-webkit-outer-spin-button,
+.quality__required::-webkit-inner-spin-button {
     -webkit-appearance: none;
     appearance: none;
     margin: 0;
 }
 
-#qualityRequired {
+.quality__required {
     -moz-appearance: textfield;
     text-align: center;
     border-top: 1px solid #D9D9D9;
@@ -82,16 +146,17 @@
     width: 46px;
 }
 
-.changeQLT{
+.change__quality {
     width: 36px;
     border: 1px solid #D9D9D9;
     background-color: white;
 }
 
-#plusQLT{
+.change__quality.plus__quality {
     border-radius: 0px 4px 4px 0px;
 }
 
-#minusQLT{
+.change__quality.minus__quality {
     border-radius: 4px 0px 0px 4px;
 }
+
