@@ -1,77 +1,3 @@
-var product = {
-    name: `Sơ mi dài tay Café-DriS`,
-    basePrice: 499000,
-    salePrice: 429000,
-    parameter: [
-        {
-            name: "Dài áo",
-            min: 65,
-            max: 87,
-            unit: "cm",
-        },
-        {
-            name: "Ngang ngực",
-            min: 45,
-            max: 60,
-            unit: "cm",
-        },
-        {
-            name: "Dài tay",
-            min: 55,
-            max: 75,
-            unit: "cm",
-        },
-        {
-            name: "Rộng vai",
-            min: 40,
-            max: 60,
-            unit: "cm",
-        },
-
-    ],
-    desc: "Chất liệu: 50% S.Café + 50% Recycled PET\n" +
-        "Phù hợp với: đi làm, đi chơi\n" +
-        "Kiểu dáng: Regular fit dáng suông\n" +
-        "Người mẫu: 177 cm - 74 kg, mặc size XL\n" +
-        "Tự hào sản xuất tại Việt Nam",
-    reviews: [
-        {
-            "nameUser": "John Doe",
-            "star": 5,
-            "comment": "Excellent product! I'm really happy with my purchase.",
-            "date": "2023-10-31"
-        }
-        , {
-            "nameUser": "Alice Smith",
-            "star": 4,
-            "comment": "Great value for the price, but there's room for improvement.",
-            "date": "2023-10-30"
-        }, {
-            "nameUser": "Mark Johnson",
-            "star": 3,
-            "comment": "Not bad, but it could use more features.",
-            "date": "2023-10-29"
-        }
-
-        , {
-            "nameUser": "Sarah Williams",
-            "star": 2,
-            "comment": "Disappointed with the quality. It broke after a few uses.",
-            "date": "2023-10-28"
-        }
-        , {
-            "nameUser": "Michael Brown",
-            "star": 5,
-            "comment": "Outstanding customer service! They went above and beyond to assist me.",
-            "date": "2023-10-27"
-        }
-
-    ],
-    srcImg: "product25.jpg",
-
-    
-}
-
 // Load product detail
 function loadProduct() {
     let name = document.querySelector("h1");
@@ -81,12 +7,12 @@ function loadProduct() {
     let desc = document.querySelector(".product__desc .desc__text");
     let reviews = document.querySelector(".review__list");
 
-    name.innerText = product.name;
-    basePrice.innerText = product.basePrice;
-    salePrice.innerText = product.salePrice;
-    desc.innerText = product.desc;
+    name.innerText = productDetail.name;
+    basePrice.innerText = productDetail.basePrice;
+    salePrice.innerText = productDetail.salePrice;
+    desc.innerText = productDetail.desc;
 
-    let parameterHTML = product.parameter.map(function (element, index) {
+    let parameterHTML = productDetail.parameter.map(function (element, index) {
         return ` <label class="form__block form__label">
                    ${element.name}
                     <div class="form__block-inner">
@@ -110,22 +36,22 @@ function loadProduct() {
         return star;
     }
 
-    let reviewsHTML = product.reviews.map(function (element) {
+    let reviewsHTML = productDetail.reviews.map(function (element) {
         return `<article class="review">
-                                <div class="review__avatar">
-                                    <img src="../assets/img/user/user__demo.jpg" alt="">
-                                </div>
-                                <div class="review__account">
-                                    <h4 class="review__name">${element.nameUser}</h4>
-                                    <ul class="review__stars">
-                                      ${renderStar(element.star)}
-                                          <li class="review__date">${element.date}</li>
-                                    </ul>
-                                
-                                    <p class="review__para line-clamp">${element.comment}
-                                    </p>
-                                </div>
-                            </article>`;
+                    <div class="review__avatar">
+                        <img src="../assets/img/user/user__demo.jpg" alt="">
+                    </div>
+                    <div class="review__account">
+                        <h4 class="review__name">${element.nameUser}</h4>
+                        <ul class="review__stars">
+                           ${renderStar(element.star)}
+                              <li class="review__date">${element.date}</li>
+                        </ul>
+                    
+                        <p class="review__para line-clamp">${element.comment}
+                        </p>
+                    </div>
+                </article>`;
     });
     reviews.innerHTML = reviewsHTML.join("");
 }
