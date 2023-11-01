@@ -128,12 +128,24 @@ Validation.isConfirm = function (selectionInput, funcGetConfirmText) {
         element: selectionInput,
         check: function (value) {
             const confirmTest = funcGetConfirmText();
-            return (value == confirmTest) ? undefined : "Mật khẩu nhập lại không trùng khớp";
+            return (value == confirmTest) ? undefined : "Mật khẩu nhập lại không trùng khớp.";
         }
     }
 }
 
-
+Validation.range = function (selectionInput, min, max) {
+    return {
+        element: selectionInput,
+        check: function (value) {
+            for (let i = 0; i < value.length; i++) {
+                if (isNaN(Number(value))) {
+                    return "Trường này cần nhập số.";
+                }
+            }
+            return (min >= selectionInput && selectionInput <= max) ? undefined : "Giá trị nhập quá giới hạn."
+        }
+    }
+}
 function getParent(child, parent) {
     while (!child.classList.contains(parent)) {
         child = child.parentElement;

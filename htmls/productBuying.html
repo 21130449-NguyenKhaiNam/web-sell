@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/base.css">
     <link rel="stylesheet" href="../assets/css/home.css">
-    <link rel="stylesheet" href="../assets/css/product.css">
+    <link rel="stylesheet" href="../assets/css/productBuying.css">
     <title>Gian hàng</title>
 </head>
 <body>
@@ -70,8 +70,7 @@
                             </a></div>
                             <div class="setting__item"><a href="#!" class="setting__link">Đơn mua</a></div>
                             <div class="setting__item"><a href="./htmls/profile.html" class="setting__link">Tài khoản
-                                                                                                            của
-                                                                                                            tôi</a>
+                                                                                                            của tôi</a>
                             </div>
                             <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
                                                                                                            xuất</a></d>
@@ -87,39 +86,38 @@
     <section class="products">
         <div class="container-xl">
             <div class="row">
-                <div class="col-2">
+                <div class="col-3">
                     <aside class="categories">
                         <ul class="category__list">
-                            <li class="category__item">
-                                <span class="category__icon">
-                                </span>
-                                Danh mục
-                            </li>
-                            <li class="category__item">Áo</li>
-                            <li class="category__item">Quần</li>
-                            <li class="category__item">Áo khoác</li>
-                            <li class="category__item">Quần</li>
+<!--                            <li class="category__item">Ao khoac</li>-->
+<!--                            <li class="category__item">Quan kaki</li>-->
+<!--                            <li class="category__item">Ao so mi</li>-->
+<!--                            <li class="category__item">Ao tay ngan</li>-->
+<!--                            <li class="category__item">AO tay dai</li>-->
                         </ul>
                     </aside>
                 </div>
-                <div class="col-10">
-                    <form action="#!" class="search__form">
-                        <input type="text" class="search__input" placeholder="Nhập sản phẩm bạn muốn tìm tại đây.">
-                        <button class="search__button button button--hover"><i
+                <div class="col-9">
+                    <form action="#!" id="search-form" class="search__form">
+                        <input type="text" autocomplete="off" id="search-input" class="search__input" placeholder="Nhập sản phẩm bạn muốn tìm tại đây.">
+                        <button type="button" id="search-button" class="search__button button button--hover"><i
                                 class="search__icon fa-solid fa-magnifying-glass"></i>Tìm kiếm
                         </button>
+                        <div class="result-box"></div>
                     </form>
                 </div>
             </div>
             <div class="row product__list">
 
             </div>
-            <ul class="review__paging">
+            <ul class="paging">
+
             </ul>
         </div>
     </section>
 </main>
 <!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
+
 <footer id="footer">
     <div class="container-xl">
         <a href="#" class="logo"></a>
@@ -187,6 +185,7 @@
     </div>
 </footer>
 <script src="../js/base.js"></script>
+<script src="../js/data.js"></script>
 <script src="../js/paging.js"></script>
 <script src="../js/productBuying.js"></script>
 </body>
