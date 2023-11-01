@@ -250,16 +250,16 @@
             </div>
             <div class="invoice__promotion col-3">
                 <div class="summary__invoice">
-                    <u>Tổng đơn hàng </u>
+                    <u>Tổng đơn hàng</u>
                     <div class="invoice__detail--info">
                         <ul class="price__items">
                             <li class="price__item">
-                                <p class="price__text">Tạm tính (5 mẫu đò)</p>
+                                <p class="price__text">Tạm tính (5 mẫu đồ)</p>
                                 <p class="price__value">240,000₫</p>
                             </li>
                             <li class="price__item">
                                 <p class="price__text">Giảm giá</p>
-                                <p class="price__value">30,000₫</p>
+                                <p class="price__value">-30,000₫</p>
                             </li>
                         </ul>
                         <div class="price__total">
@@ -270,18 +270,18 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="group__button--forward">
-                        <button id="continue--checkout">Tiến hành thanh toán</button>
-                        <button id="continue--shopping">Tiến tục mua sắm</button>
-                    </div>
-
+                </div>
+                <div class="group__button--forward">
+                    <button id="continue--checkout">Tiến hành thanh toán</button>
+                    <button id="continue--shopping">Tiến tục mua sắm</button>
                 </div>
                 <div class="apply__promotion">
-                    <p>Khuyến mãi</p>
+                    <u>Khuyến mãi</u>
                     <form id="promotion__form">
-                        <input type="text" name="promotion__code" id="promotion_code">
-                        <input type="submit" name="apply" value="xác nhận" id="apply">
+                        <div>
+                            <input type="text" name="promotion__code" id="promotion_code">
+                            <input type="submit" name="apply" value="Áp dụng" id="apply">
+                        </div>
                         <div class="apply__status"></div>
                     </form>
                 </div>
