@@ -257,4 +257,27 @@
     font-size: 14px;
 }
 
+.invoice__promotion .group__button--forward{
+    display: grid;
+    gap: 8px;
+}
+
+#continue--checkout, #continue--shopping{
+    padding: 14px 0px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#continue--checkout{
+    background-color: var(--blue-color-high);
+    color: white;
+}
+
+#continue--shopping{
+    background-color: white;
+    border: 1px solid black;
+}
+
 
