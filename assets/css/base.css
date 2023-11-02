@@ -140,7 +140,7 @@ body {
 /*Footer*/
 #footer {
     padding: 50px 0;
-    background: linear-gradient(180deg, #1E1E1E 51.14%, rgba(30, 30, 30, 0.20) 100%);
+    background: #35546f;
     color: #fff;
 }
 
@@ -166,20 +166,26 @@ body {
 }
 
 .footer__desc {
-    padding-top: 5px;
+    display: block;
+    padding-top: 10px;
     font-size: 16px;
     font-weight: 400;
+}
+
+.footer__desc:hover {
+    cursor: pointer;
+    opacity: 0.9;
 }
 
 .social__list {
     display: inline-flex;
     align-items: center;
     gap: 20px;
+    padding-top: 10px;
 }
 
 .social__item {
     font-size: 20px;
-    padding: 5px;
     color: inherit;
 }
 
@@ -192,7 +198,7 @@ body {
     align-items: center;
     --border-radius: 10px;
     height: 50px;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .footer__input {
@@ -226,7 +232,7 @@ body {
     margin-top: 36px;
 }
 
-/*Cart*/
+/*Cart shopping*/
 .cart {
     --color: #fff;
     position: relative;
@@ -337,7 +343,7 @@ body {
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
     opacity: 0;
-    visibility: visible;
+    visibility: hidden;
     transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
 }
 
@@ -369,7 +375,7 @@ body {
 }
 
 .account__name {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
     overflow: hidden;
     margin: 0 10px;
@@ -382,4 +388,113 @@ body {
     /*  3  =  so hang khi hien thi, con lai thi an */
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+/*Modal hide show*/
+.modal, .modal__blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal__blur {
+    background-color: rgba(0, 0, 0, 0.7);
+
+}
+
+.modal__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.modal__notify {
+    background-color: var(--blue-color-high);
+    padding: 50px 30px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+}
+
+.model__checked-icon {
+    font-size: 50px;
+}
+
+.modal__text, .modal__button {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.modal__text {
+    margin-top: 20px;
+}
+
+.modal__resend {
+    margin-top: 15px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.modal__resend span {
+    text-decoration: underline;
+}
+
+.modal__resend span:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+#modal__hide:checked + .modal {
+    display: none;
+}
+
+.modal__button {
+    display: block;
+    margin: 20px auto 0;
+    --width: 200px;
+    --height: 50px;
+    border-radius: 10px;
+
+    /*Hover*/
+    --background-color-hover: var(--blue-color-low);
+    --background-color: var(--blue-color-medium);
+}
+
+/*Paging*/
+.paging {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.page {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #fff;
+    background-color: var(--blue-color-medium);
+}
+
+.page:not(.page--current):hover {
+    cursor: pointer;
+}
+
+.page--current {
+    background-color: var(--blue-color-high);
+    border: none;
+}
+
+.page--prev, .page--next {
+    width: auto;
+    padding: 0 10px;
 }

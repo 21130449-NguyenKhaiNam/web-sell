@@ -1,12 +1,18 @@
 /*Hero*/
+#main{
+    height: 100vh;
+}
 .hero {
     position: relative;
+    height: 100%;
 }
 
 .hero__img {
     user-select: none;
     width: 100%;
+    height: 100%;
     display: block;
+    object-fit: cover;
 }
 
 .hero__slogan {
@@ -49,7 +55,6 @@
     font-size: 25px;
     font-style: normal;
     font-weight: 600;
-    line-height: normal;
     letter-spacing: 0.064px;
 
     --background-color-hover: var(--blue-color-low);
