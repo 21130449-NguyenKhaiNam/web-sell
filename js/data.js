@@ -1,3 +1,67 @@
+const listCategories = [
+    {
+        id: "category01",
+        nameType: "Áo dài tay",
+        styleGuideImage: "daiTaySizeGuide.png",
+        ruleSize: '[{"name": "dài áo", "min": 67, "max": 80,"unit": "cm"},{"name": "ngang ngực", "min": 48, "max": 60,"unit": "cm"},{"name": "dài tay", "min": 59, "max": 70,"unit": "cm"},{"name": "rộng vai", "min": 41.5, "max": 52,"unit": "cm"}]',
+    },
+    {
+        id: "category02",
+        nameType: "Áo oversize",
+        styleGuideImage: "oversizeSizeGuide.png",
+        ruleSize: '[{"name": "dài áo", "min": 68.5, "max": 73,"unit": "cm"},{"name": "dài tay", "min": 19, "max": 23,"unit": "cm"},{"name": "rộng gấu", "min": 54, "max": 60,"unit": "cm"},{"name": "rộng bắp tay", "min": 21, "max": 25,"unit": "cm"},{"name": "rộng vai", "min": 45, "max": 50,"unit": "cm"}]',
+    },
+    {
+        id: "category03",
+        nameType: "Áo nỉ dài tay",
+        styleGuideImage: "niTayDaiSizeGuide.png",
+        ruleSize: '[{"name": "dài áo", "min": 63, "max": 80,"unit": "cm"},{"name": "dài tay", "min": 66, "max": 85,"unit": "cm"},{"name": "rộng ngực", "min": 47, "max": 60,"unit": "cm"},{"name": "rộng gấu áo", "min": 43, "max": 55,"unit": "cm"}]',
+    },
+    {
+        id: "category04",
+        nameType: "Quần short",
+        styleGuideImage: "quanShortDaiSizeGuide.png",
+        ruleSize: '[{"name": "dài quần", "min": 36, "max": 45, "unit": "cm","unit": "cm"},{"name": "rộng mông", "min": 50, "max": 70,"unit": "cm"},{"name": "rộng gấu", "min": 30, "max": 37,"unit": "cm"}]',
+    },
+    {
+        id: "category05",
+        nameType: "Áo Polo",
+        styleGuideImage: "aoPoloSizeGuide.png",
+        ruleSize: '[{"name": "dài áo", "min": 65, "max": 90,"unit": "cm"},{"name": "ngang ngực", "min": 45, "max": 60,"unit": "cm"},{"name": "dài tay", "min": 19, "max": 30,"unit": "cm"},{"name": "rộng vai", "min": 40, "max": 50,"unit": "cm"}]',
+    },
+    {
+        id: "category06",
+        nameType: "Áo sơ mi tay dài",
+        styleGuideImage: "aoSoMiTayDaiSizeGuide.png",
+        ruleSize: '[{"name": "dài áo", "min": 65, "max": 87,"unit": "cm"},{"name": "ngang ngực", "min": 45, "max": 60,"unit": "cm"},{"name": "dài tay", "min": 55, "max": 75,"unit": "cm"},{"name": "rộng vai", "min": 40, "max": 60,"unit": "cm"}]',
+    },
+    {
+        id: "category07",
+        nameType: "Áo sơ mi ngắn tay",
+        styleGuideImage: "aoSoMiTayNganSizeGuide.png",
+        ruleSize: '[{"name": "dài áo", "min": 65, "max": 70,"unit": "cm"},{"name": "ngang ngực", "min": 45, "max": 60,"unit": "cm"},{"name": "dài tay", "min": 18, "max": 25,"unit": "cm"},{"name": "rộng vai", "min": 40, "max": 60,"unit": "cm"}]',
+    },
+    {
+        id: "category08",
+        nameType: "Quần jeans",
+        styleGuideImage: "quanJeanSizeGuide.png",
+        ruleSize: '[{"name": "rộng cạp", "min": 35, "max": 50,"unit": "cm"},{"name": "rộng mông", "min": 45, "max": 58,"unit": "cm"},{"name": "rộng đùi cách đũng quần 2.5cm", "min": 25, "max": 33,"unit": "cm"},{"name": "rộng Gấu", "min": 13, "max": 17,"unit": "cm"},{"name": "dài quần", "min": 95, "max": 120,"unit": "cm"}]',
+    },
+    {
+        id: "category09",
+        nameType: "Quần Kaki",
+        styleGuideImage: "quanKakiSizeGuide.png",
+        ruleSize: '[{"name": "rộng cạp đo 1/2", "min": 35, "max": 50,"unit": "cm"},{"name": "rộng mông", "min": 45, "max": 63,"unit": "cm"},{"name": "rộng ngang ống đo 1/2", "min": 20, "max": 30,"unit": "cm"},{"name": "dài quần", "min": 47, "max": 65,"unit": "cm"}]',
+    },
+    {
+        id: "category10",
+        nameType: "Áo ba lỗ",
+        styleGuideImage: "aoBaLoSizeGuide.png",
+        ruleSize: '[{"name": "dài áo", "min": 65, "max": 80,"unit": "cm"},{"name": "rộng vai", "min": 27, "max": 35,"unit": "cm"},{"name": "rộng ngực", "min": 39, "max": 65,"unit": "cm"},{"name": "vòng nách trước", "min": 20, "max": 32,"unit": "cm"}]',
+    },
+
+]
+
 const listProduct = [
     {
         id: "product1",
@@ -477,7 +541,7 @@ Tự hào sản xuất tại Việt Nam`, basePrice: 299000.0, salePrice: 159000
     },
 ];
 
-var userList = [
+var listUser = [
     {
         id: "ADMIN01",
         username: "HieuNguyen",
@@ -624,45 +688,13 @@ var userList = [
     },
 ]
 
-function getUser(id) {
-    for (let i = 0; i < userList.length; i++) {
-        if (userList[i].id == id)
-            return userList[i];
-    }
-    return null;
-}
 
 var productDetail = {
+    id: "",
     name: `Sơ mi dài tay Café-DriS`,
     basePrice: 499000,
     salePrice: 429000,
-    parameter: [
-        {
-            name: "Dài áo",
-            min: 65,
-            max: 87,
-            unit: "cm",
-        },
-        {
-            name: "Ngang ngực",
-            min: 45,
-            max: 60,
-            unit: "cm",
-        },
-        {
-            name: "Dài tay",
-            min: 55,
-            max: 75,
-            unit: "cm",
-        },
-        {
-            name: "Rộng vai",
-            min: 40,
-            max: 60,
-            unit: "cm",
-        },
-
-    ],
+    parameter: JSON.parse(getCategory("category06").ruleSize),
     desc: "Chất liệu: 50% S.Café + 50% Recycled PET\n" +
         "Phù hợp với: đi làm, đi chơi\n" +
         "Kiểu dáng: Regular fit dáng suông\n" +
@@ -703,3 +735,21 @@ var productDetail = {
     ],
     srcImg: "product25.jpg",
 }
+
+function getUser(id) {
+    for (let i = 0; i < listUser.length; i++) {
+        if (listUser[i].id == id)
+            return listUser[i];
+    }
+    return null;
+}
+
+function getCategory(id) {
+    for (let i = 0; i < listCategories.length; i++) {
+        if (listCategories[i].id == id)
+            return listCategories[i];
+    }
+    return null;
+}
+
+console.log()

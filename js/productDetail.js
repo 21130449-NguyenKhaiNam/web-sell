@@ -16,7 +16,7 @@ function loadProduct() {
         return ` <label class="form__block form__label">
                    ${element.name}
                     <div class="form__block-inner">
-                        <input name="${element.name}" type="text" class="form__input">
+                        <input id="parameter-${index}" type="text" class="form__input">
                         <span class="form__unit">${element.unit}</span>
                     </div>
                     <span class="form__error"></span>
@@ -156,21 +156,28 @@ var pagingReview = new Paging({
     nextBtn: "page--next",
 });
 
-//Validation Form
-var validation = new Validation({
-    formSelector: ".product__form",
-    formBlockClass: "form__block",
-    errorSelector: ".form__error",
-    rules: [
-        Validation.isRequired("#color"),
-        Validation.isRequired("#parameter_1"),
-        Validation.range("#parameter_1",),
-        Validation.isRequired("#parameter_2"),
-        Validation.range("#parameter_2"),
-        Validation.isRequired("#parameter_3"),
-        Validation.range("#parameter_3"),
-        Validation.isRequired("#parameter_4"),
-        Validation.range("#parameter_4"),
-    ],
-    // submitSelector: "#form__submit",
-})
+function applyValidateProduct() {
+    //Validation Form
+    var formObj = {
+        formSelector: ".product__form",
+        formBlockClass: "form__block",
+        errorSelector: ".form__error",
+        rules: [
+            Validation.isRequired("#color"),
+        ],
+    };
+
+    productDetail.parameter.forEach(function (value, index) {
+        formObj.rules.push(
+            Validation.isRequired(`input[id="parameter-${index}"]`),
+            Validation.range(`input[id="parameter-${index}"]`, value.min, value.max)
+        );
+    })
+    formObj.submitSelector = ".form__submit--buy button";
+    formObj.funcAfterSubmit = function () {
+
+    }
+    var validation = new Validation(formObj);
+}
+
+applyValidateProduct();
