@@ -49,7 +49,6 @@ function Validation(formObj) {
                 return false;
             }
         }
-
     }
 
     function handleValidate(inputElement) {
@@ -142,7 +141,7 @@ Validation.range = function (selectionInput, min, max) {
                     return "Trường này cần nhập số.";
                 }
             }
-            return (min >= selectionInput && selectionInput <= max) ? undefined : "Giá trị nhập quá giới hạn."
+            return (min <= value && value <= max) ? undefined : "Giá trị nhập quá giới hạn."
         }
     }
 }
