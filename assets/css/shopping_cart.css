@@ -214,6 +214,21 @@
     font-weight: 600;
 }
 
+#promotion__form .apply__status{
+    height: auto;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+#promotion__form .apply__status.valid{
+    color: var(--blue-color-high);
+}
+
+#promotion__form .apply__status.invalid{
+    color: #E40F0A;
+}
+
 .invoice__promotion .summary__invoice{
     border: 1px solid #D9D9D9;
     border-radius: 6px;
