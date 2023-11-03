@@ -314,4 +314,38 @@
     border: 1px solid black;
 }
 
+.cart__container--empty{
+    width: fit-content;
+    display: grid;
+    gap: 20px;
+    margin: 20px 0px;
+}
+
+.cart__container--empty p{
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.cart__container--empty button{
+    padding: 16px 100px;
+    border: 1px solid var(--blue-color-high);
+    background-color: white;
+    color: var(--blue-color-high);
+    font-weight: 500;
+    font-size: 24px;
+    border-radius: 6px;
+    width: fit-content;
+    margin: auto;
+}
+
+.cart__container--empty button:hover{
+    background-color: var(--blue-color-high);
+    color: white;
+}
+
+.cart__container--empty img{
+    width: 100%;
+    height: auto;
+}
+
 
