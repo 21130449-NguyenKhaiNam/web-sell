@@ -29,24 +29,24 @@
     <nav class="nav">
         <div class="container-xl">
             <div class="nav__inner">
-                <a href="../index.html" class="logo">
+                <a href="#" class="logo">
                 </a>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="#!" class="nav__link">Thiết kế</a></li>
+                        <a href="./productBuying.html" class="nav__link">Gian hàng</a></li>
                     <li class="nav__item">
-                        <a href="#!" class="nav__link">Liên hệ</a>
+                        <a href="./contact.html" class="nav__link">Liên hệ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="#!" class="nav__link">Về chúng tôi</a>
+                        <a href="./about.html" class="nav__link">Về chúng tôi</a>
                     </li>
                 </ul>
                 <!--cta == call to action-->
                 <div class="nav__cta">
-                    <a href="../htmls/signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="../htmls/signUp.html"
-                       class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
+                    <a href="./signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
+                    <a href="./signUp.html" class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
                 </div>
+
                 <!--Account show (After log in success)-->
                 <div class="account__wrapper">
                     <!--Giỏ hàng-->
@@ -61,7 +61,6 @@
 
                     <div class="account">
                         <i class="account__icon fa-regular fa-user"></i>
-                        <!--                       <i class=" fa-solid fa-chevron-down"></i>-->
                         <div class="setting__list">
                             <div class="setting__item"><a href="#!" class="setting__link">
                                 <div class="account__info">
@@ -70,7 +69,9 @@
                                 </div>
                             </a></div>
                             <div class="setting__item"><a href="#!" class="setting__link">Đơn mua</a></div>
-                            <div class="setting__item"><a href="#!" class="setting__link">Tài khoản của tôi</a></div>
+                            <div class="setting__item"><a href="./htmls/profile.html" class="setting__link">Tài khoản
+                                                                                                            của tôi</a>
+                            </div>
                             <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
                                                                                                            xuất</a></d>
                             </div>
@@ -85,12 +86,18 @@
     <section class="products">
         <div class="container-xl">
             <div class="row">
-                <div class="col-2">
+                <div class="col-3">
                     <aside class="categories">
-                        <ul class="category__list"></ul>
+                        <ul class="category__list">
+<!--                            <li class="category__item">Ao khoac</li>-->
+<!--                            <li class="category__item">Quan kaki</li>-->
+<!--                            <li class="category__item">Ao so mi</li>-->
+<!--                            <li class="category__item">Ao tay ngan</li>-->
+<!--                            <li class="category__item">AO tay dai</li>-->
+                        </ul>
                     </aside>
                 </div>
-                <div class="col-10">
+                <div class="col-9">
                     <form action="#!" id="search-form" class="search__form">
                         <input type="text" autocomplete="off" id="search-input" class="search__input" placeholder="Nhập sản phẩm bạn muốn tìm tại đây.">
                         <button type="button" id="search-button" class="search__button button button--hover"><i
@@ -98,10 +105,14 @@
                         </button>
                         <div class="result-box"></div>
                     </form>
-
                 </div>
             </div>
-            <div class="row product__list"></div>
+            <div class="row product__list">
+
+            </div>
+            <ul class="paging">
+
+            </ul>
         </div>
     </section>
 </main>
@@ -119,23 +130,24 @@
 
                 <div class="footer__block">
                     <p class="footer__title">Địa chỉ</p>
-                    <a href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh Tấn Phát, Phường
-                                                                                             Phú Thuận, Quận 7, Tp. Hồ
-                                                                                             Chí Minh</a></div>
+                    <a href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh Tấn Phát,
+                                                                                             Phường
+                                                                                             Phú Thuận, Quận 7, Tp.
+                                                                                             Hồ Chí Minh</a></div>
             </div>
             <div class="col">
                 <ul class="footer__block">
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Thiết kế</a>
+                        <a href="productBuying.html" class="footer__link">Gian hàng</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Liên hệ</a>
+                        <a href="./contact.html" class="footer__link">Liên hệ</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Về chúng tôi</a>
+                        <a href="./about.html" class="footer__link">Về chúng tôi</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Chính sách mua hàng</a>
+                        <a href="./policy.html" class="footer__link">Chính sách mua hàng</a>
                     </li>
                 </ul>
             </div>
@@ -173,6 +185,8 @@
     </div>
 </footer>
 <script src="../js/base.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/paging.js"></script>
 <script src="../js/productBuying.js"></script>
 </body>
 </html>
