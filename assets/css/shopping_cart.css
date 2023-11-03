@@ -7,8 +7,8 @@
     z-index: 1;
 }
 
-.cart__container .cart__content {
-
+.cart__container{
+    justify-content: center;
 }
 
 .cart__container .cart__content .grid__cart--template {
