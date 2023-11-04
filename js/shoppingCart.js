@@ -198,5 +198,17 @@ function displayShoppingCart() {
     }
     calculateProvisionalPrice();
 
+    function updateTotalPriceValue() {
+        const provisionalPrice = getAmountPrice(priceValueElements[0].textContent);
+        let discountPrice;
+        if (priceValueElements[1].textContent === "") {
+            discountPrice = 0;
+        } else {
+            discountPrice = getAmountPrice(priceValueElements[1].textContent);
+        }
+        totalPriceValueElement.textContent = formatCurrency(provisionalPrice - discountPrice);
+    }
+    updateTotalPriceValue();
+
 }
 displayShoppingCart();
