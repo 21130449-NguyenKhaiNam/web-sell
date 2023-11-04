@@ -198,6 +198,13 @@ function displayShoppingCart() {
     }
     calculateProvisionalPrice();
 
+    function updateProvisionalPrice() {
+        const provisionalPrice = calculateProvisionalPrice();
+        priceValueElements[0].textContent = formatCurrency(provisionalPrice);
+        appliedOrUnappliedVoucher();
+    }
+    updateProvisionalPrice();
+
     function updateTotalPriceValue() {
         const provisionalPrice = getAmountPrice(priceValueElements[0].textContent);
         let discountPrice;
