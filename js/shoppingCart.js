@@ -44,3 +44,9 @@ function removeCartItem(cartItems, index) {
         cartItems.splice(index, 1);
     }
 }
+
+function updateProvisionalItemNo(){
+    const provisionalPriceText = document.querySelector('.price__text:first-child');
+    provisionalPriceText.textContent = `Tạm tính (${cartItems.length} mẫu đồ)`;
+}
+updateProvisionalItemNo();
