@@ -277,5 +277,41 @@ function displayShoppingCart() {
         });
     });
 
+    removeButtonElements.forEach((removeButton, index) => {
+        removeButton.addEventListener("click", () => {
+            cartItemElements[index].classList.add("fade--out");
+            let subtotal = getAmountPrice(subtotalItemElements[index].textContent);
+            let provisionalPrice = getAmountPrice(priceValueElements[0].textContent);
+            provisionalPrice -= subtotal;
+            priceValueElements[0].textContent = formatCurrency(provisionalPrice);
+
+            //cartItemElements[index].parentElement.childElementCount
+
+            if (cartItems.length - 1 === 0) {
+                setTimeout(() => {
+                    document.querySelector(".cart__container").innerHTML = `<div class="cart__container--empty">
+                                                                                        <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+                                                                                        <button>Tiếp tục mua sắm</button>
+                                                                                        <img src="../assets/img/continueShopping.svg">
+                                                                                    </div>`;
+                }, 1)
+            } else {
+                setTimeout(() => {
+                    cartItemElements[index].remove();
+                    console.log(cartItems[index]);
+                    removeCartItem(cartItems, index);
+
+
+                    updateProvisionalItemNo();
+                    subtotalItemElements[index].textContent = formatCurrency(0);
+                    qualityRequiredElements[index].value = 0;
+                    unitPriceElements[index].textContent = formatCurrency(0);
+                }, 300);
+            }
+            appliedOrUnappliedVoucher();
+            updateTotalPriceValue();
+        });
+    });
+
 }
 displayShoppingCart();
