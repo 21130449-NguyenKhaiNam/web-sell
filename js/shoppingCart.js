@@ -255,5 +255,17 @@ function displayShoppingCart() {
         appliedOrUnappliedVoucher();
     });
 
+    minusButtonElements.forEach((minusButton, index) => {
+        minusButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            if (qualityRequiredElements[index].value > 1) {
+                qualityRequiredElements[index].value--;
+                updateSubtotal(index);
+                updateProvisionalPrice()
+                updateTotalPriceValue();
+            }
+        })
+    })
+
 }
 displayShoppingCart();
