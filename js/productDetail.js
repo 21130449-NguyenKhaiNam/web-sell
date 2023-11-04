@@ -147,6 +147,7 @@ showHideDescAndReview();
 //Paging for review
 var pagingReview = new Paging({
     itemSelector: ".review",
+    displayShowType: "flex",
     limit: 3,
     listPage: ".paging",
     tagNameItemPage: "li",
