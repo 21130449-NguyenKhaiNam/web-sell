@@ -13,7 +13,7 @@ function Paging(obj) {
         let endGet = limit * currentPage - 1;
         listItem.forEach(function (item, index) {
             if (index >= beginGet && index <= endGet)
-                item.style.display = "flex";
+                item.style.display = obj.displayShowType;
             else
                 item.style.display = "none";
         });

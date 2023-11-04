@@ -28,6 +28,7 @@ listProductElement.innerHTML = htmls.join("");
 //Paging for product cart
 var pagingReview = new Paging({
     itemSelector: `.product__list > [class ^= "col"]`,
+    displayShowType: "flex",
     limit: 8,
     listPage: ".paging",
     tagNameItemPage: "li",
