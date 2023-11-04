@@ -50,3 +50,7 @@ function updateProvisionalItemNo(){
     provisionalPriceText.textContent = `Tạm tính (${cartItems.length} mẫu đồ)`;
 }
 updateProvisionalItemNo();
+
+function renderCartItem(cartItems) {
+
+}
