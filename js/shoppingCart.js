@@ -163,6 +163,10 @@ const voucherItems = [
     }
 ];
 
+const voucherIDs = voucherItems.map((voucherItem) => {
+    return voucherItem.voucherID
+});
+
 const cartItemElements = document.querySelectorAll(".cart__item");
 const minusButtonElements = document.querySelectorAll(".minus__quality");
 const plusButtonElements = document.querySelectorAll(".plus__quality");
