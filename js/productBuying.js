@@ -114,8 +114,6 @@ function selectInput(list) {
     inputBox.value = list.innerHTML;
     resultBox.innerHTML = '';
 }
-
-
 /*categoryLoad*/
 const listCategory = [
     'Áo dài tay',
