@@ -34,3 +34,7 @@ const cartItems = [
 function formatCurrency(amount) {
     return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
 }
+
+function getAmountPrice(amountCurrency) {
+    return parseFloat(amountCurrency.replaceAll('₫', '').replaceAll('.', ''));
+}
