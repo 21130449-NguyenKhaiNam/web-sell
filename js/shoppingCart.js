@@ -250,5 +250,10 @@ function displayShoppingCart() {
     }
     appliedOrUnappliedVoucher();
 
+    applyCodeElement.addEventListener("click", (event) => {
+        event.preventDefault();
+        appliedOrUnappliedVoucher();
+    });
+
 }
 displayShoppingCart();
