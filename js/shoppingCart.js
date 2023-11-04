@@ -188,5 +188,15 @@ function displayShoppingCart() {
         subtotalItemElements[index].textContent = formatCurrency(subtotal);
     }
 
+    function calculateProvisionalPrice() {
+        let provisionalPrice = 0;
+        subtotalItemElements.forEach(subtotalItem => {
+            const subtotal = getAmountPrice(subtotalItem.textContent);
+            provisionalPrice += subtotal;
+        });
+        return provisionalPrice;
+    }
+    calculateProvisionalPrice();
+
 }
 displayShoppingCart();
