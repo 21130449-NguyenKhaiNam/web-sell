@@ -181,6 +181,12 @@ const applyStatusElement = document.querySelector(".apply__status");
 const totalPriceValueElement = document.querySelector(".price__value--final");
 
 function displayShoppingCart() {
+    function updateSubtotal(index) {
+        const quantity = qualityRequiredElements[index].value;
+        const unitPrice = getAmountPrice(unitPriceElements[index].textContent);
+        const subtotal = quantity * unitPrice;
+        subtotalItemElements[index].textContent = formatCurrency(subtotal);
+    }
 
 }
 displayShoppingCart();
