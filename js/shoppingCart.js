@@ -179,3 +179,8 @@ const promotionCodeElement = document.getElementById("promotion_code");
 const applyCodeElement = document.getElementById("apply");
 const applyStatusElement = document.querySelector(".apply__status");
 const totalPriceValueElement = document.querySelector(".price__value--final");
+
+function displayShoppingCart() {
+
+}
+displayShoppingCart();
