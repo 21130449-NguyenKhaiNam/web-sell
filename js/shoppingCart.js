@@ -98,3 +98,67 @@ function renderCartItem(cartItems) {
         }
     })
 }
+renderCartItem(cartItems);
+
+const voucherItems = [
+    {
+        voucherID: "MGG25",
+        description: "Mã giảm giá 25.000 ₫",
+        minimumPrice: 200000,
+        discountPrice: 25000
+    },
+    {
+        voucherID: "MGG35",
+        description: "Mã giảm giá 35.000 ₫",
+        minimumPrice: 250000,
+        discountPrice: 35000
+    },
+    {
+        voucherID: "MGG50",
+        description: "Mã giảm giá 50.000 ₫",
+        minimumPrice: 400000,
+        discountPrice: 50000
+    },
+    {
+        voucherID: "MGG70",
+        description: "Mã giảm giá 70.000 ₫",
+        minimumPrice: 550000,
+        discountPrice: 70000
+    },
+    {
+        voucherID: "MGG100",
+        description: "Mã giảm giá 100.000 ₫",
+        minimumPrice: 700000,
+        discountPrice: 100000
+    },
+    {
+        voucherID: "MGG150",
+        description: "Mã giảm giá 150.000 ₫",
+        minimumPrice: 850000,
+        discountPrice: 150000
+    },
+    {
+        voucherID: "MGG200",
+        description: "Mã giảm giá 200.000 ₫",
+        minimumPrice: 1000000,
+        discountPrice: 200000
+    },
+    {
+        voucherID: "MGG300",
+        description: "Mã giảm giá 300.000 ₫",
+        minimumPrice: 1500000,
+        discountPrice: 300000
+    },
+    {
+        voucherID: "MGG350",
+        description: "Mã giảm giá 350.000 ₫",
+        minimumPrice: 2000000,
+        discountPrice: 350000
+    },
+    {
+        voucherID: "MGG400",
+        description: "Mã giảm giá 400.000 ₫",
+        minimumPrice: 2500000,
+        discountPrice: 400000
+    }
+];
