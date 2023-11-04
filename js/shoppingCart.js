@@ -162,3 +162,16 @@ const voucherItems = [
         discountPrice: 400000
     }
 ];
+
+const cartItemElements = document.querySelectorAll(".cart__item");
+const minusButtonElements = document.querySelectorAll(".minus__quality");
+const plusButtonElements = document.querySelectorAll(".plus__quality");
+const qualityRequiredElements = document.querySelectorAll(".quality__required");
+const subtotalItemElements = document.querySelectorAll(".subtotal__item");
+const unitPriceElements = document.querySelectorAll(".unit__price");
+const removeButtonElements = document.querySelectorAll(".remove__action");
+const priceValueElements = document.querySelectorAll(".price__value");
+const promotionCodeElement = document.getElementById("promotion_code");
+const applyCodeElement = document.getElementById("apply");
+const applyStatusElement = document.querySelector(".apply__status");
+const totalPriceValueElement = document.querySelector(".price__value--final");
