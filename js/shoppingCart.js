@@ -38,3 +38,9 @@ function formatCurrency(amount) {
 function getAmountPrice(amountCurrency) {
     return parseFloat(amountCurrency.replaceAll('₫', '').replaceAll('.', ''));
 }
+
+function removeCartItem(cartItems, index) {
+    if (index > -1) {
+        cartItems.splice(index, 1);
+    }
+}
