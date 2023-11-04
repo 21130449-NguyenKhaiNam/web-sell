@@ -85,4 +85,16 @@ function renderCartItem(cartItems) {
     });
     const cartItemsHTML = shoppingCart.join('');
     cartItemsElement.innerHTML = cartItemsHTML;
+
+    const orderSizeSpecs = document.querySelectorAll('.order__size--specification');
+    console.log(orderSizeSpecs);
+    orderSizeSpecs.forEach((orderSizeSpec, index) =>{
+        const requiredSizeObject = JSON.parse(cartItems[index].productItem.requiredSize);
+        for (const key in requiredSizeObject){
+            const sizeSpecItem = document.createElement('li');
+            sizeSpecItem.classList.add('size__spec--item');
+            sizeSpecItem.textContent = `${key}: ${requiredSizeObject[key]} cm` ;
+            orderSizeSpec.appendChild(sizeSpecItem);
+        }
+    })
 }
