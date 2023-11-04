@@ -267,5 +267,15 @@ function displayShoppingCart() {
         })
     })
 
+    plusButtonElements.forEach((plusButton, index) => {
+        plusButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            qualityRequiredElements[index].value++;
+            updateSubtotal(index);
+            updateProvisionalPrice();
+            updateTotalPriceValue();
+        });
+    });
+
 }
 displayShoppingCart();
