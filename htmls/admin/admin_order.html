@@ -60,11 +60,21 @@
             <div class="row">
                 <div class="col-3">
                     <aside class="filler">
-                        <form class="form">
+                        <form action="#!" class="form">
+                            <!--Search-->
+                            <article action="#!" class="form__search-block filler__block">
+                                <i class="search__icon fa-solid fa-magnifying-glass"></i>
+                                <input type="text" name="search">
+                                <select name="searchType" id="" class="search__select">
+                                    <option value="id" class="search__option">Mã đơn hàng</option>
+                                    <option value="name" class="search__option">Tên đơn hàng</option>
+                                    <option value="idCategory" class="search__option">Danh mục</option>
+                                </select>
+                            </article>
+
                             <article action="#!" class="filler__block">
                                 <h2 class="filler__heading">Thời gian</h2>
-                                <input type="date" name="" class="filter__date">
-
+                                <input type="date" name="date" class="filter__date">
                             </article>
                             <article class="filler__payment-method filler__block">
                                 <h2 class="filler__heading">Phương thức thanh toán</h2>
@@ -85,11 +95,13 @@
                             <article class="filler__block">
                                 <h2 class="filler__heading">Trạng thái phê duyệt</h2>
                                 <label class="filter__label check">
-                                    <input type="radio" name="passing" class="filter__input" hidden="true">
+                                    <input value="verify" type="radio" name="passing" class="filter__input"
+                                           hidden="true">
                                     Đã xác nhận
                                 </label>
                                 <label class="filter__label check">
-                                    <input type="radio" name="passing" class="filter__input" hidden="true">
+                                    <input value="noVerify" type="radio" name="passing" class="filter__input"
+                                           hidden="true">
                                     Chưa xác nhận
                                 </label>
                             </article>
@@ -97,8 +109,9 @@
                             <article class="filler__block">
                                 <h2 class="filler__heading">Trạng thái vận chuyển</h2>
                                 <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đơn dã đặt
+                                    <input type="radio" name="delivery" value="" class="filter__input"
+                                           hidden="true">
+                                    Đơn đã đặt
                                 </label>
                                 <label class="filter__label check">
                                     <input type="radio" name="delivery" class="filter__input" hidden="true">
@@ -115,22 +128,15 @@
                             </article>
                             <div class="filter__buttons">
                                 <input type="reset" class="button filter__button button--hover" value="Chọn lại">
-                                <button class="button filter__button button--hover" type="submit">Lọc</button>
+                                <button class="button filter__button button--hover filter__submit" type="submit">Lọc
+                                </button>
                             </div>
                         </form>
                     </aside>
                 </div>
                 <div class="col-9">
-                    <form action="" class=form__search>
-                        <article action="#!" class="form__search-block">
-                            <i class="search__icon fa-solid fa-magnifying-glass"></i>
-                            <input type="text" name="search">
-                            <select name="" id="" class="search__select">
-                                <option value="" class="search__option">Tên đơn hàng</option>
-                                <option value="" class="search__option">Mã đơn hàng</option>
-                                <option value="" class="search__option"></option>
-                            </select>
-                        </article>
+                    <div>
+                        <h1>Danh sách sản phẩm</h1>
                         <div id="button-add-product" class="button button__add">
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
@@ -139,7 +145,7 @@
                             <i class="fa-solid fa-minus"></i>
                             Xóa sản phẩm
                         </div>
-                    </form>
+                    </div>
                     <div class="table__wrapper">
                         <table class="table">
                             <thead>
@@ -369,7 +375,7 @@
 </div>
 <script src="../../js/data.js"></script>
 <script src="../../js/paging.js"></script>
-<script src="../../js/admin__product.js"></script>
+<script src="../../js/admin/admin_product.js"></script>
 
 </body>
 

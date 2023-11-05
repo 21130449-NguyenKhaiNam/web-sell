@@ -8,8 +8,8 @@ function loadProduct() {
     let reviews = document.querySelector(".review__list");
 
     name.innerText = productDetail.name;
-    basePrice.innerText = productDetail.basePrice;
-    salePrice.innerText = productDetail.salePrice;
+    basePrice.innerText = productDetail.basePrice+"đ";
+    salePrice.innerText = productDetail.salePrice+"đ";
     desc.innerText = productDetail.desc;
 
     let parameterHTML = productDetail.parameter.map(function (element, index) {
