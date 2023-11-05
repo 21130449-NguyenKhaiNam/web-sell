@@ -27,25 +27,11 @@
     padding: 10px;
     color: #000;
 }
-
-/*.product__info::-webkit-scrollbar{*/
-/*    width: 2px;*/
-
-/*}.product__info::-webkit-scrollbar-track{*/
-/*    background-color: #fff;*/
-/* }*/
-/*.product__info::-webkit-scrollbar-thumb{*/
-/*    border-radius: 10px;*/
-/*    width: 5px;*/
-/*    cursor: grabbing;*/
-/*    background-color: #ccc;*/
-/*}*/
 .product__form {
     padding-right: 5px;
 }
 
 .product__name {
-    color: #39434b;
     font-size: 40px;
     line-height: 1.67;
     font-weight: 500;
@@ -72,7 +58,6 @@
     font-weight: 400;
     opacity: 0.7;
     font-size: 25px;
-    color: #d9d9d9;
 }
 
 .form__title {
@@ -81,12 +66,6 @@
     font-weight: 500;
 }
 
-.form__parameter {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px 20px;
-    padding-top: 10px;
-}
 
 
 .form__label {
@@ -153,7 +132,8 @@
 
 .form__input-color-code {
     background-color: transparent;
-    user-select: none;
+    width: 100px;
+    color: transparent;
     pointer-events: none;
 }
 
@@ -161,20 +141,20 @@
     background-color: snow;
 }
 
-.form__color-check--custom .form__color-icon {
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    border-radius: 5px;
-    pointer-events: none;
-    user-select: none;
-}
+/*.form__color-check--custom .form__color-icon {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background-color: #fff;*/
+/*    border-radius: 5px;*/
+/*    pointer-events: none;*/
+/*    user-select: none;*/
+/*}*/
 
 #color-choose {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    user-select: none;
+    /*opacity: 0;*/
+    /*visibility: hidden;*/
+    /*pointer-events: none;*/
+    /*user-select: none;*/
 }
 
 .form__block:has(.form__quantity) {
@@ -183,6 +163,32 @@
     justify-content: space-between;
 }
 
+/*Radio size choose*/
+.form__size-list {
+    padding-top: 10px;
+    display: flex;
+    gap: 20px;
+}
+
+label:has(.form__radio):hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+label:has(.form__radio) {
+    display: block;
+    --size: 40px;
+    width: var(--size);
+    height: var(--size);
+    line-height: var(--size);
+    background-color: #fff;
+    border-radius: 5px;
+    text-align: center;
+}
+
+label:has(.form__radio:checked) {
+    outline: 2px solid #000;
+}
 .form__guide {
     text-decoration: underline;
     font-size: 15px;
@@ -252,7 +258,6 @@
 }
 
 .form__submit {
-    --background-color-effect: red;
     position: relative;
     --height: 60px;
     color: #fff;
@@ -262,7 +267,7 @@
     background-color: unset;
 }
 
-.form__submit--add {
+.form__submit--order {
     --background-color-effect: var(--blue-color-medium);
     box-shadow: 0 0 0 2px var(--blue-color-medium);
 }
@@ -453,4 +458,48 @@
 
 .review__para:hover {
     cursor: pointer;
+}
+
+.modal {
+    display: none;
+}
+
+/*modal parameter*/
+.modal__parameter {
+    background-color: var(--blue-color-medium);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.modal__parameter h2 {
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+    border-radius: inherit;
+}
+
+.modal__parameter p {
+    text-align: center;
+    padding: 20px 20px 10px;
+    line-height: 1.67;
+    font-size: 15px;
+}
+
+.form__parameter {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 20px;
+    padding: 10px 20px;
+}
+
+.modal__parameter button {
+    --width: 200px;
+    --height: 50px;
+    margin: 20px auto 0;
+    --background-color-hover: var(--blue-color-low);
+    --background-color: var(--blue-color-high);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 10px;
 }
