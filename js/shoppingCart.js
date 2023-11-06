@@ -221,6 +221,17 @@ const voucherIDs = voucherItems.map((voucherItem) => {
 
 
 function handleEventShoppingCart() {
+    const minusButtonElements = document.querySelectorAll(".minus__quality");
+    const plusButtonElements = document.querySelectorAll(".plus__quality");
+    const qualityRequiredElements = document.querySelectorAll(".quality__required");
+    const unitPriceElements = document.querySelectorAll(".unit__price");
+    const priceValueElements = document.querySelectorAll(".price__value");
+    const promotionCodeElement = document.getElementById("promotion_code");
+    const applyCodeElement = document.getElementById("apply");
+    const applyStatusElement = document.querySelector(".apply__status");
+    const totalPriceValueElement = document.querySelector(".price__value--final");
+    let subtotalItemElements = document.querySelectorAll(".subtotal__item");
+    const removeButtonElements = document.querySelectorAll('.remove__action');
 
 }
 handleEventShoppingCart();
