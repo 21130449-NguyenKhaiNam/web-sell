@@ -364,5 +364,15 @@ function handleEventShoppingCart() {
         });
     });
 
+    qualityRequiredElements.forEach((qualityRequired, indexQualityRequired)=>{
+        qualityRequired.oninput = function (){
+            const cartItemElement = qualityRequired.closest('.cart__item');
+            let index = Array.from(cartItemElement.parentElement.children).indexOf(cartItemElement)
+            updateSubtotal(index, indexQualityRequired, subtotalItemElements);
+            updateProvisionalPrice(subtotalItemElements);
+            updateTotalPriceValue();
+        }
+    })
+
 }
 handleEventShoppingCart();
