@@ -338,5 +338,19 @@ function handleEventShoppingCart() {
         appliedOrUnappliedVoucher();
     });
 
+    minusButtonElements.forEach((minusButton, indexMinus) => {
+        minusButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            if (qualityRequiredElements[indexMinus].value > 1) {
+                const cartItemElement = minusButton.closest('.cart__item');
+                let index = Array.from(cartItemElement.parentElement.children).indexOf(cartItemElement)
+                qualityRequiredElements[indexMinus].value--;
+                updateSubtotal(index, indexMinus, subtotalItemElements);
+                updateProvisionalPrice(subtotalItemElements)
+                updateTotalPriceValue();
+            }
+        })
+    })
+
 }
 handleEventShoppingCart();
