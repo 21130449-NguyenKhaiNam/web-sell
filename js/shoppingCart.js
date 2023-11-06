@@ -273,5 +273,19 @@ function handleEventShoppingCart() {
     //     });
     //     return provisionalPrice;
     // }
+
+    function updateProvisionalPrice(subtotalItemElements) {
+        const provisionalPrice = calculateProvisionalPrice(subtotalItemElements);
+        priceValueElements[0].textContent = formatCurrency(provisionalPrice);
+        appliedOrUnappliedVoucher();
+    }
+    updateProvisionalPrice(subtotalItemElements)
+
+    // function updateProvisionalPrice() {
+    //     const provisionalPrice = calculateProvisionalPrice(subtotalItemElements);
+    //     priceValueElements[0].textContent = formatCurrency(provisionalPrice);
+    //     appliedOrUnappliedVoucher();
+    // }
+    // updateProvisionalPrice(subtotalItemElements)
 }
 handleEventShoppingCart();
