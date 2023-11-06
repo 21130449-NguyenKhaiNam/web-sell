@@ -232,5 +232,27 @@ function handleEventShoppingCart() {
     const totalPriceValueElement = document.querySelector(".price__value--final");
     let subtotalItemElements = document.querySelectorAll(".subtotal__item");
     const removeButtonElements = document.querySelectorAll('.remove__action');
+
+    function updateSubtotal(index, indexTarget, subtotalItemElements) {
+        const quantity = qualityRequiredElements[indexTarget].value;
+        const unitPrice = getAmountPrice(unitPriceElements[indexTarget].textContent);
+        console.log(unitPrice)
+        const subtotal = quantity * unitPrice;
+        subtotalItemElements[index].textContent = formatCurrency(subtotal);
+    }
+
+    // function updateSubtotal(index) {
+    //     const quantity = qualityRequiredElements[index].value;
+    //     const unitPrice = getAmountPrice(unitPriceElements[index].textContent);
+    //     const subtotal = quantity * unitPrice;
+    //     subtotalItemElements[index].textContent = formatCurrency(subtotal);
+    // }
+
+    // function updateSubtotal(index, subtotalItemElements) {
+    //     const quantity = qualityRequiredElements[index].value;
+    //     const unitPrice = getAmountPrice(unitPriceElements[index].textContent);
+    //     const subtotal = quantity * unitPrice;
+    //     subtotalItemElements[index].textContent = formatCurrency(subtotal);
+    // }
 }
 handleEventShoppingCart();
