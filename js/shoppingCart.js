@@ -352,5 +352,17 @@ function handleEventShoppingCart() {
         })
     })
 
+    plusButtonElements.forEach((plusButton, indexPlus) => {
+        plusButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            const cartItemElement = plusButton.closest('.cart__item');
+            let index = Array.from(cartItemElement.parentElement.children).indexOf(cartItemElement)
+            qualityRequiredElements[indexPlus].value++;
+            updateSubtotal(index, indexPlus, subtotalItemElements);
+            updateProvisionalPrice(subtotalItemElements);
+            updateTotalPriceValue();
+        });
+    });
+
 }
 handleEventShoppingCart();
