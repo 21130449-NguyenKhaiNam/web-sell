@@ -389,5 +389,62 @@ function handleEventShoppingCart() {
             updateTotalPriceValue();
         }, 300)
     }
+
+    removeButtonElements.forEach((removeButton) =>{
+        removeButton.addEventListener('click', (event) =>{
+            const cartItemElement = removeButton.closest('.cart__item');
+            let index = Array.from(cartItemElement.parentElement.children).indexOf(cartItemElement)
+            removeCartItem(cartItemsRequired, index);
+        })
+    })
+
+    // function handleRemoveClick(event) {
+    //     const targetParentElement = event.target.parentElement;
+    //     if (targetParentElement.classList.contains("remove__action")) {
+    //         const targetSpanRemoveElement = targetParentElement;
+    //         // const targetCartDetailInfo = targetSpanRemoveElement.parentElement;
+    //         // const cartItemElement = targetCartDetailInfo.parentElement;
+    //
+    //         const cartItemElement = targetSpanRemoveElement.closest('.cart__item');
+    //         const index = Array.from(cartItemElement.parentElement.children).indexOf(cartItemElement);
+    //         removeCartItem(cartItemsRequired, index);
+    //     }
+    // }
+    // document.querySelector(".cart__items").addEventListener("click", handleRemoveClick);
+
+    // removeButtonElements.forEach((removeButton, index) => {
+    //     removeButton.addEventListener("click", () => {
+    //         cartItemElements[index].classList.add("fade--out");
+    //         let subtotal = getAmountPrice(subtotalItemElements[index].textContent);
+    //         let provisionalPrice = getAmountPrice(priceValueElements[0].textContent);
+    //         provisionalPrice -= subtotal;
+    //         priceValueElements[0].textContent = formatCurrency(provisionalPrice);
+    //
+    //         //cartItemElements[index].parentElement.childElementCount
+    //
+    //         if (cartItemsRequired.length - 1 === 0) {
+    //             setTimeout(() => {
+    //                 document.querySelector(".cart__container").innerHTML = `<div class="cart__container--empty">
+    //                                                                                     <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+    //                                                                                     <button>Tiếp tục mua sắm</button>
+    //                                                                                     <img src="../assets/img/continueShopping.svg">
+    //                                                                                 </div>`;
+    //             }, 1)
+    //         } else {
+    //             setTimeout(() => {
+    //                 cartItemElements[index].remove();
+    //                 removeCartItem(cartItemsRequired, index);
+    //
+    //
+    //                 updateProvisionalItemNo();
+    //                 subtotalItemElements[index].textContent = formatCurrency(0);
+    //                 qualityRequiredElements[index].value = 0;
+    //                 unitPriceElements[index].textContent = formatCurrency(0);
+    //             }, 300);
+    //         }
+    //         appliedOrUnappliedVoucher();
+    //         updateTotalPriceValue();
+    //     });
+    // });
 }
 handleEventShoppingCart();
