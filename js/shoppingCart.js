@@ -218,3 +218,9 @@ const voucherItems = [
 const voucherIDs = voucherItems.map((voucherItem) => {
     return voucherItem.voucherID
 });
+
+
+function handleEventShoppingCart() {
+
+}
+handleEventShoppingCart();
