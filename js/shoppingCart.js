@@ -373,6 +373,5 @@ function handleEventShoppingCart() {
             updateTotalPriceValue();
         }
     })
-
 }
 handleEventShoppingCart();
