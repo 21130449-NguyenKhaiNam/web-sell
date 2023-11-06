@@ -299,5 +299,39 @@ function handleEventShoppingCart() {
         totalPriceValueElement.textContent = formatCurrency(provisionalPrice - discountPrice);
     }
     updateTotalPriceValue();
+
+    function appliedOrUnappliedVoucher() {
+        const promotionCodeValue = promotionCodeElement.value;
+        const priceItemDiscount = document.querySelector(".price__item:last-child");
+        if (promotionCodeValue !== "") {
+            voucherItems.forEach(voucherItem => {
+                if (promotionCodeValue === voucherItem.voucherID) {
+                    if (getAmountPrice(priceValueElements[0].textContent) >= voucherItem.minimumPrice) {
+                        applyStatusElement.textContent = `Đã áp dụng mã ${promotionCodeValue}`;
+                        applyStatusElement.classList.remove("invalid")
+                        applyStatusElement.classList.add("valid")
+                        priceItemDiscount.style.display = 'flex';
+                        priceValueElements[1].textContent = formatCurrency(voucherItem.discountPrice);
+                    } else {
+                        applyStatusElement.textContent = `Không đủ điều kiện áp dụng mã ${promotionCodeValue}`;
+                        applyStatusElement.classList.remove("valid")
+                        applyStatusElement.classList.add("invalid")
+                        priceItemDiscount.style.display = 'none';
+                        priceValueElements[1].textContent = formatCurrency(0);
+                    }
+                    updateTotalPriceValue();
+                } else if (!voucherIDs.includes(promotionCodeValue)) {
+                    applyStatusElement.textContent = `Không tồn tại mã ${promotionCodeValue}`;
+                    applyStatusElement.classList.remove("valid")
+                    applyStatusElement.classList.add("invalid")
+                    priceValueElements[1].textContent = formatCurrency(0);
+                    priceItemDiscount.style.display = 'none';
+                    updateTotalPriceValue();
+                }
+            });
+        }
+    }
+    appliedOrUnappliedVoucher();
+
 }
 handleEventShoppingCart();
