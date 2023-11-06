@@ -333,5 +333,10 @@ function handleEventShoppingCart() {
     }
     appliedOrUnappliedVoucher();
 
+    applyCodeElement.addEventListener("click", (event) => {
+        event.preventDefault();
+        appliedOrUnappliedVoucher();
+    });
+
 }
 handleEventShoppingCart();
