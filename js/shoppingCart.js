@@ -88,6 +88,9 @@ const emptyShoppingCartHLML =  `<div class="cart__container--empty">
 function updateProvisionalItemNo() {
     const provisionalPriceText = document.querySelector('.price__text:first-child');
     provisionalPriceText.textContent = `Tạm tính (${cartItemsRequired.length} mẫu đồ)`;
+    if(cartItemsRequired.length === 0){
+        cartContainerElement.innerHTML = emptyShoppingCartHLML;
+    }
 }
 updateProvisionalItemNo();
 
