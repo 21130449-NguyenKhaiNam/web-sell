@@ -373,5 +373,21 @@ function handleEventShoppingCart() {
             updateTotalPriceValue();
         }
     })
+
+    function removeCartItem(cartItemsRequired, index) {
+        const cartItemsElement = document.querySelector(".cart__items");
+        const cartItemElement = cartItemsElement.children[index];
+        cartItemElement.classList.add('fade--out');
+        setTimeout(()=>{
+            cartItemsElement.removeChild(cartItemElement);
+
+            cartItemsRequired.splice(index, 1);
+            updateProvisionalItemNo();
+
+            subtotalItemElements = document.querySelectorAll(".subtotal__item");
+            updateProvisionalPrice(subtotalItemElements);
+            updateTotalPriceValue();
+        }, 300)
+    }
 }
 handleEventShoppingCart();
