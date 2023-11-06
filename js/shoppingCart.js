@@ -254,5 +254,24 @@ function handleEventShoppingCart() {
     //     const subtotal = quantity * unitPrice;
     //     subtotalItemElements[index].textContent = formatCurrency(subtotal);
     // }
+
+    function calculateProvisionalPrice(subtotalItemElements){
+        let provisionalPrice = 0;
+        subtotalItemElements.forEach(subtotalItem => {
+            const subtotal = getAmountPrice(subtotalItem.textContent);
+            provisionalPrice += subtotal;
+        });
+        return provisionalPrice;
+    }
+    calculateProvisionalPrice(subtotalItemElements)
+
+    // function calculateProvisionalPrice(){
+    //     let provisionalPrice = 0;
+    //     subtotalItemElements.forEach(subtotalItem => {
+    //         const subtotal = getAmountPrice(subtotalItem.textContent);
+    //         provisionalPrice += subtotal;
+    //     });
+    //     return provisionalPrice;
+    // }
 }
 handleEventShoppingCart();
