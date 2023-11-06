@@ -232,6 +232,5 @@ function handleEventShoppingCart() {
     const totalPriceValueElement = document.querySelector(".price__value--final");
     let subtotalItemElements = document.querySelectorAll(".subtotal__item");
     const removeButtonElements = document.querySelectorAll('.remove__action');
-
 }
 handleEventShoppingCart();
