@@ -1,4 +1,4 @@
-const cartItems = [
+const cartItemsRequired = [
     {
         productItem: {
             name: 'Áo polo nam trơn basic form regular vải cá sấu',
@@ -28,6 +28,46 @@ const cartItems = [
         },
         unitPrice: 289000,
         quality: 1,
+    },
+    {
+        productItem: {
+            name: 'Áo hoodie form rộng unisex nam nữ nỉ chân cua',
+            color: 'Đen',
+            requiredSize: '{"Dài áo":50,"Rộng vai":50,"Rộng ngực":50, "Dài tay":50}',
+            image: '../assets/img/product_img/product4.jpg'
+        },
+        unitPrice: 259000,
+        quality: 1,
+    },
+    {
+        productItem: {
+            name: 'Áo hoodie zip form boxy unisex nỉ bông dày',
+            color: 'Xanh lá',
+            requiredSize: '{"Dài áo":50,"Rộng vai":50,"Rộng ngực":50, "Dài tay":50}',
+            image: '../assets/img/product_img/product5.jpg'
+        },
+        unitPrice: 250000,
+        quality: 1,
+    },
+    {
+        productItem: {
+            name: 'Áo sweater unisex nam nữ basic nỉ chân cua',
+            color: 'Xám chì',
+            requiredSize: '{"Dài áo":50,"Rộng vai":50,"Rộng ngực":50, "Dài tay":50}',
+            image: '../assets/img/product_img/product6.jpg'
+        },
+        unitPrice: 288000,
+        quality: 1,
+    },
+    {
+        productItem: {
+            name: 'Áo sweater nam trơn basic vải da cá',
+            color: 'Đen',
+            requiredSize: '{"Dài áo":50,"Rộng vai":50,"Rộng ngực":50, "Dài tay":50}',
+            image: '../assets/img/product_img/product7.jpg'
+        },
+        unitPrice: 200000,
+        quality: 1,
     }
 ];
 
@@ -39,22 +79,28 @@ function getAmountPrice(amountCurrency) {
     return parseFloat(amountCurrency.replaceAll('₫', '').replaceAll('.', ''));
 }
 
-function removeCartItem(cartItems, index) {
-    if (index > -1) {
-        cartItems.splice(index, 1);
-    }
-}
+const emptyShoppingCartHLML =  `<div class="cart__container--empty">
+                                            <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+                                            <button>Tiếp tục mua sắm</button>
+                                            <img src="../assets/img/continueShopping.svg">
+                                       </div>`;
 
-function updateProvisionalItemNo(){
+function updateProvisionalItemNo() {
     const provisionalPriceText = document.querySelector('.price__text:first-child');
-    provisionalPriceText.textContent = `Tạm tính (${cartItems.length} mẫu đồ)`;
+    provisionalPriceText.textContent = `Tạm tính (${cartItemsRequired.length} mẫu đồ)`;
 }
 updateProvisionalItemNo();
 
-function renderCartItem(cartItems) {
+const cartContainerElement = document.querySelector(".cart__container");
+
+
+function renderCartItem(cartItemsRequired) {
     const cartItemsElement = document.querySelector(".cart__items");
-    const shoppingCart = cartItems.map(cartItem => {
-        return `<div class="cart__item">
+    if(cartItemsRequired.length === 0){
+        cartContainerElement.innerHTML = emptyShoppingCartHLML;
+    }else{
+        const shoppingCart = cartItemsRequired.map((cartItem, index) => {
+            return `<div class="cart__item"">
                         <div class="cart__detail--info grid__cart--template">
                             <div class="product__item">
                                 <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->
@@ -74,31 +120,34 @@ function renderCartItem(cartItems) {
                             </div>
                             <span class="unit__price">${formatCurrency(cartItem.unitPrice)}</span>
                             <form class="quality__swapper">
-                                <button class="minus__quality change__quality"><i class="fa-solid fa-minus"></i></button>
+                                <button class="minus__quality change__quality" data-index="${index}"><i class="fa-solid fa-minus"></i></button>
                                 <input type="number" name="quality__required" class="quality__required" min="1" value="${cartItem.quality}">
-                                <button class="plus__quality change__quality"><i class="fa-solid fa-plus"></i></button>
+                                <button class="plus__quality change__quality" data-index="${index}"><i class="fa-solid fa-plus"></i></button>
+                                <span class="quality__status"></span>
                             </form>
                             <span class="subtotal__item">${formatCurrency(cartItem.unitPrice * cartItem.quality)}</span>
                             <span class="remove__action"><i class="fa-solid fa-trash-can"></i></span>
                         </div>
-                        </div>`
-    });
-    const cartItemsHTML = shoppingCart.join('');
-    cartItemsElement.innerHTML = cartItemsHTML;
+                    </div>`
+        });
+        const cartItemsHTML = shoppingCart.join('');
+        cartItemsElement.innerHTML = cartItemsHTML;
 
-    const orderSizeSpecs = document.querySelectorAll('.order__size--specification');
-    console.log(orderSizeSpecs);
-    orderSizeSpecs.forEach((orderSizeSpec, index) =>{
-        const requiredSizeObject = JSON.parse(cartItems[index].productItem.requiredSize);
-        for (const key in requiredSizeObject){
-            const sizeSpecItem = document.createElement('li');
-            sizeSpecItem.classList.add('size__spec--item');
-            sizeSpecItem.textContent = `${key}: ${requiredSizeObject[key]} cm` ;
-            orderSizeSpec.appendChild(sizeSpecItem);
-        }
-    })
+        const orderSizeSpecs = document.querySelectorAll('.order__size--specification');
+        console.log(orderSizeSpecs);
+        orderSizeSpecs.forEach((orderSizeSpec, index) => {
+            const requiredSizeObject = JSON.parse(cartItemsRequired[index].productItem.requiredSize);
+            for (const key in requiredSizeObject) {
+                const sizeSpecItem = document.createElement('li');
+                sizeSpecItem.classList.add('size__spec--item');
+                sizeSpecItem.textContent = `${key}: ${requiredSizeObject[key]} cm`;
+                orderSizeSpec.appendChild(sizeSpecItem);
+            }
+        })
+    }
 }
-renderCartItem(cartItems);
+
+renderCartItem(cartItemsRequired);
 
 const voucherItems = [
     {
@@ -166,152 +215,3 @@ const voucherItems = [
 const voucherIDs = voucherItems.map((voucherItem) => {
     return voucherItem.voucherID
 });
-
-const cartItemElements = document.querySelectorAll(".cart__item");
-const minusButtonElements = document.querySelectorAll(".minus__quality");
-const plusButtonElements = document.querySelectorAll(".plus__quality");
-const qualityRequiredElements = document.querySelectorAll(".quality__required");
-const subtotalItemElements = document.querySelectorAll(".subtotal__item");
-const unitPriceElements = document.querySelectorAll(".unit__price");
-const removeButtonElements = document.querySelectorAll(".remove__action");
-const priceValueElements = document.querySelectorAll(".price__value");
-const promotionCodeElement = document.getElementById("promotion_code");
-const applyCodeElement = document.getElementById("apply");
-const applyStatusElement = document.querySelector(".apply__status");
-const totalPriceValueElement = document.querySelector(".price__value--final");
-
-function displayShoppingCart() {
-    function updateSubtotal(index) {
-        const quantity = qualityRequiredElements[index].value;
-        const unitPrice = getAmountPrice(unitPriceElements[index].textContent);
-        const subtotal = quantity * unitPrice;
-        subtotalItemElements[index].textContent = formatCurrency(subtotal);
-    }
-
-    function calculateProvisionalPrice() {
-        let provisionalPrice = 0;
-        subtotalItemElements.forEach(subtotalItem => {
-            const subtotal = getAmountPrice(subtotalItem.textContent);
-            provisionalPrice += subtotal;
-        });
-        return provisionalPrice;
-    }
-    calculateProvisionalPrice();
-
-    function updateProvisionalPrice() {
-        const provisionalPrice = calculateProvisionalPrice();
-        priceValueElements[0].textContent = formatCurrency(provisionalPrice);
-        appliedOrUnappliedVoucher();
-    }
-    updateProvisionalPrice();
-
-    function updateTotalPriceValue() {
-        const provisionalPrice = getAmountPrice(priceValueElements[0].textContent);
-        let discountPrice;
-        if (priceValueElements[1].textContent === "") {
-            discountPrice = 0;
-        } else {
-            discountPrice = getAmountPrice(priceValueElements[1].textContent);
-        }
-        totalPriceValueElement.textContent = formatCurrency(provisionalPrice - discountPrice);
-    }
-    updateTotalPriceValue();
-
-    function appliedOrUnappliedVoucher() {
-        const promotionCodeValue = promotionCodeElement.value;
-        const priceItemDiscount = document.querySelector(".price__item:last-child");
-        if (promotionCodeValue !== "") {
-            voucherItems.forEach(voucherItem => {
-                if (promotionCodeValue === voucherItem.voucherID) {
-                    if (getAmountPrice(priceValueElements[0].textContent) >= voucherItem.minimumPrice) {
-                        applyStatusElement.textContent = `Đã áp dụng mã ${promotionCodeValue}`;
-                        applyStatusElement.classList.remove("invalid")
-                        applyStatusElement.classList.add("valid")
-                        priceItemDiscount.style.display = 'flex';
-                        priceValueElements[1].textContent = formatCurrency(voucherItem.discountPrice);
-                    } else {
-                        applyStatusElement.textContent = `Không đủ điều kiện áp dụng mã ${promotionCodeValue}`;
-                        applyStatusElement.classList.remove("valid")
-                        applyStatusElement.classList.add("invalid")
-                        priceItemDiscount.style.display = 'none';
-                        priceValueElements[1].textContent = formatCurrency(0);
-                    }
-                    updateTotalPriceValue();
-                } else if (!voucherIDs.includes(promotionCodeValue)) {
-                    applyStatusElement.textContent = `Không tồn tại mã ${promotionCodeValue}`;
-                    applyStatusElement.classList.remove("valid")
-                    applyStatusElement.classList.add("invalid")
-                    priceValueElements[1].textContent = formatCurrency(0);
-                    priceItemDiscount.style.display = 'none';
-                    updateTotalPriceValue();
-                }
-            });
-        }
-    }
-    appliedOrUnappliedVoucher();
-
-    applyCodeElement.addEventListener("click", (event) => {
-        event.preventDefault();
-        appliedOrUnappliedVoucher();
-    });
-
-    minusButtonElements.forEach((minusButton, index) => {
-        minusButton.addEventListener("click", (event) => {
-            event.preventDefault();
-            if (qualityRequiredElements[index].value > 1) {
-                qualityRequiredElements[index].value--;
-                updateSubtotal(index);
-                updateProvisionalPrice()
-                updateTotalPriceValue();
-            }
-        })
-    })
-
-    plusButtonElements.forEach((plusButton, index) => {
-        plusButton.addEventListener("click", (event) => {
-            event.preventDefault();
-            qualityRequiredElements[index].value++;
-            updateSubtotal(index);
-            updateProvisionalPrice();
-            updateTotalPriceValue();
-        });
-    });
-
-    removeButtonElements.forEach((removeButton, index) => {
-        removeButton.addEventListener("click", () => {
-            cartItemElements[index].classList.add("fade--out");
-            let subtotal = getAmountPrice(subtotalItemElements[index].textContent);
-            let provisionalPrice = getAmountPrice(priceValueElements[0].textContent);
-            provisionalPrice -= subtotal;
-            priceValueElements[0].textContent = formatCurrency(provisionalPrice);
-
-            //cartItemElements[index].parentElement.childElementCount
-
-            if (cartItems.length - 1 === 0) {
-                setTimeout(() => {
-                    document.querySelector(".cart__container").innerHTML = `<div class="cart__container--empty">
-                                                                                        <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
-                                                                                        <button>Tiếp tục mua sắm</button>
-                                                                                        <img src="../assets/img/continueShopping.svg">
-                                                                                    </div>`;
-                }, 1)
-            } else {
-                setTimeout(() => {
-                    cartItemElements[index].remove();
-                    console.log(cartItems[index]);
-                    removeCartItem(cartItems, index);
-
-
-                    updateProvisionalItemNo();
-                    subtotalItemElements[index].textContent = formatCurrency(0);
-                    qualityRequiredElements[index].value = 0;
-                    unitPriceElements[index].textContent = formatCurrency(0);
-                }, 300);
-            }
-            appliedOrUnappliedVoucher();
-            updateTotalPriceValue();
-        });
-    });
-
-}
-displayShoppingCart();
