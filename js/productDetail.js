@@ -9,6 +9,7 @@ function loadProduct() {
     let formParameter = document.querySelector(".form__parameter");
 
     name.innerText = productDetail.name;
+
     basePrice.innerText = productDetail.basePrice + ".000đ";
     salePrice.innerText = productDetail.salePrice + ".000đ";
     desc.innerText = productDetail.desc;

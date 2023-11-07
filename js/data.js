@@ -760,5 +760,11 @@ function getProduct(id) {
     return null;
 }
 
+function getProduct(id){
+    for (let i = 0; i < listProduct.length; i++) {
+        if (listProduct[i].id == id)
+            return listProduct[i];
+    }
+    return null;
+}
 
-console.log(JSON.parse(getCategory("category06").ruleSize))
