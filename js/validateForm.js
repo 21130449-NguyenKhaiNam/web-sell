@@ -11,7 +11,7 @@ function Validation(formObj) {
             e.preventDefault();
         }
         rules.forEach(function (rule) {
-            const inputElement = formElement.querySelector(rule.element);
+
             /*
             -Do mỗi input sẽ có nhiều yêu cầu validate nên ruleFuncs sẽ là 1 một obj gồm có:
             -Mỗi key sẽ là id của input
@@ -22,26 +22,32 @@ function Validation(formObj) {
             username : [isRequired]
             email: [isEmail, isRequired]
             */
-            if (!Array.isArray(ruleFuncs[inputElement.id])) {
-                ruleFuncs[inputElement.id] = [rule.check];
+            if (!Array.isArray(ruleFuncs[rule.element])) {
+                ruleFuncs[rule.element] = [rule.check];
             } else {
-                ruleFuncs[inputElement.id].push(rule.check);
+                ruleFuncs[rule.element].push(rule.check);
             }
+            const inputElements = formElement.querySelectorAll(rule.element);
+            inputElements.forEach(function (inputElement){
+                inputElement.oninput = function (e) {
+                    handleValidate(rule);
+                };
+                // inputElement.onchange = function (e) {
+                //     handleValidate(rule);
+                // };
+                inputElement.onblur = function (e) {
+                    handleValidate(rule);
+                };
+            });
 
-            inputElement.oninput = function (e) {
-                handleValidate(inputElement);
-            }
-            inputElement.onblur = function (e) {
-                handleValidate(inputElement);
-            }
         });
     }
     if (submitElement) {
         // Chặn việc gửi thông tin của form khi nhấn submit
         submitElement.onclick = function () {
             rules.forEach(function (rule) {
-                const inputElement = formElement.querySelector(rule.element);
-                handleValidate(inputElement);
+                // const inputElement = formElement.querySelector(rule.element);
+                handleValidate(rule);
             });
             //Chỉ được thực thi form ko có Error Message
             if (Object.keys(errorMessageObj).length == 0) {
@@ -51,20 +57,29 @@ function Validation(formObj) {
         }
     }
 
-    function handleValidate(inputElement) {
+    function handleValidate(rule) {
+        const inputElement = formElement.querySelector(rule.element);
         const value = inputElement.value;
         const formBlock = getParent(inputElement, formObj.formBlockClass);
         const showError = formBlock.querySelector(formObj.errorSelector);
 
         let errorMessage;
-        const ruleFunc = ruleFuncs[inputElement.id];
+        const ruleFunc = ruleFuncs[rule.element];
         /*Loop qua từng func của id tương ứng
         Ex:
         username : [isRequired] -> Loop qua 1 lần
         email: [isEmail, isRequired] -> Loop qua 2 lần
         */
         for (let i = 0; i < ruleFunc.length; i++) {
-            errorMessage = ruleFunc[i](value);//Chạy các hàm test
+            switch (inputElement.type) {
+                case"radio":
+                case"checkbox":
+                    errorMessage = ruleFunc[i](formElement.querySelector(rule.element + ":checked"));//Chạy các hàm test
+                    break;
+                default:
+                    errorMessage = ruleFunc[i](value);//Chạy các hàm test
+            }
+
             if (errorMessage) {
                 errorMessageObj[inputElement.id] = errorMessage;
                 break;
@@ -94,6 +109,14 @@ Validation.isRequired = function (selectorInput) {
         element: selectorInput,
         check: function (value) {
             return value.trim() ? undefined : "Trường này không được để trống";
+        },
+    }
+}
+Validation.isRequiredRadio = function (selectorInput) {
+    return {
+        element: selectorInput,
+        check: function (value) {
+            return value ? undefined : "Trường này không được để trống";
         },
     }
 }

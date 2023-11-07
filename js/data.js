@@ -692,14 +692,15 @@ var listUser = [
 var productDetail = {
     id: "",
     name: `Sơ mi dài tay Café-DriS`,
-    basePrice: 499000,
-    salePrice: 429000,
+    basePrice: 499.000,
+    salePrice: 429.000,
     parameter: JSON.parse(getCategory("category06").ruleSize),
     desc: "Chất liệu: 50% S.Café + 50% Recycled PET\n"+
         "Phù hợp với: đi làm, đi chơi\n"+
         "Kiểu dáng: Regular fit dáng suông\n"+
         "Người mẫu: 177 cm - 74 kg, mặc size XL\n"+
         "Tự hào sản xuất tại Việt Nam",
+    size: ["M", "L", "XL", "XXL"],
     reviews: [
         {
             "nameUser": getUser("KH01").fullName,
