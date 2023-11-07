@@ -75,31 +75,33 @@ function searchProduct() {
 
 //productKeyHint
 let availableKeyWord = [
-    'product 1',
-    'product 2',
-    'product 3',
-    'product 4',
-    'product 5',
-    'product 6',
-    'product 7',
-    'product 8',
-    'product 9',
-    'product 10',
+    // 'product 1',
+    // 'product 2',
+    // 'product 3',
+    // 'product 4',
+    // 'product 5',
+    // 'product 6',
+    // 'product 7',
+    // 'product 8',
+    // 'product 9',
+    // 'product 10',
 ];
 const resultBox = document.querySelector(".result-box");
 const inputBox = document.getElementById("search-input");
 
 inputBox.onkeyup = function () {
-    let result = [];
     let input = inputBox.value;
     if (input.length) {
-        result = availableKeyWord.filter((keyword) => {
-            return keyword.toLowerCase().includes(input.toLowerCase());
+        availableKeyWord =[];
+        listProduct.forEach((product) => {
+            if (product.name.toLowerCase().includes(input.toLowerCase()))  {
+                availableKeyWord.push(product.name)
+            }
         });
-        console.log(result)
+        console.log(availableKeyWord)
+        display(availableKeyWord);
     }
-    display(result);
-    if (!result.length) {
+    if (availableKeyWord.length==0) {
         resultBox.innerHTML = '';
     }
 }
