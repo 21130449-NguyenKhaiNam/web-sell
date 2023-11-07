@@ -272,7 +272,7 @@ Lưu ý:Sản phẩm vẫn sẽ bạc màu sau một thời gian dài sử dụn
     },
 
     {
-        id: "product31", name: "Áo giữ nhiệt Modal Ultra", idCategory: "category01", imgSrc: "product20.jpg", desc: `Chất liệu: 50% Modal (gỗ sồi), 42% Cotton, 8% Spandex
+        id: "product31", name: "Áo giữ nhiệt Modal Ultra", idCategory: "category01", imgSrc: "product31.jpg", desc: `Chất liệu: 50% Modal (gỗ sồi), 42% Cotton, 8% Spandex
 Ưu điểm của Cotton Modal: kháng khuẩn, giữ nhiệt, mềm mại và co giãn
 Kiểu dáng: Slimfit ôm nhẹ vào cơ thể
 Phù hợp với: mặc hàng ngày hoặc cũng có thể vận động thể thao
@@ -751,4 +751,13 @@ function getCategory(id) {
     }
     return null;
 }
+function getProduct(id) {
+    for (let i = 0; i < listProduct.length; i++) {
+        if (listProduct[i].id == id)
+            return listProduct[i];
+    }
+    return null;
+}
 
+
+console.log(JSON.parse(getCategory("category06").ruleSize))

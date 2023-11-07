@@ -47,29 +47,27 @@ function searchProduct() {
     const searchQuery = searchInput.value.toLowerCase();
     const filteredProducts = listProduct.filter(product => product.name.toLowerCase().includes(searchQuery));
     const htmls = filteredProducts.map(product => {
-        return `
-            <div class="col-3">
-                <a href="#!">
-                    <div class="model_product">
-                        <img src="${product.img}">
-                        <div class="information-product">
-                            <span class="status">Most required</span>
-                            <a class="name-product" href="#">${product.name}</a>
-                            <div class="review-product">
-                                <div class="icon-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <a href="#">1000 nhận xét</a>
+        return `<div class = "col-3" >
+                <div class = "model_product item4" >
+                    <img src = "../assets/img/product_img/${product.imgSrc}" >
+                    <div class = "information-product" >
+                        <span class = "status" > Most required </span>
+                        <a class="name-product" href="../htmls/productDetail.html">${product.name}</a>
+                        <div class="review-product">
+                            <div class="icon-review">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
                             </div>
-                            <span class="price"><strong class="sale-price">${product.price}</strong> <s class="original-price">300,000₫</s></span>
+                            <a href="#">1000 nhận xét</a>
                         </div>
-                    </div> 
-                </a>
-            </div>`;
+                        <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
+                    </div>
+                </div>
+          </div>
+`;
     });
     listProductElement.innerHTML = htmls.join("");
 }
@@ -144,31 +142,29 @@ loadCategory();
 
 // categorySearch
 function filterProducts(category) {
-    const filteredProducts = listProduct.filter(product => product.category.toLowerCase().includes(category.toLowerCase()));
+    const filteredProducts = listProduct.filter(product => getCategory(product.idCategory).nameType.toLowerCase().includes(category.toLowerCase()));
     const htmls = filteredProducts.map(product => {
-        return `
-            <div class="col-3">
-                <a href="#!">
-                    <div class="model_product item4">
-                        <img src="${product.img}">
-                        <div class="information-product">
-                            <span class="status">Most required</span>
-                            <a class="name-product" href="#">${product.name}</a>
-                            <div class="review-product">
-                                <div class="icon-review">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <a href="#">1000 nhận xét</a>
+        return `<div class = "col-3" >
+                <div class = "model_product item4" >
+                    <img src = "../assets/img/product_img/${product.imgSrc}" >
+                    <div class = "information-product" >
+                        <span class = "status" > Most required </span>
+                        <a class="name-product" href="../htmls/productDetail.html">${product.name}</a>
+                        <div class="review-product">
+                            <div class="icon-review">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
                             </div>
-                            <span class="price"><strong class="sale-price">${product.price}</strong> <s class="original-price">300,000₫</s></span>
+                            <a href="#">1000 nhận xét</a>
                         </div>
-                    </div> 
-                </a>
-            </div>`;
+                        <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
+                    </div>
+                </div>
+          </div>
+`;
     });
     listProductElement.innerHTML = htmls.join("");
 }
