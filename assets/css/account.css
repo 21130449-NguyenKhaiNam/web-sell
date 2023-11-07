@@ -13,12 +13,10 @@ body{
 
 }
 .service__order{
-    height: 400px;
-    overflow-y: scroll;
     padding: 20px 0;
 }
 .service__order .block__product{
-    padding: 0 10px;
+    padding: 0 0;
 }
 
 .service__section--show {
@@ -210,16 +208,35 @@ h1{
     margin-top: 20px;
     background-color: #fff;
     object-fit: cover;
+    padding-left: 0;
 }
 .img__product{
     width: 120px;
     height: 120px;
     border-radius: 10px;
     overflow: hidden;
+    object-fit: cover;
 
 }
 .block__info{
     line-height: 20px;
     margin: 10px 20px;
+}
+.info__product{
+    font-weight: 600;
+}
+.btn{
+    background-color: rgba(121, 121, 121, 0.64);
+    font-size: 18px;
+    height: 50px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    margin: auto ;
+    margin-right: 50px;
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: #e0dfdf;
+
 }
 
