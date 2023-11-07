@@ -3,26 +3,16 @@ function loadProduct() {
     let name = document.querySelector("h1");
     let basePrice = document.querySelector(".product__price--base");
     let salePrice = document.querySelector(".product__price--sale");
-    let formParameter = document.querySelector(".form__parameter");
+    let size = document.querySelector(".form__size-list");
     let desc = document.querySelector(".product__desc .desc__text");
     let reviews = document.querySelector(".review__list");
+    let formParameter = document.querySelector(".form__parameter");
 
     name.innerText = productDetail.name;
-    basePrice.innerText = productDetail.basePrice+"đ";
-    salePrice.innerText = productDetail.salePrice+"đ";
-    desc.innerText = productDetail.desc;
 
-    let parameterHTML = productDetail.parameter.map(function (element, index) {
-        return ` <label class="form__block form__label">
-                   ${element.name}
-                    <div class="form__block-inner">
-                        <input id="parameter-${index}" type="text" class="form__input">
-                        <span class="form__unit">${element.unit}</span>
-                    </div>
-                    <span class="form__error"></span>
-                </label>`;
-    });
-    formParameter.innerHTML = parameterHTML.join("");
+    basePrice.innerText = productDetail.basePrice + ".000đ";
+    salePrice.innerText = productDetail.salePrice + ".000đ";
+    desc.innerText = productDetail.desc;
 
     function renderStar(quantity) {
         let star = "";
@@ -54,6 +44,28 @@ function loadProduct() {
                 </article>`;
     });
     reviews.innerHTML = reviewsHTML.join("");
+
+    let parameterHTML = productDetail.parameter.map(function (element, index) {
+        return ` <label class="form__block form__label">
+                   ${element.name}
+                    <div class="form__block-inner">
+                        <input id="parameter-${index}" type="text" class="form__input">
+                        <span class="form__unit">${element.unit}</span>
+                    </div>
+                    <span class="form__error"></span>
+                </label>`;
+    });
+    formParameter.innerHTML = parameterHTML.join("");
+
+    let sizeHTML = productDetail.size.map(function (element) {
+        return ` <div class="form__size-item">
+                    <label>
+                        <input type="radio" name="size" class="form__radio" hidden="hidden">
+                        ${element}
+                    </label>
+                </div>`;
+    });
+    size.innerHTML = sizeHTML.join("");
 }
 
 loadProduct();
@@ -61,7 +73,7 @@ loadProduct();
 var codeColor;
 var colorChooseElement = document.querySelectorAll(".form__color-check");
 var colorResult = document.querySelector(".form__input-color-code");
-colorResult.value = "#000";
+
 
 //Effect when click
 colorChooseElement.forEach(function (element, index) {
@@ -71,7 +83,9 @@ colorChooseElement.forEach(function (element, index) {
         } else {
             element.classList.add("form__color--checked");
             codeColor = window.getComputedStyle(element).getPropertyValue("background-color");
+            colorResult.style.backgroundColor = codeColor;
             colorResult.value = codeColor;
+
             colorChooseElement.forEach((elementOther, indexOther) => {
                 if (indexOther != index) {
                     elementOther.classList.remove("form__color--checked");
@@ -84,18 +98,13 @@ colorChooseElement.forEach(function (element, index) {
 getColorCustom();
 
 function getColorCustom() {
-    const colorElement = document.querySelector(".form__color-check--custom")
-    const colorInput = colorElement.querySelector(`input`);
-    colorElement.addEventListener("mouseover", function () {
-        colorInput.removeAttribute("disabled");
-        colorInput.addEventListener("input", function () {
-            codeColor = colorInput.value
-            colorResult.value = codeColor;
-        })
-    });
-    colorElement.addEventListener("mouseout", function () {
-        colorInput.setAttribute("disabled", "");
-    })
+    const colorInput = document.querySelector("#color-choose");
+    colorInput.oninput = function () {
+        codeColor = colorInput.value
+        colorResult.style.backgroundColor = codeColor;
+        colorResult.value = codeColor;
+    };
+
 }
 
 // Form quantity
@@ -157,28 +166,64 @@ var pagingReview = new Paging({
     nextBtn: "page--next",
 });
 
-function applyValidateProduct() {
-    //Validation Form
+function openModal(button, modal) {
+    button.onclick = function () {
+        modal.style.display = "block";
+    }
+    let modalBlur = modal.querySelector(".modal__blur");
+    if (modalBlur) {
+        modalBlur.onclick = function () {
+            modal.style.display = "none";
+        }
+    }
+}
+
+const buttonOpenGuide = document.querySelector(".form__guide");
+const buttonOpenParameter = document.querySelector(".form__submit--order");
+const modalGuide = document.querySelector(".modal:has(.modal__guide)");
+const modalParameter = document.querySelector(".modal:has(.modal__parameter)");
+openModal(buttonOpenGuide, modalGuide);
+openModal(buttonOpenParameter, modalParameter);
+
+// when user choose size
+function applyValidateProductForm() {
     var formObj = {
-        formSelector: ".product__form",
+        formSelector: "#form__product",
         formBlockClass: "form__block",
         errorSelector: ".form__error",
         rules: [
             Validation.isRequired("#color"),
+            Validation.isRequiredRadio(".form__radio")
         ],
+        submitSelector: ".form__submit--buy",
+        funcAfterSubmit: function () {
+        }
     };
+    var validation = new Validation(formObj);
+}
 
+applyValidateProductForm();
+
+// When user customize size
+function applyValidateParameterForm() {
+    var formObj = {
+        formSelector: "#form__parameter",
+        formBlockClass: "form__block",
+        errorSelector: ".form__error",
+        rules: [],
+        submitSelector: "#form__parameter button",
+        funcAfterSubmit: function () {
+
+        }
+    };
     productDetail.parameter.forEach(function (value, index) {
         formObj.rules.push(
             Validation.isRequired(`input[id="parameter-${index}"]`),
             Validation.range(`input[id="parameter-${index}"]`, value.min, value.max)
         );
     })
-    formObj.submitSelector = ".form__submit--buy button";
-    formObj.funcAfterSubmit = function () {
 
-    }
     var validation = new Validation(formObj);
 }
 
-applyValidateProduct();
+applyValidateParameterForm();

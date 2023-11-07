@@ -9,12 +9,11 @@
     display: none;
 }
 
-
-
 .policy__section--show {
     display: block;
     background-color: var(--blue-color-high);
 }
+
 
 .policy__list {
     position: sticky;

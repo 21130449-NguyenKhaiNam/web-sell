@@ -59,7 +59,7 @@
                 </div>
                 <div class="offset-1 col-5">
                     <div class="product__info">
-                        <form action="#!" class="product__form">
+                        <form action="#!" id="form__product" class="product__form">
                             <h1 class="product__name">Sơ mi dài tay Café-DriS</h1>
                             <div>
                                 <p class="product__price product__price--sale">439.000đ</p>
@@ -72,7 +72,7 @@
                             -->
                             <p class="form__title">Màu sắc</p>
                             <div class="form__choose-color">
-                                <span class="form__color-check  form__color--checked" style="background-color: black">
+                                <span class="form__color-check  " style="background-color: black">
                                 </span>
 
                                 <span class="form__color-check" style="background-color: white">
@@ -84,11 +84,7 @@
                                 <span class="form__color-check" style="background-color: red">
                                 </span>
 
-                                <label for="color-choose" class="form__color-check form__color-check--custom ">
-                                    <img class="form__color-icon"
-                                         src="data:image/png;base64,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">
-                                    <input id="color-choose" type="color" disabled>
-                                </label>
+                                <input id="color-choose" name="color" type="color">
                             </div>
                             <div class="form__block">
                                 <p class="form__color-notify">
@@ -98,57 +94,42 @@
                                 <p class="form__error"></p>
                             </div>
                             <p class="form__title">Kích thước</p>
-                            <div class="form__parameter">
-                                <label class="form__block form__label">
-                                    Dài áo
-                                    <div class="form__block-inner">
-                                        <input id="parameter_1" type="text" class="form__input">
-                                        <span class="form__unit">cm</span>
-                                    </div>
-                                    <span class="form__error"></span>
-                                </label>
-                                <label class="form__block form__label">
-                                    Ngang ngực
-                                    <div class="form__block-inner">
-                                        <input id="parameter_2" type="text" class="form__input">
-                                        <span class="form__unit">cm</span>
-                                    </div>
-                                    <span class="form__error"></span>
-                                </label>
-                                <label class="form__block form__label">
-                                    Dài tay
-                                    <div class="form__block-inner">
-                                        <input id="parameter_3" type="text" class="form__input">
-                                        <span class="form__unit">cm</span>
-                                    </div>
-                                    <span class="form__error"></span>
-                                </label>
-                                <label class="form__block form__label">
-                                    Rộng vai
-                                    <div class="form__block-inner">
-                                        <input id="parameter_4" type="text" class="form__input">
-                                        <span class="form__unit">cm</span>
-                                    </div>
-                                    <span class="form__error"></span>
-                                </label>
+                            <div class="form__block">
+                                <div class="form__size-list">
+                            <!--                                    <div class="form__size-item">-->
+                            <!--                                        <label>-->
+                            <!--                                            <input type="radio" name="size" class="form__radio" hidden="hidden">-->
+                            <!--                                            M-->
+                            <!--                                        </label>-->
+                            <!--                                    </div>-->
+                                </div>
+                                <span class="form__error"></span>
                             </div>
+                            <!--                            <div class="form__parameter">-->
+                            <!--                                <label class="form__block form__label">-->
+                            <!--                                    Dài áo-->
+                            <!--                                    <div class="form__block-inner">-->
+                            <!--                                        <input id="parameter_1" type="text" class="form__input">-->
+                            <!--                                        <span class="form__unit">cm</span>-->
+                            <!--                                    </div>-->
+                            <!--                                    <span class="form__error"></span>-->
+                            <!--                                </label>-->
+                            <p class="form__title ">Số lượng</p>
                             <div class="form__block">
                                 <div class="form__quantity">
-                                    <label for="quantity" class="form__label">Số lượng</label>
                                     <div class="form__quantity-inner">
                                         <div class=" form___quantity-btn form___quantity--decrease"></div>
-                                        <input id="quantity" type="text" value="1" disabled>
+                                        <input id="quantity" type="text" name="quantity" value="1" disabled>
                                         <div class=" form___quantity-btn form___quantity--increase"></div>
                                     </div>
                                     <p class="form__error"></p>
                                 </div>
                                 <!--Size Guide-->
-                                <label class="form__guide" for="modal__hide">Hướng dẫn tùy chỉnh thông số</label>
+                                <div class="form__guide">Hướng dẫn tùy chỉnh thông số</div>
                             </div>
                             <div class="form__submits">
-                                <button type="submit" class="form__submit form__submit--add button " data="Thêm
-                                                                                    vào giỏ
-                                                                                    hàng">
+                                <button type="submit" class="form__submit form__submit--order button "
+                                        data="Đặt may theo số đo">
                                 </button>
                                 <button type="submit" class="form__submit form__submit--buy button " data="Mua
                                                                                                  ngay">
@@ -165,15 +146,6 @@
                         <div class="product__desc">
                             <h3 class="desc__title">Thông tin sản phẩm</h3>
                             <pre class="desc__text">
-<!--                                <li>-->
-<!--                                    Chất liệu: 50% S.Café + 50% Recycled PET-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    Phù hợp với: đi làm, đi chơi-->
-<!--                                </li>-->
-<!--                                <li>Kiểu dáng: Regular fit dáng suông</li>-->
-<!--                                <li>Người mẫu: 177 cm - 74 kg, mặc size XL</li>-->
-<!--                                <li>Tự hào sản xuất tại Việt Nam</li>-->
                             </pre>
                         </div>
 
@@ -215,13 +187,60 @@
         </div>
     </section>
 
-    <input type="checkbox" id="modal__hide" class="modal__hide" hidden="hidden" checked>
+    <!--Size Guide-->
     <div class="modal">
         <div class="modal__content modal__guide">
             <img src="../assets/img/sizeGuide/aoBaLoSizeGuide.png" alt="" class="guide__img">
         </div>
-        <label for="modal__hide" class="modal__blur"></label>
+        <div class="modal__blur"></div>
     </div>
+    <!--Form Parameter-->
+    <div class="modal">
+        <div class="modal__content modal__parameter">
+            <h2>Đặt May Theo Số Đo
+            </h2>
+            <form id="form__parameter" action="#!">
+                <p>Vui lòng nhập đủ thông tin bên dưới. Chúng tôi sẽ gọi xác nhận và tư vấn size trước khi may.</p>
+                <div class="form__parameter">
+                    <label class="form__block form__label">
+                        Dài áo
+                        <div class="form__block-inner">
+                            <input id="parameter_1" type="text" class="form__input">
+                            <span class="form__unit">cm</span>
+                        </div>
+                        <span class="form__error"></span>
+                    </label>
+                    <label class="form__block form__label">
+                        Ngang ngực
+                        <div class="form__block-inner">
+                            <input id="parameter_2" type="text" class="form__input">
+                            <span class="form__unit">cm</span>
+                        </div>
+                        <span class="form__error"></span>
+                    </label>
+                    <label class="form__block form__label">
+                        Dài tay
+                        <div class="form__block-inner">
+                            <input id="parameter_3" type="text" class="form__input">
+                            <span class="form__unit">cm</span>
+                        </div>
+                        <span class="form__error"></span>
+                    </label>
+                    <label class="form__block form__label">
+                        Rộng vai
+                        <div class="form__block-inner">
+                            <input id="parameter_4" type="text" class="form__input">
+                            <span class="form__unit">cm</span>
+                        </div>
+                        <span class="form__error"></span>
+                    </label>
+                </div>
+                <button type="submit" class="button--hover button">Gửi đi</button>
+            </form>
+        </div>
+        <div class="modal__blur"></div>
+    </div>
+
 </main>
 <!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
 <footer id="footer">
