@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../../assets/css/reset.css">
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/admin/admin.css">
-    <title>Admin</title>
+    <title>Admin_user</title>
 </head>
 <body>
 <header id="header">
@@ -62,69 +62,7 @@
     <section class="content">
         <div class="container-xl">
             <div class="row">
-                <div class="col-3">
-                    <aside class="filler">
-                        <form class="form">
-                            <article action="#!" class="filler__block">
-                                <h2 class="filler__heading">Thời gian</h2>
-                                <input type="date" name="" class="filter__date">
-
-                            </article>
-                            <article class="filler__payment-method filler__block">
-                                <h2 class="filler__heading">Phương thức thanh toán</h2>
-                                <label class="filter__label check">
-                                    <input type="radio" name="payment" class="filter__input" hidden="true">
-                                    Tiền mặt
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="payment" class="filter__input" hidden="true">
-                                    Chuyển khoản
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="payment" class="filter__input" hidden="true">
-                                    Ví điện tử
-                                </label>
-                            </article>
-
-                            <article class="filler__block">
-                                <h2 class="filler__heading">Trạng thái phê duyệt</h2>
-                                <label class="filter__label check">
-                                    <input type="radio" name="passing" class="filter__input" hidden="true">
-                                    Đã xác nhận
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="passing" class="filter__input" hidden="true">
-                                    Chưa xác nhận
-                                </label>
-                            </article>
-
-                            <article class="filler__block">
-                                <h2 class="filler__heading">Trạng thái vận chuyển</h2>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đơn dã đặt
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đang chuẩn bị
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đang giao
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đã giao
-                                </label>
-                            </article>
-                            <div class="filter__buttons">
-                                <input type="reset" class="button filter__button button--hover" value="Chọn lại">
-                                <button class="button filter__button button--hover" type="submit">Lọc</button>
-                            </div>
-                        </form>
-                    </aside>
-                </div>
-                <div class="col-9">
+                <div class="col-12">
                     <form action="" class=form__search>
                         <article action="#!" class="form__search-block">
                             <i class="search__icon fa-solid fa-magnifying-glass"></i>
@@ -153,15 +91,17 @@
                                         <input type="checkbox" name="passing" class="filter__input" hidden="true">
                                     </label>
                                 </th>
-
                                 <th class="table__head">Chỉnh sửa</th>
-                                <th class="table__head">Mã sản phẩm</th>
-                                <th class="table__head">Tên sản phẩm</th>
-                                <th class="table__head">
-                                    Phân loại sản phẩm
-                                </th>
-                                <th class="table__head">Giá gốc</th>
-                                <th class="table__head">Giá giảm</th>
+                                <th class="table__head">Mã người dùng</th>
+                                <th class="table__head">Tên đăng nhập</th>
+                                <th class="table__head">Mật khẩu</th>
+                                <th class="table__head">Email</th>
+                                <th class="table__head">Họ Tên</th>
+                                <th class="table__head">Ngày sinh</th>
+                                <th class="table__head">Số điện thoại</th>
+                                <th class="table__head">Địa chỉ</th>
+                                <th class="table__head">Xác thực</th>
+                                <th class="table__head">Vai trò</th>
                             </tr>
                             </thead>
                             <tbody>
