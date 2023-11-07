@@ -753,3 +753,10 @@ function getCategory(id) {
     return null;
 }
 
+function getProduct(id){
+    for (let i = 0; i < listProduct.length; i++) {
+        if (listProduct[i].id == id)
+            return listProduct[i];
+    }
+    return null;
+}

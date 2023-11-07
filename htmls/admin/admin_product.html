@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../../assets/css/reset.css">
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/admin/admin.css">
-    <title>Admin</title>
+    <title>Document</title>
 </head>
 <body>
 <header id="header">
@@ -32,7 +32,7 @@
                                                                                                         tôi</a>
                         </div>
                         <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
-                                                                                                       xuất</a></d>
+                                                                                                       xuất</a>
                         </div>
                     </div>
                 </div>
@@ -44,102 +44,35 @@
     <nav class="navbar">
         <div class="container-xl">
             <ul class="navbar__list">
-                <li
-                        class="navbar__item"><a href="#!"
-                                                class="navbar__link button button button--hover navbar__link--clicked">Sản
-                                                                                                                       phẩm</a>
+                <li class="navbar__item"><a href=""
+                                            class="navbar__link button button button--hover navbar__link--clicked">Sản
+                                                                                                                   phẩm</a>
                 </li>
-                <li class="navbar__item"><a href="./admin__orders.html"
-                                            class="navbar__link button button button--hover ">Đơn
-                                                                                                                   hàng</a>
+                <li class="navbar__item"><a href="" class="navbar__link button button button--hover ">Khách hàng</a>
                 </li>
-                <li class="navbar__item"><a href="./admin__users.html" class="navbar__link button button button--hover ">Khách hàng</a>
-                </li>
+                <li class="navbar__item"><a href="" class="navbar__link button button button--hover ">Đơn
+                                                                                                      hàng</a></li>
+                <li class="navbar__item"><a href="" class="navbar__link button button button--hover ">Thống kê</a></li>
             </ul>
         </div>
     </nav>
     <section class="content">
         <div class="container-xl">
             <div class="row">
-                <div class="col-3">
-                    <aside class="filler">
-                        <form action="#!" class="form">
-                            <!--Search-->
-                            <article action="#!" class="form__search-block filler__block">
-                                <i class="search__icon fa-solid fa-magnifying-glass"></i>
-                                <input type="text" name="search">
-                                <select name="searchType" id="" class="search__select">
-                                    <option value="id" class="search__option">Mã đơn hàng</option>
-                                    <option value="name" class="search__option">Tên đơn hàng</option>
-                                    <option value="idCategory" class="search__option">Danh mục</option>
-                                </select>
-                            </article>
-
-                            <article action="#!" class="filler__block">
-                                <h2 class="filler__heading">Thời gian</h2>
-                                <input type="date" name="date" class="filter__date">
-                            </article>
-                            <article class="filler__payment-method filler__block">
-                                <h2 class="filler__heading">Phương thức thanh toán</h2>
-                                <label class="filter__label check">
-                                    <input type="radio" name="payment" class="filter__input" hidden="true">
-                                    Tiền mặt
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="payment" class="filter__input" hidden="true">
-                                    Chuyển khoản
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="payment" class="filter__input" hidden="true">
-                                    Ví điện tử
-                                </label>
-                            </article>
-
-                            <article class="filler__block">
-                                <h2 class="filler__heading">Trạng thái phê duyệt</h2>
-                                <label class="filter__label check">
-                                    <input value="verify" type="radio" name="passing" class="filter__input"
-                                           hidden="true">
-                                    Đã xác nhận
-                                </label>
-                                <label class="filter__label check">
-                                    <input value="noVerify" type="radio" name="passing" class="filter__input"
-                                           hidden="true">
-                                    Chưa xác nhận
-                                </label>
-                            </article>
-
-                            <article class="filler__block">
-                                <h2 class="filler__heading">Trạng thái vận chuyển</h2>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" value="" class="filter__input"
-                                           hidden="true">
-                                    Đơn đã đặt
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đang chuẩn bị
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đang giao
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đã giao
-                                </label>
-                            </article>
-                            <div class="filter__buttons">
-                                <input type="reset" class="button filter__button button--hover" value="Chọn lại">
-                                <button class="button filter__button button--hover filter__submit" type="submit">Lọc
-                                </button>
-                            </div>
-                        </form>
-                    </aside>
-                </div>
-                <div class="col-9">
+                <div class="col-12">
                     <div>
                         <h1>Danh sách sản phẩm</h1>
+                        <!--Search-->
+                        <article action="#!" class="form__search-block filler__block">
+                            <i class="search__icon fa-solid fa-magnifying-glass"></i>
+                            <input type="text" name="search">
+                            <select name="searchType" class="search__select">
+                                <option value="id" class="search__option">Mã đơn hàng</option>
+                                <option value="name" class="search__option">Tên đơn hàng</option>
+                                <option value="idCategory" class="search__option">Danh mục</option>
+                            </select>
+                        </article>
+
                         <div id="button-add-product" class="button button__add">
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
@@ -177,7 +110,7 @@
                                     </label>
                                 </td>
                                 <td class="table__data-edit">
-                                    <label class="" for="">
+                                    <label class="">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </label>
                                 </td>
@@ -206,7 +139,7 @@
                                     </label>
                                 </td>
                                 <td class="table__data-edit">
-                                    <label class="" for="">
+                                    <label class="">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </label>
                                 </td>
@@ -235,7 +168,7 @@
                                     </label>
                                 </td>
                                 <td class="table__data-edit">
-                                    <label class="" for="">
+                                    <label class="">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </label>
                                 </td>
@@ -264,7 +197,7 @@
                                     </label>
                                 </td>
                                 <td class="table__data-edit">
-                                    <label class="" for="">
+                                    <label class="">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </label>
                                 </td>
