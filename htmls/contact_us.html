@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!--Các thư viện hỗ trợ-->
     <!--Font Awesome-->
@@ -14,17 +15,17 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="../assets/favicon/site.webmanifest">
     <!--Web font-->
-    <link rel="stylesheet" href="../assets/font/stylesheet.css">
+    <!--    <link rel="stylesheet" href="../assets/font/stylesheet.css">-->
+
+    <link rel="stylesheet" href="../assets/font/webfonts/Montserrat.css">
 
     <!--CSS-->
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/base.css">
-    <link rel="stylesheet" href="../assets/css/home.css">
-    <script src="../js/home.js"></script>
-    <title>May đồ theo yêu cầu</title>
+    <link rel="stylesheet" href="../assets/css/contact_us.css">
+    <title>Title</title>
 </head>
 <body>
-<!--Header nơi chứa navigation-->
 <header id="header">
     <nav class="nav">
         <div class="container-xl">
@@ -53,113 +54,87 @@
 
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main">
-    <!--Hero-->
-    <div class="hero">
-        <img src="../assets/img/hero__img.png" alt="" class="hero__img">
-        <div class="hero__slogan">
-            <h1>Change Your Styles Now</h1>
-            <p>Cùng chúng tôi tạo nên thiết kế khác biệt cho quần áo của bạn</p>
-            <button class="hero__button button button--hover">Bắt đầu thiết kế</button>
-        </div>
-    </div>
+    <div class="container-xl">
+        <div class="contact_us row">
+            <div class="title_method-contact col">
+                <h2>Liên hệ</h2>
+                <p>Bạn có muốn liên lạc với chúng tôi? Nếu có thì bạn hãy điền đầy đủ thông tin vào form và chúng sẽ cố gắng phản hồi sớm nhất trong vòng 24h. Hoặc bạn có thể liên hệ với chúng tôi thông qua các phương thức bên dưới</p>
+                <div class="get-in-touch">
+                    <h2>Phương thức liên hệ</h2>
+                    <div class="contact-method">
+                        <div class="icon-contact">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div class="contact-description">
+                            <p>Địa chỉ</p>
+                            <p>721 Huỳnh Tấn Phát, Phường Phú Thuận, Quận 7, Tp. Hồ Chí Minh</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="icon-contact">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="contact-description">
+                            <p>Số điện thoại</p>
+                            <p>08xxxxxxxx</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="icon-contact">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="contact-description">
+                            <p>Email</p>
+                            <p>yourstyle@support.com</p>
+                        </div>
+                    </div>
+                </div>
+                <img src="../assets/img/contactus.svg">
+            </div>
 
-    <div class="slider_advert-section">
-        <div class="slider-container">
-            <figure class="slider">
-                <img class="img-item" src="../assets/img/slider/T-Shirt.png">
-                <img class="img-item" src="../assets/img/slider/Hoodie.png">
-                <img class="img-item" src="../assets/img/slider/Vest.png">
-                <img class="img-item" src="../assets/img/slider/Pants.png">
-            </figure>
-            <div class="navigation-button nav_prev">
-                <i class="fa-solid fa-chevron-left"></i>
-            </div>
+            <form method="post" id="contact_us-form" class="col">
+                <div class="form__block">
+                    <label for="fullname" class="form__label">Họ và tên *</label>
+                    <input class="form__input" type="text" id="fullname" name="fullname">
+                    <span class="error-notice"></span>
+                </div>
 
-            <div class="navigation-button nav_next">
-                <i class="fa-solid fa-chevron-right"></i>
-            </div>
-        </div>
-    </div>
+                <div class="form__block">
+                    <label for="email" class="form__label">Email *</label>
+                    <input class="form__input" type="email" id="email" name="email">
+                    <span class="error-notice"></span>
+                </div>
 
-    <div class="popular-section container-xl">
-        <div class="title">
-            <span>Phổ biến</span>
-            <a>Xem thêm</a>
+                <div class="form__block">
+                    <label for="subject" class="form__label">Chủ đề</label>
+                    <input class="form__input" type="text" id="subject" name="subject">
+                </div>
+
+                <div class="form__block">
+                    <label for="message" class="form__label">Chúng tôi có thể giúp gì được cho bạn?</label>
+                    <textarea id="message" name="message" class="form__textarea" rows="12"></textarea>
+                </div>
+<!--                <button class="form__submit">Gửi</button>-->
+                <input type="submit" class="form__submit" value="Gửi">
+            </form>
         </div>
-        <div class="content">
-            <div class="model_product item1">
-                <img src="../assets/img/product_img/product1/img1.png">
-                <div class="information-product">
-                    <span class="status">Most required</span>
-                    <a class="name-product" href="#">Áo thun cotton unisex basic tee</a>
-                    <div class="review-product">
-                        <div class="icon-review">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <a href="#">1000 nhận xét</a>
-                    </div>
-                    <span class="price"><strong class="sale-price">240,000₫</strong> <s class="original-price">300,000₫</s></span>
-                </div>
-            </div>
-            <div class="model_product item2">
-                <img src="../assets/img/product_img/product2/img1.png">
-                <div class="information-product">
-                    <span class="status">Most required</span>
-                    <a class="name-product" href="#">Áo hoodie unisex nỉ bông cotton</a>
-                    <div class="review-product">
-                        <div class="icon-review">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <a href="#">1000 nhận xét</a>
-                    </div>
-                    <span class="price"><strong class="sale-price">240,000₫</strong> <s class="original-price">300,000₫</s></span>
-                </div>
-            </div>
-            <div class="model_product item3">
-                <figure><img src="../assets/img/product_img/product3/img1.png"></figure>
-                <div class="information-product">
-                    <span class="status">Most required</span>
-                    <a class="name-product" href="#">Áo polo nam trơn basic</a>
-                    <div class="review-product">
-                        <div class="icon-review">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <a href="#">1000 nhận xét</a>
-                    </div>
-                    <span class="price"><strong class="sale-price">240,000₫</strong> <s class="original-price">300,000₫</s></span>
-                </div>
-            </div>
-            <div class="model_product item4">
-                <img src="../assets/img/product_img/product4/img1.png">
-                <div class="information-product">
-                    <span class="status">Most required</span>
-                    <a class="name-product" href="#">Quần pants túi hộp unisex</a>
-                    <div class="review-product">
-                        <div class="icon-review">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <a href="#">1000 nhận xét</a>
-                    </div>
-                    <span class="price"><strong class="sale-price">240,000₫</strong> <s class="original-price">300,000₫</s></span>
-                </div>
-            </div>
-        </div>
+        <script src="../js/validate_contactForm.js"></script>
+        <script>
+            ValidatorContactForm({
+                form: '#contact_us-form',
+                formBlockSelector: '.form__block',
+                errorSelector: '.error-notice',
+                rules: [
+                    ValidatorContactForm.isRequired('#fullname'),
+                    ValidatorContactForm.isRequired('#email'),
+                    ValidatorContactForm.isEmail('#email')
+                ],
+                onSubmit: function (data){
+                    console.log(data)
+                }
+            });
+        </script>
+
     </div>
 </main>
 <!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
@@ -167,7 +142,7 @@
     <div class="container-xl">
         <a href="#" class="logo"></a>
         <div class="row">
-            <div class="col">
+            <div class="col ">
                 <div class="footer__block">
                     <p class="footer__title">Giờ làm việc</p>
                     <p class="footer__desc">9:00 - 17:00</p>
