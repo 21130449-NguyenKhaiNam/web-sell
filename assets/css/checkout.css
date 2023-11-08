@@ -1,0 +1,32 @@
+.checkout__title{
+    font-size: 40px;
+    font-weight: 800;
+    margin: 40px 0 26px;
+    color: var(--blue-color-high);
+}
+
+.delivery__info--container{
+    margin-bottom: 40px;
+}
+
+.checkout__subtitle{
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    animation: bounce 1s infinite;
+}
+
+/*animation*/
+
+.radio__button{
+    margin: auto 22px;
+    height: 22px;
+    width: 22px;
+    accent-color: var(--blue-color-high);
+}
+
+label[class="label__selection"]{
+    width: 100%;
+    font-weight: 520;
+    font-size: 20px;
+}
