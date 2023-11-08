@@ -16,7 +16,21 @@
     animation: bounce 1s infinite;
 }
 
-/*animation*/
+@keyframes bounce {
+    0%, 100%{
+        transform: translateX(0);
+    }
+    50%{
+        transform: translateX(10px);
+    }
+}
+
+.delivery__info--container .checkout__subtitle::before{
+    content: "\f48b";
+    font-family: "Font Awesome 6 Free";
+    margin-right: 8px;
+    color: var(--blue-color-medium)
+}
 
 .radio__button{
     margin: auto 22px;
