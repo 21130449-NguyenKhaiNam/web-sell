@@ -1,10 +1,14 @@
 var bodyTable = document.querySelector(".table tbody");
 
-function loadDataToTable(product) {
+function productToHTML(product) {
+    const vndFormat = Intl.NumberFormat("vi-VI", {
+        style: "currency",
+        currency: "VND",
+    });
     return `<tr class="table__row">
                 <td class="table__date-checkbox">
                     <label class="check">
-                        <input type="checkbox" name="passing" class="filter__input" hidden="true">
+                        <input type="checkbox" class="filter__input" hidden="true">
                     </label>
                 </td>
                 <td class="table__data-edit">
@@ -19,21 +23,31 @@ function loadDataToTable(product) {
                     <p class="table__cell">${product.name}</p>
                 </td>
                 <td class="table__data">
-                    <p class="table__cell">${getCategory(product.idCategory).nameType}</p>
+                    <p class="table__cell">${getCategory(product.categoryId).nameType}</p>
                 </td>
                 <td class="table__data">
-                    <p class="table__cell">${product.basePrice}đ</p>
+                    <p class="table__cell">${vndFormat.format(product.basePrice)}</p>
                 </td>
                 <td class="table__data">
-                    <p class="table__cell">${product.salePrice}đ</p>
+                    <p class="table__cell">${vndFormat.format(product.salePrice)}</p>
                 </td>
         </tr>`;
 }
 
-var htmls = listProduct.map(function (element) {
-    return loadDataToTable(element);
-});
-bodyTable.innerHTML = htmls.join("");
+function loadListToTable(listProduct) {
+    const htmls = listProduct.map(function (product) {
+        return productToHTML(product);
+    });
+    bodyTable.innerHTML = htmls.join("");
+
+    const allRows = bodyTable.querySelectorAll(".table__row");
+    allRows.forEach(function (row) {
+        editProduct(row);
+    })
+
+}
+
+loadListToTable(listProduct);
 
 // Paging for product cart
 var pagingReview = new Paging({
@@ -48,54 +62,58 @@ var pagingReview = new Paging({
     nextBtn: "page--next",
 });
 
+// Open/close dialog (add + edit dialog)
 var addProductBtn = document.querySelector("#button-add-product");
 var removeProductBtn = document.querySelector("#button-remove-product");
-//Add new product Dialog
-var dialogProduct = document.querySelector("#dialog-product");
-var dialogClose = document.querySelector("#dialog-product-close");
-var blurDialog = document.querySelector(".modal__blur");
+var productDialog = document.querySelector("#dialog-product-add");
+var closeDialog = productDialog.querySelector(".modal__product-close");
+var blurDialog = productDialog.querySelector(".modal__blur");
 addProductBtn.onclick = function () {
-    dialogProduct.style.display = "block";
+    productDialog.style.display = "block";
 };
-dialogClose.onclick = function () {
-    dialogProduct.style.display = "none";
+closeDialog.onclick = function () {
+    productDialog.style.display = "none";
 };
 
 blurDialog.onclick = function () {
-    dialogProduct.style.display = "none";
+    productDialog.style.display = "none";
 };
+loadCategoryModal(productDialog);
+loadImg(productDialog);
+addSize(productDialog);
 
-// Search by name Product
-var keyword = document.querySelector(`input[name="search"]`);
-var searchType = document.querySelector(`select[name = "searchType"]`);
-
-function search() {
-    let listProductField = [];
-    const name = keyword.value;
-    console.log(name);
-    const type = searchType[searchType.selectedIndex];
-    listProduct.forEach(function (product) {
-        if (product[type.value].toLowerCase().includes(name.toLowerCase())) listProductField.push(product);
-    });
-    loadProduct(listProductField);
+// Add/remove form size
+function addSize(dialog) {
+    const addSizeBtn = dialog.querySelector(".form__add-size");
+    const formSizes = dialog.querySelector(".form__sizes");
+    addSizeBtn.onclick = function () {
+        const formSizeHTML = `<div class="form__size" onclick="removeSize(this)">
+                                        <input type="text" name="size" class="form__size-input">
+                                            <i class="form__size-delete fa-solid fa-xmark" ></i>
+                                    </div>`;
+        formSizes.insertAdjacentHTML("beforeend", formSizeHTML);
+    }
 }
 
-function loadProduct(listProduct) {
-    const htmls = listProduct.map(function (product) {
-        return loadDataToTable(product);
-    });
-    bodyTable.innerHTML = htmls.join("");
+function removeSize(formSize) {
+    const formSizeDelete = formSize.querySelector(".form__size-delete");
+    formSizeDelete.onclick = function (e) {
+        formSize.remove();
+    }
 }
 
-keyword.onchange = function () {
-    search();
-};
-searchType.onchange = function () {
-    search();
-};
+//Add new product dialog
+function loadCategoryModal(dialog) {
+    const categorySelect = dialog.querySelector(" .form__select");
+    let htmlsCategory = listCategories.map(function (category) {
+        return `<option name="category" value="${category.id}" class="form__option">${category.nameType}</option>`
+    });
+    categorySelect.innerHTML = htmlsCategory.join("");
+}
 
-// Delete
-var listProducDeleted = [];
+
+// Delete product
+var listProductDeleted = [];
 function deleteProduct(){
     var checkBoxCell = document.querySelectorAll(".table__row .table__date-checkbox input");
     checkBoxCell.forEach(function (element) {
@@ -104,33 +122,42 @@ function deleteProduct(){
             const product = getProduct(id);
             if (element.checked) {
                 // add
-                listProducDeleted.push(product);
+                listProductDeleted.push(product);
+                console.log(1)
             } else {
                 // remove
-                removeProductInList(product, listProducDeleted);
+                removeProductInList(product, listProductDeleted);
             }
-
-            if (listProducDeleted.length != 0) {
-                removeProductBtn.style.display = "block";
-                addProductBtn.style.display = "none";
-            } else {
-                removeProductBtn.style.display = "none";
-                addProductBtn.style.display = "block";
-            }
+            showHideDeleteBtn();
         };
-        deleteProduct();
     });
-
 }
+
+deleteProduct();
+
+function showHideDeleteBtn() {
+    if (listProductDeleted.length != 0) {
+        removeProductBtn.style.display = "block";
+        addProductBtn.style.display = "none";
+    } else {
+        removeProductBtn.style.display = "none";
+        addProductBtn.style.display = "block";
+    }
+}
+
 removeProductBtn.onclick = function () {
-    listProducDeleted.forEach(function (element) {
+    // Delete product in listProduct
+    listProductDeleted.forEach(function (element) {
         removeProductInList(element, listProduct);
     });
-    var htmls = listProduct.map(function (element) {
-        return loadDataToTable(element);
-    });
-    bodyTable.innerHTML = htmls.join("");
+    // Delete all listProductDeleted
+    listProductDeleted = [];
+    // Load product list
+    loadListToTable(listProduct);
+    deleteProduct();
+    showHideDeleteBtn();
 };
+
 function removeProductInList(product, list) {
     for (let i = 0; i < list.length; i++) {
         if (product.id == list[i].id) {
@@ -140,6 +167,79 @@ function removeProductInList(product, list) {
     }
 }
 
+// Edit product dialog
+function editProduct(productRow) {
+    let id = productRow.querySelector(".table__data-id");
+    // Open/close dialog
+    const editDialog = document.querySelector("#dialog-product-edit");
+    const closeDialog = editDialog.querySelector(".modal__product-close");
+    const blurDialog = editDialog.querySelector(".modal__blur");
+    const editBtn = productRow.querySelector(".table__data-edit");
+    editBtn.onclick = function () {
+        editDialog.style.display = "block";
+
+        const product = getProduct(id.innerText);
+
+        // Query input
+        id = editDialog.querySelector(`input[name="id"]`);
+        const name = editDialog.querySelector(`input[name="name"]`);
+        const originalPrice = editDialog.querySelector(`input[name="originalPrice"]`);
+        const salePrice = editDialog.querySelector(`input[name="salePrice"]`);
+        loadCategoryModal(editDialog);
+        const category = editDialog.querySelector(`select[name="idCategory"]`);
+        const sizes = editDialog.querySelector(".form__sizes");
+
+        // fill product data to input
+        id.value = product.id;
+        name.value = product.name;
+        originalPrice.value = product.basePrice;
+        salePrice.value = product.salePrice;
+        const categoryChoose = category.querySelector(`option[value="${product.categoryId}"]`);
+        categoryChoose.setAttribute("selected", "true");
+
+        const arraySize = JSON.parse(product.size);
+        const sizeHTML = arraySize.map(function (size, index) {
+            if (index == 0) {
+                return `<div class="form__size">
+                            <input type="text" name="size" value="${size}" class="form__size-input">
+                        </div>`;
+            }
+            return `<div class="form__size" onclick="removeSize(this)">
+                        <input type="text" name="size" value="${size}" class="form__size-input">
+                            <i class="form__size-delete fa-solid fa-xmark" ></i>
+                    </div>`;
+        });
+        sizes.innerHTML = sizeHTML.join("");
+    }
+    closeDialog.onclick = function () {
+        editDialog.style.display = "none";
+    }
+    blurDialog.onclick = function () {
+        editDialog.style.display = "none";
+    }
+    addSize(editDialog);
+    loadImg(editDialog);
+}
+
+//load img product
+function loadImg(dialog) {
+    const formPreviewImg = dialog.querySelector(".form__preview-img");
+    const imgPreview = formPreviewImg.querySelector("img");
+    const imgInput = formPreviewImg.querySelector('.form__file');
+    const icon = formPreviewImg.querySelector(".form__preview-icon");
+    imgInput.addEventListener('change', function () {
+        const chooseFile = this.files[0];
+        if (chooseFile) {
+            icon.style.display = "none";
+            imgPreview.style.display = "block";
+            const reader = new FileReader();
+            reader.addEventListener('load', function () {
+                imgPreview.setAttribute('src', reader.result);
+            })
+            reader.readAsDataURL(chooseFile);
+        }
+    })
+}
 function getParentNode(childElement, parentSelector) {
     while (!childElement.classList.contains(parentSelector)) {
         childElement = childElement.parentElement;
@@ -147,6 +247,28 @@ function getParentNode(childElement, parentSelector) {
     return childElement;
 }
 
+// Search by name Product
+// var keyword = document.querySelector(`input[name="search"]`);
+// var searchType = document.querySelector(`select[name = "searchType"]`);
+//
+// function search() {
+
+//     let listProductField = [];
+//     const name = keyword.value;
+//     console.log(name);
+//     const type = searchType[searchType.selectedIndex];
+//     listProduct.forEach(function (product) {
+//         if (product[type.value].toLowerCase().includes(name.toLowerCase())) listProductField.push(product);
+//     });
+//     loadProduct(listProductField);
+// }
+
+// keyword.onchange = function () {
+//     search();
+// };
+// searchType.onchange = function () {
+//     search();
+// };
 //Filter
 // var search = document.querySelector(`input[name="search"]`);
 // var date = document.querySelector(`input[name="date"]`);

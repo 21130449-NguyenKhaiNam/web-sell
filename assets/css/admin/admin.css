@@ -383,21 +383,7 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
     padding: 10px 0;
 }
 
-.form__preview-img {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    --size: 300px;
-    width: var(--size);
-    height: var(--size);
-    background-color: #cccccc;
-    margin: 0 auto;
-    border: 1px solid #1f1f1f;
-}
 
-.form__preview-icon {
-    font-size: 100px;
-}
 
 .form__desc .form__title {
     display: inline-block;
