@@ -109,3 +109,15 @@ label[class="label__selection"]{
 .register__address:hover{
     background-color: var(--blue-color-high);
 }
+
+.payment__method--container .checkout__subtitle::before{
+    content: "\f53c";
+    font-family: "Font Awesome 6 Free";
+    margin-right: 8px;
+    color: var(--blue-color-medium)
+}
+
+.payment__method--container #payment__method--form{
+    display: grid;
+    gap: 12px;
+}
