@@ -59,91 +59,33 @@
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main">
     <div class="container-xl">
+
         <div class="row">
+            <h1 class="checkout__title">Thanh toán</h1>
             <div class="col">
-                <h1 class="checkout__title">Thanh toán</h1>
                 <div class="delivery__info--container">
                     <h2 class="checkout__subtitle">Giao tới</h2>
                     <form id="delivery__info--form">
-                        <input type="radio" name="default__info" class="select__content" value="default__info"
-                               id="default__info">
-                        <label for="default__info">
-                            <ul id="info__items">
-                                <li class="info__item">Họ và tên: Nguyễn Văn A</li>
-                                <li class="info__item">Email: nguyenvana@gmail.com</li>
-                                <li class="info__item">Phone: 08xxxxxxxx</li>
-                                <li class="info__item">Địa chỉ: Đường ABC, huyện XYZ</li>
-                            </ul>
-                        </label>
-                        <div class="other__delivery">
-                            <input type="radio" name="other__info" class="select__content" value="other__info"
-                                   id="other__info">
-                            <label for="other__info">Sử dụng thông tin khác khi nhận hàng</label>
-                            <form id="customize__info--form">
-                                <div class="customize__items">
-                                    <label for="full__name" class="input__text">Họ và tên</label>
-                                    <input type="text" name="full__name" class="input__content" id="full__name">
-                                </div>
-                                <div class="customize__items">
-                                    <label for="email" class="input__text">Email</label>
-                                    <input type="text" name="email" class="input__content" id="email">
-                                </div>
-                                <div class="customize__items">
-                                    <label for="phone" class="input__text">Số điện thoại</label>
-                                    <input type="text" name="phone" class="input__content" id="phone">
-                                </div>
-                                <div class="customize__items">
-                                    <label for="address" class="input__text">Địa chỉ</label>
-                                    <textarea class="input__content" id="address"></textarea>
-                                </div>
-                            </form>
+                        <div class="delivery__default delivery__info--selection">
+                            <input type="radio" name="default__selection" class="radio__button" value="default__selection"
+                                   id="default__selection">
+                            <label for="default__selection">
+                                <ul class="info__items">
+                                    <li class="info__item">Họ và tên: Nguyễn Văn A</li>
+                                    <li class="info__item">Email: nguyenvana@gmail.com</li>
+                                    <li class="info__item">Số điện thoại: 08xxxxxxxx</li>
+                                    <li class="info__item">Địa chỉ: Đường ABC, huyện XYZ</li>
+                                </ul>
+                            </label>
                         </div>
                     </form>
-                </div>
-                <div class="payment__method--container">
-                    <h2 class="checkout__subtitle">Phương thúc thanh toán</h2>
-                    <form id="payment__method--form">
-                        <div class="method__item">
-                            <input type="radio" name="payment__method" class="select__content" value="payment__method"
-                                   id="cash">
-                            <label for="cash">Thanh toán tiền mặt khi nhận hàng</label>
-                        </div>
-                        <div class="method__item">
-                            <input type="radio" name="payment__method" class="select__content" value="bank" id="bank">
-                            <label for="bank">Thanh toán qua atm nội địa / internet banking</label>
-                        </div>
-                        <div class="method__item">
-                            <input type="radio" name="payment__method" class="select__content" value="e-wallet"
-                                   id="e-wallet">
-                            <label for="e-wallet">Thanh toán qua ví điện tử</label>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="order__detail--container">
-                    <h2 class="checkout__subtitle">Chi tiết đơn hàng</h2>
-                    <div class="product__items">
-                        <div class="product__item">
-                            <div class="product__info">
-                                <img class="product__image" src="#!">
-                                <div class="order__properties">
-                                    <p class="product__name">Product Name</p>
-                                    <ul class="required__items">
-                                        <li class="required__item">Màu sắc: Đen</li>
-                                        <li class="required__item">Số lượng: 1</li>
-                                        <li class="required__item">Kích thứớc: 50 cm/50 cm/50 cm/50 cm</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <span class="subtotal__item">259000</span>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col">
 
             </div>
         </div>
+    </div>
     </div>
 </main>
 <!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
