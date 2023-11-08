@@ -30,3 +30,17 @@ label[class="label__selection"]{
     font-weight: 520;
     font-size: 20px;
 }
+
+#delivery__info--form{
+    display: grid;
+    gap: 12px;
+}
+
+.section__info--selection{
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid #D9D9D9;
+    background-color: #F7F9FA;
+    padding: 18px 0px;
+}
