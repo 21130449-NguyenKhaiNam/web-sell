@@ -178,5 +178,12 @@ ValidatorCustomizeDeliveryForm.isPhone = (selector) => {
 }
 
 function getCartItemsLastArray() {
-
+    const cartItemsRequiredJSON = localStorage.getItem('cartItemsRequired');
+    localStorage.setItem("cartItemsLast", cartItemsRequiredJSON);
+    let cartItemsLastArray = [];
+    const cartItemsLastObject = JSON.parse(cartItemsRequiredJSON);
+    for (let item in cartItemsLastObject) {
+        cartItemsLastArray.push(cartItemsLastObject[item]);
+    }
+    return cartItemsLastArray;
 }
