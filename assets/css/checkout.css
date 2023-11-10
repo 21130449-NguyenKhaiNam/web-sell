@@ -203,3 +203,20 @@ td, th{
     font-weight: 500;
     line-height: 22px;
 }
+
+.invoice--final{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invoice--final .total__price--final{
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.invoice--final .total__price--final .total__value{
+    font-size: 36px;
+    color: var(--blue-color-high);
+    margin-left: 4px;
+}
