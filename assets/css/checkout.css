@@ -179,3 +179,27 @@ td, th{
     text-align: center;
     vertical-align: middle;
 }
+
+.product__item {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.product__item img{
+    height: 100px;
+    width: auto;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.product__item .order__product--info{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.product__item .order__product--info .product__name {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+}
