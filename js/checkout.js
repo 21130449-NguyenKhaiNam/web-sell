@@ -189,6 +189,26 @@ function getCartItemsLastArray() {
 }
 
 function renderCartItemsLast() {
-
+    const cartItemsLastArray = getCartItemsLastArray();
+    const orderTableElement = document.querySelector(".order__table");
+    const cartItemsList = cartItemsLastArray.map((cartItem, index) => {
+        return `<tr class="row__content">
+                            <td class="td__item">${index + 1}</td>
+                            <td class="td__item">
+                                <div class="product__item">
+                                    <img src='${cartItem.productItem.image}'>
+                                    <div class="order__product--info">
+                                        <p class="product__name">${cartItem.productItem.name}</p>
+                                        <p class="order__color">Màu sắc: ${cartItem.productItem.color}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="td__item">${cartItem.quality}</td>
+                            <td class="td__item">${formatCurrency(cartItem.unitPrice)}</td>
+                        </tr>`
+    })
+    const cartItemsHTML = cartItemsList.join('');
+    orderTableElement.innerHTML += cartItemsHTML;
+    document.querySelector('.total__value').textContent = localStorage.getItem("totalPriceValue");
 }
 renderCartItemsLast();
