@@ -73,6 +73,7 @@ let cartItemsRequired = [
 
 const cartContainerElement = document.querySelector(".cart__container");
 function renderCartItem() {
+    cartItemsRequired = getCartItemsLastArray();
     const cartItemsElement = document.querySelector(".cart__items");
     if(cartItemsRequired.length === 0){
         cartContainerElement.innerHTML = emptyShoppingCartHLML;
