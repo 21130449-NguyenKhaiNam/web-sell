@@ -246,3 +246,10 @@ td, th{
     background-color: white;
     color: var(--blue-color-high);
 }
+
+.non__selected{
+    display: none;
+    color: #E40F0A;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
