@@ -124,3 +124,12 @@ label[class="label__selection"]{
     display: grid;
     gap: 12px;
 }
+
+.input-invalid{
+    border: 2px #E40F0A solid;
+}
+
+.error__notice{
+    font-size: 14px;
+    font-weight: 500;
+}
