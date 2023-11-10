@@ -72,6 +72,7 @@ let cartItemsRequired = [
 ];
 
 const cartContainerElement = document.querySelector(".cart__container");
+
 function renderCartItem() {
     const cartItemsElement = document.querySelector(".cart__items");
     if(cartItemsRequired.length === 0){
