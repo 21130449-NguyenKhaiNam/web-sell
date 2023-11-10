@@ -59,13 +59,13 @@
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main">
     <div class="container-xl">
-
-        <div class="row">
-            <h1 class="checkout__title">Thanh toán</h1>
-            <div class="col">
+        <div class="checkout__container row">
+            <div class="checkout__info--left col">
                 <div class="delivery__info--container">
+                    <h1 class="checkout__title">Thanh toán</h1>
                     <h2 class="checkout__subtitle">Chọn thông tin giao hàng</h2>
-                    <form id="delivery__info--form">
+                    <span class="non__selected">Vui lòng chọn thông tin giao hàng</span>
+                    <form id="delivery__info--form" class="radio__section">
                         <div class="delivery__default section__info--selection">
                             <input type="radio" name="default__selection" class="radio__button" value="default__selection"
                                    id="default__selection">
@@ -84,31 +84,36 @@
                                        id="other__selection">
                                 <label class="label__selection" for="other__selection">Sử dụng thông tin khác khi nhận hàng</label>
                             </div>
-                            <div id="customize__info--form">
-                                <div class="customize__item">
-                                    <label for="full__name" class="input__text">Họ và tên *</label>
-                                    <input type="text" name="full__name" class="input__content" id="full__name">
-                                </div>
-                                <div class="customize__item">
-                                    <label for="email" class="input__text">Email *</label>
-                                    <input type="text" name="email" class="input__content" id="email">
-                                </div>
-                                <div class="customize__item">
-                                    <label for="phone" class="input__text">Số điện thoại *</label>
-                                    <input type="text" name="phone" class="input__content" id="phone">
-                                </div>
-                                <div class="customize__item">
-                                    <label for="address" class="input__text">Địa chỉ *</label>
-                                    <textarea class="textarea__content" id="address" rows="10"></textarea>
-                                </div>
-                                <input type="submit" class="register__address" value="Đăng ký địa chỉ giao hàng">
-                            </div>
                         </div>
+                    </form>
+                    <form id="customize__info--form">
+                        <div class="customize__item">
+                            <label for="full__name" class="input__text">Họ và tên *</label>
+                            <input type="text" name="full__name" class="input__content" id="full__name">
+                            <span class="error__notice"></span>
+                        </div>
+                        <div class="customize__item">
+                            <label for="email" class="input__text">Email *</label>
+                            <input type="text" name="email" class="input__content" id="email">
+                            <span class="error__notice"></span>
+                        </div>
+                        <div class="customize__item">
+                            <label for="phone" class="input__text">Số điện thoại *</label>
+                            <input type="text" name="phone" class="input__content" id="phone">
+                            <span class="error__notice"></span>
+                        </div>
+                        <div class="customize__item">
+                            <label for="address" class="input__text">Địa chỉ *</label>
+                            <textarea class="textarea__content" name="address" id="address" rows="10"></textarea>
+                            <span class="error__notice"></span>
+                        </div>
+                        <input type="submit" class="register__address" value="Đăng ký địa chỉ giao hàng">
                     </form>
                 </div>
                 <div class="payment__method--container">
                     <h2 class="checkout__subtitle">Phương thức thanh toán</h2>
-                    <form id="payment__method--form">
+                    <span class="non__selected">Vui lòng chọn phương thức thanh toán</span>
+                    <form id="payment__method--form" class="radio__section">
                         <div class="method__item section__info--selection">
                             <input type="radio" name="payment__method" class="radio__button" value="payment__method"
                                    id="cash">
@@ -126,7 +131,27 @@
                     </form>
                 </div>
             </div>
-            <div class="col">
+            <div class="checkout__info--right col">
+                <div class="order__detail--info">
+                    <table class="order__table">
+                        <tr class="row__header">
+                            <th class="thead__item"></th>
+                            <th class="thead__item">Mẫu đồ</th>
+                            <th class="thead__item">Số lượng</th>
+                            <th class="thead__item">Đơn giá</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="invoice--final">
+                    <div class="total__price--final">
+                        <u class="total__label">Tổng tiền</u>:
+                        <span class="total__value"></span>
+                    </div>
+                    <div class="ground__button--forward">
+                        <button class="place__order">Đặt hàng</button>
+                        <a href="shopping_cart.html"><button class="back--shopping__cart">Quay lại giỏ hàng</button></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -198,4 +223,32 @@
     </div>
 </footer>
 </body>
+<script src="../js/shoppingCart.js"></script>
+<script src="../js/checkout.js"></script>
+
+
+<script>
+    ValidatorCustomizeDeliveryForm({
+        form: '#customize__info--form',
+        formBlockSelector: '.customize__item',
+        errorSelector: '.error__notice',
+        rules: [
+            ValidatorCustomizeDeliveryForm.isRequired('#full__name'),
+            ValidatorCustomizeDeliveryForm.isRequired('#phone'),
+            ValidatorCustomizeDeliveryForm.isPhone('#phone'),
+            ValidatorCustomizeDeliveryForm.isRequired('#address'),
+            ValidatorCustomizeDeliveryForm.isRequired('#email'),
+            ValidatorCustomizeDeliveryForm.isEmail('#email')
+        ],
+        onSubmit: function (dataInput){
+            const otherDeliveryLabelElement = document.querySelector('label[for="other__selection"]');
+            otherDeliveryLabelElement.innerHTML = `<ul class="info__items">
+                                                      <li class="info__item">Họ và tên: ${dataInput['full__name']}</li>
+                                                        <li class="info__item">Email: ${dataInput['email']}</li>
+                                                        <li class="info__item">Số điện thoại: ${dataInput['phone']}</li>
+                                                        <li class="info__item">Địa chỉ: ${dataInput['address']}</li>
+                                                   </ul>`;
+        }
+    });
+</script>
 </html>
