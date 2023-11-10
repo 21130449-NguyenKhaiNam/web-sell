@@ -241,5 +241,13 @@ function validateRadioSections() {
             window.location.href = '../htmls/shopping_cart.html';
         }
     })
+    const radioButtons = document.querySelectorAll('.radio__button');
+    radioButtons.forEach(radioButton =>{
+        radioButton.addEventListener("click", ()=>{
+            const radioSection = radioButton.closest(".radio__section");
+            const errorMessage = radioSection.parentElement.querySelector('.non__selected');
+            errorMessage.style.display = 'none';
+        })
+    })
 }
 validateRadioSections();
