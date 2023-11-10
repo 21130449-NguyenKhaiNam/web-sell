@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
     <link rel="stylesheet" href="../../assets/css/reset.css">
     <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/admin/admin.css">
     <link rel="stylesheet" href="../../assets/css/admin/admin_users.css">
     <title>Admin_user</title>
 </head>
@@ -58,17 +59,13 @@
                         <h1>Danh sách người dùng</h1>
                         <article action="#!" class="form__search-block filler__block">
                             <i class="search__icon fa-solid fa-magnifying-glass"></i>
-                            <input type="text" name="search">
-                            <select name="searchType" id="" class="search__select">
-                                <option value="id" class="search__option">Mã đơn hàng</option>
-                                <option value="name" class="search__option">Tên đơn hàng</option>
-                                <option value="idCategory" class="search__option">Danh mục</option>
-                            </select>
+                            <input id="search-input" type="text" name="search">
+
                         </article>
-                        <div id="button-remove-product" class="button button__delete">
+                        <button id="button-remove-product" class="button button__delete">
                             <i class="fa-solid fa-minus"></i>
                             Xóa người dùng
-                        </div>
+                        </button>
                     </div>
                     <div class="table__wrapper">
                         <table class="table ">
