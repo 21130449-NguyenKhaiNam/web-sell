@@ -212,3 +212,8 @@ function renderCartItemsLast() {
     document.querySelector('.total__value').textContent = localStorage.getItem("totalPriceValue");
 }
 renderCartItemsLast();
+
+function validateRadioSections() {
+
+}
+validateRadioSections();
