@@ -176,3 +176,7 @@ ValidatorCustomizeDeliveryForm.isPhone = (selector) => {
         }
     }
 }
+
+function getCartItemsLastArray() {
+
+}
