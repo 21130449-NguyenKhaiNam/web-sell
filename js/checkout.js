@@ -187,3 +187,8 @@ function getCartItemsLastArray() {
     }
     return cartItemsLastArray;
 }
+
+function renderCartItemsLast() {
+
+}
+renderCartItemsLast();
