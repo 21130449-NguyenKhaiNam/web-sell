@@ -214,6 +214,32 @@ function renderCartItemsLast() {
 renderCartItemsLast();
 
 function validateRadioSections() {
+    const placeOrderButton = document.querySelector(".place__order");
+    placeOrderButton.addEventListener('click', ()=>{
+        const radioSections = document.querySelectorAll('.radio__section');
+        let allSectionsSelected = true;
+        radioSections.forEach(radioSection => {
+            const radioButtons = radioSection.querySelectorAll('.radio__button');
+            const errorMessage = radioSection.parentElement.querySelector('.non__selected');
+            let sectionSelected = false;
 
+            radioButtons.forEach(radioButton => {
+                if (radioButton.checked) {
+                    sectionSelected = true;
+                }
+            });
+
+            if (!sectionSelected) {
+                allSectionsSelected = false;
+                errorMessage.style.display = 'block';
+            } else {
+                errorMessage.style.display = 'none';
+            }
+        });
+
+        if (allSectionsSelected) {
+            window.location.href = '../htmls/shopping_cart.html';
+        }
+    })
 }
 validateRadioSections();
