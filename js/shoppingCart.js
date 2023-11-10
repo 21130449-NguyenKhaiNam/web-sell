@@ -72,7 +72,6 @@ let cartItemsRequired = [
 ];
 
 const cartContainerElement = document.querySelector(".cart__container");
-
 function renderCartItem() {
     const cartItemsElement = document.querySelector(".cart__items");
     if(cartItemsRequired.length === 0){
@@ -149,6 +148,7 @@ function updateProvisionalItemNo(cartItemsRequired) {
     }
 }
 updateProvisionalItemNo(cartItemsRequired);
+
 
 function saveCartToLocalStorage(cartItemsRequired) {
     localStorage.setItem('cartItemsRequired', JSON.stringify(cartItemsRequired));
