@@ -133,3 +133,49 @@ label[class="label__selection"]{
     font-size: 14px;
     font-weight: 500;
 }
+
+.order__detail--info{
+    max-height: 566px;
+    overflow-y: auto;
+    margin-bottom: 36px;
+}
+
+.order__detail--info .order__table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th{
+    border: 1px solid #D9D9D9;
+    padding: 14px;
+}
+
+.order__detail--info .order__table .row__header .thead__item{
+    background-color: var(--blue-color-medium);
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.order__detail--info .order__table .row__header .thead__item:first-child{
+    width: 10px;
+}
+
+.order__detail--info .order__table .row__header .thead__item:nth-child(2){
+    width: 240px;
+}
+
+.order__detail--info .order__table .row__header .thead__item:nth-child(3){
+    width: 90px;
+}
+
+.order__detail--info .order__table .row__header .thead__item:last-child{
+    width: 80px;
+}
+
+.row__content .td__item:first-child, .row__content .td__item:nth-child(3), .row__content .td__item:last-child{
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+}
