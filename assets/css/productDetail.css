@@ -234,13 +234,13 @@ label:has(.form__radio:checked) {
 
 .form__submits {
     padding-top: 30px;
-    display: flex;
-    gap: 20px;
+    display: grid;
+    grid-template-areas:
+    'add buy'
+    'order order';
+    gap: 20px 10px;
 }
 
-.form__submits > * {
-    flex: 1;
-}
 
 .form__submit {
     position: relative;
@@ -252,14 +252,19 @@ label:has(.form__radio:checked) {
     background-color: unset;
 }
 
-.form__submit--order {
+.form__submit--add, .form__submit--order {
+    grid-area: order;
     --background-color-effect: var(--blue-color-medium);
     box-shadow: 0 0 0 2px var(--blue-color-medium);
 }
 
 .form__submit--buy {
+    grid-area: buy;
     background-color: var(--blue-color-medium);
     --background-color-effect: var(--blue-color-high);
+}
+.form__submit--add{
+    grid-area: add;
 }
 
 .form__submit::after {

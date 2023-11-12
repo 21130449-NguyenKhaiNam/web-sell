@@ -795,8 +795,6 @@ Tự hào sản xuất tại Việt Nam`,
         basePrice: 290000.0,
         salePrice: 200000.0
     },
-
-
 ];
 
 var listUser = [
@@ -1019,3 +1017,14 @@ function getProduct(id) {
     return null;
 }
 
+var productReview = {
+    productId: "product21",
+    color: "#3d3d3d",
+    size: `[
+    {"name": "Dài áo", "value": 68, "unit": "cm"},
+    {"name": "Ngang ngực", "value": 45, "unit": "cm"},
+    {"name": "Dài tay", "value": 70, "unit": "cm"},
+    {"name": "Rộng vai", "value": 50, "unit": "cm"}
+    ]`,
+    quantity: "2",
+}
