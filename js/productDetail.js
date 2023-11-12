@@ -8,9 +8,14 @@ function loadProduct() {
     let reviews = document.querySelector(".review__list");
     let formParameter = document.querySelector(".form__parameter");
 
+    const vndFormat = Intl.NumberFormat("vi-VI", {
+        style: "currency",
+        currency: "VND",
+    });
+
     name.innerText = productDetail.name;
-    basePrice.innerText = productDetail.basePrice + ".000đ";
-    salePrice.innerText = productDetail.salePrice + ".000đ";
+    basePrice.innerText = vndFormat.format(productDetail.basePrice);
+    salePrice.innerText = vndFormat.format(productDetail.salePrice);
     desc.innerText = productDetail.desc;
 
     function renderStar(quantity) {

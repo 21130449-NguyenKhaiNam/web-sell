@@ -1,8 +1,7 @@
 
 var listProductElement = document.querySelector(".product__list");
 var htmls = listProduct.map(function (product) {
-    return `<div class = "col-3" >
-                <div class = "model_product item4" >
+    return ` <div class = "model_product" >
                     <img src = "../assets/img/product_img/${product.imgSrc}" >
                     <div class = "information-product" >
                         <span class = "status" > Most required </span>
@@ -20,14 +19,13 @@ var htmls = listProduct.map(function (product) {
                         <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
                     </div>
                 </div>
-          </div>
 `;
 });
 listProductElement.innerHTML = htmls.join("");
 
 //Paging for product cart
 var pagingReview = new Paging({
-    itemSelector: `.product__list > [class ^= "col"]`,
+    itemSelector: `.model_product`,
     displayShowType: "flex",
     limit: 8,
     listPage: ".paging",
@@ -144,10 +142,9 @@ loadCategory();
 
 // categorySearch
 function filterProducts(category) {
-    const filteredProducts = listProduct.filter(product => getCategory(product.idCategory).nameType.toLowerCase().includes(category.toLowerCase()));
+    const filteredProducts = listProduct.filter(product => getCategory(product.categoryId).nameType.toLowerCase().includes(category.toLowerCase()));
     const htmls = filteredProducts.map(product => {
-        return `<div class = "col-3" >
-                <div class = "model_product item4" >
+        return `<div class = "model_product item4" >
                     <img src = "../assets/img/product_img/${product.imgSrc}" >
                     <div class = "information-product" >
                         <span class = "status" > Most required </span>
@@ -165,7 +162,6 @@ function filterProducts(category) {
                         <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
                     </div>
                 </div>
-          </div>
 `;
     });
     listProductElement.innerHTML = htmls.join("");

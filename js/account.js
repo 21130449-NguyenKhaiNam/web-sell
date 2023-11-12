@@ -39,12 +39,12 @@ var htmls = listProduct.slice(10,15).map(function (product) {
                 <img class="img__product block__img" src = "../assets/img/product_img/${product.imgSrc}" >
                 <div class="block__info">
                     <p class="info__product">${product.name}</p>
-                    <p class="info__product">${getCategory(product.idCategory).nameType}</p>
+                    <p class="info__product">${getCategory(product.categoryId).nameType}</p>
                     <p class="info__product">Số lượng: 1</p>
                     <p class="info__product">${product.salePrice}</p>
                     <p class="info__product">Ngày: 2/11/2023</p>
                 </div>
-                <button class="btn"><a href="../htmls/productDetail.html">đánh giá</a></button>
+                <button class="btn"><a href="../htmls/review.html">Đánh giá</a></button>
             </div>
 `
 });
