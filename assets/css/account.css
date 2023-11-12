@@ -67,11 +67,11 @@ h1{
     height: 100px;
     border-radius: 50%;
 
-    
+
 }
 #photo{
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid black;
@@ -90,7 +90,7 @@ h1{
     transform: translateX(-90%);
     margin-top: 75px;
     background-color: rgb(173,172,172,0.801);
-   ;
+;
 }
 
 .info-compo{
@@ -111,7 +111,7 @@ h1{
 }
 .gender__option select{
     width: 100%;
-    height: 40px;
+    padding: 16px 10px;
     border-radius: 8px;
     border: none;
     font-size: 18px;
@@ -121,31 +121,31 @@ h1{
 
 }
 #day{
-    /*width: 220px;*/
+    width: 30%;
     font-size: 18px;
 }
 #month{
-    width: 200px;
+    width: 30%;
     padding: 18px 10px;
     border-radius: 8px;
     border: none;
     margin: 0px 50px;
+    font-size: 18px;
 }
 #year{
-    width: 220px;
+    width: 30%;
     font-size: 18px;
 }
 .save {
     float: right;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    margin-right: 40px;
+    margin: 30px 0;
+    margin-right: 150px;
 }
 
 .save button {
     border-radius: 50px;
     height: 50px;
-    width: 170px;
+    width: 150%;
     background-color: #76f876;
     font-weight: bold;
     border: none;
@@ -184,9 +184,7 @@ h1{
 .info__oldPass, .info__newPass , .info__newPass--confirm{
     margin: 5px 100px;
 }
-.save__changePass{
-    margin-right: 100px;
-}
+
 .form__error {
     display: block;
     height: 20px;
@@ -202,7 +200,9 @@ h1{
 .invalid .input-compo {
     border: 1px solid red;
 }
-
+.save__changePass{
+    margin-top: 10px;
+}
 .block__product{
     display: flex;
     border-radius: 10px;
@@ -240,4 +240,3 @@ h1{
     background-color: #e0dfdf;
 
 }
-
