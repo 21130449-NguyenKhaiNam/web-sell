@@ -22,7 +22,7 @@
     <!--CSS-->
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/base.css">
-    <link rel="stylesheet" href="../assets/css/shoppingCart.css">
+    <link rel="stylesheet" href="../assets/css/contact.css">
     <title>Title</title>
 </head>
 <body>
@@ -57,58 +57,63 @@
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main">
     <div class="container-xl">
-        <h1 class="cart__title">Giỏ hàng</h1>
-        <div class="cart__container row">
-            <div class="cart__content col-9">
-                <div id="cart__header" class="grid__cart--template">
-                    <span>Mẫu đồ</span>
-                    <span>Giá may</span>
-                    <span>Số lượng</span>
-                    <span>Thành tiền</span>
-                    <span>Xóa</span>
-                </div>
-                <div class="cart__items">
-
-                </div>
-            </div>
-            <div class="invoice__promotion col-3">
-                <div class="apply__promotion">
-                    <u>Khuyến mãi</u>
-                    <form id="promotion__form">
-                        <div>
-                            <input type="text" name="promotion__code" id="promotion_code">
-                            <input type="submit" name="apply" value="Áp dụng" id="apply">
+        <div class="contact_us row">
+            <div class="title_method-contact col">
+                <h2>Liên hệ</h2>
+                <p>Bạn có muốn liên lạc với chúng tôi? Nếu có thì bạn hãy điền đầy đủ thông tin vào form và chúng sẽ cố gắng phản hồi sớm nhất trong vòng 24h. Hoặc bạn có thể liên hệ với chúng tôi thông qua các phương thức bên dưới</p>
+                <div class="get-in-touch">
+                    <h2>Phương thức liên hệ</h2>
+                    <div class="contact-method">
+                        <div class="icon-contact">
+                            <i class="fa-solid fa-location-dot"></i>
                         </div>
-                        <div class="apply__status"></div>
-                    </form>
-                </div>
-                <div class="summary__invoice">
-                    <u>Tổng đơn hàng</u>
-                    <div class="invoice__detail--info">
-                        <ul class="price__items">
-                            <li class="price__item">
-                                <p class="price__text"></p>
-                                <p class="price__value"></p>
-                            </li>
-                            <li class="price__item">
-                                <p class="price__text">Giảm giá</p>
-                                <p class="price__value"></p>
-                            </li>
-                        </ul>
-                        <div class="price__total">
-                            <p class="price__text">Tổng tiền</p>
-                            <div class="price__content">
-                                <p class="price__value--final"></p>
-                                <p class="price__value--noted">(Đã bao gồm VAT nếu có)</p>
-                            </div>
+                        <div class="contact-description">
+                            <p>Địa chỉ</p>
+                            <p>721 Huỳnh Tấn Phát, Phường Phú Thuận, Quận 7, Tp. Hồ Chí Minh</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="icon-contact">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="contact-description">
+                            <p>Số điện thoại</p>
+                            <p>08xxxxxxxx</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="icon-contact">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="contact-description">
+                            <p>Email</p>
+                            <p>yourstyle@support.com</p>
                         </div>
                     </div>
                 </div>
-                <div class="group__button--forward">
-                    <a href="checkout.html"><button id="continue--checkout">Tiến hành thanh toán</button></a>
-                    <button id="continue--shopping">Tiến tục mua sắm</button>
-                </div>
+                <img src="../assets/img/contactus.svg">
             </div>
+
+            <form method="post" id="contact_us-form" class="col">
+                <div class="form__block">
+                    <label for="fullname" class="form__label">Họ và tên *</label>
+                    <input class="form__input" type="text" id="fullname" name="fullname">
+                    <span class="error-notice"></span>
+                </div>
+
+                <div class="form__block">
+                    <label for="email" class="form__label">Email *</label>
+                    <input class="form__input" type="email" id="email" name="email">
+                    <span class="error-notice"></span>
+                </div>
+
+                <div class="form__block">
+                    <label for="message" class="form__label">Chúng tôi có thể giúp gì được cho bạn?</label>
+                    <textarea id="message" name="message" class="form__textarea" rows="12"></textarea>
+                </div>
+                <!--                <button class="form__submit">Gửi</button>-->
+                <input type="submit" class="form__submit" value="Gửi">
+            </form>
         </div>
     </div>
 </main>
@@ -178,6 +183,7 @@
     </div>
 </footer>
 </body>
+<<<<<<<< HEAD:htmls/contact.html
 <script src="../js/validateContactForm.js"></script>
 <script>
     ValidatorContactForm({
@@ -194,6 +200,4 @@
         }
     });
 </script>
-<script src="../js/checkout.js"></script>
-<script src="../js/shoppingCart.js"></script>
 </html>
