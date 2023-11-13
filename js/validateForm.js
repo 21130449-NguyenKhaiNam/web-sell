@@ -32,9 +32,9 @@ function Validation(formObj) {
                 inputElement.oninput = function (e) {
                     handleValidate(rule);
                 };
-                // inputElement.onchange = function (e) {
-                //     handleValidate(rule);
-                // };
+                inputElement.onchange = function (e) {
+                    handleValidate(rule);
+                };
                 inputElement.onblur = function (e) {
                     handleValidate(rule);
                 };

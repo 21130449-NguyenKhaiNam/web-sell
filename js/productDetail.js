@@ -77,8 +77,6 @@ loadProduct();
 var codeColor;
 var colorChooseElement = document.querySelectorAll(".form__color-check");
 var colorResult = document.querySelector(".form__input-color-code");
-
-
 //Effect when click
 colorChooseElement.forEach(function (element, index) {
     element.onclick = function (e) {
@@ -89,7 +87,6 @@ colorChooseElement.forEach(function (element, index) {
             codeColor = window.getComputedStyle(element).getPropertyValue("background-color");
             colorResult.style.backgroundColor = codeColor;
             colorResult.value = codeColor;
-
             colorChooseElement.forEach((elementOther, indexOther) => {
                 if (indexOther != index) {
                     elementOther.classList.remove("form__color--checked");
@@ -196,10 +193,9 @@ function applyValidateProductForm() {
         formBlockClass: "form__block",
         errorSelector: ".form__error",
         rules: [
-            Validation.isRequired("#color"),
-            Validation.isRequiredRadio(".form__radio")
+            Validation.isRequiredRadio(".form__radio"),
         ],
-        submitSelector: ".form__submit--buy",
+        submitSelector: ".form__submit--add",
         funcAfterSubmit: function () {
         }
     };

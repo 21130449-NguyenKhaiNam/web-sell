@@ -89,7 +89,7 @@
                             <div class="form__block">
                                 <p class="form__color-notify">
                                     Màu bạn chọn là
-                                    <input id="color" readonly class="form__input-color-code">
+                                    <input id="color" readonly class="form__input-color-code" value="">
                                 </p>
                                 <p class="form__error"></p>
                             </div>
@@ -130,9 +130,6 @@
                             <div class="form__submits">
                                 <button type="submit" class="form__submit form__submit--order button "
                                         data="Đặt may theo số đo">
-                                </button>
-                                <button type="submit" class="form__submit form__submit--buy button " data="Mua
-                                                                                                 ngay">
                                 </button>
                                 <button type="submit" class="form__submit form__submit--add button "
                                         data="Thêm vào giỏ hàng">
@@ -238,7 +235,11 @@
                         <span class="form__error"></span>
                     </label>
                 </div>
-                <button type="submit" class="button--hover button">Gửi đi</button>
+                <div class="form__submits">
+                    <button type="submit" class="form__submit form__submit--add button "
+                            data="Thêm vào giỏ hàng">
+                    </button>
+                </div>
             </form>
         </div>
         <div class="modal__blur"></div>

@@ -233,16 +233,15 @@ label:has(.form__radio:checked) {
 }
 
 .form__submits {
+    display: flex;
+    align-items: center;
+    gap: 20px;
     padding-top: 30px;
-    display: grid;
-    grid-template-areas:
-    'add buy'
-    'order order';
-    gap: 20px 10px;
 }
 
 
 .form__submit {
+    flex: 1;
     position: relative;
     --height: 60px;
     color: #fff;
@@ -252,21 +251,15 @@ label:has(.form__radio:checked) {
     background-color: unset;
 }
 
-.form__submit--add, .form__submit--order {
-    grid-area: order;
+ .form__submit--order {
     --background-color-effect: var(--blue-color-medium);
     box-shadow: 0 0 0 2px var(--blue-color-medium);
 }
 
-.form__submit--buy {
-    grid-area: buy;
+.form__submit--add {
     background-color: var(--blue-color-medium);
     --background-color-effect: var(--blue-color-high);
 }
-.form__submit--add{
-    grid-area: add;
-}
-
 .form__submit::after {
     content: "";
     position: absolute;
@@ -450,13 +443,14 @@ label:has(.form__radio:checked) {
     cursor: pointer;
 }
 
+/*Modal order products*/
 .modal {
     display: none;
 }
 
 /*modal parameter*/
 .modal__parameter {
-    background-color: var(--blue-color-medium);
+    background-color: var(--blue-color-low);
     border-radius: 10px;
     padding: 10px;
 }
@@ -492,4 +486,13 @@ label:has(.form__radio:checked) {
     font-size: 18px;
     font-weight: 600;
     border-radius: 10px;
+}
+
+.modal .form__submits {
+    display: flex;
+    gap: 30px;
+}
+
+.modal .form__submit {
+    margin-top: 0;
 }

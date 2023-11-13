@@ -5,7 +5,7 @@ var htmls = listProduct.map(function (product) {
                     <img src = "../assets/img/product_img/${product.imgSrc}" >
                     <div class = "information-product" >
                         <span class = "status" > Most required </span>
-                        <a class="name-product" href="../htmls/productDetail.html">${product.name}</a>
+                        <a class="name-product" target="_blank" href="../htmls/productDetail.html">${product.name}</a>
                         <div class="review-product">
                             <div class="icon-review">
                                 <i class="fa-solid fa-star"></i>
@@ -14,7 +14,7 @@ var htmls = listProduct.map(function (product) {
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <a href="#">1000 nhận xét</a>
+                            <a class="name-product" target="_blank" href="../htmls/productDetail.html">1000 nhận xét</a>
                         </div>
                         <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
                     </div>
@@ -59,7 +59,7 @@ function searchProduct() {
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <a href="#">1000 nhận xét</a>
+                             <a class="name-product" target="_blank" href="../htmls/productDetail.html">1000 nhận xét</a>
                         </div>
                         <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
                     </div>
@@ -148,7 +148,7 @@ function filterProducts(category) {
                     <img src = "../assets/img/product_img/${product.imgSrc}" >
                     <div class = "information-product" >
                         <span class = "status" > Most required </span>
-                        <a class="name-product" href="../htmls/productDetail.html">${product.name}</a>
+                        <a class="name-product" target="_blank" href="../htmls/productDetail.html">${product.name}</a>
                         <div class="review-product">
                             <div class="icon-review">
                                 <i class="fa-solid fa-star"></i>
@@ -157,12 +157,11 @@ function filterProducts(category) {
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <a href="#">1000 nhận xét</a>
+                        <a class="name-product" target="_blank" href="../htmls/productDetail.html">1000 nhận xét</a>
                         </div>
                         <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
                     </div>
-                </div>
-`;
+                </div>`;
     });
     listProductElement.innerHTML = htmls.join("");
 }
