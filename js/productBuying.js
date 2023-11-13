@@ -4,7 +4,7 @@ var htmls = listProduct.map(function (product) {
     return ` <div class = "model_product" >
                     <img src = "../assets/img/product_img/${product.imgSrc}" >
                     <div class = "information-product" >
-                        <span class = "status" > Most required </span>
+                        <span class = "status" >Thinh hành</span>
                         <a class="name-product" target="_blank" href="../htmls/productDetail.html">${product.name}</a>
                         <div class="review-product">
                             <div class="icon-review">
