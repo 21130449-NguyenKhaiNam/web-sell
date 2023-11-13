@@ -148,6 +148,7 @@ label[class="label__selection"]{
 td, th{
     border: 1px solid #D9D9D9;
     padding: 14px;
+    vertical-align: middle;
 }
 
 .order__detail--info .order__table .row__header .thead__item{
@@ -177,7 +178,6 @@ td, th{
     font-size: 18px;
     font-weight: 500;
     text-align: center;
-    vertical-align: middle;
 }
 
 .product__item {

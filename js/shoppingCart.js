@@ -91,10 +91,7 @@ function renderCartItem() {
                                     <ul class="order__size--specification">
                                         Kích thước:
                                     </ul>
-                                    <div class="edit__wishlist--button">
-                                        <button class="edit--button"><i class="fa-solid fa-pen-to-square"></i> Chỉnh sửa</button>
-                                        <button class="wishlist--button"><i class="fa-solid fa-heart"></i> Yêu thích</button>
-                                    </div>
+                                    <button class="edit--button"><i class="fa-solid fa-pen-to-square"></i> Chỉnh sửa</button>
                                 </div>
                             </div>
                             <span class="unit__price">${formatCurrency(cartItem.unitPrice)}</span>
