@@ -1,4 +1,18 @@
-
+.filter__date{
+    display: flex;
+    align-items: center;
+}
+.filter__date~ .filter__date{
+    margin-top: 10px;
+}
+.filter__date > span{
+    flex-basis: 50px;
+    font-size: 15px;
+    font-weight: 400;
+}
+.filter__date input{
+    flex: 1;
+}
 .table__wrapper {
     /*max-height: 400px;*/
 }

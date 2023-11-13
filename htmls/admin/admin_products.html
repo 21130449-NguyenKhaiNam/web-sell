@@ -65,72 +65,39 @@
             <div class="row">
                 <div class="col-3">
                     <aside class="filler">
-                        <form action="#!" class="form">
+                        <form action="#" class="form" id="form-search">
                             <!--Search-->
-                            <article action="#!" class="form__search-block filler__block">
+                            <article class="form__search-block filler__block">
                                 <i class="search__icon fa-solid fa-magnifying-glass"></i>
-                                <input type="text" name="search">
-                                <select name="searchType" id="" class="search__select">
-                                    <option value="id" class="search__option">Mã đơn hàng</option>
-                                    <option value="name" class="search__option">Tên đơn hàng</option>
-                                    <option value="idCategory" class="search__option">Danh mục</option>
+                                <input type="text" name="keyword">
+                                <select name="searchType" class="search__select">
+                                    <option value="id" name="type" class="search__option">Mã sản phẩm</option>
+                                    <option value="name" name="type" class="search__option">Tên sản phẩm</option>
+                                    <option value="categoryId" name="type" class="search__option">Tên phân loại</option>
                                 </select>
                             </article>
 
-                            <article action="#!" class="filler__block">
-                                <h2 class="filler__heading">Thời gian</h2>
-                                <input type="date" name="date" class="filter__date">
-                            </article>
-                            <article class="filler__payment-method filler__block">
-                                <h2 class="filler__heading">Phương thức thanh toán</h2>
-                                <label class="filter__label check">
-                                    <input type="radio" name="payment" class="filter__input" hidden="true">
-                                    Tiền mặt
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="payment" class="filter__input" hidden="true">
-                                    Chuyển khoản
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="payment" class="filter__input" hidden="true">
-                                    Ví điện tử
-                                </label>
+                            <article class="filler__block">
+                                <h2 class="filler__heading">Thời gian cập nhập</h2>
+                                <div>
+                                    <div class="filter__date">
+                                        <span>Từ:</span>
+
+                                        <input type="date" name="date"
+                                               id="date-start">
+
+                                    </div>
+                                    <div class="filter__date">
+                                        <span>Đến:</span>
+
+                                        <input type="date" name="date"
+                                               id="date-end">
+
+                                    </div>
+
+                                </div>
                             </article>
 
-                            <article class="filler__block">
-                                <h2 class="filler__heading">Trạng thái phê duyệt</h2>
-                                <label class="filter__label check">
-                                    <input value="verify" type="radio" name="passing" class="filter__input"
-                                           hidden="true">
-                                    Đã xác nhận
-                                </label>
-                                <label class="filter__label check">
-                                    <input value="noVerify" type="radio" name="passing" class="filter__input"
-                                           hidden="true">
-                                    Chưa xác nhận
-                                </label>
-                            </article>
-
-                            <article class="filler__block">
-                                <h2 class="filler__heading">Trạng thái vận chuyển</h2>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" value="" class="filter__input"
-                                           hidden="true">
-                                    Đơn đã đặt
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đang chuẩn bị
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đang giao
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đã giao
-                                </label>
-                            </article>
                             <div class="filter__buttons">
                                 <input type="reset" class="button filter__button button--hover" value="Chọn lại">
                                 <button class="button filter__button button--hover filter__submit" type="submit">Lọc

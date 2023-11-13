@@ -354,7 +354,7 @@ Lưu ý:Sản phẩm vẫn sẽ bạc màu sau một thời gian dài sử dụn
         id: "product31",
         name: `Áo giữ nhiệt Modal Ultra`,
         categoryId: "category01",
-        imgSrc: "product20.jpg",
+        imgSrc: "product31.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 50% Modal (gỗ sồi), 42% Cotton, 8% Spandex
 Ưu điểm của Cotton Modal: kháng khuẩn, giữ nhiệt, mềm mại và co giãn

@@ -43,24 +43,25 @@ function loadListToTable(listProduct) {
     const allRows = bodyTable.querySelectorAll(".table__row");
     allRows.forEach(function (row) {
         editProduct(row);
-    })
-
+    });
+    paging();
 }
 
+function paging() {
+    // Paging for product cart
+    const paging = new Paging({
+        itemSelector: "tbody .table__row",
+        displayShowType: "table-row",
+        limit: 8,
+        listPage: ".paging",
+        tagNameItemPage: "li",
+        classNameItemPage: "page",
+        activeItemPage: "page--current",
+        prevBtn: "page--prev",
+        nextBtn: "page--next",
+    });
+}
 loadListToTable(listProduct);
-
-// Paging for product cart
-var pagingReview = new Paging({
-    itemSelector: "tbody .table__row",
-    displayShowType: "table-row",
-    limit: 8,
-    listPage: ".paging",
-    tagNameItemPage: "li",
-    classNameItemPage: "page",
-    activeItemPage: "page--current",
-    prevBtn: "page--prev",
-    nextBtn: "page--next",
-});
 
 // Open/close dialog (add + edit dialog)
 var addProductBtn = document.querySelector("#button-add-product");
@@ -240,6 +241,41 @@ function loadImg(dialog) {
         }
     })
 }
+
+//Search
+search();
+function search() {
+    const searchObj = {
+        keyword: "",
+        type: "",
+    };
+    const formSearch = document.querySelector("#form-search")
+    const buttonFilter = formSearch.querySelector(".filter__submit");
+    let keyword, type;
+
+    buttonFilter.onsubmit = function (e) {
+        e.preventDefault();
+    }
+    buttonFilter.onclick = function (e) {
+        e.preventDefault();
+        keyword = formSearch.querySelector(`input[name="keyword"]`).value;
+        const select = formSearch.querySelector(".search__select");
+        type = select.options[select.selectedIndex].value;
+        searchObj.keyword = keyword;
+        searchObj.type = type;
+        const listProductFiltered = filter();
+        loadListToTable(listProductFiltered);
+    }
+
+    function filter() {
+        return listProduct.filter(function (product) {
+            const nameProduct = product[searchObj.type].toLowerCase();
+            const nameKeyword = searchObj.keyword.toLowerCase();
+            return nameProduct.includes(nameKeyword);
+        });
+    }
+}
+
 function getParentNode(childElement, parentSelector) {
     while (!childElement.classList.contains(parentSelector)) {
         childElement = childElement.parentElement;
@@ -247,81 +283,3 @@ function getParentNode(childElement, parentSelector) {
     return childElement;
 }
 
-// Search by name Product
-// var keyword = document.querySelector(`input[name="search"]`);
-// var searchType = document.querySelector(`select[name = "searchType"]`);
-//
-// function search() {
-
-//     let listProductField = [];
-//     const name = keyword.value;
-//     console.log(name);
-//     const type = searchType[searchType.selectedIndex];
-//     listProduct.forEach(function (product) {
-//         if (product[type.value].toLowerCase().includes(name.toLowerCase())) listProductField.push(product);
-//     });
-//     loadProduct(listProductField);
-// }
-
-// keyword.onchange = function () {
-//     search();
-// };
-// searchType.onchange = function () {
-//     search();
-// };
-//Filter
-// var search = document.querySelector(`input[name="search"]`);
-// var date = document.querySelector(`input[name="date"]`);
-// var payment = document.querySelector(`input[name="payment"]`);
-// var passing = document.querySelector(`input[name="passing"]`);
-// var delivery = document.querySelector(`input[name="delivery"]`);
-// var searchType = document.querySelector(`select[name = "searchType"]`);
-// var buttonSearch = document.querySelector(".filter__submit");
-//
-// var statePassing = {
-//     verify: "Đã xác nhận",
-//     noVerify: "Chưa xác nhận",
-// }
-// var statePayment = {
-//     atm: "Tiền mặt",
-//     cash: "Chuyển khoản",
-//     wallet: "Ví điện tử",
-// }
-// var stateDelivery = {
-//     ordered: "Đơn đã đặt",
-//     pending: "Đang chuẩn bị",
-//     delivering: "Đang giao",
-//     done: "Đã giao",
-// }
-//
-// function filter() {
-//     const listProduct = [];
-//     const obj = {
-//         search: search.value,
-//         date: date.value,
-//         payment: payment.value,
-//         passing: passing.value,
-//         delivery: delivery.value,
-//         searchType: searchType.value,
-//     };
-//     // Nếu trường đó trống => undified, nếu trường đó sai thì trả về null
-//     console.log(statePayment[obj.passing])
-//     listProduct.forEach(function (product) {
-//         getProductByField()
-//     });
-// }
-//
-// function getProductByField(field, value) {
-//     if (field == undefined) return undefined;
-//     listProduct.forEach(function (product) {
-//         if (product[field] == value) {
-//             return product;
-//         }
-//     })
-//     return null;
-// }
-//
-// buttonSearch.onclick = function (e) {
-//     e.preventDefault();
-//     filter();
-// }

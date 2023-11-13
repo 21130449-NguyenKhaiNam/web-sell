@@ -1,41 +1,47 @@
+const listProductElement = document.querySelector(".product__list");
 
-var listProductElement = document.querySelector(".product__list");
-var htmls = listProduct.map(function (product) {
-    return ` <div class = "model_product" >
-                    <img src = "../assets/img/product_img/${product.imgSrc}" >
-                    <div class = "information-product" >
-                        <span class = "status" >Thinh hành</span>
-                        <a class="name-product" target="_blank" href="../htmls/productDetail.html">${product.name}</a>
-                        <div class="review-product">
-                            <div class="icon-review">
+function loadProducts(arrayProducts) {
+    const vndFormat = Intl.NumberFormat("vi-VI", {
+        style: "currency",
+        currency: "VND",
+    });
+
+    var htmls = arrayProducts.map(function (product) {
+        return ` <div class = "product__item" >
+                    <img src = "../assets/img/product_img/${product.imgSrc}" class="product__img" >
+                    <div class = "product__info" >
+                        <a class="product__name" target="_blank" href="../htmls/productDetail.html">${product.name}</a>
+                        <div class="product__review">
+                            <div class="product__review-stars">
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <a class="name-product" target="_blank" href="../htmls/productDetail.html">1000 nhận xét</a>
+                            <a class="product__review-num" target="_blank" href="../htmls/productDetail.html">1000 nhận xét</a>
                         </div>
-                        <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
+                        <span class="product__price"><strong class="product__price--sale">${vndFormat.format(product.salePrice)}</strong> <strong class="product__price--original">${vndFormat.format(product.basePrice)}</strong></span>
                     </div>
-                </div>
-`;
-});
-listProductElement.innerHTML = htmls.join("");
+                </div>`;
+    });
+    listProductElement.innerHTML = htmls.join("");
 
-//Paging for product cart
-var pagingReview = new Paging({
-    itemSelector: `.model_product`,
-    displayShowType: "flex",
-    limit: 8,
-    listPage: ".paging",
-    tagNameItemPage: "li",
-    classNameItemPage: "page",
-    activeItemPage: "page--current",
-    prevBtn: "page--prev",
-    nextBtn: "page--next",
-});
+    //Paging for product cart
+    const pagingReview = new Paging({
+        itemSelector: ".product__item",
+        displayShowType: "flex",
+        limit: 8,
+        listPage: ".paging",
+        tagNameItemPage: "li",
+        classNameItemPage: "page",
+        activeItemPage: "page--current",
+        prevBtn: "page--prev",
+        nextBtn: "page--next",
+    });
+}
 
+loadProducts(listProduct);
 
 /*productSearch*/
 const searchInput = document.getElementById("search-input");
@@ -44,45 +50,12 @@ searchButton.addEventListener("click", searchProduct);
 function searchProduct() {
     const searchQuery = searchInput.value.toLowerCase();
     const filteredProducts = listProduct.filter(product => product.name.toLowerCase().includes(searchQuery));
-    const htmls = filteredProducts.map(product => {
-        return `<div class = "col-3" >
-                <div class = "model_product item4" >
-                    <img src = "../assets/img/product_img/${product.imgSrc}" >
-                    <div class = "information-product" >
-                        <span class = "status" > Most required </span>
-                        <a class="name-product" href="../htmls/productDetail.html">${product.name}</a>
-                        <div class="review-product">
-                            <div class="icon-review">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                             <a class="name-product" target="_blank" href="../htmls/productDetail.html">1000 nhận xét</a>
-                        </div>
-                        <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
-                    </div>
-                </div>
-          </div>
-`;
-    });
-    listProductElement.innerHTML = htmls.join("");
+    resultBox.innerHTML = "";
+    loadProducts(filteredProducts);
 }
-
 
 //productKeyHint
 let availableKeyWord = [
-    // 'product 1',
-    // 'product 2',
-    // 'product 3',
-    // 'product 4',
-    // 'product 5',
-    // 'product 6',
-    // 'product 7',
-    // 'product 8',
-    // 'product 9',
-    // 'product 10',
 ];
 const resultBox = document.querySelector(".result-box");
 const inputBox = document.getElementById("search-input");
@@ -96,13 +69,13 @@ inputBox.onkeyup = function () {
                 availableKeyWord.push(product.name)
             }
         });
-        console.log(availableKeyWord)
         display(availableKeyWord);
     }
     if (availableKeyWord.length==0) {
         resultBox.innerHTML = '';
     }
 }
+
 function display(result) {
     const content = result.map((list) => {
         return "<li onclick=selectInput(this)>" + list + "</li>";
@@ -114,21 +87,13 @@ function selectInput(list) {
     resultBox.innerHTML = '';
 }
 /*categoryLoad*/
-const listCategory = [
-    'Áo dài tay',
-    'Áo oversize',
-    'Áo nỉ dài tay',
-    'Quần short',
-    'Áo Polo',
-    'Áo sơ mi tay dài',
-    'Áo sơ mi ngắn tay',
-    'Quần jeans',
-    'Quần Kaki',
-    'Áo ba lỗ'
-];
+const listCategoryName = listCategories.map(function (category) {
+    return category.nameType;
+})
+console.log(listCategoryName);
 const listCategoryElement = document.querySelector(".category__list");
 function loadCategory() {
-    const htmls = listCategory.map(category => {
+    const htmls = listCategoryName.map(category => {
         return`<li class="category__item" onclick="filterProducts('${category}')">${category}</li>`;
     });
     htmls.unshift(` <li class="category__item" >
@@ -139,29 +104,8 @@ function loadCategory() {
 }
 loadCategory();
 
-
 // categorySearch
 function filterProducts(category) {
     const filteredProducts = listProduct.filter(product => getCategory(product.categoryId).nameType.toLowerCase().includes(category.toLowerCase()));
-    const htmls = filteredProducts.map(product => {
-        return `<div class = "model_product item4" >
-                    <img src = "../assets/img/product_img/${product.imgSrc}" >
-                    <div class = "information-product" >
-                        <span class = "status" > Most required </span>
-                        <a class="name-product" target="_blank" href="../htmls/productDetail.html">${product.name}</a>
-                        <div class="review-product">
-                            <div class="icon-review">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                        <a class="name-product" target="_blank" href="../htmls/productDetail.html">1000 nhận xét</a>
-                        </div>
-                        <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
-                    </div>
-                </div>`;
-    });
-    listProductElement.innerHTML = htmls.join("");
+    loadProducts(filteredProducts);
 }

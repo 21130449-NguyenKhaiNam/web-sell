@@ -24,7 +24,7 @@ function loadProduct() {
             if (i <= quantity) {
                 star += ` <li class="review__star review__start--archive"></li>`;
             } else {
-                star += ` <li class="review__star "></li>`;
+                star += ` <li class="review__star"></li>`;
             }
         }
         return star;
