@@ -255,7 +255,6 @@ tbody tr:nth-child(even) {
 tbody .table__row:has(input:checked), tbody .table__row:hover {
     background-color: #e6f8e6;
 }
-
 .table__data-edit {
     text-align: center;
 }
@@ -340,10 +339,11 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
 
 .form__detail + p {
     position: absolute;
+    left: calc(100% + 5px);
+    z-index: 1;
     top: -5px;
     display: block;
     width: 200px;
-    left: calc(100% + 5px);
     padding: 5px;
     border: 1px solid #5ee95e;
     background-color: #fff;

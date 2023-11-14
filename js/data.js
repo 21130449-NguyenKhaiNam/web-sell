@@ -68,9 +68,10 @@ const listCategories = [
 
 const listProduct = [
     {
-        id: "product1",
+        id: "1",
         name: `Áo polo nam trơn basic form regular vải cá sấu`,
         categoryId: "category05",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product1.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: AiryCotton (Cotton 85%, Poly 5%, Spandex 10%) mềm mại, co giãn 4 chiều và thấm hút mồ hôi tốt tạo cảm giác thoải mái và mát mẻ`,
@@ -79,9 +80,10 @@ const listProduct = [
     },
 
     {
-        id: "product10",
+        id: "10",
         name: `Quần jean unisex nam nữ cotton form slimfit`,
         categoryId: "category08",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product10.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: jeans (97% cotton, 3% spandex) co giãn tốt, bền màu và độ rộng vừa phải tạo cảm giác thoải mái cho người mặc`,
@@ -90,9 +92,10 @@ const listProduct = [
     },
 
     {
-        id: "product11",
+        id: "11",
         name: `Áo thun unisex nam nữ basic tee form oversize`,
         categoryId: "category02",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product11.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu 100% cotton mềm mịn co giãn 2 chiều, thoáng mát, thấm hút mồ hôi, ít nhăn và mang lại cảm giác thoải mái cho người mặc`,
@@ -101,9 +104,10 @@ const listProduct = [
     },
 
     {
-        id: "product12",
+        id: "12",
         name: `Áo phông raglan unisex nam nữ basic cotton dày dặn form oversize`,
         categoryId: "category02",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product12.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% cotton 2 chiều cao cấp dày dặn, thoáng mát không bí nóng tạo cảm giác thoải mái và tôn dáng cho người mặc`,
@@ -112,10 +116,10 @@ const listProduct = [
     },
 
     {
-        id: "product13",
+        id: "13",
         name: `Áo phông layer pattern unisex nam nữ form oversize`,
         categoryId: "category02",
-        imgSrc: "product13.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product13.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% cotton mềm mịn, thoải mái và đem lại sự thoải mái tiện lợi nhất cho người mặc`,
         basePrice: 358000.0,
@@ -123,9 +127,10 @@ const listProduct = [
     },
 
     {
-        id: "product14",
+        id: "14",
         name: `Áo sơ mi nam tay dài form rộng vải lụa dày dặn`,
         categoryId: "category06",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product14.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% cotton vải lụa mềm mại, chống nhăn và độ rộng vừa phải, tôn dáng, trẻ trung phù hợp mặc cho nhiều dịp`,
@@ -134,9 +139,10 @@ const listProduct = [
     },
 
     {
-        id: "product15",
+        id: "15",
         name: `Áo sơ mi sọc nam tay dài vải Oxford`,
         categoryId: "category06",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product15.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: Oxford (65% cotton, 20% PE 15% viscose) thoáng mát, mềm mịn và có khả năng thấm hút mồ hôi tốt dễ dàng giặt ủi và bền màu trong 1 thời gian dài sử dụng`,
@@ -145,9 +151,10 @@ const listProduct = [
     },
 
     {
-        id: "product16",
+        id: "16",
         name: `Áo sơ mi công sở unisex nam nữ tay dài vải lụa form form slimfit`,
         categoryId: "category06",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product16.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: cotton lụa (80% cotton, 20% polys) miền mịn, vừa vặn không ôm sát và đủ để tạo cảm giác thoải mái cho người mặc`,
@@ -156,9 +163,10 @@ const listProduct = [
     },
 
     {
-        id: "product17",
+        id: "17",
         name: `Quần Kaki baggy trơn unisex nam nữ lưng thun dây rút`,
         categoryId: "category09",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product17.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% cotton kaki dày dặn đàn hồi và co dãn nhẹ, mặt vải mềm mướt không xù lông mang lại cảm giác thoải mái, thoáng mát cho người mặc`,
@@ -167,9 +175,10 @@ const listProduct = [
     },
 
     {
-        id: "product2",
+        id: "2",
         name: `Áo polo thể thao unisex nam nữ`,
         categoryId: "category05",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product2.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Polyster khô nhanh, thấm hút nhanh, không nhăn và khả năng khử mùi tự nhiên tạo cảm giác thoáng mát khi vận động`,
@@ -178,10 +187,10 @@ const listProduct = [
     },
 
     {
-        id: "product21",
+        id: "21",
         name: `Sơ mi dài tay Café-DriS`,
         categoryId: "category06",
-        imgSrc: "product21.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product21.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 50% S.Café + 50% Recycled PET
 Phù hợp với: đi làm, đi chơi
@@ -193,10 +202,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product22",
+        id: "22",
         name: `Áo dài tay Cotton Compact`,
         categoryId: "category03",
-        imgSrc: "product22.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product22.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 95% Cotton Compact - 5% Spandex
 Kiểu dáng: áo thun dài tay
@@ -209,10 +218,10 @@ Tự hào sản xuất tại VIệt Nam`,
     },
 
     {
-        id: "product23",
+        id: "23",
         name: `Áo dài tay nỉ`,
         categoryId: "category03",
-        imgSrc: "product23.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product23.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu 60% Cotton, 40% Polyester tạo cảm giác thông thoáng và thoải mái khi mặc
 Kiểu dáng: áo nỉ dài tay
@@ -224,10 +233,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product24",
+        id: "24",
         name: `Áo dài tay Cotton Compact V2`,
         categoryId: "category01",
-        imgSrc: "product24.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product24.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 95% Cotton Compact + 5% Spandex
 Bề mặt vải Cotton mềm mịn, cảm giác mát lần đầu chạm tay
@@ -240,10 +249,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product25",
+        id: "25",
         name: `Áo nỉ chui đầu Lifewear`,
         categoryId: "category03",
-        imgSrc: "product25.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product25.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: Nỉ chân cua
 Thành phần: 60% Cotton + 40% Polyester
@@ -256,10 +265,10 @@ Tự hào sản xuất tại Viêt Nam`,
     },
 
     {
-        id: "product26",
+        id: "26",
         name: `Shorts thể thao 9`,
         categoryId: "category04",
-        imgSrc: "product26.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product26.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 88% Polyester + 12% Spandex
 Vải có khả năng thấm hút tốt và nhanh khô
@@ -273,10 +282,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product27",
+        id: "27",
         name: `Shorts chạy bộ Ultra`,
         categoryId: "category04",
-        imgSrc: "product27.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product27.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Polyester
 Xử lý hoàn thiện vải: Quick-Dry + Wicking + Stretch
@@ -290,10 +299,10 @@ Người mẫu: 183 cm - 76 kg, mặc quần 2XL`,
     },
 
     {
-        id: "product28",
+        id: "28",
         name: `Polo Pique Cotton`,
         categoryId: "category05",
-        imgSrc: "product28.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product28.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Cotton
 Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn
@@ -307,10 +316,10 @@ Người mẫu: 186cm - 77kg, mặc áo 2XL`,
     },
 
     {
-        id: "product29",
+        id: "29",
         name: `Polo thể thao Promax`,
         categoryId: "category05",
-        imgSrc: "product29.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product29.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Poly, định lượng vải 155gsm siêu nhẹ
 Xử lý hoàn thiện vải: Quick-Dry và Wicking
@@ -323,10 +332,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product3",
+        id: "3",
         name: `Áo polo phối khóa kéo unisex nam nữ`,
         categoryId: "category05",
-        imgSrc: "product3.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product3.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% cotton dày dặn, thấm hút tốt, ít nhăn và dễ phối đồ`,
         basePrice: 350000.0,
@@ -334,10 +343,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product30",
+        id: "30",
         name: `Jeans Copper Denim Slim Fit`,
         categoryId: "category08",
-        imgSrc: "product30.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product30.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 12 Oz / 99% Cotton - 1% Spandex
 Dáng Slim Fit: Dáng ôm tôn dáng, giúp bạn "hack"đôi chân dài và gọn đẹp
@@ -351,10 +360,10 @@ Lưu ý:Sản phẩm vẫn sẽ bạc màu sau một thời gian dài sử dụn
     },
 
     {
-        id: "product31",
+        id: "31",
         name: `Áo giữ nhiệt Modal Ultra`,
         categoryId: "category01",
-        imgSrc: "product31.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product31.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 50% Modal (gỗ sồi), 42% Cotton, 8% Spandex
 Ưu điểm của Cotton Modal: kháng khuẩn, giữ nhiệt, mềm mại và co giãn
@@ -367,10 +376,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product32",
+        id: "32",
         name: `Shorts thể thao 5"Movement`,
         categoryId: "category04",
-        imgSrc: "product32.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product32.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Polyester kết hợp tính năng: Wicking (Thấm hút nhanh), 4-way Mechanical stretch (Co giãn 4 chiều) và Quick-Dry (Nhanh khô)
 Vải siêu nhẹ chỉ 106 gsm, mang lại cảm giác mặc như không mặc
@@ -382,10 +391,10 @@ Tự hào sản xuất tại Việt Nam`,
         salePrice: 99000.0
     },
     {
-        id: "product33",
+        id: "33",
         name: `Shorts thể thao 7"Movement`,
         categoryId: "category04",
-        imgSrc: "product33.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product33.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Polyester kết hợp tính năng: Wicking (Thấm hút nhanh), 4-way Mechanical stretch (Co giãn 4 chiều) và Quick-Dry (Nhanh khô)
 Vải siêu nhẹ chỉ 106 gsm, mang lại cảm giác mặc như không mặc
@@ -398,10 +407,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product34",
+        id: "34",
         name: `Quần Joggers Daily Wear`,
         categoryId: "category11",
-        imgSrc: "product34.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product34.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Polyester
 Công nghệ ứng dụng: Quần jogger nam Daily Wear ứng dụng HeiQ ViroBlock giúp ức chế và tiêu diệt vi khuẩn trên bề mặt vải
@@ -414,10 +423,10 @@ Người mẫu: 1m77 - 69kg, mặc quần size XL`,
     },
 
     {
-        id: "product35",
+        id: "35",
         name: `Polo thể thao V1`,
         categoryId: "category05",
-        imgSrc: "product35.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product35.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Recycled Polyester
 Định lượng vải 130gsm siêu nhẹ
@@ -431,10 +440,10 @@ Người mẫu: 184 cm - 73 kg, mặc áo size 2XL`,
     },
 
     {
-        id: "product36",
+        id: "36",
         name: `Sơ mi dài tay Easycare`,
         categoryId: "category06",
-        imgSrc: "product36.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product36.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% sợi Polyester Nano-tech
 Chất liệu thấm hút tốt đem lại sự thoáng khí
@@ -447,10 +456,10 @@ Người mẫu: 1m77 - 74kg * Mặc size XL`,
     },
 
     {
-        id: "product37",
+        id: "37",
         name: `Quần dài Kaki Excool`,
         categoryId: "category09",
-        imgSrc: "product37.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product37.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 43% Sợi Sorona + 57% Polyester co giãn
 Công nghệ Excool: Co giãn 4 chiều, Nhẹ, Thoáng khí, Chống tia UV SPF50+
@@ -463,10 +472,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product38",
+        id: "38",
         name: `Jeans Copper Denim Straight`,
         categoryId: "category08",
-        imgSrc: "product38.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product38.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Cotton / 12 Oz
 Dáng Straight: Dáng suông phóng thoáng, thoải mái, không thùng thình
@@ -480,10 +489,10 @@ Lưu ý: Sản phẩm vẫn sẽ bạc màu sau một thời gian dài sử dụ
     },
 
     {
-        id: "product39",
+        id: "39",
         name: `Quần Joggers Excool`,
         categoryId: "category11",
-        imgSrc: "product39.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product39.jpg",
         size: '["x","xl","xxl"]',
         desc: `Thành phần: 100% Polyester
 Quần jogger co giãn 4 chiều giúp thoải mái vận động
@@ -497,9 +506,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product4",
+        id: "4",
         name: `Áo hoodie form rộng unisex nam nữ nỉ chân cua`,
         categoryId: "category03",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product4.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: mặt nền (100% coton), mặc trong (65/35 - 65% cotton và 35 CVC) có độ bền cao, không phai màu và mang lại cảm giác dễ chịu, mát mẻ cho người mặc`,
@@ -507,10 +517,10 @@ Tự hào sản xuất tại Việt Nam`,
         salePrice: 2590000.0
     },
     {
-        id: "product40",
+        id: "40",
         name: `Shorts chạy bộ 5"Power`,
         categoryId: "category04",
-        imgSrc: "product40.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product40.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 43% sợi Recycle, 57% Polyester, theo xu hướng thời trang bền vững
 Công nghệ ứng dụng: xử lý hoàn thiện vải Wicking (Thấm hút nhanh) và Mechanical stretch (Co giãn 2 chiều)
@@ -521,9 +531,10 @@ Tự hào sản xuất tại Việt Nam`,
         salePrice: 149000.0
     },
     {
-        id: "product41",
+        id: "41",
         name: `Áo sơ mi sọc`,
         categoryId: "category06",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product41.jpg",
         size: '["x","xl","xxl"]',
         desc: `Áo sơ mi cổ điển với tay áo dài và bản in sọc tương phản.Áo sơ mi nam Sandro, Dáng cổ điển, Sọc, Tay áo dài, Nút cài`,
@@ -532,9 +543,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product42",
+        id: "42",
         name: `Áo T-shirt together`,
         categoryId: "category10",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product42.jpg",
         size: '["x","xl","xxl"]',
         desc: `Áo thun cotton oversized cổ tṛn, tay ngắn và được tô điểm bằng họa tiết Together trước ngực, Áo thun cotton nam Sandro, Dáng oversize, Cổ tṛn, Tay áo ngắn, Hoạ tiết together`,
@@ -543,9 +555,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product43",
+        id: "43",
         name: `Áo len dệt kim oversize`,
         categoryId: "category02",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product43.jpg",
         size: '["x","xl","xxl"]',
         desc: `Áo len dệt kim oversize với cổ cao rộng và tay áo dài., Áo len đan nam Sandro, Dáng oversize, Cổ cao rộng, Tay áo dài`,
@@ -554,9 +567,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product44",
+        id: "44",
         name: `Áo khoác denim`,
         categoryId: "category01",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product44.jpg",
         size: '["x","xl","xxl"]',
         desc: `Áo khoác denim bạc màu có lớp lót hiệu ứng da cừu, có khuy bấm, tay áo dài và túi vá., Áo khoác denim nam Sandro, Lớp lót hiệu ứng da cừu tương phản, Cổ áo sơ mi, Tay áo dài, 4 túi vá, Áo jacron da dập nổi SANDRO`,
@@ -565,9 +579,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product45",
+        id: "45",
         name: `Quần short đính đá`,
         categoryId: "category09",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product45.jpg",
         size: '["x","xl","xxl"]',
         desc: `Quần short pha len với các nếp gấp được ủi, tô điểm bằng những viên đá cùng tông màu., Quần short len, Đính đá cùng tông, Ủi các nếp, Túi xẻ hai bên`,
@@ -576,9 +591,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product46",
+        id: "46",
         name: `Quần jean ống rộng`,
         categoryId: "category08",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product46.jpg",
         size: '["x","xl","xxl"]',
         desc: `Quần jean denim oversize được tô điểm bằng các chi tiết đính đá giả cùng tông màu ở phía trước và phía sau., Quần jean ống rộng nữ Sandro, Denim thô, Đính đá, 5 túi`,
@@ -587,9 +603,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product47",
+        id: "47",
         name: `Áo thun organic cotton phối cổ họa tiết`,
         categoryId: "category05",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product47.jpg",
         size: '["x","xl","xxl"]',
         desc: `Áo thun cotton hữu cơ, với tay áo ngắn và cổ áo tṛn phối họa tiết, Áo thun cổ phối đá, Cổ áo tṛn với viền rhinestone, Tay áo ngắn, Thiết kế vừa vặn`,
@@ -598,9 +615,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product48",
+        id: "48",
         name: `Áo khoác len`,
         categoryId: "category02",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product48.jpg",
         size: '["x","xl","xxl"]',
         desc: `Áo khoác ngoài bằng len có cài cúc, tay áo dài có cổ tay cài cúc, túi nắp ở ngực và túi bên., Áo khoác len nam Sandro, Cài nút, Tay áo dài, 2 túi vá ngực`,
@@ -609,9 +627,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product49",
+        id: "49",
         name: `Quần ống loe`,
         categoryId: "category08",
+        color: '["#ffffff", "#000000"]', 
         imgSrc: "product49.jpg",
         size: '["x","xl","xxl"]',
         desc: `Quần ống loe pha len có thắt lưng ở eo., Quần ống loe phối len nữ Sandro, Đai grosgrain, Ủi nếp`,
@@ -620,10 +639,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product5",
+        id: "5",
         name: `Áo hoodie zip form boxy unisex nỉ bông dày dặn`,
         categoryId: "category03",
-        imgSrc: "product5.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product5.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% cotton mềm mại, dày dặn, ấm áp với thiết kế khoá kéo tiện lợi giúp dễ dàng khi mặc`,
         basePrice: 300000.0,
@@ -631,9 +650,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product50",
+        id: "50",
         name: `Áo khoác sơ mi`,
         categoryId: "category06",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product50.jpg",
         size: '["x","xl","xxl"]',
         desc: `Áo khoác len có khóa kéo, cổ áo sơ mi và tay dài., Áo khoác len nam Sandro, Cổ áo sơ mi, Tay áo dài, Vá túi ngực, Cổ tay cài cúc`,
@@ -642,9 +662,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product51",
+        id: "51",
         name: `Quần short denim`,
         categoryId: "category06",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product51.jpg",
         size: '["x","xl","xxl"]',
         desc: `Quần short denim có eo co giăn và đường khâu nổi tương phản., Quần short denim nam của Sandro, Lưng thun, Đường khâu`,
@@ -653,9 +674,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product52",
+        id: "52",
         name: `Quần tây dáng đứng`,
         categoryId: "category09",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product52.jpg",
         size: '["x","xl","xxl"]',
         desc: `Quần tây nam Sandro, Quần âu bằng vải nỉ, Kiểu cổ điển, Hai túi kiểu Ư ở phía trước và hai túi có ống đóng bằng nút ở phía sau`,
@@ -664,9 +686,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product53",
+        id: "53",
         name: `Quần short cotton`,
         categoryId: "category09",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product53.jpg",
         size: '["x","xl","xxl"]',
         desc: `Quần short cotton với thắt lưng đàn hồi với túi dây rút và túi bên., Quần short cotton nam Sandro, Eo đàn hồi với dây, 2 túi, 2 túi nắp ở mặt sau`,
@@ -675,9 +698,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product54",
+        id: "54",
         name: `Áo polo logo rubber`,
         categoryId: "category05",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product54.jpg",
         size: '["x","xl","xxl"]',
         desc: `Quần short cotton với thắt lưng đàn hồi với túi dây rút và túi bên., Quần short cotton nam Sandro, Eo đàn hồi với dây, 2 túi, 2 túi nắp ở mặt sau`,
@@ -686,10 +710,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product55",
+        id: "55",
         name: `Áo T-shirt oversize in logo Sandro`,
         categoryId: "category02",
-        imgSrc: "product55.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product55.jpg",
         size: '["x","xl","xxl"]',
         desc: `Áo T-shirt oversize in logo Sandro., Áo phông nam Sandro, Logo Sandro cao su ở mặt trước, Dáng oversize`,
         basePrice: 297000.0,
@@ -697,9 +721,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product56",
+        id: "56",
         name: `Áo sơ mi Square Cross`,
         categoryId: "category06",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product56.jpg",
         size: '["x","xl","xxl"]',
         desc: `Áo sơ mi cài khuy bồng bềnh với tay áo dài, in h́nh Square Cross và sọc tương phản ở phía dưới., Áo sơ mi dáng suông nam Sandro, Tay dài có cổ tay cài khuy, Cài khuy phía trước, H́nh Square Cross`,
@@ -708,10 +733,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product57",
+        id: "57",
         name: `Quần jeans cotton`,
         categoryId: "category08",
-        imgSrc: "product57.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product57.jpg",
         size: '["x","xl","xxl"]',
         desc: `Quần jeans nam Sandro, Cotton jeans, 5 túi, Tag da Sandro phía sau, Thiêt kế ôm vừa`,
         basePrice: 567000.0,
@@ -719,9 +744,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product58",
+        id: "58",
         name: `Áo suit len`,
         categoryId: "category06",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product58.jpg",
         size: '["x","xl","xxl"]',
         desc: `Áo khoác suit len cổ điển có tay dài, cổ tay cài khuy, 2 khuy cài, lỗ thông hơi phía sau và túi có nắp., Áo khoác nam Sandro, Tay dài có cổ tay cài khuy, Cài 2 khuy, 2 túi có nắp, Lỗ thông hơi phía sau, Túi bên trong`,
@@ -730,9 +756,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product59",
+        id: "59",
         name: `Áo sơ mi denim`,
         categoryId: "category07",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product59.jpg",
         size: '["x","xl","xxl"]',
         desc: `Áo sơ mi denim với cổ áo cổ điển, tay ngắn, cài khuy và có túi trước ngực., Áo sơ mi denim nam, Cổ áo sơ mi, Tay áo ngắn, Cúc bấm, Xẻ hai bên`,
@@ -741,10 +768,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product6",
+        id: "6",
         name: `Áo sweater unisex nam nữ basic nỉ chân cua`,
         categoryId: "category03",
-        imgSrc: "product6.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product6.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% cotton dày dặn, mêm mịn, đứng form, ít nhăn, siêu ấm áp cho mùa gió lạnh về`,
         basePrice: 350000.0,
@@ -752,9 +779,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product60",
+        id: "60",
         name: `Áo nỉ Square Cross`,
         categoryId: "category03",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product60.jpg",
 
         size: '["x","xl","xxl"]',
@@ -764,9 +792,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product7",
+        id: "7",
         name: `Áo sweater nam trơn basic vải da cá`,
         categoryId: "category03",
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product7.jpg",
         size: '["x","xl","xxl"]',
         desc: ` Chất liệu: 100% cotton da cá dày dặn, mềm mịn co giãn 4 chiều thông thoáng, thấm hút tốt và không bị bạc màu sau thời gian dài sử dụng`,
@@ -775,10 +804,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product8",
+        id: "8",
         name: `Quần jean unisex nam nữ cạp cao ống suông rộng`,
         categoryId: "category08",
-        imgSrc: "product8.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product8.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: jeans (95% cotton, 5% spandex) không phai màu, thấm hút tốt và mềm mại, dễ phối đồ`,
         basePrice: 290000.0,
@@ -786,10 +815,10 @@ Tự hào sản xuất tại Việt Nam`,
     },
 
     {
-        id: "product9",
+        id: "9",
         name: `Quần jean nam baggy cạp chun bản to ống rộng`,
         categoryId: "category08",
-        imgSrc: "product9.jpg",
+        color: '["#ffffff", "#000000"]', imgSrc: "product9.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: jeans (95% cotton, 5% spandex) không phai màu, thấm hút tốt và mềm mại, dễ phối đồ`,
         basePrice: 290000.0,
@@ -1018,7 +1047,7 @@ function getProduct(id) {
 }
 
 var productReview = {
-    productId: "product21",
+    productId: "21",
     color: "#3d3d3d",
     size: `[
     {"name": "Dài áo", "value": 68, "unit": "cm"},

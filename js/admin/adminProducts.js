@@ -103,6 +103,28 @@ function removeSize(formSize) {
     }
 }
 
+// Add/remove form color
+addColor(productDialog);
+
+function addColor(dialog) {
+    const addColorBtn = dialog.querySelector(".form__add-color");
+    const formColors = dialog.querySelector(".form__colors");
+    addColorBtn.onclick = function () {
+        const formSizeHTML = `<div class="form__color" onclick="removeColor(this)">
+                                        <input type="color" name="color" class="form__size-input">
+                                            <i class="form__color-delete fa-solid fa-xmark" ></i>
+                                    </div>`;
+        formColors.insertAdjacentHTML("beforeend", formSizeHTML);
+    }
+}
+
+function removeColor(formColor) {
+    const formSizeDelete = formColor.querySelector(".form__color-delete");
+    formSizeDelete.onclick = function (e) {
+        formColor.remove();
+    }
+}
+
 //Add new product dialog
 function loadCategoryModal(dialog) {
     const categorySelect = dialog.querySelector(" .form__select");
@@ -189,6 +211,7 @@ function editProduct(productRow) {
         loadCategoryModal(editDialog);
         const category = editDialog.querySelector(`select[name="idCategory"]`);
         const sizes = editDialog.querySelector(".form__sizes");
+        const colors = editDialog.querySelector(".form__colors");
 
         // fill product data to input
         id.value = product.id;
@@ -211,6 +234,21 @@ function editProduct(productRow) {
                     </div>`;
         });
         sizes.innerHTML = sizeHTML.join("");
+
+        const arrayColor = JSON.parse(product.color);
+        console.log(arrayColor);
+        const colorHTML = arrayColor.map(function (color, index) {
+            if (index == 0) {
+                return `<div class="form__color">
+                            <input type="color" name="color" value="${color}" class="form__color-input">
+                        </div>`;
+            }
+            return `<div class="form__color" onclick="removeColor(this)">
+                        <input type="color" name="color" value="${color}" class="form__color-input">
+                            <i class="form__color-delete fa-solid fa-xmark" ></i>
+                    </div>`;
+        });
+        colors.innerHTML = colorHTML.join("");
     }
     closeDialog.onclick = function () {
         editDialog.style.display = "none";
@@ -219,7 +257,12 @@ function editProduct(productRow) {
         editDialog.style.display = "none";
     }
     addSize(editDialog);
+    addColor(editDialog)
     loadImg(editDialog);
+
+    function setColor(colorCode){
+        this.value = colorCode;
+    }
 }
 
 //load img product
@@ -239,7 +282,7 @@ function loadImg(dialog) {
             })
             reader.readAsDataURL(chooseFile);
         }
-    })
+    });
 }
 
 //Search
