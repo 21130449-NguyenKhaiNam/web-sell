@@ -253,53 +253,7 @@ body {
 
 .cart:hover {
     cursor: pointer;
-}
-
-.cart:hover .cart__list {
-    opacity: 1;
-    visibility: visible;
-}
-
-.cart__list {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    background-color: var(--color);
-    width: 300px;
-    box-shadow: 9px 12px 20px -1px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 9px 12px 20px -1px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 9px 12px 20px -1px rgba(0, 0, 0, 0.75);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
-}
-
-.cart__list::after, .cart__list::before {
-    content: "";
-    position: absolute;
-    --size: 20px;
-    display: block;
-}
-
-.cart__list::after {
-    bottom: 100%;
-    right: 30px;
-    border-width: 0 var(--size) var(--size) var(--size);
-    border-style: solid;
-    border-color: transparent transparent var(--color) transparent;
-
-}
-
-.cart__list::before {
-    width: 100%;
-    height: calc(var(--size) * 2);
-    bottom: 100%;
-}
-
-.cart__item {
-    display: block;
-    width: 100%;
-    height: 100px;
+    opacity: 0.8;
 }
 
 /*Account*/
