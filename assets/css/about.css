@@ -113,9 +113,9 @@ hr{
 .text__compo{
     display: none;
     margin: auto;
-    height: 130px;
-    width: 1000px;
-    border: 2px solid #7d7c7c;
+    height: auto;
+    width: 80%;
+    border: 2px #7d7c7c;
     border-style: dotted;
     border-radius: 10px;
     background-color: #272727;
@@ -127,8 +127,7 @@ hr{
     margin-left: 20px;
 }
 .text__compo .text{
-    margin-left: 20px;
-    margin-top: 20px;
+    margin: 20px 20px;
     text-align: left;
 }
 .chosing{
