@@ -21,11 +21,11 @@
     <link rel="stylesheet" href="./assets/font/webfonts/Montserrat.css">
 
     <!--CSS-->
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/home.css">
 
-    <title>May đồ theo yêu cầu</title>
+    <title>Your Style</title>
 </head>
 <body>
 <!--Header nơi chứa navigation-->
@@ -47,11 +47,36 @@
                 </ul>
                 <!--cta == call to action-->
                 <div class="nav__cta">
-                    <a href="htmls/signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="htmls/signUp.html"
+                    <a href="./htmls/signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
+                    <a href="./htmls/signUp.html"
                        class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
                 </div>
                 <!--Account show (After log in success)-->
+                <div class="account__wrapper">
+                    <!--Giỏ hàng-->
+                    <a href="./htmls/shoppingCart.html" class="cart">
+                        <i class="cart__icon  fa-solid fa-cart-shopping"></i>
+                    </a>
+
+                    <div class="account">
+                        <i class="account__icon fa-regular fa-user"></i>
+                        <div class="setting__list">
+                            <div class="setting__item"><a href="#!" class="setting__link">
+                                <div class="account__info">
+                                    <i class="account__icon fa-regular fa-user"></i>
+                                    <p class="account__name"></p>
+                                </div>
+                            </a></div>
+                            <div class="setting__item"><a href="#!" class="setting__link">Đơn mua</a></div>
+                            <div class="setting__item"><a href="./htmls/profile.html" class="setting__link">Tài khoản
+                                                                                                            của tôi</a>
+                            </div>
+                            <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
+                                                                                                           xuất</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -64,7 +89,7 @@
         <div class="hero__slogan">
             <h1>Change Your Styles Now</h1>
             <p>Cùng chúng tôi tạo nên thiết kế khác biệt cho quần áo của bạn</p>
-            <a href="htmls/productBuying.html" class="hero__button button button--hover">Bắt đầu đặt hàng</a>
+            <a href="htmls/productBuying.html" class="hero__button button button--hover">Bắt đầu đặt may</a>
         </div>
     </div>
 
@@ -202,23 +227,24 @@
 
                 <div class="footer__block">
                     <p class="footer__title">Địa chỉ</p>
-                    <a href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh Tấn Phát, Phường
+                    <a target="_blank" href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh Tấn Phát,
+                                                                                               Phường
                                                                                              Phú Thuận, Quận 7, Tp. Hồ
                                                                                              Chí Minh</a></div>
             </div>
             <div class="col">
                 <ul class="footer__block">
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Thiết kế</a>
+                        <a href="./htmls/productBuying.html" class="footer__link">Gian hàng</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Liên hệ</a>
+                        <a href="./htmls/contact.html" class="footer__link">Liên hệ</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Về chúng tôi</a>
+                        <a href="./htmls/about.html" class="footer__link">Về chúng tôi</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Chính sách mua hàng</a>
+                        <a href="./htmls/policy.html" class="footer__link">Chính sách mua hàng</a>
                     </li>
                 </ul>
             </div>

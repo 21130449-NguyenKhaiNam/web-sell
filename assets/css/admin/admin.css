@@ -1,7 +1,9 @@
+body {
+    position: relative;
+}
 #header {
     background-color: var(--blue-color-medium);
 }
-
 .account__wrapper {
     display: flex;
     gap: 5px;
@@ -45,7 +47,7 @@
 }
 
 .content {
-    padding: 50px;
+    padding: 50px 0;
 }
 
 /*Form*/
@@ -210,7 +212,6 @@ h1 {
 
 .table__wrapper {
     overflow: auto;
-    height: 600px;
     margin-top: 12px;
 }
 
@@ -272,6 +273,13 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
 /*Product form edit info*/
 .modal {
     display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: unset;
+    height: unset;
 }
 
 .modal__product {
@@ -279,6 +287,7 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
     background-color: #fff;
     color: #000;
     border-radius: 10px;
+    padding-bottom: 20px;
 }
 
 .modal__blur {
@@ -382,8 +391,6 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
     border-bottom: 1px solid #ccc;
     padding: 10px 0;
 }
-
-
 
 .form__desc .form__title {
     display: inline-block;

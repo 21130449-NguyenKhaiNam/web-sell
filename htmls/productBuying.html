@@ -15,11 +15,9 @@
     <link rel="manifest" href="../assets/favicon/site.webmanifest">
     <!--Web font-->
     <link rel="stylesheet" href="../assets/font/webfonts/Montserrat.css">
-
     <!--CSS-->
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/base.css">
-    <link rel="stylesheet" href="../assets/css/home.css">
     <link rel="stylesheet" href="../assets/css/productBuying.css">
     <title>Gian hàng</title>
 </head>
@@ -29,7 +27,7 @@
     <nav class="nav">
         <div class="container-xl">
             <div class="nav__inner">
-                <a href="#" class="logo">
+                <a href="../index.html" class="logo">
                 </a>
                 <ul class="nav__list">
                     <li class="nav__item">
@@ -50,26 +48,20 @@
                 <!--Account show (After log in success)-->
                 <div class="account__wrapper">
                     <!--Giỏ hàng-->
-                    <div class="cart">
+                    <a href="shoppingCart.html" class="cart">
                         <i class="cart__icon  fa-solid fa-cart-shopping"></i>
-                        <ul class="cart__list">
-                            <li class="cart__item"></li>
-                            <li class="cart__item"></li>
-                            <li class="cart__item"></li>
-                        </ul>
-                    </div>
+                    </a>
 
                     <div class="account">
                         <i class="account__icon fa-regular fa-user"></i>
                         <div class="setting__list">
-                            <div class="setting__item"><a href="#!" class="setting__link">
+                            <div class="setting__item"><a href="./account.html" class="setting__link">
                                 <div class="account__info">
                                     <i class="account__icon fa-regular fa-user"></i>
                                     <p class="account__name"></p>
                                 </div>
                             </a></div>
-                            <div class="setting__item"><a href="#!" class="setting__link">Đơn mua</a></div>
-                            <div class="setting__item"><a href="./htmls/profile.html" class="setting__link">Tài khoản
+                            <div class="setting__item"><a href="./account.html" class="setting__link">Tài khoản
                                                                                                             của tôi</a>
                             </div>
                             <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
@@ -128,15 +120,15 @@
 
                 <div class="footer__block">
                     <p class="footer__title">Địa chỉ</p>
-                    <a href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh Tấn Phát,
-                                                                                             Phường
-                                                                                             Phú Thuận, Quận 7, Tp.
-                                                                                             Hồ Chí Minh</a></div>
+                    <a target="_blank" href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh Tấn Phát,
+                                                                                                             Phường
+                                                                                                             Phú Thuận, Quận 7, Tp. Hồ
+                                                                                                             Chí Minh</a></div>
             </div>
             <div class="col">
                 <ul class="footer__block">
                     <li class="footer__desc">
-                        <a href="productBuying.html" class="footer__link">Gian hàng</a>
+                        <a href="./productBuying.html" class="footer__link">Gian hàng</a>
                     </li>
                     <li class="footer__desc">
                         <a href="./contact.html" class="footer__link">Liên hệ</a>
