@@ -34,28 +34,58 @@
     <nav class="nav">
         <div class="container-xl">
             <div class="nav__inner">
-                <a href="#" class="logo">
+                <a href="../index.html" class="logo">
                 </a>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="#!" class="nav__link">Thiết kế</a></li>
-                    <li class="nav__item">
-                        <a href="#!" class="nav__link">Liên hệ</a>
+                        <a href="../index.html" class="nav__link">Trang chủ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="#!" class="nav__link">Về chúng tôi</a>
+                        <a href="productBuying.html" class="nav__link">Gian hàng</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link">Liên hệ</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="about.html" class="nav__link">Về chúng tôi</a>
                     </li>
                 </ul>
                 <!--cta == call to action-->
                 <div class="nav__cta">
-                    <a href="#!" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="#!" class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
+                    <a href="signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
+                    <a href="signUp.html"
+                       class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
+                </div>
+                <!--Account show (After log in success)-->
+                <div class="account__wrapper">
+                    <!--Giỏ hàng-->
+                    <a href="shoppingCart.html" class="cart">
+                        <i class="cart__icon  fa-solid fa-cart-shopping"></i>
+                    </a>
+
+                    <div class="account">
+                        <i class="account__icon fa-regular fa-user"></i>
+                        <div class="setting__list">
+                            <div class="setting__item"><a href="#!" class="setting__link">
+                                <div class="account__info">
+                                    <i class="account__icon fa-regular fa-user"></i>
+                                    <p class="account__name"></p>
+                                </div>
+                            </a></div>
+                            <div class="setting__item"><a href="#!" class="setting__link">Đơn mua</a></div>
+                            <div class="setting__item"><a href="profile.html" class="setting__link">Tài khoản
+                                của tôi</a>
+                            </div>
+                            <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
+                                xuất</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 </header>
-
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main">
     <div class="container-xl">
@@ -67,22 +97,25 @@
                     <span class="non__selected">Vui lòng chọn thông tin giao hàng</span>
                     <form id="delivery__info--form" class="radio__section">
                         <div class="delivery__default section__info--selection">
-                            <input type="radio" name="default__selection" class="radio__button" value="default__selection"
+                            <input type="radio" name="default__selection" class="radio__button"
+                                   value="default__selection"
                                    id="default__selection">
                             <label class="label__selection" for="default__selection">
                                 <ul class="info__items">
-                                    <li class="info__item">Họ và tên: Nguyễn Văn A</li>
-                                    <li class="info__item">Email: nguyenvana@gmail.com</li>
-                                    <li class="info__item">Số điện thoại: 08xxxxxxxx</li>
-                                    <li class="info__item">Địa chỉ: Đường ABC, huyện XYZ</li>
+                                    <li class="info__item">Họ và tên: Cáp Hữu Ðạt</li>
+                                    <li class="info__item">Email: HuuDat@gmail.com</li>
+                                    <li class="info__item">Số điện thoại: 0328012964</li>
+                                    <li class="info__item">Địa chỉ: Xã Vĩnh Thạnh Trung, Huyện Châu Phú, An Giang</li>
                                 </ul>
                             </label>
                         </div>
                         <div class="delivery__other">
                             <div class="section__info--selection">
-                                <input type="radio" name="default__selection" class="radio__button" value="other__selection"
+                                <input type="radio" name="default__selection" class="radio__button"
+                                       value="other__selection"
                                        id="other__selection">
-                                <label class="label__selection" for="other__selection">Sử dụng thông tin khác khi nhận hàng</label>
+                                <label class="label__selection" for="other__selection">Sử dụng thông tin khác khi nhận
+                                    hàng</label>
                             </div>
                         </div>
                     </form>
@@ -121,7 +154,8 @@
                         </div>
                         <div class="method__item section__info--selection">
                             <input type="radio" name="payment__method" class="radio__button" value="bank" id="bank">
-                            <label class="label__selection" for="bank">Thanh toán qua atm nội địa / internet banking</label>
+                            <label class="label__selection" for="bank">Thanh toán qua atm nội địa / internet
+                                banking</label>
                         </div>
                         <div class="method__item section__info--selection">
                             <input type="radio" name="payment__method" class="radio__button" value="e-wallet"
@@ -149,7 +183,9 @@
                     </div>
                     <div class="ground__button--forward">
                         <button class="place__order">Đặt hàng</button>
-                        <a href="shoppingCart.html"><button class="back--shopping__cart">Quay lại giỏ hàng</button></a>
+                        <a href="shoppingCart.html">
+                            <button class="back--shopping__cart">Quay lại giỏ hàng</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -170,22 +206,25 @@
 
                 <div class="footer__block">
                     <p class="footer__title">Địa chỉ</p>
-                    <a href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh Tấn Phát, Phường
-                        Phú Thuận, Quận 7, Tp. Hồ Chí Minh</a></div>
+                    <a target="_blank" href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh
+                        Tấn Phát,
+                        Phường
+                        Phú Thuận, Quận 7, Tp. Hồ
+                        Chí Minh</a></div>
             </div>
             <div class="col">
                 <ul class="footer__block">
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Thiết kế</a>
+                        <a href="./productBuying.html" class="footer__link">Gian hàng</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Liên hệ</a>
+                        <a href="./contact.html" class="footer__link">Liên hệ</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Về chúng tôi</a>
+                        <a href="./about.html" class="footer__link">Về chúng tôi</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Chính sách mua hàng</a>
+                        <a href="./policy.html" class="footer__link">Chính sách mua hàng</a>
                     </li>
                 </ul>
             </div>
@@ -223,10 +262,9 @@
     </div>
 </footer>
 </body>
+<script src="../js/base.js"></script>
 <script src="../js/shoppingCart.js"></script>
 <script src="../js/checkout.js"></script>
-
-
 <script>
     ValidatorCustomizeDeliveryForm({
         form: '#customize__info--form',
@@ -240,7 +278,7 @@
             ValidatorCustomizeDeliveryForm.isRequired('#email'),
             ValidatorCustomizeDeliveryForm.isEmail('#email')
         ],
-        onSubmit: function (dataInput){
+        onSubmit: function (dataInput) {
             const otherDeliveryLabelElement = document.querySelector('label[for="other__selection"]');
             otherDeliveryLabelElement.innerHTML = `<ul class="info__items">
                                                       <li class="info__item">Họ và tên: ${dataInput['full__name']}</li>

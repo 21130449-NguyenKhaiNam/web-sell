@@ -12,9 +12,13 @@
     margin-bottom: 70px;
 }
 
+.cart__container .cart__content{
+    flex: 3;
+}
+
 .cart__container .cart__content .grid__cart--template {
     display: grid;
-    grid-template-columns: auto 120px 128px 140px 70px;
+    grid-template-columns: auto 100px 128px 140px 70px;
     gap: 20px;
     align-items: center;
 }
@@ -102,22 +106,26 @@
     /*border-radius: 4px;*/
     /*overflow: hidden;*/
     /*border: 1px black solid;*/
-    height: 238px;
-    min-width: 180px;
+    /*height: 238px;*/
+    /*min-width: 180px;*/
 }
 
 .cart__items .cart__item .product__item a[class="product__image"] img{
-    height: 100%;
-    width: 100%;
+    /*height: 100%;*/
+    /*width: 100%;*/
+    width: 86px;
     object-fit: cover;
     border-radius: 6px;
 }
 
 .cart__items .cart__item .product__item .order__product--info .product__name {
-    font-size: 19px;
     font-weight: 500;
     /*border: black 1px solid;*/
     line-height: 22px;
+}
+
+.order__color, .order__size--specification{
+    font-size: 14px;
 }
 
 .size__spec--item{
@@ -129,6 +137,7 @@
     padding: 8px 14px;
     border-radius: 4px;
     width: fit-content;
+    font-weight: 500;
 }
 
 .cart__items .cart__item .product__item .order__product--info .edit--button:hover{
@@ -273,6 +282,37 @@
     font-weight: 500;
     color: #808080;
 }
+
+.invoice__promotion .summary__invoice .invoice__detail--info .price__text:last-child{
+    position: relative;
+    cursor: pointer;
+}
+
+.invoice__promotion .summary__invoice .invoice__detail--info .price__text .discount__note{
+    position: absolute;
+    left: 36%;
+    width: 180px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 6px;
+    border: 1px solid var(--blue-color-high);
+    border-radius: 4px;
+    background-color: white;
+    line-height: 16px;
+}
+
+.invoice__promotion .summary__invoice .invoice__detail--info .price__item:last-child:hover{
+    cursor: pointer;
+}
+
+.invoice__promotion .summary__invoice .invoice__detail--info .price__item:last-child:hover .discount__note{
+    visibility: visible;
+    opacity: 1;
+}
+
 
 .invoice__promotion .summary__invoice .price__items .price__value{
     font-size: 20px;

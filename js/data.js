@@ -63,7 +63,8 @@ const listCategories = [
         id: "category11",
         nameType: "Quần Joggers",
         styleGuideImage: "quanJoggersSizeGuide.png",
-        ruleSize: '{"name": "dài quần", "min": 90, "max": 110,"unit": "cm"},{"name": "1/2 vòng cạp", "min": 30, "max": 45, "unit": "cm"}, {"name": "1/2 vòng mông", "min": 45, "max": 60, "unit": "cm"}, {"name": "1/2 vòng gấu", "min": 10, "max": 15, "unit": "cm"}]',},
+        ruleSize: '{"name": "dài quần", "min": 90, "max": 110,"unit": "cm"},{"name": "1/2 vòng cạp", "min": 30, "max": 45, "unit": "cm"}, {"name": "1/2 vòng mông", "min": 45, "max": 60, "unit": "cm"}, {"name": "1/2 vòng gấu", "min": 10, "max": 15, "unit": "cm"}]',
+    },
 ]
 
 const listProduct = [
@@ -630,7 +631,7 @@ Tự hào sản xuất tại Việt Nam`,
         id: "49",
         name: `Quần ống loe`,
         categoryId: "category08",
-        color: '["#ffffff", "#000000"]', 
+        color: '["#ffffff", "#000000"]',
         imgSrc: "product49.jpg",
         size: '["x","xl","xxl"]',
         desc: `Quần ống loe pha len có thắt lưng ở eo., Quần ống loe phối len nữ Sandro, Đai grosgrain, Ủi nếp`,
@@ -980,10 +981,10 @@ var productDetail = {
     basePrice: 499000,
     salePrice: 429000,
     parameter: JSON.parse(getCategory("category06").ruleSize),
-    desc: "Chất liệu: 50% S.Café + 50% Recycled PET\n"+
-        "Phù hợp với: đi làm, đi chơi\n"+
-        "Kiểu dáng: Regular fit dáng suông\n"+
-        "Người mẫu: 177 cm - 74 kg, mặc size XL\n"+
+    desc: "Chất liệu: 50% S.Café + 50% Recycled PET\n" +
+        "Phù hợp với: đi làm, đi chơi\n" +
+        "Kiểu dáng: Regular fit dáng suông\n" +
+        "Người mẫu: 177 cm - 74 kg, mặc size XL\n" +
         "Tự hào sản xuất tại Việt Nam",
     size: ["M", "L", "XL", "XXL"],
     reviews: [
@@ -1058,3 +1059,358 @@ var productReview = {
     quantity: "2",
 }
 
+const listOrders = [
+    {
+        id: "1",
+        userId: "5",
+        dateOrder: "2022-10-29",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Ngụy Ðông Phương",
+        email: "DongPhuong@gmail.com",
+        phone: "0783748159",
+        address: "Xã Nghĩa Hưng, Huyện Chư Păh, Gia Lai",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "CHƯA THANH TOÁN",
+        statusDelivery: "ĐANG CHUẨN BỊ",
+        voucherId: "2"
+    },
+    {
+        id: "2",
+        userId: "7",
+        dateOrder: "2022-10-29",
+        paymentMethod: "CHUYỂN KHOẢN NGÂN HÀNG",
+        fullName: "Cáp Hữu Ðạt",
+        email: "HuuDat@gmail.com",
+        phone: "0328012964",
+        address: "Xã Vĩnh Thạnh Trung, Huyện Châu Phú, An Giang",
+        statusOrder: "CHƯA XÁC NHẬN",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐƠN ĐÃ ĐẶT",
+        voucherId: "3"
+    },
+    {
+        id: "3",
+        userId: "4",
+        dateOrder: "2022-10-29",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Phạm Thị Huyền",
+        email: "huyenpham@gmail.com",
+        phone: "0978223344",
+        address: "Số 456 Đường Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TP.HCM",
+        statusOrder: "CHƯA XÁC NHẬN",
+        statusTransaction: "CHƯA THANH TOÁN",
+        statusDelivery: "ĐƠN ĐÃ ĐẶT",
+        voucherId: "4"
+    },
+    {
+        id: "4",
+        userId: "3",
+        dateOrder: "2022-10-29",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Hoàng Văn Long",
+        email: "longhoang@gmail.com",
+        phone: "0905123456",
+        address: "Số 123 Đường Lê Lai, Phường Phạm Ngũ Lão, Quận 1, TP.HCM', b'0', '1992-07-18",
+        statusOrder: "HOÀN THÀNH",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ GIAO",
+        voucherId: "7"
+    },
+    {
+        id: "5",
+        userId: "6",
+        dateOrder: "2022-10-29",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Liễu Thụy Nương",
+        email: "LieuNuong4@gmail.com",
+        phone: "0769506724",
+        address: "Xã Vĩnh Phúc, Huyện Vĩnh Lộc, Thanh Hóa",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "CHƯA THANH TOÁN",
+        statusDelivery: "ĐANG CHUẨN BỊ",
+        voucherId: "6"
+    },
+    {
+        id: "6",
+        userId: "8",
+        dateOrder: "2022-10-29",
+        paymentMethod: "CHUYỂN KHOẢN NGÂN HÀNG",
+        fullName: "Nhan Công Hiếu",
+        email: "CongHieu6@gmail.com",
+        phone: "0325976083",
+        address: "Xã Đắk Choong, Huyện Đắk Glei, Kon Tum",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ CHUẨN BỊ",
+        voucherId: "8"
+    },
+    {
+        id: "7",
+        userId: "10",
+        dateOrder: "2022-10-29",
+        paymentMethod: "CHUYỂN KHOẢN NGÂN HÀNG",
+        fullName: "Thi Hồ Nam",
+        email: "HoNam8@gmail.com",
+        phone: "0886819054",
+        address: "Xã Tham Đôn, Huyện Mỹ Xuyên, Sóc Trăng",
+        statusOrder: "HOÀN THÀNH",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ GIAO",
+        voucherId: "1"
+    },
+    {
+        id: "8",
+        userId: "9",
+        dateOrder: "2022-10-29",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Hầu Thanh Long",
+        email: "ThanhLong@egmail.com",
+        phone: "0707405391",
+        address: "Xã An Nông, Huyện Tịnh Biên, An Giang",
+        statusOrder: "HOÀN THÀNH",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ GIAO",
+        voucherId: "9"
+    },
+    {
+        id: "9",
+        userId: "12",
+        dateOrder: "2022-10-29",
+        paymentMethod: "VÍ ĐIỆN TỬ",
+        fullName: "Quản Xuân Ninh",
+        email: "XuanNinh@gmail.com",
+        phone: "0392703698",
+        address: "Thị trấn Vĩnh Thạnh, Huyện Vĩnh Thạnh, Bình Định",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "CHƯA THÀNH TOÁN",
+        statusDelivery: "ĐANG CHUẨN BỊ",
+        voucherId: "10"
+    },
+    {
+        id: "10",
+        userId: "11",
+        dateOrder: "2022-10-29",
+        paymentMethod: "VÍ ĐIỆN TỬ",
+        fullName: "Thục Kim Lan",
+        email: "KimLan@gmail.com",
+        phone: "0797204681",
+        address: "Phường Thốt Nốt, Quận Thốt Nốt, Cần Thơ",
+        statusOrder: "HOÀN THÀNH",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ GIAO",
+        voucherId: "7"
+    },
+    {
+        id: "11",
+        userId: "7",
+        dateOrder: "2022-10-29",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Nguyễn Chí Hiếu",
+        email: "HieuNguyen@gmail.com",
+        phone: "0902346795",
+        address: "Xã Đức Long, Huyện Hoà An, Cao Bằng",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "CHƯA THANH TOÁN",
+        statusDelivery: "ĐƠN ĐÃ ĐẶT",
+        voucherId: "0"
+    },
+    {
+        id: "12",
+        userId: "2",
+        dateOrder: "2022-10-30",
+        paymentMethod: "VÍ ĐIỆN TỬ",
+        fullName: "Trần Thị An",
+        email: "anTran@yahoo.com",
+        phone: "0901234567",
+        address: "Phường Hòa Khánh, Quận Liên Chiểu, Đà Nẵng",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐANG CHUẨN BỊ",
+        voucherId: "0"
+    },
+    {
+        id: "13",
+        userId: "3",
+        dateOrder: "2022-10-31",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Lê Văn Nam",
+        email: "NamLe@gmail.com",
+        phone: "0909876543",
+        address: "Phường Bình Hòa, Thị xã Thuận An, Bình Dương",
+        statusOrder: "CHƯA XÁC NHẬN",
+        statusTransaction: "CHƯA THANH TOÁN",
+        statusDelivery: "ĐƠN ĐÃ ĐẶT",
+        voucherId: "2"
+    },
+    {
+        id: "14",
+        userId: "4",
+        dateOrder: "2022-11-01",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Nguyễn Thị Linh",
+        email: "linhNguyen@gmail.com",
+        phone: "0908765432",
+        address: "Phường Tây Sơn, Quận Đống Đa, Hà Nội",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "CHƯA THANH TOÁN",
+        statusDelivery: "ĐƠN ĐÃ ĐẶT",
+        voucherId: "5"
+    },
+    {
+        id: "15",
+        userId: "5",
+        dateOrder: "2022-11-02",
+        paymentMethod: "CHUYỂN KHOẢN NGÂN HÀNG",
+        fullName: "Cáp Hữu Ðạt",
+        email: "HuuDat@gmail.com",
+        phone: "0328012964",
+        address: "Xã Vĩnh Thạnh Trung, Huyện Châu Phú, An Giang",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ GIAO",
+        voucherId: "0"
+    },
+    {
+        id: "16",
+        userId: "6",
+        dateOrder: "2022-11-03",
+        paymentMethod: "CHUYỂN KHOẢN NGÂN HÀNG",
+        fullName: "Nhan Công Hiếu",
+        email: "CongHieu6@gmail.com",
+        phone: "0325976083",
+        address: "Xã Đắk Choong, Huyện Đắk Glei, Kon Tum",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐANG GIAO",
+        voucherId: "1"
+    },
+    {
+        id: "17",
+        userId: "6",
+        dateOrder: "2022-11-04",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Mai Thị Thu",
+        email: "ThuMai@gmail.com",
+        phone: "0909876123",
+        address: "Phường Hòa An, Quận Cẩm Lệ, Đà Nẵng",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "CHƯA THANH TOÁN",
+        statusDelivery: "ĐANG GIAO",
+        voucherId: "0"
+    },
+    {
+        id: "18",
+        userId: "8",
+        dateOrder: "2022-11-05",
+        paymentMethod: "CHUYỂN KHOẢN NGÂN HÀNG",
+        fullName: "Thi Hồ Nam",
+        email: "HoNam8@gmail.com",
+        phone: "0886819054",
+        address: "Xã Tham Đôn, Huyện Mỹ Xuyên, Sóc Trăng",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "CHƯA THANH TOÁN",
+        statusDelivery: "ĐƠN ĐÃ ĐẶT",
+        voucherId: "8"
+    },
+    {
+        id: "19",
+        userId: "8",
+        dateOrder: "2022-11-06",
+        paymentMethod: "CHUYỂN KHOẢN NGÂN HÀNG",
+        fullName: "Lê Thị Hà",
+        email: "HaLe@gmail.com",
+        phone: "0908887777",
+        address: "Phường Tây Sơn, Quận Thanh Khê, Đà Nẵng",
+        statusOrder: "HOÀN THÀNH",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ GIAO",
+        voucherId: "0"
+    },
+    {
+        id: "20",
+        userId: "10",
+        dateOrder: "2022-11-06",
+        paymentMethod: "CHUYỂN KHOẢN NGÂN HÀNG",
+        fullName: "Phùng Thanh Nhàn",
+        email: "nhanPhung@gmail.com",
+        phone: "0907722801",
+        address: "80/50, khu phố Bình Đường 2, An Bình, Dĩ An, Bình Dương",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐANG GIAO",
+        voucherId: "0"
+    }
+]
+
+const listVouchers = [
+    {
+        id: "1",
+        code: "MGG25",
+        description: `Bạn được giảm giá 25.000 ₫ khi áp dụng mã`,
+        minimumPrice: 200000,
+        discountPrice: 25000
+    },
+    {
+        id: "2",
+        code: "MGG35",
+        description: `Bạn được giảm giá 35.000 ₫ khi áp dụng mã`,
+        minimumPrice: 250000,
+        discountPrice: 35000
+    },
+    {
+        id: "3",
+        code: "MGG50",
+        description: `Bạn được giảm giá 50.000 ₫ khi áp dụng mã`,
+        minimumPrice: 400000,
+        discountPrice: 50000
+    },
+    {
+        id: "4",
+        code: "MGG70",
+        description: `Bạn được giảm giá 70.000 ₫ khi áp dụng mã`,
+        minimumPrice: 550000,
+        discountPrice: 70000
+    },
+    {
+        id: "5",
+        code: "MGG100",
+        description: `Bạn được giảm giá 100.000 ₫ khi áp dụng mã`,
+        minimumPrice: 700000,
+        discountPrice: 100000
+    },
+    {
+        id: "6",
+        code: "MGG150",
+        description: `Bạn được giảm giá 150.000 ₫ khi áp dụng mã`,
+        minimumPrice: 850000,
+        discountPrice: 150000
+    },
+    {
+        id: "7",
+        code: "MGG200",
+        description: `Bạn được giảm giá 200.000 ₫ khi áp dụng mã`,
+        minimumPrice: 1000000,
+        discountPrice: 200000
+    },
+    {
+        id: "8",
+        code: "MGG300",
+        description: `Bạn được giảm giá 300.000 ₫ khi áp dụng mã`,
+        minimumPrice: 1500000,
+        discountPrice: 300000
+    },
+    {
+        id: "9",
+        code: "MGG350",
+        description: `Bạn được giảm giá 350.000 ₫ khi áp dụng mã`,
+        minimumPrice: 2000000,
+        discountPrice: 350000
+    },
+    {
+        id: "10",
+        code: "MGG400",
+        description: `Bạn được giảm giá 400.000 ₫ khi áp dụng mã`,
+        minimumPrice: 2500000,
+        discountPrice: 400000
+    }
+];
