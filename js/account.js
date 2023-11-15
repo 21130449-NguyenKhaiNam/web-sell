@@ -41,7 +41,7 @@ var htmls = listProduct.slice(10,15).map(function (product) {
                     <p class="info__product">${product.name}</p>
                     <p class="info__product">${getCategory(product.categoryId).nameType}</p>
                     <p class="info__product">Số lượng: 1</p>
-                    <p class="info__product">${product.salePrice}</p>
+                    <p class="info__product">giá: ${product.salePrice} VND</p>
                     <p class="info__product">Ngày: 2/11/2023</p>
                 </div>
                 <button class="btn"><a href="../htmls/review.html">Đánh giá</a></button>
