@@ -2,14 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Các thư viện hỗ trợ-->
+    <!--Font Awesome-->
     <link rel="stylesheet" href="../assets/bootstrap/bootstrap-grid.min.css">
     <link rel="stylesheet" href="../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
+    <!--Favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="../assets/favicon/site.webmanifest">
+    <!--Web font-->
+    <link rel="stylesheet" href="../assets/font/webfonts/Montserrat.css">
+    <!--CSS-->
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/base.css">
-
     <link rel="stylesheet" href="../assets/css/account.css">
-    <title>Title</title>
+    <title>Tài khoản</title>
 </head>
 <body>
 <header id="header">
@@ -20,31 +31,30 @@
                 </a>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="#!" class="nav__link">Thiết kế</a></li>
-                    <li class="nav__item">
-                        <a href="#!" class="nav__link">Liên hệ</a>
+                        <a href="../index.html" class="nav__link">Trang chủ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="#!" class="nav__link">Về chúng tôi</a>
+                        <a href="./productBuying.html" class="nav__link">Gian hàng</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="./contact.html" class="nav__link">Liên hệ</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="./about.html" class="nav__link">Về chúng tôi</a>
                     </li>
                 </ul>
                 <!--cta == call to action-->
                 <div class="nav__cta">
-                    <a href="../htmls/signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="../htmls/signUp.html"
+                    <a href="./signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
+                    <a href="./signUp.html"
                        class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
                 </div>
                 <!--Account show (After log in success)-->
                 <div class="account__wrapper">
                     <!--Giỏ hàng-->
-                    <div class="cart">
+                    <a href="./shoppingCart.html" class="cart">
                         <i class="cart__icon  fa-solid fa-cart-shopping"></i>
-                        <ul class="cart__list">
-                            <li class="cart__item"></li>
-                            <li class="cart__item"></li>
-                            <li class="cart__item"></li>
-                        </ul>
-                    </div>
+                    </a>
 
                     <div class="account">
                         <i class="account__icon fa-regular fa-user"></i>
@@ -56,9 +66,11 @@
                                 </div>
                             </a></div>
                             <div class="setting__item"><a href="#!" class="setting__link">Đơn mua</a></div>
-                            <div class="setting__item"><a href="#!" class="setting__link">Tài khoản của tôi</a></div>
+                            <div class="setting__item"><a href="profile.html" class="setting__link">Tài khoản
+                                                                                                    của tôi</a>
+                            </div>
                             <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
-                                xuất</a></d>
+                                                                                                           xuất</a>
                             </div>
                         </div>
                     </div>
@@ -206,16 +218,16 @@
             <div class="col">
                 <ul class="footer__block">
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Thiết kế</a>
+                        <a href="./productBuying.html" class="footer__link">Gian hàng</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Liên hệ</a>
+                        <a href="./contact.html" class="footer__link">Liên hệ</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Về chúng tôi</a>
+                        <a href="./about.html" class="footer__link">Về chúng tôi</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Chính sách mua hàng</a>
+                        <a href="./policy.html" class="footer__link">Chính sách mua hàng</a>
                     </li>
                 </ul>
             </div>
@@ -252,6 +264,7 @@
         </div>
     </div>
 </footer>
+<script src="../js/base.js"></script>
 <script src="../js/validateForm.js"></script>
 <script src="../js/data.js"></script>
 <script src="../js/account.js"></script>

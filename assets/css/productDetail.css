@@ -101,17 +101,15 @@
 
 /*Color picker*/
 .form__color-check {
-    position: relative;
     display: inline-block;
     --size: 30px;
     width: var(--size);
     height: var(--size);
     border-radius: 5px;
 }
-
-.form__color-check.form__color--checked {
+.form__color-check:has(input:checked){
     border: 2px solid #fff;
-    outline: 1px solid #000;
+    outline: 3px solid #000;
 }
 
 .form__color-check:hover {
