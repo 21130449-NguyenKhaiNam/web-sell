@@ -27,7 +27,7 @@ body{
 }
 .col-9{
     border-radius: 10px;
-    background-color: #757575;
+    background-color: var(--blue-color-high);
 }
 .service__item{
     padding: 20px 10px;
@@ -37,7 +37,7 @@ body{
     border-radius: 5px;
     color: #FFFFFF;
 }
-.service__item {
+.service__item ~ .service__item {
     margin-top: 20px;
 }
 .service__item:not(.service__item--clicked):hover {
@@ -45,7 +45,7 @@ body{
     cursor: pointer;
 }
 .service__item.service__item--clicked {
-    background-color: #757575
+    background-color: var(--blue-color-high);
 }
 h1{
     font-size: 32px;
@@ -220,11 +220,13 @@ h1{
 
 }
 .block__info{
-    line-height: 20px;
+
     margin: 10px 20px;
 }
 .info__product{
-    font-weight: 600;
+    font-weight: 460;
+    font-size: 18px;
+    line-height: 20px;
 }
 .btn{
     background-color: rgba(121, 121, 121, 0.64);
@@ -238,5 +240,4 @@ h1{
 }
 .btn:hover{
     background-color: #e0dfdf;
-
 }
