@@ -30,36 +30,64 @@
     <nav class="nav">
         <div class="container-xl">
             <div class="nav__inner">
-                <a href="#" class="logo">
+                <a href="../index.html" class="logo">
                 </a>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="#!" class="nav__link">Thiết kế</a></li>
-                    <li class="nav__item">
-                        <a href="#!" class="nav__link">Liên hệ</a>
+                        <a href="../index.html" class="nav__link">Trang chủ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="#!" class="nav__link">Về chúng tôi</a>
+                        <a href="productBuying.html" class="nav__link">Gian hàng</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="contact.html" class="nav__link">Liên hệ</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="about.html" class="nav__link">Về chúng tôi</a>
                     </li>
                 </ul>
                 <!--cta == call to action-->
                 <div class="nav__cta">
-                    <a href="#!" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="#!" class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
+                    <a href="signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
+                    <a href="signUp.html"
+                       class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
+                </div>
+                <!--Account show (After log in success)-->
+                <div class="account__wrapper">
+                    <!--Giỏ hàng-->
+                    <a href="shoppingCart.html" class="cart">
+                        <i class="cart__icon  fa-solid fa-cart-shopping"></i>
+                    </a>
+
+                    <div class="account">
+                        <i class="account__icon fa-regular fa-user"></i>
+                        <div class="setting__list">
+                            <div class="setting__item"><a href="#!" class="setting__link">
+                                <div class="account__info">
+                                    <i class="account__icon fa-regular fa-user"></i>
+                                    <p class="account__name"></p>
+                                </div>
+                            </a></div>
+                            <div class="setting__item"><a href="#!" class="setting__link">Đơn mua</a></div>
+                            <div class="setting__item"><a href="profile.html" class="setting__link">Tài khoản
+                                của tôi</a>
+                            </div>
+                            <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
+                                xuất</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 </header>
-
-
-
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main">
     <div class="container-xl">
         <h1 class="cart__title">Giỏ hàng</h1>
         <div class="cart__container row">
-            <div class="cart__content col-9">
+            <div class="cart__content col">
                 <div id="cart__header" class="grid__cart--template">
                     <span>Mẫu đồ</span>
                     <span>Giá may</span>
@@ -71,7 +99,7 @@
 
                 </div>
             </div>
-            <div class="invoice__promotion col-3">
+            <div class="invoice__promotion col">
                 <div class="apply__promotion">
                     <u>Khuyến mãi</u>
                     <form id="promotion__form">
@@ -91,7 +119,7 @@
                                 <p class="price__value"></p>
                             </li>
                             <li class="price__item">
-                                <p class="price__text">Giảm giá</p>
+                                <p class="price__text">Giảm giá <i class="icon__info fa-solid fa-circle-info"></i> <span class="discount__note"></span></p>
                                 <p class="price__value"></p>
                             </li>
                         </ul>
@@ -105,7 +133,9 @@
                     </div>
                 </div>
                 <div class="group__button--forward">
-                    <a href="checkout.html"><button id="continue--checkout">Tiến hành thanh toán</button></a>
+                    <a href="checkout.html">
+                        <button id="continue--checkout">Tiến hành thanh toán</button>
+                    </a>
                     <button id="continue--shopping">Tiến tục mua sắm</button>
                 </div>
             </div>
@@ -125,22 +155,25 @@
 
                 <div class="footer__block">
                     <p class="footer__title">Địa chỉ</p>
-                    <a href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh Tấn Phát, Phường
-                        Phú Thuận, Quận 7, Tp. Hồ Chí Minh</a></div>
+                    <a target="_blank" href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh
+                        Tấn Phát,
+                        Phường
+                        Phú Thuận, Quận 7, Tp. Hồ
+                        Chí Minh</a></div>
             </div>
             <div class="col">
                 <ul class="footer__block">
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Thiết kế</a>
+                        <a href="./productBuying.html" class="footer__link">Gian hàng</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Liên hệ</a>
+                        <a href="./contact.html" class="footer__link">Liên hệ</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Về chúng tôi</a>
+                        <a href="./about.html" class="footer__link">Về chúng tôi</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Chính sách mua hàng</a>
+                        <a href="./policy.html" class="footer__link">Chính sách mua hàng</a>
                     </li>
                 </ul>
             </div>
@@ -178,6 +211,7 @@
     </div>
 </footer>
 </body>
+<script src="../js/base.js"></script>
 <script src="../js/validateContactForm.js"></script>
 <script>
     ValidatorContactForm({
@@ -189,11 +223,12 @@
             ValidatorContactForm.isRequired('#email'),
             ValidatorContactForm.isEmail('#email')
         ],
-        onSubmit: function (data){
+        onSubmit: function (data) {
             console.log(data)
         }
     });
 </script>
+<script src="../js/data.js"></script>
 <script src="../js/checkout.js"></script>
 <script src="../js/shoppingCart.js"></script>
 </html>

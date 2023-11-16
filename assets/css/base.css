@@ -99,7 +99,6 @@ body {
 .nav__list {
     display: flex;
     gap: 30px;
-
 }
 
 .nav__link {
