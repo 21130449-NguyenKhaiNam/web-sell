@@ -10,11 +10,6 @@ function loadDataToTable(user) {
                         <input type="checkbox" name="passing" class="filter__input" data-userid="${user.id}" hidden="true">
                     </label>
                 </td>
-                <td class="table__data-edit">
-                    <label class="">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </label>
-                </td>
                 <td class="table__data">
                     <p class="table__cell">${user.id}</p>
                 </td>
@@ -26,9 +21,12 @@ function loadDataToTable(user) {
                     <p class="table__cell">${user.email}</p>
                 </td>
                 <td class="table__data">
-                    <p class="table__cell">${user.fullName}</p>
+                    <p class="table__cell table__data--fullname">${user.fullName}</p>
                 </td>
                 <td class="table__data">
+                    <p class="table__cell">${user.gender}</p>
+                </td>
+                <td class="table__data table__data--birthday">
                     <p class="table__cell">${user.birthDate}</p>
                 </td>
                 <td class="table__data">
@@ -40,7 +38,7 @@ function loadDataToTable(user) {
             </tr>`;
 }
 
-// xóa người dùng được chọn
+// xóa người dùng
 function deleteSelectedUsers() {
     var checkboxes = document.querySelectorAll('.table__date-checkbox input[type="checkbox"]:checked');
     var userIdsToDelete = Array.from(checkboxes).map(function (checkbox) {
@@ -52,17 +50,17 @@ function deleteSelectedUsers() {
         return !userIdsToDelete.includes(user.id.toString());
     });
 
-    renderTable(listUser);
+    renderTable(listUser.slice(2));
 }
 
 //  tìm kiếm người dùng
 function searchUsers(keyword) {
     var filteredUsers = listUser.filter(function (user) {
         return (
-            user.username.toLowerCase().includes(keyword.toLowerCase()) ||
-            user.email.toLowerCase().includes(keyword.toLowerCase()) ||
-            user.fullName.toLowerCase().includes(keyword.toLowerCase())
-
+            (user.username.toLowerCase().includes(keyword.toLowerCase()) ||
+             user.email.toLowerCase().includes(keyword.toLowerCase()) ||
+             user.fullName.toLowerCase().includes(keyword.toLowerCase())
+            ) && listUser.indexOf(user) > 1
         );
     });
 
@@ -86,4 +84,7 @@ function renderTable(users) {
 }
 
 // Load dữ liệu
-renderTable(listUser);
+renderTable(listUser.slice(2));
+
+
+
