@@ -2,13 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Các thư viện hỗ trợ-->
+    <!--Font Awesome-->
     <link rel="stylesheet" href="../assets/bootstrap/bootstrap-grid.min.css">
     <link rel="stylesheet" href="../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
+    <!--Favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="../assets/favicon/site.webmanifest">
+    <!--Web font-->
     <link rel="stylesheet" href="../assets/font/webfonts/Montserrat.css">
+    <!--CSS-->
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/base.css">
-
     <link rel="stylesheet" href="../assets/css/account.css">
     <title>Tài khoản</title>
 </head>
@@ -48,14 +58,12 @@
                     <div class="account">
                         <i class="account__icon fa-regular fa-user"></i>
                         <div class="setting__list">
-                            <div class="setting__item">
-                                <a href="./account.html" class="setting__link">
-                                    <div class="account__info">
-                                        <i class="account__icon fa-regular fa-user"></i>
-                                        <p class="account__name"></p>
-                                    </div>
-                                </a>
-                            </div>
+                            <div class="setting__item"><a href="./account.html" class="setting__link">
+                                <div class="account__info">
+                                    <i class="account__icon fa-regular fa-user"></i>
+                                    <p class="account__name"></p>
+                                </div>
+                            </a></div>
                             <div class="setting__item"><a href="./account.html" class="setting__link">Tài khoản
                                 của tôi</a>
                             </div>
@@ -182,46 +190,8 @@
                         </div>
                     </div>
                 </section>
-                <section class="service__section" >
-                    <h1 class="title">Lịch sử mua hàng</h1>
-                    <div class="statusOrder">
-                        <span class="status__list status__list--click">Tất cả</span>
-                        <span class="status__list">Đơn hàng mới</span>
-                        <span class="status__list">Chờ thanh toán</span>
-                        <span class="status__list">Đã xác nhận</span>
-                        <span class="status__list">Vận chuyển</span>
-                        <span class="status__list">Hoàn thành</span>
-                    </div>
-                    <div class="service__order service__order--show">
+                <section class="service__section service__order" >
 
-                    </div>
-                    <div class="service__order ">
-                        <div class="block__product--history">
-                            <div class="imgNoneProduct"></div>
-                            <h2>Chưa có đơn hàng</h2>
-                        </div>
-                    </div>
-                    <div class="service__order ">
-                        <div class="block__product--history">
-                            <div class="imgNoneProduct"></div>
-                            <h2>Chưa có đơn hàng</h2>
-                        </div>
-                    </div>
-                    <div class="service__order ">
-                        <div class="block__product--history">
-                            <div class="imgNoneProduct"></div>
-                            <h2>Chưa có đơn hàng</h2>
-                        </div>
-                    </div>
-                    <div class="service__order ">
-                        <div class="block__product--history">
-                            <div class="imgNoneProduct"></div>
-                            <h2>Chưa có đơn hàng</h2>
-                        </div>
-                    </div>
-                    <div class="service__order service__order--done">
-
-                    </div>
                 </section>
             </div>
         </div>
@@ -246,16 +216,16 @@
             <div class="col">
                 <ul class="footer__block">
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Thiết kế</a>
+                        <a href="./productBuying.html" class="footer__link">Gian hàng</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Liên hệ</a>
+                        <a href="./contact.html" class="footer__link">Liên hệ</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Về chúng tôi</a>
+                        <a href="./about.html" class="footer__link">Về chúng tôi</a>
                     </li>
                     <li class="footer__desc">
-                        <a href="#!" class="footer__link">Chính sách mua hàng</a>
+                        <a href="./policy.html" class="footer__link">Chính sách mua hàng</a>
                     </li>
                 </ul>
             </div>
@@ -298,37 +268,20 @@
 <script src="../js/account.js"></script>
 </body>
 <script>
-
-    var listServiceBtn = document.querySelectorAll(".service__item");
-    var listServiceSection = document.querySelectorAll(".service__section");
-    console.log(listServiceSection)
-    listServiceBtn.forEach(function (btn, index) {
+    //changeService
+    var listPolicyBtn = document.querySelectorAll(".service__item");
+    var listPolicySection = document.querySelectorAll(".service__section");
+    console.log(listPolicySection)
+    listPolicyBtn.forEach(function (btn, index) {
         btn.onclick = function () {
-            listServiceSection.forEach(function (section) {
+            listPolicySection.forEach(function (section) {
                 section.classList.remove("service__section--show");
             });
-            listServiceBtn.forEach(function (btn) {
+            listPolicyBtn.forEach(function (btn) {
                 btn.classList.remove("service__item--clicked");
             });
-            listServiceSection[index].classList.add("service__section--show");
+            listPolicySection[index].classList.add("service__section--show");
             btn.classList.add("service__item--clicked");
-        }
-    })
-</script>
-<script>
-    var listStatus = document.querySelectorAll(".status__list");
-    var listServiceOrder = document.querySelectorAll(".service__order");
-    console.log(listServiceOrder)
-    listStatus.forEach(function (btn, index) {
-        btn.onclick = function () {
-            listServiceOrder.forEach(function (section) {
-                section.classList.remove("service__order--show");
-            });
-            listStatus.forEach(function (btn) {
-                btn.classList.remove("status__list--click");
-            });
-            listServiceOrder[index].classList.add("service__order--show");
-            btn.classList.add("status__list--click");
         }
     })
 </script>
