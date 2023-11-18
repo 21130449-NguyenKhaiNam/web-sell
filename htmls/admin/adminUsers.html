@@ -7,14 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Bootstrap-->
     <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
+
     <link rel="stylesheet" href="../../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
 
     <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
+
     <link rel="stylesheet" href="../../assets/css/reset.css">
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/admin/admin.css">
     <link rel="stylesheet" href="../../assets/css/admin/adminUsers.css">
-    <title>AdminUser</title>
+    <title>Quản lí người dùng</title>
 </head>
 <body>
 <header id="header">
@@ -28,12 +30,12 @@
                 <div class="account">
                     <i class="account__icon fa-regular fa-user"></i>
                     <div class="setting__list">
-                        <div class="setting__item"><a href="./htmls/profile.html" class="setting__link">Tài khoản
-                                                                                                        của
-                                                                                                        tôi</a>
+                        <div class="setting__item"><a href="../profile.html" class="setting__link">Tài khoản
+                            của
+                            tôi</a>
                         </div>
                         <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
-                                                                                                       xuất</a></d>
+                            xuất</a></d>
                         </div>
                     </div>
                 </div>
@@ -71,19 +73,15 @@
                         <table class="table ">
                             <thead>
                                 <tr class="table__row">
-                                    <th class="table__checkbox">
-                                        <label class="check">
-                                            <input type="checkbox" name="passing" class="filter__input" hidden="true">
-                                        </label>
-                                    </th>
-                                    <th class="table__head">Chỉnh sửa</th>
-                                    <th class="table__head">Mã người dùng</th>
-                                    <th class="table__head">Tên người dùng</th>
-                                    <th class="table__head">Email</th>
-                                    <th class="table__head">Họ tên</th>
-                                    <th class="table__head">Ngày sinh</th>
-                                    <th class="table__head">Số điện thoại </th>
-                                    <th class="table__head">Địa chỉ </th>
+                                    <th class="table__head table__checkbox"></th>
+                                    <th class="table__head table__id">Mã người dùng</th>
+                                    <th class="table__head table__username">Tên người dùng</th>
+                                    <th class="table__head table__email">Email</th>
+                                    <th class="table__head table__fullname">Họ tên</th>
+                                    <th class="table__head table__gender">Giới tính</th>
+                                    <th class="table__head table__birthday">Ngày sinh</th>
+                                    <th class="table__head table__phone">Số điện thoại </th>
+                                    <th class="table__head table__address">Địa chỉ </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -97,6 +95,16 @@
         </div>
     </section>
 </main>
+<div id="dialog-order-update" class="modal">
+    <article class="modal__content modal__product modal__order">
+        <div class="head__dialog--bar">
+            <h1>Chỉnh sửa thông tin</h1>
+            <i class="modal__product-close modal__order-close fa-solid fa-xmark"></i>
+        </div>
+
+    </article>
+    <div class="modal__blur"></div>
+</div>
 <script src="../../js/data.js"></script>
 <script src="../../js/paging.js"></script>
 <script src="../../js/admin/adminUsers.js"></script>

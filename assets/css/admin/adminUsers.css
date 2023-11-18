@@ -35,7 +35,7 @@
 }
 #main {
     background-color: #e7e9ec;
-    height: 1150px;
+    height: 870px;
 }
 
 .content {
@@ -84,7 +84,7 @@
     position: absolute;
     display: none;
     top: 4px;
-    left: 8px;
+    left: 0;
     width: 3px;
     height: 10px;
     border-right: 1.5px solid #fff;
@@ -224,16 +224,20 @@ thead {
     font-weight: 600;
 }
 
-.table__row, .table__head {
-
-}
-
 .table__head, .table__checkbox, .table__edit {
     border-right: 1px solid #cccccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
+.table__data--birthday, .table__data--fullname{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 thead th,
 tbody td {
+    text-align: center;
     padding: 10px;
     vertical-align: middle;
 }

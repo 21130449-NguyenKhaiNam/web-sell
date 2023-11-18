@@ -12,9 +12,7 @@ body{
     display: none;
 
 }
-.service__order{
-    padding: 20px 0;
-}
+
 .service__order .block__product{
     padding: 0 0;
 }
@@ -27,7 +25,7 @@ body{
 }
 .col-9{
     border-radius: 10px;
-    background-color: #757575;
+    background-color: var(--blue-color-high);
 }
 .service__item{
     padding: 20px 10px;
@@ -37,7 +35,7 @@ body{
     border-radius: 5px;
     color: #FFFFFF;
 }
-.service__item {
+.service__item ~ .service__item {
     margin-top: 20px;
 }
 .service__item:not(.service__item--clicked):hover {
@@ -45,7 +43,7 @@ body{
     cursor: pointer;
 }
 .service__item.service__item--clicked {
-    background-color: #757575
+    background-color: var(--blue-color-high);
 }
 h1{
     font-size: 32px;
@@ -207,7 +205,7 @@ h1{
     display: flex;
     border-radius: 10px;
     margin-top: 20px;
-    background-color: #fff;
+    background-color: #FFFFFF;
     object-fit: cover;
     padding-left: 0;
 }
@@ -220,11 +218,13 @@ h1{
 
 }
 .block__info{
-    line-height: 20px;
+
     margin: 10px 20px;
 }
 .info__product{
-    font-weight: 600;
+    font-weight: 460;
+    font-size: 18px;
+    line-height: 25px;
 }
 .btn{
     background-color: rgba(121, 121, 121, 0.64);
@@ -238,5 +238,66 @@ h1{
 }
 .btn:hover{
     background-color: #e0dfdf;
+}
+.statusOrder{
+    display: flex;
+    width: 100%;
+    margin: 20px 0;
+    overflow: hidden;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+    border-radius: 5px;
+}
+.status__list{
+    cursor: pointer;
+    padding: 16px 0;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    color: black;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+.info__product--name{
+    font-weight: 600;
+}
+
+.service__order {
+
+    border-radius: 10px;
+    display: none;
 
 }
+.service__order--show {
+    display: block;
+}
+
+.status__list--click {
+    border-bottom: 3px solid #417bee;
+    color: #3f7aee;
+}
+.status__list:hover{
+    color: #3f7aee;
+}
+.block__product--history{
+    width: 100%;
+    height: 600px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+}
+.imgNoneProduct{
+    background-position: 50%;
+    background-size: contain;
+    width: 200px;
+    height: 200px;
+    background-image: url("../img/noneorder.png");
+}
+

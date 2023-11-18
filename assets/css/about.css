@@ -1,8 +1,4 @@
-body{
-    margin: 0;
-    padding: 0;
-    font-size: 18px;
-}
+
 .wraper{
     background-color: #1f1f1f;
 }
@@ -21,8 +17,6 @@ h1{
 }
 hr{
     width: 100px;
-    margin-top: 20px;
-    margin-bottom: 60px;
     margin: 20px auto;
 }
 .introduce{
