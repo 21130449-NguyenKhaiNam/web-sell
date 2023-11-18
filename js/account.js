@@ -33,20 +33,38 @@ inputForm.forEach(function (input) {
     }
 })
 
-var listProductE = document.querySelector(".service__order");
+var listProductE = document.querySelector(".service__order ");
 var htmls = listProduct.slice(10,15).map(function (product) {
     return `<div class="block__product">
                 <img class="img__product block__img" src = "../assets/img/product_img/${product.imgSrc}" >
                 <div class="block__info">
-                    <p class="info__product">${product.name}</p>
-                    <p class="info__product">${getCategory(product.categoryId).nameType}</p>
+                    <p class="info__product info__product--name">${product.name}</p>
+                    <p class="info__product">Phân loại: ${getCategory(product.categoryId).nameType}</p>
                     <p class="info__product">Số lượng: 1</p>
-                    <p class="info__product">giá: ${product.salePrice} đ</p>
-                    <p class="info__product">Ngày: 2/11/2023</p>
+                    <p class="info__product">Giá: ${formatCurrency(product.basePrice)}</p>               
                 </div>
                 <button class="btn"><a href="../htmls/review.html">Đánh giá</a></button>
             </div>
 `
 });
-htmls.unshift(` <h1 class="title">Lịch sử mua hàng</h1>`)
 listProductE.innerHTML = htmls.join("");
+
+var listProductElement = document.querySelector(".service__order--done ");
+var htmls = listProduct.slice(10,15).map(function (product) {
+    return `<div class="block__product">
+                <img class="img__product block__img" src = "../assets/img/product_img/${product.imgSrc}" >
+                <div class="block__info">
+                    <p class="info__product info__product--name">${product.name}</p>
+                    <p class="info__product">Phân loại: ${getCategory(product.categoryId).nameType}</p>
+                    <p class="info__product">Số lượng: 1</p>
+                    <p class="info__product">Giá: ${formatCurrency(product.basePrice)}</p>
+                </div>
+                <button class="btn"><a href="../htmls/review.html">Đánh giá</a></button>
+            </div>
+`
+});
+listProductElement.innerHTML = htmls.join("");
+
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
+}

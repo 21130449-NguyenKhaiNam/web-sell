@@ -59,7 +59,8 @@ function searchUsers(keyword) {
         return (
             (user.username.toLowerCase().includes(keyword.toLowerCase()) ||
              user.email.toLowerCase().includes(keyword.toLowerCase()) ||
-             user.fullName.toLowerCase().includes(keyword.toLowerCase())
+             user.fullName.toLowerCase().includes(keyword.toLowerCase()) ||
+             user.id.toLowerCase().includes(keyword.toLowerCase())
             ) && listUser.indexOf(user) > 1
         );
     });

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="../assets/bootstrap/bootstrap-grid.min.css">
     <link rel="stylesheet" href="../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
     <link rel="manifest" href="../assets/favicon/site.webmanifest">
+    <link rel="stylesheet" href="../assets/font/webfonts/Montserrat.css">
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/base.css">
 
@@ -20,7 +21,7 @@
                 </a>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="#!" class="nav__link">Thiết kế</a></li>
+                        <a href="#!" class="nav__link">Giang hàng</a></li>
                     <li class="nav__item">
                         <a href="#!" class="nav__link">Liên hệ</a>
                     </li>
@@ -180,8 +181,46 @@
                         </div>
                     </div>
                 </section>
-                <section class="service__section service__order" >
+                <section class="service__section" >
+                    <h1 class="title">Lịch sử mua hàng</h1>
+                    <div class="statusOrder">
+                        <span class="status__list status__list--click">Tất cả</span>
+                        <span class="status__list">Đơn hàng mới</span>
+                        <span class="status__list">Chờ thanh toán</span>
+                        <span class="status__list">Đã xác nhận</span>
+                        <span class="status__list">Vận chuyển</span>
+                        <span class="status__list">Hoàn thành</span>
+                    </div>
+                    <div class="service__order service__order--show">
 
+                    </div>
+                    <div class="service__order ">
+                        <div class="block__product--history">
+                            <div class="imgNoneProduct"></div>
+                            <h2>Chưa có đơn hàng</h2>
+                        </div>
+                    </div>
+                    <div class="service__order ">
+                        <div class="block__product--history">
+                            <div class="imgNoneProduct"></div>
+                            <h2>Chưa có đơn hàng</h2>
+                        </div>
+                    </div>
+                    <div class="service__order ">
+                        <div class="block__product--history">
+                            <div class="imgNoneProduct"></div>
+                            <h2>Chưa có đơn hàng</h2>
+                        </div>
+                    </div>
+                    <div class="service__order ">
+                        <div class="block__product--history">
+                            <div class="imgNoneProduct"></div>
+                            <h2>Chưa có đơn hàng</h2>
+                        </div>
+                    </div>
+                    <div class="service__order service__order--done">
+
+                    </div>
                 </section>
             </div>
         </div>
@@ -257,20 +296,37 @@
 <script src="../js/account.js"></script>
 </body>
 <script>
-    //changeService
-    var listPolicyBtn = document.querySelectorAll(".service__item");
-    var listPolicySection = document.querySelectorAll(".service__section");
-    console.log(listPolicySection)
-    listPolicyBtn.forEach(function (btn, index) {
+
+    var listServiceBtn = document.querySelectorAll(".service__item");
+    var listServiceSection = document.querySelectorAll(".service__section");
+    console.log(listServiceSection)
+    listServiceBtn.forEach(function (btn, index) {
         btn.onclick = function () {
-            listPolicySection.forEach(function (section) {
+            listServiceSection.forEach(function (section) {
                 section.classList.remove("service__section--show");
             });
-            listPolicyBtn.forEach(function (btn) {
+            listServiceBtn.forEach(function (btn) {
                 btn.classList.remove("service__item--clicked");
             });
-            listPolicySection[index].classList.add("service__section--show");
+            listServiceSection[index].classList.add("service__section--show");
             btn.classList.add("service__item--clicked");
+        }
+    })
+</script>
+<script>
+    var listStatus = document.querySelectorAll(".status__list");
+    var listServiceOrder = document.querySelectorAll(".service__order");
+    console.log(listServiceOrder)
+    listStatus.forEach(function (btn, index) {
+        btn.onclick = function () {
+            listServiceOrder.forEach(function (section) {
+                section.classList.remove("service__order--show");
+            });
+            listStatus.forEach(function (btn) {
+                btn.classList.remove("status__list--click");
+            });
+            listServiceOrder[index].classList.add("service__order--show");
+            btn.classList.add("status__list--click");
         }
     })
 </script>
