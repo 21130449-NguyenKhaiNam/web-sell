@@ -7,10 +7,10 @@ body {
 .account__wrapper {
     display: flex;
     gap: 5px;
-
+    background-color: var(--blue-color-low);
+    color: #fff;
     padding: 5px;
     border-radius: 10px;
-    background-color: #ccc;
 }
 
 .account__name {

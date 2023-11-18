@@ -33,7 +33,7 @@ function loadProduct() {
     let reviewsHTML = productDetail.reviews.map(function (element) {
         return `<article class="review">
                     <div class="review__avatar">
-                        <img src="../assets/img/user/user__demo.jpg" alt="">
+                        <img src="../assets/img/user/${element.avatar}" alt="">
                     </div>
                     <div class="review__account">
                         <h4 class="review__name">${element.nameUser}</h4>
@@ -73,41 +73,6 @@ function loadProduct() {
 }
 
 loadProduct();
-// Get code color
-var codeColor;
-var colorChooseElement = document.querySelectorAll(".form__color-check");
-var colorResult = document.querySelector(".form__input-color-code");
-//Effect when click
-colorChooseElement.forEach(function (element, index) {
-    element.onclick = function (e) {
-        if (element.classList.contains("form__color--checked")) {
-            element.classList.remove("form__color--checked")
-        } else {
-            element.classList.add("form__color--checked");
-            codeColor = window.getComputedStyle(element).getPropertyValue("background-color");
-            colorResult.style.backgroundColor = codeColor;
-            colorResult.value = codeColor;
-            colorChooseElement.forEach((elementOther, indexOther) => {
-                if (indexOther != index) {
-                    elementOther.classList.remove("form__color--checked");
-                }
-            })
-        }
-    }
-});
-
-getColorCustom();
-
-function getColorCustom() {
-    const colorInput = document.querySelector("#color-choose");
-    colorInput.oninput = function () {
-        codeColor = colorInput.value
-        colorResult.style.backgroundColor = codeColor;
-        colorResult.value = codeColor;
-    };
-
-}
-
 // Form quantity
 var quantityCurrent = 1;
 var quantityInput = document.querySelector("#quantity");
@@ -194,6 +159,7 @@ function applyValidateProductForm() {
         errorSelector: ".form__error",
         rules: [
             Validation.isRequiredRadio(".form__radio"),
+            Validation.isRequiredRadio(`input[name="color"]`),
         ],
         submitSelector: ".form__submit--add",
         funcAfterSubmit: function () {
@@ -227,3 +193,25 @@ function applyValidateParameterForm() {
 }
 
 applyValidateParameterForm();
+
+function clickTransImg() {
+    let imgCurrrent;
+    const productImg = document.querySelector(".product__img");
+    const productImgItems = document.querySelectorAll(".product__img-item");
+    productImgItems.forEach(function (productItem, index) {
+        productItem.onclick = function () {
+            if (productItem.classList.contains("product__img-item--clicked") == false) {
+                productItem.classList.add("product__img-item--clicked");
+                imgCurrrent = productItem.querySelector("img").src;
+                productImgItems.forEach(function (productItemOther, indexOther) {
+                    if (indexOther != index) {
+                        productItemOther.classList.remove("product__img-item--clicked")
+                    }
+                });
+                productImg.src= imgCurrrent;
+            }
+        }
+    })
+}
+
+clickTransImg();

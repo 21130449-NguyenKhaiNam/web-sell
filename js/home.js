@@ -10,56 +10,56 @@ document.addEventListener("DOMContentLoaded", function () {
     const trendingProductItems = [
         {
             name: "Áo polo nam trơn basic form regular vải cá sấu",
-            image: "../assets/img/product_img/product1.jpg",
+            image: "./assets/img/product_img/product1.jpg",
             originPrice: 350000,
             salePrice: 279000,
             ratingStart: 4
         },
         {
             name: "Áo polo thể thao unisex nam nữ",
-            image: "../assets/img/product_img/product2.jpg",
+            image: "./assets/img/product_img/product2.jpg",
             originPrice: 299000,
             salePrice: 239000,
             ratingStart: 4
         },
         {
             name: "Áo polo phối khóa kéo unisex nam nữ",
-            image: "../assets/img/product_img/product3.jpg",
+            image: "./assets/img/product_img/product3.jpg",
             originPrice: 350000,
             salePrice: 289000,
             ratingStart: 4
         },
         {
             name: "Áo hoodie form rộng unisex nam nữ nỉ chân cua",
-            image: "../assets/img/product_img/product4.jpg",
+            image: "./assets/img/product_img/product4.jpg",
             originPrice: 490000,
             salePrice: 259000,
             ratingStart: 5
         },
         {
             name: "Áo hoodie zip form boxy unisex nỉ bông dày dặn",
-            image: "../assets/img/product_img/product5.jpg",
+            image: "./assets/img/product_img/product5.jpg",
             originPrice: 300000,
             salePrice: 250000,
             ratingStart: 5
         },
         {
             name: "Áo sweater unisex nam nữ basic nỉ chân cua",
-            image: "../assets/img/product_img/product6.jpg",
+            image: "./assets/img/product_img/product6.jpg",
             originPrice: 350000,
             salePrice: 288000,
             ratingStart: 5
         },
         {
             name: "Áo sweater nam trơn basic vải da cá",
-            image: "../assets/img/product_img/product7.jpg",
+            image: "./assets/img/product_img/product7.jpg",
             originPrice: 250000,
             salePrice: 200000,
             ratingStart: 5
         },
         {
             name: "Quần jean unisex nam nữ cạp cao ống suông rộng",
-            image: "../assets/img/product_img/product8.jpg",
+            image: "./assets/img/product_img/product8.jpg",
             originPrice: 290000,
             salePrice: 260000,
             ratingStart: 4

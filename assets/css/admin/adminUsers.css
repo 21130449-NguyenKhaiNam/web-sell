@@ -4,10 +4,8 @@
 .account__wrapper {
     display: flex;
     gap: 5px;
-
     padding: 5px;
     border-radius: 10px;
-    background-color: #ccc;
 }
 .account__name {
     text-wrap: normal;

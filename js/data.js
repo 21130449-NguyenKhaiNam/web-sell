@@ -1004,35 +1004,41 @@ var productDetail = {
             "nameUser": getUser("KH01").fullName,
             "star": 4,
             "comment": "Sản phẩm tốt, nhưng có một chút vấn đề về kích thước. Tôi sẽ cân nhắc trong lần tiếp theo.",
-            "date": "2023-10-31"
+            "date": "2023-10-31",
+            avatar: "user_avatar-1.jpg"
         }
         , {
             "nameUser": getUser("KH02").fullName,
             "star": 4,
             "comment": "Đồ áo này rất thời trang và chất lượng tốt. Chất liệu mềm mịn, cắt may tinh tế, và màu sắc tươi sáng. Tôi rất hài lòng với sản phẩm này!",
-            "date": "2023-10-30"
+            "date": "2023-10-30",
+            avatar: "user_avatar-2.jpg"
         }, {
             "nameUser": getUser("KH07").fullName,
             "star": 1,
             "comment": "Áo sơ mi này không đúng kích thước và chất lượng kém. Tôi thất vọng.",
-            "date": "2023-10-29"
+            "date": "2023-10-29",
+            avatar: "user_avatar-3.jpg"
         }
 
         , {
             "nameUser": getUser("KH03").fullName,
             "star": 4,
             "comment": "Sản phẩm đáng giá tiền. Rất hài lòng với chất lượng và dịch vụ khách hàng.",
-            "date": "2023-10-28"
+            "date": "2023-10-28",
+            avatar: "user_avatar-4.jpg"
         }
         , {
             "nameUser": getUser("KH04").fullName,
             "star": 5,
             "comment": "Bộ váy này thật sự đẹp và phù hợp cho dịp đặc biệt. Tôi rất hài lòng.",
-            "date": "2023-10-27"
+            "date": "2023-10-27",
+            avatar: "user_avatar-5.jpg"
         }
 
     ],
     srcImg: "product25.jpg",
+    srcList: ["product25_1.jpg", "product25_2.jpg", "product25_3.jpg"],
 }
 
 function getUser(id) {

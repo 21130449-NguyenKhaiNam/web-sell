@@ -377,7 +377,11 @@
     font-size: 24px;
 }
 
-.cart__container--empty button{
+.cart__container--empty a{
+    margin: auto;
+}
+
+.cart__container--empty a button{
     padding: 16px 100px;
     border: 1px solid var(--blue-color-high);
     background-color: white;
