@@ -102,7 +102,6 @@ function renderCartItem() {
                                     <ul class="order__size--specification">
                                         Kích thước:
                                     </ul>
-                                    <button class="edit--button"><i class="fa-solid fa-pen-to-square"></i> Chỉnh sửa</button>
                                 </div>
                             </div>
                             <span class="unit__price">${formatCurrency(cartItem.unitPrice)}</span>
@@ -145,7 +144,7 @@ function getAmountPrice(amountCurrency) {
 
 function updateProvisionalItemNo(cartItemsRequired) {
     const provisionalPriceText = document.querySelector('.price__text:first-child');
-    provisionalPriceText.textContent = `Tạm tính (${cartItemsRequired.length} mẫu đồ)`;
+    provisionalPriceText.textContent = `Tạm tính (${cartItemsRequired.length} sản phẩm)`;
     if(cartItemsRequired.length === 0){
         cartContainerElement.innerHTML = emptyShoppingCartHLML;
     }

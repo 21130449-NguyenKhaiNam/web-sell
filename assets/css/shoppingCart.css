@@ -133,19 +133,6 @@
     margin-left: 24px;
 }
 
-.cart__items .cart__item .product__item .order__product--info .edit--button{
-    padding: 8px 14px;
-    border-radius: 4px;
-    width: fit-content;
-    font-weight: 500;
-}
-
-.cart__items .cart__item .product__item .order__product--info .edit--button:hover{
-    background-color: var(--blue-color-medium);
-    color: white;
-    cursor: pointer;
-}
-
 .cart__items .cart__item .cart__detail--info .unit__price,
 .cart__items .cart__item .cart__detail--info .subtotal__item{
     font-weight: 500;
@@ -281,6 +268,7 @@
 .invoice__promotion .summary__invoice .invoice__detail--info .price__text{
     font-weight: 500;
     color: #808080;
+    font-size: 15px;
 }
 
 .invoice__promotion .summary__invoice .invoice__detail--info .price__text:last-child{
@@ -315,7 +303,7 @@
 
 
 .invoice__promotion .summary__invoice .price__items .price__value{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 550;
 }
 

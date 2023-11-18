@@ -44,10 +44,6 @@ function renderOrderTable(listOrders) {
                                     </td>
                                     
                                     <td class="table__data">
-                                        <p class="table__cell">${formatLetter(order.statusDelivery)}</p>
-                                    </td>
-                                    
-                                    <td class="table__data">
                                         <p class="table__cell">${formatCurrency(1316000)}</p>
                                     </td>
                                 </tr>`

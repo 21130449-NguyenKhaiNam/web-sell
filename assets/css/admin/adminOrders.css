@@ -1,3 +1,23 @@
+.interval__filler{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.interval__filler .filler__date{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.interval__filler .filler__date .filler__title{
+    flex-basis: 50px;
+}
+
+.interval__filler .filler__date input[type="date"]{
+    flex: 1;
+}
+
 .button__delete {
     display: block;
 }
@@ -88,6 +108,10 @@ th:nth-child(n+2), td:nth-child(n+2) {
     padding: 10px;
 }
 
+.select-menu{
+    flex: 1;
+}
+
 .select-menu::before{
     padding-bottom: 8px;
     display: inline-block;
@@ -100,10 +124,6 @@ th:nth-child(n+2), td:nth-child(n+2) {
 
 .transaction__status::before{
     content: "Trạng thái giao dịch";
-}
-
-.delivery__status::before{
-    content: "Trạng thái vận chuyển";
 }
 
 .select-menu .select-btn {

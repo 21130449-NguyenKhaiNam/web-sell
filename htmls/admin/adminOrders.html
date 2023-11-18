@@ -67,9 +67,17 @@
                     <aside class="filler">
                         <form class="form">
                             <article action="#!" class="filler__block">
-                                <h2 class="filler__heading">Thời gian</h2>
-                                <input type="date" name="" class="filter__date">
-
+                                <h2 class="filler__heading">Thời gian đặt hàng</h2>
+                                <div class="interval__filler">
+                                    <div class="filler__date">
+                                        <span class="filler__title">Từ:</span>
+                                        <input type="date" name="" id="date-start">
+                                    </div>
+                                    <div class="filler__date">
+                                        <span class="filler__title">Đến:</span>
+                                        <input type="date" name="" id="date-end">
+                                    </div>
+                                </div>
                             </article>
                             <article class="filler__payment-method filler__block">
                                 <h2 class="filler__heading">Phương thức thanh toán</h2>
@@ -91,16 +99,26 @@
                                 <h2 class="filler__heading">Trạng thái đơn hàng</h2>
                                 <label class="filter__label check">
                                     <input type="radio" name="passing" class="filter__input" hidden="true">
-                                    Đã xác nhận
+                                    Đơn hàng mới
                                 </label>
                                 <label class="filter__label check">
                                     <input type="radio" name="passing" class="filter__input" hidden="true">
-                                    Chưa xác nhận
+                                    Đã xác nhận
+                                </label>
+
+                                <label class="filter__label check">
+                                    <input type="radio" name="passing" class="filter__input" hidden="true">
+                                    Đang vận chuyển
                                 </label>
 
                                 <label class="filter__label check">
                                     <input type="radio" name="passing" class="filter__input" hidden="true">
                                     Hoàn thành
+                                </label>
+
+                                <label class="filter__label check">
+                                    <input type="radio" name="passing" class="filter__input" hidden="true">
+                                    Đã hủy
                                 </label>
                             </article>
 
@@ -116,25 +134,6 @@
                                 </label>
                             </article>
 
-                            <article class="filler__block">
-                                <h2 class="filler__heading">Trạng thái vận chuyển</h2>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đơn dã đặt
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đang chuẩn bị
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đang giao
-                                </label>
-                                <label class="filter__label check">
-                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
-                                    Đã giao
-                                </label>
-                            </article>
                             <div class="filter__buttons">
                                 <input type="reset" class="button filter__button button--hover" value="Chọn lại">
                                 <button class="button filter__button button--hover" type="submit">Lọc</button>
@@ -148,9 +147,8 @@
                             <i class="search__icon fa-solid fa-magnifying-glass"></i>
                             <input type="text" name="search">
                             <select name="" id="" class="search__select">
-                                <option value="" class="search__option">Tên đơn hàng</option>
                                 <option value="" class="search__option">Mã đơn hàng</option>
-                                <option value="" class="search__option"></option>
+                                <option value="" class="search__option">Tên khách hàng</option>
                             </select>
                         </article>
                         <div class="button button__delete">
@@ -170,7 +168,7 @@
                                 <th class="table__head">Phương thức thanh toán</th>
                                 <th class="table__head">Trạng thái đơn hàng</th>
                                 <th class="table__head">Trạng thái giao dịch</th>
-                                <th class="table__head">Trạng thái vận chuyển</th>
+<!--                                <th class="table__head">Trạng thái vận chuyển</th>-->
                                 <th class="table__head">Tổng tiền</th>
                             </tr>
                             </thead>
@@ -201,13 +199,13 @@
                         <span class="order__date">Ngày tạo: 29-10-2022</span>
                         <span class="order__payment">Phương thức thanh toán: Chuyển khoản ngân hàng</span>
                         <span class="order__voucher">Mã giảm giá áp dụng: MGG50</span>
-                        <span class="order__products">Các mẫu đồ đã đặt</span>
+                        <span class="order__products">Các sản phẩm đã đặt</span>
                         <div class="order__swapper">
                             <table class="order__table">
                                 <thead>
                                 <tr class="row__header">
                                     <th class="thead__item"></th>
-                                    <th class="thead__item">Mẫu đồ</th>
+                                    <th class="thead__item">Sản phẩm</th>
                                     <th class="thead__item">Màu sắc</th>
                                     <th class="thead__item">Kích thước</th>
                                     <th class="thead__item">Số lượng</th>
@@ -322,8 +320,9 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <ul class="options">
-                                <li class="option">Chưa xác nhận</li>
+                                <li class="option">Đơn hàng mới</li>
                                 <li class="option">Đã xác nhận</li>
+                                <li class="option">Đang vận chuyển</li>
                                 <li class="option">Hoàn thành</li>
                             </ul>
                         </div>
@@ -338,22 +337,9 @@
                                 <li class="option">Đã thanh toán</li>
                             </ul>
                         </div>
-
-                        <div class="select-menu delivery__status">
-                            <div class="select-btn">
-                                <span class="sBtn-text">Chọn trạng thái</span>
-                                <i class="fa-solid fa-chevron-down"></i>
-                            </div>
-                            <ul class="options">
-                                <li class="option">Đơn đã đặt</li>
-                                <li class="option">Đang chuẩn bị</li>
-                                <li class="option">Đang giao</li>
-                                <li class="option">Đã giao</li>
-                            </ul>
-                        </div>
                     </div>
 
-                    <p class="update__noted">Quản trị viên phải cập nhật trạng thái đơn hàng, trạng thái giao dịch và trạng thái vận chuyển để
+                    <p class="update__noted">Quản trị viên phải cập nhật trạng thái đơn hàng và trạng thái giao dịch để
                         khách hàng đễ dàng theo dõi tiến độ đơn hàng</p>
                 </div>
             </div>

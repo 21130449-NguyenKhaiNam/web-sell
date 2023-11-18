@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../assets/css/base.css">
     <link rel="stylesheet" href="../assets/css/about.css">
 
-    <title>About</title>
+    <title>Giới thiệu</title>
 </head>
 <body>
 <header id="header">
@@ -25,39 +25,37 @@
                         <a href="../index.html" class="nav__link">Trang chủ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="../htmls/productBuying.html" class="nav__link">Gian hàng</a>
+                        <a href="./productBuying.html" class="nav__link">Gian hàng</a></li>
+                    <li class="nav__item">
+                        <a href="./contact.html" class="nav__link">Liên hệ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="../htmls/contact.html" class="nav__link">Liên hệ</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="../htmls/about.html" class="nav__link">Về chúng tôi</a>
+                        <a href="./about.html" class="nav__link">Về chúng tôi</a>
                     </li>
                 </ul>
                 <!--cta == call to action-->
                 <div class="nav__cta">
-                    <a href="../htmls/signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="../htmls/signUp.html"
-                       class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
+                    <a href="./signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
+                    <a href="./signUp.html" class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
                 </div>
+
                 <!--Account show (After log in success)-->
                 <div class="account__wrapper">
                     <!--Giỏ hàng-->
-                    <a href="../htmls/shoppingCart.html" class="cart">
+                    <a href="./shoppingCart.html" class="cart">
                         <i class="cart__icon  fa-solid fa-cart-shopping"></i>
                     </a>
 
                     <div class="account">
                         <i class="account__icon fa-regular fa-user"></i>
                         <div class="setting__list">
-                            <div class="setting__item"><a href="#!" class="setting__link">
+                            <div class="setting__item"><a href="./account.html" class="setting__link">
                                 <div class="account__info">
                                     <i class="account__icon fa-regular fa-user"></i>
                                     <p class="account__name"></p>
                                 </div>
                             </a></div>
-                            <div class="setting__item"><a href="#!" class="setting__link">Đơn mua</a></div>
-                            <div class="setting__item"><a href="../htmls/profile.html" class="setting__link">Tài khoản
+                            <div class="setting__item"><a href="./account.html" class="setting__link">Tài khoản
                                 của tôi</a>
                             </div>
                             <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
@@ -235,7 +233,7 @@
             <div class="col">
                 <ul class="footer__block">
                     <li class="footer__desc">
-                        <a href="productBuying.html" class="footer__link">Gian hàng</a>
+                        <a href="./productBuying.html" class="footer__link">Gian hàng</a>
                     </li>
                     <li class="footer__desc">
                         <a href="./contact.html" class="footer__link">Liên hệ</a>
@@ -281,6 +279,7 @@
         </div>
     </div>
 </footer>
+<script src="../js/base.js"></script>
 <script>
     const diamonds = document.querySelectorAll('.diamond');
     const textCompos = document.querySelectorAll('.text__compo');
