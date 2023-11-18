@@ -33,7 +33,7 @@ function loadProduct() {
     let reviewsHTML = productDetail.reviews.map(function (element) {
         return `<article class="review">
                     <div class="review__avatar">
-                        <img src="../assets/img/user/user__demo.jpg" alt="">
+                        <img src="../assets/img/user/${element.avatar}" alt="">
                     </div>
                     <div class="review__account">
                         <h4 class="review__name">${element.nameUser}</h4>
@@ -193,3 +193,25 @@ function applyValidateParameterForm() {
 }
 
 applyValidateParameterForm();
+
+function clickTransImg() {
+    let imgCurrrent;
+    const productImg = document.querySelector(".product__img");
+    const productImgItems = document.querySelectorAll(".product__img-item");
+    productImgItems.forEach(function (productItem, index) {
+        productItem.onclick = function () {
+            if (productItem.classList.contains("product__img-item--clicked") == false) {
+                productItem.classList.add("product__img-item--clicked");
+                imgCurrrent = productItem.querySelector("img").src;
+                productImgItems.forEach(function (productItemOther, indexOther) {
+                    if (indexOther != index) {
+                        productItemOther.classList.remove("product__img-item--clicked")
+                    }
+                });
+                productImg.src= imgCurrrent;
+            }
+        }
+    })
+}
+
+clickTransImg();
