@@ -50,7 +50,7 @@ var htmls = listProduct.slice(10,15).map(function (product) {
 listProductE.innerHTML = htmls.join("");
 
 var listProductElement = document.querySelector(".service__order--done ");
-var htmls = listProduct.slice(10,15).map(function (product) {
+var htmlsOther = listProduct.slice(10,15).map(function (product) {
     return `<div class="block__product">
                 <img class="img__product block__img" src = "../assets/img/product_img/${product.imgSrc}" >
                 <div class="block__info">
