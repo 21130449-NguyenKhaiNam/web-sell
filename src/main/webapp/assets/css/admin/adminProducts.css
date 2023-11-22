@@ -1,0 +1,135 @@
+
+.filter__date{
+    display: flex;
+    align-items: center;
+}
+.filter__date~ .filter__date{
+    margin-top: 10px;
+}
+.filter__date > span{
+    flex-basis: 50px;
+    font-size: 15px;
+    font-weight: 400;
+}
+.filter__date input{
+    flex: 1;
+}
+.table__head{
+    text-wrap: nowrap;
+    min-width: 100px;
+}
+.table__head:nth-child(4){
+    min-width: 300px;
+}
+.table__cell {
+    text-align: center;
+}
+
+/*Modal*/
+.modal button {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
+.form__label > div {
+    flex-basis: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form__preview-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --size: 300px;
+    width: var(--size);
+    height: var(--size);
+    background-color: #cccccc;
+    margin: 0 auto;
+    border: 1px solid #1f1f1f;
+}
+
+.form__preview-img img {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.form__preview-icon {
+    font-size: 100px;
+}
+.form__desc{
+   padding-top: 24px;
+}
+/*Sizes*/
+.form__sizes, .form__colors {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form__size, .form__color {
+    position: relative;
+    display: inline-block;
+}
+.form__size{
+    --size: 40px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    border: 1px solid #ddd;
+}
+.form__color{
+    width: 80px;
+    height: 40px;
+}
+
+.form__size-input, .form__color-input {
+    width: 100%;
+    height: 100%;
+    padding: 0 5px;
+}
+.form__color-input{
+    padding: 0;
+}
+
+.form__size-delete, .form__color-delete {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.form__add-size:hover, .form__size-delete:hover, .form__add-color:hover, .form__color--delete:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.form__add-size, .form__add-color {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 25px;
+    text-wrap: nowrap;
+    background-color: #5ee95e;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 0 10px;
+    border-radius: 15px;
+}

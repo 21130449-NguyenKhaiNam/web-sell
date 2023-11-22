@@ -1,0 +1,235 @@
+.main {
+    background-color: var(--blue-color-low);
+    min-height: 300px;
+}
+
+.products {
+    padding: 100px 0;
+}
+.product__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-rows: auto;
+    gap: 30px 20px;
+    --border-radius: 10px;
+
+}
+
+.product__item {
+    display: flex;
+    flex-direction: column;
+    height: unset;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+}
+
+.product__img {
+    flex-basis: 380px;
+    object-fit: cover;
+    width: 100%;
+    height: 380px;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.product__info {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 14px 10px;
+}
+
+.product__tag {
+    padding: 8px 8px;
+    width: fit-content;
+    border-radius: 4px;
+    background-color: #E40F0A;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.product__name {
+    flex: 1;
+    font-weight: 460;
+    font-size: 18px;
+}
+
+.product__review {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 8px;
+}
+
+.product__review-stars {
+    display: flex;
+    gap: 5px;
+    color: #F7B500;
+    font-size: 16px;
+}
+.product__review-num{
+    font-size: 16px;
+    color: #687EFF;
+}
+.product__price{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-weight: 600;
+}
+
+.product__price--sale {
+    font-size: 24px;
+}
+
+.product__price--original {
+    font-size: 16px;
+    color: #D9D9D9;
+}
+/*Aside category*/
+.categories {
+    position: relative;
+    height: 100%;
+}
+
+.categories:hover .category__list {
+    border: 1px solid #ccc;
+}
+
+.categories:hover .category__item {
+    position: unset;
+}
+
+.categories:hover .category__item ~ .category__item {
+    margin-top: 20px;
+}
+
+.category__list {
+    border-radius: 10px;
+    position: absolute;
+    width: 100%;
+    background-color: var(--mint-color);
+
+}
+
+.category__item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    width: 100%;
+    padding: 15px 10px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 10px;
+    background-color: var(--blue-color-high);
+
+    transition: margin-top 0.2s linear;
+}
+
+.category__item:first-child {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category__item:hover {
+    cursor: pointer;
+}
+
+.category__item:not(:first-child):hover {
+    background-color: var(--blue-color-medium);
+
+}
+.category__icon {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 2px;
+    background-color: #fff;
+}
+.category__icon::after, .category__icon::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: inherit;
+    background-color: inherit;
+}
+
+.category__icon::after {
+    top: -5px;
+}
+
+.category__icon::before {
+    bottom: -5px;
+}
+
+/*Search*/
+.search__form {
+    position: relative;
+    --border-radius: 20px;
+    display: flex;
+    height: 50px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+}
+
+.search__input {
+    flex: 1;
+    display: inline-block;
+    padding: 0 20px;
+    border: 2px solid #ccc;
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+    margin-right: -20px;
+    font-size: 15px;
+}
+
+.search__input:placeholder-shown {
+    font-weight: 500;
+    font-family: var(--primary-font);
+}
+
+.search__button {
+    --width: 150px;
+    height: 100%;
+    border-radius: var(--border-radius);
+    color: #fff;
+    --background-color-hover: var(--blue-color-medium);
+    --background-color: var(--blue-color-high);
+    font-size: 15px;
+    font-weight: 500;
+    font-family: var(--primary-font);
+}
+
+.search__icon {
+    margin-right: 10px;
+    font-size: 15px;
+}
+.result-box ul{
+    border-top: 1px solid#999;
+    padding: 15px 10px;
+}
+.result-box ul li{
+    list-style: none;
+    border-radius: 3px;
+    padding: 15px 10px;
+    cursor: pointer;
+}
+.result-box ul li:hover{
+    background-color: #e9f3ff;
+}
+.result-box{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background-color: white;
+}
