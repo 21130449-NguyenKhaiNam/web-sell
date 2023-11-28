@@ -7,9 +7,6 @@ function Validation(formObj) {
 
     // Chạy qua rules để lấy các yêu cầu để thực thi validate
     if (formElement) {
-        formElement.onsubmit = function (e) {
-            e.preventDefault();
-        }
         rules.forEach(function (rule) {
 
             /*
@@ -42,20 +39,20 @@ function Validation(formObj) {
 
         });
     }
-    if (submitElement) {
-        // Chặn việc gửi thông tin của form khi nhấn submit
-        submitElement.onclick = function () {
-            rules.forEach(function (rule) {
-                // const inputElement = formElement.querySelector(rule.element);
-                handleValidate(rule);
-            });
-            //Chỉ được thực thi form ko có Error Message
-            if (Object.keys(errorMessageObj).length == 0) {
-                formObj.funcAfterSubmit();
-                return false;
-            }
-        }
-    }
+    // if (submitElement) {
+    //     // Chặn việc gửi thông tin của form khi nhấn submit
+    //     submitElement.onclick = function () {
+    //         rules.forEach(function (rule) {
+    //             // const inputElement = formElement.querySelector(rule.element);
+    //             handleValidate(rule);
+    //         });
+    //         //Chỉ được thực thi form ko có Error Message
+    //         if (Object.keys(errorMessageObj).length == 0) {
+    //             formObj.funcAfterSubmit();
+    //             return false;
+    //         }
+    //     }
+    // }
 
     function handleValidate(rule) {
         const inputElement = formElement.querySelector(rule.element);
@@ -94,7 +91,6 @@ function Validation(formObj) {
             formBlock.classList.remove("invalid");
             showError.innerText = "";
         }
-        console.log(errorMessageObj)
     }
 }
 
