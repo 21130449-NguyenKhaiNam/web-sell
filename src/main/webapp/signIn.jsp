@@ -32,7 +32,7 @@
         <div class="frame__media">
         </div>
         <article>
-            <form action="logIn" class="form form--signUp" method="get">
+            <form action="" class="form form--signUp" method="get">
                 <div class="form__block">
                     <label for="username" class="form__label">Tên đăng nhập</label>
                     <input id="username" name="username" type="text" class="form__input">
