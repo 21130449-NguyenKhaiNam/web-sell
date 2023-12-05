@@ -1,4 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,12 +30,19 @@
 <main class="main">
     <div class="frame">
         <article>
-            <form action="#!" class="form form--forget-password">
+            <form action="forgetPassword" class="form form--forget-password">
                 <h1 class="heading">Vui lòng nhập email của bạn để lấy lại mật khẩu</h1>
                 <div class="form__block">
                     <label for="email" class="form__label">Email</label>
-                    <input id="email" type="email" class="form__input">
-                    <p class="form__error"></p>
+                    <input id="email" name="email" type="email" class="form__input">
+                    <c:set var="emailError" value="${requestScope.emailError}"/>
+                    <c:if test="${emailError != null}">
+                        <p class="form__error">${emailError}</p>
+                    </c:if>
+                    <c:set var="sendMail" value="${requestScope.sendMail}"/>
+                    <c:if test="${sendMail != null}">
+                        <p class="form__error">${sendMail}</p>
+                    </c:if>
                 </div>
                 <button id="form__submit" type="submit" class="form__submit button button--hover">Lấy lại mật
                                                                                                   khẩu
@@ -53,24 +61,5 @@
         </div>
     </div>
 </main>
-<!--JS validate-->
-<script src="js/validateForm.js"></script>
-<script>
-    var validation = new Validation({
-        formSelector: ".form",
-        formBlockClass: "form__block",
-        errorSelector: ".form__error",
-        rules: [
-            Validation.isRequired("#email"),
-            Validation.isEmail("#email"),
-        ],
-        submitSelector: "#form__submit",
-        funcAfterSubmit: function () {
-            document.querySelector("#modal__hide").checked = false;
-            var email = document.querySelector("#email").value;
-            document.querySelector(".modal__text").innerText = `Vui lòng kiểm tra email ${email}`
-        }
-    })
-</script>
 </body>
 </html>

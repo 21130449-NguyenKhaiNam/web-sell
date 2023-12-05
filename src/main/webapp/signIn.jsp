@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,21 +32,27 @@
         <div class="frame__media">
         </div>
         <article>
-            <form action="" class="form form--signUp" method="get">
+            <form action="signIn" class="form form--signUp" method="post">
                 <div class="form__block">
                     <label for="username" class="form__label">Tên đăng nhập</label>
                     <input id="username" name="username" type="text" class="form__input">
-                    <p class="form__error">
-                    </p>
+                    <c:set value="${requestScope.usernameError}" var="usernameError"/>
+                    <c:if test="${usernameError != null}">
+                        <p class="form__error">${usernameError}</p>
+                    </c:if>
+
                 </div>
                 <div class="form__block">
                     <label for="password" class="form__label">Mật khẩu</label>
                     <input id="password" name="password" type="password" class="form__input">
-                    <p class="form__error">
-                        <c:if test="${not empty requestScope.error}">
-                            <c:out value="${requestScope.error}"/>
-                        </c:if>
-                    </p>
+                    <c:set value="${requestScope.passwordError}" var="passwordError"/>
+                    <c:if test="${passwordError != null}">
+                        <p class="form__error">${passwordError}</p>
+                    </c:if>
+                </div>
+                <div class="form__block">
+                    <a href="forgotPassword.jsp" id="form__forget-password" class="form__link">Quên mật khẩu</a>
+
                 </div>
                 <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng nhập</button>
             </form>

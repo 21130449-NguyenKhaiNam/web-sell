@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,51 +29,43 @@
 <body>
 <div class="frame">
     <article>
-        <form action="#!" class="form form--forget-password">
+        <form action="updatePassword" class="form form--forget-password" method="post">
+            <c:set var="email" value="${requestScope.email}"/>
+            <input name="email" type="text" value="${email}" hidden="hidden">
+
             <h1 class="heading">Đặt lại mật khẩu</h1>
             <div class="form__block">
                 <label for="password" class="form__label">Mật khẩu</label>
-                <input id="password" type="password" class="form__input">
-                <p class="form__error"></p>
+                <input name="password" id="password" type="password" class="form__input">
+                <c:set var="errorPassword" value="${requestScope.errorPassword}"/>
+                <c:if test="${errorPassword != null}">
+                    <p class="form__error">${errorPassword}</p>
+                </c:if>
             </div>
             <div class="form__block">
                 <label for="confirmPassword" class="form__label">Nhập lại mật khẩu</label>
-                <input id="confirmPassword" type="password" class="form__input">
-                <p class="form__error"></p>
+                <input name="confirmPassword" id="confirmPassword" type="password" class="form__input">
+                <c:set var="errorConfirmPassword" value="${requestScope.errorConfirmPassword}"/>
+                <c:if test="${errorConfirmPassword != null}">
+                    <p class="form__error">${errorConfirmPassword}</p>
+                </c:if>
             </div>
             <button id="form__submit" type="submit" class="form__submit button button--hover">Đặt lại mật khẩu
             </button>
         </form>
     </article>
-    <input type="checkbox" id="modal__hide" class="modal__hide" hidden="hidden" checked>
-    <div class="modal">
-        <div class="modal__notify modal__content">
-            <i class="model__checked-icon fa-regular fa-circle-check"></i>
-            <p class="modal__text">Mật khẩu đã được đổi thành công</p>
-            <a href="signIn.jsp" class="button modal__button button--hover">Đăng nhập</a>
+    <c:set var="updateSuccess" value="${requestScope.updateSuccess}"/>
+    <c:if test="${updateSuccess != null}">
+        <div class="modal">
+            <div class="modal__notify modal__content">
+                <i class="model__checked-icon fa-regular fa-circle-check"></i>
+                <p class="modal__text">${updateSuccess}</p>
+                <a href="signIn.jsp" class="button modal__button button--hover">Đăng nhập</a>
+            </div>
+            <label class="modal__blur"></label>
         </div>
-        <label for="modal__hide" class="modal__blur"></label>
-    </div>
+    </c:if>
 </div>
-<script src="js/validateForm.js"></script>
-<script>
-    var validation = new Validation({
-        formSelector: ".form",
-        formBlockClass: "form__block",
-        errorSelector: ".form__error",
-        rules: [
-            Validation.isRequired("#password"),
-            Validation.isRequired("#confirmPassword"),
-            Validation.isConfirm("#confirmPassword", function (){
-                return document.getElementById("password").value;
-            }),
-        ],
-        submitSelector: "#form__submit",
-        funcAfterSubmit: function () {
-            document.querySelector("#modal__hide").checked = false;
 
-        }
-    })
-</script>
 </body>
 </html>

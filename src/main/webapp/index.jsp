@@ -31,7 +31,8 @@
 </head>
 <body>
 <!--Header-->
-<jsp:include page="header.jsp"></jsp:include>
+<c:import url="header.jsp" charEncoding="UTF-8"/>
+<%--<jsp:include page="header.jsp"></jsp:include>--%>
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main">
     <!--Hero-->

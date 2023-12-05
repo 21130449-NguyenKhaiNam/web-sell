@@ -39,20 +39,18 @@ function Validation(formObj) {
 
         });
     }
-    // if (submitElement) {
-    //     // Chặn việc gửi thông tin của form khi nhấn submit
-    //     submitElement.onclick = function () {
-    //         rules.forEach(function (rule) {
-    //             // const inputElement = formElement.querySelector(rule.element);
-    //             handleValidate(rule);
-    //         });
-    //         //Chỉ được thực thi form ko có Error Message
-    //         if (Object.keys(errorMessageObj).length == 0) {
-    //             formObj.funcAfterSubmit();
-    //             return false;
-    //         }
-    //     }
-    // }
+    if (submitElement) {
+        submitElement.onclick = function () {
+            rules.forEach(function (rule) {
+                handleValidate(rule);
+            });
+            //Chỉ được thực thi form ko có Error Message
+            if (Object.keys(errorMessageObj).length == 0) {
+                formObj.funcAfterSubmit();
+                return false;
+            }
+        }
+    }
 
     function handleValidate(rule) {
         const inputElement = formElement.querySelector(rule.element);

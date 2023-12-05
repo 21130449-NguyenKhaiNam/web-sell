@@ -145,3 +145,29 @@ article {
     border: 1px solid red;
 }
 
+.modal {
+    display: block;
+}
+
+.modal__notify {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal__blur {
+    z-index: -1;
+}
+
+.modal__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+}
+
+.modal__close:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
