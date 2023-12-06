@@ -1,12 +1,14 @@
 package dao;
 
+import database.JDBIConnector;
+import models.User;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface DAO<T> {
-    //READ
-    List<T> selectALl();
 
-    T select(int id);
+    T selectById(int id);
 
     //CREATE
     int insert(T o);
