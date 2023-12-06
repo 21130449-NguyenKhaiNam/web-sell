@@ -1,4 +1,8 @@
+<%@ page import="java.util.List" %>
+<%@ page import="models.User" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,7 +26,7 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/admin/admin.css">
-    <link rel="stylesheet" href="assets/css/admin/adminUsers.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/admin/adminUsers.css">
     <title>Quản lí người dùng</title>
 </head>
 <body>
@@ -31,9 +35,13 @@
     <nav class="navbar">
         <div class="container-xl">
             <ul class="navbar__list">
-                <li class="navbar__item"><a href="adminProducts.jsp" class="navbar__link button button button--hover ">Sản phẩm</a></li>
-                <li class="navbar__item"><a href="adminOrders.jsp" class="navbar__link button button button--hover ">Đơn hàng</a></li>
-                <li class="navbar__item"><a href="./adminUsers.html" class="navbar__link button button button--hover navbar__link--clicked">Khách hàng</a></li>
+                <li class="navbar__item"><a href="adminProducts.jsp" class="navbar__link button button button--hover ">Sản
+                    phẩm</a></li>
+                <li class="navbar__item"><a href="adminOrders.jsp" class="navbar__link button button button--hover ">Đơn
+                    hàng</a></li>
+                <li class="navbar__item"><a href="AdminUser"
+                                            class="navbar__link button button button--hover navbar__link--clicked">Khách
+                    hàng</a></li>
             </ul>
         </div>
     </nav>
@@ -49,27 +57,58 @@
 
                         </article>
                         <button id="button-remove-product" class="button button__delete">
-                            <i class="fa-solid fa-minus"></i>
-                            Xóa người dùng
+                            <i class="fa-solid fa-add"></i>
+                            Thêm người dùng
                         </button>
                     </div>
                     <div class="table__wrapper">
                         <table class="table ">
                             <thead>
-                                <tr class="table__row">
-                                    <th class="table__head table__checkbox"></th>
-                                    <th class="table__head table__id">Mã người dùng</th>
-                                    <th class="table__head table__username">Tên người dùng</th>
-                                    <th class="table__head table__email">Email</th>
-                                    <th class="table__head table__fullname">Họ tên</th>
-                                    <th class="table__head table__gender">Giới tính</th>
-                                    <th class="table__head table__birthday">Ngày sinh</th>
-                                    <th class="table__head table__phone">Số điện thoại </th>
-                                    <th class="table__head table__address">Địa chỉ </th>
-                                </tr>
+                            <tr class="table__row">
+                                <th class="table__head table__id">Mã người dùng</th>
+                                <th class="table__head table__username">Tên người dùng</th>
+                                <th class="table__head table__email">Email</th>
+                                <th class="table__head table__fullname">Họ tên</th>
+                                <th class="table__head table__gender">Giới tính</th>
+                                <th class="table__head table__birthday">Ngày sinh</th>
+                                <th class="table__head table__phone">Số điện thoại</th>
+                                <th class="table__head table__address">Địa chỉ</th>
+                                <th class="table__head table__address">Xóa</th>
+                            </tr>
                             </thead>
                             <tbody>
+                            <c:forEach items="${requestScope.lists}" var="user">
+                            <tr class="table__row">
+                                <td class="table__data">
+                                    <p class="table__cell"><c:out value="${user.id}"/></p>
+                                </td>
+                                <td class="table__data">
+                                    <p class="table__cell"><c:out value="${user.username}"/></p>
+                                </td>
 
+                                <td class="table__data">
+                                    <p class="table__cell"><c:out value="${user.email}"/></p>
+                                </td>
+                                <td class="table__data">
+                                    <p class="table__cell table__data--fullname"><c:out value="${user.fullName}"/></p>
+                                </td>
+                                <td class="table__data">
+                                    <p class="table__cell"><c:out value="${user.gender}"/></p>
+                                </td>
+                                <td class="table__data table__data--birthday">
+                                    <p class="table__cell"><c:out value="${user.birthDay}"/></p>
+                                </td>
+                                <td class="table__data">
+                                    <p class="table__cell"><c:out value="${user.phone}"/></p>
+                                </td>
+                                <td class="table__data">
+                                    <p class="table__cell"><c:out value="${user.address}"/></p>
+                                </td>
+                                <td class="table__data">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </td>
+                            </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -89,8 +128,8 @@
     </article>
     <div class="modal__blur"></div>
 </div>
-<script src="js/data.js"></script>
-<script src="js/paging.js"></script>
-<script src="js/admin/adminUsers.js"></script>
+<%--<script src="js/data.js"></script>--%>
+<%--<script src="js/paging.js"></script>--%>
+<%--<script src="js/admin/adminUsers.js"></script>--%>
 </body>
 </html>
