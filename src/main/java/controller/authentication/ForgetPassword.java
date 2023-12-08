@@ -2,7 +2,7 @@ package controller.authentication;
 
 import models.User;
 import services.AuthenticateServices;
-import utils.ValidationError;
+import utils.Validation;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,20 +15,19 @@ public class ForgetPassword extends HttpServlet {
     String sendMailSuccess = "Email đã được gửi đến hộp thư của bạn";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
-        ValidationError validationError = AuthenticateServices.getINSTANCE().checkForgetPassword(email);
+        Validation validation = AuthenticateServices.getINSTANCE().checkForgetPassword(email);
 
-        if (validationError.getObjReturn() != null) {
-            User user = (User) validationError.getObjReturn();
+        if (validation.getObjReturn() != null) {
+            User user = (User) validation.getObjReturn();
             request.setAttribute("sendMail",sendMailSuccess);
             AuthenticateServices.getINSTANCE().sendMailResetPassword(user);
         }else{
-            request.setAttribute("emailError",validationError.getFieldEmail());
+            request.setAttribute("emailError", validation.getFieldEmail());
         }
         request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
     }

@@ -1,6 +1,8 @@
 # Maven specific files
 target/
 *.iml
+.idea/*
+.idea/
 .idea
 
 # Compiled files

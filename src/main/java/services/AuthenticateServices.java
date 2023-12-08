@@ -5,15 +5,15 @@ import dao.UserDAOImplement;
 import models.User;
 import utils.Encoding;
 import utils.Token;
-import utils.ValidationError;
-
+import utils.ValidatePassword;
+import utils.Validation;
 import javax.mail.MessagingException;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,15 +31,15 @@ public class AuthenticateServices {
         return INSTANCE;
     }
 
-    public ValidationError checkSignIn(String username, String password) {
-        ValidationError validationError = new ValidationError();
+    public Validation checkSignIn(String username, String password) {
+        Validation validation = new Validation();
 //        Check username empty
         if (username.isEmpty()) {
-            validationError.setFieldUsername("Tài khoản không được để trống");
+            validation.setFieldUsername("Tài khoản không được để trống");
         }
 //          Check pass empty
         if (password.isEmpty()) {
-            validationError.setFieldPassword("Mật khẩu không được để trống");
+            validation.setFieldPassword("Mật khẩu không được để trống");
         }
 
 //        Check user in db
@@ -47,60 +47,60 @@ public class AuthenticateServices {
 
 //        Check username
         if (users.size() != 1) {
-            validationError.setFieldUsername("Tên đăng nhập không tồn tại.");
-            return validationError;
+            validation.setFieldUsername("Tên đăng nhập không tồn tại.");
+            return validation;
         }
 
 //        Check password
         User user = users.get(0);
         String encode = Encoding.getINSTANCE().toSHA1(password);
         if (user.getPasswordEncoding().equals(encode)) {
-            validationError.setObjReturn(user);
+            validation.setObjReturn(user);
         } else {
-            validationError.setFieldPassword("Mật khẩu sai");
+            validation.setFieldPassword("Mật khẩu sai");
         }
-        return validationError;
+        return validation;
     }
 
-    public ValidationError checkSignUp(String username, String email, String password, String confirmPassword) {
-        ValidationError validationError = new ValidationError();
+    public Validation checkSignUp(String username, String email, String password, String confirmPassword) {
+        Validation validation = new Validation();
         final String REGEX_EMAIL_VALID = "^(.+)@(.+)$";
-        final int minLength = 6;
         String errorEmail = "Email đã tồn tại";
         String errorEmailRegex = "Email không đúng định dạng";
         String errorUsername = "Tên đăng nhập đã tồn tại";
-        String errorPassword = "Mật khẩu có tối thiểu " + minLength + " kí tự";
-        String errorPasswordConfirm = "Mật khẩu nhập lại không hợp lê";
+        String errorPassword = "Mật khẩu có không thỏa điều kiện";
+        String errorPasswordConfirm = "Mật khẩu nhập lại không hợp lệ";
+
         String emptyField = "Không được để trống trường này";
 
 //        checkEmpty
         int countError = 0;
         if (username.isBlank()) {
-            validationError.setFieldUsername(emptyField);
+            validation.setFieldUsername(emptyField);
             countError++;
         }
         if (email.isBlank()) {
-            validationError.setFieldEmail(emptyField);
+            validation.setFieldEmail(emptyField);
             countError++;
         }
 
         if (password.isBlank()) {
-            validationError.setFieldPassword(emptyField);
+            validation.setFieldPassword(emptyField);
             countError++;
         }
         if (confirmPassword.isBlank()) {
-            validationError.setFieldConfirmPassword(emptyField);
+            validation.setFieldConfirmPassword(emptyField);
             countError++;
         }
 
 //        Prevent check in db
         if (countError != 0) {
-            return validationError;
+            return validation;
         }
 
 //        Check Username Exist
         if (!userDAO.findUsername(username).isEmpty()) {
-            validationError.setFieldUsername(errorUsername);
+            validation.setFieldUsername(errorUsername);
             countError++;
         }
 
@@ -108,25 +108,27 @@ public class AuthenticateServices {
         Pattern pattern = Pattern.compile(REGEX_EMAIL_VALID);
         Matcher matcher = pattern.matcher(email);
         if (!matcher.find()) {
-            validationError.setFieldEmail(errorEmailRegex);
+            validation.setFieldEmail(errorEmailRegex);
             countError++;
         } else {
+
 //        Check Email Exist
             if (!userDAO.findEmail(email).isEmpty()) {
-                validationError.setFieldEmail(errorEmail);
+                validation.setFieldEmail(errorEmail);
                 countError++;
             }
         }
 
 //        Check Pass
-        if (password.length() < minLength) {
-            validationError.setFieldPassword(errorPassword);
+        ValidatePassword validatePassword = new ValidatePassword(password);
+        if (!validatePassword.check()) {
+            validation.setFieldPassword(errorPassword);
             countError++;
         }
 
 //        Check confirmPassword != password
         if (!password.equals(confirmPassword)) {
-            validationError.setFieldConfirmPassword(errorPasswordConfirm);
+            validation.setFieldConfirmPassword(errorPasswordConfirm);
             countError++;
         }
 
@@ -135,11 +137,18 @@ public class AuthenticateServices {
             user.setUsername(username);
             user.setEmail(email);
             user.setPasswordEncoding(Encoding.getINSTANCE().toSHA1(password));
-            validationError.setObjReturn(user);
+            validation.setObjReturn(user);
         }
-        return validationError;
+        return validation;
     }
 
+    public Map<String, String> checkPasswordTemplate(String password) {
+        ValidatePassword validatePassword = new ValidatePassword(password);
+        validatePassword.check();
+        if (validatePassword.getErrorMap().isEmpty())
+            return null;
+        return validatePassword.getErrorMap();
+    }
 
     public void createUser(User user) {
 //        Create token
@@ -175,19 +184,19 @@ public class AuthenticateServices {
         return false;
     }
 
-    public ValidationError checkForgetPassword(String email) {
-        ValidationError validationError = new ValidationError();
+    public Validation checkForgetPassword(String email) {
+        Validation validation = new Validation();
 
         String errorEmail = "Tài khoản ứng với email này chưa đăng ký hoặc chưa xác thực";
 
         List<User> users = userDAO.selectByEmail(email, "1");
         if (users.size() == 1) {
             User user = users.get(0);
-            validationError.setObjReturn(user);
+            validation.setObjReturn(user);
         } else {
-            validationError.setFieldEmail(errorEmail);
+            validation.setFieldEmail(errorEmail);
         }
-        return validationError;
+        return validation;
     }
 
     public void sendMailResetPassword(User user) {
@@ -210,6 +219,7 @@ public class AuthenticateServices {
         User user = users.get(0);
         String userToken = user.getTokenResetPassword();
         Timestamp userTokenExpired = user.getTokenResetPasswordTime();
+        if (userTokenExpired == null) return false;
         Timestamp timestampCurrent = Timestamp.valueOf(LocalDateTime.now());
         return timestampCurrent.compareTo(userTokenExpired) <= 0 && token.equals(userToken);
     }

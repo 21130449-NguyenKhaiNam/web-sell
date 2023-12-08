@@ -28,6 +28,10 @@ article {
     letter-spacing: 0.064px;
 }
 
+.form__block:has(.form__error:not(:empty)) .form__input {
+    outline: 1.5px solid red;
+}
+
 .form__block ~ .form__block {
     margin-top: 10px;
 }
@@ -63,6 +67,7 @@ article {
 
 .form__block:has(.form__link) > *:not(.form__checkbox) {
     display: inline-block;
+    padding-bottom: 10px;
 }
 
 .icon_checkbox {
@@ -106,9 +111,7 @@ article {
 .form__submit {
     --width: 100%;
     --height: 50px;
-    margin-top: 34px;
     border-radius: 5px;
-
     color: #FFF;
     font-size: 20px;
     font-style: normal;
@@ -137,14 +140,13 @@ article {
     margin-top: 5px;
 }
 
-.invalid .form__error {
+.form__error {
     color: red;
 }
 
-.invalid .form__input {
-    border: 1px solid red;
+.modal {
+    display: block;
 }
-
 .modal {
     display: block;
 }
@@ -170,4 +172,35 @@ article {
 .modal__close:hover {
     cursor: pointer;
     opacity: 0.7;
+}
+
+.form__password-error {
+    padding: 10px;
+    background: #f1f1f1;
+    color: #000;
+    font-size: 15px;
+}
+
+.form__password-error h3 {
+    padding-bottom: 10px;
+}
+
+.error__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.error__item {
+    color: grey;
+}
+
+.error__item.error__item--correct {
+    color: #5ee95e;
+}
+
+.error__icon {
+    margin-right: 5px;
+    font-size: 10px;
+
 }
