@@ -1,11 +1,11 @@
 import dao.UserDAO;
-import dao.UserImplement;
+import dao.UserDAOImplement;
 import models.User;
 import services.AuthenticateServices;
 
 public class TestDB {
     public static void main(String[] args) {
-        UserDAO userDAO = new UserImplement();
+        UserDAO userDAO = new UserDAOImplement();
         System.out.println(userDAO.selectByEmail("ducvui2003@gmail.com", "1"));
 //        System.out.println(userDAO.selectById(24));
 //        userDAO.updatePassword(23, "123456");

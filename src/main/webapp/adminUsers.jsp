@@ -78,36 +78,38 @@
                             </thead>
                             <tbody>
                             <c:forEach items="${requestScope.lists}" var="user">
-                            <tr class="table__row">
-                                <td class="table__data">
-                                    <p class="table__cell"><c:out value="${user.id}"/></p>
-                                </td>
-                                <td class="table__data">
-                                    <p class="table__cell"><c:out value="${user.username}"/></p>
-                                </td>
+                                <tr class="table__row">
+                                    <td class="table__data">
+                                        <p class="table__cell"><c:out value="${user.id}"/></p>
+                                    </td>
+                                    <td class="table__data">
+                                        <p class="table__cell"><c:out value="${user.username}"/></p>
+                                    </td>
 
-                                <td class="table__data">
-                                    <p class="table__cell"><c:out value="${user.email}"/></p>
-                                </td>
-                                <td class="table__data">
-                                    <p class="table__cell table__data--fullname"><c:out value="${user.fullName}"/></p>
-                                </td>
-                                <td class="table__data">
-                                    <p class="table__cell"><c:out value="${user.gender}"/></p>
-                                </td>
-                                <td class="table__data table__data--birthday">
-                                    <p class="table__cell"><c:out value="${user.birthDay}"/></p>
-                                </td>
-                                <td class="table__data">
-                                    <p class="table__cell"><c:out value="${user.phone}"/></p>
-                                </td>
-                                <td class="table__data">
-                                    <p class="table__cell"><c:out value="${user.address}"/></p>
-                                </td>
-                                <td class="table__data">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </td>
-                            </tr>
+                                    <td class="table__data">
+                                        <p class="table__cell"><c:out value="${user.email}"/></p>
+                                    </td>
+                                    <td class="table__data">
+                                        <p class="table__cell table__data--fullname"><c:out
+                                                value="${user.fullName}"/></p>
+                                    </td>
+                                    <td class="table__data">
+                                        <p class="table__cell"><c:out value="${user.gender}"/></p>
+                                    </td>
+                                    <td class="table__data table__data--birthday">
+                                        <p class="table__cell"><c:out value="${user.birthDay}"/></p>
+                                    </td>
+                                    <td class="table__data">
+                                        <p class="table__cell"><c:out value="${user.phone}"/></p>
+                                    </td>
+                                    <td class="table__data">
+                                        <p class="table__cell"><c:out value="${user.address}"/></p>
+                                    </td>
+                                    <td class="table__data">
+                                        <a href="delete?userId=${user.id}">
+                                            <i class="fa-solid fa-trash-can"></i></a>
+                                    </td>
+                                </tr>
                             </c:forEach>
                             </tbody>
                         </table>
@@ -132,4 +134,6 @@
 <%--<script src="js/paging.js"></script>--%>
 <%--<script src="js/admin/adminUsers.js"></script>--%>
 </body>
+
+
 </html>
