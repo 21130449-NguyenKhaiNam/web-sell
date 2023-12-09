@@ -42,34 +42,67 @@
                 <div class="form__block">
                     <label for="username" class="form__label">Tên đăng nhập</label>
                     <input id="username" name="username" type="text" class="form__input">
-                        <c:set value="${requestScope.usernameError}" var="usernameError"/>
-                        <c:if test="${usernameError != null}">
-                    <p class="form__error">${usernameError}</p>
-                    </c:if>
+                    <c:set value="${requestScope.usernameError}" var="usernameError"/>
+                    <p class="form__error"><c:if test="${usernameError != null}">${usernameError}</c:if></p>
                 </div>
                 <div class="form__block">
                     <label for="email" class="form__label">Email</label>
                     <input id="email" name="email" type="email" class="form__input">
                     <c:set value="${requestScope.emailError}" var="emailError"/>
-                    <c:if test="${emailError != null}">
-                        <p class="form__error">${emailError}</p>
-                    </c:if>
+                    <p class="form__error"><c:if test="${emailError != null}">${emailError}</c:if></p>
                 </div>
                 <div class="form__block">
                     <label for="password" class="form__label">Mật khẩu</label>
                     <input id="password" name="password" type="password" class="form__input">
                     <c:set value="${requestScope.passwordError}" var="passwordError"/>
-                    <c:if test="${passwordError != null}">
-                        <p class="form__error">${passwordError}</p>
-                    </c:if>
+                    <p class="form__error"><c:if test="${passwordError != null}">${passwordError}</c:if></p>
+                </div>
+                <div class="form__password-error">
+                    <h3>Mật khẩu cần phải có:</h3>
+                    <div class="error__list">
+                        <c:set var="charMinLength" value="${requestScope.charMinLength}"/>
+                        <p id="minLength"
+                           class="error__item <c:if test="${charMinLength != null}">error__item--correct</c:if> ">
+                            <i class="error__icon fa-solid fa-check"></i>
+                            <span>Có ít nhất 8 kí tự.</span>
+                        </p>
+                        <c:set var="charNumber" value="${requestScope.charNumber}"/>
+                        <p id="atLeast1Digit"
+                           class="error__item <c:if test="${charNumber != null}">error__item--correct</c:if> ">
+                            <i class="error__icon fa-solid fa-check"></i>
+                            <span>Có ít nhất 1 chữ số như 1, 2, 3,...</span>
+                        </p>
+                        <c:set var="charUpper" value="${requestScope.charUpper}"/>
+                        <p id="atLeast1WordUpper"
+                           class="error__item <c:if test="${charUpper != null}">error__item--correct</c:if> ">
+                            <i class="error__icon fa-solid fa-check"></i>
+                            <span>Có ít nhất 1 chữ hoa như: A, B, C,...</span>
+                        </p>
+                        <c:set var="charLower" value="${requestScope.charLower}"/>
+                        <p id="atLeast1WordLower"
+                           class="error__item <c:if test="${charLower != null}">error__item--correct</c:if> ">
+                            <i class="error__icon fa-solid fa-check"></i>
+                            <span>Có ít nhất 1 chữ thường như a, b, c,...</span>
+                        </p>
+                        <c:set var="noSpace" value="${requestScope.noSpace}"/>
+                        <p id="noSpace"
+                           class="error__item <c:if test="${noSpace != null}">error__item--correct</c:if> ">
+                            <i class="error__icon fa-solid fa-check"></i>
+                            <span>Mật khẩu không được có khoảng trắng.</span>
+                        </p>
+                        <c:set var="charSpecial" value="${requestScope.charSpecial}"/>
+                        <p id="atLeast1SpecialCharacter"
+                           class="error__item <c:if test="${charSpecial != null}">error__item--correct</c:if>">
+                            <i class="error__icon fa-solid fa-check"></i>
+                            <span>Có ít nhất 1 kí tự đặc biệt như "@", ".", ":",....</span>
+                        </p>
+                    </div>
                 </div>
                 <div class="form__block">
                     <label for="confirm-password" class="form__label">Xác nhận lại mật khẩu</label>
                     <input id="confirm-password" name="confirm-password" type="password" class="form__input">
                     <c:set value="${requestScope.passwordConfirmError}" var="passwordConfirmError"/>
-                    <c:if test="${passwordError != null}">
-                        <p class="form__error">${passwordConfirmError}</p>
-                    </c:if>
+                    <p class="form__error"><c:if test="${passwordError != null}">${passwordConfirmError}</c:if></p>
                 </div>
                 <button type="submit" id="form__submit" class="form__submit button button--hover">Đăng ký
                 </button>
@@ -105,39 +138,15 @@
             Validation.isRequired("#email"),
             Validation.isEmail("#email"),
             Validation.isRequired("#password"),
-            Validation.minLength("#password", 6),
+            Validation.isUnique("#password"),
             Validation.isRequired("#confirm-password"),
             Validation.isConfirm("#confirm-password", function () {
                 return document.querySelector("#password").value;
             })
         ],
-    })
-</script>
-<script>
-    function loadMore() {
-        const username = document.querySelector(`input[name="username"]`).value;
-        const email = document.querySelector(`input[name="email"]`).value;
-        const password = document.querySelector(`input[name="password"]`).value;
-        const passwordConfirm = document.querySelector(`input[name="confirm-password"]`).value;
-        $.ajax(
-            {
-                type: "POST",
-                data: {
-                    username: username,
-                    email: email,
-                    password: password,
-                    passwordConfirm: passwordConfirm,
-                },
-                url: "/LTW_project_servlet_war/signUp",
-                success: function (response) {
+        submitSelector: "#form__submit",
 
-                },
-                error: function (xhr, status, error) {
-                    console.error('AJAX request failed:', error);
-                }
-            }
-        )
-    }
+    })
 </script>
 </body>
 </html>

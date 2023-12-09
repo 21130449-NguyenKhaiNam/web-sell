@@ -37,22 +37,16 @@
                     <label for="username" class="form__label">Tên đăng nhập</label>
                     <input id="username" name="username" type="text" class="form__input">
                     <c:set value="${requestScope.usernameError}" var="usernameError"/>
-                    <c:if test="${usernameError != null}">
-                        <p class="form__error">${usernameError}</p>
-                    </c:if>
-
+                    <p class="form__error"><c:if test="${usernameError != null}">${usernameError}</c:if></p>
                 </div>
                 <div class="form__block">
                     <label for="password" class="form__label">Mật khẩu</label>
                     <input id="password" name="password" type="password" class="form__input">
                     <c:set value="${requestScope.passwordError}" var="passwordError"/>
-                    <c:if test="${passwordError != null}">
-                        <p class="form__error">${passwordError}</p>
-                    </c:if>
+                    <p class="form__error"><c:if test="${passwordError != null}">${passwordError}</c:if></p>
                 </div>
                 <div class="form__block">
                     <a href="forgotPassword.jsp" id="form__forget-password" class="form__link">Quên mật khẩu</a>
-
                 </div>
                 <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng nhập</button>
             </form>
@@ -70,8 +64,8 @@
         rules: [
             Validation.isRequired("#username"),
             Validation.isRequired("#password"),
-            Validation.minLength("#password", 6),
         ],
+        submitSelector: "#form__submit",
     })
 </script>
 </body>
