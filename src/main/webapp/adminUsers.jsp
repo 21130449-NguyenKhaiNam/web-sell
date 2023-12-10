@@ -53,8 +53,9 @@
                         <h1>Danh sách người dùng</h1>
                         <article action="#!" class="form__search-block filler__block">
                             <i class="search__icon fa-solid fa-magnifying-glass"></i>
-                            <input id="search-input" type="text" name="search">
-
+                            <form action="AdminUser" method="get">
+                                <input id="search-input" type="text" name="search" placeholder="Tìm kiếm người dùng">
+                            </form>
                         </article>
                         <button id="button-remove-product" class="button button__delete">
                             <i class="fa-solid fa-add"></i>
@@ -106,8 +107,9 @@
                                         <p class="table__cell"><c:out value="${user.address}"/></p>
                                     </td>
                                     <td class="table__data">
-                                        <a href="delete?userId=${user.id}">
-                                            <i class="fa-solid fa-trash-can"></i></a>
+                                        <a id="deleteUserLink" onclick="openDeleteDialog(${user.id})">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -120,20 +122,27 @@
         </div>
     </section>
 </main>
-<div id="dialog-order-update" class="modal">
-    <article class="modal__content modal__product modal__order">
-        <div class="head__dialog--bar">
-            <h1>Chỉnh sửa thông tin</h1>
-            <i class="modal__product-close modal__order-close fa-solid fa-xmark"></i>
+<!-- Dialog -->
+<div id="delete-dialog" class="modal">
+    <div class="modal__content">
+        <div class="modal__header">
+            <h1>Xác nhận xóa</h1>
+            <i id="close-dialog" class="fa-solid fa-xmark"></i>
         </div>
-
-    </article>
-    <div class="modal__blur"></div>
+        <p class="modal__body">Bạn có chắc chắn muốn xóa người dùng này?</p>
+        <div class="modal__footer">
+            <button id="cancel-delete" class="button button__cancel">Hủy bỏ</button>
+            <a id="confirm-delete" href="delete?userId=${user.id}" class="button button__delete--dialog">
+                <i class="fa-solid fa-trash-can"></i>
+                Xác nhận xóa
+            </a>
+        </div>
+    </div>
 </div>
+
 <%--<script src="js/data.js"></script>--%>
 <%--<script src="js/paging.js"></script>--%>
-<%--<script src="js/admin/adminUsers.js"></script>--%>
+<script src="js/admin/adminUsers.js"></script>
 </body>
-
 
 </html>

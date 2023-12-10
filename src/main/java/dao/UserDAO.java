@@ -30,5 +30,11 @@ public interface UserDAO extends DAO<User> {
     @Override
     int delete(User o);
     public List<User> selectALl();
+
     public void deleteUserById(int id);
+
+    public List<User> searchUsersByName(String search);
+
+
 }
+

@@ -14,10 +14,17 @@ import java.util.List;
 public class LoadDataUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserDAOImplement user = new UserDAOImplement();
-        List<User> list = user.selectALl();
-        request.setAttribute("lists", list);
-        request.getRequestDispatcher("adminUsers.jsp").forward(request,response);
+        UserDAOImplement userDAO = new UserDAOImplement();
+        String search = request.getParameter("search");
+        if (search != null && !search.isEmpty()) {
+            List<User> searchResult = userDAO.searchUsersByName(search);
+            request.setAttribute("lists", searchResult);
+        } else {
+            List<User> allUsers = userDAO.selectALl();
+            request.setAttribute("lists", allUsers);
+        }
+
+        request.getRequestDispatcher("adminUsers.jsp").forward(request, response);
 
     }
 

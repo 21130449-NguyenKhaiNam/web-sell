@@ -145,6 +145,12 @@ public class UserDAOImplement implements UserDAO {
         GeneralDao.executeAllTypeUpdate(query, id);
     }
 
+    @Override
+    public List<User> searchUsersByName(String search) {
+        String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ?";
+        return GeneralDao.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%");
+    }
+
 
     @Override
     public int deleteAll(List<User> list) {

@@ -17,6 +17,8 @@ public class Delete extends HttpServlet {
             int id = Integer.parseInt(idString);
             UserDAO user = new UserDAOImplement();
             user.deleteUserById(id);
+            System.out.println("Deleted user with ID: " + id);
+
         }
         response.sendRedirect("AdminUser");
 
