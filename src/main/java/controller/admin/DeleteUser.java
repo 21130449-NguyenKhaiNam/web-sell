@@ -9,7 +9,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "delete", value = "/delete")
-public class Delete extends HttpServlet {
+public class DeleteUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idString = request.getParameter("userId");
@@ -22,9 +22,6 @@ public class Delete extends HttpServlet {
             }catch(NumberFormatException e){
                 System.out.println("id không hợp lệ");
             }
-
-
-
         }
         response.sendRedirect("AdminUser");
 
