@@ -5,8 +5,6 @@ import models.User;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.stream.Collectors;
-
 public class UserDAOImplement implements UserDAO {
     @Override
     public User selectById(int id) {
@@ -133,6 +131,25 @@ public class UserDAOImplement implements UserDAO {
     public int delete(User o) {
         return 0;
     }
+
+    @Override
+    public List<User> selectALl() {
+        String querry ="Select * from users ";
+        return GeneralDao.executeQueryWithSingleTable(querry, User.class);
+    }
+
+    @Override
+    public void deleteUserById(int id) {
+        String query = "DELETE FROM users WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(query, id);
+    }
+
+    @Override
+    public List<User> searchUsersByName(String search) {
+        String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ?";
+        return GeneralDao.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%");
+    }
+
 
     @Override
     public int deleteAll(List<User> list) {

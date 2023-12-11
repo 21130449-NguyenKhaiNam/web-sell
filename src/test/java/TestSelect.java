@@ -1,6 +1,7 @@
 import dao.GeneralDao;
 import dao.UserDAO;
-import dao.UserImplement;
+import dao.UserDAOImplement;
+
 import database.DBProperties;
 import database.JDBIConnector;
 import models.User;
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
 public class TestSelect {
     public static void main(String[] args) {
 //        System.out.println(GeneralDao.executeQueryWithSingleTable("SELECT id, fullname, username FROM users", User.class));
-     UserDAO userDAO = new UserImplement();
+     UserDAO userDAO = new UserDAOImplement();
         System.out.println(userDAO.findUsername("ducvui2003"));
         final String REGEX_EMAIL_VALID = "^(.+)@(.+)$";
         Pattern pattern = Pattern.compile(REGEX_EMAIL_VALID);
