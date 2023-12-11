@@ -5,7 +5,6 @@ import models.User;
 
 import java.sql.Timestamp;
 import java.util.List;
-
 public class UserDAOImplement implements UserDAO {
     @Override
     public User selectById(int id) {

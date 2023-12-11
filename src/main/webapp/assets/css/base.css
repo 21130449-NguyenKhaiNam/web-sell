@@ -256,8 +256,8 @@ body {
 
 /*Account*/
 .account__wrapper {
+    display: flex;
     width: 200px;
-    display: none;
     justify-content: space-between;
     align-items: center;
     gap: 30px;
