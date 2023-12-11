@@ -14,10 +14,14 @@ public class Delete extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idString = request.getParameter("userId");
         if (idString != null && !idString.isEmpty()) {
-            int id = Integer.parseInt(idString);
-            UserDAO user = new UserDAOImplement();
-            user.deleteUserById(id);
-            System.out.println("Deleted user with ID: " + id);
+            try {
+                int id = Integer.parseInt(idString);
+                UserDAO user = new UserDAOImplement();
+                user.deleteUserById(id);
+                System.out.println("Deleted user with ID: " + id);
+            }catch (NumberFormatException e){
+                System.out.println("id không hợp lệ");
+            }
 
         }
         response.sendRedirect("AdminUser");
