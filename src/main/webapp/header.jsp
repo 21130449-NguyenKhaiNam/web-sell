@@ -36,11 +36,11 @@
                         <!--Account show (After log in success)-->
                         <div class="account__wrapper">
                             <!--Giỏ hàng-->
-                          <c:if test="${auth.role == false}">
-                              <a href="shoppingCart.jsp" class="cart">
-                                  <i class="cart__icon  fa-solid fa-cart-shopping"></i>
-                              </a>
-                          </c:if>
+                            <c:if test="${auth.role == false}">
+                                <a href="shoppingCart.jsp" class="cart">
+                                    <i class="cart__icon  fa-solid fa-cart-shopping"></i>
+                                </a>
+                            </c:if>
                             <div class="account">
                                 <i class="account__icon fa-regular fa-user"></i>
                                 <div class="setting__list">
@@ -53,12 +53,12 @@
                                         </div>
                                     </a></div>
                                     <div class="setting__item"><a href="account.jsp" class="setting__link">Tài
-                                                                                                           khoản
-                                                                                                           của
-                                                                                                           tôi</a>
+                                        khoản
+                                        của
+                                        tôi</a>
                                     </div>
                                     <div class="setting__item "><a href="signOut" class="setting__link setting__logOut">Đăng
-                                                                                                                        xuất</a>
+                                        xuất</a>
                                     </div>
                                 </div>
                             </div>

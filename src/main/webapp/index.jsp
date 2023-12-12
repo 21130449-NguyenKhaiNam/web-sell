@@ -1,6 +1,12 @@
 <%@ page import="models.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="models.Products" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="services.HomeServices" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,10 +55,9 @@
         <div id="slider__category--section">
             <div class="slider__container">
                 <div class="slider__items">
-                    <img class="slider__item" src="./assets/img/slider/T-Shirt.png">
-                    <img class="slider__item" src="./assets/img/slider/Hoodie.png">
-                    <img class="slider__item" src="./assets/img/slider/Vest.png">
-                    <img class="slider__item" src="./assets/img/slider/Pants.png">
+                    <c:forEach items="${listSlideShow}" var="slide">
+                        <img class="slider__item" src="./assets/img/slider/${slide.nameImage}">
+                    </c:forEach>
                 </div>
                 <div class="navigation__button nav__prev">
                     <i class="fa-solid fa-chevron-left"></i>
@@ -71,38 +76,147 @@
             </div>
             <div class="category__container category__items">
                 <div class="category__item">
-                    <p class="item__text">Áo thun</p>
+                    <p class="item__text">Áo thun / T-Shirt</p>
                     <img class="item__image" src="./assets/img/category/T-shirt.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Áo hoodie</p>
+                    <p class="item__text">Áo hoodie / Hoodie</p>
                     <img class="item__image" src="./assets/img/category/hoodie.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Balo</p>
+                    <p class="item__text">Balo / Backpack</p>
                     <img class="item__image" src="./assets/img/category/backpack.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Quần dài</p>
+                    <p class="item__text">Quần dài / Pants</p>
                     <img class="item__image" src="./assets/img/category/pants.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Nón</p>
+                    <p class="item__text">Nón / Cap</p>
                     <img class="item__image" src="./assets/img/category/hat.png">
                 </div>
             </div>
         </div>
     </div>
-    <div class="popular__section container-xl">
-        <h2 class="section__title">Mẫu đồ phổ biến</h2>
-        <div class="product__container">
-            <div class="product__items">
 
+    <div class="popular__section container-xl">
+        <div class="popular__title">
+            <h2 class="section__title">Sản phẩm thịnh hành</h2>
+            <a class="see__more" href="">Xem thêm</a>
+        </div>
+        <div class="product__wrapper">
+            <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
+            <div class="product__items">
+                <c:forEach items="${list6TrendingProducts}" var="trendProduct">
+                    <div class="product__item">
+                        <div class="product__content">
+                            <div class="image--tag">
+                                <img src="./assets/img/product_img/${trendProduct['nameimage']}">
+                                <span class="product__tag">Thịnh hành</span>
+                                <div class="action__bar">
+                                    <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>
+                                    <button type="submit" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i></button>
+                                </div>
+                            </div>
+                            <div class="product__info">
+                                <a class="product__name" href="#">${trendProduct["name"]}</a>
+                                <div class="product__review">
+                                    <div class="review__icon">
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                    </div>
+                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>
+                                </div>
+                                <span class="product__price">
+                                    <fmt:setLocale value="vi_VN"/>
+                                    <c:choose>
+                                        <c:when test="${trendProduct['saleprice'] == null}">
+                                            <strong class="priority__price">
+                                                <fmt:formatNumber value="${trendProduct['originalprice']}" type="currency"/>
+                                            </strong>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <strong class="sale__price">
+                                                <fmt:formatNumber value="${trendProduct['saleprice']}" type="currency"/>
+                                            </strong>
+                                            <s class="original__price">
+                                                <fmt:formatNumber value="${trendProduct['originalprice']}" type="currency"/>
+                                            </s>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
-            <button id="left__button"><i class="fa-solid fa-arrow-left"></i></button>
-            <button id="right__button"><i class="fa-solid fa-arrow-right"></i></button>
+            <button class="right__button"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
+
+    <div class="new__section container-xl">
+        <div class="new__title">
+            <h2 class="section__title">Sản phẩm mới</h2>
+            <a class="see__more" href="">Xem thêm</a>
+        </div>
+        <div class="product__wrapper">
+            <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
+            <div class="product__items">
+                <c:forEach items="${list6NewProducts}" var="newProduct">
+                    <div class="product__item">
+                        <div class="product__content">
+                            <div class="image--tag">
+                                <img src="./assets/img/product_img/${newProduct['nameimage']}">
+                                <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
+                                    <span class="product__tag">Thịnh hành</span>
+                                </c:if>
+                                <div class="action__bar">
+                                    <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>
+                                    <button type="submit" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i></button>
+                                </div>
+                            </div>
+                            <div class="product__info">
+                                <a class="product__name" href="#">${newProduct["name"]}</a>
+                                <div class="product__review">
+                                    <div class="review__icon">
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                    </div>
+                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>
+                                </div>
+                                <span class="product__price">
+                                    <fmt:setLocale value="vi_VN"/>
+                                    <c:choose>
+                                        <c:when test="${newProduct['saleprice'] == null}">
+                                            <strong class="priority__price">
+                                                <fmt:formatNumber value="${newProduct['originalprice']}" type="currency"/>
+                                            </strong>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <strong class="sale__price">
+                                                <fmt:formatNumber value="${newProduct['saleprice']}" type="currency"/>
+                                            </strong>
+                                            <s class="original__price">
+                                                <fmt:formatNumber value="${newProduct['originalprice']}" type="currency"/>
+                                            </s>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <button class="right__button"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
     <div id="discovery__us--section" class="container-xl">
         <div class="discovery__container">
             <h2 class="section__title">Bạn có thể khám phá được điều gì ở chúng tôi?</h2>

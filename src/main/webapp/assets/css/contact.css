@@ -1,36 +1,39 @@
 .contact_us{
     margin: 50px auto;
     gap: 20px;
-    align-items: flex-start;
+    align-items: stretch;
     position: relative;
 }
 
-.contact_us .title_method-contact{
-    flex: 2;
+.contact_us .contact__container{
+    /*flex: 2;*/
     padding-left: 0px;
 }
 
-.contact_us .title_method-contact h2{
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--blue-color-high);
-    padding-bottom: 16px;
+.contact__content{
+    display: grid;
+    gap: 20px;
 }
 
-.contact_us .title_method-contact p{
-    font-size: 18px;
+.contact_us .contact__container .title__contact{
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--blue-color-high);
+}
+
+.contact_us .contact__container .subtitle__contact{
     line-height: 24px;
 }
 
-.contact_us .get-in-touch{
-    margin-top: 50px;
+.contact_us .contact__container .get-in-touch{
+    margin-top: 46px;
     display: grid;
-    gap: 16px
+    gap: 20px
 }
 
-.contact_us .get-in-touch .contact-method{
+.contact_us .contact__container .get-in-touch .contact-method{
     display: flex;
-    gap: 10px;
+    gap: 8px;
     /*align-items: stretch;*/
     border: 1px #D9D9D9 solid;
     border-radius: 4px;
@@ -38,76 +41,87 @@
 }
 
 .contact_us .get-in-touch .contact-method .icon-contact{
-    min-width: 46px;
+    min-width: 44px;
     background-color: #F8F8F8;
     border-radius: 4px;
     display: flex;
 }
 
 .contact_us .get-in-touch .contact-method i{
-    font-size: 20px;
+    font-size: 18px;
     margin: auto;
+    color: var(--blue-color-high);
 }
 
 .contact_us .get-in-touch .contact-method .contact-description{
     font-weight: 600;
     text-align: left;
+    display: grid;
+    gap: 8px;
+}
+
+.contact_us .get-in-touch .contact-method .contact-description p:first-child{
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .contact_us .get-in-touch .contact-method .contact-description p:last-child{
     color: var(--blue-color-high);
-    font-weight: 700;
+    line-height: 20px;
+    font-size: 15px;
 }
 
-#contact_us-form{
-    display: grid;
-    gap: 24px;
+#contact__form{
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
     border: 1px #D9D9D9 solid;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0px 0px 12px rgba(12,12,12,0.1);
-    position: sticky;
-    top: 140px;
 }
 
-#contact_us-form .form__block{
-    display: grid;
+#contact__form .form__block{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
 }
 
-#contact_us-form .form__block .form__label{
+#contact__form .form__block .form__label{
     font-weight: 600;
-    padding-bottom: 6px;
-}
-
-#contact_us-form .form__block .form__input{
     width: 100%;
-    /*border: 1px solid black;*/
-    background-color: #F8F8F8;
-    border-radius: 4px;
-    padding: 14px 10px;
 }
 
-#contact_us-form .form__block .form__input:focus, #contact_us-form .form__block .form__textarea:focus{
+#contact__form .form__block .form__input{
+    width: 100%;
+    border: 1px solid #aaaaaa;
+    background-color: white;
+    border-radius: 4px;
+    padding: 12px 10px;
+}
+
+#contact__form .form__block .form__input:focus, #contact__form .form__block .form__textarea:focus{
     border: 2px var(--blue-color-high) solid;
 }
 
-#contact_us-form .form__block .error-notice{
+#contact__form .form__block .error-notice{
     height: auto;
     font-size: 14px;
     font-weight: 500;
-    margin-top: 4px;
+    display: none;
 }
 
-#contact_us-form .form__block .form__textarea{
+#contact__form .form__block .form__textarea{
     resize: vertical;
     padding: 12px 10px;
     border-radius: 4px;
     outline: none;
-    border: none;
-    background-color: #F8F8F8;
+    border: 1px solid #aaaaaa;
+    background-color: white;
 }
 
-#contact_us-form .form__submit{
+#contact__form .form__submit{
     width: fit-content;
     padding: 16px 50px;
     font-weight: 600;
@@ -118,11 +132,95 @@
     cursor: pointer;
 }
 
-#contact_us-form .form__submit:hover{
+.select__box{
+    width: 100%;
+}
+
+#contact__form .form__submit:hover{
     background-color: var(--blue-color-medium);
 }
 
 .input-invalid{
-    border: 2px #E40F0A solid;
+    border: 2px #E40F0A solid !important;
 }
 
+.select2{
+    width: 100% !important;
+}
+
+.company__map{
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #D9D9D9;
+    position: sticky;
+    top: 140px;
+}
+
+.select2-selection{
+    width: 100%;
+    height: fit-content !important;
+    padding: 6px 0px;
+    display: grid !important;;
+    align-items: center;
+    outline: none;
+}
+
+.select2-selection__rendered{
+    font-weight: 500;
+}
+
+.select2-search__field{
+    padding: 8px !important;
+}
+
+.select2-selection__arrow{
+    top: 0 !important;
+    height: 100% !important;
+}
+
+.select2-dropdown{
+    border-color: var(--blue-color-high) !important;
+    box-shadow: 4px 4px 4px rgba(68, 125, 248, 0.1);
+}
+
+.select2-search{
+    padding: 8px !important;
+}
+
+.select2-results__option{
+    padding: 12px 8px !important;
+}
+
+.compulsory__mark{
+    color: #E40F0A;
+}
+
+.subject__info{
+    font-size: 14px;
+}
+
+label[for="subject"]{
+    position: relative;
+}
+
+label[for="subject"]::after{
+    content: "Nếu bạn không lựa chọn chủ đề thì chúng tôi mặc định bạn liên hệ về chủ đề thắc mắc chung";
+    color: black;
+    position: absolute;
+    width: 260px;
+    margin-left: 6px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 6px;
+    border: 1px solid #aaaaaa;
+    border-radius: 4px;
+    background-color: white;
+    line-height: 16px;
+}
+
+label[for="subject"]:hover::after{
+    opacity: 1;
+}

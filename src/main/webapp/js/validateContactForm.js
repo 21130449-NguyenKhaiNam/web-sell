@@ -26,10 +26,12 @@ function ValidatorContactForm(options){
         }
 
         if(errorMessage){
+            errorMessageElement.style.display = 'block';
             errorMessageElement.innerText = errorMessage;
             errorMessageElement.style.color = '#E40F0A';
             inputElement.classList.add('input-invalid')
         }else {
+            errorMessageElement.style.display = 'none';
             errorMessageElement.innerText = '';
             inputElement.classList.remove('input-invalid')
         }
@@ -40,7 +42,7 @@ function ValidatorContactForm(options){
     if(contactFormElement){
         contactFormElement.onsubmit = function (e){
             e.preventDefault();
-            isFormValid = true;
+            var isFormValid = true;
             options.rules.forEach(function (rule){{
                 var inputElement = contactFormElement.querySelector(rule.selector);
                 var errorMessageElement = getRightParent(inputElement, options.formBlockSelector).querySelector(options.errorSelector);
@@ -80,11 +82,13 @@ function ValidatorContactForm(options){
                     validate(inputElement,rule,errorMessageElement);
                 }
                 inputElement.oninput = function (){
+                    errorMessageElement.style.display = 'none';
                     errorMessageElement.innerText = '';
                     inputElement.classList.remove('input-invalid')
                 }
 
                 inputElement.onfocus = function (){
+                    errorMessageElement.style.display = 'none';
                     errorMessageElement.innerText = '';
                 }
             }
@@ -107,6 +111,16 @@ ValidatorContactForm.isEmail = function (selector){
         test: function (value){
             var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             return regex.test(value.trim()) ? undefined : 'Thông tin bạn nhập không phải là email'
+        }
+    }
+}
+
+ValidatorContactForm.isPhone = function (selector) {
+    return {
+        selector: selector,
+        test: (value) => {
+            const regex = /(84|0[0-9])+([0-9]{8})\b/g;
+            return regex.test(value.trim()) ? undefined : 'Vui lòng nhập số điện thoại hợp lệ (10 số bắt đầu từ 0)'
         }
     }
 }
