@@ -38,7 +38,10 @@
                             <!--Giỏ hàng-->
                             <c:if test="${auth.role == false}">
                                 <a href="shoppingCart.jsp" class="cart">
-                                    <i class="cart__icon  fa-solid fa-cart-shopping"></i>
+                                    <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
+                                    <span class="qlt__swapper">
+                                        <span class="qlt__value">0</span>
+                                    </span>
                                 </a>
                             </c:if>
                             <div class="account">

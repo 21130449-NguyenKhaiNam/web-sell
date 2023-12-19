@@ -1,17 +1,15 @@
 package filter;
 
-import models.Sliders;
+import models.Product;
 import services.HomeServices;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @WebFilter("/index.jsp")
 public class HomeFilter implements Filter {
@@ -26,7 +24,7 @@ public class HomeFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        List<Map<String, Object>> listAllTrendingProducts = HomeServices.getINSTANCE().getListTrendingProducts(true);
+        List<Product> listAllTrendingProducts = HomeServices.getINSTANCE().getListTrendProducts(true);
         HttpSession session = request.getSession(true);
         session.setAttribute("listAllTrendingProducts", listAllTrendingProducts);
 

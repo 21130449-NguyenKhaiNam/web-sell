@@ -1,13 +1,12 @@
 package models;
 
-public class Sliders {
+public class Slider {
     private int id;
     private String nameSlide;
-
     private String nameImage;
     private boolean visibility;
 
-    public Sliders() {
+    public Slider() {
     }
 
     public int getId() {

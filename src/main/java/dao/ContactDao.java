@@ -1,14 +1,13 @@
 package dao;
 
-import models.Contacts;
-import models.User;
+import models.Contact;
 
 import java.util.List;
 
 public class ContactDao {
 
-    public List<Contacts> getListUserContacts(){
-        return GeneralDao.executeQueryWithSingleTable("SELECT id, fullName, phone, email, `subject` FROM contacts", Contacts.class);
+    public List<Contact> getListUserContacts(){
+        return GeneralDao.executeQueryWithSingleTable("SELECT id, fullName, phone, email, `subject` FROM contacts", Contact.class);
     }
 
     public void addNewRecordUserContact(int userId, String fullName, String phone, String email, String subject, String message){

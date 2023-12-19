@@ -316,16 +316,18 @@
     transition: all 0.3s ease;
 }
 
-.action__bar button{
+.action__bar button, .action__bar .see__detail{
     padding: 14px 0px;
     flex: 1;
     font-size: 12px;
     font-weight: 500;
     color: white;
     background-color: var(--blue-color-medium);
+    text-align: center;
+    cursor: pointer;
 }
 
-.action__bar button:hover{
+.action__bar button:hover, .action__bar .see__detail:hover{
     opacity: 1;
     background-color: var(--blue-color-high);
 }
