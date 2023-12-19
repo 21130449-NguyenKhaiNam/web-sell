@@ -119,7 +119,7 @@
                 <i class="model__checked-icon fa-regular fa-circle-check"></i>
                 <p class="modal__text">Đăng kí thành công, vui lòng kiểm tra email bạn đã đăng kí.</p>
                 <a href="signIn.jsp" class="button modal__button button--hover">Đăng nhập</a>
-                <p class="modal__resend ">Nếu bạn chưa nhận được email xác nhận, hãy <span>nhấn vào đây.</span></p>
+                <p class="modal__resend ">Nếu bạn chưa nhận được email xác nhận, hãy <a href="signUp">nhấn vào đây.</a></p>
                 <label for="modal__hide" class="modal__close"><i class="fa-solid fa-xmark"></i></label>
             </div>
             <label for="modal__hide" class="modal__blur"></label>

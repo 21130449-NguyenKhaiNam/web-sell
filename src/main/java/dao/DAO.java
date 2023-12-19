@@ -1,10 +1,6 @@
 package dao;
 
-import database.JDBIConnector;
-import models.User;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public interface DAO<T> {
 

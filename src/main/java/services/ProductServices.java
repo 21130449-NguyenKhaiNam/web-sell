@@ -1,6 +1,5 @@
 package services;
 
-import dao.GeneralDao;
 import dao.ProductDao;
 import models.Color;
 import models.Image;
@@ -36,19 +35,21 @@ public class ProductServices {
         return productDao.getListSizesByProductId(productId);
     }
 
-//    public double getPriceSizeByName(String nameSize, int productId){
-//        return productDao.getPriceSizeByName(nameSize, productId);
-//    }
+    public double getPriceSizeByName(String nameSize, int productId) {
+        return productDao.getPriceSizeByName(nameSize, productId);
 
-    public Size getSizeByNameSizeWithProductId(String nameSize, int productId){
-        return productDao.getSizeByNameSizeWithProductId(nameSize, productId);
     }
 
-    public Color getColorByCodeColorWithProductId(String codeColor, int productId){
-        return productDao.getColorByCodeColorWithProductId(codeColor, productId);
+    public Size getSizeByNameSizeWithProductId(String nameSize, int productId) {
+        return productDao.getSizeByNameSizeWithProductId(nameSize, productId);
     }
 
     public Product getProductByProductId(int productId){
         return productDao.getProductByProductId(productId);
     }
+
+    public Color getColorByCodeColorWithProductId(String codeColor, int productId) {
+        return productDao.getColorByCodeColorWithProductId(codeColor, productId);
+    }
+
 }

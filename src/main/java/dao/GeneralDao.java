@@ -1,6 +1,8 @@
 package dao;
 
 import database.JDBIConnector;
+import models.Category;
+import models.Size;
 import org.jdbi.v3.core.statement.Query;
 import java.util.List;
 import java.util.Map;
@@ -45,4 +47,5 @@ public class GeneralDao {
 //        });
         JDBIConnector.get().withHandle(handle -> handle.execute(sql, params));
     }
+
 }

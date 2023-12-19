@@ -377,6 +377,11 @@
     </article>
     <div class="modal__blur"></div>
 </div>
+
+<form method="post" enctype="multipart/form-data" action="upload">
+    <input type="file" name="file">
+    <input type="submit" value="Upload">
+</form>
 <script src="js/data.js"></script>
 <script src="js/paging.js"></script>
 <script src="js/admin/adminProducts.js"></script>
