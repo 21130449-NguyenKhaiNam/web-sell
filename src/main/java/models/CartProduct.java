@@ -1,15 +1,20 @@
 package models;
 
+import utils.FormatCurrency;
+import utils.ProductFactory;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 public class CartProduct {
     private Product product;
     private int quantity;
-    private String color;
-    private String size;
+    private Color color;
+    private Size size;
     private double priorityPrice;
 
-    public CartProduct(Product product, int quantity, String color, String size) {
+    public CartProduct(Product product, int quantity, Color color, Size size) {
         this.product = product;
         this.quantity = quantity;
         this.color = color;
@@ -33,6 +38,11 @@ public class CartProduct {
     }
 
     public double getPriorityPrice() {
+        if(this.product.getSalePrice() != 0){
+            priorityPrice = this.product.getSalePrice();
+        }else{
+            priorityPrice = this.product.getOriginalPrice();
+        }
         return priorityPrice;
     }
 
@@ -40,20 +50,36 @@ public class CartProduct {
         this.priorityPrice = priorityPrice;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
-    public String getSize() {
+    public Size getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Size size) {
         this.size = size;
+    }
+
+    public double getSewingPrice(){
+        return getPriorityPrice() + this.size.getSizePrice();
+    }
+
+    public double getSubtotal(){
+        return this.quantity * getSewingPrice();
+    }
+
+    public String sewingPriceFormat(){
+        return FormatCurrency.vietNamCurrency(getSewingPrice());
+    }
+
+    public String subtotalFormat(){
+        return FormatCurrency.vietNamCurrency(getSubtotal());
     }
 
     @Override

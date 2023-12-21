@@ -34,57 +34,6 @@
 <main id="main">
     <div class="new__section container-xl">
         <h2 class="section__title">Sản phẩm mới</h2>
-<%--        <div class="product__items">--%>
-<%--            <c:forEach items="${requestScope.listProductsPerPage}" var="newProduct">--%>
-<%--                <div class="product__item">--%>
-<%--                    <div class="product__content">--%>
-<%--                        <div class="image--tag">--%>
-<%--                            <img src="./assets/img/product_img/${newProduct['nameimage']}">--%>
-<%--                            <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">--%>
-<%--                                <span class="product__tag">Thịnh hành</span>--%>
-<%--                            </c:if>--%>
-<%--                            <div class="action__bar">--%>
-<%--                                <button type="submit" class="add__cart">Thêm vào giỏ hàng <i--%>
-<%--                                        class="fa-solid fa-cart-shopping"></i></button>--%>
-<%--                                <button type="submit" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i>--%>
-<%--                                </button>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <div class="product__info">--%>
-<%--                            <a class="product__name" href="#">${newProduct["name"]}</a>--%>
-<%--                            <div class="product__review">--%>
-<%--                                <div class="review__icon">--%>
-<%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
-<%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
-<%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
-<%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
-<%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
-<%--                                </div>--%>
-<%--                                <a class="number__turns--ratting" href="#">1000 nhận xét</a>--%>
-<%--                            </div>--%>
-<%--                            <span class="product__price">--%>
-<%--                                <fmt:setLocale value="vi_VN"/>--%>
-<%--                                <c:choose>--%>
-<%--                                    <c:when test="${newProduct['saleprice'] == null}">--%>
-<%--                                        <strong class="priority__price">--%>
-<%--                                            <fmt:formatNumber value="${newProduct['originalprice']}" type="currency"/>--%>
-<%--                                        </strong>--%>
-<%--                                    </c:when>--%>
-<%--                                    <c:otherwise>--%>
-<%--                                        <strong class="sale__price">--%>
-<%--                                            <fmt:formatNumber value="${newProduct['saleprice']}" type="currency"/>--%>
-<%--                                        </strong>--%>
-<%--                                        <s class="original__price">--%>
-<%--                                            <fmt:formatNumber value="${newProduct['originalprice']}" type="currency"/>--%>
-<%--                                        </s>--%>
-<%--                                    </c:otherwise>--%>
-<%--                                </c:choose>--%>
-<%--                            </span>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </c:forEach>--%>
-<%--        </div>--%>
         <div class="product__items">
             <c:forEach items="${requestScope.listProductsPerPage}" var="newProduct">
                 <div class="product__item">
@@ -95,12 +44,11 @@
                             <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
                                 <span class="product__tag">Thịnh hành</span>
                             </c:if>
-                            <div class="action__bar">
-                                <button type="submit" class="add__cart">Thêm vào giỏ hàng <i
-                                        class="fa-solid fa-cart-shopping"></i></button>
-                                <button type="submit" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i>
-                                </button>
-                            </div>
+                            <form class="action__bar" action="AddToCart" method="post">
+                                <input type="hidden" name="productId" value="${newProduct.id}">
+                                <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
+                                <a class="see__detail" href="ProductDetails?productId=${newProduct.id}"><i class="fa-solid fa-eye"></i></a>
+                            </form>
                         </div>
                         <div class="product__info">
                             <a class="product__name" href="#">${newProduct.name}</a>
@@ -162,20 +110,44 @@
     </div>
 </main>
 <%@ include file="footer.jsp" %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+    function addToCartAjax(){
+        $(document).ready(function (){
+            $('.action__bar').each(function (index, actionBar){
+                $(actionBar).on('submit', function (event){
+                    event.preventDefault();
+                    let userLoggedIn;
+                    <c:choose>
+                        <c:when test="${sessionScope.auth == null}">
+                            userLoggedIn = false
+                        </c:when>
+                        <c:otherwise>
+                            userLoggedIn = true
+                        </c:otherwise>
+                    </c:choose>
+                    if(userLoggedIn === false){
+                        window.location.href = "signIn.jsp"
+                    }else {
+                        const form = $(actionBar);
+                        let productId = form.find('input[name="productId"]').val();
+                        $.ajax({
+                            type: form.attr('method'),
+                            url: form.attr('action'),
+                            data: {productId: productId},
+                            success: function (response) {
+                                $('.qlt__value').text(response);
+                            },
+                            error: function (error){
+                                console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
+                            }
+                        })
+                    }
+                })
+            })
+        })
+    }
+    addToCartAjax();
+</script>
 </body>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--%>
-<%--<script>--%>
-<%--    $(document).ready(function (){--%>
-<%--        function fetchData(pageNumber){--%>
-<%--            $.ajax({--%>
-<%--                type: "GET",--%>
-<%--                url: "trendingProducts?page=" + pageNumber,--%>
-<%--                data: "json",--%>
-<%--                success: function (respone) {--%>
-<%--                    displayData(respone);--%>
-<%--                }--%>
-<%--            })--%>
-<%--        }--%>
-<%--    })--%>
-<%--</script>--%>
 </html>

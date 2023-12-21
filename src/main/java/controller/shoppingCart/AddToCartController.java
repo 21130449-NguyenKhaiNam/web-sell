@@ -1,6 +1,8 @@
 package controller.shoppingCart;
 
+import models.Color;
 import models.ShoppingCart;
+import models.Size;
 import models.User;
 import utils.ProductFactory;
 
@@ -20,7 +22,6 @@ public class AddToCartController extends HttpServlet {
 
         if(userAuth == null){
             response.sendRedirect("signIn.jsp");
-            return;
         }else{
             int productId = 0;
             int quantityRequired = 0;
@@ -40,19 +41,23 @@ public class AddToCartController extends HttpServlet {
             if(quantityRequired <= 0){
                 quantityRequired = 1;
             }
-            String color = request.getParameter("color");
-            String size = request.getParameter("size");
+            String colorCode = request.getParameter("color");
+            String sizeName = request.getParameter("size");
 
-            if(color == null){
-                color = ProductFactory.getListColorsByProductId(productId).get(0).getCodeColor();
+            if(colorCode == null){
+                colorCode = ProductFactory.getListColorsByProductId(productId).get(0).getCodeColor();
             }
-            if(size == null){
-                size = ProductFactory.getListSizesByProductId(productId).get(0).getNameSize();
+            if(sizeName == null){
+                sizeName = ProductFactory.getListSizesByProductId(productId).get(0).getNameSize();
             }
+
+            Size size = ProductFactory.getSizeByNameSizeWithProductId(sizeName, productId);
+            Color color = ProductFactory.getColorByCodeColorWithProductId(colorCode, productId);
             cart.add(productId, quantityRequired, color, size);
             cartProductCount = cart.getTotalItems();
             session.setAttribute("cart", cart);
 //            response.sendRedirect("index.jsp");
+
             response.getWriter().write(String.valueOf(cartProductCount));
         }
     }

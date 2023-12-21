@@ -1,6 +1,5 @@
 package utils;
 
-import services.ProductCardServices;
 import models.Color;
 import models.Image;
 import models.Product;
@@ -27,16 +26,10 @@ public class ProductFactory {
         return ProductServices.getINSTANCE().getListSizesByProductId(productId);
     }
 
-    public static double getPriceSizeByName(String nameSize, int productId){
-        return ProductServices.getINSTANCE().getPriceSizeByName(nameSize, productId);
-    }
+//    public static double getPriceSizeByName(String nameSize, int productId){
+//        return ProductServices.getINSTANCE().getPriceSizeByName(nameSize, productId);
+//    }
 
-    public static int getReviewCount(int productId) {
-        return ProductCardServices.getINSTANCE().getReviewCount(productId);
-    }
-    public static int calculateStar(int productId) {
-        return ProductCardServices.getINSTANCE().calculateStar(productId);
-    }
     public static Size getSizeByNameSizeWithProductId(String nameSize, int productId){
         return ProductServices.getINSTANCE().getSizeByNameSizeWithProductId(nameSize, productId);
     }

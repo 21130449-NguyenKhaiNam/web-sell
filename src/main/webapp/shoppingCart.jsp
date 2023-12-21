@@ -37,7 +37,7 @@
                 <span>Mã giảm giá</span>
             </div>
             <div class="promotion__content">
-                <c:forEach items="${sessionScope.listVouchers}" var="voucher">
+                <c:forEach items="${requestScope.listVouchers}" var="voucher">
                     <div class="promotion__item">
                         <div class="discount__percent">
                             <i class="fa-solid fa-fire"></i>
@@ -99,65 +99,15 @@
                                 </tr>
                                 </thead>
                                 <tbody class="cart__items">
-                                    <%--                                    <c:forEach items="${sessionScope.cart.shoppingCartMap}" var="shoppingCartMap">--%>
-                                    <%--                                        <tr class="cart__item">--%>
-                                    <%--                                            <fmt:setLocale value="vi_VN"/>--%>
-                                    <%--                                            <c:set var="productId" value="${shoppingCartMap.key}"/>--%>
-                                    <%--                                            <c:set var="cartProduct" value="${shoppingCartMap.value}"/>--%>
-                                    <%--                                            <td class="product__item">--%>
-                                    <%--                                                <div class="product__content">--%>
-                                    <%--                                                    <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->--%>
-                                    <%--                                                        <c:set var="listImagesProduct" value="${productFactory.getListImagesByProductId(productId)}" />--%>
-                                    <%--                                                        <img src='assets/img/product_img/${listImagesProduct.get(0).nameImage}'>--%>
-                                    <%--                                                    </a>--%>
-                                    <%--                                                    <div class="order__product--info">--%>
-                                    <%--                                                        <a href="#" class="product__name">${cartProduct.product.name}</a> <!-- Back-to-detail_product-page-->--%>
-                                    <%--                                                        <c:set var="listColorsProduct" value="${productFactory.getListColorsByProductId(productId)}"/>--%>
-                                    <%--                                                        <p class="order__color">--%>
-                                    <%--                                                            <c:set var="codeColor" value="${listColorsProduct.get(0).codeColor}"/>--%>
-                                    <%--                                                            Màu sắc: ${codeColor}--%>
-                                    <%--&lt;%&ndash;                                                            <jsp:setProperty name="cartProd" property="color" value="${codeColor}"/>&ndash;%&gt;--%>
-                                    <%--                                                        </p>--%>
-                                    <%--                                                        <ul class="order__size--specification">--%>
-                                    <%--                                                            Kích thước:--%>
-                                    <%--                                                        </ul>--%>
-                                    <%--                                                    </div>--%>
-                                    <%--                                                </div>--%>
-                                    <%--                                            </td>--%>
-                                    <%--                                            <td class="unit__price">--%>
-
-                                    <%--                                                <c:choose>--%>
-                                    <%--                                                    <c:when test="${cartProduct.product.salePrice != null}">--%>
-                                    <%--                                                        <c:set var="prorityPrice" value="${cartProduct.product.salePrice}"/>--%>
-                                    <%--&lt;%&ndash;                                                        <jsp:setProperty name="cartProd" property="priorityPrice" value="${salePrice}"/>&ndash;%&gt;--%>
-                                    <%--                                                    </c:when>--%>
-                                    <%--                                                    <c:otherwise>--%>
-                                    <%--                                                        <c:set var="prorityPrice" value="${cartProduct.product.originalPrice}"/>--%>
-                                    <%--&lt;%&ndash;                                                        <jsp:setProperty name="cartProd" property="priorityPrice" value="${originalPrice}"/>&ndash;%&gt;--%>
-                                    <%--                                                    </c:otherwise>--%>
-                                    <%--                                                </c:choose>--%>
-                                    <%--                                                <fmt:formatNumber value="${prorityPrice}" type="currency"/>--%>
-                                    <%--                                            </td>--%>
-                                    <%--                                            <td>--%>
-                                    <%--                                                <div class="quality__swapper">--%>
-                                    <%--                                                    <button class="minus__quality change__quality"><i class="fa-solid fa-minus"></i></button>--%>
-                                    <%--                                                    <input type="number" name="quality__required" class="quality__required" min="1" value="${cartProduct.quantity}">--%>
-                                    <%--                                                    <button class="plus__quality change__quality"><i class="fa-solid fa-plus"></i></button>--%>
-                                    <%--                                                    <span class="quality__status"></span>--%>
-                                    <%--                                                </div>--%>
-                                    <%--                                            </td>--%>
-                                    <%--                                            <td class="subtotal__item">--%>
-                                    <%--                                                <fmt:formatNumber value="${prorityPrice * cartProduct.quantity}" type="currency"/>--%>
-                                    <%--                                            </td>--%>
-                                    <%--                                            <td class="remove__action"><i class="fa-solid fa-trash-can"></i></td>--%>
-                                    <%--                                        </tr>--%>
-                                    <%--                                    </c:forEach>--%>
-                                    <c:set value="0" var="temporaryPrice"/>
-                                    <c:forEach items="${sessionScope.cart.shoppingCartMap.keySet()}" var="productId">
-                                        <c:forEach items="${sessionScope.cart.shoppingCartMap.get(productId)}" var="cartProduct">
-                                            <c:set value="${sessionScope.cart.shoppingCartMap.get(productId).indexOf(cartProduct)}" var="cartProductItem"/>
+                                <c:forEach items="${sessionScope.cart.shoppingCartMap.keySet()}" var="productId">
+                                    <c:forEach items="${sessionScope.cart.shoppingCartMap.get(productId)}" var="cartProduct">
+                                        <c:set value="${sessionScope.cart.shoppingCartMap.get(productId).indexOf(cartProduct)}" var="cartProductItem"/>
+                                        <c:url var="scart" value="ShoppingCart">
+                                            <c:param name="productId" value="${productId}"/>
+                                            <c:param name="cartProductItem" value="${cartProductItem}"/>
+                                        </c:url>
+                                        <form class="shopping__cart--form" action="${scart}" method="post">
                                             <tr class="cart__item">
-                                                <fmt:setLocale value="vi_VN"/>
                                                 <td class="product__item">
                                                     <div class="product__content">
                                                         <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->
@@ -166,69 +116,29 @@
                                                         </a>
                                                         <div class="order__product--info">
                                                             <a href="#" class="product__name">${cartProduct.product.name}</a>
-                                                            <!-- Back-to-detail_product-page-->
-<%--                                                            <c:set var="listColorsProduct"--%>
-<%--                                                                   value="${productFactory.getListColorsByProductId(productId)}"/>--%>
-                                                            <p class="order__color">
-<%--                                                                <c:set var="codeColor"--%>
-<%--                                                                       value="${listColorsProduct.get(0).codeColor}"/>--%>
-<%--                                                                Màu sắc: ${codeColor}--%>
-                                                                Màu sắc: ${cartProduct.color}
-                                                                    <%--                                                            <jsp:setProperty name="cartProd" property="color" value="${codeColor}"/>--%>
-                                                            </p>
+                                                            <p class="order__color">Màu sắc: ${cartProduct.color.codeColor}</p>
                                                             <ul class="order__size--specification">
-                                                                <c:set value="${productFactory.getPriceSizeByName(cartProduct.size, productId)}" var="sizePrice"/>
-                                                                Kích thước: ${cartProduct.size} (Giá kích thứớc: <fmt:formatNumber type="currency" value="${sizePrice}"/>)
+                                                                Kích thước: ${cartProduct.size.nameSize} (Giá kích thứớc: <fmt:formatNumber type="currency" value="${cartProduct.size.sizePrice}"/>)
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="unit__price">
-                                                    <c:choose>
-                                                        <c:when test="${cartProduct.product.salePrice != null}">
-                                                            <c:set var="prorityPrice" value="${cartProduct.product.salePrice}"/>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <c:set var="prorityPrice" value="${cartProduct.product.originalPrice}"/>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <c:set var="sewingPrice" value="${prorityPrice + sizePrice}"/>
-                                                    <fmt:formatNumber value="${sewingPrice}" type="currency"/>
-                                                </td>
+                                                <td class="unit__price">${cartProduct.sewingPriceFormat()}</td>
                                                 <td>
-                                                    <c:url var="increaseQTY" value="IncreaseQuantity">
-                                                        <c:param name="productId" value="${productId}"/>
-                                                        <c:param name="cartProdIndex" value="${cartProductItem}"/>
-                                                    </c:url>
-
-                                                    <c:url var="decreaseQTY" value="DecreaseQuantity">
-                                                        <c:param name="productId" value="${productId}"/>
-                                                        <c:param name="cartProdIndex" value="${cartProductItem}"/>
-                                                    </c:url>
                                                     <div class="quality__swapper">
-                                                        <a class="minus__quality change__quality" href="${decreaseQTY}"><i
-                                                                class="fa-solid fa-minus"></i></a>
-                                                        <input type="number" name="quality__required" class="quality__required"
-                                                               min="1" value="${cartProduct.quantity}">
-                                                        <a class="plus__quality change__quality" href="${increaseQTY}"><i
-                                                                class="fa-solid fa-plus"></i></a>
-                                                        <span class="quality__status"></span>
+                                                        <button type="submit" class="minus__quality change__quality" name="action" value="decreaseQuantity"><i class="fa-solid fa-minus"></i></button>
+                                                        <input type="number" name="quality__required" class="quality__required" min="1" value="${cartProduct.quantity}">
+                                                        <button type="submit" class="plus__quality change__quality" name="action" value="increaseQuantity"><i class="fa-solid fa-plus"></i></button>
                                                     </div>
                                                 </td>
-                                                <td class="subtotal__item">
-                                                    <fmt:formatNumber value="${sewingPrice * cartProduct.quantity}" type="currency"/>
-                                                    <c:set var="temporaryPrice" value="${temporaryPrice + sewingPrice * cartProduct.quantity}"/>
-                                                </td>
+                                                <td class="subtotal__item">${cartProduct.subtotalFormat()}</td>
                                                 <td class="remove__action">
-                                                    <c:url var="rmCartProduct" value="DeleteCartProduct">
-                                                        <c:param name="productId" value="${productId}"/>
-                                                        <c:param name="cartProdIndex" value="${cartProductItem}"/>
-                                                    </c:url>
-                                                    <a href="${rmCartProduct}"><i class="fa-solid fa-trash-can"></i></a>
+                                                    <button type="submit" name="action" value="removeCartProduct" class="remove__item"><i class="fa-solid fa-trash-can"></i></button>
                                                 </td>
                                             </tr>
-                                        </c:forEach>
+                                        </form>
                                     </c:forEach>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -239,9 +149,9 @@
                         </div><!-- New update template -->
                     </div>
                     <div class="invoice__promotion col">
+                        <c:set var="temporaryPrice" value="${sessionScope.cart.getTemporaryPrice()}"/>
                         <div class="apply__promotion">
                             <h2>Khuyến mãi</h2>
-
                             <form id="promotion__form" action="ShoppingCart" method="post">
                                 <!-- New update template -->
                                 <div class="promotion__all">
@@ -250,15 +160,16 @@
                                 </div> <!-- New update template -->
                                 <div>
                                     <input type="hidden" name="tempPrice" value="${temporaryPrice}">
-                                    <input type="text" name="promotion__code" id="promotion_code">
-                                    <input type="submit" name="apply" value="Áp dụng" id="apply">
+                                    <input type="text" name="promotion__code" id="promotion_code" value="${sessionScope.code != null ? sessionScope.code : ""}">
+                                    <button type="submit" name="action" value="applyVoucher" id="apply">Áp dụng</button>
                                 </div>
                                 <div class="apply__status">
-                                    <c:if test="${requestScope.successApplied != null}">
-                                        ${requestScope.successApplied}
+                                        <%--                                    <fmt:setLocale value="vi_VN"/>--%>
+                                    <c:if test="${sessionScope.successApplied != null}">
+                                        <span class="apply__success"><i class="fa-solid fa-circle-check"></i> <span>${sessionScope.successApplied}</span></span>
                                     </c:if>
-                                    <c:if test="${requestScope.failedApply != null}">
-                                        ${requestScope.failedApply}
+                                    <c:if test="${sessionScope.failedApply != null}">
+                                        <span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i> <span>${sessionScope.failedApply}</span></span>
                                     </c:if>
                                 </div>
                             </form>
@@ -268,31 +179,22 @@
                             <div class="invoice__detail--info">
                                 <ul class="price__items">
                                     <li class="price__item">
-                                        <fmt:setLocale value="vi_VN"/>
-                                        <p class="price__text">Tạm tính (${shoppingCart.getTotalItems()} sp)</p>
-                                        <p class="price__value"><fmt:formatNumber value="${temporaryPrice}" type="currency"/></p>
+                                        <p class="price__text">Tạm tính (${sessionScope.cart.getTotalItems()} sp)</p>
+                                        <p class="price__value">${sessionScope.cart.temporaryPriceFormat()}</p>
                                     </li>
-                                    <li class="price__item">
-                                        <p class="price__text">Giảm giá <i
-                                                class="icon__info fa-solid fa-circle-info"></i> <span
-                                                class="discount__note"></span></p>
-                                        <p class="price__value"></p>
-                                    </li>
+                                    <c:if test="${sessionScope.cart.getDiscountPrice() != 0}">
+                                        <li class="price__item">
+                                            <p class="price__text">Giảm giá <i
+                                                    class="icon__info fa-solid fa-circle-info"></i> <span
+                                                    class="discount__note"> <fmt:setLocale value="vi_VN"/> ${sessionScope.cart.voucherApplied.description} <fmt:formatNumber type="currency" value="${sessionScope.cart.voucherApplied.minimumPrice}"/> khi áp dụng mã ${sessionScope.cart.voucherApplied.code}</span></p>
+                                            <p class="price__value">${sessionScope.cart.discountPriceFormat()}</p>
+                                        </li>
+                                    </c:if>
                                 </ul>
                                 <div class="price__total">
                                     <p class="price__text">Tổng tiền</p>
                                     <div class="price__content">
-                                        <p class="price__value--final">
-                                            <c:choose>
-                                                <c:when test="${requestScope.newTotalPrice != null}">
-                                                    ${requestScope.newTotalPrice}
-                                                </c:when>
-                                                <c:otherwise>
-                                                    ${temporaryPrice}
-                                                </c:otherwise>
-                                            </c:choose>
-
-                                        </p>
+                                        <p class="price__value--final">${sessionScope.cart.totalPriceFormat()}</p>
                                         <p class="price__value--noted">(Đã bao gồm VAT nếu có)</p>
                                     </div>
                                 </div>
@@ -333,7 +235,7 @@
     });
 </script>
 <script src="js/data.js"></script>
-<script src="js/checkout.js"></script>
+<%--<script src="js/checkout.js"></script>--%>
 <script src="js/shoppingCart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="

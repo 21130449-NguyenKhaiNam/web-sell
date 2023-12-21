@@ -1,5 +1,6 @@
 package models;
 
+import utils.FormatCurrency;
 import utils.ProductFactory;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 public class ShoppingCart {
     private static HashMap<Integer, List<CartProduct>> shoppingCartMap = new HashMap<>();
+    private Voucher voucherApplied;
 
     public ShoppingCart() {
     }
@@ -20,8 +22,16 @@ public class ShoppingCart {
         this.shoppingCartMap = shoppingCartMap;
     }
 
+    public Voucher getVoucherApplied() {
+        return voucherApplied;
+    }
+
+    public void setVoucherApplied(Voucher voucherApplied) {
+        this.voucherApplied = voucherApplied;
+    }
+
     // Dùng cho trang productDetail khi người dùng chọn số lượng và nhấn nút "thêm vào giỏ hàng"
-    public void add(int productId, int quantity, String color, String size) {
+    public void add(int productId, int quantity, Color color, Size size) {
         if (shoppingCartMap.containsKey(productId)) {
             List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
             Product product = ProductFactory.getProductById(productId);
@@ -57,6 +67,7 @@ public class ShoppingCart {
             int currentQuantity = listCartProducts.get(cartProductIndex).getQuantity();
             CartProduct cartProduct = listCartProducts.get(cartProductIndex);
             cartProduct.setQuantity(currentQuantity + 1);
+            System.out.println(cartProduct);
             listCartProducts.set(cartProductIndex, cartProduct);
         }
     }
@@ -80,6 +91,7 @@ public class ShoppingCart {
             int quantityDecreased = currentQuantity - 1;
             if(quantityDecreased > 0){
                 cartProduct.setQuantity(quantityDecreased);
+                System.out.println(cartProduct);
                 listCartProducts.set(cartProductIndex, cartProduct);
             }
         }
@@ -97,34 +109,67 @@ public class ShoppingCart {
         }
     }
 
-    public static int getTotalItems(){
+    public double getTemporaryPrice(){
+        double temporaryPrice = 0;
+        for(int productId : shoppingCartMap.keySet()){
+            for (CartProduct cartProduct : shoppingCartMap.get(productId)){
+                temporaryPrice += cartProduct.getSubtotal();
+            }
+        }
+        return temporaryPrice;
+    }
+
+    public double getDiscountPrice(){
+        if(voucherApplied != null){
+            return getTemporaryPrice() * voucherApplied.getDiscountPercent();
+        }
+        return 0;
+    }
+
+    public double getTotalPrice(){
+        return getTemporaryPrice() - getDiscountPrice();
+    }
+
+    public String temporaryPriceFormat(){
+        return FormatCurrency.vietNamCurrency(getTemporaryPrice());
+    }
+
+    public String discountPriceFormat(){
+        return FormatCurrency.vietNamCurrency(getDiscountPrice());
+    }
+
+    public String totalPriceFormat(){
+        return FormatCurrency.vietNamCurrency(getTotalPrice());
+    }
+
+    public static int getTotalItems() {
         int totalItems = 0;
-        for (int productId: shoppingCartMap.keySet()){
+        for (int productId : shoppingCartMap.keySet()) {
             List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
             totalItems += listCartProducts.size();
         }
         return totalItems;
     }
 
-    @Override
-    public String toString() {
-        String result = "";
-        for (int productId: shoppingCartMap.keySet()){
-            List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
-            for (CartProduct cartProduct: listCartProducts) {
-                result += cartProduct + "\n";
-            }
-            result += "\n";
-        }
-        return result;
-    }
-
     public static void main(String[] args) {
         ShoppingCart cart = new ShoppingCart();
-        cart.add(1, 1, "den", "x");
-        cart.add(1, 2, "xanh", "x");
-        System.out.println(cart.shoppingCartMap);
-        cart.decrease(1, 1);
-        System.out.println(cart.shoppingCartMap);
+        Color color = new Color();
+        color.setCodeColor("aaa");
+        color.setId(1);
+        color.setProductId(1);
+
+        Size size = new Size();
+        size.setNameSize("x");
+        size.setSizePrice(100000);
+        size.setId(1);
+        size.setProductId(1);
+
+        cart.add(1, 1, color, size);
+        cart.add(1, 1, color, size);
+
+        Product product1 = ProductFactory.getProductById(1);
+        Product product2 = ProductFactory.getProductById(1);
+
+        System.out.println(shoppingCartMap);
     }
 }

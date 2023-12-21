@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="models.User" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<jsp:useBean id="shoppingCart" class="models.ShoppingCart" scope="session"/>
 <!--Header-->
 <header id="header">
     <nav class="nav">
@@ -40,7 +41,10 @@
                                 <a href="shoppingCart.jsp" class="cart">
                                     <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
                                     <span class="qlt__swapper">
-                                        <span class="qlt__value">0</span>
+                                        <c:if test="${sessionScope.cart == null}">
+                                            <jsp:useBean id="cart" class="models.ShoppingCart" scope="session" />
+                                        </c:if>
+                                        <span class="qlt__value">${shoppingCart.getTotalItems()}</span>
                                     </span>
                                 </a>
                             </c:if>

@@ -85,7 +85,7 @@
 .order__product--info, .order__size--specification {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     text-align: left;
 }
 
@@ -177,6 +177,12 @@
 
 .change__quality.minus__quality {
     border-radius: 4px 0px 0px 4px;
+}
+
+.remove__item{
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 18px;
 }
 
 /*invoice && promotions*/
@@ -274,13 +280,44 @@
     background-color: var(--blue-color-high);
     color: white;
     font-weight: 600;
+    padding: 10px;
+    border-radius: 4px;
+    width: max-content;
+    cursor: pointer;
 }
 
 #promotion__form .apply__status{
     height: auto;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
-    margin-top: 4px;
+    margin-top: 10px;
+    line-height: 18px;
+}
+
+#promotion__form .apply__status .apply__success{
+    color: var(--blue-color-high);
+    background-color: rgba(68, 125, 248, 0.1);
+    border-left: 6px solid var(--blue-color-high);
+    padding: 8px 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+#promotion__form .apply__status .apply__failed{
+    color: #E40F0A;
+    background-color: rgba(228, 15, 10, 0.1);
+    border-left: 6px solid #E40F0A;
+    padding: 8px 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+#promotion__form .apply__status i{
+    font-size: 18px;
 }
 
 .valid{
@@ -316,7 +353,6 @@
 }
 
 .invoice__promotion .summary__invoice .invoice__detail--info .price__items .price__item:last-child{
-    display: none;
     height: auto;
 }
 
@@ -376,8 +412,8 @@
 }
 
 .invoice__promotion .summary__invoice .price__total .price__content .price__value--final{
-    font-size: 24px;
-    font-weight: 550;
+    font-size: 26px;
+    font-weight: 600;
     color: var(--blue-color-high);
 }
 
