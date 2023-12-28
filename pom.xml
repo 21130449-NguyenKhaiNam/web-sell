@@ -5,8 +5,8 @@
     <artifactId>LTW_project_servlet</artifactId>
     <packaging>war</packaging>
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <version>1.0-SNAPSHOT</version>
@@ -63,95 +63,111 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.2.0</version>
         </dependency>
-
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.13</version>
+            <version>1.15</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
         </dependency>
-        <!--CKFinder start -->
         <dependency>
-            <groupId>com.ckeditor</groupId>
-            <artifactId>ckeditor-java-core</artifactId>
-            <version>3.5.3</version>
+            <groupId>system.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/activation-1.1.jar</systemPath>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.finder</groupId>-->
-<!--            <artifactId>fileeditor</artifactId>-->
-<!--            <version>2.6.2.1</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${basedir}/lib/CKFinderPlugin-FileEditor-2.6.2.1.jar</systemPath>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.finder</groupId>-->
-<!--            <artifactId>imgresize</artifactId>-->
-<!--            <version>2.6.2.1</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${basedir}/lib/CKFinderPlugin-ImageResize-2.6.2.1.jar</systemPath>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.finder</groupId>-->
-<!--            <artifactId>watermark</artifactId>-->
-<!--            <version>2.6.2.1</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${basedir}/lib/CKFinderPlugin-Watermark-2.6.2.1.jar</systemPath>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.finder</groupId>-->
-<!--            <artifactId>ckfinder</artifactId>-->
-<!--            <version>2.6.2.1</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${basedir}/lib/CKFinder-2.6.2.1.jar</systemPath>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>net.coobird</groupId>-->
-<!--            <artifactId>thumbnailator</artifactId>-->
-<!--            <version>0.4.8</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${basedir}/lib/thumbnailator-0.4.8.jar</systemPath>-->
-<!--        </dependency>-->
         <dependency>
-            <groupId>commons-fileupload</groupId>
+            <groupId>system.ckfinder</groupId>
+            <artifactId>ckfinder</artifactId>
+            <version>2.6.2.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/CKFinder-2.6.2.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>system.CKFinderPlugin-FileEditor</groupId>
+            <artifactId>CKFinderPlugin-FileEditor</artifactId>
+            <version>2.6.2.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/CKFinderPlugin-FileEditor-2.6.2.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>system.CKFinderPlugin-ImageResize</groupId>
+            <artifactId>CKFinderPlugin-ImageResize</artifactId>
+            <version>2.6.2.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/CKFinderPlugin-ImageResize-2.6.2.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>system.CKFinderPlugin-Watermark</groupId>
+            <artifactId>CKFinderPlugin-Watermark</artifactId>
+            <version>2.6.2.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/CKFinderPlugin-Watermark-2.6.2.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>system.commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.3.3</version>
+            <version>1.2.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/commons-fileupload-1.2.2.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
+            <groupId>system.commons-io</groupId>
             <artifactId>commons-io</artifactId>
+            <version>2.0.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/commons-io-2.0.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>system.gson</groupId>
+            <artifactId>gson</artifactId>
             <version>2.5</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/gson-2.5.jar</systemPath>
         </dependency>
-        <!--CKFinder end -->
-
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.10</version>
+            <groupId>system.jboss-logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>3.1.4.GA</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jboss-logging-3.1.4.GA.jar</systemPath>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.10.1</version>
+            <groupId>system.jboss-vfs</groupId>
+            <artifactId>jboss-vfs</artifactId>
+            <version>3.2.11.Final</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jboss-vfs-3.2.11.Final.jar</systemPath>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>mail-1.4.1</artifactId>
+            <version>1.4.1</version>
+            <systemPath>${basedir}/lib/mail-1.4.1.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
+            <groupId>system.thumbnailator</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/thumbnailator-0.4.8.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>system.jsp-api</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jsp-api-2.0.jar</systemPath>
+        </dependency>
     </dependencies>
     <build>
         <finalName>LTW_project_servlet</finalName>
     </build>
+
 </project>

@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:useBean id="productFactory" class="utils.ProductFactory" scope="session"/>
 <fmt:setLocale value="vi_VN"/>
+<c:set var="product" value="${requestScope.product}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,11 +25,11 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/productDetail.css">
-    <title>Chi tiết sản phẩm</title>
+    <title>${product.name}</title>
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-<c:set var="product" value="${requestScope.product}"/>
+
 <main class="main">
     <section class="product__detail">
         <div class="container-xl">
@@ -55,7 +56,6 @@
                 </div>
                 <div class="offset-1 col-5">
                     <div class="product__info">
-
                         <form action="#!" id="form__product" class="product__form">
                             <h1 class="product__name">${product.name}</h1>
 
@@ -67,14 +67,6 @@
                                        end="${5 - productFactory.calculateStar(product.id)}">
                                 <i class="product__star fa-regular fa-star"></i>
                             </c:forEach>
-
-                            <%--                            <div class="product__stars">--%>
-                            <%--                                <i class="product__star fa-solid fa-star"></i>--%>
-                            <%--                                <i class="product__star fa-solid fa-star"></i>--%>
-                            <%--                                <i class="product__star fa-solid fa-star"></i>--%>
-                            <%--                                <i class="product__star fa-solid fa-star"></i>--%>
-                            <%--                                <i class="product__star fa-solid fa-star"></i>--%>
-                            <%--                            </div>--%>
 
                             <div class="product__price-wrapper">
                                 <fmt:formatNumber value="${product.originalPrice}" type="currency" currencyCode="VND"
@@ -128,7 +120,6 @@
                                         </div>
                                     </c:forEach>
                                 </div>
-
                                 <span class="size__price">
 
                                 </span>
@@ -217,113 +208,54 @@
                         </a>
                     </div>
                     <div class="product__list">
-                        <div class="product__item" style="display: flex;">
-                            <img src="../assets/img/product_img/product1.jpg" class="product__img">
-                            <div class="product__info">
-                                <a class="product__name" target="_blank" href="../htmls/productDetail.html">Áo polo nam
-                                                                                                            trơn basic
-                                                                                                            form regular
-                                                                                                            vải cá
-                                                                                                            sấu</a>
-                                <div class="product__review">
-                                    <div class="product__review-stars">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
+                        <c:forEach var="item" items="${requestScope.listProductRelated}">
+                            <div class="product__item">
+                                <c:set value="${productFactory.getListImagesByProductId(item.id)}"
+                                       var="listProductImage"/>
+                                <img src="assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
+                                     class="product__img" alt=""/>
+                                <div class="product__info">
+                                    <c:url var="linkProductDetail" value="/showProductDetail">
+                                        <c:param name="id" value="${item.id}"/>
+                                    </c:url>
+                                    <a class="product__name" target="_self"
+                                       href="${linkProductDetail}">${item.name}</a>
+                                    <div class="product__review">
+                                        <div class="product__review-stars">
+                                            <c:forEach var="starA" begin="1" step="1"
+                                                       end="${productFactory.calculateStar(item.id)}">
+                                                <i class="fa-solid fa-star"></i>
+                                            </c:forEach>
+                                            <c:forEach var="starB" begin="1" step="1"
+                                                       end="${5 - productFactory.calculateStar(item.id)}">
+                                                <i class="fa-regular fa-star"></i>
+                                            </c:forEach>
+                                        </div>
+                                        <a class="product__review-num" target="_blank"
+                                           href="${linkProductDetail}">${productFactory.getReviewCount(item.id)} nhận
+                                                                                                                 xét</a>
                                     </div>
-                                    <a class="product__review-num" target="_blank" href="../htmls/productDetail.html">1000
-                                                                                                                      nhận
-                                                                                                                      xét</a>
+                                    <fmt:formatNumber value="${item.originalPrice}" type="currency" currencyCode="VND"
+                                                      var="originalPrice"/>
+                                    <fmt:formatNumber value="${item.salePrice}" type="currency" currencyCode="VND"
+                                                      var="salePrice"/>
+                                    <span class="product__price">
+                                        <strong class="product__price--sale">
+                                                ${salePrice}
+                                        </strong>
+                                        <strong class="product__price--original">
+                                                ${originalPrice}
+                                        </strong>
+                                    </span>
                                 </div>
-                                <span class="product__price"><strong
-                                        class="product__price--sale">279.000&nbsp;₫</strong> <strong
-                                        class="product__price--original">350.000&nbsp;₫</strong></span>
                             </div>
-                        </div>
-                        <div class="product__item" style="display: flex;">
-                            <img src="../assets/img/product_img/product1.jpg" class="product__img">
-                            <div class="product__info">
-                                <a class="product__name" target="_blank" href="../htmls/productDetail.html">Áo polo nam
-                                                                                                            trơn basic
-                                                                                                            form regular
-                                                                                                            vải cá
-                                                                                                            sấu</a>
-                                <div class="product__review">
-                                    <div class="product__review-stars">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <a class="product__review-num" target="_blank" href="../htmls/productDetail.html">1000
-                                                                                                                      nhận
-                                                                                                                      xét</a>
-                                </div>
-                                <span class="product__price"><strong
-                                        class="product__price--sale">279.000&nbsp;₫</strong> <strong
-                                        class="product__price--original">350.000&nbsp;₫</strong></span>
-                            </div>
-                        </div>
-                        <div class="product__item" style="display: flex;">
-                            <img src="../assets/img/product_img/product1.jpg" class="product__img">
-                            <div class="product__info">
-                                <a class="product__name" target="_blank" href="../htmls/productDetail.html">Áo polo nam
-                                                                                                            trơn basic
-                                                                                                            form regular
-                                                                                                            vải cá
-                                                                                                            sấu</a>
-                                <div class="product__review">
-                                    <div class="product__review-stars">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <a class="product__review-num" target="_blank" href="../htmls/productDetail.html">1000
-                                                                                                                      nhận
-                                                                                                                      xét</a>
-                                </div>
-                                <span class="product__price"><strong
-                                        class="product__price--sale">279.000&nbsp;₫</strong> <strong
-                                        class="product__price--original">350.000&nbsp;₫</strong></span>
-                            </div>
-                        </div>
-                        <div class="product__item" style="display: flex;">
-                            <img src="../assets/img/product_img/product1.jpg" class="product__img">
-                            <div class="product__info">
-                                <a class="product__name" target="_blank" href="../htmls/productDetail.html">Áo polo nam
-                                                                                                            trơn basic
-                                                                                                            form regular
-                                                                                                            vải cá
-                                                                                                            sấu</a>
-                                <div class="product__review">
-                                    <div class="product__review-stars">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <a class="product__review-num" target="_blank" href="../htmls/productDetail.html">1000
-                                                                                                                      nhận
-                                                                                                                      xét</a>
-                                </div>
-                                <span class="product__price"><strong
-                                        class="product__price--sale">279.000&nbsp;₫</strong> <strong
-                                        class="product__price--original">350.000&nbsp;₫</strong></span>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
-
     <!--Size Guide-->
     <%--        <div class="modal">--%>
     <%--            <div class="modal__content modal__guide">--%>
@@ -381,7 +313,6 @@
     <%--            </div>--%>
     <%--            <div class="modal__blur"></div>--%>
     <%--        </div>--%>
-
 </main>
 <%@include file="footer.jsp"%>
 <article class="dialog__size-guide"></article>

@@ -20,6 +20,7 @@ public class Verify extends HttpServlet {
         String tokenVerify = request.getParameter("token-verify");
         System.out.println(username + "\n" + tokenVerify);
         boolean status = AuthenticateServices.getINSTANCE().verify(username, tokenVerify);
+
         request.setAttribute("username", username);
         if (status) {
             request.getRequestDispatcher("verifySuccess.jsp").forward(request, response);

@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/logIn.css">
-
     <title>Đăng ký</title>
 </head>
 <body>

@@ -40,14 +40,14 @@
                         <div class="filter__group">
                             <span class="filter__title">Phân loại sản phẩm</span>
                             <div class="filter__radio-list">
-                                <c:forEach items="${requestScope.categoryList}" var="item">
+                                <c:forEach items="${pageContext.servletContext.getAttribute('categoryList')}" var="category">
                                     <label class="filter__radio-item">
                                         <input name="categoryId" type="checkbox" class="filter__input filter__radio"
-                                               hidden="hidden" value="${item.id}">
+                                               hidden="hidden" value="${category.id}">
                                         <span class="filter-radio__icon-wrapper">
                                             <i class="fa-solid fa-check filter-radio__icon"></i>
                                         </span>
-                                            ${item.nameType}
+                                            ${category.nameType}
                                     </label>
                                 </c:forEach>
                             </div>
@@ -65,7 +65,7 @@
                                                       var="moneyTo"/>
                                     <label class="filter__radio-item">
                                         <input name="moneyRange" type="checkbox" class="filter__input filter__radio"
-                                               hidden="" value="${moneyRange.getFrom()}-${moneyRange.getTo()}">
+                                               hidden="hidden" value="${moneyRange.getFrom()}-${moneyRange.getTo()}">
                                         <span class="filter-radio__icon-wrapper">
                                             <i class="fa-solid fa-check filter-radio__icon"></i>
                                         </span>${moneyFrom} - ${moneyTo}
@@ -115,7 +115,7 @@
                             <div class="product__item">
                                 <c:set value="${productFactory.getListImagesByProductId(item.id)}"
                                        var="listProductImage"/>
-                                <img src="assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
+                                <img src="${pageContext.servletContext.contextPath}/assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
                                      class="product__img" alt=""/>
                                 <div class="product__info">
                                     <c:url var="linkProductDetail" value="/showProductDetail">

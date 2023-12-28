@@ -1,21 +1,28 @@
 package services;
 
-import dao.GeneralDao;
+import dao.ColorDAO;
+import dao.ImageDAO;
 import dao.ProductDao;
-import models.Color;
-import models.Image;
-import models.Product;
-import models.Size;
+import dao.SizeDAO;
+import models.*;
 
+import javax.sound.sampled.Port;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServices {
 
     private ProductDao productDao;
+    private ImageDAO imageDAO;
+    private ColorDAO colorDAO;
+    private SizeDAO sizeDAO;
     private static ProductServices INSTANCE;
 
     public ProductServices() {
         productDao = new ProductDao();
+        imageDAO = new ImageDAO();
+        colorDAO = new ColorDAO();
+        sizeDAO = new SizeDAO();
     }
 
     public static ProductServices getINSTANCE() {
@@ -36,19 +43,22 @@ public class ProductServices {
         return productDao.getListSizesByProductId(productId);
     }
 
-//    public double getPriceSizeByName(String nameSize, int productId){
-//        return productDao.getPriceSizeByName(nameSize, productId);
-//    }
+    public double getPriceSizeByName(String nameSize, int productId) {
+        return productDao.getPriceSizeByName(nameSize, productId);
 
-    public Size getSizeByNameSizeWithProductId(String nameSize, int productId){
-        return productDao.getSizeByNameSizeWithProductId(nameSize, productId);
     }
 
-    public Color getColorByCodeColorWithProductId(String codeColor, int productId){
-        return productDao.getColorByCodeColorWithProductId(codeColor, productId);
+    public Size getSizeByNameSizeWithProductId(String nameSize, int productId) {
+        return productDao.getSizeByNameSizeWithProductId(nameSize, productId);
     }
 
     public Product getProductByProductId(int productId){
         return productDao.getProductByProductId(productId);
     }
+
+    public Color getColorByCodeColorWithProductId(String codeColor, int productId) {
+        return productDao.getColorByCodeColorWithProductId(codeColor, productId);
+    }
+
 }
+

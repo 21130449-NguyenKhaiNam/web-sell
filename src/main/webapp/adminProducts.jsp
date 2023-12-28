@@ -95,10 +95,10 @@
                 <div class="col-9">
                     <div>
                         <h1>Danh sách sản phẩm</h1>
-                        <div id="button-add-product" class="button button__add">
+                        <a href="adminAddProduct.jsp" id="button-add-product" class="button button__add">
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
-                        </div>
+                        </a>
                         <div id="button-remove-product" class="button button__delete">
                             <i class="fa-solid fa-minus"></i>
                             Xóa sản phẩm

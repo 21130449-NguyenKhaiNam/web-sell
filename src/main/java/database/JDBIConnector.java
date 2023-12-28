@@ -1,11 +1,10 @@
 package database;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.jdbi.v3.core.HandleCallback;
 import org.jdbi.v3.core.Jdbi;
+import properties.DBProperties;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class JDBIConnector {
 

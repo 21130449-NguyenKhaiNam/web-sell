@@ -31,14 +31,6 @@
     font-weight: 500;
 }
 
-
-/*.form__label > div {*/
-/*    flex-basis: 400px;*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    justify-content: space-between;*/
-/*}*/
-
 .form__preview-img {
     display: flex;
     align-items: center;
@@ -114,7 +106,7 @@
     background-color: #fff;
 }
 
-.form__add-size:hover, .form__size-delete:hover, .form__add-color:hover, .form__color--delete:hover {
+.form__add-size:hover, .form__size-delete:hover, .form__add-color:hover, .form__color-delete:hover {
     cursor: pointer;
     opacity: 0.8;
 }

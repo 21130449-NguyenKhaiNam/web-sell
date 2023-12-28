@@ -1,10 +1,13 @@
+
 import dao.UserDAO;
 import dao.UserDAOImplement;
 import models.User;
 import services.AuthenticateServices;
 
+import java.io.IOException;
+
 public class TestDB {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         UserDAO userDAO = new UserDAOImplement();
         System.out.println(userDAO.selectByEmail("ducvui2003@gmail.com", "1"));
 //        System.out.println(userDAO.selectById(24));

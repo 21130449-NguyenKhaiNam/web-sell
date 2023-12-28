@@ -122,4 +122,33 @@ public class ProductCardServices {
         }
         return totalStar / list.size();
     }
+
+    public List<Product> getProductByCategoryId(int categoryId, int quantity, boolean isRandom) {
+        List<Product> productList = productCardDAO.getProductByCategoryId(categoryId);
+        List<Product> result = new ArrayList<>();
+        if ((productList.size() - quantity) < 10) {
+            for (int i = 0; i < quantity; i++) {
+                result.add(productList.get(i));
+            }
+            return result;
+        }
+        int numRd = 0;
+        Random rd = new Random();
+        for (int i = 0; i < quantity; i++) {
+            Product p = null;
+            if (isRandom) {
+                numRd = rd.nextInt(productList.size());
+                p = productList.get(numRd);
+                while (productList.contains(p)) {
+                    numRd = rd.nextInt(productList.size());
+                    System.out.println(rd);
+                    p = productList.get(numRd);
+                }
+            } else {
+                p = productList.get(i);
+            }
+            result.add(p);
+        }
+        return result;
+    }
 }

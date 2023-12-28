@@ -20,10 +20,17 @@
     <link rel="stylesheet" href="assets/font/webfonts/Montserrat.css">
 
     <!--CSS-->
+<<<<<<< HEAD:htmls/forgotPassword.html
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/logIn.css">
+    <link rel="stylesheet" href="../assets/css/forgetPassword.css">
+=======
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/logIn.css">
     <link rel="stylesheet" href="assets/css/forgetPassword.css">
+>>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/forgotPassword.jsp
     <title>Quên mật khẩu</title>
 </head>
 <body>

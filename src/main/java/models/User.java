@@ -15,7 +15,7 @@ public class User implements Serializable {
     private String address;
     private Date birthDay;
     private boolean isVerify;
-    private boolean role;
+    private String role;
     private String avatar;
     private String tokenVerify;
     private Timestamp tokenVerifyTime;
@@ -105,11 +105,11 @@ public class User implements Serializable {
         isVerify = verify;
     }
 
-    public boolean isRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(boolean role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

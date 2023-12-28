@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="models.User" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<jsp:useBean id="shoppingCart" class="models.ShoppingCart" scope="session"/>
 <!--Header-->
 <header id="header">
     <nav class="nav">
@@ -37,17 +36,13 @@
                         <!--Account show (After log in success)-->
                         <div class="account__wrapper">
                             <!--Giỏ hàng-->
-                            <c:if test="${auth.role == false}">
-                                <a href="shoppingCart.jsp" class="cart">
-                                    <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
-                                    <span class="qlt__swapper">
-                                        <c:if test="${sessionScope.cart == null}">
-                                            <jsp:useBean id="cart" class="models.ShoppingCart" scope="session" />
-                                        </c:if>
-                                        <span class="qlt__value">${shoppingCart.getTotalItems()}</span>
-                                    </span>
-                                </a>
-                            </c:if>
+                            <a href="shoppingCart.jsp" class="cart">
+                                <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ
+                                                                                                                 hàng</span>
+                                <span class="qlt__swapper">
+                                    <span class="qlt__value">0</span>
+                                </span>
+                            </a>
                             <div class="account">
                                 <i class="account__icon fa-regular fa-user"></i>
                                 <div class="setting__list">
@@ -64,6 +59,11 @@
                                         của
                                         tôi</a>
                                     </div>
+                                    <c:if test="${auth.role == 2 || auth.role == 1}">
+                                        <div class="setting__item"><a href="adminProducts.jsp" class="setting__link">Quản
+                                                                                                                       lý</a>
+                                        </div>
+                                    </c:if>
                                     <div class="setting__item "><a href="signOut" class="setting__link setting__logOut">Đăng
                                         xuất</a>
                                     </div>
