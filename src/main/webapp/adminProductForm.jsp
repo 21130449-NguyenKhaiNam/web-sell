@@ -36,16 +36,6 @@
     <title>Thêm sản phẩm</title>
 </head>
 <body>
-<header class="header">
-    <div class="container-xl">
-        <div class="header__wrapper">
-            <a href="adminProducts.jsp">
-                <i class="fa-solid fa-chevron-left"></i>
-                Quản lý sản phẩm</a>
-            <h1>Thêm sản phẩm</h1>
-        </div>
-    </div>
-</header>
 <div class="container-xl">
     <form class="product__form " action="#!" method="post" enctype="multipart/form-data">
         <div class="row">
@@ -110,8 +100,8 @@
                         <i class="form__detail fa-solid fa-circle-info"></i>
                         <p>Mô tả của sản phẩm</p>
                     </span>
-                    <textarea id="ck-editor" type="text">
-                    </textarea>
+                    <div id="ck-editor">
+                    </div>
                     <input type="text" id="description" name="description" hidden="hidden" value="">
                     <span class="form__error"></span>
                 </label>
@@ -146,7 +136,6 @@
                                     </label>
                                     <span class="form__error"></span>
                                 </div>
-
                             </div>
                         </div>
                         <span class="form__add-size">Thêm kích cỡ</span>
@@ -182,11 +171,11 @@
                         <p>Hình ảnh của sản phẩm, mỗi sản phẩm cần ít nhất 1 hình ảnh, ảnh đầu tiên sẽ là ảnh bìa của
                            sản phẩm</p>
                     </span>
-                    <div class="form__img">
+                    <div class="form__img ">
                         <div class="img__previews">
                         </div>
                         <label class="img__label">
-                            <input class="img__input" name="image" type="file" hidden="hidden" multiple>
+                            <input id="image" class="img__input" name="image" type="file" hidden="hidden" multiple>
                             <i class=" img__icon fa-regular fa-images"></i>
                         </label>
                     </div>
@@ -198,7 +187,9 @@
         </div>
     </form>
 </div>
+<div class="toast__list">
 
+</div>
 <script>
     var editorCK = CKEDITOR.replace('ck-editor',);
     CKFinder.setupCKEditor(editorCK, "ckfinder/");

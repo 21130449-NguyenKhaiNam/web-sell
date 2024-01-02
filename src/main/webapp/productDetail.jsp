@@ -36,29 +36,32 @@
             <div class="row">
                 <div class="col-6 ">
                     <div class="product__media">
-                        <img class="product__img" src="assets/img/product_img/product21.jpg" alt="">
+                        <c:set var="firstImage"
+                               value="${productFactory.getListImagesByProductId(product.id).get(0).nameImage}"/>
+                        <img class="product__img" src="assets/img/product_img/${firstImage}" alt="">
                         <ul class="product__img-list">
-                            <li class="product__img-item product__img-item--clicked ">
-                                <img src="assets/img/product_img/product21.jpg" alt="">
-                            </li>
-                            <li class="product__img-item">
-                                <img src="assets/img/product_img/product25_1.jpg" alt="">
-                            </li>
-                            <li class="product__img-item">
-                                <img src="assets/img/product_img/product25_2.jpg" alt="">
-                            </li>
-                            <li class="product__img-item">
-                                <img src="assets/img/product_img/product25_3.jpg" alt="">
-                            </li>
+                            <c:forEach var="image" varStatus="loop"
+                                       items="${productFactory.getListImagesByProductId(product.id)}">
+                              <c:choose>
+                                  <c:when test="${loop.index == 0}">
+                                      <li class="product__img-item product__img-item--clicked">
+                                          <img src="assets/img/product_img/${image.nameImage}" alt="">
+                                      </li>
+                                  </c:when>
+                                  <c:otherwise>
+                                      <li class="product__img-item">
+                                          <img src="assets/img/product_img/${image.nameImage}" alt="">
+                                      </li>
+                                  </c:otherwise>
+                              </c:choose>
+                            </c:forEach>
                         </ul>
                     </div>
-
                 </div>
                 <div class="offset-1 col-5">
                     <div class="product__info">
                         <form action="#!" id="form__product" class="product__form">
                             <h1 class="product__name">${product.name}</h1>
-
                             <c:forEach var="starA" begin="1" step="1"
                                        end="${productFactory.calculateStar(product.id)}">
                                 <i class="product__star fa-solid fa-star"></i>

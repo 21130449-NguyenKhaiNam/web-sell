@@ -251,19 +251,22 @@ tbody td {
 
 tbody tr:nth-child(even) {
     background-color: #ddd;
+    border-top: 1px solid #ddd;
 }
 
 tbody .table__row:has(input:checked), tbody .table__row:hover {
     background-color: #e6f8e6;
 }
-.table__data-edit {
+.table__data-edit, .table__data-view {
     text-align: center;
 }
 
-.table__data-edit:hover {
+.table__data-edit:hover, .table__data-view:hover {
     cursor: pointer;
 }
-
+.table__data-id{
+    text-align: center;
+}
 .table__cell {
     font-size: 15px;
     font-weight: 400;
@@ -283,20 +286,17 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
 }
 
 
-.modal__blur {
-}
-
 .modal__product div:has(.modal__product-close) {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    margin-bottom: 34px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border-bottom: 1px solid #3f3f3f;
-    background-color: #ccc;
     padding: 20px 10px;
+
+    background-color: var(--blue-color-medium);
+    color: #fff;
 }
 
 .modal__product h1 {

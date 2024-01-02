@@ -1,64 +1,80 @@
-var bodyTable = document.querySelector(".table tbody");
+// Date format (now)
+const dateInputs = document.querySelectorAll(`input[type="date"]`);
+dateInputs.forEach(function (dateInput) {
+// Get today's date
+    const today = new Date();
 
-function productToHTML(product) {
-    const vndFormat = Intl.NumberFormat("vi-VI", {
-        style: "currency",
-        currency: "VND",
-    });
-    return `<tr class="table__row">
-                <td class="table__date-checkbox">
-                    <label class="check">
-                        <input type="checkbox" class="filter__input" hidden="true">
-                    </label>
-                </td>
-                <td class="table__data-edit">
-                    <label class="">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </label>
-                </td>
-                <td class="table__data table__data-id">
-                    <p class="table__cell">${product.id}</p>
-                </td>
-                <td class="table__data">
-                    <p class="table__cell">${product.name}</p>
-                </td>
-                <td class="table__data">
-                    <p class="table__cell">${getCategory(product.categoryId).nameType}</p>
-                </td>
-                <td class="table__data">
-                    <p class="table__cell">${vndFormat.format(product.basePrice)}</p>
-                </td>
-                <td class="table__data">
-                    <p class="table__cell">${vndFormat.format(product.salePrice)}</p>
-                </td>
-        </tr>`;
+// Format today's date as yyyy-mm-dd (required by input type="date")
+    const formattedToday = today.toISOString().split('T')[0];
+
+    // Set the default value to today's date in dd/mm/yyyy format
+    dateInput.value = formattedToday;
+})
+
+//Load page btn
+document.querySelector(".reload__btn").onclick = function () {
+    window.location.reload();
 }
 
-function loadListToTable(listProduct) {
-    const htmls = listProduct.map(function (product) {
-        return productToHTML(product);
-    });
-    bodyTable.innerHTML = htmls.join("");
 
-    const allRows = bodyTable.querySelectorAll(".table__row");
-    allRows.forEach(function (row) {
-        editProduct(row);
-    });
-    paging();
+function getClose(modal) {
+    return modal.querySelector(".modal__product-close");
 }
 
-function paging() {
-    // Paging for product cart
-    const paging = new Paging({
-        itemSelector: "tbody .table__row",
-        displayShowType: "table-row",
-        limit: 8,
-        listPage: ".paging",
-        tagNameItemPage: "li",
-        classNameItemPage: "page",
-        activeItemPage: "page--current",
-        prevBtn: "page--prev",
-        nextBtn: "page--next",
-    });
+
+const pageTarget = window.location.origin + "/adminProductForm.jsp";
+
+//Read product
+const iframeRead = document.querySelector("#dialog-product-read .modal__product-iframe");
+const dataViewElement = document.querySelectorAll(".table__data-view");
+const modalRead = document.querySelector("#dialog-product-read");
+const elementCloseRead = getClose(modalRead);
+
+elementCloseRead.onclick = function () {
+    modalRead.style.display = "none";
+};
+
+dataViewElement.forEach(function (element) {
+    element.onclick = function () {
+        // Open dialog
+        modalRead.style.display = "block";
+
+        // Send via iframe
+        const tableRow = this.parentNode;
+        const productId = tableRow.querySelector(".table__data-id").textContent.trim();
+        iframeRead.contentWindow.postMessage({
+            productId: productId,
+            state: 1,
+        }, pageTarget);
+    }
+});
+
+//Create product
+const iframeCreate = document.querySelector("#dialog-product-create .modal__product-iframe");
+const modalCreateBtn = document.querySelector("#button-create-product");
+const modalCreate = document.querySelector("#dialog-product-create");
+const elementCloseCreate = getClose(modalCreate);
+
+elementCloseCreate.onclick = function () {
+    modalCreate.style.display = "none";
 }
-loadListToTable(listProduct);
+
+modalCreateBtn.onclick = function () {
+    modalCreate.style.display = "block";
+
+    // Send via iframe
+    iframeCreate.contentWindow.postMessage({
+        state: 0,
+    }, pageTarget);
+}
+
+// Listen for messages from the iframe
+window.addEventListener('message', function (event) {
+    // Check the origin of the iframe sending the message
+    if (event.origin === `${window.location.origin}` + "/adminProductForm.jsp") {
+        // Log the message received from the iframe
+        console.log('Message from iframe:', event.data);
+
+        // Do something with the received message
+    }
+});

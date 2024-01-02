@@ -195,20 +195,20 @@ showHideDescAndReview();
 // applyValidateParameterForm();
 
 function clickTransImg() {
-    let imgCurrrent;
+    let imgCurrenct;
     const productImg = document.querySelector(".product__img");
     const productImgItems = document.querySelectorAll(".product__img-item");
     productImgItems.forEach(function (productItem, index) {
         productItem.onclick = function () {
-            if (productItem.classList.contains("product__img-item--clicked") == false) {
-                productItem.classList.add("product__img-item--clicked");
-                imgCurrrent = productItem.querySelector("img").src;
+            if (!this.classList.contains("product__img-item--clicked")) {
+                this.classList.add("product__img-item--clicked");
+                imgCurrenct = productItem.querySelector("img").src;
                 productImgItems.forEach(function (productItemOther, indexOther) {
-                    if (indexOther != index) {
-                        productItemOther.classList.remove("product__img-item--clicked")
+                    if (indexOther !== index) {
+                        productItemOther.classList.remove("product__img-item--clicked");
                     }
                 });
-                productImg.src= imgCurrrent;
+                productImg.src= imgCurrenct;
             }
         }
     })
@@ -224,5 +224,4 @@ const vndFormat = Intl.NumberFormat("vi-VI", {
 
 function addSizePrice(input) {
     sizePriceShow.innerText = "+ " + vndFormat.format(input.getAttribute("size-price"));
-
 }

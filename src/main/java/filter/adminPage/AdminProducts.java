@@ -1,6 +1,7 @@
-package filter.product;
+package filter.adminPage;
 
 import models.Product;
+import services.AdminProductServices;
 import services.ProductCardServices;
 
 import javax.servlet.*;
@@ -8,8 +9,11 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(filterName = "productBuying", urlPatterns = {"/filterProductBuying", "/productBuying.jsp"})
-public class ProductBuying implements Filter {
+@WebFilter(filterName = "adminProducts", urlPatterns = {
+        "/adminProducts.jsp", "/filterProductAdmin"
+})
+public class AdminProducts implements Filter {
+    private final int LIMIT = 15;
     private final int DEFAULT_PAGE = 1;
 
     public void init(FilterConfig config) throws ServletException {
@@ -20,11 +24,11 @@ public class ProductBuying implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(DEFAULT_PAGE);
+        List<Product> productCardList = AdminProductServices.getINSTANCE().getProducts(DEFAULT_PAGE);
         request.setAttribute("productCardList", productCardList);
-        int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage();
+        int quantityPage = AdminProductServices.getINSTANCE().getQuantityPage();
         request.setAttribute("quantityPage", quantityPage);
-        String requestURL = "/filterProductBuying?";
+        String requestURL = "/filterProductAdmin?";
         request.setAttribute("requestURL", requestURL);
         chain.doFilter(request, response);
     }

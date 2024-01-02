@@ -5,8 +5,8 @@
     <artifactId>LTW_project_servlet</artifactId>
     <packaging>war</packaging>
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <version>1.0-SNAPSHOT</version>
@@ -63,16 +63,27 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.2.0</version>
         </dependency>
+
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.15</version>
         </dependency>
+
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
+        </dependency>
+
+        <!--Ckfinder 2 lib local-->
         <dependency>
             <groupId>system.activation</groupId>
             <artifactId>activation</artifactId>

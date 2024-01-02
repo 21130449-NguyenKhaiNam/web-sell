@@ -36,7 +36,7 @@
         <div class="container-xl">
             <div class="row ">
                 <div class="col-3">
-                    <form action="filterProduct" class="form__filter">
+                    <form action="filterProductBuying" class="form__filter">
                         <div class="filter__group">
                             <span class="filter__title">Phân loại sản phẩm</span>
                             <div class="filter__radio-list">
@@ -158,25 +158,30 @@
                 </div>
             </div>
             <ul class="paging">
-                <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
-                    <c:url var="linkPaing" value="${requestScope.requestURL}">
-                        <c:param name="page" value="${pageNumber}"/>
-                    </c:url>
-                    <c:choose>
-                        <c:when test="${pageNumber == requestScope.currentPage}">
-                            <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="page" href="${linkPaing}">${pageNumber}</a>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
+                <c:if test="${requestScope.quantityPage != 0}">
+                    <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
+                        <c:url var="linkPaing" value="${requestScope.requestURL}">
+                            <c:param name="page" value="${pageNumber}"/>
+                        </c:url>
+                        <c:choose>
+                            <c:when test="${pageNumber == requestScope.currentPage}">
+                                <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="page" href="${linkPaing}">${pageNumber}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:if>
             </ul>
         </div>
     </section>
 </main>
 <%@include file="footer.jsp" %>
-<%--<script src="js/productBuying.js"></script>--%>
+<%
+    List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
+    System.out.println("inputChecked (UI):" + inputChecked);
+%>
 <script>
     function checkedInputTag(name) {
         let inputElements = document.querySelectorAll("input");
@@ -186,7 +191,7 @@
         })
     }
 
-    <%List<String> inputChecked =(List<String>) request.getAttribute("listInputChecked");
+    <%
      if (inputChecked!=null && !inputChecked.isEmpty()){
          for (String input : inputChecked) {
     %>

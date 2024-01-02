@@ -6,7 +6,7 @@ import java.util.Properties;
 public class RoleProperties {
     private static RoleProperties INSTANCE;
     private String admin;
-    private String subAdmin;
+    private String mod;
     private String guest;
 
     private RoleProperties() {
@@ -15,7 +15,7 @@ public class RoleProperties {
             Properties properties = new Properties();
             properties.load(inputStream);
             admin = properties.getProperty("role.admin");
-            subAdmin = properties.getProperty("role.sub.admin");
+            mod = properties.getProperty("role.mod");
             guest = properties.getProperty("role.guest");
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -40,12 +40,12 @@ public class RoleProperties {
         this.admin = admin;
     }
 
-    public String getSubAdmin() {
-        return subAdmin;
+    public String getMod() {
+        return mod;
     }
 
-    public void setSubAdmin(String subAdmin) {
-        this.subAdmin = subAdmin;
+    public void setMod(String mod) {
+        this.mod = mod;
     }
 
     public String getGuest() {

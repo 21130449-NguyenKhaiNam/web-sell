@@ -1,13 +1,14 @@
 function Validation(formObj) {
     var formElement = document.querySelector(formObj.formSelector);
-    this.rulesForm = formObj.rules;
+    var rules = formObj.rules;
     var submitElement = document.querySelector(formObj.submitSelector);
+    var onSubmit = formObj.onSubmit;
     var ruleFuncs = {};
     var errorMessageObj = {};
 
     // Chạy qua rules để lấy các yêu cầu để thực thi validate
     if (formElement) {
-        this.rulesForm.forEach(function (rule) {
+        rules.forEach(function (rule) {
             /*
             -Do mỗi input sẽ có nhiều yêu cầu validate nên ruleFuncs sẽ là 1 một obj gồm có:
             -Mỗi key sẽ là id của input
@@ -24,35 +25,35 @@ function Validation(formObj) {
                 ruleFuncs[rule.element].push(rule.check);
             }
             const inputElements = formElement.querySelectorAll(rule.element);
-            if (inputElements !== undefined) {
-                inputElements.forEach(function (inputElement) {
-                    inputElement.oninput = function (e) {
-                        handleValidate(rule);
-                    };
-                    inputElement.onchange = function (e) {
-                        handleValidate(rule);
-                    };
-                    inputElement.onblur = function (e) {
-                        handleValidate(rule);
-                    };
-                });
-            }
+            inputElements.forEach(function (inputElement) {
+                inputElement.oninput = function (e) {
+                    handleValidate(rule);
+                };
+                inputElement.onchange = function (e) {
+                    handleValidate(rule);
+                };
+                inputElement.onblur = function (e) {
+                    handleValidate(rule);
+                };
+            });
+
         });
     }
     if (submitElement) {
-        const rulesForm = this.rulesForm;
         submitElement.onclick = function () {
             formElement.onsubmit = function (e) {
                 e.preventDefault()
             }
-            console.log("ruleForm", rulesForm)
-            rulesForm.forEach(function (rule) {
+            rules.forEach(function (rule) {
                 handleValidate(rule);
             });
             //Chỉ được thực thi form ko có Error Message
             if (Object.keys(errorMessageObj).length == 0) {
-                formElement.submit();
-
+                if (typeof onSubmit == "function") {
+                    onSubmit();
+                } else {
+                    formElement.submit();
+                }
             }
         }
     }
@@ -162,7 +163,14 @@ Validation.isConfirm = function (selectionInput, funcGetConfirmText) {
         }
     }
 }
-
+Validation.isNumber = function (selectionInput) {
+    return {
+        element: selectionInput,
+        check: function (value) {
+            return (!isNaN(value)) ? undefined : "Trường này phải nhập số";
+        }
+    }
+}
 Validation.range = function (selectionInput, min, max) {
     return {
         element: selectionInput,
@@ -172,15 +180,7 @@ Validation.range = function (selectionInput, min, max) {
                     return "Trường này cần nhập số.";
                 }
             }
-            return (min <= value && value <= max) ? undefined : "Giá trị nhập quá giới hạn.";
-        }
-    }
-}
-Validation.isNumber = function (selectionInput) {
-    return {
-        element: selectionInput,
-        check: function (value) {
-            return !isNaN(value) ? undefined : "Trường này cần nhập số.";
+            return (min <= value && value <= max) ? undefined : "Giá trị nhập quá giới hạn."
         }
     }
 }

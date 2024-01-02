@@ -44,4 +44,8 @@ public class ProductFactory {
     public static Color getColorByCodeColorWithProductId(String codeColor, int productId){
         return ProductServices.getINSTANCE().getColorByCodeColorWithProductId(codeColor, productId);
     }
+
+    public static String getNameCategoryById(int id) {
+        return ProductCardServices.getINSTANCE().getNameCategoryById(id);
+    }
 }

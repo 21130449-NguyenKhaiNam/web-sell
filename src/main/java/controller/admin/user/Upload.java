@@ -1,4 +1,4 @@
-package controller.admin;
+package controller.admin.user;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
