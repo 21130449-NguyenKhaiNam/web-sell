@@ -1,3 +1,13 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: unset;
+    height: unset;
+}
 .reload__btn {
     margin-left: 10px;
     border-radius: 5px;
@@ -67,4 +77,14 @@
 .modal__product-iframe{
     width: 100%;
     flex: 1;
+}
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp.line-1 {
+    -webkit-line-clamp: 1;
 }

@@ -35,6 +35,6 @@ public interface UserDAO extends DAO<User> {
 
     public List<User> searchUsersByName(String search);
 
-
+    public List<User> getAvatar(int id);
 }
 

@@ -1,6 +1,7 @@
 package dao;
 
 import models.Category;
+import models.Parameter;
 import models.Product;
 import utils.MoneyRange;
 
@@ -244,6 +245,22 @@ public class ProductCardDAO {
         sql.append("SELECT categories.nameType ").append("FROM products JOIN categories ON products.categoryId = categories.id ")
                 .append("WHERE products.id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Category.class, id);
+    }
+
+    public List<Category> getCategoryByProductId(int id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT nameType, styleGuideImage ")
+                .append("FROM categories JOIN products ON products.categoryId = categories.id ")
+                .append("WHERE products.id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Category.class, id);
+    }
+
+    public List<Parameter> getParametersByProductId(int id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT parameters.name, parameters.minValue, parameters.maxValue, parameters.unit, parameters.guideImg ")
+                .append("FROM products JOIN (parameters JOIN categories ON parameters.categoryId = categories.id) ON products.categoryId = categories.id ")
+                .append("WHERE products.id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
     }
 
 }

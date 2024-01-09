@@ -139,6 +139,11 @@
     gap: 5px;
 }
 
+.filter__radio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
 .filter__radio-item {
     display: flex;
     justify-content: flex-start;

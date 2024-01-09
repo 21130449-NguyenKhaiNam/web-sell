@@ -38,6 +38,8 @@ body, input, select, option, button, textarea {
 }
 body {
     scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
 }
 
 #main {
@@ -310,7 +312,6 @@ body {
 .account:hover .setting__list {
     opacity: 1;
     visibility: visible;
-    background-color: var(--blue-color-medium);
 }
 
 
@@ -334,19 +335,24 @@ body {
     width: 100%;
     height: 10px;
 }
+.setting__item{
+    padding: 20px 10px;
+    border-top: 1px solid #fff;
+    background-color: var(--blue-color-high);
+}
+.setting__item:last-child{
+    border-bottom: 1px solid #fff;
+}
 
+.setting__item:hover {
+    background-color: var(--mint-color);
+    cursor: pointer;
+}
 .setting__link {
     display: block;
     font-size: 18px;
     font-weight: 500;
-    padding: 20px 10px;
     text-align: center;
-    border-top: 1px solid #fff;
-    background-color: var(--blue-color-high);
-}
-
-.setting__link:hover {
-    background-color: var(--mint-color);
 }
 
 .account__info {

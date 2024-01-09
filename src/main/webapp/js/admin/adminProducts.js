@@ -16,13 +16,9 @@ document.querySelector(".reload__btn").onclick = function () {
     window.location.reload();
 }
 
-
 function getClose(modal) {
     return modal.querySelector(".modal__product-close");
 }
-
-
-const pageTarget = window.location.origin + "/adminProductForm.jsp";
 
 //Read product
 const iframeRead = document.querySelector("#dialog-product-read .modal__product-iframe");
@@ -35,6 +31,7 @@ elementCloseRead.onclick = function () {
 };
 
 dataViewElement.forEach(function (element) {
+    const pageTarget = `${window.location.origin}/adminProductForm.jsp`;
     element.onclick = function () {
         // Open dialog
         modalRead.style.display = "block";
@@ -60,21 +57,36 @@ elementCloseCreate.onclick = function () {
 }
 
 modalCreateBtn.onclick = function () {
+    const pageTarget = `${window.location.origin}/adminProductForm.jsp`;
     modalCreate.style.display = "block";
-
     // Send via iframe
     iframeCreate.contentWindow.postMessage({
         state: 0,
     }, pageTarget);
 }
 
-// Listen for messages from the iframe
-window.addEventListener('message', function (event) {
-    // Check the origin of the iframe sending the message
-    if (event.origin === `${window.location.origin}` + "/adminProductForm.jsp") {
-        // Log the message received from the iframe
-        console.log('Message from iframe:', event.data);
+//Update product
+const iframeUpdate = document.querySelector("#dialog-product-update .modal__product-iframe");
+const dataUpdateElement = document.querySelectorAll(".table__data-edit");
+const modalUpdate = document.querySelector("#dialog-product-update");
+const elementCloseUpdate = getClose(modalUpdate);
 
-        // Do something with the received message
+elementCloseUpdate.onclick = function () {
+    modalUpdate.style.display = "none";
+};
+
+dataUpdateElement.forEach(function (element) {
+    element.onclick = function () {
+        const pageTarget = `${window.location.origin}/adminProductUpdateForm.jsp`;
+        // Open dialog
+        modalUpdate.style.display = "block";
+
+        // Send via iframe
+        const tableRow = this.parentNode;
+        const productId = tableRow.querySelector(".table__data-id").textContent.trim();
+        iframeUpdate.contentWindow.postMessage({
+            productId: productId,
+            state: 2,
+        }, pageTarget);
     }
 });

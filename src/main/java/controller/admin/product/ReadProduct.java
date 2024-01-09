@@ -9,6 +9,7 @@ import utils.ProductFactory;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -52,6 +53,8 @@ public class ReadProduct extends HttpServlet {
         jsonResponse.put("sizes", jsonSizes);
         jsonResponse.put("colors", jsonColors);
         jsonResponse.put("images", jsonImages);
+
         response.getWriter().write(jsonResponse.toString());
     }
+
 }

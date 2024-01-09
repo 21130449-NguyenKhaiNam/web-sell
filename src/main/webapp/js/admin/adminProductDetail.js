@@ -6,14 +6,12 @@ window.addEventListener('message', function (event) {
     // 3. delete}
 
     const receivedData = event.data;
-
     //Commons
     const form = document.querySelector(".product__form");
     const imgPreviews = document.querySelector(".img__previews");
-    console.log(receivedData.state)
+
     // Create
     if (receivedData.state === 0) {
-
         let ruleObj = {
             name: [Validation.isRequired("#name")],
             originalPrice: [Validation.isRequired("#originalPrice"), Validation.isNumber("#originalPrice")],
@@ -31,7 +29,7 @@ window.addEventListener('message', function (event) {
             errorSelector: ".form__error",
             rules: ruleArray,
             submitSelector: "#form__submit",
-            onSubmit: addNewProduct,
+            onSubmit: create,
         });
 
         function loadRules() {
@@ -47,7 +45,7 @@ window.addEventListener('message', function (event) {
                 errorSelector: ".form__error",
                 rules: ruleArray,
                 submitSelector: "#form__submit",
-                onSubmit: addNewProduct,
+                onSubmit: create,
             });
         }
 
@@ -125,13 +123,12 @@ window.addEventListener('message', function (event) {
         function addColor() {
             const addColorBtn = document.querySelector(".form__add-color");
             const formColors = document.querySelector(".form__colors");
-            console.log(addColorBtn)
             addColorBtn.onclick = function () {
-                const formSizeHTML = `<div class="form__color">
+                const formColorHTML = `<div class="form__color">
                                         <input type="color" name="color" class="form__size-input">
                                             <i class="form__color-delete fa-solid fa-xmark" ></i>
                                     </div>`;
-                formColors.insertAdjacentHTML("beforeend", formSizeHTML);
+                formColors.insertAdjacentHTML("beforeend", formColorHTML);
 
                 const addedFormColor = formColors.lastElementChild;
                 addedFormColor.querySelector(".form__color-delete").addEventListener("click", function () {
@@ -149,19 +146,27 @@ window.addEventListener('message', function (event) {
             }
         }
 
+        Image
         const inputImg = document.querySelector(".img__input");
 
-        inputImg.onchange = function (e) {
-            const files = e.target.files;
-            const htmls = [];
+        inputImg.onchange = function () {
+            addFiles();
+        }
+
+        function addFiles() {
+            imgPreviews.innerHTML = "";
+            const files = inputImg.files;
             for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                if (!file.name.endsWith(".jpg") && !file.name.endsWith(".png") && !file.name.endsWith(".jpeg")) continue;
-                htmls.push(`<div class="img__preview">
-                      <img src="${URL.createObjectURL(file)}" alt="">
-                   </div>`);
+                if (!files[i].name.endsWith(".jpg") && !files[i].name.endsWith(".png") && !files[i].name.endsWith(".jpeg")) {
+                    continue;
+                } else {
+                    const formImgHTML = `<div class="img__preview">
+                                                  <img src="${URL.createObjectURL(files[i])}" alt="" >
+                                                </div>`;
+
+                    imgPreviews.insertAdjacentHTML("beforeend", formImgHTML);
+                }
             }
-            imgPreviews.innerHTML = htmls.join("");
         }
 
         const inputDesc = document.querySelector(`input[name = "description"]`)
@@ -169,14 +174,13 @@ window.addEventListener('message', function (event) {
             inputDesc.value = editorCK.getData();
         });
 
-
         function getDataForm(form) {
             const formData = new FormData(form);
             return formData;
         }
 
 // Ajax
-        function addNewProduct() {
+        function create() {
             const product = getDataForm(form);
             $.ajax({
                 url: "admin-create-product",
@@ -255,10 +259,9 @@ window.addEventListener('message', function (event) {
                 x.className = x.className.replace("show", "");
                 x.remove();
             }, 3000);
-
-
         }
     }
+
     // Read product: No validate
     if (receivedData.state === 1) {
         const name = form.querySelector(`input[name ="name"]`);
@@ -314,6 +317,7 @@ window.addEventListener('message', function (event) {
             const sizes = data["sizes"];
             const colors = data["colors"];
             const images = data["images"];
+            imgPreviews.innerHTML = ""
             // Name
             name.value = product.name;
             // Category
@@ -329,7 +333,7 @@ window.addEventListener('message', function (event) {
             // Colors
             addColor(colors);
             // Images
-            addImages(images);
+            asyncImageLoading(images)
         }
 
         function callAjax() {
@@ -341,9 +345,7 @@ window.addEventListener('message', function (event) {
                 dataType: "json",
                 cache: false,
                 success: function (data) {
-                    console.log(data)
                     applyDateToForm(data);
-                    // Setup form to view
                     setUpForm(form);
                 },
                 error: function (error) {
@@ -351,6 +353,25 @@ window.addEventListener('message', function (event) {
             });
         }
 
+// Get the current URL
+        const currentURL = window.location.href;
+
+// Create a URL object using the current URL
+        const url = new URL(currentURL);
+
+// Extract the base URL
+        const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
+
+        async function asyncImageLoading(images) {
+            for (let i = 0; i < images.length; i++) {
+                const url = `${basePath}/read-image?name=${images[i]["nameImage"]}`
+                const response = await fetch(url)
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                addImages(blobUrl);
+                console.log(images[i]["nameImage"])
+            }
+        }
         function addSize(sizes) {
             const formSizes = document.querySelector(".form__sizes");
             formSizes.innerHTML = "";
@@ -389,20 +410,11 @@ window.addEventListener('message', function (event) {
             formColors.innerHTML = formColorsHTML.join("");
         }
 
-        function addImages(images) {
-            const imagesHTML = images.map(function (image) {
-                return `<div class="img__preview">
-                      <img src="assets/img/product_img/${image["nameImage"]}" alt="">
-                   </div>`
-            })
-            imgPreviews.innerHTML = imagesHTML.join("");
+        function addImages(blobUrl) {
+            const imageHTML = `<div class="img__preview">
+                                          <img src="${blobUrl}" alt="">
+                                       </div>`
+            imgPreviews.insertAdjacentHTML("beforeend", imageHTML);
         }
     }
-
-    if (receivedData.state === 2) {
-
-    }
-    if (receivedData.state === 3) {
-
-        }
 });

@@ -80,6 +80,13 @@
 			<allowedExtensions>swf,flv</allowedExtensions>
 			<deniedExtensions></deniedExtensions>
 		</type>
+		<type name="Ảnh sản phẩm">
+			<url>%BASE_URL%product_img/</url>
+			<directory>%BASE_DIR%product_img</directory>
+			<maxSize>0</maxSize>
+			<allowedExtensions>bmp,gif,jpeg,jpg,png</allowedExtensions>
+			<deniedExtensions></deniedExtensions>
+		</type>
 	</types>
 	<!--
 	The session variable name that CKFinder must use to retrieve

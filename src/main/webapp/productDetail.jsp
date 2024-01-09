@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:useBean id="productFactory" class="utils.ProductFactory" scope="session"/>
+<jsp:useBean id="userFatory" class="utils.UserFactory" scope="session"/>
 <fmt:setLocale value="vi_VN"/>
 <c:set var="product" value="${requestScope.product}"/>
 <!DOCTYPE html>
@@ -38,19 +39,19 @@
                     <div class="product__media">
                         <c:set var="firstImage"
                                value="${productFactory.getListImagesByProductId(product.id).get(0).nameImage}"/>
-                        <img class="product__img" src="assets/img/product_img/${firstImage}" alt="">
+                        <img class="product__img" src="assets/img/product_img/${firstImage}" alt="" loading="lazy">
                         <ul class="product__img-list">
                             <c:forEach var="image" varStatus="loop"
                                        items="${productFactory.getListImagesByProductId(product.id)}">
                               <c:choose>
                                   <c:when test="${loop.index == 0}">
                                       <li class="product__img-item product__img-item--clicked">
-                                          <img src="assets/img/product_img/${image.nameImage}" alt="">
+                                          <img src="assets/img/product_img/${image.nameImage}" alt="" loading="lazy">
                                       </li>
                                   </c:when>
                                   <c:otherwise>
                                       <li class="product__img-item">
-                                          <img src="assets/img/product_img/${image.nameImage}" alt="">
+                                          <img src="assets/img/product_img/${image.nameImage}" alt="" loading="lazy">
                                       </li>
                                   </c:otherwise>
                               </c:choose>
@@ -141,13 +142,11 @@
                                     </div>
                                     <p class="form__error"></p>
                                 </div>
-                                <!--Size Guide-->
-                                <div class="form__guide">Hướng dẫn tùy chỉnh thông số</div>
                             </div>
 
-                            <button type="submit" class="form__submit form__submit--order button "
+                            <a href="showProductOrder?id=${product.id}" type="submit" class="form__submit form__submit--order button "
                                         data="Đặt may theo số đo">
-                            </button>
+                            </a>
                             <button type="submit" class="form__submit form__submit--add button "
                                         data="Thêm vào giỏ hàng">
                             </button>
@@ -174,7 +173,7 @@
                             <c:forEach var="review" items="${requestScope.listReview}">
                                 <article class="review">
                                     <div class="review__avatar">
-                                        <img src="../assets/img/user/user_avatar-5.jpg" alt="">
+                                        <img src="assets/img/user/${userFatory.getAvatar(review.userId)}" alt="" loading="lazy">
                                     </div>
                                     <div class="review__account">
                                         <h4 class="review__name">User</h4>
@@ -216,7 +215,7 @@
                                 <c:set value="${productFactory.getListImagesByProductId(item.id)}"
                                        var="listProductImage"/>
                                 <img src="assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
-                                     class="product__img" alt=""/>
+                                     class="product__img" alt="" loading="lazy"/>
                                 <div class="product__info">
                                     <c:url var="linkProductDetail" value="/showProductDetail">
                                         <c:param name="id" value="${item.id}"/>
@@ -259,70 +258,11 @@
             </div>
         </div>
     </section>
-    <!--Size Guide-->
-    <%--        <div class="modal">--%>
-    <%--            <div class="modal__content modal__guide">--%>
-    <%--                <img src="assets/img/sizeGuide/aoBaLoSizeGuide.png" alt="" class="guide__img">--%>
-    <%--            </div>--%>
-    <%--            <div class="modal__blur"></div>--%>
-    <%--        </div>--%>
-    <!--Form Parameter-->
-    <%--        <div class="modal">--%>
-    <%--            <div class="modal__content modal__parameter">--%>
-    <%--                <h2>Đặt May Theo Số Đo--%>
-    <%--                </h2>--%>
-    <%--                <form id="form__parameter" action="#!">--%>
-    <%--                    <p>Vui lòng nhập đủ thông tin bên dưới. Chúng tôi sẽ gọi xác nhận và tư vấn size trước khi may.</p>--%>
-    <%--                    <div class="form__parameter">--%>
-    <%--                        <label class="form__block form__label">--%>
-    <%--                            Dài áo--%>
-    <%--                            <div class="form__block-inner">--%>
-    <%--                                <input id="parameter_1" type="text" class="form__input">--%>
-    <%--                                <span class="form__unit">cm</span>--%>
-    <%--                            </div>--%>
-    <%--                            <span class="form__error"></span>--%>
-    <%--                        </label>--%>
-    <%--                        <label class="form__block form__label">--%>
-    <%--                            Ngang ngực--%>
-    <%--                            <div class="form__block-inner">--%>
-    <%--                                <input id="parameter_2" type="text" class="form__input">--%>
-    <%--                                <span class="form__unit">cm</span>--%>
-    <%--                            </div>--%>
-    <%--                            <span class="form__error"></span>--%>
-    <%--                        </label>--%>
-    <%--                        <label class="form__block form__label">--%>
-    <%--                            Dài tay--%>
-    <%--                            <div class="form__block-inner">--%>
-    <%--                                <input id="parameter_3" type="text" class="form__input">--%>
-    <%--                                <span class="form__unit">cm</span>--%>
-    <%--                            </div>--%>
-    <%--                            <span class="form__error"></span>--%>
-    <%--                        </label>--%>
-    <%--                        <label class="form__block form__label">--%>
-    <%--                            Rộng vai--%>
-    <%--                            <div class="form__block-inner">--%>
-    <%--                                <input id="parameter_4" type="text" class="form__input">--%>
-    <%--                                <span class="form__unit">cm</span>--%>
-    <%--                            </div>--%>
-    <%--                            <span class="form__error"></span>--%>
-    <%--                        </label>--%>
-    <%--                    </div>--%>
-    <%--                    <div class="form__submits">--%>
-    <%--                        <button type="submit" class="form__submit form__submit--add button "--%>
-    <%--                                data="Thêm vào giỏ hàng">--%>
-    <%--                        </button>--%>
-    <%--                    </div>--%>
-    <%--                </form>--%>
-    <%--            </div>--%>
-    <%--            <div class="modal__blur"></div>--%>
-    <%--        </div>--%>
 </main>
 <%@include file="footer.jsp"%>
 <article class="dialog__size-guide"></article>
 <script src="js/base.js"></script>
-<%--<script src="js/data.js"></script>--%>
 <script src="js/validateForm.js"></script>
-<%--<script src="js/paging.js"></script>--%>
 <script src="js/productDetail.js"></script>
 </body>
 </html>

@@ -113,10 +113,10 @@
                         <c:set var="list" value="${requestScope.productCardList}"/>
                         <c:forEach var="item" items="${list}">
                             <div class="product__item">
-                                <c:set value="${productFactory.getListImagesByProductId(item.id)}"
-                                       var="listProductImage"/>
+                                <c:set var="listProductImage"
+                                       value="${productFactory.getListImagesByProductId(item.id)}"/>
                                 <img src="${pageContext.servletContext.contextPath}/assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
-                                     class="product__img" alt=""/>
+                                     class="product__img" alt="" loading="lazy"/>
                                 <div class="product__info">
                                     <c:url var="linkProductDetail" value="/showProductDetail">
                                         <c:param name="id" value="${item.id}"/>

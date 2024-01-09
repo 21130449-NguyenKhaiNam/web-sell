@@ -64,4 +64,17 @@ public class Parameter {
     public void setGuideImg(String guideImg) {
         this.guideImg = guideImg;
     }
+
+    @Override
+    public String toString() {
+        return "Parameter{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", minValue=" + minValue +
+                ", maxValue=" + maxValue +
+                ", unit='" + unit + '\'' +
+                ", categoryId=" + categoryId +
+                ", guideImg='" + guideImg + '\'' +
+                '}';
+    }
 }

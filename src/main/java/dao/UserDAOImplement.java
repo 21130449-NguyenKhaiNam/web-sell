@@ -182,4 +182,11 @@ public class UserDAOImplement implements UserDAO {
                 .execute());
         return count;
     }
+
+    @Override
+    public List<User> getAvatar(int id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT avatar FROM users WHERE id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), User.class, id);
+    }
 }

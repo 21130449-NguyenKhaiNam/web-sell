@@ -1,5 +1,6 @@
 package filter.adminPage;
 
+import models.Category;
 import models.Product;
 import services.AdminProductServices;
 import services.ProductCardServices;
@@ -10,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebFilter(filterName = "adminProducts", urlPatterns = {
-        "/adminProducts.jsp", "/filterProductAdmin"
+        "/adminProducts.jsp", "/filterProductAdmin" ,"/adminProductForm.jsp"
 })
 public class AdminProducts implements Filter {
     private final int LIMIT = 15;

@@ -2,7 +2,9 @@ package dao;
 
 import models.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductDao {
     public List<Image> getListImagesByProductId(int productId) {
@@ -46,11 +48,46 @@ public class ProductDao {
         return GeneralDao.executeQueryWithSingleTable(sql, Product.class, name);
     }
 
-    //    Update
-    public void addProduct(Product product) {
+    //Create
+    public void createProduct(Product product) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO products (name, categoryId, description, originalPrice, salePrice, visibility, createAt) ")
                 .append("VALUES (?,?,?,?,?,?,?) ");
         GeneralDao.executeAllTypeUpdate(sql.toString(), product.getName(), product.getCategoryId(), product.getDescription(), product.getOriginalPrice(), product.getSalePrice(), product.isVisibility(), product.getCreateAt());
     }
+
+    //Update
+    public void updateProduct(Product product, int id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE products ")
+                .append("SET ").append(updatedFieldProduct(product))
+                .append(" WHERE id = ?");
+        GeneralDao.executeAllTypeUpdate(sql.toString(), id);
+    }
+
+    private String updatedFieldProduct(Product product) {
+        StringBuilder updatedField = new StringBuilder();
+        Map<String, String> updatedFieldMap = new HashMap<>();
+        if (product.getName() != null)
+            updatedFieldMap.put("name", "\"" + product.getName() + "\"");
+        if (product.getCategoryId() != 0)
+            updatedFieldMap.put("categoryId", product.getCategoryId() + "");
+        if (product.getDescription() != null)
+            updatedFieldMap.put("description", "\"" + product.getDescription() + "\"");
+        if (product.getOriginalPrice() != -1)
+            updatedFieldMap.put("originalPrice", product.getOriginalPrice() + "");
+        if (product.getSalePrice() != -1)
+            updatedFieldMap.put("salePrice", product.getSalePrice() + "");
+        if (product.getCreateAt() != null)
+            updatedFieldMap.put("createAt", "\"" + product.getCreateAt().toString() + "\"");
+
+        for (Map.Entry<String, String> entry : updatedFieldMap.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            updatedField.append(key).append(" = ").append(value).append(",");
+        }
+        return updatedField.toString().substring(0, updatedField.toString().length() - 1);
+    }
+
+
 }

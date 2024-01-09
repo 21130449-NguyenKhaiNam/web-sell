@@ -119,81 +119,6 @@ function showHideDescAndReview() {
 
 showHideDescAndReview();
 
-//Paging for review
-// var pagingReview = new Paging({
-//     itemSelector: ".review",
-//     displayShowType: "flex",
-//     limit: 3,
-//     listPage: ".paging",
-//     tagNameItemPage: "li",
-//     classNameItemPage: "page",
-//     activeItemPage: "page--current",
-//     prevBtn: "page--prev",
-//     nextBtn: "page--next",
-// });
-
-// function openModal(button, modal) {
-//     button.onclick = function () {
-//         modal.style.display = "block";
-//     }
-//     let modalBlur = modal.querySelector(".modal__blur");
-//     if (modalBlur) {
-//         modalBlur.onclick = function () {
-//             modal.style.display = "none";
-//         }
-//     }
-// }
-//
-// const buttonOpenGuide = document.querySelector(".form__guide");
-// const buttonOpenParameter = document.querySelector(".form__submit--order");
-// const modalGuide = document.querySelector(".modal:has(.modal__guide)");
-// const modalParameter = document.querySelector(".modal:has(.modal__parameter)");
-// openModal(buttonOpenGuide, modalGuide);
-// openModal(buttonOpenParameter, modalParameter);
-
-// when user choose size
-// function applyValidateProductForm() {
-//     var formObj = {
-//         formSelector: "#form__product",
-//         formBlockClass: "form__block",
-//         errorSelector: ".form__error",
-//         rules: [
-//             Validation.isRequiredRadio(".form__radio"),
-//             Validation.isRequiredRadio(`input[name="color"]`),
-//         ],
-//         submitSelector: ".form__submit--add",
-//         funcAfterSubmit: function () {
-//         }
-//     };
-//     var validation = new Validation(formObj);
-// }
-//
-// applyValidateProductForm();
-//
-// // When user customize size
-// function applyValidateParameterForm() {
-//     var formObj = {
-//         formSelector: "#form__parameter",
-//         formBlockClass: "form__block",
-//         errorSelector: ".form__error",
-//         rules: [],
-//         submitSelector: "#form__parameter button",
-//         funcAfterSubmit: function () {
-//
-//         }
-//     };
-//     productDetail.parameter.forEach(function (value, index) {
-//         formObj.rules.push(
-//             Validation.isRequired(`input[id="parameter-${index}"]`),
-//             Validation.range(`input[id="parameter-${index}"]`, value.min, value.max)
-//         );
-//     })
-//
-//     var validation = new Validation(formObj);
-// }
-
-// applyValidateParameterForm();
-
 function clickTransImg() {
     let imgCurrenct;
     const productImg = document.querySelector(".product__img");
@@ -224,4 +149,20 @@ const vndFormat = Intl.NumberFormat("vi-VI", {
 
 function addSizePrice(input) {
     sizePriceShow.innerText = "+ " + vndFormat.format(input.getAttribute("size-price"));
+}
+
+var formObj = new Validation({
+    formSelector: "#form__product",
+    formBlockClass: "form__block",
+    errorSelector: ".form__error",
+    rules: [
+        Validation.isRequiredRadio(`input[name="color"]`),
+        Validation.isRequiredRadio(`input[name="size"]`),
+    ],
+    submitSelector: ".form__submit--add",
+    onSubmit: addToCart,
+})
+
+function addToCart() {
+    console.log(1)
 }
