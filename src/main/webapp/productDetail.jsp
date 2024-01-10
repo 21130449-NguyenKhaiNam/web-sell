@@ -12,6 +12,11 @@
     <!--Các thư viện hỗ trợ-->
     <!--Font Awesome-->
     <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
+    <%--jquery--%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--CK Editor-->
     <!--Bootstrap-->
     <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
     <!--Favicon-->
@@ -61,8 +66,9 @@
                 </div>
                 <div class="offset-1 col-5">
                     <div class="product__info">
-                        <form action="#!" id="form__product" class="product__form">
+                        <form action="" id="form__product" class="product__form">
                             <h1 class="product__name">${product.name}</h1>
+                            <input type="text" hidden="hidden" name="productId" value="${product.id}">
                             <c:forEach var="starA" begin="1" step="1"
                                        end="${productFactory.calculateStar(product.id)}">
                                 <i class="product__star fa-solid fa-star"></i>
@@ -101,7 +107,7 @@
                                 <div class="form__choose-color">
                                     <c:forEach var="color" items="${colors}">
                                         <label class="form__color-check" style="background-color: ${color.codeColor}">
-                                            <input type="radio" name="color" hidden="hidden">
+                                            <input type="radio" name="color" hidden="hidden" value="${color.codeColor}">
                                         </label>
                                     </c:forEach>
                                 </div>
@@ -117,7 +123,7 @@
                                     <c:forEach var="size" items="${sizes}">
                                         <div class="form__size-item">
                                             <label>
-                                                <input type="radio" name="size" class="form__radio" hidden="hidden"
+                                                <input type="radio" name="size" class="form__radio" hidden="hidden" value="${size.nameSize}"
                                                        size-price="${size.sizePrice}" onclick="addSizePrice(this)">
                                                     ${size.nameSize}
                                             </label>
@@ -137,7 +143,7 @@
                                 <div class="form__quantity">
                                     <div class="form__quantity-inner">
                                         <div class=" form___quantity-btn form___quantity--decrease"></div>
-                                        <input id="quantity" type="text" name="quantity" value="1" disabled>
+                                        <input id="quantity" type="text" name="quantity" value="1" readonly>
                                         <div class=" form___quantity-btn form___quantity--increase"></div>
                                     </div>
                                     <p class="form__error"></p>

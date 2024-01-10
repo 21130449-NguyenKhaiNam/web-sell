@@ -10,6 +10,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Map;
 
 @WebServlet(name = "AddToCartController", value = "/AddToCart")
 public class AddToCartController extends HttpServlet {
@@ -45,6 +47,8 @@ public class AddToCartController extends HttpServlet {
             }
             String colorCode = request.getParameter("color");
             String sizeName = request.getParameter("size");
+
+
 
             if(colorCode == null){
                 colorCode = ProductFactory.getListColorsByProductId(productId).get(0).getCodeColor();

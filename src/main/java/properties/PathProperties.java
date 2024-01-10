@@ -42,6 +42,5 @@ public class PathProperties {
         File file = new File(getINSTANCE().pathProductLocal);
         System.out.println(file.exists());
         System.out.println(Arrays.toString(file.list()));
-
     }
 }

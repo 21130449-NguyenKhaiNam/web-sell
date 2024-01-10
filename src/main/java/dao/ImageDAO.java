@@ -41,7 +41,7 @@ public class ImageDAO  {
 
     public void deleteImages(List<Integer> nameImages) {
         StringBuilder idRange = new StringBuilder();
-        if (nameImages.size() == 1) idRange.append(nameImages.get(0));
+        if (nameImages.size() == 1) idRange.append(nameImages.getFirst());
         else
             for (int i = 0; i < nameImages.size(); i++) {
                 idRange.append(nameImages.get(i));

@@ -4,6 +4,16 @@ public class Category {
     private int id;
     private String nameType;
 
+    private String sizeTableImage;
+
+    public String getSizeTableImage() {
+        return sizeTableImage;
+    }
+
+    public void setSizeTableImage(String sizeTableImage) {
+        this.sizeTableImage = sizeTableImage;
+    }
+
     public int getId() {
         return id;
     }

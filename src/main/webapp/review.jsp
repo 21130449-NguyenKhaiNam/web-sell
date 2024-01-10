@@ -1,4 +1,8 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<jsp:useBean id="productFactory" class="utils.ProductFactory" scope="session"/>
+<c:set var="productId" value="${requestScope.productId}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,60 +37,92 @@
                 <div class="col-6">
                     <article class="product">
                         <div class="product__img">
-                            <img src="assets/img/product_img/product21.jpg" alt="">
+                            <img src="assets/img/product_img/${productFactory.getListImagesByProductId(productId).get(0).nameImage}"
+                                 alt="${productFactory.getListImagesByProductId(productId).get(0).nameImage}">
                         </div>
                         <div class="product__info">
-                            <h2 class="product__name"></h2>
-                            <p class="product__category">Phân loại: </p>
+                            <h2 class="product__name">${requestScope.nameProduct}</h2>
+                            <p class="product__category">Phân loại: ${productFactory.getNameCategoryById(productId)}</p>
+                            <c:set var="color" value="${requestScope.color}"/>
                             <p class="product__color">Màu
-                                <span class="color__code"></span>
+                                <span class="color__code" style="background-color: ${color}"></span>
                             </p>
-                            <p class="product__size">Kích thước:
-                                <span class="product__size--default"></span></p>
-                            <ul class="product__size--custom">
-<!--                                <li>-->
-<!--                                    Dài áo:-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    Ngang ngực:-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    Dài tay:-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    Rộng vai:-->
-<!--                                </li>-->
-                            </ul>
+                            <c:set var="sizes" value="${requestScope.sizes}"/>
+                            <c:choose>
+                                <c:when test="${fn:length(sizes) == 1}">
+                                    <p class="product__size">Kích thước:
+                                        <c:forEach var="size" items="${sizes}">
+                                            <span class="product__size--default">${size}</span>
+                                        </c:forEach>
+                                    </p>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="listParameter" value="${requestScope.listParameter}"/>
+                                    <ul class="product__size--custom">
+                                        <c:forEach var="size" items="${sizes}">
+                                            <li>${listParameter[loop.index]}: ${size}
+                                            </li>
+                                        </c:forEach>
+                                        <!--                                <li>-->
+                                        <!--                                    Dài áo:-->
+                                        <!--                                </li>-->
+                                        <!--                                <li>-->
+                                        <!--                                    Ngang ngực:-->
+                                        <!--                                </li>-->
+                                        <!--                                <li>-->
+                                        <!--                                    Dài tay:-->
+                                        <!--                                </li>-->
+                                        <!--                                <li>-->
+                                        <!--                                    Rộng vai:-->
+                                        <!--                                </li>-->
+                                    </ul>
+                                </c:otherwise>
+                            </c:choose>
+
                             <p class="product__quantity">
-                                Số lượng:
+                                Số lượng: ${requestScope.quantity}
                             </p>
                         </div>
                     </article>
                 </div>
                 <div class="col-6">
-                    <form class="review__form">
-                        <!--                        <h2 class="review__name">-->
-                        <!--                            &lt;!&ndash;User info: name&ndash;&gt;Lê Anh Đức-->
-                        <!--                        </h2>-->
-
+                    <form class="review__form" method="post" action="createReview">
+                        <input type="text" hidden="hidden" readonly name="orderProductId"
+                               value="${requestScope.orderDetailId}">
                         <!--Rating-->
-                        <div class="review__rating">
-                            <p>Chất lượng sản phẩm</p>
-                            <ul class="review__stars">
-                                <li class="review__star review__star--choose"></li>
-                                <li class="review__star review__star--choose"></li>
-                                <li class="review__star review__star--choose"></li>
-                                <li class="review__star review__star--choose"></li>
-                                <li class="review__star review__star--choose"></li>
-                            </ul>
-                            <p>Tệ</p>
+                        <div class="form__block">
+                            <div class="review__rating">
+                                <p>Chất lượng sản phẩm</p>
+                                <ul class="review__stars">
+                                    <c:forEach varStatus="loop" begin="1" end="5">
+                                        <c:choose>
+                                            <c:when test="${loop.index ==1}">
+                                                <label class="review__star review__star--choose">
+                                                    <input type="radio" name="ratingStar" hidden="hidden"
+                                                           value="${loop.index}">
+                                                </label>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <label class="review__star ">
+                                                    <input type="radio" name="ratingStar" hidden="hidden"
+                                                           value="${loop.index}">
+                                                </label>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </ul>
+                                <p>Tệ</p>
+                            </div>
                         </div>
 
                         <!--Desc-->
-                        <label class="review__desc">
-                            Đánh giá
-                            <textarea></textarea>
-                        </label>
+                        <div class="form__block">
+                            <label class="review__desc">
+                                Đánh giá
+                                <textarea name="desc"></textarea>
+                            </label>
+                            <p class="form__error"></p>
+                        </div>
                         <button class="review__submit button button--hover">
                             Hoàn thành
                         </button>
@@ -96,9 +132,8 @@
         </section>
     </div>
 </main>
-<%@include file="footer.jsp"%>
 <script src="js/base.js"></script>
-<script src="js/data.js"></script>
+<script src="js/validateForm.js"></script>
 <script src="js/review.js"></script>
 </body>
 </html>

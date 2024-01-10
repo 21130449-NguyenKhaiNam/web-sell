@@ -180,7 +180,7 @@ Validation.range = function (selectionInput, min, max) {
                     return "Trường này cần nhập số.";
                 }
             }
-            return (min <= value && value <= max) ? undefined : "Giá trị nhập quá giới hạn."
+            return (min <= Number(value) && Number(value) <= max) ? undefined : "Giá trị nhập quá giới hạn."
         }
     }
 }

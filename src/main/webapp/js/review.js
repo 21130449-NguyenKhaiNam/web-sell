@@ -1,10 +1,8 @@
 // Star rating
 function starRating() {
     const stars = document.querySelectorAll(".review__star");
-    const text = document.querySelector(".review__rating p:last-child");
-    let starCurrent = 4; //0->4
+    const text = document.querySelector(".review__rating p:last-child");let starCurrent = 4; //0->4
     const textArray = ["Tệ", "Không hài lòng", "Bình thường", "Rất hài lòng", "Tuyệt vời"]
-    starToText(starCurrent);
     stars.forEach(function (star, index) {
         star.onclick = function () {
             resetClass();
@@ -68,5 +66,13 @@ function loadProduct(productReview) {
         }
     }
 }
+var formObj = new Validation({
+    formSelector: ".review__form",
+    formBlockClass: "form__block",
+    errorSelector: ".form__error",
+    rules: [
+        Validation.isRequired(`textarea[name="desc"]`),
+    ],
+    submitSelector: ".review__submit",
 
-loadProduct(productReview);
+})

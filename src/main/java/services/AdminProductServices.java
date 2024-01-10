@@ -2,14 +2,9 @@ package services;
 
 import dao.*;
 import models.*;
-import utils.Comparison;
 
-import javax.servlet.http.Part;
-import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class AdminProductServices {
@@ -19,7 +14,6 @@ public class AdminProductServices {
     ColorDAO colorDAO = new ColorDAO();
     ImageDAO imageDAO = new ImageDAO();
     SizeDAO sizeDAO = new SizeDAO();
-
     ProductCardDAO productCardDAO = new ProductCardDAO();
 
     private AdminProductServices() {
@@ -34,7 +28,7 @@ public class AdminProductServices {
     public int addProduct(Product product) {
         List<Product> productList = productDAO.getIdProductByName(product.getName());
         if (!productList.isEmpty()) return 0;
-        productDAO.createProduct(product);
+        productDAO.addProduct(product);
         return productDAO.getIdProductByName(product.getName()).get(0).getId();
     }
 
@@ -220,4 +214,5 @@ public class AdminProductServices {
         }
 
     }
+
 }

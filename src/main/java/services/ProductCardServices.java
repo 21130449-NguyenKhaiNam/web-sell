@@ -155,6 +155,9 @@ public class ProductCardServices {
     public String getNameCategoryById(int id) {
         return productCardDAO.getNameCategoryById(id).get(0).getNameType();
     }
+    public String getNameProductById(int id) {
+        return productCardDAO.getNameProductById(id).get(0).getName();
+    }
 
     public List<Parameter> getParameterByIdCategory(int id) {
         return productCardDAO.getParametersByProductId(id);
@@ -163,4 +166,6 @@ public class ProductCardServices {
     public Category getCategoryById(int id) {
         return productCardDAO.getCategoryByProductId(id).get(0);
     }
+
+
 }

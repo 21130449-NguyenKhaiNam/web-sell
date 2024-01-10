@@ -1,13 +1,3 @@
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: unset;
-    height: unset;
-}
 .reload__btn {
     margin-left: 10px;
     border-radius: 5px;
@@ -62,76 +52,8 @@
     flex: 1;
 }
 /*Modal*/
-<<<<<<< HEAD
-.modal button {
-    font-size: 20px;
-    font-weight: 500;
-}
-
-.form__preview-img {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    --size: 300px;
-    width: var(--size);
-    height: var(--size);
-    background-color: #cccccc;
-    margin: 0 auto;
-    border: 1px solid #1f1f1f;
-}
-
-.form__preview-img img {
-    display: none;
-    width: 100%;
-    height: 100%;
-}
-
-.form__preview-icon {
-    font-size: 100px;
-}
-.form__desc{
-   padding-top: 24px;
-}
-/*Sizes*/
-.form__sizes, .form__colors {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.form__size, .form__color {
-    position: relative;
-    display: inline-block;
-}
-.form__size{
-    --size: 40px;
-    width: var(--size);
-    height: var(--size);
-    border-radius: 5px;
-    background-color: #FFFFFF;
-    border: 1px solid #ddd;
-}
-.form__color{
-    width: 80px;
-    height: 40px;
-}
-
-.form__size-input, .form__color-input {
-    width: 100%;
-    height: 100%;
-    padding: 0 5px;
-}
-.form__color-input{
-    padding: 0;
-}
-
-.form__size-delete, .form__color-delete {
-=======
 .modal__product{
     width: 90%;
->>>>>>> 2f2e062eb617b76e5cf7f6eee7de2166a2940dfa
     position: absolute;
     top: 5%;
     left: 50%;
@@ -147,7 +69,6 @@
     flex: 1;
 }
 
-<<<<<<< HEAD
 .form__add-size:hover, .form__size-delete:hover, .form__add-color:hover, .form__color-delete:hover {
     cursor: pointer;
     opacity: 0.8;
@@ -156,7 +77,6 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
->>>>>>> 2f2e062eb617b76e5cf7f6eee7de2166a2940dfa
 }
 
 .line-clamp.line-1 {

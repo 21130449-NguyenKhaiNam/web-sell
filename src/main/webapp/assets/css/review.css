@@ -67,6 +67,7 @@ main {
     width: 50px;
     height: 20px;
     background-color: red;
+    border: 1px solid #333333;
 }
 
 .product__quantity, .product__category, .product__color, .product__size, .product__size--default, .product__size--custom li {
@@ -174,4 +175,10 @@ main {
 
     --background-color-hover: var(--blue-color-low);
     --background-color: var(--blue-color-high);
+}
+.form__error{
+    height: 10px;
+    color: red;
+    font-size: 13px;
+    padding-top: 5px;
 }

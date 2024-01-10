@@ -1,78 +1,4 @@
-// Load product detail
-// function loadProduct() {
-//     let name = document.querySelector("h1");
-//     let basePrice = document.querySelector(".product__price--base");
-//     let salePrice = document.querySelector(".product__price--sale");
-//     let size = document.querySelector(".form__size-list");
-//     let desc = document.querySelector(".product__desc .desc__text");
-//     let reviews = document.querySelector(".review__list");
-//     let formParameter = document.querySelector(".form__parameter");
-//
-//     const vndFormat = Intl.NumberFormat("vi-VI", {
-//         style: "currency",
-//         currency: "VND",
-//     });
-//
-//     name.innerText = productDetail.name;
-//     basePrice.innerText = vndFormat.format(productDetail.basePrice);
-//     salePrice.innerText = vndFormat.format(productDetail.salePrice);
-//     desc.innerText = productDetail.desc;
-//
-//     function renderStar(quantity) {
-//         let star = "";
-//         for (let i = 1; i <= 5; i++) {
-//             if (i <= quantity) {
-//                 star += ` <li class="review__star review__start--archive"></li>`;
-//             } else {
-//                 star += ` <li class="review__star"></li>`;
-//             }
-//         }
-//         return star;
-//     }
-//
-//     let reviewsHTML = productDetail.reviews.map(function (element) {
-//         return `<article class="review">
-//                     <div class="review__avatar">
-//                         <img src="../assets/img/user/${element.avatar}" alt="">
-//                     </div>
-//                     <div class="review__account">
-//                         <h4 class="review__name">${element.nameUser}</h4>
-//                         <ul class="review__stars">
-//                            ${renderStar(element.star)}
-//                               <li class="review__date">${element.date}</li>
-//                         </ul>
-//
-//                         <p class="review__para line-clamp">${element.comment}
-//                         </p>
-//                     </div>
-//                 </article>`;
-//     });
-//     reviews.innerHTML = reviewsHTML.join("");
-//
-//     let parameterHTML = productDetail.parameter.map(function (element, index) {
-//         return ` <label class="form__block form__label">
-//                    ${element.name}
-//                     <div class="form__block-inner">
-//                         <input id="parameter-${index}" type="text" class="form__input">
-//                         <span class="form__unit">${element.unit}</span>
-//                     </div>
-//                     <span class="form__error"></span>
-//                 </label>`;
-//     });
-//     formParameter.innerHTML = parameterHTML.join("");
-//
-//     let sizeHTML = productDetail.size.map(function (element) {
-//         return ` <div class="form__size-item">
-//                     <label>
-//                         <input type="radio" name="size" class="form__radio" hidden="hidden">
-//                         ${element}
-//                     </label>
-//                 </div>`;
-//     });
-//     size.innerHTML = sizeHTML.join("");
-// }
 
-// loadProduct();
 // Form quantity
 var quantityCurrent = 1;
 var quantityInput = document.querySelector("#quantity");
@@ -163,6 +89,29 @@ var formObj = new Validation({
     onSubmit: addToCart,
 })
 
+function getFormData(form) {
+    const productId = encodeURIComponent(form.querySelector('input[name="productId"]').value);
+    const color = encodeURIComponent(form.querySelector('input[name="color"]').value);
+    const size = encodeURIComponent(form.querySelector('input[name="size"]').value);
+    const quantity = encodeURIComponent(form.querySelector('input[name="quantity"]').value);
+
+    const formData = `productId=${productId}&color=${color}&size=${size}&quantity=${quantity}`;
+
+    return formData;
+}
 function addToCart() {
-    console.log(1)
+    const form = document.getElementById("form__product");
+    const formData = getFormData(form);
+    $.ajax({
+        url: "AddToCart",
+        type: "POST",
+        data: formData,
+        contentType: "application/x-www-form-urlencoded",
+        processData: false,
+        success: function (data) {
+            document.querySelector(".qlt__value").innerText = data
+        },
+        error: function (error) {
+        },
+    });
 }

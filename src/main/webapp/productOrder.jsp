@@ -17,6 +17,10 @@
     <!--Các thư viện hỗ trợ-->
     <!--Font Awesome-->
     <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
+    <%--jquery--%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--Bootstrap-->
     <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
     <!--Favicon-->
@@ -32,17 +36,17 @@
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/productDetail.css">
     <link rel="stylesheet" href="assets/css/productOrder.css">
-    <title>Other sản phẩm</title>
+    <title>Orther sản phẩm</title>
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-<form class="form" action="#!">
+<form class="form" action="" method="post" id="form__product">
     <div class="container-xl order__log-padding">
         <%--So do --%>
         <div class="col-12">
             <h2 class="order__heading">Bảng số đo</h2>
             <div class="order__guide-size">
-                <img src="assets/img/sizeGuide/aoSoMiTayDaiSizeGuide.png" alt="">
+                <img src="assets/img/sizeGuide/${category.sizeTableImage}" alt="">
             </div>
         </div>
         <c:forEach var="parameter" items="${listParameter}" varStatus="loop">
@@ -56,7 +60,7 @@
                     <div class="col-5">
                         <label class="order__group">
                             <label class="order__parameter">
-                                <input id="parameter${loop.index}" class="order__input" type="text"
+                                <input id="parameter${loop.index}" class="order__input" type="text" name="parameter"
                                        placeholder="Hãy nhập số đo của ${fn:toLowerCase(parameter.name)}">
                                 <c:set var="unit" value="${parameter.unit}"/>
                                 <span class="order__unit">${unit}</span>
@@ -87,14 +91,14 @@
             </div>
             <div class="order__content">
                 <h1 class="order__name">${product.name}</h1>
-                <input type="text" value="${product.id}" hidden="hidden">
+                <input type="text" value="${product.id}" hidden="hidden" name="productId">
                 <div class=" form__block order__group">
                     <c:set var="colors" value="${productFactory.getListColorsByProductId(product.id)}"/>
                     <div class="form__choose-color">
                         <p class="form__title">Màu sắc</p>
                         <c:forEach var="color" items="${colors}">
                             <label class="form__color-check" style="background-color: ${color.codeColor}">
-                                <input type="radio" name="color" hidden="hidden">
+                                <input type="radio" name="color" hidden="hidden" value="${color.codeColor}">
                             </label>
                         </c:forEach>
                     </div>
@@ -107,7 +111,7 @@
                         <div class="form__quantity">
                             <div class="form__quantity-inner">
                                 <div class="form___quantity-btn form___quantity--decrease"></div>
-                                <input id="quantity" type="text" name="quantity" value="1" disabled>
+                                <input id="quantity" type="text" name="quantity" value="1" readonly>
                                 <div class="form___quantity-btn form___quantity--increase"></div>
                             </div>
                         </div>
