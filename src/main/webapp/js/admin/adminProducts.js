@@ -20,6 +20,23 @@ function getClose(modal) {
     return modal.querySelector(".modal__product-close");
 }
 
+<<<<<<< HEAD
+function paging() {
+    // Paging for product cart
+    const paging = new Paging({
+        itemSelector: "tbody .table__row",
+        displayShowType: "table-row",
+        limit: 8,
+        listPage: ".paging",
+        tagNameItemPage: "li",
+        classNameItemPage: "page",
+        activeItemPage: "page--current",
+        prevBtn: "page--prev",
+        nextBtn: "page--next",
+    });
+}
+loadListToTable(listProduct);
+=======
 //Read product
 const iframeRead = document.querySelector("#dialog-product-read .modal__product-iframe");
 const dataViewElement = document.querySelectorAll(".table__data-view");
@@ -90,3 +107,4 @@ dataUpdateElement.forEach(function (element) {
         }, pageTarget);
     }
 });
+>>>>>>> 2f2e062eb617b76e5cf7f6eee7de2166a2940dfa

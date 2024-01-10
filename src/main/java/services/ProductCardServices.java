@@ -167,5 +167,5 @@ public class ProductCardServices {
         return productCardDAO.getCategoryByProductId(id).get(0);
     }
 
-
 }
+

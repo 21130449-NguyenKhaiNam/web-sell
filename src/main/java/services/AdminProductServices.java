@@ -2,9 +2,14 @@ package services;
 
 import dao.*;
 import models.*;
+import utils.Comparison;
 
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class AdminProductServices {
@@ -14,6 +19,7 @@ public class AdminProductServices {
     ColorDAO colorDAO = new ColorDAO();
     ImageDAO imageDAO = new ImageDAO();
     SizeDAO sizeDAO = new SizeDAO();
+
     ProductCardDAO productCardDAO = new ProductCardDAO();
 
     private AdminProductServices() {
@@ -214,5 +220,4 @@ public class AdminProductServices {
         }
 
     }
-
 }
