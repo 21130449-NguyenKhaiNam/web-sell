@@ -2,11 +2,13 @@ package dao;
 
 import models.*;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ProductDao {
+
     public List<Image> getListImagesByProductId(int productId) {
         String sql = "SELECT id, nameImage, productId FROM Images WHERE productId = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Image.class, productId);

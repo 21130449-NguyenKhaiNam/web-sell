@@ -1,4 +1,4 @@
-<%@page contentType  = "text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,7 +96,7 @@
         </section>
     </div>
 </main>
-<%@include file="header.jsp"%>
+<%@include file="footer.jsp"%>
 <script src="js/base.js"></script>
 <script src="js/data.js"></script>
 <script src="js/review.js"></script>

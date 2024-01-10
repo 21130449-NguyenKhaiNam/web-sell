@@ -51,15 +51,15 @@ async function copyToClipboard(text) {
     }
 }
 
-function preventSubmitWithEmptyCode(){
-    const promoApplyForm = document.getElementById('promotion__form');
-    const inputPromoCode = promoApplyForm.querySelector("#promotion_code")
-    promoApplyForm.onsubmit = function (event){
-        if(inputPromoCode.value.trim() === '' || inputPromoCode.value.trim() === null){
-            event.preventDefault();
-        }else{
-            promoApplyForm.submit();
-        }
-    }
-}
-preventSubmitWithEmptyCode();
+// function preventSubmitWithEmptyCode(){
+//     const promoApplyForm = document.getElementById('promotion__form');
+//     const inputPromoCode = promoApplyForm.querySelector("#promotion_code")
+//     promoApplyForm.onsubmit = function (event){
+//         if(inputPromoCode.value.trim() === '' || inputPromoCode.value.trim() === null){
+//             event.preventDefault();
+//         }else{
+//             promoApplyForm.submit();
+//         }
+//     }
+// }
+// preventSubmitWithEmptyCode();

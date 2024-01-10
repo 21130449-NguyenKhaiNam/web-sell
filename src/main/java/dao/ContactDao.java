@@ -14,4 +14,7 @@ public class ContactDao {
         GeneralDao.executeAllTypeUpdate("INSERT INTO contacts(userId, fullName, phone, email, subject, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subject, message);
     }
 
+    public static void main(String[] args) {
+        GeneralDao.executeAllTypeUpdate("UPDATE vouchers SET availableTurns = ? WHERE code = ?", 3, "MGG50%");
+    }
 }

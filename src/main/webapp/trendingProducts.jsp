@@ -107,6 +107,7 @@
     </div>
 </main>
 <%@ include file="footer.jsp" %>
+<script src="js/base.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
     function addToCartAjax(){
@@ -133,6 +134,14 @@
                             url: form.attr('action'),
                             data: {productId: productId},
                             success: function (response) {
+                                let addToCartSuccessHTML = `<div class="notification__cart">
+                                                                <div class="status__success">
+                                                                    <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>
+                                                                    <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>
+                                                                </div>
+                                                                <a class="view__cart" href="shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                            </div>`;
+                                $('.cart__wrapper').append(addToCartSuccessHTML)
                                 $('.qlt__value').text(response);
                             },
                             error: function (error){

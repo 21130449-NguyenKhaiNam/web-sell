@@ -59,6 +59,5 @@ public class ProductServices {
     public Color getColorByCodeColorWithProductId(String codeColor, int productId) {
         return productDao.getColorByCodeColorWithProductId(codeColor, productId);
     }
-
 }
 

@@ -272,7 +272,7 @@
     border: 1px solid var(--blue-color-high);
 }
 
-#promotion_code{
+#promotion__code{
     flex: 1;
 }
 
@@ -385,14 +385,14 @@
     line-height: 16px;
 }
 
-.invoice__promotion .summary__invoice .invoice__detail--info .price__item:last-child:hover{
-    cursor: pointer;
-}
+/*.invoice__promotion .summary__invoice .invoice__detail--info .price__item:last-child:hover{*/
+/*    cursor: pointer;*/
+/*}*/
 
-.invoice__promotion .summary__invoice .invoice__detail--info .price__item:last-child:hover .discount__note{
-    visibility: visible;
-    opacity: 1;
-}
+/*.invoice__promotion .summary__invoice .invoice__detail--info .price__item:last-child:hover .discount__note{*/
+/*    visibility: visible;*/
+/*    opacity: 1;*/
+/*}*/
 
 
 .invoice__promotion .summary__invoice .price__items .price__value{
@@ -694,3 +694,66 @@
     width: 60px;
 }
 /* New update */
+
+.popup__deletion .popup__container{
+    position: fixed;
+    inset: 0px;
+    background-color: rgba(39, 39, 42, 0.7);
+    z-index: 999;
+    font-size: 14px;
+}
+
+.popup__deletion .popup__container .popup__content{
+    position: absolute;
+    inset: 50% 40px auto 50%;
+    border: 1px solid rgb(204, 204, 204);
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 16px;
+    width: max-content;
+    transform: translate(-50%, -50%);
+    display: grid;
+    gap: 14px;
+}
+
+.popup__deletion .popup__container .popup__content .title__header{
+    display: grid;
+    gap: 10px;
+}
+
+.popup__deletion .popup__container .popup__content .title__header .title{
+    font-weight: 600;
+    display: flex;
+    gap: 6px;
+    font-size: 18px;
+}
+
+.popup__deletion .popup__container .popup__content .title__header .title i{
+    color: #FF820A;
+}
+
+.popup__deletion .popup__container .popup__content .button__control{
+    display: flex;
+    text-align: center;
+    line-height: 20px;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.popup__deletion .popup__container .popup__content .button__control button{
+    padding: 8px 12px;
+    border: 1px solid var(--blue-color-high);
+    color: var(--blue-color-high);
+    border-radius: 4px;
+    background-color: transparent;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.popup__deletion .popup__container .popup__content .button__control .cancel__button{
+    background-color: var(--blue-color-high);
+    color: white;
+}

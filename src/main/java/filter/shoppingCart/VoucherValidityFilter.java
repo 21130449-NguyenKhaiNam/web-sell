@@ -1,6 +1,7 @@
 package filter.shoppingCart;
 
 import models.ShoppingCart;
+import models.User;
 import models.Voucher;
 import services.ShoppingCartServices;
 import utils.FormatCurrency;
@@ -26,17 +27,21 @@ public class VoucherValidityFilter implements Filter {
         String requestURI = request.getServletPath();
 
         HttpSession session = request.getSession(true);
-        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        User userAuth = (User) session.getAttribute("auth");
+        if (userAuth != null){
+            String userIdCart = String.valueOf(userAuth.getId());
+            ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
-        if (!requestURI.contains("shoppingCart.jsp") && !requestURI.contains("ShoppingCart") && !requestURI.contains("IncreaseQuantity")
-                && !requestURI.contains("DecreaseQuantity") && !requestURI.contains("DeleteCartProduct") && !requestURI.contains("ApplyVoucher")) {
-            session.removeAttribute("successApplied");
-            session.removeAttribute("failedApply");
-            session.removeAttribute("code");
+            if (!requestURI.contains("shoppingCart.jsp") && !requestURI.contains("ShoppingCart") && !requestURI.contains("IncreaseQuantity")
+                    && !requestURI.contains("DecreaseQuantity") && !requestURI.contains("DeleteCartProduct") && !requestURI.contains("ApplyVoucher") && !requestURI.contains("checkout.jsp") && !requestURI.contains("Checkout")) {
+                session.removeAttribute("successApplied");
+                session.removeAttribute("failedApply");
+                session.removeAttribute("promotionCode");
 
-            if (cart != null && cart.getVoucherApplied() != null) {
-                cart.setVoucherApplied(null);
-                session.setAttribute("cart", cart);
+                if (cart != null && cart.getVoucherApplied() != null) {
+                    cart.setVoucherApplied(null);
+                    session.setAttribute(userIdCart, cart);
+                }
             }
         }
         filterChain.doFilter(request, response);

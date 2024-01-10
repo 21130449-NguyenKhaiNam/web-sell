@@ -40,16 +40,24 @@ public class GeneralDao {
 
     //Use for delete, insert and update statements
     public static void executeAllTypeUpdate(String sql, Object... params) {
+//        jdbi.withHandle(handle -> {
+//            Update update = handle.createUpdate(sql);
+//            for(int i = 0; i < params.length; i++){
+//                update.bind(i, params[i]);
+//            }
+//            return update.execute();
+//        });
+//        JDBIConnector.get().withHandle(handle -> handle.execute(sql, params));
+
         try {
-            JDBIConnector.get().useHandle(handle -> {
-                handle.getConnection().setAutoCommit(false);
+            JDBIConnector.get().useTransaction(handle -> {
                 try {
+                    handle.getConnection().setAutoCommit(false);
                     handle.execute(sql, params);
-                    handle.commit();
-                } catch (Exception exception) {
-                    handle.rollback();
-                } finally {
-                    handle.close();
+                    handle.getConnection().commit();
+                }catch (Exception exception){
+                    handle.getConnection().rollback();
+                    throw new RuntimeException("Error executing SQL and handling transaction", exception);
                 }
             });
         } catch (SQLException e) {

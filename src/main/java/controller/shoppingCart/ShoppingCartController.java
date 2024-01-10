@@ -1,6 +1,7 @@
 package controller.shoppingCart;
 
 import models.ShoppingCart;
+import models.User;
 import models.Voucher;
 import services.ShoppingCartServices;
 
@@ -14,27 +15,54 @@ import java.util.List;
 public class ShoppingCartController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException{
+//        String action = request.getParameter("action");
+//        RequestDispatcher requestDispatcher;
+//        if (action != null){
+//            String productId = request.getParameter("productId");
+//            String cartProductIndex = request.getParameter("cartProductItem");
+//            request.setAttribute("productId", productId);
+//            request.setAttribute("cartProductIndex", cartProductIndex);
+//
+//            if (action.equals("increaseQuantity")){
+//                requestDispatcher = request.getRequestDispatcher("IncreaseQuantity");
+//                requestDispatcher.forward(request, response);
+//            } else if (action.equals("decreaseQuantity")) {
+//                requestDispatcher = request.getRequestDispatcher("DecreaseQuantity");
+//                requestDispatcher.forward(request, response);
+//            }else if(action.equals("removeCartProduct")){
+//                requestDispatcher = request.getRequestDispatcher("DeleteCartProduct");
+//                requestDispatcher.forward(request, response);
+//            }else if(action.equals("applyVoucher")){
+//                String code = request.getParameter("promotion__code");
+//                double temporaryPrice = Double.parseDouble(request.getParameter("tempPrice"));
+//                request.setAttribute("code", code);
+//                request.setAttribute("temporaryPrice", temporaryPrice);
+//                requestDispatcher = request.getRequestDispatcher("ApplyVoucher");
+//                requestDispatcher.forward(request, response);
+//            }
+//        }
+
         String action = request.getParameter("action");
         RequestDispatcher requestDispatcher;
         if (action != null){
             String productId = request.getParameter("productId");
-            String cartProductIndex = request.getParameter("cartProductItem");
+            String cartProductIndex = request.getParameter("cartProductIndex");
             request.setAttribute("productId", productId);
             request.setAttribute("cartProductIndex", cartProductIndex);
 
             if (action.equals("increaseQuantity")){
                 requestDispatcher = request.getRequestDispatcher("IncreaseQuantity");
                 requestDispatcher.forward(request, response);
-            } else if (action.equals("decreaseQuantity")) {
+            }else if (action.equals("decreaseQuantity")) {
                 requestDispatcher = request.getRequestDispatcher("DecreaseQuantity");
                 requestDispatcher.forward(request, response);
             }else if(action.equals("removeCartProduct")){
                 requestDispatcher = request.getRequestDispatcher("DeleteCartProduct");
                 requestDispatcher.forward(request, response);
-            }else if(action.equals("applyVoucher")){
-                String code = request.getParameter("promotion__code");
-                double temporaryPrice = Double.parseDouble(request.getParameter("tempPrice"));
-                request.setAttribute("code", code);
+            } else if(action.equals("applyVoucher")){
+                String promotionCode = request.getParameter("promotionCode");
+                double temporaryPrice = Double.parseDouble(request.getParameter("temporaryPrice"));
+                request.setAttribute("promotionCode", promotionCode);
                 request.setAttribute("temporaryPrice", temporaryPrice);
                 requestDispatcher = request.getRequestDispatcher("ApplyVoucher");
                 requestDispatcher.forward(request, response);

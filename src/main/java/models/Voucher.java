@@ -3,7 +3,7 @@ package models;
 import java.util.Date;
 
 public class Voucher {
-    private int id;
+    private Integer id;
     private String code;
     private String description;
     private double minimumPrice;
@@ -11,11 +11,11 @@ public class Voucher {
     private Date expiryDate;
     private int availableTurns;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

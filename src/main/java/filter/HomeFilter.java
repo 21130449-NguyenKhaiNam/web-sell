@@ -28,6 +28,8 @@ public class HomeFilter implements Filter {
         HttpSession session = request.getSession(true);
         session.setAttribute("listAllTrendingProducts", listAllTrendingProducts);
 
+//        System.out.println(request.getRequestURL());
+
         String url = request.getServletPath();
         if(url.contains("index.jsp") && !url.contains("error404.jsp")){
             response.sendRedirect("Home");
