@@ -74,7 +74,7 @@
                                             </p>
                                         </div>
                                     </a></div>
-                                    <div class="setting__item"><a href="account.jsp" class="setting__link">Tài
+                                    <div class="setting__item"><a href="Account" class="setting__link">Tài
                                         khoản
                                         của
                                         tôi</a>

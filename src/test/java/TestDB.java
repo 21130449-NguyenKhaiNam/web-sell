@@ -4,7 +4,10 @@ import dao.UserDAOImplement;
 import models.User;
 import services.AuthenticateServices;
 
+import java.sql.Date;
+
 import java.io.IOException;
+
 
 public class TestDB {
     public static void main(String[] args) throws IOException {
@@ -27,6 +30,13 @@ public class TestDB {
 ////            System.out.println( userDAO.updatePasswordEncoding(item.getId(), passEncoding));
 //        }
 //        System.out.println(  userDAO.updateTokenVerify(23, null));
+
+        UserDAO getUserByID = new UserDAOImplement();
+        System.out.println(getUserByID.getUserByID(1));
+
+        UserDAO testUpdateUser = new UserDAOImplement();
+        testUpdateUser.updateUserByID(1,"HieuNguyen","Nguyễn Chí Hai","Nam","HieuNguyen@gmail.com","0703637448","164 Ngô Tất Tố, Bình Định", Date.valueOf("1990-01-01"));
+
     }
     public void checkUser(int id){
 

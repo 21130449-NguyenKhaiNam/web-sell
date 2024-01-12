@@ -266,12 +266,13 @@ form{
     width: inherit;
 }
 #search-input{
-    width: calc(100% - 40px); /* Adjust the padding and margin */
+    width: calc(100% - 40px);
     margin-left: 30px;
     padding-bottom: 2px;
     border-bottom: 1px solid #555;
 }
-/* CSS cho Dialog */
+
+/*DialogDeleteUser*/
 .modal {
     display: none;
     position: fixed;
@@ -311,7 +312,7 @@ form{
 
 .modal__footer {
     display: flex;
-    justify-content: flex-end;
+    /*justify-content: flex-end;*/
 }
 
 .button__cancel, .button__delete--dialog {
@@ -341,7 +342,6 @@ form{
     margin-left: 10px;
 }
 
-/* Hover effect for buttons */
 .button:hover {
     filter: brightness(0.9);
 }
@@ -356,3 +356,129 @@ form{
 .fa-xmark:hover {
     color: #333;
 }
+
+/*DialogAddUser*/
+#add-user-dialog, #update-user-dialog {
+    display: none;
+}
+
+#add-user-dialog .modal__content, #update-user-dialog .modal__content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#add-user-dialog .modal__header, #update-user-dialog .modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#add-user-dialog .modal__header h1, #update-user-dialog .modal__header h1 {
+    margin: 0;
+    font-size: 18px;
+}
+
+#add-user-dialog .modal__body, #update-user-dialog .modal__body {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#add-user-dialog form label, #update-user-dialog form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#add-user-dialog form input,
+#add-user-dialog form select,
+#update-user-dialog form input,
+#update-user-dialog form select{
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#add-user-dialog form .modal__footer, #update-user-dialog form .modal__footer {
+    display: flex;
+}
+
+#add-user-dialog form .button, #update-user-dialog form .button{
+    cursor: pointer;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#add-user-dialog form .button__cancel, #update-user-dialog form .button__cancel {
+    background-color: #ccc;
+    color: #333;
+}
+
+#add-user-dialog form .button__add-user, #update-user-dialog form .button__update-user {
+    background-color: #4caf50;
+    color: #fff;
+    margin-left: 10px;
+}
+
+#add-user-dialog form .button:hover, #update-user-dialog form .button:hover {
+    filter: brightness(0.9);
+}
+
+#add-user-dialog .fa-xmark, #update-user-dialog .fa-xmark {
+    cursor: pointer;
+    font-size: 16px;
+    color: #555;
+}
+
+#add-user-dialog .fa-xmark:hover, #update-user-dialog .fa-xmark:hover {
+    color: #333;
+}
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    font-weight: 500;
+}
+
+.pagination a{
+    padding: 8px 0px;
+    min-width: 30px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.pagination a[class="page__forward"]{
+    color: var(--blue-color-high);
+}
+
+.pagination a[class="page__forward"]:hover{
+    background-color: var(--blue-color-medium);
+    color: white;
+}
+
+.pagination a[class="active"]{
+    background-color: var(--blue-color-high);
+    color: white;
+}
+
+.next__page, .previous__page{
+    color: var(--blue-color-high);
+    font-size: 18px;
+}
+
+.next__page:hover, .previous__page:hover{
+    background-color: var(--blue-color-medium);
+    color: white;
+}
+
