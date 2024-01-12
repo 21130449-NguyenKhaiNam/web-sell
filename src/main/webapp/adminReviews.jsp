@@ -45,7 +45,7 @@
                 <li class="navbar__item"><a href="adminUsers.jsp"
                                             class="navbar__link button button button--hover ">Khách hàng</a>
                 </li>
-                <li class="navbar__item"><a href="adminReview.jsp"
+                <li class="navbar__item"><a href="adminReviews.jsp"
                                             class="navbar__link button button button--hover navbar__link--clicked">Nhận
                                                                                                                    xét</a>
                 </li>
@@ -63,13 +63,9 @@
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
                         <span id="button-create-product" class="button button__add">
-                            <i class="fa-solid fa-plus"></i>
-                            Thêm sản phẩm
+                            <i class="fa-solid fa-eye-slash"></i>
+                            Ẩn sản phẩm
                         </span>
-                        <div id="button-remove-product" class="button button__delete">
-                            <i class="fa-solid fa-minus"></i>
-                            Xóa sản phẩm
-                        </div>
                     </div>
                     <div class="table__wrapper">
                         <table class="table">
@@ -80,7 +76,7 @@
                                 </th>
                                 <th class="table__head">Mã đơn hàng</th>
                                 <th class="table__head">Số sao</th>
-                                <th class="table__head">Số sao</th>
+                                <th class="table__head">Ngày tạo</th>
                             </tr>
                             </thead>
                             <tbody>

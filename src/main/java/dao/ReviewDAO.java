@@ -43,6 +43,13 @@ public class ReviewDAO {
         GeneralDao.executeAllTypeUpdate(sql.toString(), review.getUserId(), review.getOrderDetailId(), review.getRatingStar(), review.getFeedback(), review.getReviewDate());
     }
 
+    public List<Review> getReviews(int pageNumber, int limit) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT userId, orderDetailId, ratingStar, feedback, ")
+                .append("VALUES  (?,?,?,?,?)");
+       return  GeneralDao.executeQueryWithSingleTable(sql.toString(), Review.class);
+    }
+
 //    public List<Review> getReviewByOrderDetail(int orderDetailId) {
 //        StringBuilder sql = new StringBuilder();
 //        sql.append("SELECT userId, ratingStar, feedback, reviewDate ")

@@ -249,7 +249,7 @@ public class ProductCardDAO {
 
     public List<Category> getCategoryByProductId(int id) {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT nameType, sizeTableImage ")
+        sql.append("SELECT nameType, styleGuideImage ")
                 .append("FROM categories JOIN products ON products.categoryId = categories.id ")
                 .append("WHERE products.id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Category.class, id);

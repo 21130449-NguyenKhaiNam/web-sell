@@ -49,7 +49,9 @@
                                             class="navbar__link button button button--hover ">Khách
                                                                                               hàng</a>
                 </li>
-
+                <li class="navbar__item"><a href="adminReviews.jsp"
+                                            class="navbar__link button button button--hover ">Nhận xét</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -74,7 +76,7 @@
                                     <span>Từ:</span>
 
                                     <input type="date" name="date"
-                                           id="date-start" placeholder="dd-mm-yyyy" ">
+                                           id="date-start" placeholder="dd-mm-yyyy">
 
                                 </label>
                                 <label class="filter__date">
@@ -127,7 +129,7 @@
                         <span class="filter__separate"></span>
                         <div class="filter__group">
                             <span class="filter__title">Kích cỡ</span>
-                            <div class="filter__radio-list">
+                            <div class="filter__radio-grid">
                                 <c:forEach items="${requestScope.sizeList}" var="item">
                                     <label class="filter__radio-item">
                                         <input name="size" value="${item.nameSize}" type="checkbox"
@@ -208,7 +210,7 @@
                                         <p class="table__cell">${item.id}</p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell">${item.name}</p>
+                                        <p class="table__cell line-clamp line-1">${item.name}</p>
                                     </td>
                                     <td class="table__data">
                                         <p class="table__cell">${productFactory.getNameCategoryById(item.id)}</p>
@@ -229,7 +231,6 @@
                         </table>
                     </div>
                     <!--Paging-->
-                    <%System.out.println(request.getAttribute("quantityPage"));%>
                     <ul class="paging">
                         <c:if test="${requestScope.quantityPage != 0}">
                             <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
@@ -272,7 +273,16 @@
     </article>
     <div class="modal__blur"></div>
 </div>
-
+<div id="dialog-product-update" class="modal">
+    <article class="modal__content modal__product">
+        <div>
+            <h1>Cập nhập sản phẩm</h1>
+            <i class="modal__product-close fa-solid fa-xmark"></i>
+        </div>
+        <iframe class="modal__product-iframe" src="adminProductUpdateForm.jsp" frameborder="0"></iframe>
+    </article>
+    <div class="modal__blur"></div>
+</div>
 <script src="js/admin/adminProducts.js"></script>
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
@@ -317,8 +327,6 @@
     <% if (dateEnd != null){%>
     checkDate(document.querySelector("#date-end"), "<%=dateEnd%>");
     <%}%>
-
-
 </script>
 </body>
 </html>

@@ -128,7 +128,11 @@ public class ProductCardServices {
         List<Product> result = new ArrayList<>();
         if ((productList.size() - quantity) < 10) {
             for (int i = 0; i < quantity; i++) {
-                result.add(productList.get(i));
+                try {
+                    result.add(productList.get(i));
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
             }
             return result;
         }
@@ -155,9 +159,6 @@ public class ProductCardServices {
     public String getNameCategoryById(int id) {
         return productCardDAO.getNameCategoryById(id).get(0).getNameType();
     }
-    public String getNameProductById(int id) {
-        return productCardDAO.getNameProductById(id).get(0).getName();
-    }
 
     public List<Parameter> getParameterByIdCategory(int id) {
         return productCardDAO.getParametersByProductId(id);
@@ -167,5 +168,7 @@ public class ProductCardServices {
         return productCardDAO.getCategoryByProductId(id).get(0);
     }
 
+    public String getNameProductById(int productId) {
+        return productCardDAO.getNameProductById(productId).get(0).getName();
+    }
 }
-
