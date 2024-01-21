@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<jsp:useBean id="productFactory" class="utils.ProductFactory" scope="session"/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,6 +14,10 @@
     <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
     <!--Bootstrap-->
     <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
+    <%--jquery--%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--Favicon-->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
@@ -26,7 +31,8 @@
     <link rel="stylesheet" href="assets/css/admin/admin.css">
     <link rel="stylesheet" href="assets/css/productBuying.css">
     <link rel="stylesheet" href="assets/css/admin/adminProducts.css">
-    <title>Nhận xét</title>
+    <link rel="stylesheet" href="assets/css/admin/adminReviews.css">
+    <title>Quản lý nhận xét</title>
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
@@ -49,7 +55,9 @@
                                             class="navbar__link button button button--hover navbar__link--clicked">Nhận
                                                                                                                    xét</a>
                 </li>
-
+                <li class="navbar__item"><a href="adminCategories.jsp"
+                                            class="navbar__link button button button--hover ">Phân loại</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -59,28 +67,24 @@
                 <div class="col-12">
                     <div>
                         <h1>Danh sách nhận xét</h1>
-                        <span class="reload__btn">
-                            <i class="reload__icon fa-solid fa-rotate"></i>
-                        </span>
-                        <span id="button-create-product" class="button button__add">
-                            <i class="fa-solid fa-eye-slash"></i>
-                            Ẩn sản phẩm
-                        </span>
                     </div>
                     <div class="table__wrapper">
                         <table class="table">
                             <thead>
                             <tr class="table__row">
+                                <th class="table__head">Xem</th>
+                                <th class="table__head table__head-id">Id</th>
                                 <th class="table__head">Mã khách hàng</th>
                                 <th class="table__head">Tên sản phẩm
                                 </th>
                                 <th class="table__head">Mã đơn hàng</th>
                                 <th class="table__head">Số sao</th>
                                 <th class="table__head">Ngày tạo</th>
+                                <th class="table__head">Hiển thị</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:set var="list" value="${requestScope.productCardList}"/>
+                            <c:set var="list" value="${requestScope.listReview}"/>
                             <c:forEach var="item" items="${list}">
                                 <tr class="table__row">
                                     <td class="table__data-view">
@@ -88,30 +92,37 @@
                                             <i class="fa-solid fa-eye"></i>
                                         </label>
                                     </td>
-                                    <td class="table__data-edit">
-                                        <label>
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </label>
-                                    </td>
                                     <td class="table__data table__data-id">
                                         <p class="table__cell">${item.id}</p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell line-clamp line-1">${item.name}</p>
+                                        <p class="table__cell">${item.userId}</p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell">${productFactory.getNameCategoryById(item.id)}</p>
-                                    </td>
-                                    <fmt:formatNumber value="${item.originalPrice}" type="currency" currencyCode="VND"
-                                                      var="originalPrice"/>
-                                    <fmt:formatNumber value="${item.salePrice}" type="currency" currencyCode="VND"
-                                                      var="salePrice"/>
-                                    <td class="table__data">
-                                        <p class="table__cell">${salePrice}</p>
+                                        <p class="table__cell ">${productFactory.getNameProductByIdOrderDetail(item.orderDetailId)}</p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell">${originalPrice}</p>
+                                        <p class="table__cell">${item.orderDetailId}</p>
                                     </td>
+                                    <td class="table__data">
+                                        <p class="table__cell">${item.ratingStar}</p>
+                                    </td>
+                                    <fmt:formatDate var="dateReview" pattern="dd-MM-yyyy" value="${item.reviewDate}"/>
+                                    <td class="table__data">
+                                        <p class="table__cell">${dateReview}</p>
+                                    </td>
+                                    <c:choose>
+                                        <c:when test="${item.visibility==true}">
+                                            <td class="table__data table__data-visibility table__data-hide">
+                                                <div class="button button--hover button__hide">Ẩn</div>
+                                            </td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td class="table__data table__data-visibility table__data-un-hide">
+                                                <div class="button button--hover button__un-hide">Bỏ ẩn</div>
+                                            </td>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -140,5 +151,16 @@
         </div>
     </section>
 </main>
+<div id="dialog-review-read" class="modal">
+    <article class="modal__content modal__product">
+        <div>
+            <h1>Nhận xét chi tiết</h1>
+            <i class="modal__product-close  modal__review-close fa-solid fa-xmark"></i>
+        </div>
+        <iframe class="modal__product-iframe" src="adminReviewForm.jsp" frameborder="0"></iframe>
+    </article>
+    <div class="modal__blur"></div>
+</div>
+<script src="js/admin/adminReviews.js"></script>
 </body>
 </html>

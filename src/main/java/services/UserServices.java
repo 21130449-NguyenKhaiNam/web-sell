@@ -2,6 +2,7 @@ package services;
 
 import dao.UserDAO;
 import dao.UserDAOImplement;
+import models.User;
 
 public class UserServices {
     private static UserServices INSTANCE;
@@ -17,9 +18,7 @@ public class UserServices {
         return INSTANCE;
     }
 
-
-    public String getAvatar(int id) {
-        return userDAO.getAvatar(id).get(0).getAvatar();
+    public User getUser(int userId) {
+        return userDAO.getUserByID(userId).get(0);
     }
-
 }

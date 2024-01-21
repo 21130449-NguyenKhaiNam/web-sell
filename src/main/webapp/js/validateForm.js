@@ -184,6 +184,46 @@ Validation.range = function (selectionInput, min, max) {
         }
     }
 }
+Validation.greaterThan = function (selectionInput, selectionMinValue) {
+    return {
+        element: selectionInput,
+        check: function (value) {
+            for (let i = 0; i < value.length; i++) {
+                if (isNaN(Number(value))) {
+                    return "Trường này cần nhập số.";
+                }
+            }
+            const min = document.getElementById(selectionMinValue).value;
+            if (min.trim() == "") {
+                return undefined;
+            }
+            if (min >= Number(value)) {
+                return `Giá trị nhập phải lớn hơn ${min}`;
+            }
+            return undefined;
+        }
+    }
+}
+Validation.smallerThan = function (selectionInput, selectionMaxValue) {
+    return {
+        element: selectionInput,
+        check: function (value) {
+            for (let i = 0; i < value.length; i++) {
+                if (isNaN(Number(value))) {
+                    return "Trường này cần nhập số.";
+                }
+            }
+            const max = document.getElementById(selectionMaxValue).value;
+            if (max.trim() == "") {
+                return undefined;
+            }
+            if (max <= Number(value)) {
+                return `Giá trị nhập phải bé hơn ${max}`;
+            }
+            return undefined;
+        }
+    }
+}
 function getParent(child, parent) {
     while (!child.classList.contains(parent)) {
         child = child.parentElement;

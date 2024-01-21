@@ -46,7 +46,7 @@
         <div class="col-12">
             <h2 class="order__heading">Bảng số đo</h2>
             <div class="order__guide-size">
-                <img src="assets/img/sizeGuide/${category.sizeTableImage}" alt="">
+                <img src="assets/img/size_table/${category.sizeTableImage}" alt="">
             </div>
         </div>
         <c:forEach var="parameter" items="${listParameter}" varStatus="loop">
@@ -75,7 +75,7 @@
                         <%--Image--%>
                     <div class="offset-1 col-6">
                         <div class="order__guide-parameter">
-                            <img src="assets/img/step_guide/coAo.jpg" alt="">
+                            <img src="assets/img/parameter_guide/coAo.jpg" alt="">
                         </div>
                     </div>
                 </div>

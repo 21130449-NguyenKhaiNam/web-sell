@@ -42,7 +42,6 @@ public class ShowReview extends HttpServlet {
         OrderDetail orderDetail = ReviewServices.getINSTANCE().getOrderDetail(orderDetailId);
 
         String color =orderDetail.getColorRequired();
-        System.out.println(orderDetail.getSizeRequired());
         String[] sizes = readSizes(orderDetail.getSizeRequired());
         int quantity = orderDetail.getQuantityRequired();
         int productId = orderDetail.getProductId();

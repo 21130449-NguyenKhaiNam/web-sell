@@ -49,4 +49,8 @@ public class ProductFactory {
     public static String getNameCategoryById(int id) {
         return ProductCardServices.getINSTANCE().getNameCategoryById(id);
     }
+
+    public static String getNameProductByIdOrderDetail(int orderDetailId) {
+        return ProductCardServices.getINSTANCE().getNameProductByIdOrderDetail(orderDetailId);
+    }
 }

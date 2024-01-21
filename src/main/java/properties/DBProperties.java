@@ -10,8 +10,8 @@ public class DBProperties {
     private static String password;
     private static String port;
     private static String name;
+    private static int connectionSize;
 
-    public static void main(String[] args) {System.out.println(getHost());}
 
     static {
         InputStream inputStream = DBProperties.class.getClassLoader().getResourceAsStream("db.properties");
@@ -24,7 +24,7 @@ public class DBProperties {
             password = properties.getProperty("password");
             port = properties.getProperty("port");
             name = properties.getProperty("name");
-
+//            connectionSize = Integer.parseInt(properties.getProperty("connection.size"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

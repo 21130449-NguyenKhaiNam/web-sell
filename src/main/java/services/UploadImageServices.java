@@ -19,7 +19,7 @@ public class UploadImageServices {
         if (!rootFolder.exists()) rootFolder.mkdirs();
     }
 
-    public boolean isPartImage(Part part) {
+    public static boolean isPartImage(Part part) {
         if (part != null) {
             String contentType = part.getContentType();
             if (contentType != null && contentType.startsWith("image/")) {

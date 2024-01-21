@@ -61,62 +61,58 @@ window.addEventListener('message', function (event) {
 
         const imgPreviewsExist = document.querySelector(".form__img-exist .img__previews");
 
-        // async function asyncImageLoading(images) {
-        //     // Get the current URL to fetch img from server
-        //     const currentURL = window.location.href;
-        //     const url = new URL(currentURL);
-        //     const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
-        //
-        //     function addImages(blobUrl) {
-        //         const imageHTML = `<div class="img__preview">
-        //                                     <img src="${blobUrl}" alt="">
-        //                                      <i class="form__img-delete fa-solid fa-xmark"></i>
-        //                                   </div>`
-        //         imgPreviewsExist.insertAdjacentHTML("beforeend", imageHTML);
-        //         const lastElement = imgPreviewsExist.lastElementChild;
-        //         lastElement.querySelector(".form__img-delete").addEventListener("click", function (e) {
-        //             removeImg(lastElement);
-        //         })
-        //     }
-        //
-        //     function removeImg(addedFormImg) {
-        //         addedFormImg.remove()
-        //     }
-        //
-        //     for (let i = 0; i < images.length; i++) {
-        //         const url = `${basePath}/read-image?name=${images[i]["nameImage"]}`
-        //         const response = await fetch(url)
-        //         const blob = await response.blob();
-        //         const blobUrl = URL.createObjectURL(blob);
-        //         addImages(blobUrl);
-        //     }
-        // }
+        function fetchImage(name) {
+            return new Promise(async (resolve, reject) => {
+                const currentURL = window.location.href;
+                const url = new URL(currentURL);
+                const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
 
-        function imagesLoading(images) {
-            // Get the current URL to fetch img from server
-            const currentURL = window.location.href;
-            const url = new URL(currentURL);
-            const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
-            for (let i = 0; i < images.length; i++) {
-                const url = `${basePath}/read-image?name=${images[i]["nameImage"]}`
-                const response = fetch(url)
-                // const blob = response.blob();
-                // const blobUrl = URL.createObjectURL(blob);
-                response.then(function (response) {
+                const imageUrl = `${basePath}/read-image?name=${name}`;
+
+                try {
+                    const response = await fetch(imageUrl);
+
                     if (!response.ok) {
                         throw new Error('Network response was not ok.');
                     }
-                    return response.blob();
-                })
-                    .then(function (blob) {
-                        addImages(blob);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+
+                    const blob = await response.blob();
+                    resolve(blob);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+
+        async function imagesLoading(images) {
+            const imagePromises = images.map((image) => fetchImage(image.nameImage));
+
+            try {
+                const imageBlobs = await Promise.all(imagePromises);
+
+                for (let i = 0; i < imageBlobs.length; i++) {
+                    if (i === imageBlobs.length - 1) {
+                        addImages(imageBlobs[i], true);
+                    } else {
+                        addImages(imageBlobs[i]);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+
+        function addImages(blob, last) {
+            function removeImg(addedFormImg) {
+                addedFormImg.remove()
+                const lastElement = imgPreviewsExist.lastElementChild;
+                lastElement.insertAdjacentHTML("beforeend", ` <i class="form__img-delete fa-solid fa-xmark"></i>    `);
+                lastElement.querySelector(".form__img-delete").addEventListener("click", function (e) {
+                    removeImg(lastElement);
+                });
             }
 
-            function addImages(blob) {
+            if (last) {
                 const imageHTML = `<div class="img__preview">
                                             <img src="${URL.createObjectURL(blob)}" alt="">
                                              <i class="form__img-delete fa-solid fa-xmark"></i>    
@@ -125,13 +121,15 @@ window.addEventListener('message', function (event) {
                 const lastElement = imgPreviewsExist.lastElementChild;
                 lastElement.querySelector(".form__img-delete").addEventListener("click", function (e) {
                     removeImg(lastElement);
-                })
-            }
-
-            function removeImg(addedFormImg) {
-                addedFormImg.remove()
+                });
+            } else {
+                const imageHTML = `<div class="img__preview">
+                                            <img src="${URL.createObjectURL(blob)}" alt="">
+                                            </div>`
+                imgPreviewsExist.insertAdjacentHTML("beforeend", imageHTML);
             }
         }
+
 
         // apply rule for form -> add exist rule of field
         let ruleObj = {

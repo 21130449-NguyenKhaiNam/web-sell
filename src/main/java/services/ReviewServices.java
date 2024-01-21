@@ -22,7 +22,7 @@ public class ReviewServices {
         return INSTANCE;
     }
     public List<Review> getListReview(int productId) {
-        return reviewDAO.getReview(productId);
+        return reviewDAO.getReviewByProductId(productId, true);
     }
 
     public boolean hasReview(int orderDetailId) {

@@ -24,11 +24,12 @@ public class AdminReviews implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         List<Review> listReview  = AdminReviewServices.getINSTANCE().getReviews(DEFAULT_PAGE);
         request.setAttribute("listReview", listReview);
-        int quantityPage = AdminProductServices.getINSTANCE().getQuantityPage();
+        int quantityPage = AdminReviewServices.getINSTANCE().getQuantityPage();
         request.setAttribute("quantityPage", quantityPage);
         String requestURL = "/filterProductAdmin?";
         request.setAttribute("requestURL", requestURL);
         chain.doFilter(request, response);
     }
+    
 }
  

@@ -1,5 +1,4 @@
 
-/*---------------------*/
 .form__label {
     margin-top: 20px;
 }
@@ -112,6 +111,9 @@ h2 {
     position: absolute;
     top: -10px;
     right: -10px;
+    left: unset;
+    bottom: unset;
+    transform: unset;
     z-index: 1;
     display: flex;
     align-items: center;

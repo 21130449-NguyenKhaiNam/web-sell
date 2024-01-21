@@ -47,7 +47,7 @@
                         <!--Account show (After log in success)-->
                         <div class="account__wrapper">
                             <!--Giỏ hàng-->
-                            <c:if test="${auth.role == false}">
+
                                 <div class="cart__wrapper">
                                     <a href="shoppingCart.jsp" class="cart">
                                         <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
@@ -62,31 +62,35 @@
                                         </span>
                                     </a>
                                 </div>
-                            </c:if>
+
                             <div class="account">
                                 <i class="account__icon fa-regular fa-user"></i>
                                 <div class="setting__list">
-                                    <div class="setting__item"><a href="#!" class="setting__link">
-                                        <div class="account__info">
-                                            <i class="account__icon fa-regular fa-user"></i>
-                                            <p class="account__name">
-                                                <c:out value="${auth.getUsername()}"/>
-                                            </p>
+                                    <a href="Account" class="setting__item">
+                                        <div class="setting__link">
+                                            <div class="account__info">
+                                                <i class="account__icon fa-regular fa-user"></i>
+                                                <p class="account__name">
+                                                    <c:out value="${auth.getUsername()}"/>
+                                                </p>
+                                            </div>
                                         </div>
-                                    </a></div>
-                                    <div class="setting__item"><a href="Account" class="setting__link">Tài
-                                        khoản
-                                        của
-                                        tôi</a>
-                                    </div>
+                                    </a>
+                                    <a href="Account" class="setting__item">
+                                        <div class="setting__link">Tài khoản của tôi
+                                        </div>
+                                    </a>
                                     <c:if test="${auth.role == 2 || auth.role == 1}">
-                                        <div class="setting__item"><a href="adminProducts.jsp" class="setting__link">Quản
-                                                                                                                       lý</a>
+                                    <a href="adminProducts.jsp" class="setting__item">
+                                        <div class="setting__link">Quản
+                                                                   lý
                                         </div>
                                     </c:if>
-                                    <div class="setting__item "><a href="signOut" class="setting__link setting__logOut">Đăng
-                                        xuất</a>
-                                    </div>
+                                        <a href="signOut" class="setting__item ">
+                                            <div class="setting__link setting__logOut">Đăng
+                                                                                       xuất
+                                            </div>
+                                        </a>
                                 </div>
                             </div>
                         </div>

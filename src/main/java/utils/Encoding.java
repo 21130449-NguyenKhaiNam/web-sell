@@ -65,7 +65,4 @@ public class Encoding {
         }
     }
 
-    public static void main(String[] args) {
-        Encoding.getINSTANCE().download("blob:http://localhost:8080/e153629b-bda1-4367-8bd7-1f20474a0ee", "D:\\WorkSpace\\image.png");
-    }
 }

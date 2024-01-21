@@ -1,4 +1,5 @@
 <%@ page import="java.util.List" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -120,7 +121,7 @@
                                 <div class="product__info">
                                     <c:url var="linkProductDetail" value="/showProductDetail">
                                         <c:param name="id" value="${item.id}"/>
-
+                                        <c:param name="ten-sapn-pham" value="${item.name}"/>
                                     </c:url>
                                     <a class="product__name" target="_blank"
                                        href="${linkProductDetail}">${item.name}</a>

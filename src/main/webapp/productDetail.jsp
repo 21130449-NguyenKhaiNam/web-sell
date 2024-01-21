@@ -175,36 +175,50 @@
 
                     <!--Reviews-->
                     <div class="product__review">
-                        <div class="review__list">
-                            <c:forEach var="review" items="${requestScope.listReview}">
-                                <article class="review">
-                                    <div class="review__avatar">
-                                        <img src="assets/img/user/${userFatory.getAvatar(review.userId)}" alt="" loading="lazy">
-                                    </div>
-                                    <div class="review__account">
-                                        <h4 class="review__name">User</h4>
-                                        <ul class="review__stars">
-                                            <c:forEach var="starA" begin="1" step="1"
-                                                       end="${review.ratingStar}">
-                                                <li class="review__star review__start--archive"></li>
-                                            </c:forEach>
-                                            <c:forEach var="starB" begin="1" step="1"
-                                                       end="${5 - review.ratingStar}">
-                                                <li class="review__star "></li>
-                                            </c:forEach>
-                                            <fmt:formatDate var="reviewDate" value="${review.reviewDate}" type="date"
-                                                            pattern="dd/MM/yyyy"/>
-                                            <span class="review__date">${reviewDate}</span>
-                                        </ul>
-                                        <p class="review__para line-clamp">${review.feedback}
-                                        </p>
-                                    </div>
-                                </article>
-                            </c:forEach>
 
-                        </div>
-                        <ul class="paging">
-                        </ul>
+                        <c:choose>
+                            <c:when test="${not empty requestScope.listReview}">
+                                <div class="review__list">
+                                    <c:forEach var="review" items="${requestScope.listReview}">
+                                        <c:set var="user" value="${userFatory.getUserById(review.userId)}"/>
+                                        <article class="review">
+                                            <div class="review__avatar">
+                                                <img src="assets/img/user/${user.avatar}" alt="${user.avatar}"
+                                                     loading="lazy">
+                                            </div>
+                                            <div class="review__account">
+                                                <h4 class="review__name">${user.fullName}</h4>
+                                                <ul class="review__stars">
+                                                    <c:forEach var="starA" begin="1" step="1"
+                                                               end="${review.ratingStar}">
+                                                        <li class="review__star review__start--archive"></li>
+                                                    </c:forEach>
+                                                    <c:if test="${review.ratingStar < 5}">
+                                                        <c:forEach var="starB" begin="1" step="1"
+                                                                   end="${5 - review.ratingStar}">
+                                                            <li class="review__star "></li>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                    <fmt:formatDate var="reviewDate" value="${review.reviewDate}"
+                                                                    type="date"
+                                                                    pattern="dd/MM/yyyy"/>
+                                                    <span class="review__date">${reviewDate}</span>
+                                                </ul>
+                                                <p class="review__para line-clamp">${review.feedback}
+                                                </p>
+                                            </div>
+                                        </article>
+                                    </c:forEach>
+                                </div>
+                                <ul class="paging">
+                                </ul>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="review__empty">
+                                    Sản phẩm này hiện chưa có nhận xét.
+                                </p>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
 

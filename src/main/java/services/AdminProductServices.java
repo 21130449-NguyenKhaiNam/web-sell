@@ -217,7 +217,14 @@ public class AdminProductServices {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public boolean updateVisibility(int productId, boolean visibility) {
+        if (productCardDAO.isVisibility(productId).isEmpty() || visibility == productCardDAO.isVisibility(productId).get(0).isVisibility()) {
+            return false;
+        }
+        productCardDAO.updateVisibility(productId, visibility);
+        return true;
     }
 
 }

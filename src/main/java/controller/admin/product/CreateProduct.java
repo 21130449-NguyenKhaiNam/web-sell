@@ -73,7 +73,7 @@ public class CreateProduct extends HttpServlet {
 
 //        Add Images
             Collection<Part> images = request.getParts();
-            uploadImg(images, 2);
+            uploadImg(images, productId);
             objJson.append("{\"status\":").append("true}");
         }
         response.getWriter().write(objJson.toString());

@@ -159,7 +159,7 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> getUserByID(int id) {
-        String querry = "SELECT id, username, email, fullName, gender, phone, address, birthDay FROM users WHERE id = ?";
+        String querry = "SELECT id, username, email, fullName, gender, phone, address, birthDay, avatar FROM users WHERE id = ?";
         return GeneralDao.executeQueryWithSingleTable(querry, User.class, id);
     }
 

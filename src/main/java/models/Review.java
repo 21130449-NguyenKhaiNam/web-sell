@@ -10,6 +10,8 @@ public class Review {
     private String feedback;
     private Date reviewDate;
 
+    private boolean isVisibility;
+
     public int getId() {
         return id;
     }
@@ -58,15 +60,13 @@ public class Review {
         this.reviewDate = reviewDate;
     }
 
-    @Override
-    public String toString() {
-        return "Review{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", orderDetailId=" + orderDetailId +
-                ", ratingStar=" + ratingStar +
-                ", feedback='" + feedback + '\'' +
-                ", reviewDate=" + reviewDate +
-                '}';
+    public boolean isVisibility() {
+        return isVisibility;
     }
+
+    public void setVisibility(boolean visibility) {
+        isVisibility = visibility;
+    }
+
+
 }

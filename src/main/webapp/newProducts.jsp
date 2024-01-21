@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<jsp:useBean id="productFactory" class="utils.ProductFactory" scope="page"/>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -36,6 +37,9 @@
         <h2 class="section__title">Sản phẩm mới</h2>
         <div class="product__items">
             <c:forEach items="${requestScope.listProductsPerPage}" var="newProduct">
+                <c:url var="showProductDetail" value="showProductDetail">
+                    <c:param name="id" value="${newProduct.id}"/>
+                </c:url>
                 <div class="product__item">
                     <div class="product__content">
                         <div class="image--tag">
@@ -47,20 +51,23 @@
                             <form class="action__bar" action="AddToCart" method="post">
                                 <input type="hidden" name="productId" value="${newProduct.id}">
                                 <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <a class="see__detail" href="showProductDetail?id=${newProduct.id}"><i class="fa-solid fa-eye"></i></a>
+                                <a class="see__detail" target="_blank" href="${showProductDetail}"><i class="fa-solid fa-eye"></i></a>
                             </form>
                         </div>
                         <div class="product__info">
-                            <a class="product__name" href="showProductDetail?id=${newProduct.id}">${newProduct.name}</a>
+                            <a class="product__name" target="_blank" href="${showProductDetail}">${newProduct.name}</a>
                             <div class="product__review">
                                 <div class="review__icon">
-                                    <i class="fa-solid fa-star icon__item"></i>
-                                    <i class="fa-solid fa-star icon__item"></i>
-                                    <i class="fa-solid fa-star icon__item"></i>
-                                    <i class="fa-solid fa-star icon__item"></i>
-                                    <i class="fa-solid fa-star icon__item"></i>
+                                    <c:forEach var="starA" begin="1" step="1"
+                                               end="${productFactory.calculateStar(newProduct.id)}">
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                    </c:forEach>
+                                    <c:forEach var="starB" begin="1" step="1"
+                                               end="${5 - productFactory.calculateStar(newProduct.id)}">
+                                        <i class="fa-regular fa-star icon__item"></i>
+                                    </c:forEach>
                                 </div>
-                                <a class="number__turns--ratting" href="showProductDetail?id=${newProduct.id}">1000 nhận xét</a>
+                                <a class="number__turns--ratting" target="_blank" href="${showProductDetail}">${productFactory.getReviewCount(newProduct.id)} nhận xét</a>
                             </div>
                             <span class="product__price">
                                 <fmt:setLocale value="vi_VN"/>

@@ -1,3 +1,6 @@
+th {
+    text-wrap: nowrap;
+}
 .reload__btn {
     margin-left: 10px;
     border-radius: 5px;
@@ -51,6 +54,32 @@
 .filter__date input[type="date"]{
     flex: 1;
 }
+
+/*Table*/
+.table__data.table__data-hide {
+    padding: 0;
+
+}
+.table__data.table__data-hide div, .table__data.table__data-un-hide div{
+    font-size: 15px;
+    --width: 60px;
+    --height: 30px ;
+    margin: 0 auto;
+    border-radius: 5px;
+    color: #fff;
+}
+.table__data.table__data-un-hide div{
+    --background-color: var(--blue-color-medium);
+    --background-color-hover: var(--blue-color-high);
+}
+.table__data.table__data-hide div {
+    --background-color: rgba(255, 0, 0, 0.5);
+    --background-color-hover: red;
+}
+.table__row:has(.table__data-un-hide){
+    background-color: rgba(255, 0, 0, 0.15);
+}
+
 /*Modal*/
 .modal {
     position: fixed;

@@ -68,7 +68,7 @@ function sliderImageController() {
 sliderImageController();
 
 function animationShowCategory() {
-    const categoryItems = document.querySelectorAll(".category__item")
+    const categoryItems = document.querySelectorAll(".parameter__item")
     let currentIndex = 0;
 
     function displayCategoryItem() {

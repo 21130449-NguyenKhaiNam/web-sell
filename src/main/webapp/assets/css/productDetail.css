@@ -489,6 +489,13 @@ label:has(.form__radio:checked) {
     cursor: pointer;
 }
 
+.review__empty {
+    padding: 20px 10px;
+    background: #fff;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 17px;
+}
 /*Modal order products*/
 .modal {
     display: none;

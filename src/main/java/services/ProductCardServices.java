@@ -9,12 +9,14 @@ import java.util.*;
 public class ProductCardServices {
     private static final int LIMIT = 9;
     private static ProductCardServices INSTANCE;
+    private ProductDao productDAO;
     private ProductCardDAO productCardDAO;
     private ReviewDAO reviewDAO;
     private SizeDAO sizeDAO;
     private ColorDAO colorDAO;
     private CategoryDAO categoryDAO;
     private ProductCardServices() {
+        this.productDAO = new ProductDao();
         this.productCardDAO = new ProductCardDAO();
         this.sizeDAO = new SizeDAO();
         this.colorDAO = new ColorDAO();
@@ -171,4 +173,9 @@ public class ProductCardServices {
     public String getNameProductById(int productId) {
         return productCardDAO.getNameProductById(productId).get(0).getName();
     }
+
+    public String getNameProductByIdOrderDetail(int orderDetailId) {
+        return reviewDAO.getNameProductByOrderDetailId(orderDetailId).get(0).getName();
+    }
+
 }

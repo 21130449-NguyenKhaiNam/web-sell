@@ -146,7 +146,6 @@ window.addEventListener('message', function (event) {
             }
         }
 
-        Image
         const inputImg = document.querySelector(".img__input");
 
         inputImg.onchange = function () {
