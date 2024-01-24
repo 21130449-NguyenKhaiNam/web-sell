@@ -27,24 +27,38 @@ body{
     border-radius: 10px;
     background-color: var(--blue-color-high);
 }
-.service__item{
+.item__service {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.service__item {
+    display: block;
+    height: 100%;
     padding: 20px 10px;
     font-size: 15px;
     text-transform: uppercase;
     border: 1px solid #000;
     border-radius: 5px;
     color: #FFFFFF;
+    position: relative;
 }
+
 .service__item ~ .service__item {
     margin-top: 20px;
 }
+
 .service__item:not(.service__item--clicked):hover {
     opacity: 0.9;
     cursor: pointer;
 }
+
 .service__item.service__item--clicked {
     background-color: var(--blue-color-high);
 }
+
 h1{
     font-size: 32px;
     font-weight: bold;
@@ -58,7 +72,7 @@ h1{
     margin-top: 20px;
 }
 .user{
-    margin-left: 20px;
+    margin-right: 20px;
 }
 .user__img{
     width: 100px;
@@ -66,6 +80,7 @@ h1{
     border-radius: 50%;
 }
 .user__info{
+    width: 200%;
     flex: 1;
 
 }
@@ -83,12 +98,12 @@ h1{
     position: absolute;
     height: 30px;
     width: 30px;
-    padding: 6px 6px;
+    padding: 7px 7px;
     border-radius: 50%;
     cursor: pointer;
     color: #fff;
-    transform: translateX(-90%);
-    margin-top: 75px;
+    transform: translateX(200%);
+    margin-top: -20px;
     background-color: rgb(173,172,172,0.801);
 ;
 }
@@ -139,7 +154,7 @@ h1{
 .save {
     float: right;
     margin: 30px 0;
-    margin-right: 150px;
+    margin-right: 50px;
 }
 
 .save button {

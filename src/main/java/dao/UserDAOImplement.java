@@ -3,9 +3,9 @@ package dao;
 import database.JDBIConnector;
 import models.User;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.List;
+
 public class UserDAOImplement implements UserDAO {
     @Override
     public User selectById(int id) {
@@ -17,10 +17,10 @@ public class UserDAOImplement implements UserDAO {
     public List<User> selectAccount(String username, String isVerify) {
         String query;
         if (isVerify == null) {
-            query = "SELECT id, username, fullName, email, phone, address, passwordEncoding, role, isVerify FROM users WHERE username = ?";
+            query = "SELECT id, username, passwordEncoding, fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, username);
         } else {
-            query = "SELECT id, username, fullName, email, phone, address, passwordEncoding, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
+            query = "SELECT id, username, passwordEncoding,  fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, username, isVerify);
         }
     }
@@ -171,7 +171,7 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public void deleteContactsFromUserByUserId(int userId) {
-        String query = "DELETE FROM contacts WHERE userId-= ?";
+        String query = "DELETE FROM contacts WHERE userId = ?";
         GeneralDao.executeAllTypeUpdate(query,userId);
     }
 
@@ -191,6 +191,12 @@ public class UserDAOImplement implements UserDAO {
     public void deleteOrderFromUserByUserId(int userId) {
         String query = "DELETE FROM orders WHERE userId = ?";
         GeneralDao.executeAllTypeUpdate(query,userId);
+    }
+
+    @Override
+    public void updateUserPassword(int userId, String password) {
+        String querry = "UPDATE users SET passwordEncoding = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(querry,password,userId);
     }
 
 
@@ -232,4 +238,13 @@ public class UserDAOImplement implements UserDAO {
         sql.append("SELECT avatar FROM users WHERE id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), User.class, id);
     }
+
+    @Override
+    public void updateInfoUser(int id, String avatar) {
+        String query = "UPDATE users SET avatar = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(query, avatar, id);
+    }
+
+
 }
+

@@ -9,6 +9,7 @@ public class PathProperties {
     private static PathProperties INSTANCE;
     private String pathProductWeb;
     private String pathProductLocal;
+    private String pathAvatarUserWeb;
     private String pathCategoryWeb;
     private String pathParameterWeb;
 
@@ -19,6 +20,8 @@ public class PathProperties {
             properties.load(inputStream);
             pathProductWeb = properties.getProperty("path.product.webapp");
             pathProductLocal = properties.getProperty("path.product.local");
+            pathAvatarUserWeb = properties.getProperty("path.user.webapp");
+
             pathCategoryWeb = properties.getProperty("path.category.webapp");
             pathParameterWeb = properties.getProperty("path.parameter.webapp");
         } catch (Exception e) {
@@ -69,5 +72,13 @@ public class PathProperties {
         File file = new File(getINSTANCE().pathProductLocal);
         System.out.println(file.exists());
         System.out.println(Arrays.toString(file.list()));
+    }
+
+    public String getPathAvatarUserWeb() {
+        return pathAvatarUserWeb;
+    }
+
+    public void setPathAvatarUserWeb(String pathAvatarUserWeb) {
+        this.pathAvatarUserWeb = pathAvatarUserWeb;
     }
 }

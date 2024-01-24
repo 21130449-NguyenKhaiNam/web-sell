@@ -37,4 +37,3 @@ target/
 
 *.rar
 src/main/resources/db.properties
-src/main/webapp/userfiles/*

@@ -23,15 +23,6 @@
                         <a href="about.jsp" class="nav__link">Về chúng tôi</a>
                     </li>
                 </ul>
-
-<%--                <c:forEach items="${sessionScope}" var="sessionAttribute">--%>
-<%--&lt;%&ndash;                    ${sessionAttribute.value['class'].simpleName}&ndash;%&gt;--%>
-<%--                    <c:if test="${sessionAttribute.value.getClass().simpleName eq 'User'}">--%>
-<%--                        <c:if test="${sessionAttribute.key eq UserSessionAccess.getINSTANCE().getUserSessionId()}">--%>
-<%--                            <c:set var="auth" value="${sessionAttribute.value}"/>--%>
-<%--                        </c:if>--%>
-<%--                    </c:if>--%>
-<%--                </c:forEach>--%>
                 <c:set var="auth" value="${sessionScope.auth}"/>
                 <c:choose>
                     <c:when test="${auth == null}">
@@ -48,10 +39,10 @@
                         <div class="account__wrapper">
                             <!--Giỏ hàng-->
 
-                                <div class="cart__wrapper">
-                                    <a href="shoppingCart.jsp" class="cart">
-                                        <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
-                                        <span class="qlt__swapper">
+                            <div class="cart__wrapper">
+                                <a href="shoppingCart.jsp" class="cart">
+                                    <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
+                                    <span class="qlt__swapper">
                                             <span class="qlt__value">
                                                 <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
                                                 <c:choose>
@@ -60,8 +51,8 @@
                                                 </c:choose>
                                             </span>
                                         </span>
-                                    </a>
-                                </div>
+                                </a>
+                            </div>
 
                             <div class="account">
                                 <i class="account__icon fa-regular fa-user"></i>
@@ -83,12 +74,12 @@
                                     <c:if test="${auth.role == 2 || auth.role == 1}">
                                     <a href="adminProducts.jsp" class="setting__item">
                                         <div class="setting__link">Quản
-                                                                   lý
+                                            lý
                                         </div>
-                                    </c:if>
+                                        </c:if>
                                         <a href="signOut" class="setting__item ">
                                             <div class="setting__link setting__logOut">Đăng
-                                                                                       xuất
+                                                xuất
                                             </div>
                                         </a>
                                 </div>
