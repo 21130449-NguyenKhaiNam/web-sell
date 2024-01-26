@@ -41,20 +41,26 @@ public class UploadImageServices {
     }
 
     public void addImage(Part part) throws IOException {
-        if (!isPartImage(part)) return;
+        if (!isPartImage(part)) {
+            nameImages.add(null);
+            return;
+        }
         String fileName = Token.generateToken();
         String pathImage = rootFolder.getAbsolutePath() + "/" + fileName + "." + getFileExtension(part);
         part.write(pathImage);
         nameImages.add(fileName + "." + getFileExtension(part));
     }
 
+    public void deleteImage(String nameImage) {
+        File file = new File(rootFolder.getAbsolutePath() + "/" + nameImage);
+        if (file.exists() && file.isFile()) {
+            file.delete();
+            System.out.println("DELETE Success");
+        }
+    }
     public void deleteImages(List<String> nameImages) {
         for (String nameImage : nameImages) {
-            File file = new File(rootFolder.getAbsolutePath() + "/" + nameImage);
-            if (file.exists() && file.isFile()) {
-                file.delete();
-                System.out.println("DELETE Success");
-            }
+            deleteImage(nameImage);
         }
     }
 

@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="assets/css/admin/admin.css">
     <link rel="stylesheet" href="assets/css/admin/adminProducts.css">
     <link rel="stylesheet" href="assets/css/admin/adminProductDetail.css">
+    <link rel="stylesheet" href="assets/css/notify.css">
     <title>Thêm sản phẩm</title>
 </head>
 <body>
@@ -199,6 +200,7 @@
     CKFinder.setupCKEditor(editorCK, "ckfinder/");
 </script>
 <script src="js/validateForm.js"></script>
+<script src="js/notify.js"></script>
 <script src="js/admin/adminProductDetail.js"></script>
 </body>
 </html>

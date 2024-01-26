@@ -49,7 +49,7 @@
                 <li class="navbar__item"><a href="adminOrders.jsp"
                                             class="navbar__link button button button--hover ">Đơn hàng</a>
                 </li>
-                <li class="navbar__item"><a href="adminUsers.jsp"
+                <li class="navbar__item"><a href="AdminUser"
                                             class="navbar__link button button button--hover ">Khách
                                                                                               hàng</a>
                 </li>

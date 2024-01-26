@@ -4,9 +4,11 @@ import models.Review;
 import models.User;
 import services.ReviewServices;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -30,9 +32,13 @@ public class CreateReview extends HttpServlet {
         int userId = user.getId();
         int orderProductId;
 
+
         try {
             orderProductId = Integer.parseInt(orderProductIdRequest);
-
+            if (!ReviewServices.getINSTANCE().canReview(userId, orderProductId)) {
+                response.sendError(404);
+                return;
+            }
         } catch (NumberFormatException e) {
             response.sendError(404);
             return;
@@ -44,12 +50,18 @@ public class CreateReview extends HttpServlet {
             ratingStar = 5;
         }
         Review review = new Review();
-        review.setUserId(userId);
         review.setOrderDetailId(orderProductId);
         review.setRatingStar(ratingStar);
         review.setFeedback(desc);
         review.setReviewDate(Date.valueOf(LocalDate.now()));
         ReviewServices.getINSTANCE().createReview(review);
+
+        String nameProduct = ReviewServices.getINSTANCE().getNameProduct(orderProductId);
+        if (nameProduct == null) {
+            response.sendError(404);
+            return;
+        }
+        request.setAttribute("nameProduct", nameProduct);
         request.getRequestDispatcher("reviewSuccess.jsp").forward(request, response);
     }
 }

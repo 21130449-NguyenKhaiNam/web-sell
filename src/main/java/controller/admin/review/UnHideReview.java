@@ -13,7 +13,7 @@ public class UnHideReview extends HttpServlet {
     private final boolean UN_HIDE_STATE = true;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request, response);
     }
 
     @Override

@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/base.css">
 
-    <link rel="stylesheet" href="assets/css/changePassword.css">
+    <link rel="stylesheet" href="assets/css/account.css">
     <title>Tài khoản</title>
 </head>
 <body>
@@ -40,11 +40,11 @@
     <div class="container-xl">
         <div class="row">
             <div class="col-3">
-                <ul class="service__list">
-                    <li class="service__item"><a href="Account" class="item__service">Chỉnh sửa tài khoảng</a></li>
-                    <li class="service__item service__item--clicked">Đổi mật khẩu</li>
-                    <li class="service__item"><a href="PurchaseHistory" class="item__service">Lịch sử mua hàng</a></li>
-                </ul>
+                <div class="service__list">
+                    <a class="service__item" href="Account" >Chỉnh sửa tài khoảng</a>
+                    <a class="service__item service__item--clicked">Đổi mật khẩu</a>
+                    <a class="service__item" href="PurchaseHistory" >Lịch sử mua hàng</a>
+                </div>
             </div>
             <div class="col-9">
                 <section class="service__section service__section--show">

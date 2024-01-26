@@ -51,6 +51,8 @@ public class AdminProductServices {
         List<Image> imageList = new ArrayList<>();
         for (int i = 0; i < nameImages.size(); i++) {
             Image image = new Image();
+            if (nameImages.get(i) == null)
+                continue;
             image.setNameImage(nameImages.get(i));
             image.setProductId(productId);
             imageList.add(image);

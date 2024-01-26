@@ -54,7 +54,7 @@
                         <article action="#!" class="form__search-block filler__block">
                             <i class="search__icon fa-solid fa-magnifying-glass"></i>
                             <form action="AdminUser" method="get">
-                                <input id="search-input" type="text" name="search" placeholder="Tìm kiếm tên người dùng">
+                                <input id="search-input" type="text" name="search" placeholder="Tìm kiếm theo username hoặc email người dùng">
                             </form>
                         </article>
                         <button id="button-add-user" class="button button__delete">
@@ -75,8 +75,8 @@
                                 <th class="table__head table__birthday">Ngày sinh</th>
                                 <th class="table__head table__phone">Số điện thoại</th>
                                 <th class="table__head table__address">Địa chỉ</th>
-                                <th class="table__head table__address">Vai trò</th>
-                                <th class="table__head table__address">Xóa</th>
+                                <th class="table__head ">Vai trò</th>
+                                <th class="table__head ">Xóa</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -114,9 +114,9 @@
                                     <td class="table__data">
                                         <p class="table__cell">
                                             <%--  <c:out value="${user.role}"/>--%>
-                                            <c:if test="${user.role == '0'}">admin</c:if>
+                                            <c:if test="${user.role == '2'}">admin</c:if>
                                             <c:if test="${user.role == '1'}">mod</c:if>
-                                            <c:if test="${user.role == '2'}">khách</c:if>
+                                            <c:if test="${user.role == '0'}">khách</c:if>
                                         </p>
                                     </td>
                                     <td class="table__data">

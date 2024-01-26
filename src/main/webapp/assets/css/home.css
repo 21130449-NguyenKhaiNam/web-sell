@@ -156,7 +156,7 @@
     }
 }
 
-.category__container .parameter__item {
+.category__container .category__item {
     display: none;
     overflow: hidden;
     height: calc(100% / 5);
@@ -164,11 +164,11 @@
     animation: right--to--left 0.5s ease-in-out;
 }
 
-.category__container .parameter__item .item__image {
+.category__container .category__item .item__image {
     object-fit: cover;
 }
 
-.category__container .parameter__item .item__text {
+.category__container .category__item .item__text {
     font-size: 18px;
     font-weight: 600;
     margin: auto;

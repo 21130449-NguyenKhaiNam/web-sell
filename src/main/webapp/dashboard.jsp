@@ -56,7 +56,7 @@
                         <div class="cards">
                             <div class="card">
                                 <div class="box">
-                                    <h1>2194</h1>
+                                    <h1>${user}</h1>
                                     <h3>Người dùng</h3>
                                 </div>
                                 <div class="icon-case">
@@ -65,29 +65,29 @@
                             </div>
                             <div class="card">
                                 <div class="box">
-                                    <h1>53</h1>
+                                    <h1>${product}</h1>
                                     <h3>Sản phẩm</h3>
                                 </div>
                                 <div class="icon-case">
-                                    <img src="./assets/img/product-icon.png" alt="">
+                                    <img src="./assets/img/product.png" alt="">
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="box">
-                                    <h1>5</h1>
+                                    <h1>${order}</h1>
                                     <h3>Đơn hàng</h3>
                                 </div>
                                 <div class="icon-case">
-                                    <img src="./assets/img/oder.png" alt="">
+                                    <img src="./assets/img/orders.png" alt="">
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="box">
-                                    <h1>2194</h1>
-                                    <h3>Người dùng</h3>
+                                    <h1>${review}</h1>
+                                    <h3>Review</h3>
                                 </div>
                                 <div class="icon-case">
-                                    <img src="./assets/img/user.png" alt="">
+                                    <img src="./assets/img/review.png" alt="">
                                 </div>
                             </div>
                         </div>
@@ -114,4 +114,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
 </body>
 <script src="js/admin/dashboard.js"></script>
+<script>
+    var top5Products = ${top5};
+
+    var productNames = top5Products.map(function (item) {
+        return item.getName();
+    });
+
+    var quantities = top5Products.map(function (item) {
+        return item.totalQuantity;
+    });
+
+    barChartOptions.series = [{
+        data: quantities,
+        name: 'Products',
+    }];
+
+    barChartOptions.xaxis.categories = productNames;
+
+    barChart.updateOptions(barChartOptions);
+</script>
 </html>

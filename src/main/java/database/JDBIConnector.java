@@ -1,8 +1,6 @@
 package database;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.jdbi.v3.core.Jdbi;
 import properties.DBProperties;
 
@@ -32,19 +30,5 @@ public class JDBIConnector {
         if (jdbi == null)
             makeConnect();
         return jdbi;
-    }
-
-    private static DataSource configConnectionPooling() {
-        HikariConfig config = new HikariConfig();
-        String url = "jdbc:mysql://" + DBProperties.getHost() + ":" + DBProperties.getPort() + "/"
-                + DBProperties.getName();
-        config.setJdbcUrl(url);
-        config.setUsername(DBProperties.getUsername());
-        config.setPassword(DBProperties.getPassword());
-
-        config.setMaximumPoolSize(15);
-        config.setMinimumIdle(6);
-
-        return new HikariDataSource(config);
     }
 }

@@ -1,15 +1,15 @@
-// Date format (now)
-const dateInputs = document.querySelectorAll(`input[type="date"]`);
-dateInputs.forEach(function (dateInput) {
-// Get today's date
-    const today = new Date();
-
-// Format today's date as yyyy-mm-dd (required by input type="date")
-    const formattedToday = today.toISOString().split('T')[0];
-
-    // Set the default value to today's date in dd/mm/yyyy format
-    dateInput.value = formattedToday;
-})
+// // Date format (now)
+// const dateInputs = document.querySelectorAll(`input[type="date"]`);
+// dateInputs.forEach(function (dateInput) {
+// // Get today's date
+//     const today = new Date();
+//
+// // Format today's date as yyyy-mm-dd (required by input type="date")
+//     const formattedToday = today.toISOString().split('T')[0];
+//
+//     // Set the default value to today's date in dd/mm/yyyy format
+//     dateInput.value = formattedToday;
+// })
 
 //Load page btn
 document.querySelector(".reload__btn").onclick = function () {

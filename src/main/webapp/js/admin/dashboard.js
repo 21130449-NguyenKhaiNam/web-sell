@@ -81,7 +81,7 @@ const barChartOptions = {
     },
     yaxis: {
         title: {
-            text: 'Doanh thu (VND)',
+            text: 'Số lượng đã bán',
             style: {
                 color: '#f5f7ff',
             },
@@ -107,6 +107,11 @@ const barChart = new ApexCharts(
     barChartOptions
 );
 barChart.render();
+
+
+
+
+
 
 // AREA CHART
 const areaChartOptions = {

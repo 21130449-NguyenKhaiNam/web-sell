@@ -1,24 +1,22 @@
 package filter.authorization;
 
 import models.User;
-import properties.RoleProperties;
 
 import javax.servlet.*;
-import javax.servlet.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
-@WebFilter(filterName = "user",
-        urlPatterns = {
-                "/adminProductForm.jsp",
-                "/adminProducts.jsp",
-                "/adminUsers.jsp",
-                "/adminOrders.jsp",
-                "/account.jsp",
-                "/checkout.jsp"
-        })
+//
+//@WebFilter(filterName = "user",
+//        urlPatterns = {
+//                "/adminProductForm.jsp",
+//                "/adminProducts.jsp",
+//                "/adminUsers.jsp",
+//                "/adminOrders.jsp",
+//                "/account.jsp",
+//                "/checkout.jsp"
+//        })
 //User:
 //- Chưa đăng nhập:
 //+ Các trang admin (/admin*) -> trả về signIn

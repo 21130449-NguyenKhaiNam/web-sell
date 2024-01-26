@@ -19,7 +19,7 @@ public class MailProperties {
         try {
             properties.load(inputStream);
             host = properties.getProperty("mail.smtp.host");
-            portTSL = properties.getProperty("mail.tsl.port");
+            portTSL = properties.getProperty("mail.smtp.port");
             auth = properties.getProperty("mail.smtp.auth");
             startTSL = properties.getProperty("mail.smtp.starttls.enable");
             email = properties.getProperty("mail.email");

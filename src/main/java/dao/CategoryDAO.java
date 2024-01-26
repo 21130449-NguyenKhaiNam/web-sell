@@ -39,11 +39,15 @@ public class CategoryDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Category.class, id);
     }
 
-    public List<Parameter> getParameterByCategoryId(int id) {
+
+    public void updateCategory(Category category) {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT id, name, minValue, `maxValue`, unit, guideImg ")
-                .append("FROM parameters ")
-                .append("WHERE categoryId = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
+        if (category.getSizeTableImage() == null) {
+            sql.append("UPDATE categories SET nameType = ? WHERE id = ?");
+            GeneralDao.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getId());
+        } else {
+            sql.append("UPDATE categories SET nameType = ?, sizeTableImage = ? WHERE id = ?");
+            GeneralDao.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getSizeTableImage(), category.getId());
+        }
     }
 }

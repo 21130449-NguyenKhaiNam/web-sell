@@ -28,7 +28,7 @@ public class CreateCategory extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendError(404);
+       doPost(request, response);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class CreateCategory extends HttpServlet {
 
         String nameCategory = request.getParameter("nameCategory");
         if (nameCategory == null) {
-            response.sendError(404);
+            response.getWriter().write("{\"status\":true}");
             return;
         }
         this.category = new Category();

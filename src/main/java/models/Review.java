@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class Review {
     private int id;
-    private int userId;
     private int orderDetailId;
     private int ratingStar;
     private String feedback;
@@ -18,14 +17,6 @@ public class Review {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public int getOrderDetailId() {

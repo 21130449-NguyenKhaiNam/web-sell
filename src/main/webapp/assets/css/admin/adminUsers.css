@@ -229,6 +229,7 @@ thead {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
 }
 .table__data--birthday, .table__data--fullname{
     white-space: nowrap;
@@ -480,5 +481,9 @@ form{
 .next__page:hover, .previous__page:hover{
     background-color: var(--blue-color-medium);
     color: white;
+}
+.table__address{
+    display: block;
+    width: 240px;
 }
 

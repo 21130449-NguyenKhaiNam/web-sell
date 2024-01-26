@@ -2,7 +2,6 @@ package utils;
 
 import models.Product;
 import services.AdminProductServices;
-import services.ProductCardServices;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
@@ -25,8 +24,9 @@ public class FilterStrategyAdmin extends FilterStrategy {
         try {
             filterByDate = filterByTimeUpdate();
         } catch (ParseException ignored) {
-            filterByDate = null;
+            filterByDate = new ArrayList<>();
         }
+
         List<Integer> filterByName = filterByNameProduct();
         List<Integer> filterByColor = filterByColor();
         List<Integer> filterByCategoryId = filterByCategory();
@@ -41,28 +41,20 @@ public class FilterStrategyAdmin extends FilterStrategy {
             page = 1;
         }
         List<List<Integer>> listId = new ArrayList<>();
-        if (filterByDate != null) {
             listId.add(filterByDate);
-        }
-        if (filterByName != null) {
             listId.add(filterByName);
-        }
-
-        if (filterByColor != null) {
             listId.add(filterByColor);
-        }
-        if (filterByCategoryId != null) {
             listId.add(filterByCategoryId);
-        }
-        if (filterByMoneyRange != null) {
             listId.add(filterByMoneyRange);
-        }
-        if (filterBySize != null) {
             listId.add(filterBySize);
-        }
 
         List<Integer> listIDFiltered = findCommonIDs(listId);
-        List<Product> productCardFiltered = AdminProductServices.getINSTANCE().filter(listIDFiltered, page);
+        List<Product> productCardFiltered;
+        if (listIDFiltered.isEmpty()) {
+            productCardFiltered = new ArrayList<>();
+        } else {
+            productCardFiltered = AdminProductServices.getINSTANCE().filter(listIDFiltered, page);
+        }
 
         int quantityPage;
         if (productCardFiltered.isEmpty()) {
@@ -86,9 +78,8 @@ public class FilterStrategyAdmin extends FilterStrategy {
 
     private List<Integer> filterByTimeUpdate() throws ParseException {
         String[] dates = request.getParameterValues("date");
-        List<Integer> listId = null;
-        if (dates == null) return listId;
-        if (dates.length == 2) {
+        if (dates == null || dates.length == 1 || dates[0].isBlank() || dates[1].isBlank()) return new ArrayList<>();
+
             try {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 LocalDate dateStart = LocalDate.parse(dates[0], dateFormatter);
@@ -99,20 +90,20 @@ public class FilterStrategyAdmin extends FilterStrategy {
                 Date sqlDateEnd = Date.valueOf(dateEnd);
                 request.setAttribute("sqlDateStart", sqlDateStart);
                 request.setAttribute("sqlDateEnd", sqlDateEnd);
-                listId = AdminProductServices.getINSTANCE().getProductByTimeCreated(sqlDateStart, sqlDateEnd);
+                List<Integer> listId = AdminProductServices.getINSTANCE().getProductByTimeCreated(sqlDateStart, sqlDateEnd);
+                return listId;
             } catch (DateTimeParseException | IllegalArgumentException e) {
+                throw new ParseException(e.getMessage(), 0);
             }
-        }
-        return listId;
     }
 
     private List<Integer> filterByNameProduct() {
         String nameProduct = request.getParameter("keyword");
-        List<Integer> listId = null;
-        if (nameProduct != null) {
-            listId = AdminProductServices.getINSTANCE().getProductByName(nameProduct);
+        if (nameProduct == null || nameProduct.isBlank()) return new ArrayList<>();
+
+        List<Integer> listId = AdminProductServices.getINSTANCE().getProductByName(nameProduct);
             request.setAttribute("keyword", nameProduct);
-        }
+
         return listId;
     }
 

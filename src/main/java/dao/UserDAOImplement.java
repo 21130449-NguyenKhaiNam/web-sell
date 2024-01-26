@@ -147,8 +147,8 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> searchUsersByName(String search) {
-        String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ? OR LOWER(fullName) LIKE ? OR LOWER(gender) LIKE ? OR LOWER(birthDay) LIKE ? OR LOWER(phone) LIKE ? OR LOWER(address) LIKE ?";
-        return GeneralDao.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%");
+        String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ? ";
+        return GeneralDao.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%");
     }
 
     @Override
@@ -245,6 +245,13 @@ public class UserDAOImplement implements UserDAO {
         GeneralDao.executeAllTypeUpdate(query, avatar, id);
     }
 
-
+    @Override
+    public List<User> getUserByIdProductDetail(int orderDetailId) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT DISTINCT users.id, users.fullName ")
+                .append("FROM users JOIN (orders JOIN order_details ON orders.id = order_details.orderId) ON users.id = orders.userId ")
+                .append("WHERE order_details.id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), User.class, orderDetailId);
+    }
 }
 

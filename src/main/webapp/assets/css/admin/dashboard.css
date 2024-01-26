@@ -41,6 +41,7 @@
 img{
     width: 80px;
     height: 80px;
+    font-weight: bold;
 }
 .charts {
     display: grid;

@@ -57,5 +57,6 @@ public interface UserDAO extends DAO<User> {
    public void updateInfoUser(int id,  String avatar);
 
 
+    List<User> getUserByIdProductDetail(int orderDetailId);
 }
 

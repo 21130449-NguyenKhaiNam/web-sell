@@ -59,7 +59,7 @@ public class ReadReview extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendError(404);
+   doGet(request, response);
     }
 
 }

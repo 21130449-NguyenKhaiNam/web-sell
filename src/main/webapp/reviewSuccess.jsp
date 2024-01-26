@@ -20,10 +20,21 @@
     <!--CSS-->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/review.css">
+    <link rel="stylesheet" href="assets/css/verify.css">
     <title>Đánh giá</title>
 </head>
 <body>
-
+<main>
+    <div class="verify">
+        <i class="verify__icon fa-solid fa-check"></i>
+    </div>
+    <h1> Đánh giá thành công </h1>
+    <p>
+        Bạn đã đánh giá cho sản phẩm  <%=request.getAttribute("productName")%>  thành công. Cảm ơn bạn đã đóng góp ý
+        kiến
+        cho chúng tôi.
+    </p>
+    <a href="productBuying.jsp" class="button button--hover">Quay lại gian hàng</a>
+</main>
 </body>
 </html>

@@ -12,4 +12,6 @@ public class OrderDetailDAO {
                 .append("WHERE id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), OrderDetail.class, id);
     }
+
+
 }

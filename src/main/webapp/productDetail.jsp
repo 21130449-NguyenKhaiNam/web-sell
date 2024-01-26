@@ -180,7 +180,7 @@
                             <c:when test="${not empty requestScope.listReview}">
                                 <div class="review__list">
                                     <c:forEach var="review" items="${requestScope.listReview}">
-                                        <c:set var="user" value="${userFatory.getUserById(review.userId)}"/>
+                                        <c:set var="user" value="${userFatory.getUserByIdProductDetail(review.orderDetailId)}"/>
                                         <article class="review">
                                             <div class="review__avatar">
                                                 <img src="assets/img/user/${user.avatar}" alt="${user.avatar}"

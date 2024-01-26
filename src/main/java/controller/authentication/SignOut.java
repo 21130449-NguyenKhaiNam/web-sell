@@ -16,7 +16,8 @@ public class SignOut extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        session.removeAttribute("auth");
+        if (session.getAttribute("auth") != null)
+            session.removeAttribute("auth");
         response.sendRedirect("index.jsp");
     }
 }

@@ -1,0 +1,137 @@
+/*Toast*/
+.toast__list {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+}
+
+.toast {
+    --border-radius: 10px;
+    display: inline-block;
+    min-width: auto;
+    filter: drop-shadow(10px 8px 10px #000000);
+    background-color: transparent;
+    border-radius: var(--border-radius);
+}
+
+.toast__header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff8f8;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.toast__icon-wrapper {
+    --size: 25px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: var(--border-radius);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+.toast__icon--success{
+    background-color: #5ee95e;
+}
+.toast__icon--failed{
+    background-color: red;
+}
+.toast__icon{
+    font-size: 15px;
+    color: #fff;
+}
+
+.toast__icon-close {
+    margin-left: auto;
+}
+
+.toast__body {
+    padding: 10px;
+    background-color: #e1e2e3;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+
+}
+
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 50px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 50px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 50px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 50px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+#snackbar {
+    visibility: hidden;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/*spinner*/
+/* CSS styles for the loading indicator */
+#loading__blur {
+    position: fixed;
+    inset: 0 0 0 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 11111;
+    display: block; /* Initially hidden */
+}
+
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#loading img {
+    /* Styles for the loading spinner or message */
+    /* Adjust styles based on your loading indicator (e.g., width, height, color, etc.) */
+}

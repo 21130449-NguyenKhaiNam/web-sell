@@ -237,6 +237,7 @@ public class AuthenticateServices {
     public boolean updatePassword(String email, String password) {
         String passwordEncoding = Encoding.getINSTANCE().toSHA1(password);
         List<User> users = userDAO.selectByEmail(email, "1");
+        if (users.isEmpty()) return false;
         User user = users.get(0);
         if (user.getTokenResetPassword() != null) {
             userDAO.updatePasswordEncoding(user.getId(), passwordEncoding);

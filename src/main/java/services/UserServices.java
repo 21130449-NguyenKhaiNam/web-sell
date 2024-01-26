@@ -4,6 +4,8 @@ import dao.UserDAO;
 import dao.UserDAOImplement;
 import models.User;
 
+import java.util.List;
+
 public class UserServices {
     private static UserServices INSTANCE;
     private UserDAO userDAO;
@@ -20,5 +22,12 @@ public class UserServices {
 
     public User getUser(int userId) {
         return userDAO.getUserByID(userId).get(0);
+    }
+
+    public User getUserByIdProductDetail(int orderDetailId) {
+        List<User> listUser = userDAO.getUserByIdProductDetail(orderDetailId);
+        if (listUser.isEmpty())
+            return null;
+        return listUser.get(0);
     }
 }

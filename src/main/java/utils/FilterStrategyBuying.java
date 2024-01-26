@@ -1,7 +1,6 @@
 package utils;
 
 import models.Product;
-import services.AdminProductServices;
 import services.ProductCardServices;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,21 +27,17 @@ public class FilterStrategyBuying extends FilterStrategy {
             page = 1;
         }
         List<List<Integer>> listId = new ArrayList<>();
-        if (filterByColor != null) {
             listId.add(filterByColor);
-        }
-        if (filterByCategoryId != null) {
             listId.add(filterByCategoryId);
-        }
-        if (filterByMoneyRange != null) {
             listId.add(filterByMoneyRange);
-        }
-        if (filterBySize != null) {
             listId.add(filterBySize);
-        }
         List<Integer> listIDFiltered = findCommonIDs(listId);
-
-        List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page);
+        List<Product> productCardFiltered;
+        if (listIDFiltered.isEmpty()) {
+            productCardFiltered = new ArrayList<>();
+        } else {
+            productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page);
+        }
 //        listIDFiltered lọc dựa trên visibility
 //        listIDFiltered == 0 -> 0
 //        listIDFiltered.size() < LIMIT -> 1

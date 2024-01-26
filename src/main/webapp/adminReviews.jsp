@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<jsp:useBean id="productFactory" class="utils.ProductFactory" scope="session"/>
+<jsp:useBean id="productFactory" class="utils.ProductFactory" />
+<jsp:useBean id="userFactory" class="utils.UserFactory" />
 <!doctype html>
 <html lang="en">
 <head>
@@ -86,6 +87,7 @@
                             <tbody>
                             <c:set var="list" value="${requestScope.listReview}"/>
                             <c:forEach var="item" items="${list}">
+                                <c:set var="user" value="${userFactory.getUserByIdProductDetail(item.orderDetailId)}"/>
                                 <tr class="table__row">
                                     <td class="table__data-view">
                                         <label>
@@ -96,7 +98,7 @@
                                         <p class="table__cell">${item.id}</p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell">${item.userId}</p>
+                                        <p class="table__cell">${user.id}</p>
                                     </td>
                                     <td class="table__data">
                                         <p class="table__cell ">${productFactory.getNameProductByIdOrderDetail(item.orderDetailId)}</p>

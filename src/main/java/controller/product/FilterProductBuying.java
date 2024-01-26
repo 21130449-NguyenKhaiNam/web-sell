@@ -14,6 +14,10 @@ public class FilterProductBuying extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         FilterStrategy filterStrategy = new FilterStrategyBuying(request);
+        if (filterStrategy.isAllParameterEmpty()) {
+            request.getRequestDispatcher("productBuying.jsp").forward(request, response);
+            return;
+        }
         filterStrategy.doFilter();
         request.getRequestDispatcher("productBuying.jsp").forward(request, response);
     }

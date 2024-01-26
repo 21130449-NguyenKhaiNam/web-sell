@@ -15,6 +15,11 @@
     <location>/error404.jsp</location>
   </error-page>
 
+  <error-page>
+    <error-code>403</error-code>
+    <location>/error403.jsp</location>
+  </error-page>
+
   <!--Cấu hình servlet cho ckeditor và ckfinder-->
   <servlet>
     <servlet-name>ConnectorServlet</servlet-name>

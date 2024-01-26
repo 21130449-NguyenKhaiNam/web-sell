@@ -47,9 +47,8 @@
                 <li class="navbar__item"><a href="adminOrders.jsp"
                                             class="navbar__link button button button--hover ">Đơn hàng</a>
                 </li>
-                <li class="navbar__item"><a href="adminUsers.jsp"
-                                            class="navbar__link button button button--hover ">Khách
-                                                                                              hàng</a>
+                <li class="navbar__item"><a href="AdminUser"
+                                            class="navbar__link button button button--hover ">Khách hàng</a>
                 </li>
                 <li class="navbar__item"><a href="adminReviews.jsp"
                                             class="navbar__link button button button--hover ">Nhận xét</a>
@@ -182,7 +181,9 @@
                             <thead>
                             <tr class="table__row">
                                 <th class="table__head">Xem</th>
-                                <th class="table__head">Chỉnh sửa</th>
+                                <c:if test="${sessionScope.auth.role == '2'}">
+                                    <th class="table__head">Chỉnh sửa</th>
+                                </c:if>
                                 <th class="table__head">Mã sản phẩm</th>
                                 <th class="table__head">Tên sản phẩm</th>
                                 <th class="table__head">
@@ -195,6 +196,7 @@
                             </thead>
                             <tbody>
                             <c:set var="list" value="${requestScope.productCardList}"/>
+
                             <c:forEach var="item" items="${list}">
                                 <tr class="table__row">
                                     <td class="table__data-view">
@@ -202,11 +204,14 @@
                                             <i class="fa-solid fa-eye"></i>
                                         </label>
                                     </td>
-                                    <td class="table__data-edit">
-                                        <label>
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </label>
-                                    </td>
+                                    <c:if test="${sessionScope.auth.role == '2'}">
+                                        <td class="table__data-edit">
+                                            <label>
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </label>
+                                        </td>
+                                    </c:if>
+
                                     <td class="table__data table__data-id">
                                         <p class="table__cell">${item.id}</p>
                                     </td>

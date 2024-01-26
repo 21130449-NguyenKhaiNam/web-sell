@@ -1,8 +1,10 @@
 package dao;
 
-import models.*;
+import models.Image;
+import models.Order;
+import models.OrderDetail;
+import models.Product;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAO {
@@ -18,8 +20,6 @@ public class OrderDAO {
     }
 
     public List<OrderDetail> getOrderDetailByOrderId(List<Integer> listId) {
-        if (listId.isEmpty()) return new ArrayList<>();
-
         StringBuilder conditionBuilder = new StringBuilder();
         for (int id : listId) conditionBuilder.append(id).append(',');
 
@@ -46,4 +46,19 @@ public class OrderDAO {
     }
 
 
+    public List<OrderDetail> getOrderDetailNotReview(int userId) {
+        String querry = "SELECT order_details.id " +
+                "FROM orders JOIN order_details ON orders.id = order_details.orderId " +
+                "WHERE orders.userId = ? AND orders.statusOrder = \"HOÀN THÀNH\" " +
+                "AND order_details.id NOT IN (SELECT reviews.orderDetailId FROM reviews) ";
+        return GeneralDao.executeQueryWithSingleTable(querry, OrderDetail.class,userId);
+    }
+
+    public List<OrderDetail> getOrderDetailHasReview(int userId) {
+        String querry = "SELECT order_details.id " +
+                "FROM orders JOIN order_details ON orders.id = order_details.orderId " +
+                "WHERE orders.userId = ? AND orders.statusOrder = \"HOÀN THÀNH\" " +
+                "AND order_details.id IN (SELECT reviews.orderDetailId FROM reviews) ";
+        return GeneralDao.executeQueryWithSingleTable(querry, OrderDetail.class, userId);
+    }
 }

@@ -1,11 +1,10 @@
 package dao;
 
+import database.ConnectionPool;
 import database.JDBIConnector;
-import models.Category;
-import models.Size;
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Query;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -13,16 +12,28 @@ public class GeneralDao {
 
     //Use for select statement
     public static <T>List<T> executeQueryWithSingleTable(String sql, Class<T> type, Object... params) {
-        return JDBIConnector.get().withHandle(handle -> {
-                    Query query = handle.createQuery(sql);
-                    if(params != null){
-                        for (int i = 0; i < params.length; i++) {
-                            query.bind(i, params[i]);
-                        }
-                    }
-                    return query.mapToBean(type).list();
+        Handle handle = ConnectionPool.getINSTANCE().getHandle();
+        try {
+            Query query = handle.createQuery(sql);
+            if (params != null) {
+                for (int i = 0; i < params.length; i++) {
+                    query.bind(i, params[i]);
                 }
-        );
+            }
+            return query.mapToBean(type).list();
+        } finally {
+            ConnectionPool.getINSTANCE().releaseHandle(handle);
+        }
+//        return JDBIConnector.get().withHandle(handle -> {
+//                    Query query = handle.createQuery(sql);
+//                    if(params != null){
+//                        for (int i = 0; i < params.length; i++) {
+//                            query.bind(i, params[i]);
+//                        }
+//                    }
+//                    return query.mapToBean(type).list();
+//                }
+//        );
     }
 
     public static List<Map<String, Object>> executeQueryWithJoinTables(String sql, Object... params) {
@@ -49,19 +60,22 @@ public class GeneralDao {
 //        });
 //        JDBIConnector.get().withHandle(handle -> handle.execute(sql, params));
 
+        Handle handle = ConnectionPool.getINSTANCE().getHandle();
         try {
-            JDBIConnector.get().useTransaction(handle -> {
-                try {
-                    handle.getConnection().setAutoCommit(false);
-                    handle.execute(sql, params);
-                    handle.getConnection().commit();
-                }catch (Exception exception){
-                    handle.getConnection().rollback();
-                    throw new RuntimeException("Error executing SQL and handling transaction", exception);
+            handle.useTransaction(handleInner -> {
+                try{
+                    handleInner.getConnection().setAutoCommit(false);
+                    handleInner.execute(sql, params);
+                    handleInner.getConnection().commit();
+                }catch (Exception exception) {
+                    handle.rollback();
                 }
+
             });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception exception) {
+            handle.rollback();
+        } finally {
+            ConnectionPool.getINSTANCE().releaseHandle(handle);
         }
     }
 

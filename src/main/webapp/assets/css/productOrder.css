@@ -86,11 +86,13 @@ body {
     width: 100%;
     max-height: 400px;
     min-height: 200px;
+    display: flex;
+    justify-content: center;
 }
 
 .order__guide-parameter img {
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 /*Log info*/

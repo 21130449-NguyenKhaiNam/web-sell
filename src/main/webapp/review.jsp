@@ -98,7 +98,7 @@
                                         <c:choose>
                                             <c:when test="${loop.index ==1}">
                                                 <label class="review__star review__star--choose">
-                                                    <input type="radio" name="ratingStar" hidden="hidden"
+                                                    <input type="radio" name="ratingStar" checked hidden="hidden"
                                                            value="${loop.index}">
                                                 </label>
                                             </c:when>

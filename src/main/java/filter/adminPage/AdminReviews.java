@@ -26,7 +26,7 @@ public class AdminReviews implements Filter {
         request.setAttribute("listReview", listReview);
         int quantityPage = AdminReviewServices.getINSTANCE().getQuantityPage();
         request.setAttribute("quantityPage", quantityPage);
-        String requestURL = "/filterProductAdmin?";
+        String requestURL = "/reviewPage?";
         request.setAttribute("requestURL", requestURL);
         chain.doFilter(request, response);
     }

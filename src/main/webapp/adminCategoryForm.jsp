@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="assets/css/admin/admin.css">
     <link rel="stylesheet" href="assets/css/admin/adminProducts.css">
     <link rel="stylesheet" href="assets/css/admin/adminCategoryForm.css">
+    <link rel="stylesheet" href="assets/css/notify.css">
     <title></title>
 </head>
 <body>
@@ -151,7 +152,10 @@
         </form>
     </div>
 </main>
+<div class="toast__list">
+</div>
 <script src="js/validateForm.js"></script>
+<script src="js/notify.js"></script>
 <script src="js/admin/adminCategoryForm.js"></script>
 </body>
 </html>

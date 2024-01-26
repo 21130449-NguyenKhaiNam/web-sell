@@ -35,37 +35,32 @@ let validation = new Validation({
     onSubmit: addToCart,
 })
 
-// []
-function getJsonParameter(form) {
-    let parameterArray = [];
-    let parameterInputs = form.querySelectorAll(`input[name="parameter"]`);
-    parameterArray = Array.from(parameterInputs).map(function (parameterInput) {
-        return parameterInput.value;
-    })
-    return JSON.stringify(parameterArray);
-}
-
-function getFormData(form) {
-    const productId = encodeURIComponent(form.querySelector('input[name="productId"]').value);
-    const color = encodeURIComponent(form.querySelector('input[name="color"]').value);
-    const size = getJsonParameter(form);
-    const quantity = encodeURIComponent(form.querySelector('input[name="quantity"]').value);
-
-    const formData = `productId=${productId}&color=${color}&size=${size}&quantity=${quantity}`;
-    console.log(getJsonParameter(form))
-    return formData;
+function getObjForm() {
+    const form = document.getElementById("form__product");
+    const obj = {
+        productId: form.querySelector(`input[name="productId"]`).value,
+        quantity: form.querySelector(`input[name="quantity"]`).value,
+        color: form.querySelector(`input[name="color"]:checked`).value,
+    }
+    const nameParameters = form.querySelectorAll(`input[name="nameParameter"]`);
+    const valueParameters = form.querySelectorAll(`input[name="valueParameter"]`);
+    let size = {};
+    for (let i = 0; i < quantityInputParameter; i++) {
+        size[nameParameters[i].value] = valueParameters[i].value;
+    }
+    obj["size"] = JSON.stringify(size)
+    return obj;
 }
 function addToCart() {
-    const form = document.getElementById("form__product");
-    const formData = getFormData(form);
+    const obj = getObjForm();
     $.ajax({
-        url: "AddToCart",
+        url: "AddToCartCustom",
         type: "POST",
-        data: formData,
-        contentType: "application/x-www-form-urlencoded",
-        processData: false,
+        dataType: "json",
+        data: obj,
+        cache: false,
         success: function (data) {
-            document.querySelector(".qlt__value").innerText = data
+            document.querySelector(".qlt__value").innerText = data;
         },
         error: function (error) {
         },

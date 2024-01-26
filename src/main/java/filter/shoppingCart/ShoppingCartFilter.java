@@ -1,6 +1,6 @@
 package filter.shoppingCart;
 
-import models.ShoppingCart;
+import cartShopping.ShoppingCart;
 import models.User;
 import models.Voucher;
 import services.ShoppingCartServices;

@@ -6,19 +6,38 @@ window.addEventListener('message', function (event) {
             addParameter(parameterList);
         }
     })();
-
+    const htmlCloseBtn = ` <span class="parameter__item-close" >
+                                        <i class="parameter__item-close-icon fa-solid fa-xmark"></i>
+                                    </span>`
     function deleteParameter(parameter) {
         const closeBtn = parameter.querySelector(".parameter__item-close");
         const idCount = parameter.getAttribute("id-count");
         closeBtn.onclick = function () {
             parameter.remove();
+            removeRule(`nameParameter${idCount}`);
+            removeRule(`minValue${idCount}`);
+            removeRule(`maxValue${idCount}`);
+            removeRule(`guideImg${idCount}`);
+            removeRule(`unit${idCount}`);
+            if (parameterList.childElementCount > 1) {
+                let lastElement = parameterList.lastElementChild
+                lastElement.insertAdjacentHTML("beforeend", htmlCloseBtn);
+                deleteParameter(lastElement);
+            }
+            loadRules();
         }
-        removeRule(`nameParameter${idCount}`);
-        removeRule(`minValue${idCount}`);
-        removeRule(`maxValue${idCount}`);
-        removeRule(`guideImg${idCount}`);
+        console.log(ruleObj);
     }
 
+    function updateCloseBtn(parameterList) {
+        const closeBtns = parameterList.querySelectorAll(".parameter__item-close");
+        Array.from(closeBtns).forEach(function (closeBtn) {
+            closeBtn.remove();
+        });
+        let lastElement = parameterList.lastElementChild
+        lastElement.insertAdjacentHTML("beforeend", htmlCloseBtn);
+        deleteParameter(lastElement);
+    }
     function loadImg(label, idCount) {
         const inputFile = label.querySelector(`input[type="file"]`);
         inputFile.addEventListener('change', function () {
@@ -111,16 +130,11 @@ window.addEventListener('message', function (event) {
                                     <p class="category__error"></p>
                                 </div>
                             </label>
-                              <span class="parameter__item-close" >
-                                <i class="parameter__item-close-icon fa-solid fa-xmark"></i>
-                            </span>
                         </div>`;
         parameterList.insertAdjacentHTML("beforeend", html);
         const lastElement = parameterList.lastElementChild;
         loadImg(lastElement.querySelector(`.category__file`), countIdRule);
-        lastElement.addEventListener('click', function () {
-            deleteParameter(lastElement);
-        });
+        updateCloseBtn(parameterList);
         pushRule(`nameParameter${countIdRule}`, Validation.isRequired(`#nameParameter${countIdRule}`));
         pushRule(`unit${countIdRule}`, Validation.isRequired(`#unit${countIdRule}`));
         pushRule(`minValue${countIdRule}`, Validation.isRequired(`#minValue${countIdRule}`));
@@ -156,6 +170,7 @@ window.addEventListener('message', function (event) {
         onSubmit: create,
     })
     const form = document.querySelector('.category__form');
+
     let ruleObj = {
         nameCategory: [Validation.isRequired("#nameCategory")],
         sizeTableImage: [Validation.isRequired("#sizeTableImage")],
@@ -217,6 +232,10 @@ window.addEventListener('message', function (event) {
         });
     }
     if (receivedData.state == 1) {
+        const labelFiles = document.querySelectorAll(".category__file");
+        labelFiles.forEach(function (labelFile) {
+            loadImg(labelFile);
+        });
         document.getElementById("form__submit").innerText = "Cập nhật phân loại";
         const categoryId = receivedData.categoryId;
         $.ajax({
@@ -254,15 +273,13 @@ window.addEventListener('message', function (event) {
                 // reset
                 const parameterItems = document.querySelectorAll(".parameter__item--added");
                 Array.from(parameterItems).forEach(function (parameterItem) {
-                    if (parameterItem.classList.contains("parameter__item--added")) {
-                        const id = parameterItem.getAttribute("id-count");
-                        removeRule(`nameParameter${id}`);
-                        removeRule(`minValue${id}`);
-                        removeRule(`maxValue${id}`);
-                        removeRule(`guideImg${id}`);
-                        removeRule(`unit${id}`)
-                        parameterItem.remove();
-                    }
+                    const id = parameterItem.getAttribute("id-count");
+                    removeRule(`nameParameter${id}`);
+                    removeRule(`minValue${id}`);
+                    removeRule(`maxValue${id}`);
+                    removeRule(`guideImg${id}`);
+                    removeRule(`unit${id}`)
+                    parameterItem.remove();
                 });
 
                 for (let i = 0; i < parameters.length; i++) {
@@ -282,15 +299,15 @@ window.addEventListener('message', function (event) {
                     if (guideImg.querySelector('.category__img')) {
                         guideImg.querySelector('.category__img').src = `assets/img/parameter_guide/${parameters[i].guideImg}`;
                     } else {
-                        guideImg.insertAdjacentHTML("beforeend", `<img class="category__img" src="assets/img/guide_img/${parameters[i].guideImg}" alt="">`);
+                        guideImg.insertAdjacentHTML("beforeend", `<img class="category__img" src="assets/img/parameter_guide/${parameters[i].guideImg}" alt="">`);
                     }
                 }
-                //     Remove rule img
                 removeRule('sizeTableImage');
                 removeRule('guideImg');
                 for (let j = 1; j <= countIdRule; j++) {
                     removeRule(`guideImg${j}`);
                 }
+                loadRules();
             }
         }
     }
@@ -306,7 +323,17 @@ window.addEventListener('message', function (event) {
             data: category,
             cache: false,
             success: function (data) {
-
+                if (data.status == true) {
+                    notifySuccess({
+                        title: "Thêm thành công",
+                        body: "Thêm phân loại thành công, vui lòng tải lại trang",
+                    });
+                } else {
+                    notifyFailed({
+                        title: "Thêm không thành công",
+                        body: "Thêm phân loại không thành công, phân loại này đã tồn tại",
+                    });
+                }
             },
             error: function (error) {
             },
@@ -315,6 +342,7 @@ window.addEventListener('message', function (event) {
 
     function update() {
         let category = new FormData(form);
+        category.append("categoryId", receivedData.categoryId)
         $.ajax({
             url: "admin-update-category",
             type: "POST",
@@ -324,7 +352,17 @@ window.addEventListener('message', function (event) {
             data: category,
             cache: false,
             success: function (data) {
-
+                if (data.status == true) {
+                    notifySuccess({
+                        title: "Cập nhật thành công",
+                        body: "Cập nhật phân loại thành công, vui lòng tải lại trang",
+                    });
+                } else {
+                    notifyFailed({
+                        title: "Cập nhật không thành công",
+                        body: "Cập nhật phân loại không thành công, vui lòng thử lại",
+                    });
+                }
             },
             error: function (error) {
             },

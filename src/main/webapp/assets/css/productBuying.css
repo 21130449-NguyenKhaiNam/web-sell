@@ -15,6 +15,15 @@
 
 }
 
+.product__list--empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: #3f3f3f;
+}
 .product__item {
     display: flex;
     flex-direction: column;

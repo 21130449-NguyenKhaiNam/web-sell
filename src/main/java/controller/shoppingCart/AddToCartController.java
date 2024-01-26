@@ -1,7 +1,7 @@
 package controller.shoppingCart;
 
+import cartShopping.ShoppingCart;
 import models.Color;
-import models.ShoppingCart;
 import models.Size;
 import models.User;
 import utils.ProductFactory;

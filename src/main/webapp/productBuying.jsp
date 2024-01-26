@@ -110,52 +110,74 @@
                     </form>
                 </div>
                 <div class="col-9">
-                    <div class="product__list">
-                        <c:set var="list" value="${requestScope.productCardList}"/>
-                        <c:forEach var="item" items="${list}">
-                            <div class="product__item">
-                                <c:set var="listProductImage"
-                                       value="${productFactory.getListImagesByProductId(item.id)}"/>
-                                <img src="${pageContext.servletContext.contextPath}/assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
-                                     class="product__img" alt="" loading="lazy"/>
-                                <div class="product__info">
-                                    <c:url var="linkProductDetail" value="/showProductDetail">
-                                        <c:param name="id" value="${item.id}"/>
-                                        <c:param name="ten-sapn-pham" value="${item.name}"/>
-                                    </c:url>
-                                    <a class="product__name" target="_blank"
-                                       href="${linkProductDetail}">${item.name}</a>
-                                    <div class="product__review">
-                                        <div class="product__review-stars">
-                                            <c:forEach var="starA" begin="1" step="1"
-                                                       end="${productFactory.calculateStar(item.id)}">
-                                                <i class="fa-solid fa-star"></i>
-                                            </c:forEach>
-                                            <c:forEach var="starB" begin="1" step="1"
-                                                       end="${5 - productFactory.calculateStar(item.id)}">
-                                                <i class="fa-regular fa-star"></i>
-                                            </c:forEach>
+                    <c:set var="list" value="${requestScope.productCardList}"/>
+                    <c:if test="${not empty list}">
+                        <div class="product__list">
+                            <c:forEach var="item" items="${list}">
+                                <div class="product__item">
+                                    <c:set var="image" value="undifined"/>
+                                    <c:if test="${!productFactory.getListImagesByProductId(item.id).isEmpty()}">
+                                        <c:set var="image"
+                                               value="${productFactory.getListImagesByProductId(item.id).get(0).nameImage}"/>
+                                    </c:if>
+                                    <img src="${pageContext.servletContext.contextPath}/assets/img/product_img/${image}"
+                                         class="product__img" alt="" loading="lazy"/>
+                                    <div class="product__info">
+                                        <c:url var="linkProductDetail" value="/showProductDetail">
+                                            <c:param name="id" value="${item.id}"/>
+                                            <c:param name="ten-sapn-pham" value="${item.name}"/>
+                                        </c:url>
+                                        <a class="product__name" target="_blank"
+                                           href="${linkProductDetail}">${item.name}</a>
+                                        <div class="product__review">
+                                            <div class="product__review-stars">
+                                                <c:forEach var="starA" begin="1" step="1"
+                                                           end="${productFactory.calculateStar(item.id)}">
+                                                    <i class="fa-solid fa-star"></i>
+                                                </c:forEach>
+                                                <c:forEach var="starB" begin="1" step="1"
+                                                           end="${5 - productFactory.calculateStar(item.id)}">
+                                                    <i class="fa-regular fa-star"></i>
+                                                </c:forEach>
+                                            </div>
+                                            <a class="product__review-num" target="_blank"
+                                               href="${linkProductDetail}">${productFactory.getReviewCount(item.id)}
+                                                nhận
+                                                xét</a>
                                         </div>
-                                        <a class="product__review-num" target="_blank"
-                                           href="${linkProductDetail}">${productFactory.getReviewCount(item.id)} nhận
-                                                                                                                 xét</a>
+                                        <span class="product__price">
+                                            <fmt:formatNumber value="${item.originalPrice}" type="currency"
+                                                              currencyCode="VND"
+                                                              var="originalPrice"/>
+                                            <c:choose>
+                                                <c:when test="${item.salePrice != null}">
+                                                    <strong class="product__price--sale">
+                                                        <fmt:formatNumber value="${item.salePrice}" type="currency"
+                                                                          currencyCode="VND"
+                                                                          var="salePrice"/>
+                                                            ${salePrice}
+                                                    </strong>
+                                                    <strong class="product__price--original">
+                                                            ${originalPrice}
+                                                    </strong>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <strong class="product__price--sale">
+                                                            ${originalPrice}
+                                                    </strong>
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                        </span>
                                     </div>
-                                    <fmt:formatNumber value="${item.originalPrice}" type="currency" currencyCode="VND"
-                                                      var="originalPrice"/>
-                                    <fmt:formatNumber value="${item.salePrice}" type="currency" currencyCode="VND"
-                                                      var="salePrice"/>
-                                    <span class="product__price">
-                                        <strong class="product__price--sale">
-                                                ${salePrice}
-                                        </strong>
-                                        <strong class="product__price--original">
-                                                ${originalPrice}
-                                        </strong>
-                                    </span>
                                 </div>
-                            </div>
-                        </c:forEach>
+                            </c:forEach>
                     </div>
+                    </c:if>
+                    <c:if test="${empty list}">
+                        <p class="product__list--empty">Không có sản phẩm nào ứng với bộ lọc</p>
+                    </c:if>
+
                 </div>
             </div>
             <ul class="paging">

@@ -86,7 +86,7 @@ th {
 }
 .modal .modal__content{
     width: 80%;
-    height: 500px;
+    height: 80%;
     display: flex;
     flex-direction: column;
 }

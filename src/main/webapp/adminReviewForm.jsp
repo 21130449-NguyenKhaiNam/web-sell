@@ -57,36 +57,6 @@
                                 <span class="color__code" id="color"></span>
                             </p>
                             <div id="size"></div>
-                            <%--                            <c:choose>--%>
-                            <%--                                <c:when test="${fn:length(sizes) == 1}">--%>
-                            <%--                                    <p class="product__size">Kích thước:--%>
-                            <%--                                        <c:forEach var="size" items="${sizes}">--%>
-                            <%--                                            <span class="product__size--default">${size}</span>--%>
-                            <%--                                        </c:forEach>--%>
-                            <%--                                    </p>--%>
-                            <%--                                </c:when>--%>
-                            <%--                                <c:otherwise>--%>
-                            <%--                                    <c:set var="listParameter" value="${requestScope.listParameter}"/>--%>
-                            <%--                                    <ul class="product__size--custom">--%>
-                            <%--                                        <c:forEach var="size" items="${sizes}">--%>
-                            <%--                                            <li>${listParameter[loop.index]}: ${size}--%>
-                            <%--                                            </li>--%>
-                            <%--                                        </c:forEach>--%>
-                            <%--                                        <!--                                <li>-->--%>
-                            <%--                                        <!--                                    Dài áo:-->--%>
-                            <%--                                        <!--                                </li>-->--%>
-                            <%--                                        <!--                                <li>-->--%>
-                            <%--                                        <!--                                    Ngang ngực:-->--%>
-                            <%--                                        <!--                                </li>-->--%>
-                            <%--                                        <!--                                <li>-->--%>
-                            <%--                                        <!--                                    Dài tay:-->--%>
-                            <%--                                        <!--                                </li>-->--%>
-                            <%--                                        <!--                                <li>-->--%>
-                            <%--                                        <!--                                    Rộng vai:-->--%>
-                            <%--                                        <!--                                </li>-->--%>
-                            <%--                                    </ul>--%>
-                            <%--                                </c:otherwise>--%>
-                            <%--                            </c:choose>--%>
                             <p class="product__quantity">
                                 Số lượng: <span id="quantity"></span>
                             </p>
@@ -100,18 +70,6 @@
                             <div class="review__rating">
                                 <p>Chất lượng sản phẩm</p>
                                 <ul class="review__stars">
-                                    <%--                                    <c:forEach varStatus="loop" begin="1" end="${review.ratingStar}">--%>
-                                    <%--                                        <div class="review__star review__star--choose">--%>
-
-                                    <%--                                        </div>--%>
-                                    <%--                                    </c:forEach>--%>
-                                    <%--                                    <c:if test="${review.ratingStar < 5}">--%>
-                                    <%--                                        <c:forEach varStatus="loop" begin="1" end="${5 - review.ratingStar}">--%>
-                                    <%--                                            <div class="review__star ">--%>
-
-                                    <%--                                            </div>--%>
-                                    <%--                                        </c:forEach>--%>
-                                    <%--                                    </c:if>--%>
                                 </ul>
                             </div>
                         </div>
