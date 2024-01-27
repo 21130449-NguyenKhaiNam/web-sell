@@ -426,7 +426,6 @@
             </div>
         </div>
     </div>
-    </div>
 </main>
 <div class="popup__deletion"></div>
 <%@include file="footer.jsp" %>

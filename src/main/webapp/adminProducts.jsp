@@ -1,4 +1,5 @@
 <%@ page import="java.util.List" %>
+<%@ page import="models.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -41,8 +42,7 @@
             <ul class="navbar__list">
                 <li
                         class="navbar__item"><a href="adminProducts.jsp"
-                                                class="navbar__link button button button--hover navbar__link--clicked">Sản
-                                                                                                                       phẩm</a>
+                                                class="navbar__link button button button--hover navbar__link--clicked">Sản phẩm</a>
                 </li>
                 <li class="navbar__item"><a href="adminOrders.jsp"
                                             class="navbar__link button button button--hover ">Đơn hàng</a>
@@ -55,6 +55,9 @@
                 </li>
                 <li class="navbar__item"><a href="adminCategories.jsp"
                                             class="navbar__link button button button--hover ">Phân loại</a>
+                </li>
+                <li class="navbar__item"><a href="Dashboard"
+                                            class="navbar__link button button button--hover ">Thống kê</a>
                 </li>
             </ul>
         </div>
@@ -171,10 +174,12 @@
                         <span class="reload__btn">
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
-                        <span id="button-create-product" class="button button__add">
-                            <i class="fa-solid fa-plus"></i>
-                            Thêm sản phẩm
-                        </span>
+                        <c:if test="${sessionScope.auth.role == 2}">
+                            <span id="button-create-product" class="button button__add">
+                                <i class="fa-solid fa-plus"></i>
+                                Thêm sản phẩm
+                            </span>
+                        </c:if>
                     </div>
                     <div class="table__wrapper">
                         <table class="table">
@@ -301,7 +306,9 @@
     </article>
     <div class="modal__blur"></div>
 </div>
-
+<script>
+    const role = "<%=((User)session.getAttribute("auth")).getRole()%>";
+</script>
 <script src="js/admin/adminProducts.js"></script>
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");

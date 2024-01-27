@@ -1,7 +1,10 @@
 package services;
 
 import dao.ReviewDAO;
+import dao.UserDAO;
+import dao.UserDAOImplement;
 import models.Review;
+import models.User;
 
 import java.util.List;
 
@@ -9,9 +12,11 @@ public class AdminReviewServices {
     public static AdminReviewServices INSTANCE;
     private static final int LIMIT = 10;
     private ReviewDAO reviewDAO;
+    private UserDAO userDAO;
 
     private AdminReviewServices() {
         this.reviewDAO = new ReviewDAO();
+        this.userDAO = new UserDAOImplement();
     }
 
     public static AdminReviewServices getINSTANCE() {
@@ -43,5 +48,13 @@ public class AdminReviewServices {
         }
         reviewDAO.updateVisibility(reviewId, visibility);
         return true;
+    }
+
+    public User getUserByIdProductDetail(int orderDetailId) {
+        List<User> listUser = userDAO.getUserByIdProductDetail(orderDetailId);
+        if (listUser.isEmpty()) {
+            return null;
+        }
+        return listUser.get(0);
     }
 }

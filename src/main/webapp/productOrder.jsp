@@ -128,6 +128,9 @@
     </div>
 </form>
 <script src="js/validateForm.js"></script>
+<script>
+    const isLogin = "<%=session.getAttribute("auth") != null%>";
+</script>
 <script src="js/productOrder.js"></script>
 </body>
 </html>

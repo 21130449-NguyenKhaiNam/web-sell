@@ -7,7 +7,6 @@ import utils.ProductFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class ShoppingCart {
     private HashMap<Integer, List<AbstractCartProduct>> shoppingCartMap = new HashMap<>();
@@ -123,17 +122,6 @@ public class ShoppingCart {
         }
     }
 
-    // Dùng cho trang shoppingCart khi người dùng nhấn nút "-" để giảm số lượng
-//    public void decrease(int productId) {
-//        if(shoppingCartMap.containsKey(productId)){
-//            CartProduct cartProduct= shoppingCartMap.get(productId);
-//            int currentQuantity = cartProduct.getQuantity();
-//            int quantityDecreased = currentQuantity - 1;
-//            if(quantityDecreased > 0){
-//                cartProduct.setQuantity(quantityDecreased);
-//            }
-//        }
-//    }
     public void decrease(int productId, int cartProductIndex) {
         if (shoppingCartMap.containsKey(productId)) {
             List<AbstractCartProduct> listCartProducts = shoppingCartMap.get(productId);
@@ -164,8 +152,7 @@ public class ShoppingCart {
         double temporaryPrice = 0;
         for (int productId : shoppingCartMap.keySet()) {
             for (AbstractCartProduct cartProduct : shoppingCartMap.get(productId)) {
-                if (cartProduct instanceof CartProduct)
-                    temporaryPrice += ((CartProduct) cartProduct).getSubtotal();
+                temporaryPrice += cartProduct.getSubtotal();
             }
         }
         return temporaryPrice;

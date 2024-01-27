@@ -59,6 +59,9 @@
                 <li class="navbar__item"><a href="adminCategories.jsp"
                                             class="navbar__link button button button--hover ">Phân loại</a>
                 </li>
+                <li class="navbar__item"><a href="Dashboard"
+                                            class="navbar__link button button button--hover ">Thống kê</a>
+                </li>
             </ul>
         </div>
     </nav>

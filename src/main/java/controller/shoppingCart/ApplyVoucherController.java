@@ -7,9 +7,12 @@ import org.json.JSONObject;
 import services.ShoppingCartServices;
 import utils.FormatCurrency;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -72,6 +75,7 @@ public class ApplyVoucherController extends HttpServlet {
         response.setContentType("application/json");
 
         if(listCodeOfVouchers.contains(code)){
+            //Check null voucher
             Voucher voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
 //            double minPriceToApply = ShoppingCartServices.getINSTANCE().getMinPriceApplyVoucherByCode(code);
             double minPriceToApply = voucher.getMinimumPrice();

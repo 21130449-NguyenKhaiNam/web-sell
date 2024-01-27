@@ -34,7 +34,7 @@ public class FilterStrategyBuying extends FilterStrategy {
         List<Integer> listIDFiltered = findCommonIDs(listId);
         List<Product> productCardFiltered;
         if (listIDFiltered.isEmpty()) {
-            productCardFiltered = new ArrayList<>();
+            productCardFiltered = ProductCardServices.getINSTANCE().filter(null, page);
         } else {
             productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page);
         }

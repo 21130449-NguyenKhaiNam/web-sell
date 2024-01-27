@@ -1,4 +1,4 @@
-package dao.order;
+package dao;
 
 import dao.GeneralDao;
 import models.OrderStatus;

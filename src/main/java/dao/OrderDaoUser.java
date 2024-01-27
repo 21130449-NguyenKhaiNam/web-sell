@@ -7,7 +7,7 @@ import models.Product;
 
 import java.util.List;
 
-public class OrderDAO {
+public class OrderDaoUser {
 
     public List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder){
         String querry = "SELECT id FROM orders WHERE userId = ? AND orderStatusId = ?";

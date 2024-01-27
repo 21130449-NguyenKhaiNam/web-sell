@@ -208,59 +208,6 @@ window.addEventListener('message', function (event) {
             });
         }
 
-        // const toastList = document.querySelector(".toast__list");
-
-        // function notifySuccess() {
-        //     toastList.innerHTML = `<div class="toast" id="snackbar">
-        //     <div class="toast__header">
-        //         <span class="toast__icon-wrapper toast__icon--success">
-        //             <i class="toast__icon fa-solid fa-check"></i>
-        //         </span>
-        //         <strong class="toast__title">Thêm sản phẩm thành công</strong>
-        //         <i class="toast__icon-close fa-solid fa-xmark"></i>
-        //     </div>
-        //     <div class="toast__body">
-        //         Sản phẩm đã được thêm vào gian hàng.
-        //     </div>
-        // </div>`;
-        //     // Get the snackbar DIV
-        //     const x = document.getElementById("snackbar");
-        //
-        //     // Add the "show" class to DIV
-        //     x.className = "show";
-        //
-        //     // After 3 seconds, remove the show class from DIV
-        //     setTimeout(function () {
-        //         x.className = x.className.replace("show", "");
-        //         x.remove();
-        //     }, 3000);
-        // }
-        //
-        // function notifyFailed() {
-        //     toastList.innerHTML = `<div class="toast" id="snackbar">
-        //     <div class="toast__header">
-        //         <span class="toast__icon-wrapper toast__icon--failed">
-        //             <i class="toast__icon fa-solid fa-xmark"></i>
-        //         </span>
-        //         <strong class="toast__title">Thêm sản phẩm không thành công thành công</strong>
-        //         <i class="toast__icon-close fa-solid fa-xmark"></i>
-        //     </div>
-        //     <div class="toast__body">
-        //         Sản phẩm đã có tên trên đã tồn tại vào gian hàng.
-        //     </div>
-        // </div>`;
-        //     // Get the snackbar DIV
-        //     const x = document.getElementById("snackbar");
-        //
-        //     // Add the "show" class to DIV
-        //     x.className = "show";
-        //
-        //     // After 3 seconds, remove the show class from DIV
-        //     setTimeout(function () {
-        //         x.className = x.className.replace("show", "");
-        //         x.remove();
-        //     }, 3000);
-        // }
     }
 
     // Read product: No validate

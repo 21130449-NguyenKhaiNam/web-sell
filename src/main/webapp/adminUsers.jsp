@@ -35,21 +35,26 @@
     <nav class="navbar">
         <div class="container-xl">
             <ul class="navbar__list">
-                <li class="navbar__item"><a href="adminProducts.jsp" class="navbar__link button button button--hover ">Sản
-                    phẩm</a></li>
-                <li class="navbar__item"><a href="adminOrders.jsp" class="navbar__link button button button--hover ">Đơn
-                    hàng</a></li>
+                <li
+                        class="navbar__item"><a href="adminProducts.jsp"
+                                                class="navbar__link button button button--hover ">Sản phẩm</a>
+                </li>
+                <li class="navbar__item"><a href="adminOrders.jsp"
+                                            class="navbar__link button button button--hover ">Đơn hàng</a>
+                </li>
                 <li class="navbar__item"><a href="AdminUser"
-                                            class="navbar__link button button button--hover navbar__link--clicked">Khách
-                    hàng</a></li>
-                <li class="navbar__item"><a href="Dashboard"
-                                            class="navbar__link button button button--hover ">Dashboard</a></li>
+                                            class="navbar__link button button button--hover navbar__link--clicked">Khách hàng</a>
+                </li>
                 <li class="navbar__item"><a href="adminReviews.jsp"
                                             class="navbar__link button button button--hover ">Nhận xét</a>
                 </li>
                 <li class="navbar__item"><a href="adminCategories.jsp"
                                             class="navbar__link button button button--hover ">Phân loại</a>
                 </li>
+                <li class="navbar__item"><a href="Dashboard"
+                                            class="navbar__link button button button--hover ">Thống kê</a>
+                </li>
+
             </ul>
         </div>
     </nav>

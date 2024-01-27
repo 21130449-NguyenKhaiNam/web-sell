@@ -281,4 +281,12 @@ public class ProductCardDAO {
         sql.append("UPDATE products ").append("SET visibility = ? ").append("WHERE id = ?");
         GeneralDao.executeAllTypeUpdate(sql.toString(), visibility, productId);
     }
+
+    public List<Product> getNameProductByIdOrderDetail(int orderDetailId) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT productName AS name ")
+                .append("FROM order_details ")
+                .append("WHERE id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
+    }
 }

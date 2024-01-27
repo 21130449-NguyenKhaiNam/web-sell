@@ -7,8 +7,6 @@ import models.User;
 import java.sql.Date;
 import java.util.List;
 
-import java.util.List;
-
 public class UserServices {
     private static UserServices INSTANCE;
     private UserDAO userDAO;

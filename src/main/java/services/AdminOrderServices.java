@@ -1,24 +1,18 @@
 package services;
 
-import dao.GeneralDao;
 import dao.OrderDetailDAO;
-import dao.order.OrderDao;
-import dao.order.OrderStatusDao;
-import dao.order.TransactionStatusDao;
+import dao.OrderDaoAdmin;
+import dao.OrderStatusDao;
+import dao.TransactionStatusDao;
 import models.*;
 import utils.FormatCurrency;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class AdminOrderServices {
 
-    private OrderDao orderDao;
+    private OrderDaoAdmin orderDao;
     private OrderStatusDao orderStatusDao;
     private TransactionStatusDao transactionStatusDao;
 
@@ -27,7 +21,7 @@ public class AdminOrderServices {
     private static AdminOrderServices INSTANCE;
 
     public AdminOrderServices() {
-        orderDao = new OrderDao();
+        orderDao = new OrderDaoAdmin();
         orderStatusDao = new OrderStatusDao();
         transactionStatusDao = new TransactionStatusDao();
         orderDetailDAO = new OrderDetailDAO();

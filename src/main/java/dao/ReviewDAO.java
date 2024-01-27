@@ -107,4 +107,5 @@ public class ReviewDAO {
         StringBuilder sql = new StringBuilder("SELECT visibility FROM reviews WHERE id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Review.class, id);
     }
+
 }

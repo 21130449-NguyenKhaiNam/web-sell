@@ -57,12 +57,8 @@ public class ShowReview extends HttpServlet {
         request.getRequestDispatcher("review.jsp").forward(request, response);
     }
 
-    private String[] readSizes(String sizesJson) {
-        JSONArray jsonArray = new JSONArray(sizesJson);
-        String[] sizes = new String[jsonArray.length()];
-        for (int i = 0; i < jsonArray.length(); i++) {
-            sizes[i] = jsonArray.getString(i);
-        }
-        return sizes;
+    private String[] readSizes(String sizesRequired) {
+//        Dài áo: 70 cm, Dài tay: 22 cm, Rộng gấu: 54 cm, Rộng bắp tay: 24 cm, Rộng vai: 50 cm
+        return sizesRequired.split(", ");
     }
 }

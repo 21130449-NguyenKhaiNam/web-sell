@@ -61,8 +61,9 @@
                                 <c:otherwise>
                                     <c:set var="listParameter" value="${requestScope.listParameter}"/>
                                     <ul class="product__size--custom">
+                                        Kích thước:
                                         <c:forEach var="size" items="${sizes}">
-                                            <li>${listParameter[loop.index]}: ${size}
+                                            <li>${size}
                                             </li>
                                         </c:forEach>
                                         <!--                                <li>-->

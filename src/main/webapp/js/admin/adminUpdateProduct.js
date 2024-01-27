@@ -106,10 +106,12 @@ window.addEventListener('message', function (event) {
             function removeImg(addedFormImg) {
                 addedFormImg.remove()
                 const lastElement = imgPreviewsExist.lastElementChild;
-                lastElement.insertAdjacentHTML("beforeend", ` <i class="form__img-delete fa-solid fa-xmark"></i>    `);
-                lastElement.querySelector(".form__img-delete").addEventListener("click", function (e) {
-                    removeImg(lastElement);
-                });
+                if (lastElement) {
+                    lastElement.insertAdjacentHTML("beforeend", ` <i class="form__img-delete fa-solid fa-xmark"></i>`);
+                    lastElement.querySelector(".form__img-delete").addEventListener("click", function (e) {
+                        removeImg(lastElement);
+                    });
+                }
             }
 
             if (last) {
@@ -387,31 +389,32 @@ window.addEventListener('message', function (event) {
 
         //Update------------------------------------------------------------------------------------------
         function callAjaxUpdate() {
-            $.ajax({
-                url: "admin-update-product",
-                type: "POST",
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                cache: false,
-                data: getDataForm(form),
-                success: function (data) {
-                    if (data.status === true) {
-                        notifySuccess({
-                            title: "Cập nhập sản phẩm thành công",
-                            body: "Sản phẩm đã được cập nhập vào gian hàng."
-                        });
-                    } else {
-                        notifyFailed({
-                            title: "Cập nhập sản phẩm thất bại",
-                            body: "Sản phẩm chưa được cập nhập vào gian hàng."
-                        });
-                    }
-                },
-                error: function (error) {
-                    console.log(error)
-                },
-            });
+            console.log(1)
+            // $.ajax({
+            //     url: "admin-update-product",
+            //     type: "POST",
+            //     contentType: false,
+            //     processData: false,
+            //     dataType: "json",
+            //     cache: false,
+            //     data: getDataForm(form),
+            //     success: function (data) {
+            //         if (data.status === true) {
+            //             notifySuccess({
+            //                 title: "Cập nhập sản phẩm thành công",
+            //                 body: "Sản phẩm đã được cập nhập vào gian hàng."
+            //             });
+            //         } else {
+            //             notifyFailed({
+            //                 title: "Cập nhập sản phẩm thất bại",
+            //                 body: "Sản phẩm chưa được cập nhập vào gian hàng."
+            //             });
+            //         }
+            //     },
+            //     error: function (error) {
+            //         console.log(error)
+            //     },
+            // });
         }
 
         const inputDesc = document.querySelector(`input[name = "description"]`)
@@ -427,36 +430,5 @@ window.addEventListener('message', function (event) {
             formData.append("id", productId);
             return formData;
         }
-
-        // const toastList = document.querySelector(".toast__list");
-        //
-        // function notifySuccess() {
-        //     toastList.innerHTML = `<div class="toast" id="snackbar">
-        //     <div class="toast__header">
-        //         <span class="toast__icon-wrapper toast__icon--success">
-        //             <i class="toast__icon fa-solid fa-check"></i>
-        //         </span>
-        //         <strong class="toast__title">Cập nhập sản phẩm thành công</strong>
-        //         <i class="toast__icon-close fa-solid fa-xmark"></i>
-        //     </div>
-        //     <div class="toast__body">
-        //         Sản phẩm đã được thêm vào gian hàng.
-        //     </div>
-        // </div>`;
-        //     // Get the snackbar DIV
-        //     const x = document.getElementById("snackbar");
-        //
-        //     // Add the "show" class to DIV
-        //     x.className = "show";
-        //
-        //     // After 3 seconds, remove the show class from DIV
-        //     setTimeout(function () {
-        //         x.className = x.className.replace("show", "");
-        //         x.remove();
-        //     }, 3000);
-        //
-        //     // Send a message to the parent window
-        //     window.parent.postMessage('Reload', `${window.location.origin}+"/adminProducts.jsp`);
-        // }
     }
 })

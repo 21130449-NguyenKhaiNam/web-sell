@@ -1,11 +1,8 @@
 package utils;
 
+import models.*;
+import services.AdminReviewServices;
 import services.ProductCardServices;
-
-import models.Color;
-import models.Image;
-import models.Product;
-import models.Size;
 import services.ProductServices;
 
 import java.util.List;
@@ -50,7 +47,12 @@ public class ProductFactory {
         return ProductCardServices.getINSTANCE().getNameCategoryById(id);
     }
 
+    public static User getUserByIdOrderDetail(int orderDetailId) {
+        return AdminReviewServices.getINSTANCE().getUserByIdProductDetail(orderDetailId);
+    }
+
     public static String getNameProductByIdOrderDetail(int orderDetailId) {
         return ProductCardServices.getINSTANCE().getNameProductByIdOrderDetail(orderDetailId);
     }
+
 }

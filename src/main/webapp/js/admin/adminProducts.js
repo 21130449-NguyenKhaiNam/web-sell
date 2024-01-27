@@ -48,22 +48,24 @@ dataViewElement.forEach(function (element) {
 });
 
 //Create product
-const iframeCreate = document.querySelector("#dialog-product-create .modal__product-iframe");
-const modalCreateBtn = document.querySelector("#button-create-product");
-const modalCreate = document.querySelector("#dialog-product-create");
-const elementCloseCreate = getClose(modalCreate);
+if (role == 2){
+    const iframeCreate = document.querySelector("#dialog-product-create .modal__product-iframe");
+    const modalCreateBtn = document.querySelector("#button-create-product");
+    const modalCreate = document.querySelector("#dialog-product-create");
+    const elementCloseCreate = getClose(modalCreate);
 
-elementCloseCreate.onclick = function () {
-    modalCreate.style.display = "none";
-}
+    elementCloseCreate.onclick = function () {
+        modalCreate.style.display = "none";
+    }
 
-modalCreateBtn.onclick = function () {
-    const pageTarget = `${window.location.origin}/adminProductForm.jsp`;
-    modalCreate.style.display = "block";
-    // Send via iframe
-    iframeCreate.contentWindow.postMessage({
-        state: 0,
-    }, pageTarget);
+    modalCreateBtn.onclick = function () {
+        const pageTarget = `${window.location.origin}/adminProductForm.jsp`;
+        modalCreate.style.display = "block";
+        // Send via iframe
+        iframeCreate.contentWindow.postMessage({
+            state: 0,
+        }, pageTarget);
+    }
 }
 
 //Update product
