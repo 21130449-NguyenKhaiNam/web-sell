@@ -14,7 +14,7 @@ public class ValidatePassword {
     static final String REGEX_LEAST_1_CHAR_SPECIAL = "[^\\s\\w]{1,}";
     static final String REGEX_NO_SPACE = "\\s";
 
-    Map<String, String> errorMap;
+    Map<String, String> errorMap = new HashMap<>();
 
     public ValidatePassword(String password) {
         this.password = password;

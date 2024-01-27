@@ -269,7 +269,7 @@ function handleCustomizeDeliveryInfo(){
                         $.each(response.errorFields, function(errorField, errorMessage) {
                             errorField = `#${errorField}`;
                             $(errorField).text(errorMessage).show();
-                            $(errorField).parent().find('.field__content').addClass('input-invalid');
+                            $(errorField).parent().find('.form__input').addClass('input-invalid');
                         });
                     }
                 },

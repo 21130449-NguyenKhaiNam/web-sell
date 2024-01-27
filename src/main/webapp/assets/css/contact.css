@@ -107,7 +107,7 @@
 
 #contact__form .form__block .error-notice{
     height: auto;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     display: none;
 }
@@ -167,6 +167,7 @@
 
 .select2-selection__rendered{
     font-weight: 500;
+    font-size: 14px;
 }
 
 .select2-search__field{
@@ -223,4 +224,34 @@ label[for="subject"]::after{
 
 label[for="subject"]:hover::after{
     opacity: 1;
+}
+
+.form__input.input-invalid{
+    border: 1.8px #E40F0A solid !important;
+}
+
+.error-notice{
+    font-size: 12px;
+    font-weight: 500;
+    color: #E40F0A;
+    white-space: break-spaces;
+    line-height: 16px;
+}
+
+.success__notification{
+    display: none;
+    font-weight: 600;
+    padding: 12px;
+    background-color: #4BAC4D;
+    color: white;
+    border-radius: 4px;
+}
+
+@keyframes slideOut {
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(-100%); opacity: 0; }
+}
+
+.slideOut {
+    animation: slideOut 1s ease forwards;
 }

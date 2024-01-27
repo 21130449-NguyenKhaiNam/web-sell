@@ -30,7 +30,9 @@ public class SignUp extends HttpServlet {
 
         Map<String, String> mapErrorPassword = AuthenticateServices.getINSTANCE().checkPasswordTemplate(password);
 
+
 // Đăng nhập thành công khi: mapErrorPassword == null và validation.getObjReturn() != null
+
 
         if (validation.getObjReturn() != null && mapErrorPassword == null) {
             User newUser = (User) validation.getObjReturn();

@@ -1,8 +1,10 @@
 package dao;
 
 import models.Contact;
+import models.SubjectContact;
 
 import java.util.List;
+import java.util.Map;
 
 public class ContactDao {
 
@@ -10,11 +12,17 @@ public class ContactDao {
         return GeneralDao.executeQueryWithSingleTable("SELECT id, fullName, phone, email, `subject` FROM contacts", Contact.class);
     }
 
-    public void addNewRecordUserContact(int userId, String fullName, String phone, String email, String subject, String message){
-        GeneralDao.executeAllTypeUpdate("INSERT INTO contacts(userId, fullName, phone, email, subject, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subject, message);
+    public List<SubjectContact> getListContactSubjects(){
+        String sql = "SELECT id , subjectName FROM contact_subjects";
+        return GeneralDao.executeQueryWithSingleTable(sql, SubjectContact.class);
     }
 
-    public static void main(String[] args) {
-        GeneralDao.executeAllTypeUpdate("UPDATE vouchers SET availableTurns = ? WHERE code = ?", 3, "MGG50%");
+
+    public int getIdContactSubjectByName(String subjectName){
+        return (int) GeneralDao.executeQueryWithJoinTables("SELECT id FROM contact_subjects WHERE subjectName = ?", subjectName).get(0).get("id");
+    }
+
+    public void addNewRecordUserContact(Integer userId, String fullName, String phone, String email, int subjectId, String message){
+        GeneralDao.executeAllTypeUpdate("INSERT INTO contact(userId, fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subjectId, message);
     }
 }

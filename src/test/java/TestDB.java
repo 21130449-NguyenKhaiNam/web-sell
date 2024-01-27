@@ -2,11 +2,14 @@
 import dao.DashboadDAO;
 import dao.UserDAO;
 import dao.UserDAOImplement;
+
 import models.Order;
 import models.OrderDetail;
 import models.Product;
+
 import models.User;
 import services.AuthenticateServices;
+import utils.Encoding;
 
 import java.sql.Date;
 
@@ -74,8 +77,6 @@ public class TestDB {
 
 // In ra doanh thu theo từng tháng
         System.out.println("Total Revenue by Month: " + listTotalRevenueByMonth);
-
-
     }
     public void checkUser(int id){
 
