@@ -1,6 +1,7 @@
 package controller.checkout;
 
 import models.*;
+import models.shoppingCart.ShoppingCart;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

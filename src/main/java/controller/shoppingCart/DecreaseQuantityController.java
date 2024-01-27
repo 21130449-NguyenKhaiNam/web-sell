@@ -1,7 +1,8 @@
 package controller.shoppingCart;
 
-import models.CartProduct;
-import models.ShoppingCart;
+import models.shoppingCart.AbstractCartProduct;
+import models.shoppingCart.CartProduct;
+import models.shoppingCart.ShoppingCart;
 import models.User;
 import models.Voucher;
 import org.json.JSONObject;
@@ -88,18 +89,18 @@ public class DecreaseQuantityController extends HttpServlet {
 
         session.setAttribute(userIdCart, cart);
 
-        CartProduct cartProduct = cart.getShoppingCartMap().get(productId).get(cartProductIndex);
+        AbstractCartProduct cartProduct = cart.getShoppingCartMap().get(productId).get(cartProductIndex);
         int newQuantity = cartProduct.getQuantity();
         String newSubtotalFormat = cartProduct.subtotalFormat();
         String newTemporaryPriceFormat = cart.temporaryPriceFormat();
         String discountPriceFormat = cart.discountPriceFormat();
-        String newTotalPriceFormat = cart.totalPriceFormat();
-
+        String newTotalPriceFormat = cart.totalPriceFormat(false);
 
         jsonObject.put("newQuantity", newQuantity);
         jsonObject.put("newSubtotalFormat", newSubtotalFormat);
         jsonObject.put("newTemporaryPriceFormat", newTemporaryPriceFormat);
         jsonObject.put("newTotalPriceFormat", newTotalPriceFormat);
+        jsonObject.put("discountPrice", cart.getDiscountPrice());
 
         if(session.getAttribute("failedApply") != null){
             jsonObject.put("failedApply", session.getAttribute("failedApply"));

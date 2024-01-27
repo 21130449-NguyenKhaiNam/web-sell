@@ -1,21 +1,11 @@
 package controller.checkout;
 
-import models.DeliveryInfo;
-import models.ShoppingCart;
-import models.User;
 import org.json.JSONObject;
-import services.IMailServices;
-import services.MailPlaceOrderService;
-import services.MailResetPasswordServices;
 
-import javax.mail.MessagingException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @WebServlet(name = "PlaceOrderController", value = "/PlaceOrder")

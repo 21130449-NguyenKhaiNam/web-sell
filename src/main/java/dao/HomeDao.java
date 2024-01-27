@@ -52,4 +52,8 @@ public class HomeDao {
         }
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, 10);
     }
+
+    public static void main(String[] args) {
+        System.out.println(getListNewProducts(true));
+    }
 }

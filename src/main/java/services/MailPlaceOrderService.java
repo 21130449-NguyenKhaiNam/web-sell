@@ -1,8 +1,9 @@
 package services;
 
-import models.CartProduct;
+import models.shoppingCart.AbstractCartProduct;
+import models.shoppingCart.CartProduct;
 import models.DeliveryInfo;
-import models.ShoppingCart;
+import models.shoppingCart.ShoppingCart;
 import properties.MailProperties;
 import utils.FormatCurrency;
 
@@ -10,15 +11,11 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class MailPlaceOrderService implements IMailServices{
 
@@ -58,21 +55,26 @@ public class MailPlaceOrderService implements IMailServices{
         }
 
         String paymentMethod = cart.getPaymentMethod().getTypePayment();
-        String totalPriceFormat = cart.totalPriceFormat();
+        String totalPriceFormat;
+        if(cart.getDeliveryMethod() != null){
+            totalPriceFormat = cart.totalPriceFormat(true);
+        }else{
+            totalPriceFormat = cart.totalPriceFormat(false);
+        }
         int totalItems = cart.getTotalItems();
 
         Session session = Session.getInstance(MailProperties.getProperties(), auth);
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(MailProperties.getEmail()));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailBuyer, true));
-        String subjectMess = "ĐƠN HÀNG CỦA BẠN NÈ";
+        String subjectMess = "ĐƠN HÀNG CỦA BẠN";
         message.setSubject(subjectMess);
         message.setReplyTo(null);
 
-        List<CartProduct> listCartProduct = new ArrayList<>();
+        List<AbstractCartProduct> listCartProduct = new ArrayList<>();
         StringBuilder itemsBoughtBuilder = new StringBuilder();
         for (Integer productId: cart.getShoppingCartMap().keySet()) {
-            for (CartProduct cartProduct: cart.getShoppingCartMap().get(productId)) {
+            for (AbstractCartProduct cartProduct: cart.getShoppingCartMap().get(productId)) {
                 listCartProduct.add(cartProduct);
                 String trTagOpen;
                 if((listCartProduct.indexOf(cartProduct) + 1) % 2 == 0){
@@ -82,7 +84,7 @@ public class MailPlaceOrderService implements IMailServices{
                 }
                 itemsBoughtBuilder.append(trTagOpen).append("<td style='border: 1px solid #d9d9d9;text-align: center;vertical-align: middle; padding: 10px;'><div class='item__info' style='display: grid; text-align: left;'><strong>").append(cartProduct.getProduct().getName()).append("</strong>")
                         .append("<span class='color' style='font-size: 14px;'>Màu sắc: ").append(cartProduct.getColor().getCodeColor()).append("</span>")
-                        .append("<span class='size' style='font-size: 14px;'>Kích thước: ").append(cartProduct.getSize().getNameSize()).append("</span></div></td>")
+                        .append("<span class='size' style='font-size: 14px;'>Kích thước: ").append(cartProduct.sizeRequired()).append("</span></div></td>")
                         .append("<td style='border: 1px solid #d9d9d9;text-align: center;vertical-align: middle; padding: 10px;'>").append(cartProduct.sewingPriceFormat()).append("</td><td style='border: 1px solid #d9d9d9;text-align: center;vertical-align: middle; padding: 10px;'>").append(cartProduct.getQuantity())
                         .append("</td><td style='border: 1px solid #d9d9d9;text-align: center;vertical-align: middle; padding: 10px;'>").append(cartProduct.subtotalFormat()).append("</td></tr>");
             }

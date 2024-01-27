@@ -45,7 +45,7 @@ public class CheckoutServices {
         checkoutDao.addNewOrder(orderId, userId, dateOrder, fullName, email, phone, address, deliveryMethodId, paymentMethodId, voucherId);
     }
 
-    public void addEachOrderDetail(int orderId, int productId, String sizeRequired, String colorRequired, int quantityRequired, double price){
-        checkoutDao.addEachOrderDetail(orderId, productId, sizeRequired, colorRequired, quantityRequired, price);
+    public void addEachOrderDetail(int orderId, int productId, String productName, String sizeRequired, String colorRequired, int quantityRequired, double price){
+        checkoutDao.addEachOrderDetail(orderId, productId, productName, sizeRequired, colorRequired, quantityRequired, price);
     }
 }

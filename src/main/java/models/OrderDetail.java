@@ -2,8 +2,9 @@ package models;
 
 public class OrderDetail {
     private int id;
-    private int orderId;
+    private String orderId;
     private int productId;
+    private String productName;
     private String sizeRequired;
     private String colorRequired;
     private int quantityRequired;
@@ -17,11 +18,11 @@ public class OrderDetail {
         this.id = id;
     }
 
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -65,12 +66,21 @@ public class OrderDetail {
         this.price = price;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     @Override
     public String toString() {
         return "OrderDetail{" +
                 "id=" + id +
-                ", orderId=" + orderId +
+                ", orderId='" + orderId + '\'' +
                 ", productId=" + productId +
+                ", productName='" + productName + '\'' +
                 ", sizeRequired='" + sizeRequired + '\'' +
                 ", colorRequired='" + colorRequired + '\'' +
                 ", quantityRequired=" + quantityRequired +

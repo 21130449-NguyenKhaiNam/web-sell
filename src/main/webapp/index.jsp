@@ -109,6 +109,57 @@
         </div>
         <div class="product__wrapper">
             <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
+            <%--            <div class="product__items">--%>
+            <%--                <c:forEach items="${requestScope.list6TrendingProducts}" var="trendProduct">--%>
+            <%--                    <div class="product__item">--%>
+            <%--                        <div class="product__content">--%>
+            <%--                            <div class="image--tag">--%>
+            <%--                                <img src="./assets/img/product_img/${trendProduct['nameimage']}">--%>
+            <%--                                <span class="product__tag">Thịnh hành</span>--%>
+
+            <%--                                <c:url var="atc" value="AddToCart">--%>
+            <%--                                    <c:param name="productId" value="${trendProduct['id']}"/>--%>
+            <%--                                </c:url>--%>
+            <%--                                <form action="${atc}" class="action__bar" method="post">--%>
+            <%--                                    <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>--%>
+            <%--                                    <a class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i></a>--%>
+            <%--                                </form>--%>
+            <%--                            </div>--%>
+            <%--                            <div class="product__info">--%>
+            <%--                                <a class="product__name" href="#">${trendProduct["name"]}</a>--%>
+            <%--                                <div class="product__review">--%>
+            <%--                                    <div class="review__icon">--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                    </div>--%>
+            <%--                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>--%>
+            <%--                                </div>--%>
+            <%--                                <span class="product__price">--%>
+            <%--                                    <fmt:setLocale value="vi_VN"/>--%>
+            <%--                                    <c:choose>--%>
+            <%--                                        <c:when test="${trendProduct['saleprice'] == null}">--%>
+            <%--                                            <strong class="priority__price">--%>
+            <%--                                                <fmt:formatNumber value="${trendProduct['originalprice']}" type="currency"/>--%>
+            <%--                                            </strong>--%>
+            <%--                                        </c:when>--%>
+            <%--                                        <c:otherwise>--%>
+            <%--                                            <strong class="sale__price">--%>
+            <%--                                                <fmt:formatNumber value="${trendProduct['saleprice']}" type="currency"/>--%>
+            <%--                                            </strong>--%>
+            <%--                                            <s class="original__price">--%>
+            <%--                                                <fmt:formatNumber value="${trendProduct['originalprice']}" type="currency"/>--%>
+            <%--                                            </s>--%>
+            <%--                                        </c:otherwise>--%>
+            <%--                                    </c:choose>--%>
+            <%--                                </span>--%>
+            <%--                            </div>--%>
+            <%--                        </div>--%>
+            <%--                    </div>--%>
+            <%--                </c:forEach>--%>
+            <%--            </div>--%>
             <div class="product__items">
                 <c:forEach items="${requestScope.list6TrendingProducts}" var="trendProduct">
                     <c:url var="showProductDetail" value="showProductDetail">
@@ -118,8 +169,18 @@
                         <div class="product__content">
                             <div class="image--tag">
                                 <c:set value="${productFactory.getListImagesByProductId(trendProduct.id)}" var="listTrendProductImages"/>
+                                    <%--                                <c:set var="pid" value="${trendProduct.id}"/>--%>
+                                    <%--                                <%--%>
+                                    <%--                                    int productId = (int) pageContext.getAttribute("pid");--%>
+                                    <%--                                    List<Images> listImageProduct = HomeServices.getINSTANCE().getListImageByProductId(productId);--%>
+                                    <%--                                %>--%>
+                                    <%--                                <img src="./assets/img/product_img/<%= listImageProduct.get(0).getNameImage() %>">--%>
                                 <img src="./assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
                                 <span class="product__tag">Thịnh hành</span>
+
+                                    <%--                                <c:url var="atc" value="AddToCart">--%>
+                                    <%--                                    <c:param name="productId" value="${trendProduct.id}"/>--%>
+                                    <%--                                </c:url>--%>
                                 <form action="AddToCart" class="action__bar" method="post">
                                     <input type="hidden" name="productId" value="${trendProduct.id}">
                                     <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
@@ -177,6 +238,58 @@
         </div>
         <div class="product__wrapper">
             <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
+            <%--            <div class="product__items">--%>
+            <%--                <c:forEach items="${requestScope.list6NewProducts}" var="newProduct">--%>
+            <%--                    <div class="product__item">--%>
+            <%--                        <div class="product__content">--%>
+            <%--                            <div class="image--tag">--%>
+            <%--                                <img src="./assets/img/product_img/${newProduct['nameimage']}">--%>
+            <%--                                <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">--%>
+            <%--                                    <span class="product__tag">Thịnh hành</span>--%>
+            <%--                                </c:if>--%>
+            <%--                                <c:url var="atc" value="AddToCart">--%>
+            <%--                                    <c:param name="productId" value="${newProduct['id']}"/>--%>
+            <%--                                </c:url>--%>
+            <%--                                <form class="action__bar" action="${atc}" method="post">--%>
+            <%--                                    <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>--%>
+            <%--                                    <a href="" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i></a>--%>
+            <%--                                </form>--%>
+            <%--                            </div>--%>
+            <%--                            <div class="product__info">--%>
+            <%--                                <a class="product__name" href="#">${newProduct["name"]}</a>--%>
+            <%--                                <div class="product__review">--%>
+            <%--                                    <div class="review__icon">--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                    </div>--%>
+            <%--                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>--%>
+            <%--                                </div>--%>
+            <%--                                <span class="product__price">--%>
+            <%--                                    <fmt:setLocale value="vi_VN"/>--%>
+            <%--                                    <c:choose>--%>
+            <%--                                        <c:when test="${newProduct['saleprice'] == null}">--%>
+            <%--                                            <strong class="priority__price">--%>
+            <%--                                                <fmt:formatNumber value="${newProduct['originalprice']}" type="currency"/>--%>
+            <%--                                            </strong>--%>
+            <%--                                        </c:when>--%>
+            <%--                                        <c:otherwise>--%>
+            <%--                                            <strong class="sale__price">--%>
+            <%--                                                <fmt:formatNumber value="${newProduct['saleprice']}" type="currency"/>--%>
+            <%--                                            </strong>--%>
+            <%--                                            <s class="original__price">--%>
+            <%--                                                <fmt:formatNumber value="${newProduct['originalprice']}" type="currency"/>--%>
+            <%--                                            </s>--%>
+            <%--                                        </c:otherwise>--%>
+            <%--                                    </c:choose>--%>
+            <%--                                </span>--%>
+            <%--                            </div>--%>
+            <%--                        </div>--%>
+            <%--                    </div>--%>
+            <%--                </c:forEach>--%>
+            <%--            </div>--%>
             <div class="product__items">
                 <c:forEach items="${requestScope.list6NewProducts}" var="newProduct">
                     <c:url var="showProductDetail" value="showProductDetail">
@@ -190,6 +303,9 @@
                                 <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
                                     <span class="product__tag">Thịnh hành</span>
                                 </c:if>
+                                    <%--                                <c:url var="atc" value="AddToCart">--%>
+                                    <%--                                    <c:param name="productId" value="${newProduct.id}"/>--%>
+                                    <%--                                </c:url>--%>
                                 <form class="action__bar" action="AddToCart" method="post">
                                     <input type="hidden" name="productId" value="${newProduct.id}">
                                     <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
@@ -306,6 +422,7 @@
 <!--Footer-->
 <%@include file="footer.jsp" %>
 <script src="./js/home.js"></script>
+<script src="js/base.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
     function addToCartAjax(){
@@ -315,12 +432,12 @@
                     event.preventDefault();
                     let userLoggedIn;
                     <c:choose>
-                        <c:when test="${sessionScope.auth == null}">
-                            userLoggedIn = false
-                        </c:when>
-                        <c:otherwise>
-                            userLoggedIn = true
-                        </c:otherwise>
+                    <c:when test="${sessionScope.auth == null}">
+                    userLoggedIn = false
+                    </c:when>
+                    <c:otherwise>
+                    userLoggedIn = true
+                    </c:otherwise>
                     </c:choose>
                     if(userLoggedIn === false){
                         window.location.href = "signIn.jsp"
@@ -332,6 +449,14 @@
                             url: form.attr('action'),
                             data: {productId: productId},
                             success: function (response) {
+                                let addToCartSuccessHTML = `<div class="notification__cart">
+                                                                <div class="status__success">
+                                                                    <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>
+                                                                    <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>
+                                                                </div>
+                                                                <a class="view__cart" href="shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                            </div>`;
+                                $('.cart__wrapper').append(addToCartSuccessHTML)
                                 $('.qlt__value').text(response);
                             },
                             error: function (error){

@@ -1,10 +1,9 @@
 package controller.shoppingCart;
 
-import cartShopping.ShoppingCart;
+//import cartShopping.ShoppingCart;
 import models.Color;
-import models.Size;
+import models.shoppingCart.ShoppingCart;
 import models.User;
-import org.json.JSONArray;
 import utils.ProductFactory;
 
 import javax.servlet.*;
@@ -65,6 +64,7 @@ public class AddToCartCustomController extends HttpServlet {
             }
 
             Color color = ProductFactory.getColorByCodeColorWithProductId(colorCode, productId);
+
             cart.add(productId, quantityRequired, color, sizeRequired);
             cartProductCount = cart.getTotalItems();
             session.setAttribute(userIdCart, cart);

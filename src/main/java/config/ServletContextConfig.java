@@ -1,6 +1,10 @@
 package config;
 
 import models.Category;
+import models.OrderStatus;
+import models.PaymentMethod;
+import models.TransactionStatus;
+import services.CheckoutServices;
 import services.ProductCardServices;
 import utils.MoneyRange;
 

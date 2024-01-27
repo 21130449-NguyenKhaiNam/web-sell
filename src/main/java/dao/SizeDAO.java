@@ -3,6 +3,7 @@ package dao;
 import models.Product;
 import models.Size;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class SizeDAO {

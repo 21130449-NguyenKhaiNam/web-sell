@@ -1,7 +1,7 @@
 package controller.checkout;
 
 import models.DeliveryMethod;
-import models.ShoppingCart;
+import models.shoppingCart.ShoppingCart;
 import models.User;
 import org.json.JSONObject;
 import services.CheckoutServices;
@@ -35,7 +35,7 @@ public class ChoiceDeliveryMethodController extends HttpServlet {
         session.setAttribute(userIdCart, cart);
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("newTotalPrice", cart.totalPriceFormat());
+        jsonObject.put("newTotalPrice", cart.totalPriceFormat(true));
         jsonObject.put("shippingFee", FormatCurrency.vietNamCurrency(cart.getDeliveryMethod().getShippingFee()));
         response.setContentType("application/json");
         PrintWriter printWriter = response.getWriter();

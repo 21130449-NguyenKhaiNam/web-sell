@@ -1,7 +1,5 @@
 package controller.shoppingCart;
 
-import models.ShoppingCart;
-import models.User;
 import models.Voucher;
 import services.ShoppingCartServices;
 

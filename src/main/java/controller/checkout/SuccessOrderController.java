@@ -1,7 +1,9 @@
 package controller.checkout;
 
-import models.CartProduct;
-import models.ShoppingCart;
+import models.shoppingCart.AbstractCartProduct;
+import models.shoppingCart.CartProduct;
+import models.shoppingCart.CartProductCustom;
+import models.shoppingCart.ShoppingCart;
 import models.User;
 import services.CheckoutServices;
 import services.IMailServices;
@@ -31,18 +33,25 @@ public class SuccessOrderController extends HttpServlet {
         int paymentMethodId = cart.getPaymentMethod().getId();
         Integer voucherId = null;
         Integer deliveryMethodId = null;
+
         try {
-            voucherId = cart.getVoucherApplied().getId();
-            deliveryMethodId = cart.getDeliveryMethod().getId();
+            if(cart.getVoucherApplied() != null){
+                voucherId = cart.getVoucherApplied().getId();
+            }
+
+            if(cart.getDeliveryMethod() != null){
+                deliveryMethodId = cart.getDeliveryMethod().getId();
+            }
+
             CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
-        }catch (NullPointerException exception){
+        } catch (NullPointerException exception) {
             exception.printStackTrace();
             CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
         }
 
-        for(int productId : cart.getShoppingCartMap().keySet()){
-            for (CartProduct cartProduct: cart.getShoppingCartMap().get(productId)) {
-                CheckoutServices.getINSTANCE().addEachOrderDetail(invoiceNo, productId, cartProduct.getSize().getNameSize(), cartProduct.getColor().getCodeColor(), cartProduct.getQuantity(), cartProduct.getPriorityPrice());
+        for (int productId : cart.getShoppingCartMap().keySet()) {
+            for (AbstractCartProduct cartProduct : cart.getShoppingCartMap().get(productId)) {
+                CheckoutServices.getINSTANCE().addEachOrderDetail(invoiceNo, productId, cartProduct.getProduct().getName(), cartProduct.sizeRequired(), cartProduct.getColor().getCodeColor(), cartProduct.getQuantity(), cartProduct.getPriorityPrice());
             }
         }
 
@@ -54,7 +63,10 @@ public class SuccessOrderController extends HttpServlet {
         }
 
         session.removeAttribute(userIdCart);
-        request.setAttribute("invoiceNo",invoiceNo);
+        session.removeAttribute("promotionCode");
+        session.removeAttribute("failedApply");
+        session.removeAttribute("successApplied");
+        request.setAttribute("invoiceNo", invoiceNo);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("successOrder.jsp");
         requestDispatcher.forward(request, response);
     }

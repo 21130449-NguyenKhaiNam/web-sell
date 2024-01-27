@@ -85,7 +85,7 @@
 .order__product--info, .order__size--specification {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
     text-align: left;
 }
 
@@ -118,11 +118,13 @@
 .cart__items .cart__item .product__item .order__product--info .product__name {
     font-weight: 500;
     /*border: black 1px solid;*/
-    line-height: 22px;
+    line-height: 20px;
+    font-size: 15px;
 }
 
 .order__color, .order__size--specification{
-    font-size: 14px;
+    font-size: 12px;
+    line-height: 18px;
 }
 
 .size__spec--item{
@@ -756,4 +758,8 @@
 .popup__deletion .popup__container .popup__content .button__control .cancel__button{
     background-color: var(--blue-color-high);
     color: white;
+}
+
+.order__size--specification > p {
+    line-height: 18px;
 }

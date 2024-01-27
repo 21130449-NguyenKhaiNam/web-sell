@@ -13,5 +13,16 @@ public class OrderDetailDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), OrderDetail.class, id);
     }
 
+    public List<OrderDetail> getListOrderDetailByOrderId(String orderId){
+        StringBuilder sql = new StringBuilder("SELECT id, orderId, productId, productName, sizeRequired, colorRequired, quantityRequired, price ");
+        sql.append(" FROM order_details WHERE orderId = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), OrderDetail.class, orderId);
+    }
 
+    public void removeOrderDetailByMultipleOrderId(String[] multipleOrderId){
+        String fillEntry = String.format("'%s'", String.join("','", multipleOrderId));
+        StringBuilder sql = new StringBuilder("DELETE FROM order_details");
+        sql.append(" WHERE orderId IN(" + fillEntry + ")");
+        GeneralDao.executeAllTypeUpdate(sql.toString());
+    }
 }

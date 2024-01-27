@@ -19,9 +19,9 @@ public class OrderDAO {
         return GeneralDao.executeQueryWithSingleTable(querry,Order.class, userId);
     }
 
-    public List<OrderDetail> getOrderDetailByOrderId(List<Integer> listId) {
+    public List<OrderDetail> getOrderDetailByOrderId(List<String> listId) {
         StringBuilder conditionBuilder = new StringBuilder();
-        for (int id : listId) conditionBuilder.append(id).append(',');
+        for (String id : listId) conditionBuilder.append(id).append(',');
 
         conditionBuilder.deleteCharAt(conditionBuilder.length() - 1);
         String condition = conditionBuilder.toString();

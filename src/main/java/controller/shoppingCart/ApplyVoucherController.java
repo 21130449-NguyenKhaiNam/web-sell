@@ -1,6 +1,6 @@
 package controller.shoppingCart;
 
-import models.ShoppingCart;
+import models.shoppingCart.ShoppingCart;
 import models.User;
 import models.Voucher;
 import org.json.JSONObject;
@@ -11,9 +11,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 @WebServlet(name = "ApplyVoucherController", value = "/ApplyVoucher")
 public class ApplyVoucherController extends HttpServlet {
@@ -75,15 +73,17 @@ public class ApplyVoucherController extends HttpServlet {
 
         if(listCodeOfVouchers.contains(code)){
             Voucher voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
-            double minPriceToApply = ShoppingCartServices.getINSTANCE().getMinPriceApplyVoucherByCode(code);
-            if(cart.getTemporaryPrice() >= voucher.getMinimumPrice()){
+//            double minPriceToApply = ShoppingCartServices.getINSTANCE().getMinPriceApplyVoucherByCode(code);
+            double minPriceToApply = voucher.getMinimumPrice();
+//            if(cart.getTemporaryPrice() >= voucher.getMinimumPrice()){
+            if(cart.getTemporaryPrice() >= minPriceToApply){
                 cart.setVoucherApplied(voucher);
                 session.setAttribute(userIdCart, cart);
                 session.removeAttribute("failedApply");
                 session.setAttribute("successApplied", "Bạn đã áp dụng mã " + code + " thành công");
                 jsonObject.put("successApplied", session.getAttribute("successApplied"));
                 jsonObject.put("discountPriceFormat", cart.discountPriceFormat());
-                jsonObject.put("newTotalPriceFormat", cart.totalPriceFormat());
+                jsonObject.put("newTotalPriceFormat", cart.totalPriceFormat(false));
             }else {
                 double priceBuyMore = minPriceToApply - temporaryPrice;
                 String priceBuyMoreFormat = FormatCurrency.vietNamCurrency(priceBuyMore);

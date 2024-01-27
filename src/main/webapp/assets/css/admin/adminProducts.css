@@ -1,6 +1,7 @@
 th {
     text-wrap: nowrap;
 }
+
 .reload__btn {
     margin-left: 10px;
     border-radius: 5px;
@@ -175,6 +176,7 @@ th {
     cursor: pointer;
     opacity: 0.8;
 }
+
 .line-clamp {
     display: -webkit-box;
     -webkit-box-orient: vertical;

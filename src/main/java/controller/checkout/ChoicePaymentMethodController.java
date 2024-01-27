@@ -1,7 +1,7 @@
 package controller.checkout;
 
 import models.PaymentMethod;
-import models.ShoppingCart;
+import models.shoppingCart.ShoppingCart;
 import models.User;
 import org.json.JSONObject;
 import services.CheckoutServices;

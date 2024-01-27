@@ -17,7 +17,10 @@ import java.util.List;
 public class ShowProductDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String idParameter = request.getParameter("id");
+
         int id;
         try {
             id = Integer.parseInt(idParameter.trim());
@@ -25,6 +28,7 @@ public class ShowProductDetail extends HttpServlet {
             response.sendError(404);
             return;
         }
+
         Product product = ProductServices.getINSTANCE().getProductByProductId(id);
         if (product == null) {
             response.sendError(404);
@@ -47,7 +51,7 @@ public class ShowProductDetail extends HttpServlet {
     }
 
     public List<Product> getListProductRandom(int categoryId, int quantity) {
-        return ProductCardServices.getINSTANCE().getProductByCategoryId(categoryId, quantity, true);
+        return ProductCardServices.getINSTANCE().getProductByCategoryId(categoryId, quantity, false);
     }
     public List<Review> getListReview(int productId) {
         return ReviewServices.getINSTANCE().getListReview(productId);

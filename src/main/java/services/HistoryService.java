@@ -23,7 +23,7 @@ public class HistoryService {
         return INSTANCE;
     }
 
-    public List<OrderDetail> getOrderDetailByOrderId(List<Integer> listId){
+    public List<OrderDetail> getOrderDetailByOrderId(List<String> listId){
         if (listId.isEmpty()) return new ArrayList<>();
         return orderDAO.getOrderDetailByOrderId(listId);
     }

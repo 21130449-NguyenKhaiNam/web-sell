@@ -66,7 +66,7 @@
                 </div>
                 <div class="offset-1 col-5">
                     <div class="product__info">
-                        <form action="" id="form__product" class="product__form">
+                        <form action="AddToCart" method="post" id="form__product" class="product__form">
                             <h1 class="product__name">${product.name}</h1>
                             <input type="text" hidden="hidden" name="productId" value="${product.id}">
                             <c:forEach var="starA" begin="1" step="1"
@@ -282,6 +282,12 @@
 <%@include file="footer.jsp"%>
 <article class="dialog__size-guide"></article>
 <script src="js/base.js"></script>
+<script>
+    let useLoggedIn = false;
+    <c:if test="${sessionScope.auth != null}">
+        useLoggedIn = true;
+    </c:if>
+</script>
 <script src="js/validateForm.js"></script>
 <script src="js/productDetail.js"></script>
 </body>

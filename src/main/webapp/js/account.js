@@ -33,7 +33,7 @@ inputForm.forEach(function (input) {
     }
 })
 
-var listProductE = document.querySelector(".service__order ");
+var listProductE = document.querySelector(".service__order");
 var htmls = listProduct.slice(10,15).map(function (product) {
     return `<div class="block__product">
                 <img class="img__product block__img" src = "../assets/img/product_img/${product.imgSrc}" >

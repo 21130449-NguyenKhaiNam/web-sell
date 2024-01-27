@@ -59,10 +59,16 @@ function addToCart() {
         dataType: "json",
         data: obj,
         cache: false,
-        success: function (data) {
-            document.querySelector(".qlt__value").innerText = data;
-        },
-        error: function (error) {
-        },
+        success: function (response) {
+            let addToCartSuccessHTML = `<div class="notification__cart">
+                                                                <div class="status__success">
+                                                                    <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>
+                                                                    <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>
+                                                                </div>
+                                                                <a class="view__cart" href="shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                            </div>`;
+            $('.cart__wrapper').append(addToCartSuccessHTML)
+            $('.qlt__value').text(response);
+        }
     });
 }

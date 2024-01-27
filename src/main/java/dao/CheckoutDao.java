@@ -36,14 +36,14 @@ public class CheckoutDao {
     }
 
     public void addNewOrder(int orderId, int userId, String dateOrder, String fullName, String email, String phone, String address, Integer deliveryMethodId, int paymentMethodId, Integer voucherId){
-        StringBuilder sql = new StringBuilder("INSERT INTO orders (id, userId, dateOrder, fullname, email, phone, address, deliveryMethodId, paymentMethodId, voucherId)");
-        sql.append(" VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        StringBuilder sql = new StringBuilder("INSERT INTO orders (id, userId, dateOrder, fullName, email, phone, address, deliveryMethodId, paymentMethodId, orderStatusId, transactionStatusId, voucherId)");
+        sql.append(" VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, 1, 1, ?)");
         GeneralDao.executeAllTypeUpdate(sql.toString(), orderId, userId, dateOrder, fullName, email, phone, address, deliveryMethodId, paymentMethodId, voucherId);
     }
 
-    public void addEachOrderDetail(int orderId, int productId, String sizeRequired, String colorRequired, int quantityRequired, double price){
-        StringBuilder sql = new StringBuilder("INSERT INTO order_details(orderId, productId, sizeRequired, colorRequired, quantityRequired, price)");
-        sql.append(" VALUES (?, ?, ?, ?, ?, ?)");
-        GeneralDao.executeAllTypeUpdate(sql.toString(), orderId, productId, sizeRequired, colorRequired, quantityRequired, price);
+    public void addEachOrderDetail(int orderId, int productId, String productName, String sizeRequired, String colorRequired, int quantityRequired, double price){
+        StringBuilder sql = new StringBuilder("INSERT INTO order_details(orderId, productId, productName, sizeRequired, colorRequired, quantityRequired, price)");
+        sql.append(" VALUES (?, ?, ?, ?, ?, ?, ?)");
+        GeneralDao.executeAllTypeUpdate(sql.toString(), orderId, productId, productName, sizeRequired, colorRequired, quantityRequired, price);
     }
 }

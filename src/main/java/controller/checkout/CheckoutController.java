@@ -2,7 +2,7 @@ package controller.checkout;
 
 import models.PaymentMethod;
 import models.DeliveryMethod;
-import models.ShoppingCart;
+import models.shoppingCart.ShoppingCart;
 import models.User;
 import services.CheckoutServices;
 
@@ -90,7 +90,7 @@ public class CheckoutController extends HttpServlet {
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
 
-        if(cart.getTotalPrice() < 5000000){
+        if(cart.getTotalPrice(false) < 5000000){
             if(cart.getDeliveryMethod() == null){
                 DeliveryMethod deliveryMethodDefault = CheckoutServices.getINSTANCE().getDeliveryMethodById(1);
                 cart.setDeliveryMethod(deliveryMethodDefault);

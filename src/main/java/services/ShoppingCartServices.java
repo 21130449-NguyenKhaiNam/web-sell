@@ -38,7 +38,7 @@ public class ShoppingCartServices {
         return shoppingCartDao.getListCodeOfVouchers();
     }
 
-    public double getMinPriceApplyVoucherByCode(String code){
-        return shoppingCartDao.getMinPriceApplyVoucherByCode(code);
-    }
+//    public double getMinPriceApplyVoucherByCode(String code){
+//        return shoppingCartDao.getMinPriceApplyVoucherByCode(code);
+//    }
 }

@@ -2,7 +2,7 @@ package controller.checkout;
 
 import models.DeliveryInfo;
 import models.DeliveryInfoStorage;
-import models.ShoppingCart;
+import models.shoppingCart.ShoppingCart;
 import models.User;
 
 import javax.servlet.*;
