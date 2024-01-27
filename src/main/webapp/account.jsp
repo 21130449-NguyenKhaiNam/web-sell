@@ -63,7 +63,7 @@
                                 <label for="file" id="uploadbtn" class="fas fa-camera"></label>
                             </form>
                         </div>
-                        <form action="UpdateAccount" method="post" enctype="multipart/form-data">
+                        <form action="UpdateAccount" method="post" enctype="multipart/form-data" class="form__updateAccount">
                             <div class="user__info user">
                                 <input type="hidden" name="userId" value="<c:out value='${auth.getId()}' />">
                                 <div class="user__info--name info-compo">
@@ -91,7 +91,7 @@
                                     <div class="lable__email lable-compo">
                                         <label for="Email">Số điện thoại</label>
                                     </div>
-                                    <input type="text" id="Phone" class=" input-compo" name="phone"
+                                    <input type="number" id="Phone" class=" input-compo" name="phone"
                                            value="${accountInfo.phone}">
                                 </div>
                                 <div class="user__info--gender info-compo">

@@ -330,7 +330,7 @@ form{
     --height: 50px;
     background-color: #4BAC4D;
     color: #fff;
-    margin-left: auto;
+
 }
 
 .button__cancel {
@@ -366,10 +366,12 @@ form{
 #add-user-dialog .modal__content, #update-user-dialog .modal__content {
     background-color: #fff;
     border-radius: 8px;
-    padding: 20px;
+    /*padding: 20px;*/
     max-width: 400px;
     width: 100%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    height: 70%;
+    overflow-y: scroll;
 }
 
 #add-user-dialog .modal__header, #update-user-dialog .modal__header {
@@ -379,7 +381,7 @@ form{
 }
 
 #add-user-dialog .modal__header h1, #update-user-dialog .modal__header h1 {
-    margin: 0;
+    /*margin: 0;*/
     font-size: 18px;
 }
 
@@ -389,7 +391,7 @@ form{
 }
 
 #add-user-dialog form label, #update-user-dialog form label {
-    display: block;
+    /*display: block;*/
     margin-bottom: 5px;
     font-weight: bold;
 }
@@ -403,16 +405,17 @@ form{
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 #add-user-dialog form .modal__footer, #update-user-dialog form .modal__footer {
+    justify-content: space-between;
     display: flex;
 }
 
 #add-user-dialog form .button, #update-user-dialog form .button{
     cursor: pointer;
-    padding: 8px 16px;
+    padding: 16px;
     border: none;
     border-radius: 4px;
     font-size: 14px;
@@ -426,7 +429,8 @@ form{
 #add-user-dialog form .button__add-user, #update-user-dialog form .button__update-user {
     background-color: #4caf50;
     color: #fff;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
+    /*width: 120px;*/
 }
 
 #add-user-dialog form .button:hover, #update-user-dialog form .button:hover {
@@ -442,6 +446,9 @@ form{
 #add-user-dialog .fa-xmark:hover, #update-user-dialog .fa-xmark:hover {
     color: #333;
 }
+
+
+
 .pagination{
     display: flex;
     justify-content: center;

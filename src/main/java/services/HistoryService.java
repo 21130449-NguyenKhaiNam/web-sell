@@ -27,7 +27,7 @@ public class HistoryService {
         if (listId.isEmpty()) return new ArrayList<>();
         return orderDAO.getOrderDetailByOrderId(listId);
     }
-    public List<Order> getOrderByUserIdAndStatusOrder(int userId, String statusOrder){
+    public List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder){
         return orderDAO.getOrderByUserIdAndStatusOrder(userId, statusOrder);
     }
     public List<OrderDetail> getOrderDetailNotReview(int userId){

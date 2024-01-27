@@ -84,7 +84,6 @@ form{
     flex: 1;
 }
 .user__info{
-    width: 200%;
     flex: 1;
 }
 #photo{
@@ -206,9 +205,10 @@ form{
 .form__error {
     display: block;
     height: 20px;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 500;
     margin-top: 5px;
+    color: #fd6060;
 }
 
 .invalid .form__error {
@@ -220,6 +220,7 @@ form{
 }
 .save__changePass{
     margin-top: 10px;
+    margin-right: 150px;
 }
 .block__product{
     display: flex;
@@ -250,7 +251,7 @@ form{
     background-color: rgba(121, 121, 121, 0.64);
     font-size: 18px;
     height: 50px;
-    padding: 10px 30px;
+    padding: 16px 30px;
     border-radius: 5px;
     margin: auto ;
     margin-right: 50px;
@@ -319,5 +320,8 @@ form{
     width: 200px;
     height: 200px;
     background-image: url("../img/noneorder.png");
+}
+.form__updateAccount{
+    flex: 1;
 }
 

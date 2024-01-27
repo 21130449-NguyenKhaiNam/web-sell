@@ -57,7 +57,6 @@ public class ShowReview extends HttpServlet {
         request.getRequestDispatcher("review.jsp").forward(request, response);
     }
 
-
     private String[] readSizes(String sizesJson) {
         JSONArray jsonArray = new JSONArray(sizesJson);
         String[] sizes = new String[jsonArray.length()];

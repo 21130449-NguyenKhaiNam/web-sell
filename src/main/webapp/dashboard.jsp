@@ -42,8 +42,14 @@
                 <li class="navbar__item"><a href="AdminUser"
                                             class="navbar__link button button button--hover ">Khách
                     hàng</a></li>
-                <li class="navbar__item"><a href="dashboard.jsp"
+                <li class="navbar__item"><a href="Dashboard"
                                             class="navbar__link button button button--hover navbar__link--clicked">Dashboard</a></li>
+                <li class="navbar__item"><a href="adminReviews.jsp"
+                                            class="navbar__link button button button--hover ">Nhận xét</a>
+                </li>
+                <li class="navbar__item"><a href="adminCategories.jsp"
+                                            class="navbar__link button button button--hover ">Phân loại</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -87,7 +93,7 @@
                                     <h3>Review</h3>
                                 </div>
                                 <div class="icon-case">
-                                    <img src="./assets/img/review.png" alt="">
+                                    <img src="assets/img/CountRView.png" alt="">
                                 </div>
                             </div>
                         </div>
@@ -113,25 +119,21 @@
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
 </body>
-<script src="js/admin/dashboard.js"></script>
 <script>
-    var top5Products = ${top5};
+    let top5NameProduct ="<%=request.getAttribute("nameTop5")%>";
+            console.log(top5NameProduct)
 
-    var productNames = top5Products.map(function (item) {
-        return item.getName();
-    });
+    let top5QuantityProduct ="<%=request.getAttribute("QuantityTop5")%>";
+    console.log(top5QuantityProduct)
 
-    var quantities = top5Products.map(function (item) {
-        return item.totalQuantity;
-    });
+    let totalQuantityByMonth ="<%=request.getAttribute("quantityOrderByMonth")%>";
+    console.log(totalQuantityByMonth)
 
-    barChartOptions.series = [{
-        data: quantities,
-        name: 'Products',
-    }];
-
-    barChartOptions.xaxis.categories = productNames;
-
-    barChart.updateOptions(barChartOptions);
+    let totalRevenueByMonth ="<%=request.getAttribute("revenueOrderByMonth")%>";
+    console.log(totalRevenueByMonth)
 </script>
+<script src="js/admin/dashboard.js"></script>
+
+
+
 </html>

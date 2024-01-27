@@ -22,13 +22,20 @@ public class PurchaseHistory extends HttpServlet {
         HttpSession session = request.getSession();
         User auth = (User) session.getAttribute("auth");
 
-        String status = request.getParameter("status");
+        String statusString = request.getParameter("status");
         List<Order> listOrder;
-        if (status == null || status.equalsIgnoreCase("tất cả")){
+        if (statusString == null || statusString.equalsIgnoreCase("tất cả")) {
             listOrder = HistoryService.getINSTANCE().getOrderByUserId(auth.getId());
-        }else{
+        } else {
+            int status;
+            try {
+                status = Integer.parseInt(statusString);
+            } catch (NumberFormatException e) {
+                response.sendError(404);
+                return;
+            }
             listOrder = HistoryService.getINSTANCE().getOrderByUserIdAndStatusOrder(auth.getId(), status);
-            if (status.equalsIgnoreCase("HOÀN THÀNH")){
+            if (status == 4) {
                 List<OrderDetail> listOrderDetailNotReview = HistoryService.getINSTANCE().getOrderDetailNotReview(auth.getId());
                 System.out.println(listOrderDetailNotReview);
                 request.setAttribute("OrderDetailNotReview", listOrderDetailNotReview);
@@ -47,7 +54,7 @@ public class PurchaseHistory extends HttpServlet {
         }
         System.out.println(listOrderDetail);
         request.setAttribute("listPurchaseHistory", listOrderDetail);
-        request.setAttribute("tag",status);
+        request.setAttribute("tag", statusString);
         request.getRequestDispatcher("purchaseHistory.jsp").forward(request, response);
     }
 

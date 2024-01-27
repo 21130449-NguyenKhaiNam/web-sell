@@ -170,12 +170,13 @@ public class ProductCardServices {
         return productCardDAO.getCategoryByProductId(id).get(0);
     }
 
+    public String getNameProductByIdOrderDetail(int orderDetailId) {
+        return reviewDAO.getNameProductByOrderDetailId(orderDetailId).get(0).getName();
+    }
+
     public String getNameProductById(int productId) {
         return productCardDAO.getNameProductById(productId).get(0).getName();
     }
 
-    public String getNameProductByIdOrderDetail(int orderDetailId) {
-        return reviewDAO.getNameProductByOrderDetailId(orderDetailId).get(0).getName();
-    }
 
 }

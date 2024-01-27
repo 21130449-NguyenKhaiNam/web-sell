@@ -1,8 +1,7 @@
 package controller.account;
 
-import dao.UserDAO;
-import dao.UserDAOImplement;
 import models.User;
+import services.UserServices;
 import utils.Encoding;
 
 import javax.servlet.*;
@@ -67,8 +66,7 @@ public class ChangePassword extends HttpServlet {
         if (countError == 0){
             try {
                 int id = Integer.parseInt(idString);
-                UserDAO user = new UserDAOImplement();
-                user.updateUserPassword(id, Encoding.getINSTANCE().toSHA1(newPass));
+                UserServices.getINSTANCE().updateUserPassword(id, Encoding.getINSTANCE().toSHA1(newPass));
                 response.sendRedirect(request.getContextPath() + "/ChangePassword");
             } catch (NumberFormatException e) {
                 e.printStackTrace();

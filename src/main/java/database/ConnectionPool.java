@@ -51,19 +51,5 @@ public class ConnectionPool implements IConnectionPool {
         notifyAll();
     }
 
-    String getHandleAvailable() {
-        int countAvailable = 0;
-        int countNoAvailable = 0;
-        for (Map.Entry<Handle, Boolean> entry : handleStatus.entrySet()) {
-            if (entry.getValue())
-                countNoAvailable++;
-            else
-                countAvailable++;
 
-        }
-        return """
-                Handle available: %d
-                Handle no available: %d
-                        """.formatted(countAvailable, countNoAvailable);
-    }
 }

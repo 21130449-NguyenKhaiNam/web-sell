@@ -1,8 +1,29 @@
+var  nameTop5=[];
+top5NameProduct = top5NameProduct.slice(1, -1);
+
+nameTop5 = top5NameProduct.split(',').map(function(item) {
+    return item.trim();
+});
+console.log(nameTop5)
+
+
+var quantityTop5=[];
+ quantityTop5 = top5QuantityProduct
+    .slice(1, -1)
+    .split(',')
+    .map(function(item) {
+        var num = parseInt(item.trim(), 10);
+        return isNaN(num) ? 0 : num;
+    });
+
+console.log(quantityTop5);
+
+
 const barChartOptions = {
     series: [
         {
-            data: [10000000, 8500000, 6300000, 4200000, 2000000],
-            name: 'Products',
+            data: quantityTop5,
+            name: 'Đã bán',
         },
     ],
     chart: {
@@ -59,7 +80,7 @@ const barChartOptions = {
         theme: 'dark',
     },
     xaxis: {
-        categories: ['Laptop', 'Phone', 'Monitor', 'Headphones', 'Camera'],
+        categories: nameTop5,
         title: {
             style: {
                 color: '#f5f7ff',
@@ -77,6 +98,18 @@ const barChartOptions = {
             style: {
                 colors: '#f5f7ff',
             },
+            formatter: function (value) {
+                value = value.replace("[", "").replace("]", "");
+
+                const maxLength = 10;
+                if (value.length > maxLength) {
+                    return value.substring(0, maxLength - 3) + '...';
+                }
+                return value;
+            },
+        },
+        tooltip: {
+            enabled: false,
         },
     },
     yaxis: {
@@ -101,7 +134,6 @@ const barChartOptions = {
         },
     },
 };
-
 const barChart = new ApexCharts(
     document.querySelector('#bar__chart'),
     barChartOptions
@@ -112,17 +144,39 @@ barChart.render();
 
 
 
+var totalQuanByMonth=[];
+totalQuanByMonth = totalQuantityByMonth
+    .slice(1, -1)
+    .split(',')
+    .map(function(item) {
+        var num = parseInt(item.trim(), 10);
+        return isNaN(num) ? 0 : num;
+    });
+
+console.log(totalQuanByMonth);
+
+var totalVenueByMonth = totalRevenueByMonth
+    .toString()  // Chuyển mảng thành chuỗi
+    .slice(1, -1) // Loại bỏ ký tự [ và ] từ chuỗi
+    .split(',')  // Tách chuỗi thành mảng bằng dấu phẩy
+    .map(function(item) {
+        var num = parseFloat(item.trim().replace(/E/i, 'e'));
+        return isNaN(num) ? 0 : num;
+    });
+
+console.log(totalVenueByMonth);
+
 
 // AREA CHART
 const areaChartOptions = {
     series: [
         {
-            name: 'Đơn hàng bán được',
-            data: [31, 40, 28, 51, 42, 109, 100, 32, 67, 121, 98, 110],
+            name: 'Tổng sản phẩm bán được',
+            data: totalQuanByMonth,
         },
         {
-            name: 'Doanh thu đơn hàng',
-            data: [1100000, 3200000, 450000, 320000, 340000, 520000, 4100000, 990000, 870000, 1050000, 1000000, 1150000],
+            name: 'Tổng doanh thu',
+            data: totalVenueByMonth,
         },
     ],
     chart: {
@@ -196,7 +250,7 @@ const areaChartOptions = {
     yaxis: [
         {
             title: {
-                text: 'Đơn hàng bán được',
+                text: 'Tổng sản phẩm bán được',
                 style: {
                     color: '#f5f7ff',
                 },
@@ -210,7 +264,7 @@ const areaChartOptions = {
         {
             opposite: true,
             title: {
-                text: 'Doanh thu đơn hàng',
+                text: 'Tổng doanh thu',
                 style: {
                     color: '#f5f7ff',
                 },

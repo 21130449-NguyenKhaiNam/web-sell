@@ -2,6 +2,7 @@
 import dao.DashboadDAO;
 import dao.UserDAO;
 import dao.UserDAOImplement;
+import models.Order;
 import models.OrderDetail;
 import models.Product;
 import models.User;
@@ -42,28 +43,38 @@ public class TestDB {
 //        UserDAO testUpdateUser = new UserDAOImplement();
 //        testUpdateUser.updateUserByID(1,"HieuNguyen","Nguyễn Chí Hai","Nam","HieuNguyen@gmail.com","0703637448","164 Ngô Tất Tố, Bình Định", Date.valueOf("1990-01-01"));
         DashboadDAO dshb = new DashboadDAO();
-        List<OrderDetail> top5Product= dshb.getTop5Product();
-        List<Product> listTop5Product = new ArrayList<>();
-        List<Integer> listProducId = new ArrayList<>();
+        List<Order> listOrderByMonth;
+        List<String> listOrderId = new ArrayList<>();
+        List<Double> listTotalRevenueByMonth = new ArrayList<>();
 
-        List<String> listtop5NameProduct = new ArrayList<>();
-        List<Integer> listtop5Quantity = new ArrayList<>();
+        for (int i = 1; i <= 12; i++) {
+            listOrderByMonth = dshb.getOrderByMonth(i);
 
-        for (OrderDetail top5OrderDetail:top5Product) {
-            listProducId.add(top5OrderDetail.getId());
+            for (Order order : listOrderByMonth) {
+                listOrderId.add(order.getId());
+            }
+
+            double totalRevenue = 0.0;
+            for (String orderId : listOrderId) {
+                List<OrderDetail> listQuantityByMonth = dshb.getOrderByOrderId(orderId);
+
+                for (OrderDetail orderDetail : listQuantityByMonth) {
+                    int quantity = orderDetail.getQuantityRequired();
+                    double price = orderDetail.getPrice();
+                    totalRevenue += quantity * price;
+                    System.out.println(totalRevenue);
+                }
+            }
+
+            listTotalRevenueByMonth.add(totalRevenue);
+            System.out.println("Month " + i + ": Total Revenue = $" + totalRevenue);
+
+            listOrderId.clear();
         }
-        for (Integer productId:listProducId) {
-//            listTop5Product = dshb.getTop5ProductName(productId);
-//            listtop5NameProduct.add(listTop5Product.get(0).getName());
-            listTop5Product = dshb.getTop5ProductQuantity(productId);
-            System.out.println(listTop5Product);
-//            listtop5Quantity.add(listTop5Product);
-        }
-//        for (Product product:listTop5Product) {
-//            listtop5NameProduct.add(product.getName());
-//        }
-//        System.out.println(listtop5NameProduct);
-//        System.out.println(listtop5NameProduct);
+
+// In ra doanh thu theo từng tháng
+        System.out.println("Total Revenue by Month: " + listTotalRevenueByMonth);
+
 
     }
     public void checkUser(int id){

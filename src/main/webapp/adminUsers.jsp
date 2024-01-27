@@ -42,6 +42,14 @@
                 <li class="navbar__item"><a href="AdminUser"
                                             class="navbar__link button button button--hover navbar__link--clicked">Khách
                     hàng</a></li>
+                <li class="navbar__item"><a href="Dashboard"
+                                            class="navbar__link button button button--hover ">Dashboard</a></li>
+                <li class="navbar__item"><a href="adminReviews.jsp"
+                                            class="navbar__link button button button--hover ">Nhận xét</a>
+                </li>
+                <li class="navbar__item"><a href="adminCategories.jsp"
+                                            class="navbar__link button button button--hover ">Phân loại</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -130,27 +138,27 @@
                         </table>
                     </div>
 
-<%--                    <c:set value="${requestScope.page}" var="page"/>--%>
-<%--                    <div class="pagination">--%>
-<%--                        <c:if test="${page > 1}">--%>
-<%--                            <c:url var="prevURLPage" value="newProducts">--%>
-<%--                                <c:param name="page" value="${page - 1}"/>--%>
-<%--                            </c:url>--%>
-<%--                            <a href="${prevURLPage}" class="previous__page"><i class="fa-solid fa-chevron-left"></i></a>--%>
-<%--                        </c:if>--%>
-<%--                        <c:forEach begin="${1}" end="${requestScope.totalPage}" var="i">--%>
-<%--                            <c:url var="trURLPage" value="newProducts">--%>
-<%--                                <c:param name="page" value="${i}"/>--%>
-<%--                            </c:url>--%>
-<%--                            <a class="${i == page ? "active" : "page__forward"}" href="${trURLPage}">${i}</a>--%>
-<%--                        </c:forEach>--%>
-<%--                        <c:if test="${page < requestScope.totalPage}">--%>
-<%--                            <c:url var="nextURLPage" value="newProducts">--%>
-<%--                                <c:param name="page" value="${page + 1}"/>--%>
-<%--                            </c:url>--%>
-<%--                            <a href="${nextURLPage}" class="next__page"><i class="fa-solid fa-chevron-right"></i></a>--%>
-<%--                        </c:if>--%>
-<%--                    </div>--%>
+                    <c:set value="${requestScope.page}" var="page"/>
+                    <div class="pagination">
+                        <c:if test="${page > 1}">
+                            <c:url var="prevURLPage" value="AdminUser">
+                                <c:param name="page" value="${page - 1}"/>
+                            </c:url>
+                            <a href="${prevURLPage}" class="previous__page"><i class="fa-solid fa-chevron-left"></i></a>
+                        </c:if>
+                        <c:forEach begin="${1}" end="${requestScope.totalPage}" var="i">
+                            <c:url var="trURLPage" value="AdminUser">
+                                <c:param name="page" value="${i}"/>
+                            </c:url>
+                            <a class="${i == page ? "active" : "page__forward"}" href="${trURLPage}">${i}</a>
+                        </c:forEach>
+                        <c:if test="${page < requestScope.totalPage}">
+                            <c:url var="nextURLPage" value="AdminUser">
+                                <c:param name="page" value="${page + 1}"/>
+                            </c:url>
+                            <a href="${nextURLPage}" class="next__page"><i class="fa-solid fa-chevron-right"></i></a>
+                        </c:if>
+                    </div>
 
                 </div>
             </div>

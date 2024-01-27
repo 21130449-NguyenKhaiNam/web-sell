@@ -3,6 +3,7 @@ package controller.account;
 import dao.UserDAO;
 import dao.UserDAOImplement;
 import models.User;
+import services.UserServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,8 +21,7 @@ public class Account extends HttpServlet {
 
         if (auth != null) {
             try {
-                UserDAO userDao = new UserDAOImplement();
-                List<User> userList = userDao.getUserByID(auth.getId());
+                List<User> userList = UserServices.getINSTANCE().getUserByID(auth.getId());
 
                 if (!userList.isEmpty()) {
                     User user = userList.get(0);

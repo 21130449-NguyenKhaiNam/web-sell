@@ -26,6 +26,7 @@
     <title>Giới thiệu</title>
 </head>
 <body>
+
 <jsp:include page="header.jsp"></jsp:include>
 <main class="wraper">
     <div class="container">
@@ -172,6 +173,7 @@
         </div>
     </div>
 </main>
+
 <%@include file="./footer.jsp"%>
 <script src="js/base.js"></script>
 <script>

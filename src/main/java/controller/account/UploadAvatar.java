@@ -1,18 +1,16 @@
 package controller.account;
 
-import dao.GeneralDao;
-import dao.UserDAO;
-import dao.UserDAOImplement;
+
 import models.User;
 import properties.PathProperties;
 import services.UploadImageServices;
+import services.UserServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Date;
+
 
 @MultipartConfig(maxFileSize = 16177215)
 @WebServlet(name = "UploadAvatar", value = "/UploadAvatar")
@@ -37,8 +35,7 @@ public class UploadAvatar extends HttpServlet {
         String nameAvatar = uploadImageServices.getNameImages().get(0);
 
 
-        UserDAO userDAO = new UserDAOImplement();
-        userDAO.updateInfoUser(id, nameAvatar);
+        UserServices.getINSTANCE().updateInfoUser(id, nameAvatar);
         response.sendRedirect(request.getContextPath() + "/Account");
 
     }

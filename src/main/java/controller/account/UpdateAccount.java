@@ -4,6 +4,7 @@ import dao.UserDAO;
 import dao.UserDAOImplement;
 import properties.PathProperties;
 import services.UploadImageServices;
+import services.UserServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -48,9 +49,9 @@ public class UpdateAccount extends HttpServlet {
             int userId = Integer.parseInt(userIdString);
             Date birthDay = Date.valueOf(birthDayString);
 
-            UserDAO userDAO = new UserDAOImplement();
+//            UserDAO userDAO = new UserDAOImplement();
 //            userDAO.updateInfoUser(userId, userName, fullName, gender, email, phone, address, birthDay, nameAvatar);
-            userDAO.updateUserByID(userId, userName, fullName, gender, email, phone, address, birthDay);
+           UserServices.getINSTANCE().updateUserByID(userId, userName, fullName, gender, email, phone, address, birthDay);
             response.sendRedirect(request.getContextPath() + "/Account");
         } catch (NumberFormatException e) {
             e.printStackTrace();
