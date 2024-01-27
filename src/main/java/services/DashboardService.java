@@ -1,6 +1,8 @@
 package services;
 
 import dao.DashboadDAO;
+import dao.GeneralDao;
+
 import models.*;
 
 import java.util.List;

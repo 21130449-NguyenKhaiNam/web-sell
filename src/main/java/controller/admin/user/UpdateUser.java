@@ -3,6 +3,7 @@ package controller.admin.user;
 import dao.UserDAO;
 import dao.UserDAOImplement;
 import models.User;
+import services.UserServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -19,8 +20,7 @@ public class UpdateUser extends HttpServlet {
         String idString = request.getParameter("userID");
         try {
             int id = Integer.parseInt(idString);
-            UserDAO userDAO = new UserDAOImplement();
-            List<User> user = userDAO.getUserByID(id);
+            List<User> user = UserServices.getINSTANCE().getUserByID(id);
             request.setAttribute("user", user.get(0));
             request.getRequestDispatcher("adminUsers.jsp").forward(request, response);
         } catch (NumberFormatException e) {
@@ -41,13 +41,13 @@ public class UpdateUser extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String birthDayString = request.getParameter("birthDay");
+        String role = request.getParameter("role");
 
         try {
             int userId = Integer.parseInt(userIdString);
             Date birthDay = Date.valueOf(birthDayString);
 
-            UserDAO userDAO = new UserDAOImplement();
-            userDAO.updateUserByID(userId, username, fullName, gender, email, phone, address, birthDay);
+            UserServices.getINSTANCE().updateUserByIDWithRole(userId, username, fullName, gender, email, phone, address, birthDay,role);
 
             response.sendRedirect(request.getContextPath() + "/AdminUser");
         } catch (NumberFormatException e) {

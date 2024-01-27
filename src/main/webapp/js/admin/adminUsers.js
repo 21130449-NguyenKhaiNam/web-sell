@@ -11,7 +11,7 @@ document.getElementById('cancel-delete').addEventListener('click', closeDeleteDi
 document.getElementById('close-dialog').addEventListener('click', closeDeleteDialog);
 
 // updateDialog
-function openUpdateDialog(userId, username, fullName, gender, email, phone, address, birthDay) {
+function openUpdateDialog(userId, username, fullName, gender, email, phone, address, birthDay, role) {
     document.getElementById('update-user-dialog').style.display = 'block';
 
     document.getElementById('id--Update').value = userId;
@@ -22,6 +22,8 @@ function openUpdateDialog(userId, username, fullName, gender, email, phone, addr
     document.getElementById('phone--Update').value = phone;
     document.getElementById('address--Update').value = address;
     document.getElementById('birthDay--Update').value = birthDay;
+    document.getElementById('role--Update').value = role;
+    console.log(role)
 }
 function closeUpdateDialog() {
     document.getElementById('update-user-dialog').style.display = 'none';

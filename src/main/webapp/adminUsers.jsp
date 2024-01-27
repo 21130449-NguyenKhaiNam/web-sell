@@ -96,7 +96,7 @@
                             <c:forEach items="${requestScope.lists}" var="user">
                                 <tr class="table__row">
                                     <td class="table__data">
-                                        <a id="updateUser" onclick="openUpdateDialog(${user.id}, '${user.username}', '${user.fullName}', '${user.gender}', '${user.email}', '${user.phone}', '${user.address}', '${user.birthDay}')">
+                                        <a id="updateUser" onclick="openUpdateDialog(${user.id}, '${user.username}', '${user.fullName}', '${user.gender}', '${user.email}', '${user.phone}', '${user.address}', '${user.birthDay}','${user.role}')">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                     </td>
@@ -212,7 +212,7 @@
                 <input type="email" id="email--Update" name="email" value="${user.email}" required>
 
                 <label for="phone">Số điện thoại:</label>
-                <input type="tel" id="phone--Update" name="phone" value="${user.phone}" required>
+                <input type="number" id="phone--Update" name="phone" value="${user.phone}" required>
 
                 <label for="address">Địa chỉ:</label>
                 <input type="text" id="address--Update" name="address" value="${user.address}" required>
@@ -221,6 +221,13 @@
                 <input type="date" id="birthDay--Update" name="birthDay" value="${user.birthDay}" required>
 
                 <input type="hidden" id="id--Update" name="userID" value="${user.id}">
+
+                <label for="role">Vai trò</label>
+                <select id="role--Update" name="role">
+                    <option value="0" ${user.role eq '0' ? 'selected' : ''}>Khách hàng</option>
+                    <option value="1" ${user.role eq '1' ? 'selected' : ''}>Mod</option>
+                    <option value="2" ${user.role eq '2' ? 'selected' : ''}>Admin</option>
+                </select>
 
                 <div class="modal__footer">
                     <button type="button" id="cancel-update-user" class="button button__cancel">Hủy bỏ</button>
@@ -262,13 +269,20 @@
                 <input type="email" id="email" name="email" required>
 
                 <label for="phone">Số điện thoại:</label>
-                <input type="tel" id="phone" name="phone" required>
+                <input type="number" id="phone" name="phone" required>
 
                 <label for="address">Địa chỉ:</label>
                 <input type="text" id="address" name="address" required>
 
                 <label for="birthDay">Ngày sinh:</label>
                 <input type="date" id="birthDay" name="birthDay" required>
+
+                <label for="role">Vai trò</label>
+                <select id="role" name="role">
+                    <option value="0">Khách hàng</option>
+                    <option value="1">Mod</option>
+                    <option value="2">Admin</option>
+                </select>
 
                 <div class="modal__footer">
                     <button type="button" id="cancel-add-user" class="button button__cancel">Hủy bỏ</button>

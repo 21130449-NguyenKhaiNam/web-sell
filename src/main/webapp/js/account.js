@@ -83,6 +83,7 @@ day.addEventListener('change', function() {
     dayValue = this.value;
 });
 
+
 function getDays (year, month){
     var date = new Date(year, month, 1);
     var lastDay = new Date(year, month  , 0);

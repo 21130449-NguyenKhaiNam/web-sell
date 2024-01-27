@@ -57,7 +57,9 @@
 
                     <div class="user__maininfo block_info">
                         <div class="user__img user">
-                            <img src="assets/img/user/${accountInfo.avatar}" id="photo">
+                            <p id="avatarInfo" style="display: none">${accountInfo.avatar}</p>
+                            <img id="photo" src="assets/img/user/userDefautAvatar.jpg" >
+
                             <form id="uploadForm" action="UploadAvatar" method="post" enctype="multipart/form-data">
                                 <input type="file" id="file" name="userCoverPhoto" accept="image/*" onchange="uploadImage()">
                                 <label for="file" id="uploadbtn" class="fas fa-camera"></label>
@@ -195,6 +197,19 @@
 
         xhr.send(formData);
     }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var avatarInfo = document.getElementById("avatarInfo");
+        var photo = document.getElementById("photo");
+
+        if (avatarInfo && avatarInfo.textContent.trim() !== "") {
+            // Nếu accountInfo.avatar có giá trị, sử dụng nó
+            var avatarPath = "assets/img/user/" + avatarInfo.textContent.trim();
+            photo.src = avatarPath;
+        }
+        // Nếu accountInfo.avatar không có giá trị, giữ nguyên hình ảnh mặc định
+    });
 </script>
 </body>
 

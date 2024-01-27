@@ -1,7 +1,6 @@
 package controller.admin.user;
 
-import dao.UserDAO;
-import dao.UserDAOImplement;
+import services.UserServices;
 import utils.Encoding;
 
 import javax.servlet.*;
@@ -30,6 +29,7 @@ public class AddUser extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String birthDayString  = request.getParameter("birthDay");
+        String role = request.getParameter("role");
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date birthDay = null;
@@ -41,8 +41,7 @@ public class AddUser extends HttpServlet {
 
         java.sql.Date sqlBirthDay = new java.sql.Date(birthDay.getTime());
 
-        UserDAO user = new UserDAOImplement();
-        user.insertUser(username, Encoding.getINSTANCE().toSHA1(passwordEncoding), fullName, gender, email, phone, address, sqlBirthDay);
+        UserServices.getINSTANCE().insertUser(username, Encoding.getINSTANCE().toSHA1(passwordEncoding), fullName, gender, email, phone, address, sqlBirthDay, role);
         response.sendRedirect("AdminUser");
 
     }

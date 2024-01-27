@@ -36,11 +36,13 @@ public interface UserDAO extends DAO<User> {
 
     public List<User> searchUsersByName(String search);
 
-    public void insertUser(String username,String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay);
+    public void insertUser(String username,String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay, String role);
 
     public List<User> getUserByID(int id);
 
     public void updateUserByID(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay);
+
+    public void updateUserByIDWithRole(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay, String role);
 
     public void deleteContactsFromUserByUserId(int userId);
 

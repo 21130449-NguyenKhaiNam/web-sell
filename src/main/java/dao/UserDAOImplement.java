@@ -152,14 +152,14 @@ public class UserDAOImplement implements UserDAO {
     }
 
     @Override
-    public void insertUser(String username,String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay) {
-        String querry = "INSERT INTO users(username, passwordEncoding, fullname, gender, email, phone, address, birthDay) VALUES(?,?,?,?,?,?,?,?)";
-        GeneralDao.executeAllTypeUpdate(querry, username, passwordEncoding, fullname, gender, email, phone, address, birthDay);
+    public void insertUser(String username,String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay, String role) {
+        String querry = "INSERT INTO users(username, passwordEncoding, fullname, gender, email, phone, address, birthDay, role) VALUES(?,?,?,?,?,?,?,?,?)";
+        GeneralDao.executeAllTypeUpdate(querry, username, passwordEncoding, fullname, gender, email, phone, address, birthDay, role);
     }
 
     @Override
     public List<User> getUserByID(int id) {
-        String querry = "SELECT id, username, email, fullName, gender, phone, address, birthDay, avatar FROM users WHERE id = ?";
+        String querry = "SELECT id, username, email, fullName, gender, phone, address, birthDay, avatar, role FROM users WHERE id = ?";
         return GeneralDao.executeQueryWithSingleTable(querry, User.class, id);
     }
 
@@ -167,6 +167,12 @@ public class UserDAOImplement implements UserDAO {
     public void updateUserByID(int id, String username, String fullName, String gender, String email, String phone, String address, Date birthDay) {
         String query = "UPDATE users SET username = ?, fullname = ?, gender = ?, email = ?, phone = ?, address = ?, birthDay = ? WHERE id = ?";
         GeneralDao.executeAllTypeUpdate(query, username, fullName, gender, email, phone, address, birthDay, id);
+    }
+
+    @Override
+    public void updateUserByIDWithRole(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay, String role) {
+        String query = "UPDATE users SET username = ?, fullname = ?, gender = ?, email = ?, phone = ?, address = ?, birthDay = ?, role = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(query, username, fullname, gender, email, phone, address, birthDay, role, id);
     }
 
     @Override
