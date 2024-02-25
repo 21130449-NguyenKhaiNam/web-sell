@@ -1,0 +1,26 @@
+/* 
+    Dùng đặt biến chung 
+    + Màu viết trực tiếp
+    + Kích thước thêm chữ size phía trước
+*/
+:root {
+    --primary: #febd69;
+    --dark-primary: #f3a847;
+    --blue: #37475a;
+    --light-blue: rgb(116 229 255);
+    --dark-blue: #131921;
+    --black: #000;
+    --white: #fff;
+    --gray: #e6e6e6;
+    --dark-gray: #d4d4d4;
+
+    --text-white: #fff;
+    --text-black: #0F1111;
+
+    --size-header: 100px;
+}
+
+/* 
+    Cú pháp: Nội dung -> tên file
+    + Đặt lại thông số cơ bản -> reset
+ */

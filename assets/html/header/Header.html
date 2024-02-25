@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Library -->
+    <!-- Boostrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Flag icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
+
+    <!-- Tippy -->
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+    <link src="https://unpkg.com/tippy.js@6/animations/scale.css" />
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <!-- Model box -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- Menu UI -->
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/dev/metro.css">
+    <script src="https://cdn.metroui.org.ua/dev/metro.js"></script>
+
+    <!-- Internal -->
+    <link rel="stylesheet" href="/assets/styles/general/reset.css">
+    <link rel="stylesheet" href="/assets/styles/general/index.css">
+    <link rel="stylesheet" href="/assets/styles/header/Header.css">
+
+    <title>Header</title>
+</head>
+
+<body>
+    <div class="Header_wrapper">
+        <div class="Header_header">
+            <a href="/"><img class="Header_logo" src="/assets/images/logo/logo-white.png" alt="Thương hiệu"></a>
+            <button class="Header_location">
+                <span class="d-flex flex-column">
+                    <p class="Header_label">Vị trí</p>
+                    <p>
+                        <i class="fa-solid fa-location-dot"></i>
+                        VietNam
+                    </p>
+                </span>
+            </button>
+            <div class="Header_search">
+                <button class="Header_categories">
+                    Tất cả
+                    <i class="fa-solid fa-caret-down"></i>
+                </button>
+                <input type="text" class="Header_input" placeholder="Tìm kiếm sản phẩm" />
+                <button class="Header_camera">
+                    <i class="fa-solid fa-camera-retro"></i>
+                </button>
+                <button class="Header_find">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+            <div class="Header_country" href="/">
+                <span class="fi fi-vn"></span>
+                Việt Nam
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+            <a class="Header_account" href="/">
+                <p class="Header_label">Xin chào, đăng nhập</p>
+                <p>
+                    Tài khoản và Danh bạ
+                    <i class="fa-solid fa-caret-down"></i>
+                </p>
+
+            </a>
+            <a class="Header_order" href="/">
+                <p class="Header_label">Hoàn trả</p>
+                <p>Đơn hàng</p>
+            </a>
+            <a class="Header_cart" href="/">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="Header_count">100+</span>
+            </a>
+        </div>
+
+        <div class="Header_footer">
+            <ul class="Header_menu">
+                <li class="Header_menu_item">
+                    <button class="Header_menu_item_btn" id="toggle_menu">
+                        <i class="fa-solid fa-bars"></i>
+                        Tất cả
+                    </button>
+                    <aside class="sidebar pos-absolute z-2" data-role="sidebar" data-toggle="#toggle_menu">
+                        <div class="sidebar-header">
+                            <div class="avatar" data-image="/assets/images/backgrounds/background-toggle-menu">
+                                <img src="/assets/images/account/empty/empty.png" alt="Ảnh tài khoản mặc định">
+                            </div>
+                            <span class="title">Xin chào, vui lòng đăng nhập</span>
+                            <span class="subtitle"> 2024 © NK23</span>
+                        </div>
+                        <ul class="sidebar-menu">
+                            <li><a><span class="mif-home icon"></span>Trang chủ</a></li>
+                            <li><a><span class="mif-books icon"></span>Giới thiệu</a></li>
+                            <li><a><span class="mif-files-empty icon"></span>Sản phẩm</a></li>
+                            <li class="divider"></li>
+                            <li><a><span class="mif-images icon"></span>Chính sách</a></li>
+                        </ul>
+                    </aside>
+                </li>
+                <li class="Header_menu_item">
+                    <a class="Header_menu_item_a" href="/">Ưu đãi hôm nay</a>
+                </li>
+                <li class="Header_menu_item">
+                    <a class="Header_menu_item_a" href="/">Dịch vụ khách hàng</a>
+                </li>
+                <li class="Header_menu_item">
+                    <a class="Header_menu_item_a" href="/">Đăng ký</a>
+                </li>
+                <li class="Header_menu_item">
+                    <a class="Header_menu_item_a" href="/">Thẻ giảm giá</a>
+                </li>
+                <li class="Header_menu_item">
+                    <a class="Header_menu_item_a" href="/">Hàng hóa</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Import script -->
+    <script type="module" src="/assets/action/Header/Header.js"></script>
+</body>
+
+</html>
