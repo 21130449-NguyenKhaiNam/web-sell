@@ -1,0 +1,239 @@
+/* Đặt ẩn chỉ sử dụng trong file này */
+:root {
+    --size-find: 46px;
+    --size-border-radius: 5px;
+}
+
+/* Thiêt lập chung */
+.Header_wrapper {
+    height: var(--size-header);
+    display: flex;
+    flex-direction: column;
+    flex: 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-white);
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.Header_label {
+    font-weight: 400;
+}
+
+/* Phần đầu */
+.Header_header {
+    height: calc(var(--size-header) * 0.7);
+    background-color: var(--dark-blue);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: 15px;
+}
+
+.Header_header>* {
+    height: 50px;
+}
+
+.Header_header>*:hover {
+    border: 1px solid var(--white);
+}
+
+.Header_logo {
+    width: 120px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.Header_location {
+    display: flex;
+    background-color: transparent;
+    color: var(--text-white);
+    border: none;
+}
+
+/* Phần thanh tìm kiếm */
+.Header_search {
+    display: flex;
+    position: relative;
+    border-radius: 5px;
+    width: 60%;
+}
+
+.Header_search>* {
+    padding: 8px 6px;
+}
+
+.Header_categories {
+    border: none;
+    background-color: var(--gray);
+    border-top-left-radius: var(--size-border-radius);
+    border-bottom-left-radius: var(--size-border-radius);
+    border: 4px solid transparent;
+}
+
+.Header_categories:hover {
+    background-color: var(--dark-gray);
+    border-color: var(--dark-primary);
+}
+
+.Header_input {
+    border: none;
+    flex-grow: 1;
+    outline: none;
+}
+
+.Header_camera {
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    right: calc(var(--size-find) + 4px);
+    align-self: center;
+}
+
+.Header_find {
+    background-color: var(--primary);
+    border: none;
+    width: var(--size-find);
+    border-top-right-radius: var(--size-border-radius);
+    border-bottom-right-radius: var(--size-border-radius);
+}
+
+.Header_find:hover {
+    background-color: var(--dark-primary);
+}
+
+.Header_country {
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+}
+
+.Header_cart {
+    font-size: 1.8rem;
+    position: relative;
+    padding: 8px 6px;
+}
+
+.Header_count {
+    color: var(--primary);
+    position: absolute;
+    top: -20%;
+    left: 40%;
+}
+
+/* Phần dưới */
+.Header_footer {
+    height: calc(var(--size-header) * 0.3);
+    background-color: var(--blue);
+    display: flex;
+}
+
+/* Phần menu */
+.Header_menu {
+    display: flex;
+}
+
+.Header_menu_item_a {
+    font-size: 1.8rem;
+    padding: 0 10px;
+    font-weight: 400;
+}
+
+.Header_menu_item_btn {
+    background-color: transparent;
+    color: var(--text-white);
+    border: none;
+}
+
+/* 
+    Custom cho menu popper 
+    Tên được đặt trong file Header.js
+*/
+.Header_popper_menu {
+    overflow: scroll;
+    max-height: 400px;
+}
+
+.Header_menu_item:hover {
+    border: 1px solid var(--white);
+}
+
+.Header_popper_menu_item {
+    padding: 10px;
+    font-style: 1.8rem;
+    cursor: pointer;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Header_popper_menu_item:hover {
+    background-color: var(--light-blue);
+    color: var(--white);
+}
+
+/* 
+    Custom popup 
+    Tên mặt định của thư viện sweetalert2
+*/
+.swal2-popup {
+    font-size: 14px !important;
+}
+
+.swal2-styled {
+    padding: 10px 32px 10px 32px !important;
+    margin: 20px 10px 0px 10px !important;
+    width: 170px;
+    height: 45px;
+}
+
+.swal2-confirm {
+    padding: 5px 10px;
+    font-size: 1.6rem;
+}
+
+.swal2-icon {
+    margin-left: 42.5%;
+    margin-top: 50px;
+}
+
+/* 
+    Popup cho phần access
+    Tên tự đặt nằm trong filr Header.js
+*/
+.Header_wrapper_access {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 15px;
+    font-style: 1.8rem;
+}
+
+.Header_login {
+    border-radius: 5px;
+    background-color: var(--primary);
+    color: var(--white);
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid var(--black);
+}
+
+.Header_login:hover {
+    background-color: var(--dark-primary);
+}
+
+.Header_register {
+    color: var(--light-blue);
+}
+
+/* 
+    Sidebar menu
+    Tên do thư viện MetroUI đặt
+*/
+.sidebar {
+    height: max(100vh, 100%);
+}
