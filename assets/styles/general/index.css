@@ -8,7 +8,7 @@
     --dark-primary: #f3a847;
     --blue: #37475a;
     --light-blue: rgb(116 229 255);
-    --dark-blue: #131921;
+    --dark-blue: #232f3e;
     --black: #000;
     --white: #fff;
     --gray: #e6e6e6;
@@ -18,6 +18,8 @@
     --text-black: #0F1111;
 
     --size-header: 100px;
+    --size-height-logo: 120px;
+    --size-width-logo: 50px;
 }
 
 /* 

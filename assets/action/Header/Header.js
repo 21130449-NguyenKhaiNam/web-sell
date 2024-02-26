@@ -1,6 +1,6 @@
 import { getCategories } from '/assets/data/Categories.js'
 import { getLocations } from '/assets/data/Locations.js'
-import { getCountries } from '/assets/data/Countries.js'
+import layoutCountries from '/assets/action/Countries/LayoutCountries.js'
 
 // Đảm bảo các phần tử được tải trước
 $(document).ready(function () {
@@ -93,17 +93,8 @@ $(document).ready(function () {
     }
     handleToggleMenu(false)
 
-
-    // Hiển thị menu lựa chọn ngôn ngữ
-    tippy(classCountry, {
-        content: () => getCountries({
-            // Loại bỏ dấu chấm phía trước
-            classUl: [classMenu.substring(1)],
-            classItem: [classMenuItem.substring(1)],
-        }),
-        theme: 'light',
-        interactive: true,
-    })
+    // Lựa chọn ngôn ngữ
+    layoutCountries(classCountry, [classMenu.substring(1)], [classMenuItem.substring(1)])
 
     // Hiển thị popup login
     // layout cho login

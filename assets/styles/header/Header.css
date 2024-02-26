@@ -42,8 +42,8 @@ a {
 }
 
 .Header_logo {
-    width: 120px;
-    height: 50px;
+    width: var(--size-height-logo);
+    height: var(--size-width-logo);
     object-fit: contain;
 }
 
