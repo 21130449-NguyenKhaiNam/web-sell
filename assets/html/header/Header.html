@@ -27,11 +27,11 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
-    <!-- Model box -->
+    <!-- Lib sweetalert2: Model box -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css" rel="stylesheet">
 
-    <!-- Menu UI -->
+    <!-- Lib MetroUI: Menu UI -->
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/dev/metro.css">
     <script src="https://cdn.metroui.org.ua/dev/metro.js"></script>
 
@@ -44,6 +44,23 @@
 </head>
 
 <body>
+    <!-- Menu trượt trên màn hình khi click vào #toggle_menu -->
+    <aside class="row sidebar pos-absolute z-2" data-role="sidebar" data-toggle="#toggle_menu">
+        <div class="sidebar-header">
+            <div class="avatar">
+                <img src="/assets/images/account/empty/empty.png" alt="Ảnh tài khoản mặc định">
+            </div>
+            <span class="title fg-black">Xin chào, vui lòng đăng nhập</span>
+            <span class="subtitle fg-black"> 2024 © NK23</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a><span class="mif-home icon"></span>Trang chủ</a></li>
+            <li><a><span class="mif-books icon"></span>Giới thiệu</a></li>
+            <li><a><span class="mif-files-empty icon"></span>Sản phẩm</a></li>
+            <li class="divider"></li>
+            <li><a><span class="mif-images icon"></span>Chính sách</a></li>
+        </ul>
+    </aside>
     <div class="Header_wrapper">
         <div class="Header_header">
             <a href="/"><img class="Header_logo" src="/assets/images/logo/logo-white.png" alt="Thương hiệu"></a>
@@ -99,22 +116,6 @@
                         <i class="fa-solid fa-bars"></i>
                         Tất cả
                     </button>
-                    <aside class="sidebar pos-absolute z-2" data-role="sidebar" data-toggle="#toggle_menu">
-                        <div class="sidebar-header">
-                            <div class="avatar" data-image="/assets/images/backgrounds/background-toggle-menu">
-                                <img src="/assets/images/account/empty/empty.png" alt="Ảnh tài khoản mặc định">
-                            </div>
-                            <span class="title">Xin chào, vui lòng đăng nhập</span>
-                            <span class="subtitle"> 2024 © NK23</span>
-                        </div>
-                        <ul class="sidebar-menu">
-                            <li><a><span class="mif-home icon"></span>Trang chủ</a></li>
-                            <li><a><span class="mif-books icon"></span>Giới thiệu</a></li>
-                            <li><a><span class="mif-files-empty icon"></span>Sản phẩm</a></li>
-                            <li class="divider"></li>
-                            <li><a><span class="mif-images icon"></span>Chính sách</a></li>
-                        </ul>
-                    </aside>
                 </li>
                 <li class="Header_menu_item">
                     <a class="Header_menu_item_a" href="/">Ưu đãi hôm nay</a>
