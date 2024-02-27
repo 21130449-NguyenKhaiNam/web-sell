@@ -11,6 +11,10 @@
     background-color: var(--blue);
     font-weight: 500;
     font-size: 1.6rem;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .Footer_btn-move-top:hover {
