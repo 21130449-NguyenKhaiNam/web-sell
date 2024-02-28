@@ -6,7 +6,7 @@
 
 /* Thiêt lập chung */
 .Header_wrapper {
-    height: var(--size-header);
+    height: var(--size-height-header);
     display: flex;
     flex-direction: column;
     flex: 0;
@@ -25,7 +25,7 @@ a {
 
 /* Phần đầu */
 .Header_header {
-    height: calc(var(--size-header) * 0.7);
+    height: calc(var(--size-height-header) * 0.7);
     background-color: var(--dark-blue);
     display: flex;
     justify-content: space-around;
@@ -126,7 +126,7 @@ a {
 
 /* Phần dưới */
 .Header_footer {
-    height: calc(var(--size-header) * 0.3);
+    height: calc(var(--size-height-header) * 0.3);
     background-color: var(--blue);
     display: flex;
 }
@@ -242,6 +242,7 @@ a {
 .sidebar {
     height: 100vh;
     overflow: auto;
+    z-index: 999999999999999 !important;
 }
 
 body.menu-open {
