@@ -6,7 +6,7 @@
 - Tổ chức nhóm gồm: 2 - 3 thành viên
 - Các công nghệ chính sử dụng: HTML, CSS, JS, Java. Ngoài ra còn một số thư viện khác như: Boostrap, Ajax, JDBI,...
 # 2. Phân chia
-- Thư viện icon: Fonawesome,  flag-
+- Thư viện icon: Fonawesome,  flag-icon
 - Giao diện: sử dụng các thư viện có thể và chỉ làm xoay quanh HTML, CSS, JS (MetroUI, Boostrap, SweetAlert2, Tippy, JQuery, Ajax)
 - Xử lý: sử dụng Java (cụ thể JSP, Servlet)
 - Cơ sở dữ liệu: MySQL
