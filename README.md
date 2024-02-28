@@ -6,7 +6,8 @@
 - Tổ chức nhóm gồm: 2 - 3 thành viên
 - Các công nghệ chính sử dụng: HTML, CSS, JS, Java. Ngoài ra còn một số thư viện khác như: Boostrap, Ajax, JDBI,...
 # 2. Phân chia
-- Giao diện: sử dụng các thư viện có thể và chỉ làm xoay quanh HTML, CSS, JS
+- Thư viện icon: Fonawesome,  flag-
+- Giao diện: sử dụng các thư viện có thể và chỉ làm xoay quanh HTML, CSS, JS (MetroUI, Boostrap, SweetAlert2, Tippy, JQuery, Ajax)
 - Xử lý: sử dụng Java (cụ thể JSP, Servlet)
 - Cơ sở dữ liệu: MySQL
 # 3. Yêu cầu
@@ -22,4 +23,5 @@
 - Commit phải có ý nghĩa
 - Mọi công việc đều phải có issue
 - Chỉ được phép pull request và merge branch khi đã được review
+- Tên thư mục sản phẩm chính là id của sản phẩm đó
 - Sử dụng quy tắc đặt tên: [Trang web hướng dẫn đặt tên cho phù hợp](https://viblo.asia/p/naming-rules-cac-quy-tac-vang-trong-lang-dat-ten-ByEZkMXE5Q0)
