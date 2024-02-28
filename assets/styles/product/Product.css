@@ -1,0 +1,141 @@
+:root {
+    --yellow: #faab08;
+
+    --size-height-component: 250px;
+}
+
+body {
+    font-size: 1.4rem;
+}
+
+.Product_product {
+    background-color: var(--gray);
+    padding: 30px 20px;
+}
+
+/* Carousel */
+.Product_carousel_wrapper {
+    height: var(--size-height-component);
+}
+
+.Product_carousel {
+    height: var(--size-height-component) !important;
+}
+
+.Product_carousel_wrapper .Product_side {
+    background-size: 100% var(--size-height-component);
+}
+
+/* End */
+
+/* Popular */
+.Product_popular {
+    display: flex;
+}
+
+.Product_title {
+    font-size: 2.4rem;
+    font-weight: 500;
+    padding: 10px;
+}
+
+/* 
+    Card 
+    Một số tên do Boostrap đặt
+*/
+.card {
+    border-radius: 5px;
+}
+
+.card:hover {
+    border: 2px solid var(--primary);
+    box-shadow: 1px 1px 1px 1px #888;
+}
+
+.card-title {
+    font-size: 1.8rem;
+}
+
+.Product_card_see_more {
+    background-color: var(--primary);
+    font-size: 1.6rem;
+    padding: 5px 10px;
+}
+
+.Product_card_see_more:hover {
+    background-color: var(--dark-primary);
+}
+
+.Product_card_label {
+    font-size: 1.4rem;
+    width: fit-content;
+    padding: 2px 4px;
+    display: flex;
+    justify-content: center;
+}
+
+.Product_card_label[data-style='background'] {
+    color: var(--black);
+    background-color: var(--gray);
+}
+
+.Product_card_label[data-style='top-sell'] {
+    color: var(--white);
+    background: linear-gradient(to right, var(--yellow), #d42611);
+    border-radius: 20px;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    font-weight: 400;
+    overflow: hidden;
+}
+
+.Product_card_label[data-style='discount'] {
+    display: inline;
+    background-color: var(--yellow);
+}
+
+.Product_card_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Product_card_icon img {
+    width: 20px;
+    object-fit: cover;
+}
+
+.card-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.Product_card_cost {
+    color: var(--black);
+    font-size: 2rem;
+}
+
+.Product_card_price {
+    font-weight: 600;
+}
+
+.Product_card_vote {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.Product_card_vote .fa-star {
+    color: var(--primary);
+}
+
+.Product_card_interact {
+    display: flex;
+    justify-content: space-around;
+}
+
+.Product_card_like {
+    font-size: 2rem;
+    padding-top: 0;
+}
