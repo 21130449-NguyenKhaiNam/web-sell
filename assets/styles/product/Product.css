@@ -13,6 +13,17 @@ body {
     padding: 30px 20px;
 }
 
+/* 
+    Phần lọc sản phẩm
+    Tên một số do metro ui đặt
+*/
+.Product_sort {}
+
+.Product_sort .h-menu {
+    border-radius: 10px;
+    padding: 10px 10px;
+}
+
 /* Carousel */
 .Product_carousel_wrapper {
     height: var(--size-height-component);
@@ -39,12 +50,25 @@ body {
     padding: 10px;
 }
 
+.Product_title i {
+    color: var(--primary);
+}
+
 /* 
     Card 
     Một số tên do Boostrap đặt
 */
 .card {
     border-radius: 5px;
+}
+
+.card a {
+    color: var(--black);
+}
+
+.card a:hover {
+    text-decoration: none;
+    color: var(--black);
 }
 
 .card:hover {
@@ -137,5 +161,24 @@ body {
 
 .Product_card_like {
     font-size: 2rem;
-    padding-top: 0;
+    padding: 0 50px;
+}
+
+/* Phần cuối của danh mục sản phẩm */
+.Product_load_wrapper {
+    text-align: center;
+}
+
+.Product_see_more {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 10px 100px;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-left: 75px;
+}
+
+.Product_see_more:hover {
+    background-color: var(--dark-primary);
+    color: var(--white);
 }
