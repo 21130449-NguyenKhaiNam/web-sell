@@ -33,18 +33,29 @@
             <div class="Product_carousel" data-role="carousel" data-controls-on-mouse="true"
                 data-cls-controls="fg-white" data-control-next="<i class='fa-solid fa-angle-right'></i>"
                 data-control-prev="<i class='fa-solid fa-angle-left'></i>" data-bullet-style="rect"
-                data-bullets-position="left" data-effect="slide" data-duration="500" data-period="2000">
+                data-bullets-position="left" data-effect="slide" data-duration="500" data-auto-start="true"
+                data-period="4000">
                 <div class="Product_side slide" data-cover="/assets/images/carousel/1.png"></div>
                 <div class="Product_side slide" data-cover="/assets/images/carousel/2.png"></div>
                 <div class="Product_side slide" data-cover="/assets/images/carousel/3.png"></div>
             </div>
         </div>
 
+        <!-- Phần mục các sản phẩm -->
         <div class="Product_product">
+            <!-- Các sự kiện theo thời gian có xác định và không xác định -->
+            <!-- Mở rộng: <div class="Product_event_time">
+            </div> -->
+
             <!-- Các sản phẩm phổ biến -->
             <div class="Product_popular">
                 <div class="row">
-                    <h1 class="Product_title">Các loại sản phẩm nổi bật</h1>
+                    <div class="col-sm-12">
+                        <h1 class="Product_title">
+                            <i class="fa-solid fa-chart-line"></i>
+                            Các loại sản phẩm nổi bật
+                        </h1>
+                    </div>
                     <!-- Để tạm thời -->
                     <div class="col-sm-3">
                         <div class="card">
@@ -89,7 +100,9 @@
                     <div class="col-sm-3">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Nồi cơm điện</h5>
+                                <h5 class="card-title">
+                                    Nồi cơm điện
+                                </h5>
                                 <div class="row">
                                     <a class="Product_card_item col-sm-6" href="/">
                                         <img src="/assets/images/products/1/bg11.jpg" alt="">
@@ -149,40 +162,52 @@
                 </div>
             </div>
 
-            <!-- Khu vực danh sách sản phẩm riêng lẻ -->
+            <!--
+                Khu vực danh sách sản phẩm riêng lẻ.
+                Có thể sử dụng làm phần gọi ý sản phẩm.
+            -->
             <div class="Product_list">
                 <div class="row">
+                    <div class="col-sm-12">
+                        <h1 class="Product_title">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                            Các sản phẩm khác
+                        </h1>
+                    </div>
                     <div class="col-sm-3">
                         <div class="card">
-                            <div class="card-body">
-                                <p class="Product_card_label" data-style="background">Trả góp 5%</p>
-                                <img class="card-img-top" src="/assets/images/products/1/bg11.jpg" alt="Ảnh">
-                                <p class="Product_card_label" data-style="top-sell">
-                                    <span class="Product_card_icon">
-                                        <img src="/assets/images/icons/thunder.png" alt="">
-                                    </span>
-                                    <span>Top bán chạy</span>
-                                </p>
-                                <h5 class="card-title">Bla bla bla bla Bla bla bla bla Bla bla bla bla Bla bla bla bla
-                                    Bla
-                                    bla bla bla Bla bla bla bla Bla bla bla bla</h5>
-                                <span></span>
-                                <p class="Product_card_cost">
-                                    <span class="Product_card_price">8.000.000đ</span>
-                                    <span class="Product_card_label" data-style="discount">-15%</span>
-                                </p>
-                                <p class="Product_card_vote">
-                                    <span>4.0</span>
-                                    <span><i class="fa-solid fa-star"></i></span>
-                                    <span>(128)</span>
-                                </p>
-                                <div class="Product_card_interact">
-                                    <a href="#" class="btn Product_card_see_more">Xem thêm...</a>
-                                    <button class="btn Product_card_like">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </button>
+                            <a href="#">
+                                <div class="card-body">
+                                    <p class="Product_card_label" data-style="background">Trả góp 5%</p>
+                                    <img class="card-img-top" src="/assets/images/products/1/bg11.jpg" alt="Ảnh">
+                                    <p class="Product_card_label" data-style="top-sell">
+                                        <span class="Product_card_icon">
+                                            <img src="/assets/images/icons/thunder.png" alt="">
+                                        </span>
+                                        <span>Top bán chạy</span>
+                                    </p>
+                                    <h5 class="card-title">Bla bla bla bla Bla bla bla bla Bla bla bla bla Bla bla
+                                        bla bla
+                                        Bla
+                                        bla bla bla Bla bla bla bla Bla bla bla bla</h5>
+                                    <span></span>
+                                    <p class="Product_card_cost">
+                                        <span class="Product_card_price">8.000.000đ</span>
+                                        <span class="Product_card_label" data-style="discount">-15%</span>
+                                    </p>
+                                    <p class="Product_card_vote">
+                                        <span>4.0</span>
+                                        <span><i class="fa-solid fa-star"></i></span>
+                                        <span>(128)</span>
+                                    </p>
+                                    <div class="Product_card_interact">
+                                        <a href="#" class="btn Product_card_see_more">Xem thêm...</a>
+                                        <button class="btn Product_card_like">
+                                            <i class="fa-regular fa-heart"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -481,6 +506,13 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Nút tải thêm sản phẩm -->
+                <div class="row">
+                    <div class="col-sm-12 Product_load_wrapper">
+                        <a href="#" class="btn Product_see_more">Xem thêm</a>
                     </div>
                 </div>
             </div>
