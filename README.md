@@ -32,7 +32,7 @@
 - Giải thích từ khó xuống dễ hiểu
 - Nếu custom lại phải chú thích rõ tại vị trí tương ứng
 
-## Phần js:
+## ***Phần js***:
 
 ## **/action**
 ### access.js
@@ -50,10 +50,10 @@
 - Lấy dữ liệu loại sản phẩm, có function getCategories lấy danh sách dưới dạng DOM
 ### countries.js
 - Cũng khá giống categories.js, sở hữu function getCountries lấy danh sách quốc gia
-## locations.js
+### locations.js
 - Lấy vị trí, khác với quốc gia ở chỗ có thể rộng hơn và getLocations trả về dạng tag select DOM
 
-## Phần html:
+## ***Phần html***:
 
 ## **/access**
 - Chứa các lớp hiển thị liên quan đến truy cập của người dùng
@@ -72,7 +72,7 @@
 - Gồm các trang:
 + product.html: Hiển thị các sản phẩm tại trang index.html
 
-## Phần css:
+## ***Phần css***:
 
 ## **/access**
 - Thiết lập style cho các file liên quan đến access
