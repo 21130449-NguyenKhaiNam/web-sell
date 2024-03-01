@@ -1,9 +1,10 @@
-import { getCategories } from '/assets/data/Categories.js'
-import { getLocations } from '/assets/data/Locations.js'
-import layoutCountries from '/assets/action/Countries/LayoutCountries.js'
+import { getCategories } from '/assets/data/categories.js'
+import { getLocations } from '/assets/data/locations.js'
+import layoutCountries from '/assets/action/countries/layoutCountries.js'
 
 // Đảm bảo các phần tử được tải trước
 $(document).ready(function () {
+    // Đặt biến
     const classLocation = '.Header_location'
     const classCategories = '.Header_categories'
     const classCountry = '.Header_country'
