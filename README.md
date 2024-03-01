@@ -3,7 +3,7 @@
 ## 1. Mở đầu
 - Đồ án trang web bán đồ gia dụng
 - Đồ án là một yêu cầu bắt buộc hoàn thành của môn học
-- Tổ chức nhóm gồm: 2 - 3 thành viên
+- Tổ chức nhóm gồm: 3 thành viên
 - Các công nghệ chính sử dụng: HTML, CSS, JS, Java. Ngoài ra còn một số thư viện khác như: Boostrap, Ajax, JDBI,...
 ## 2. Phân chia
 - Thư viện icon: Fonawesome,  flag-icon
@@ -16,7 +16,8 @@
 - Xử lý không reload ở một số vị trí
 - Tối ưu cho web
 ## 4. Quy tắc
-- Đặt tên cho một phần tử trong html: (thư mục chứa)_(tên phần tử)
+- Tên đặt cho một DOM trong html được viết hoa chữ cái đầu để phân biệt với tên của các thư viện
+- Đặt tên cho một phần tử trong html: (thư mục chứa file css)_(tên phần tử)
 - Yêu cầu chú thích cơ bản
 - Áp dụng mô hình MVC cho Java
 - Ngôn ngữ sử dụng để viết code là tiếng anh, commmit là tiếng việt
