@@ -8,7 +8,7 @@
     margin: auto;
     background-color: var(--gray);
     width: 1000px;
-    height: 500px;
+    height: fit-content;
     padding: 10px;
     border-radius: 10px;
 }
@@ -24,6 +24,10 @@
 }
 
 /* Phía bên trái */
+.fa-arrow-left {
+    color: var(--primary);
+}
+
 .Access_form {
     height: 100%;
     margin: 10px 50px;
@@ -60,13 +64,13 @@
     outline: none;
 }
 
-.Access_icon_inp {
+.Access_inp~i {
     position: absolute;
     top: 58%;
     left: 10px;
 }
 
-.Access_inp:focus~.Access_icon_inp {
+.Access_inp:focus~. {
     color: var(--primary);
 }
 
