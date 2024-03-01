@@ -1,4 +1,4 @@
-import { getCountries } from '/assets/data/Countries.js'
+import { getCountries } from '/assets/data/countries.js'
 /**
  * Hiển thị ra layout của country 
  * Phải import thư viện tippy
@@ -8,7 +8,6 @@ function layoutCountries(classCountry = '', classMenu = [], classMenuItem = []) 
     if (classCountry) {
         tippy(classCountry, {
             content: () => getCountries({
-                // Loại bỏ dấu chấm phía trước
                 classUl: [...classMenu],
                 classItem: [...classMenuItem],
             }),

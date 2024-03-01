@@ -1,4 +1,4 @@
-import layoutCountries from "/assets/action/Countries/LayoutCountries.js"
+import layoutCountries from "/assets/action/countries/layoutCountries.js"
 
 $(document).ready(function () {
     const classCountry = '.Footer_country'

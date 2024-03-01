@@ -1,0 +1,29 @@
+.Login_wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.Login_box {
+    margin: auto;
+    background-color: var(--gray);
+    min-width: 1000px;
+    min-height: 500px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.Login_box_right {
+    display: flex;
+}
+
+.Login_box_image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.Login_logo {
+    width: var(--size-width-logo);
+    height: var(--size-height-logo);
+    object-fit: cover;
+}

@@ -225,6 +225,7 @@ a {
     text-align: center;
     cursor: pointer;
     border: 1px solid var(--black);
+    margin-bottom: 5px;
 }
 
 .Header_login:hover {
