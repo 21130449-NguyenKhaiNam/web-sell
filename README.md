@@ -71,6 +71,7 @@
 ## **/product**
 - Gồm các trang:
 + product.html: Hiển thị các sản phẩm tại trang index.html
++ productDetail.html: Chi tiết của một sản phẩm
 
 ## ***Phần css***:
 
