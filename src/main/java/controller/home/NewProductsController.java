@@ -39,7 +39,7 @@ public class NewProductsController extends HttpServlet {
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("listProductsPerPage", listProductsPerPage);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("newProducts.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("productNew.jsp");
         requestDispatcher.forward(request, response);
     }
 
