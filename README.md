@@ -74,6 +74,9 @@
 + product.html: Hiển thị các sản phẩm tại trang index.html
 + productDetail.html: Chi tiết của một sản phẩm
 
+## **/cart**
+- Trang giỏ hàng chứa các sản phẩm được thêm vào giỏ để mua sau
+
 ## ***Phần css***:
 
 ## **/access**
@@ -91,4 +94,8 @@
 - Cải thiện giao diện cho header
 
 ## **/product**
-- Làm nổi bật sản phẩm hơn
+- product.css: Làm nổi bật sản phẩm hơn
+- productDetail.css: Thiết kế kiểu cho sản phẩm chi tiết
+
+## **/cart**
+- Tăng độ thiện cảm với người dùng
