@@ -1,0 +1,35 @@
+
+h1 {
+    font-size: 50px;
+    font-weight: 700;
+
+}
+
+.error__desc {
+    padding-top: 15px;
+    font-size: 23px;
+    font-weight: 400;
+}
+
+.error__detail {
+    padding-top: 18px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #4B4B4B;
+}
+
+.error__button {
+    margin-top: 54px;
+    --width: 200px;
+    --height: 60px;
+    border-radius: 10px;
+    background-color: var(--blue-color-high);
+    --background-color-hover: var(--blue-color-medium);
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+}
