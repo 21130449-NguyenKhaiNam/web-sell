@@ -36,7 +36,7 @@ public class TrendingProductsController extends HttpServlet {
         request.setAttribute("listProductsPerPage", listProductsPerPage);
         System.out.println(listProductsPerPage);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("trendingProducts.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("productTrending.jsp");
         requestDispatcher.forward(request, response);
     }
 
