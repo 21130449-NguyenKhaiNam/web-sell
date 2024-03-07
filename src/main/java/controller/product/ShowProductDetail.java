@@ -1,5 +1,6 @@
 package controller.product;
 
+import config.ConfigPage;
 import models.Product;
 import models.Review;
 import services.ProductCardServices;
@@ -41,7 +42,7 @@ public class ShowProductDetail extends HttpServlet {
 //            Related product
             List<Product> listProductRelated = getListProductRandom(product.getCategoryId(), 4);
             request.setAttribute("listProductRelated", listProductRelated);
-            request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+            request.getRequestDispatcher(ConfigPage.PRODUCT_DETAIL).forward(request, response);
         }
     }
 

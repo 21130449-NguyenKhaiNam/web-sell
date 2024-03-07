@@ -11,7 +11,7 @@
     <title>Liên hệ</title>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
+<c:import url="${initParam.contextPath}/public/header.jsp"/>
 <main id="main">
     <div class="container-xl">
         <div class="contact_us row">

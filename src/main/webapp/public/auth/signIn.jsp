@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
+    <c:import url="${initParam.contextPath}/public/commonLink.jsp" charEncoding="UTF-8"/>
     <link rel="stylesheet" href="${initParam.contextPath}/assets/css/logIn.css">
     <title>Đăng nhập</title>
 </head>
@@ -13,7 +13,6 @@
         <div class="frame__media">
         </div>
         <article>
-
             <form action="${initParam.contextPath}/signIn" class="form form--signUp" method="post">
                 <div class="form__block">
                     <label for="username" class="form__label">Tên đăng nhập</label>

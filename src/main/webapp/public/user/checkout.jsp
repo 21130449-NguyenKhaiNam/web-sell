@@ -5,32 +5,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
-    <!--Web font-->
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
-
-    <!--CSS-->
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/checkout.css">
+    <jsp:include page="${initParam.contextPath}/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/checkout.css">
 
     <title>Thanh toán</title>
 </head>
 <body>
-<jsp:include page="public/header/header.jsp"></jsp:include>
+<jsp:include page="${initParam.contextPath}/public/header.jsp"></jsp:include>
 <main id="main">
     <div class="container-xl">
         <div class="checkout__container row">
@@ -319,7 +300,7 @@
                     </div>
                     <div class="ground__button--forward">
                         <button class="place__order">Đặt hàng</button>
-                        <a href="shoppingCart.jsp">
+                        <a href="${initParam.contextPath}/public/user/shoppingCart.jsp">
                             <button class="back--shopping__cart">Quay lại giỏ hàng</button>
                         </a>
                     </div>
@@ -329,7 +310,7 @@
     </div>
 </main>
 <div class="popup__deletion"></div>
-<%@include file="public/footer/footer.jsp" %>
+<jsp:include page="${initParam.contextPath}/public/footer.jsp" />
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -497,7 +478,7 @@
                     setTimeout(function () {
                         let invoiceNo = response.invoiceNo;
                         let dateOrder = response.dateOrder;
-                        window.location.href = "SuccessOrder?invoiceNo=" + invoiceNo;
+                        window.location.href = "${initParam.contextPath}/SuccessOrder?invoiceNo=" + invoiceNo;
 
                         // $(document).find('.message__process').html(response);
                         // $(document).find('.loading__order').removeClass('loading__order').html(`<i class="fa-regular fa-circle-check"></i>`).css({'margin': '16px auto', 'fontSize': '80px'});

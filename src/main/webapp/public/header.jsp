@@ -28,8 +28,8 @@
                     <c:when test="${auth == null}">
                         <!--cta == call to action-->
                         <div class="nav__cta">
-                            <a href="auth/signIn.jsp" class="nav__button nav__button--signIn">Đăng nhập</a>
-                            <a href="auth/signUp.jsp"
+                            <a href="${initParam.contextPath}/public/auth/signIn.jsp" class="nav__button nav__button--signIn">Đăng nhập</a>
+                            <a href="${initParam.contextPath}/public/auth/signUp.jsp"
                                class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
                         </div>
                     </c:when>
@@ -37,9 +37,8 @@
                         <!--Account show (After log in success)-->
                         <div class="account__wrapper">
                             <!--Giỏ hàng-->
-
                             <div class="cart__wrapper">
-                                <a href="user/shoppingCart.jsp" class="cart">
+                                <a href="${initParam.contextPath}/public/user/shoppingCart.jsp" class="cart">
                                     <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
                                     <span class="qlt__swapper">
                                         <span class="qlt__value">
@@ -56,7 +55,7 @@
                             <div class="account">
                                 <i class="account__icon fa-regular fa-user"></i>
                                 <div class="setting__list">
-                                    <a href="Account" class="setting__item">
+                                    <a href="${initParam.contextPath}/Account" class="setting__item">
                                         <div class="setting__link">
                                             <div class="account__info">
                                                 <i class="account__icon fa-regular fa-user"></i>
@@ -66,7 +65,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="Account" class="setting__item">
+                                    <a href="${initParam.contextPath}/Account" class="setting__item">
                                         <div class="setting__link">Tài khoản của tôi
                                         </div>
                                     </a>
@@ -76,7 +75,7 @@
                                             lý
                                         </div>
                                         </c:if>
-                                        <a href="signOut" class="setting__item ">
+                                        <a href="${initParam.contextPath}/signOut" class="setting__item ">
                                             <div class="setting__link setting__logOut">Đăng
                                                 xuất
                                             </div>

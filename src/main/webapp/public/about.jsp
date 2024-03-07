@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp"></jsp:include>
+<c:import url="header.jsp"/>
 <main class="wraper">
     <div class="container">
         <div class="about">
@@ -150,7 +150,7 @@
                 </ul>
             </div>
             <div class="pic">
-                <img src="../assets/img/YourStyleLogo.png">
+                <img src="${initParam.contextPath}/assets/img/YourStyleLogo.png"/>
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 package controller.product;
 
+import config.ConfigPage;
 import models.Category;
 import models.Parameter;
 import models.Product;
@@ -38,7 +39,7 @@ public class ShowProductOrder extends HttpServlet {
             request.setAttribute("product", product);
             request.setAttribute("category", category);
             request.setAttribute("listParameter", listParameter);
-            request.getRequestDispatcher("productOrder.jsp").forward(request, response);
+            request.getRequestDispatcher(ConfigPage.PRODUCT_ORDER).forward(request, response);
         }
     }
 
