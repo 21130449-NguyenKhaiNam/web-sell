@@ -8,36 +8,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="../../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
-    <!--JQuery-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
-    <!--Web font-->
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
-    <!--CSS-->
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/productBuying.css">
+    <c:import url="${initParam.contextPath}/public/commonLink.jsp" charEncoding="UTF-8"/>
+    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/productBuying.css">
     <title>Gian hàng</title>
 </head>
 <body>
-<jsp:include page="../header.jsp"></jsp:include>
+<c:import url="${initParam.contextPath}/public/header.jsp" />
 <main class="main">
     <section class="products">
         <div class="container-xl">
             <div class="row ">
                 <div class="col-3">
-                    <form action="filterProductBuying" class="form__filter">
+                    <form action="${initParam.contextPath}/filterProductBuying" class="form__filter">
                         <div class="filter__group">
                             <span class="filter__title">Phân loại sản phẩm</span>
                             <div class="filter__radio-list">
@@ -200,7 +182,7 @@
         </div>
     </section>
 </main>
-<%@include file="../footer.jsp" %>
+<c:import url="${initParam.contextPath}/public/footer.jsp"/>
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
     System.out.println("inputChecked (UI):" + inputChecked);

@@ -11,7 +11,7 @@
     <title>Tài khoản</title>
 </head>
 <body>
-<jsp:include page="${initParam.contextPath}/public/header.jsp"></jsp:include>
+<jsp:include page="${initParam.contextPath}/public/header.jsp"/>
 <main class="main">
     <div class="container-xl">
         <div class="row">
@@ -132,7 +132,6 @@
                                     <button>Lưu thay đổi</button>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </section>
@@ -140,10 +139,10 @@
         </div>
     </div>
 </main>
-<%@include file="../footer.jsp" %>
-<script src="../../js/validateForm.js"></script>
-<script src="../../js/data.js"></script>
-<script src="../../js/account.js"></script>
+<jsp:include page="${initParam.contextPath}/public/footer.jsp"/>
+<script src="${initParam.contextPath}/js/validateForm.js"></script>
+<script src="${initParam.contextPath}/js/data.js"></script>
+<script src="${initParam.contextPath}/js/account.js"></script>
 <script>
     function hideDefaultOption() {
         var genderDropdown = document.getElementById("gender");

@@ -1,0 +1,108 @@
+.container{
+    display: grid;
+    text-align: center;
+    gap: 18px;
+    margin: 50px 0px;
+}
+
+.notification__success{
+    display: grid;
+    gap: 24px;
+}
+.icon__success{
+    font-size: 120px;
+    color: #5ee95e;
+}
+
+.icon__success i{
+    position: relative;
+    width: fit-content;
+}
+
+.icon__success i::after{
+    font-family: 'Font Awesome 6 Free';
+    width: fit-content;
+    height: fit-content;
+    content: "\f058";
+    position: absolute;
+    font-size: 50px;
+    top: 0;
+    left: 50%;
+    right: 0;
+    background-color: white;
+    padding: 6px;
+    border-radius: 50%;
+    transform: translate(-36%,-36%);
+}
+
+.text__success{
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--blue-color-high);
+}
+
+.navigation__target{
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.navigation__target a{
+    padding: 14px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--blue-color-high);
+    font-weight: 600;
+}
+
+.order__detail{
+    background-color: var(--blue-color-high);
+    color: white;
+}
+
+.continue__shopping{
+    color: var(--blue-color-high);
+}
+
+.countdown__second{
+    font-weight: 600;
+    color: var(--blue-color-high);
+}
+
+.guide__next, .back__home{
+    width: 420px;
+    margin: auto;
+    line-height: 22px;
+    font-size: 14px;
+}
+
+p{
+    margin: unset;
+}
+
+.order__tag{
+    display: grid;
+    gap: 10px;
+    padding: 14px 0px;
+    color: white;
+    background-color: var(--blue-color-high);
+    width: 100%;
+    border-radius: 4px;
+    margin: auto;
+}
+
+.order__no{
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.order__swapper{
+    display: grid;
+    width: fit-content;
+    margin: auto;
+    gap: 16px;
+}
+
+.my__company{
+    color: var(--blue-color-high);
+    font-weight: 600;
+}

@@ -8,34 +8,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="../../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-    <%--jquery--%>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!--CK Editor-->
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
-    <!--Web font-->
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
-
-    <!--CSS-->
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/productDetail.css">
+    <c:import url="${initParam.contextPath}/public/commonLink.jsp" charEncoding="UTF-8"/>
+    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/productDetail.css">
     <title>${product.name}</title>
 </head>
 <body>
-<jsp:include page="../header.jsp"></jsp:include>
-
+<c:import url="${initParam.contextPath}/public/header.jsp" />
 <main class="main">
     <section class="product__detail">
         <div class="container-xl">
@@ -44,19 +22,19 @@
                     <div class="product__media">
                         <c:set var="firstImage"
                                value="${productFactory.getListImagesByProductId(product.id).get(0).nameImage}"/>
-                        <img class="product__img" src="assets/img/product_img/${firstImage}" alt="" loading="lazy">
+                        <img class="product__img" src="${initParam.contextPath}/assets/img/product_img/${firstImage}" alt="" loading="lazy">
                         <ul class="product__img-list">
                             <c:forEach var="image" varStatus="loop"
                                        items="${productFactory.getListImagesByProductId(product.id)}">
                               <c:choose>
                                   <c:when test="${loop.index == 0}">
                                       <li class="product__img-item product__img-item--clicked">
-                                          <img src="assets/img/product_img/${image.nameImage}" alt="" loading="lazy">
+                                          <img src="${initParam.contextPath}/assets/img/product_img/${image.nameImage}" alt="" loading="lazy">
                                       </li>
                                   </c:when>
                                   <c:otherwise>
                                       <li class="product__img-item">
-                                          <img src="assets/img/product_img/${image.nameImage}" alt="" loading="lazy">
+                                          <img src="${initParam.contextPath}/assets/img/product_img/${image.nameImage}" alt="" loading="lazy">
                                       </li>
                                   </c:otherwise>
                               </c:choose>
@@ -150,7 +128,7 @@
                                 </div>
                             </div>
 
-                            <a href="showProductOrder?id=${product.id}" type="submit" class="form__submit form__submit--order button "
+                            <a href="${initParam.contextPath}/showProductOrder?id=${product.id}" type="submit" class="form__submit form__submit--order button "
                                         data="Đặt may theo số đo">
                             </a>
                             <button type="submit" class="form__submit form__submit--add button "
@@ -183,7 +161,7 @@
                                         <c:set var="user" value="${userFatory.getUserByIdProductDetail(review.orderDetailId)}"/>
                                         <article class="review">
                                             <div class="review__avatar">
-                                                <img src="assets/img/user/${user.avatar}" alt="${user.avatar}"
+                                                <img src="${initParam.contextPath}/assets/img/user/${user.avatar}" alt="${user.avatar}"
                                                      loading="lazy">
                                             </div>
                                             <div class="review__account">
@@ -225,7 +203,7 @@
                 <div class="col-12">
                     <div class="product__related">
                         <h3>Các sản phẩm liên quan</h3>
-                        <a href="productBuying.jsp" class="product__more">Xem thêm
+                        <a href="${initParam.contextPath}/productBuying.jsp" class="product__more">Xem thêm
                             <i class="product__more-icon fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
@@ -234,10 +212,10 @@
                             <div class="product__item">
                                 <c:set value="${productFactory.getListImagesByProductId(item.id)}"
                                        var="listProductImage"/>
-                                <img src="assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
+                                <img src="${initParam.contextPath}/assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
                                      class="product__img" alt="" loading="lazy"/>
                                 <div class="product__info">
-                                    <c:url var="linkProductDetail" value="/showProductDetail">
+                                    <c:url var="linkProductDetail" value="${initParam.contextPath}/showProductDetail">
                                         <c:param name="id" value="${item.id}"/>
                                     </c:url>
                                     <a class="product__name" target="_self"
@@ -279,19 +257,19 @@
         </div>
     </section>
 </main>
-<%@include file="../footer.jsp"%>
+<c:import url="${initParam.contextPath}/public/footer.jsp"/>
 <article class="dialog__size-guide"></article>
-<script src="../../js/base.js"></script>
+<script src="${initParam.contextPath}/js/base.js"></script>
 <script>
     let useLoggedIn = false;
     <c:if test="${sessionScope.auth != null}">
         useLoggedIn = true;
     </c:if>
 </script>
-<script src="../../js/validateForm.js"></script>
+<script src="${initParam.contextPath}/js/validateForm.js"></script>
 <script>
     const isLogin = "<%=session.getAttribute("auth") != null%>";
 </script>
-<script src="../../js/productDetail.js"></script>
+<script src="${initParam.contextPath}/js/productDetail.js"></script>
 </body>
 </html>

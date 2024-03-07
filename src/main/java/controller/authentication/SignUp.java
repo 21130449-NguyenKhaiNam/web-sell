@@ -1,5 +1,6 @@
 package controller.authentication;
 
+import config.ConfigPage;
 import models.User;
 import services.AuthenticateServices;
 import utils.Validation;
@@ -54,6 +55,6 @@ public class SignUp extends HttpServlet {
                 request.setAttribute("noSpace", mapErrorPassword.get("no-space"));
             }
         }
-        request.getRequestDispatcher("signUp.jsp").forward(request, response);
+        request.getRequestDispatcher(ConfigPage.SIGN_UP).forward(request, response);
     }
 }
