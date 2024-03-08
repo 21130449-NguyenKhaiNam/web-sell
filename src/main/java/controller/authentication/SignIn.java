@@ -1,5 +1,6 @@
 package controller.authentication;
 
+import config.ConfigPage;
 import models.User;
 import models.UserSessionAccess;
 import services.AuthenticateServices;
@@ -30,12 +31,11 @@ public class SignIn extends HttpServlet {
             User userAuth = (User) validation.getObjReturn();
             HttpSession session = request.getSession(true);
             session.setAttribute("auth", userAuth);
-
-            response.sendRedirect("index.jsp");
+            response.sendRedirect(ConfigPage.HOME);
         } else {
             request.setAttribute("usernameError", validation.getFieldUsername());
             request.setAttribute("passwordError", validation.getFieldPassword());
-            request.getRequestDispatcher("signIn.jsp").forward(request, response);
+            request.getRequestDispatcher(ConfigPage.SIGN_IN).forward(request, response);
         }
     }
 }

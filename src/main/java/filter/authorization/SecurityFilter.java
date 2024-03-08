@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(filterName = "SecurityFilter", urlPatterns = {"/*"})
+//@WebFilter(filterName = "SecurityFilter", urlPatterns = {"/*"})
 public class SecurityFilter implements Filter {
     List<String> listUrlAdmin = PathProperties.getINSTANCE().getPathAdmin();
     List<String> listUrlMod = PathProperties.getINSTANCE().getPathMod();
@@ -31,7 +31,6 @@ public class SecurityFilter implements Filter {
         HttpSession session = httpServletRequest.getSession();
         String url = httpServletRequest.getRequestURL().toString();
         String role;
-        System.out.println(url);
         if (preventAll(url)) {
             httpServletResponse.sendError(404);
             return;
@@ -48,9 +47,9 @@ public class SecurityFilter implements Filter {
             }
             return;
         }
-        System.out.println("Admin: " + isAdmin(url, role));
-        System.out.println("Mod: " + isMod(url, role));
-        System.out.println("Guest: : " + isGuest(url, role));
+//        System.out.println("Admin: " + isAdmin(url, role));
+//        System.out.println("Mod: " + isMod(url, role));
+//        System.out.println("Guest: : " + isGuest(url, role));
         if (isAdmin(url, role)) {
             chain.doFilter(request, response);
             return;

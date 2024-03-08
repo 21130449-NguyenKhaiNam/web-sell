@@ -309,7 +309,7 @@ window.addEventListener('message', function (event) {
 
 // Extract the base URL
         const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
-        
+
         async function asyncImageLoading(images) {
             for (let i = 0; i < images.length; i++) {
                 const url = `${basePath}/read-image?name=${images[i]["nameImage"]}`

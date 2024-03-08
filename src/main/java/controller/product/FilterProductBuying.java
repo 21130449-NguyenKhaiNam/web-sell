@@ -1,5 +1,6 @@
 package controller.product;
 
+import config.ConfigPage;
 import utils.FilterStrategyBuying;
 import utils.FilterStrategy;
 
@@ -15,11 +16,11 @@ public class FilterProductBuying extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         FilterStrategy filterStrategy = new FilterStrategyBuying(request);
         if (filterStrategy.isAllParameterEmpty()) {
-            request.getRequestDispatcher("productBuying.jsp").forward(request, response);
+            request.getRequestDispatcher(ConfigPage.PRODUCT_BUYING).forward(request, response);
             return;
         }
         filterStrategy.doFilter();
-        request.getRequestDispatcher("productBuying.jsp").forward(request, response);
+        request.getRequestDispatcher(ConfigPage.PRODUCT_BUYING).forward(request, response);
     }
 
     @Override

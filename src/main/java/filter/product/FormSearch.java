@@ -11,7 +11,7 @@ import java.util.List;
 
 @WebFilter(
         servletNames = {"formSearch"},
-        urlPatterns = {"/productBuying.jsp",
+        urlPatterns = {"/public/product/productBuying.jsp",
                 "/adminProducts.jsp",
                 "/filterProductBuying",
                 "/filterProductAdmin"})

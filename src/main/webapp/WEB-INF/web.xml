@@ -4,41 +4,44 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-  <display-name>Archetype Created Web Application</display-name>
+    <display-name>Archetype Created Web Application</display-name>
 
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>public/index.jsp</welcome-file>
+    </welcome-file-list>
+    <context-param>
+        <param-name>contextPath</param-name>
+        <param-value>http://localhost:8080/LTW_project_servlet</param-value>
+    </context-param>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/public/error/error404.jsp</location>
+    </error-page>
 
-  <error-page>
-    <error-code>404</error-code>
-    <location>/error404.jsp</location>
-  </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/public/error/error403.jsp</location>
+    </error-page>
 
-  <error-page>
-    <error-code>403</error-code>
-    <location>/error403.jsp</location>
-  </error-page>
-
-  <!--Cấu hình servlet cho ckeditor và ckfinder-->
-  <servlet>
-    <servlet-name>ConnectorServlet</servlet-name>
-    <servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
-    <init-param>
-      <description>Path to configuration file can be relative path inside application, absolute path on local file
-        system or UNC path.
-      </description>
-      <param-name>XMLConfig</param-name>
-      <param-value>/WEB-INF/config.xml</param-value>
-    </init-param>
-    <init-param>
-      <param-name>debug</param-name>
-      <param-value>false</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ConnectorServlet</servlet-name>
-    <url-pattern>/ckfinder/core/connector/java/connector.java</url-pattern>
-  </servlet-mapping>
+    <!--Cấu hình servlet cho ckeditor và ckfinder-->
+    <servlet>
+        <servlet-name>ConnectorServlet</servlet-name>
+        <servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
+        <init-param>
+            <description>Path to configuration file can be relative path inside application, absolute path on local file
+                system or UNC path.
+            </description>
+            <param-name>XMLConfig</param-name>
+            <param-value>/WEB-INF/config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConnectorServlet</servlet-name>
+        <url-pattern>/ckfinder/core/connector/java/connector.java</url-pattern>
+    </servlet-mapping>
 </web-app>

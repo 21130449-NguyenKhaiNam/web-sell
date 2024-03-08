@@ -1,5 +1,7 @@
 package controller.authentication;
 
+import config.ConfigPage;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -18,6 +20,6 @@ public class SignOut extends HttpServlet {
         HttpSession session = request.getSession();
         if (session.getAttribute("auth") != null)
             session.removeAttribute("auth");
-        response.sendRedirect("index.jsp");
+        response.sendRedirect(ConfigPage.HOME);
     }
 }
