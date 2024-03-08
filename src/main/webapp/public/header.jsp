@@ -11,17 +11,17 @@
                 </a>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="${initParam.contextPath}/public/index.jsp" class="nav__link">Trang chủ</a>
+                        <a href="${initParam.contextPath}/public/index.jsp" class="nav__link hvr-grow-shadow">Trang chủ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="${initParam.contextPath}/public/product/productBuying.jsp" class="nav__link">Gian
+                        <a href="${initParam.contextPath}/public/product/productBuying.jsp" class="nav__link hvr-grow-shadow">Gian
                             hàng</a>
                     </li>
                     <li class="nav__item">
-                        <a href="${initParam.contextPath}/public/contact.jsp" class="nav__link">Liên hệ</a>
+                        <a href="${initParam.contextPath}/public/contact.jsp" class="nav__link hvr-grow-shadow">Liên hệ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="${initParam.contextPath}/public/about.jsp" class="nav__link">Về chúng tôi</a>
+                        <a href="${initParam.contextPath}/public/about.jsp" class="nav__link hvr-grow-shadow">Về chúng tôi</a>
                     </li>
                 </ul>
                 <c:set var="auth" value="${sessionScope.auth}"/>
@@ -30,10 +30,10 @@
                     <c:when test="${auth == null}">
                         <!--cta == call to action-->
                         <div class="nav__cta">
-                            <a href="<c:url value="/public/auth/signIn.jsp"/>" class="nav__button nav__button--signIn">Đăng
+                            <a href="<c:url value="/public/auth/signIn.jsp"/>" class="me-3 nav__button nav__button--signIn hvr-ripple-in">Đăng
                                 nhập</a>
                             <a href="<c:url value="/public/auth/signUp.jsp" />"
-                               class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
+                               class="nav__button nav__button--signUp button button button--hover hvr-round-corners hvr-radial-out">Đăng ký</a>
                         </div>
                     </c:when>
                     <c:otherwise>

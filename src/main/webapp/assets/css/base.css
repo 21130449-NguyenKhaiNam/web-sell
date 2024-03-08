@@ -4,8 +4,8 @@
     --primary-font: 'Montserrat', sans-serif;
     --mint-color: #B6FFFA;
     --blue-color-low: #98E4FF;
-    --blue-color-medium: #80B3FF;
-    --blue-color-high: #447df8;
+    --blue-color-medium: rgba(0,212,255,1);
+    --blue-color-high: rgba(9,9,121,1);
 }
 
 /*Reset CSS*/
@@ -87,7 +87,8 @@ body {
 }
 
 .nav {
-    background-color: var(--blue-color-medium);
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, var(--blue-color-high) 35%,var(--blue-color-medium) 100%);
 }
 
 .nav__inner {
@@ -121,6 +122,14 @@ body {
 .nav__button:hover {
     cursor: pointer;
     opacity: 0.8;
+}
+
+.nav__button.hvr-ripple-in:before {
+    border: var(--blue-color-low) solid 4px;
+}
+
+.nav__button.hvr-radial-out:before {
+background-color: var(--blue-color-low);
 }
 
 .nav__button {
