@@ -3,15 +3,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <jsp:include page="${initParam.contextPath}/public/commonLink.jsp"/>
-    <jsp:include page="${initParam.contextPath}/assets/css/successOrder.css"/>
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/successOrder.css" />">
     <title>Đặt hàng thành công</title>
     <style>
 
     </style>
 </head>
 <body>
-<jsp:include page="${initParam.contextPath}/public/header.jsp"/>
+<c:import url="/public/header.jsp"/>
 <div class="container">
     <div class="notification__success">
         <span class="icon__success"><i class="fa-solid fa-cart-shopping"></i></span>
@@ -32,7 +32,6 @@
     </div>
     <p class="back__home">Website sẽ tự động quay về trang chủ sau <span class="countdown__second"></span></p>
 </div>
-<jsp:include page="${initParam.contextPath}/public/footer.jsp"/>
 </body>
 <script>
     const timerDisplay = document.querySelector(".countdown__second");

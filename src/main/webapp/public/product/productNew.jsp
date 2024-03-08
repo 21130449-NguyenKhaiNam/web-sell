@@ -7,33 +7,12 @@
 
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="../../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
-    <!--Web font-->
-
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
-
-    <!--CSS-->
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/trendingNewProducts.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/trendingNewProducts.css"/> ">
     <title>Sản phẩm mới</title>
 </head>
 <body>
-<jsp:include page="../header.jsp"></jsp:include>
+<c:import url="/public/header.jsp"/>
 <main id="main">
     <div class="new__section container-xl">
         <h2 class="section__title">Sản phẩm mới</h2>
@@ -45,15 +24,18 @@
                 <div class="product__item">
                     <div class="product__content">
                         <div class="image--tag">
-                            <c:set value="${productFactory.getListImagesByProductId(newProduct.id)}" var="listNewProductImages"/>
-                            <img src="./assets/img/product_img/${listNewProductImages.get(0).nameImage}">
+                            <c:set value="${productFactory.getListImagesByProductId(newProduct.id)}"
+                                   var="listNewProductImages"/>
+                            <img src="<c:url value="/assets/img/product_img/${listNewProductImages.get(0).nameImage}"/>">
                             <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
                                 <span class="product__tag">Thịnh hành</span>
                             </c:if>
                             <form class="action__bar" action="AddToCart" method="post">
                                 <input type="hidden" name="productId" value="${newProduct.id}">
-                                <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <a class="see__detail" target="_blank" href="${showProductDetail}"><i class="fa-solid fa-eye"></i></a>
+                                <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                                <a class="see__detail" target="_blank" href="${showProductDetail}"><i
+                                        class="fa-solid fa-eye"></i></a>
                             </form>
                         </div>
                         <div class="product__info">
@@ -69,7 +51,9 @@
                                         <i class="fa-regular fa-star icon__item"></i>
                                     </c:forEach>
                                 </div>
-                                <a class="number__turns--ratting" target="_blank" href="${showProductDetail}">${productFactory.getReviewCount(newProduct.id)} nhận xét</a>
+                                <a class="number__turns--ratting" target="_blank"
+                                   href="${showProductDetail}">${productFactory.getReviewCount(newProduct.id)} nhận
+                                    xét</a>
                             </div>
                             <span class="product__price">
                                 <fmt:setLocale value="vi_VN"/>
@@ -118,27 +102,26 @@
         </div>
     </div>
 </main>
-<%@ include file="../footer.jsp" %>
-<script src="../../js/base.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<%@ include file="/public/footer.jsp" %>
+<script src="<c:url value="/js/base.js"/>"></script>
 <script type="text/javascript">
-    function addToCartAjax(){
-        $(document).ready(function (){
-            $('.action__bar').each(function (index, actionBar){
-                $(actionBar).on('submit', function (event){
+    function addToCartAjax() {
+        $(document).ready(function () {
+            $('.action__bar').each(function (index, actionBar) {
+                $(actionBar).on('submit', function (event) {
                     event.preventDefault();
                     let userLoggedIn;
                     <c:choose>
-                        <c:when test="${sessionScope.auth == null}">
-                            userLoggedIn = false
-                        </c:when>
-                        <c:otherwise>
-                            userLoggedIn = true
-                        </c:otherwise>
+                    <c:when test="${sessionScope.auth == null}">
+                    userLoggedIn = false
+                    </c:when>
+                    <c:otherwise>
+                    userLoggedIn = true
+                    </c:otherwise>
                     </c:choose>
-                    if(userLoggedIn === false){
+                    if (userLoggedIn === false) {
                         window.location.href = "signIn.jsp"
-                    }else {
+                    } else {
                         const form = $(actionBar);
                         let productId = form.find('input[name="productId"]').val();
                         $.ajax({
@@ -156,7 +139,7 @@
                                 $('.cart__wrapper').append(addToCartSuccessHTML)
                                 $('.qlt__value').text(response);
                             },
-                            error: function (error){
+                            error: function (error) {
                                 console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
                             }
                         })
@@ -165,6 +148,7 @@
             })
         })
     }
+
     addToCartAjax();
 </script>
 </body>

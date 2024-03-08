@@ -3,33 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="../../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
-    <!--Web font-->
-
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
-
-    <!--CSS-->
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/trendingNewProducts.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/trendingNewProducts.css" />">
     <title>Sản phẩm thịnh hành</title>
 </head>
 <body>
-<jsp:include page="../header.jsp"></jsp:include>
+<c:import url="/public/header.jsp"/>
 <main id="main">
     <div class="popular__section container-xl">
         <h2 class="section__title">Sản phẩm thịnh hành</h2>

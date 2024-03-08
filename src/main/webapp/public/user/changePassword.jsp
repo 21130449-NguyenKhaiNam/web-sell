@@ -7,21 +7,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/logIn.css">
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/account.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/logIn.css" />">
+    <link rel="stylesheet" href="<c:url value="/assets/css/account.css" />">
     <title>Tài khoản</title>
 </head>
 <body>
-<c:import url="${initParam.contextPath}/public/header.jsp"/>
+<c:import url="/public/header.jsp"/>
 <main class="main">
     <div class="container-xl">
         <div class="row">
             <div class="col-3">
                 <div class="service__list">
-                    <a class="service__item" href="${initParam.contextPath}/Account" >Chỉnh sửa tài khoảng</a>
+                    <a class="service__item" href="<c:url value="/Account"/>">Chỉnh sửa tài khoảng</a>
                     <a class="service__item service__item--clicked">Đổi mật khẩu</a>
-                    <a class="service__item" href="${initParam.contextPath}/PurchaseHistory" >Lịch sử mua hàng</a>
+                    <a class="service__item" href="<c:url value="/PurchaseHistory"/>">Lịch sử mua hàng</a>
                 </div>
             </div>
             <div class="col-9">
@@ -30,18 +30,18 @@
                     <c:set var="errorOlddPass" value="${requestScope.errorOlddPass}"/>
                     <c:set var="errorNewPass" value="${requestScope.errorNewPass}"/>
                     <c:set var="errorConfirmPass" value="${requestScope.errorConfirmPass}"/>
-                    <form action="${initParam.contextPath}/ChangePassword" method="post">
+                    <form action="<c:url value="/ChangePassword" />" method="post">
 
                         <h1 class="title">Đổi mật khẩu</h1>
 
-                        <input type="hidden" name="userId" value="<c:out value='${auth.getId()}' />">
-                        <input type="hidden" name="userPass" value="<c:out value='${auth.getPasswordEncoding()}' />">
+                        <input type="hidden" name="userId" value=${auth.getId()}>
 
                         <div class="form contains">
                             <div class="info__oldPass info-compo">
                                 <label class="lable__oldPass lable-compo" for="oldPassword">Mật khẩu cũ</label>
                                 <div class="input__form">
-                                    <input class="input__oldPass input-compo" type="password" id="oldPassword" name="oldPassword">
+                                    <input class="input__oldPass input-compo" type="password" id="oldPassword"
+                                           name="oldPassword">
                                     <i class=" icon__eye icon__eye--close fa-regular fa-eye-slash"></i>
                                     <i class="icon__eye icon__eye--open fa-regular fa-eye"></i>
                                 </div>
@@ -52,7 +52,8 @@
                             <div class="info__newPass info-compo">
                                 <label class="lable__newPass lable-compo" for="password">Mật khẩu mới</label>
                                 <div class="input__form">
-                                    <input type="password" id="password" name="newPassword" class="input__newPass input-compo">
+                                    <input type="password" id="password" name="newPassword"
+                                           class="input__newPass input-compo">
                                     <i class=" icon__eye icon__eye--close fa-regular fa-eye-slash"></i>
                                     <i class="icon__eye icon__eye--open fa-regular fa-eye"></i>
                                 </div>
@@ -61,7 +62,8 @@
                                 </c:if>
                             </div>
                             <div class="info__newPass--confirm info-compo">
-                                <label class="lable__newPass--confirm lable-compo" for="confirm-password">Nhập lại mật khẩu
+                                <label class="lable__newPass--confirm lable-compo" for="confirm-password">Nhập lại mật
+                                    khẩu
                                     mới</label>
                                 <div class="input__form">
                                     <input type="password" id="confirm-password" name="confirmPassword"
@@ -74,7 +76,8 @@
                                 </c:if>
                             </div>
                             <div class="save save__changePass">
-                                <button id="form__submit" type="submit" class=" form__submit button button--hover">Lưu thay
+                                <button id="form__submit" type="submit" class=" form__submit button button--hover">Lưu
+                                    thay
                                     đổi
                                 </button>
                             </div>

@@ -7,25 +7,24 @@
     <nav class="nav">
         <div class="container-xl">
             <div class="nav__inner">
-                <a href="${initParam.contextPath}/public/index.jsp" class="logo">
+                <a href="<c:url value="/" />" class="logo">
                 </a>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="${initParam.contextPath}/public/index.jsp" class="nav__link">Trang chủ</a>
+                        <a href="<c:url value="/" />" class="nav__link">Trang chủ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="${initParam.contextPath}/public/product/productBuying.jsp" class="nav__link">Gian
+                        <a href="<c:url value="/public/product/productBuying.jsp" />" class="nav__link">Gian
                             hàng</a>
                     </li>
                     <li class="nav__item">
-                        <a href="${initParam.contextPath}/public/contact.jsp" class="nav__link">Liên hệ</a>
+                        <a href="<c:url value="/public/contact.jsp"/>" class="nav__link">Liên hệ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="${initParam.contextPath}/public/about.jsp" class="nav__link">Về chúng tôi</a>
+                        <a href="<c:url value="/public/about.jsp"/> " class="nav__link">Về chúng tôi</a>
                     </li>
                 </ul>
                 <c:set var="auth" value="${sessionScope.auth}"/>
-                <%--                log: ${auth}--%>
                 <c:choose>
                     <c:when test="${auth == null}">
                         <!--cta == call to action-->
@@ -62,7 +61,7 @@
                                             <div class="account__info">
                                                 <i class="account__icon fa-regular fa-user"></i>
                                                 <p class="account__name">
-                                                    ${auth.getUsername()}
+                                                        ${auth.getUsername()}
                                                 </p>
                                             </div>
                                         </div>
@@ -72,7 +71,7 @@
                                         </div>
                                     </a>
                                     <c:if test="${auth.role == 2 || auth.role == 1}">
-                                    <a href="admin/adminProducts.jsp" class="setting__item">
+                                    <a href="<c:url value="admin/adminProducts.jsp"/>" class="setting__item">
                                         <div class="setting__link">Quản
                                             lý
                                         </div>

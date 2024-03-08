@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <jsp:include page="/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/logIn.css">
+    <link rel="stylesheet" href="<c:url value="/assets/css/logIn.css" />">
     <title>Đăng nhập</title>
 </head>
 <body>
@@ -27,17 +27,17 @@
                     <p class="form__error"><c:if test="${passwordError != null}">${passwordError}</c:if></p>
                 </div>
                 <div class="form__block">
-                    <a href="<c:url value ="forgotPassword.jsp"/>" id="form__forget-password" class="form__link">Quên
+                    <a href="<c:url value ="/public/auth/forgotPassword.jsp"/>" id="form__forget-password" class="form__link">Quên
                         mật khẩu</a>
                 </div>
                 <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng nhập</button>
             </form>
-            <a href="<c:url value="signUp.jsp" />" id="form__link--signUp" class="form__link ">Đăng ký</a>
+            <a href="<c:url value="/public/auth/signUp.jsp" />" id="form__link--signUp" class="form__link ">Đăng ký</a>
         </article>
     </div>
 </main>
 <!--JS validate-->
-<script src="../../js/validateForm.js"></script>
+<script src="<c:url value="/js/validateForm.js"/>"></script>
 <script>
     var validation = new Validation({
         formSelector: ".form",

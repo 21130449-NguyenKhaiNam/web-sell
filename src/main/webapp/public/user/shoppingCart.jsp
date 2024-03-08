@@ -15,12 +15,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/shoppingCart.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/shoppingCart.css"/>">
     <title>Giỏ hàng</title>
 </head>
 <body>
-<c:import url="${initParam.contextPath}/public/header.jsp"/>
+<c:import url="/public/header.jsp"/>
 <main id="main">
     <!-- New update template -->
     <div class="promotion__modal">
@@ -61,10 +61,10 @@
                 <c:when test="${sessionScope[userIdCart].getTotalItems() == 0 || sessionScope[userIdCart] == null}">
                     <div class="cart__container--empty">
                         <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
-                        <a href="../product/productBuying.jsp">
+                        <a href="<c:url value="/public/product/productBuying.jsp" />">
                             <button>Tiếp tục mua sắm</button>
                         </a>
-                        <img src="../../assets/img/continueShopping.svg">
+                        <img src="<c:url value="/assets/img/continueShopping.svg" />">
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -193,11 +193,12 @@
                                     data-cart-product-index="<%=cartProductIndex%>">
                                     <td class="product__item">
                                         <div class="product__content">
-                                            <a class="product__image" href="showProductDetail?productId<%=productId%>">
+                                            <a class="product__image"
+                                               href="<c:url value="/showProductDetail"/>?id=<%=productId%>">
                                                 <!-- Back-to-detail_product-page-->
                                                     <%--                                                <c:set var="listImagesProduct"--%>
                                                     <%--                                                       value="${productFactory.getListImagesByProductId(productId)}"/>--%>
-                                                <img src='assets/img/product_img/<%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
+                                                <img src='<c:url value="/assets/img/product_img/" /><%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
                                             </a>
                                             <div class="order__product--info">
                                                 <a href="#"
@@ -350,8 +351,8 @@
 </main>
 <div class="popup__deletion"></div>
 </body>
-<script src="${initParam.contextPath}/js/base.js"></script>
-<script src="${initParam.contextPath}/js/validateContactForm.js"></script>
+<script src="<c:url value="/js/base.js"/>"></script>
+<script src="<c:url value="/js/validateContactForm.js"/>"></script>
 <script>
     ValidatorContactForm({
         form: '#contact_us-form',
@@ -367,13 +368,8 @@
         }
     });
 </script>
-<script src="../../js/data.js"></script>
-<script src="../../js/shoppingCart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="<c:url value="/js/shoppingCart.js"/>"></script>
 <script type="text/javascript">
-
     function increaseQuantityCartProduct() {
         $(document).ready(function () {
             $('.plus__quality').on('click', function (event) {
@@ -581,7 +577,5 @@
     }
 
     applyCodeVoucher();
-
-
 </script>
 </html>

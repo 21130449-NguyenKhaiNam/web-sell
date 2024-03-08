@@ -6,20 +6,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/account.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/account.css"/>">
     <title>Tài khoản</title>
 </head>
 <body>
-<c:import url="${initParam.contextPath}/public/header.jsp"/>
+<c:import url="/public/header.jsp" charEncoding="UTF-8"/>
 <main class="main">
     <div class="container-xl">
         <div class="row">
             <div class="col-3">
                 <div class="service__list">
                     <a class="service__item service__item--clicked ">Chỉnh sửa tài khoản</a>
-                    <a class="service__item" href="${initParam.contextPath}/ChangePassword">Đổi mật khẩu</a>
-                    <a class="service__item" href="${initParam.contextPath}/PurchaseHistory">Lịch sử mua hàng</a>
+                    <a class="service__item" href="<c:url value="/ChangePassword"/>">Đổi mật khẩu</a>
+                    <a class="service__item" href="<c:url value="/PurchaseHistory"/>">Lịch sử mua hàng</a>
                 </div>
             </div>
             <div class="col-9">
@@ -34,15 +34,15 @@
                     <div class="user__maininfo block_info">
                         <div class="user__img user">
                             <p id="avatarInfo" style="display: none">${accountInfo.avatar}</p>
-                            <img id="photo" src="../../assets/img/user/userDefautAvatar.jpg">
+                            <img id="photo" src="<c:url value="/assets/img/user/userDefaultAvatar.jpg"/>">
 
-                            <form id="uploadForm" action="${initParam.contextPath}/UploadAvatar" method="post" enctype="multipart/form-data">
+                            <form id="uploadForm" action="<c:url value="/UploadAvatar"/>" method="post" enctype="multipart/form-data">
                                 <input type="file" id="file" name="userCoverPhoto" accept="image/*"
                                        onchange="uploadImage()">
                                 <label for="file" id="uploadbtn" class="fas fa-camera"></label>
                             </form>
                         </div>
-                        <form action="${initParam.contextPath}/UpdateAccount" method="post" enctype="multipart/form-data"
+                        <form action="<c:url value="/UpdateAccount"/>" method="post" enctype="multipart/form-data"
                               class="form__updateAccount">
                             <div class="user__info user">
                                 <input type="hidden" name="userId" value="<c:out value='${auth.getId()}' />">
@@ -139,9 +139,9 @@
         </div>
     </div>
 </main>
-<script src="${initParam.contextPath}/js/validateForm.js"></script>
-<script src="${initParam.contextPath}/js/data.js"></script>
-<script src="${initParam.contextPath}/js/account.js"></script>
+<script src="<c:url value="/js/validateForm.js"/>"></script>
+<script src="<c:url value="/js/data.js"/>"></script>
+<script src="<c:url value="/js/account.js"/>"></script>
 <script>
     function hideDefaultOption() {
         var genderDropdown = document.getElementById("gender");
@@ -181,7 +181,7 @@
 
         if (avatarInfo && avatarInfo.textContent.trim() !== "") {
             // Nếu accountInfo.avatar có giá trị, sử dụng nó
-            var avatarPath = "${initParam.contextPath}/assets/img/user/" + avatarInfo.textContent.trim();
+            var avatarPath = "/assets/img/user/" + avatarInfo.textContent.trim();
             photo.src = avatarPath;
         }
         // Nếu accountInfo.avatar không có giá trị, giữ nguyên hình ảnh mặc định

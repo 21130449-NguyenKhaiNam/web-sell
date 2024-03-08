@@ -6,19 +6,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="${initParam.contextPath}/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="../../assets/css/account.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/account.css" />">
     <title>Tài khoản</title>
 </head>
 <body>
-<jsp:include page="${initParam.contextPath}/public/header.jsp"></jsp:include>
+<c:import url="/public/header.jsp" charEncoding="UTF-8"/>
 <main class="main">
     <div class="container-xl">
         <div class="row">
             <div class="col-3">
                 <div class="service__list">
-                    <a class="service__item" href="Account">Chỉnh sửa tài khoản</a>
-                    <a class="service__item" href="ChangePassword">Đổi mật khẩu</a>
+                    <a class="service__item" href="<c:url value="/Account" />">Chỉnh sửa tài khoản</a>
+                    <a class="service__item" href="<c:url value="/ChangePassword" />">Đổi mật khẩu</a>
                     <a class="service__item service__item--clicked">Lịch sử mua hàng</a>
                 </div>
             </div>
@@ -29,17 +29,17 @@
                     <h1 class="title">Lịch sử mua hàng</h1>
                     <div class="statusOrder">
                         <a class="${tag=="TẤT CẢ"?"status__list status__list--click":"status__list"}"
-                           href="PurchaseHistory?status=TẤT CẢ">Tất cả</a>
+                           href="<c:url value="/PurchaseHistory?status=TẤT CẢ"/>">Tất cả</a>
                         <a class="${tag=="1"?"status__list status__list--click":"status__list"}"
-                           href="PurchaseHistory?status=1">Chờ xác nhận</a>
+                           href="<c:url value="/PurchaseHistory?status=1"/>">Chờ xác nhận</a>
                         <a class="${tag=="2"?"status__list status__list--click":"status__list"}"
-                           href="PurchaseHistory?status=2">Đã xác nhận</a>
+                           href="<c:url value="/PurchaseHistory?status=2"/>">Đã xác nhận</a>
                         <a class="${tag=="3"?"status__list status__list--click":"status__list"}"
-                           href="PurchaseHistory?status=3">Đang vận chuyển</a>
+                           href="<c:url value="/PurchaseHistory?status=3"/>">Đang vận chuyển</a>
                         <a class="${tag=="4"?"status__list status__list--click":"status__list"}"
-                           href="PurchaseHistory?status=4">Hoàn thành</a>
+                           href="<c:url value="/PurchaseHistory?status=4"/>">Hoàn thành</a>
                         <a class="${tag=="5"?"status__list status__list--click":"status__list"}"
-                           href="PurchaseHistory?status=5">Đã hủy</a>
+                           href="<c:url value="/PurchaseHistory?status=5"/>">Đã hủy</a>
                     </div>
                     <div id="serviceOrderContainer" class="service__order service__order--show">
                         <c:set var="listPurchaseHistory" value="${requestScope.listPurchaseHistory}"/>
@@ -59,7 +59,7 @@
                                         <c:set var="image"
                                                value="${productFactory.getListImagesByProductId(product.id).get(0)}"/>
                                         <img class="img__product block__img"
-                                             src="./assets/img/product_img/${image.nameImage}">
+                                             src="<c:url value="/assets/img/product_img/${image.nameImage}" />">
                                         <div class="block__info">
                                             <p class="info__product info__product--name">${product.name}</p>
                                             <p class="info__product">Phân
@@ -78,9 +78,8 @@
                                                 </c:if>
                                             </c:forEach>
                                             <c:if test="${checkHasReview == true}">
-
-                                                    <a class="btn" href="review?orderDetailId=${item.id}"> Đánh giá</a>
-
+                                                <a class="btn" href="<c:url value="review?orderDetailId=${item.id}"/>">
+                                                    Đánh giá</a>
                                             </c:if>
                                         </c:if>
                                     </div>
@@ -93,8 +92,6 @@
         </div>
     </div>
 </main>
-<jsp:include page="${initParam.contextPath}/public/footer.jsp"/>
 </body>
-
 
 </html>

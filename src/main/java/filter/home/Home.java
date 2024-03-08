@@ -1,4 +1,4 @@
-package filter;
+package filter.home;
 
 import models.Product;
 import models.Slider;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebFilter(urlPatterns = "/public/index.jsp")
-public class HomeFilter implements Filter {
+public class Home implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

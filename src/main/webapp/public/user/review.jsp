@@ -8,12 +8,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="${initParam.contextPath}/public/commonLink.jsp"/>
+    <jsp:include page="/public/commonLink.jsp"/>
     <link rel="stylesheet" href="${initParam.contextPath}/assets/css/review.css">
     <title>Đánh giá</title>
 </head>
 <body>
-<jsp:include page="${initParam.contextPath}/public/header.jsp"/>
+<c:import url="/public/header.jsp"/>
 <main>
     <div class="container">
         <section class="review">
@@ -22,7 +22,7 @@
                 <div class="col-6">
                     <article class="product">
                         <div class="product__img">
-                            <img src="assets/img/product_img/${productFactory.getListImagesByProductId(productId).get(0).nameImage}"
+                            <img src="<c:url value="/assets/img/product_img/${productFactory.getListImagesByProductId(productId).get(0).nameImage}" />"
                                  alt="${productFactory.getListImagesByProductId(productId).get(0).nameImage}">
                         </div>
                         <div class="product__info">
@@ -119,8 +119,8 @@
     </div>
 </main>
 
-<script src="../../js/base.js"></script>
-<script src="../../js/validateForm.js"></script>
-<script src="../../js/review.js"></script>
+<script src="<c:url value="/js/base.js" />"></script>
+<script src="<c:url value="/js/validateForm.js" />"></script>
+<script src="<c:url value="/js/review.js" />"></script>
 </body>
 </html>

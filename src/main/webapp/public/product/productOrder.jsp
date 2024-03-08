@@ -10,43 +10,20 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="../../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-    <%--jquery--%>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
-    <!--Web font-->
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
-
-    <!--CSS-->
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/productDetail.css">
-    <link rel="stylesheet" href="../../assets/css/productOrder.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/productDetail.css" />">
+    <link rel="stylesheet" href="<c:url value="/assets/css/productOrder.css" />">
     <title>Orther sản phẩm</title>
 </head>
 <body>
-<jsp:include page="../header.jsp"></jsp:include>
+<c:import url="/public/header.jsp"/>
 <form class="form" id="form__product">
     <div class="container-xl order__log-padding">
         <%--So do --%>
         <div class="col-12">
             <h2 class="order__heading">Bảng số đo</h2>
             <div class="order__guide-size">
-                <img src="assets/img/size_table/${category.sizeTableImage}" alt="">
+                <img src="<c:url value="assets/img/size_table/${category.sizeTableImage}" />" alt="">
             </div>
         </div>
         <c:forEach var="parameter" items="${listParameter}" varStatus="loop">
@@ -56,7 +33,7 @@
             </div>
             <div class="col-12">
                 <h2 class="order__heading">${parameter.name}</h2>
-                <input type="text" name="nameParameter" hidden="hidden" value="${parameter.name}">
+                <input type="text" name="nameParameter" hidden="hidden" value="${parameter.name}"/>
                 <div class="row align-items-center">
                     <div class="col-5">
                         <label class="order__group">
@@ -68,8 +45,11 @@
                                 <span class="order__unit">${unit}</span>
                             </label>
                             <p class="order__parameter-valid">
-                                Giá trị khả dụng chấp nhận từ <strong><span id="minValueParameter${loop.index}" class="order__parameter-min">${parameter.minValue}</span> ${unit}</strong> đến
-                                <strong><span id="maxValueParameter${loop.index}" class="order__parameter-max">${parameter.maxValue}</span> ${unit}</strong>
+                                Giá trị khả dụng chấp nhận từ <strong><span id="minValueParameter${loop.index}"
+                                                                            class="order__parameter-min">${parameter.minValue}</span> ${unit}
+                            </strong> đến
+                                <strong><span id="maxValueParameter${loop.index}"
+                                              class="order__parameter-max">${parameter.maxValue}</span> ${unit}</strong>
                             </p>
                             <p class="order__error"></p>
                         </label>
@@ -77,7 +57,7 @@
                         <%--Image--%>
                     <div class="offset-1 col-6">
                         <div class="order__guide-parameter">
-                            <img src="assets/img/parameter_guide/${parameter.guideImg}" alt="">
+                            <img src="<c:url value="assets/img/parameter_guide/${parameter.guideImg}"/>" alt="">
                         </div>
                     </div>
                 </div>
@@ -89,7 +69,7 @@
             <div class="order__media">
                 <c:set var="firstImage"
                        value="${productFactory.getListImagesByProductId(product.id).get(0).nameImage}"/>
-                <img src="assets/img/product_img/${firstImage}" alt="${firstImage}"/>
+                <img src="<c:url value="assets/img/product_img/${firstImage}" />" alt="${firstImage}"/>
             </div>
             <div class="order__content">
                 <h1 class="order__name">${product.name}</h1>
@@ -113,7 +93,7 @@
                         <div class="form__quantity">
                             <div class="form__quantity-inner">
                                 <div class="form___quantity-btn form___quantity--decrease"></div>
-                                <input id="quantity" type="text" name="quantity" value="1" readonly>
+                                <input id="quantity" type="text" name="quantity" value="1" readonly />
                                 <div class="form___quantity-btn form___quantity--increase"></div>
                             </div>
                         </div>
@@ -127,10 +107,10 @@
         </button>
     </div>
 </form>
-<script src="../../js/validateForm.js"></script>
+<script src="<c:url value="/js/validateForm.js"/>"></script>
 <script>
     const isLogin = "<%=session.getAttribute("auth") != null%>";
 </script>
-<script src="../../js/productOrder.js"></script>
+<script src="<c:url value="/js/productOrder.js"/>"></script>
 </body>
 </html>
