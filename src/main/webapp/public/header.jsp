@@ -54,7 +54,6 @@
                                     </span>
                                 </a>
                             </div>
-
                             <div class="account">
                                 <i class="account__icon fa-regular fa-user"></i>
                                 <div class="setting__list">
@@ -68,7 +67,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="${initParam.contextPath}/Account" class="setting__item">
+                                    <a href="<c:url value="/Account"/>" class="setting__item">
                                         <div class="setting__link">Tài khoản của tôi
                                         </div>
                                     </a>
@@ -78,7 +77,7 @@
                                             lý
                                         </div>
                                         </c:if>
-                                        <a href="${initParam.contextPath}/signOut" class="setting__item ">
+                                        <a href="<c:url value="/signOut"/>" class="setting__item ">
                                             <div class="setting__link setting__logOut">Đăng
                                                 xuất
                                             </div>

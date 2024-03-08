@@ -182,7 +182,7 @@
         </div>
     </section>
 </main>
-<c:import url="${initParam.contextPath}/public/footer.jsp"/>
+<c:import url="/public/footer.jsp"/>
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
     System.out.println("inputChecked (UI):" + inputChecked);

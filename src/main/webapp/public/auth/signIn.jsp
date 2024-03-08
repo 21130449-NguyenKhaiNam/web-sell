@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <c:import url="${initParam.contextPath}/public/commonLink.jsp" charEncoding="UTF-8"/>
+    <jsp:include page="/public/commonLink.jsp"/>
     <link rel="stylesheet" href="${initParam.contextPath}/assets/css/logIn.css">
     <title>Đăng nhập</title>
 </head>
@@ -13,7 +13,7 @@
         <div class="frame__media">
         </div>
         <article>
-            <form action="${initParam.contextPath}/signIn" class="form form--signUp" method="post">
+            <form action="<c:url value="/signIn" />" class="form form--signUp" method="post">
                 <div class="form__block">
                     <label for="username" class="form__label">Tên đăng nhập</label>
                     <input id="username" name="username" type="text" class="form__input">
@@ -27,11 +27,12 @@
                     <p class="form__error"><c:if test="${passwordError != null}">${passwordError}</c:if></p>
                 </div>
                 <div class="form__block">
-                    <a href="forgotPassword.jsp" id="form__forget-password" class="form__link">Quên mật khẩu</a>
+                    <a href="<c:url value ="forgotPassword.jsp"/>" id="form__forget-password" class="form__link">Quên
+                        mật khẩu</a>
                 </div>
                 <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng nhập</button>
             </form>
-            <a href="signUp.jsp" id="form__link--signUp" class="form__link ">Đăng ký</a>
+            <a href="<c:url value="signUp.jsp" />" id="form__link--signUp" class="form__link ">Đăng ký</a>
         </article>
     </div>
 </main>
