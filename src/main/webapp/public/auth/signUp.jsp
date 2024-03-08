@@ -5,8 +5,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/logIn.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/logIn.css" />">
     <title>Đăng ký</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
         <div class="frame__media">
         </div>
         <article>
-            <form action="${initParam.contextPath}/signUp" method="post" class="form form--signUp">
+            <form action="<c:url value="/signUp"/>" method="post" class="form form--signUp">
                 <div class="form__block">
                     <label for="username" class="form__label">Tên đăng nhập</label>
                     <input id="username" name="username" type="text" class="form__input">
@@ -84,7 +84,7 @@
                 <button type="submit" id="form__submit" class="form__submit button button--hover">Đăng ký
                 </button>
             </form>
-            <a href="signIn.jsp" id="form__link--signIn" class="form__link ">Đăng nhập</a>
+            <a href="<c:url value="/public/auth/signIn.jsp"/>" id="form__link--signIn" class="form__link ">Đăng nhập</a>
         </article>
     </div>
 
@@ -95,7 +95,8 @@
             <div class="modal__notify">
                 <i class="model__checked-icon fa-regular fa-circle-check"></i>
                 <p class="modal__text">Đăng kí thành công, vui lòng kiểm tra email bạn đã đăng kí.</p>
-                <a href="signIn.jsp" class="button modal__button button--hover">Đăng nhập</a>
+                <a href="<c:url value="/public/auth/signIn.jsp"/>" class="button modal__button button--hover">Đăng
+                    nhập</a>
                 <label for="modal__hide" class="modal__close"><i class="fa-solid fa-xmark"></i></label>
             </div>
             <label for="modal__hide" class="modal__blur"></label>
@@ -103,7 +104,7 @@
     </c:if>
 </main>
 <!--JS validate-->
-<script src="${initParam.contextPath}/js/validateForm.js"></script>
+<script src="<c:url value="/js/validateForm.js"/>"></script>
 <script>
     var validation = new Validation({
         formSelector: ".form",

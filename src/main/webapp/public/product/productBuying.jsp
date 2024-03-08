@@ -13,7 +13,7 @@
     <title>Gian hàng</title>
 </head>
 <body>
-<jsp:include page="/public/header.jsp"/>
+<c:import url="/public/header.jsp"/>
 <main class="main">
     <section class="products">
         <div class="container-xl">
@@ -107,7 +107,7 @@
                                     <div class="product__info">
                                         <c:url var="linkProductDetail" value="/showProductDetail">
                                             <c:param name="id" value="${item.id}"/>
-                                            <c:param name="ten-sapn-pham" value="${item.name}"/>
+                                            <c:param name="ten-san-pham" value="${item.name}"/>
                                         </c:url>
                                         <a class="product__name" target="_blank"
                                            href="${linkProductDetail}">${item.name}</a>

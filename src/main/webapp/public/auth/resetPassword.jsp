@@ -3,15 +3,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/logIn.css">
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/forgetPassword.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/logIn.css" />">
+    <link rel="stylesheet" href="<c:url value="/assets/css/forgetPassword.css" />">
     <title>Đặt lại mật khẩu</title>
 </head>
 <body>
 <div class="frame">
     <article>
-        <form action="updatePassword" class="form form--forget-password" method="post">
+        <form action="<c:url value="/updatePassword" />" class="form form--forget-password" method="post">
             <c:set var="email" value="${requestScope.email}"/>
             <input name="email" type="text" value="${email}" hidden="hidden">
 
@@ -42,7 +42,8 @@
             <div class="modal__notify modal__content">
                 <i class="model__checked-icon fa-regular fa-circle-check"></i>
                 <p class="modal__text">${updateSuccess}</p>
-                <a href="signIn.jsp" class="button modal__button button--hover">Đăng nhập</a>
+                <a href="<c:url value="/public/auth/signIn.jsp"/>" class="button modal__button button--hover">Đăng
+                    nhập</a>
             </div>
             <label class="modal__blur"></label>
         </div>

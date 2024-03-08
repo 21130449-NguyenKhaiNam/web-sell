@@ -35,7 +35,6 @@ public class ChangePassword extends HttpServlet {
         int countError=0;
 
         String idString = request.getParameter("userId");
-//        String userPass = request.getParameter("userPass");
 
         String oldPass = request.getParameter("oldPassword");
         String newPass = request.getParameter("newPassword");

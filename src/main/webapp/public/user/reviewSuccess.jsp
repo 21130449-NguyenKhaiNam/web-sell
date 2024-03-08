@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <jsp:include page="${initParam.contextPath}/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/verify.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/verify.css"/>">
     <title>Đánh giá</title>
 </head>
 <body>
@@ -17,7 +17,8 @@
         kiến
         cho chúng tôi.
     </p>
-    <a href="${initParam.contextPath}/public/product/productBuying.jsp" class="button button--hover">Quay lại gian hàng</a>
+    <a href="<c:url value="/public/product/productBuying.jsp"/>" class="button button--hover">Quay lại gian
+        hàng</a>
 </main>
 </body>
 </html>

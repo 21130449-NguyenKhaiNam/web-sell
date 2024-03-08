@@ -32,6 +32,7 @@ public class SignIn extends HttpServlet {
             HttpSession session = request.getSession(true);
             session.setAttribute("auth", userAuth);
             response.sendRedirect(ConfigPage.HOME);
+            return;
         } else {
             request.setAttribute("usernameError", validation.getFieldUsername());
             request.setAttribute("passwordError", validation.getFieldPassword());

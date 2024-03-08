@@ -5,13 +5,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/checkout.css">
-
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/checkout.css" />">
     <title>Thanh toán</title>
 </head>
 <body>
-<c:import url="${initParam.contextPath}/public/header.jsp"/>
+<c:import url="/public/header.jsp"/>
 <main id="main">
     <div class="container-xl">
         <div class="checkout__container row">
@@ -310,14 +309,12 @@
     </div>
 </main>
 <div class="popup__deletion"></div>
-<jsp:include page="${initParam.contextPath}/public/footer.jsp" />
 </body>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="${contextPath}/js/base.js"></script>
-<script src="${contextPath}/js/checkout.js"></script>
+<%--<script src="https://code.jquery.com/jquery-3.7.1.min.js"--%>
+<%--        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--%>
+<script src="<c:url value="/js/base.js"/>"></script>
+<script src="<c:url value="/js/checkout.js"/>"></script>
 <script type="text/javascript">
-
     function handleChoiceDeliveryMethod() {
         $(document).ready(function () {
             $('input[name="delivery__method"]').change(function () {
