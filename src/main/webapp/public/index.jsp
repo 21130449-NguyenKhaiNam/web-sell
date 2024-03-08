@@ -27,7 +27,7 @@
         <div class="hero__slogan">
             <h1>Change Your Styles Now</h1>
             <p>Cùng chúng tôi tạo nên thiết kế khác biệt cho quần áo của bạn</p>
-            <a href="${initParam.contextPath}/public/product/productBuying.jsp" class="hero__button button button--hover">Bắt đầu
+            <a href="${initParam.contextPath}/public/product/productBuying.jsp" class="hero__button button button--hover hvr-radial-out">Bắt đầu
                 đặt may</a>
         </div>
     </div>
@@ -40,11 +40,11 @@
                         <img class="slider__item" src="${initParam.contextPath}/assets/img/slider/${slide.nameImage}" alt=""/>
                     </c:forEach>
                 </div>
-                <div class="navigation__button nav__prev">
+                <div class="navigation__button nav__prev hvr-bounce-in">
                     <i class="fa-solid fa-chevron-left"></i>
                 </div>
 
-                <div class="navigation__button nav__next">
+                <div class="navigation__button nav__next hvr-bounce-in">
                     <i class="fa-solid fa-chevron-right"></i>
                 </div>
 
@@ -83,7 +83,7 @@
     <div class="popular__section container-xl">
         <div class="popular__title">
             <h2 class="section__title">Sản phẩm thịnh hành</h2>
-            <a class="see__more" href="trendingProducts">Xem thêm</a>
+            <a class="see__more hvr-forward" href="trendingProducts">Xem thêm</a>
         </div>
         <div class="product__wrapper">
             <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
@@ -157,7 +157,7 @@
     <div class="new__section container-xl">
         <div class="new__title">
             <h2 class="section__title">Sản phẩm mới</h2>
-            <a class="see__more" href="newProducts">Xem thêm</a>
+            <a class="see__more hvr-forward" href="newProducts">Xem thêm</a>
         </div>
         <div class="product__wrapper">
             <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
