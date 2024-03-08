@@ -6,12 +6,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="${initParam.contextPath}/public/commonLink.jsp"/>
+    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
     <link rel="stylesheet" href="${initParam.contextPath}/assets/css/account.css">
     <title>Tài khoản</title>
 </head>
 <body>
-<jsp:include page="${initParam.contextPath}/public/header.jsp"/>
+<c:import url="${initParam.contextPath}/public/header.jsp"/>
 <main class="main">
     <div class="container-xl">
         <div class="row">
@@ -139,7 +139,6 @@
         </div>
     </div>
 </main>
-<jsp:include page="${initParam.contextPath}/public/footer.jsp"/>
 <script src="${initParam.contextPath}/js/validateForm.js"></script>
 <script src="${initParam.contextPath}/js/data.js"></script>
 <script src="${initParam.contextPath}/js/account.js"></script>
@@ -182,7 +181,7 @@
 
         if (avatarInfo && avatarInfo.textContent.trim() !== "") {
             // Nếu accountInfo.avatar có giá trị, sử dụng nó
-            var avatarPath = "assets/img/user/" + avatarInfo.textContent.trim();
+            var avatarPath = "${initParam.contextPath}/assets/img/user/" + avatarInfo.textContent.trim();
             photo.src = avatarPath;
         }
         // Nếu accountInfo.avatar không có giá trị, giữ nguyên hình ảnh mặc định

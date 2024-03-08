@@ -16,18 +16,17 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 <!--Favicon-->
-<link rel="apple-touch-icon" sizes="180x180" href="${initParam.contextPath}/assets/favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="${initParam.contextPath}/assets/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="${initParam.contextPath}/assets/favicon/favicon-16x16.png">
-<link rel="manifest" href="${initParam.contextPath}/assets/favicon/site.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href=<c:url value="/assets/favicon/apple-touch-icon.png"/>>
+<link rel="icon" type="image/png" sizes="32x32" href=<c:url value="/assets/favicon/favicon-32x32.png"/>>
+<link rel="icon" type="image/png" sizes="16x16" href=<c:url value="/assets/favicon/favicon-16x16.png"/>>
+<link rel="manifest" href=<c:url value="/assets/favicon/site.webmanifest"/>>
 <!--Web font-->
 <%--jquery--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!--Font-->
-<link rel="stylesheet" href="${initParam.contextPath}/assets/font/webfonts/Montserrat.css">
-
+<link rel="stylesheet" href="<c:url value="/assets/font/webfonts/Montserrat.css"/>">
 <!--CSS-->
-<link rel="stylesheet" href="${initParam.contextPath}/assets/css/reset.css">
-<link rel="stylesheet" href="${initParam.contextPath}/assets/css/base.css">
+<link rel="stylesheet" href=<c:url value="/assets/css/reset.css"/>>
+<link rel="stylesheet" href=<c:url value="/assets/css/base.css"/>>

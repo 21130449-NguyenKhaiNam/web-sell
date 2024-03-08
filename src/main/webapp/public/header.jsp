@@ -14,7 +14,8 @@
                         <a href="${initParam.contextPath}/public/index.jsp" class="nav__link">Trang chủ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="${initParam.contextPath}/public/product/productBuying.jsp" class="nav__link">Gian hàng</a>
+                        <a href="${initParam.contextPath}/public/product/productBuying.jsp" class="nav__link">Gian
+                            hàng</a>
                     </li>
                     <li class="nav__item">
                         <a href="${initParam.contextPath}/public/contact.jsp" class="nav__link">Liên hệ</a>
@@ -24,12 +25,14 @@
                     </li>
                 </ul>
                 <c:set var="auth" value="${sessionScope.auth}"/>
+                <%--                log: ${auth}--%>
                 <c:choose>
                     <c:when test="${auth == null}">
                         <!--cta == call to action-->
                         <div class="nav__cta">
-                            <a href="${initParam.contextPath}/public/auth/signIn.jsp" class="nav__button nav__button--signIn">Đăng nhập</a>
-                            <a href="${initParam.contextPath}/public/auth/signUp.jsp"
+                            <a href="<c:url value="/public/auth/signIn.jsp"/>" class="nav__button nav__button--signIn">Đăng
+                                nhập</a>
+                            <a href="<c:url value="/public/auth/signUp.jsp" />"
                                class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
                         </div>
                     </c:when>
@@ -38,7 +41,7 @@
                         <div class="account__wrapper">
                             <!--Giỏ hàng-->
                             <div class="cart__wrapper">
-                                <a href="${initParam.contextPath}/public/user/shoppingCart.jsp" class="cart">
+                                <a href="<c:url value="/public/user/shoppingCart.jsp"/>" class="cart">
                                     <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
                                     <span class="qlt__swapper">
                                         <span class="qlt__value">
@@ -55,12 +58,12 @@
                             <div class="account">
                                 <i class="account__icon fa-regular fa-user"></i>
                                 <div class="setting__list">
-                                    <a href="${initParam.contextPath}/Account" class="setting__item">
+                                    <a href="<c:url value="/Account"/>" class="setting__item">
                                         <div class="setting__link">
                                             <div class="account__info">
                                                 <i class="account__icon fa-regular fa-user"></i>
                                                 <p class="account__name">
-                                                    <c:out value="${auth.getUsername()}"/>
+                                                    ${auth.getUsername()}
                                                 </p>
                                             </div>
                                         </div>

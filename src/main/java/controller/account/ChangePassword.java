@@ -1,5 +1,6 @@
 package controller.account;
 
+import config.ConfigPage;
 import models.User;
 import services.UserServices;
 import utils.Encoding;
@@ -13,7 +14,7 @@ import java.io.IOException;
 public class ChangePassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+        request.getRequestDispatcher(ConfigPage.USER_CHANGE_PASSWORD).forward(request, response);
 //        doPost(request,response);
     }
 
@@ -61,7 +62,7 @@ public class ChangePassword extends HttpServlet {
             request.setAttribute("errorConfirmPass", errorConfirmPass);
             countError++;
         }
-        request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+        request.getRequestDispatcher(ConfigPage.USER_CHANGE_PASSWORD).forward(request, response);
 
         if (countError == 0){
             try {

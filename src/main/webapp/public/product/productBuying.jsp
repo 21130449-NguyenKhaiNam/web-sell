@@ -8,18 +8,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <c:import url="${initParam.contextPath}/public/commonLink.jsp" charEncoding="UTF-8"/>
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/productBuying.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href=<c:url value="/assets/css/productBuying.css"/>>
     <title>Gian hàng</title>
 </head>
 <body>
-<c:import url="${initParam.contextPath}/public/header.jsp" />
+<jsp:include page="/public/header.jsp"/>
 <main class="main">
     <section class="products">
         <div class="container-xl">
             <div class="row ">
                 <div class="col-3">
-                    <form action="${initParam.contextPath}/filterProductBuying" class="form__filter">
+                    <form action="filterProductBuying" class="form__filter">
                         <div class="filter__group">
                             <span class="filter__title">Phân loại sản phẩm</span>
                             <div class="filter__radio-list">

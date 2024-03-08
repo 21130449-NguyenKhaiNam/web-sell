@@ -7,13 +7,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="${initParam.contextPath}/public/commonLink.jsp"/>
+    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
     <link rel="stylesheet" href="${initParam.contextPath}/assets/css/logIn.css">
     <link rel="stylesheet" href="${initParam.contextPath}/assets/css/account.css">
     <title>Tài khoản</title>
 </head>
 <body>
-<jsp:include page="${initParam.contextPath}/public/header.jsp"></jsp:include>
+<c:import url="${initParam.contextPath}/public/header.jsp"/>
 <main class="main">
     <div class="container-xl">
         <div class="row">
@@ -85,7 +85,7 @@
         </div>
     </div>
 </main>
-<jsp:include page="${initParam.contextPath}/public/footer.jsp"/>
+<c:import url="${initParam.contextPath}/public/footer.jsp"/>
 <script>
     function hideDefaultOption() {
         var genderDropdown = document.getElementById("gender");
