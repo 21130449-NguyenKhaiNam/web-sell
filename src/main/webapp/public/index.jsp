@@ -13,7 +13,7 @@
 <html lang="en">
 <head>
     <jsp:include page="commonLink.jsp"/>
-    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/home.css">
+    <link rel="stylesheet" href="<c:url value="/assets/css/home.css"/>">
     <title>Trang chủ</title>
 </head>
 <body>
@@ -23,7 +23,7 @@
 <main id="main">
     <!--Hero-->
     <div class="hero">
-        <img src="${initParam.contextPath}/assets/img/hero__img.png" alt="" class="hero__img">
+        <img src="<c:url value="/assets/img/hero__img.png"/>" alt="" class="hero__img">
         <div class="hero__slogan">
             <h1>Change Your Styles Now</h1>
             <p>Cùng chúng tôi tạo nên thiết kế khác biệt cho quần áo của bạn</p>
