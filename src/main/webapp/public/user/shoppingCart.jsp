@@ -15,12 +15,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="${initParam.contextPath}/public/commonLink.jsp"/>
+    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
     <link rel="stylesheet" href="${initParam.contextPath}/assets/css/shoppingCart.css">
     <title>Giỏ hàng</title>
 </head>
 <body>
-<jsp:include page="${initParam.contextPath}/public/header.jsp"/>
+<c:import url="${initParam.contextPath}/public/header.jsp"/>
 <main id="main">
     <!-- New update template -->
     <div class="promotion__modal">
@@ -207,38 +207,38 @@
                                                     sắc: <%=cartProduct.getColor().getCodeColor()%>
                                                 </p>
                                                 <ul class="order__size--specification">
-<%--                                                    <%--%>
-<%--                                                        if (cartProduct instanceof CartProductCustom) {--%>
-<%--                                                            // Your JSON string--%>
-<%--                                                            String jsonString = ((CartProductCustom) cartProduct).getJsonSize();--%>
-<%--                                                            System.out.println(jsonString);--%>
+                                                        <%--                                                    <%--%>
+                                                        <%--                                                        if (cartProduct instanceof CartProductCustom) {--%>
+                                                        <%--                                                            // Your JSON string--%>
+                                                        <%--                                                            String jsonString = ((CartProductCustom) cartProduct).getJsonSize();--%>
+                                                        <%--                                                            System.out.println(jsonString);--%>
 
-<%--                                                            // Convert JSON string to a JSONObject--%>
-<%--                                                            JSONObject jsonObject = new JSONObject(jsonString);--%>
+                                                        <%--                                                            // Convert JSON string to a JSONObject--%>
+                                                        <%--                                                            JSONObject jsonObject = new JSONObject(jsonString);--%>
 
-<%--                                                            // Convert JSONObject to a Map--%>
-<%--                                                            Map<String, String> map = new HashMap<>();--%>
-<%--                                                            for (String key : jsonObject.keySet()) {--%>
-<%--                                                                map.put(key, jsonObject.getString(key));--%>
-<%--                                                            }--%>
-<%--                                                    %>--%>
-<%--                                                    <p>Kích thước:</p>--%>
-<%--                                                        <%--%>
-<%--                                                            for (Map.Entry<String, String> entry : map.entrySet()) {--%>
-<%--                                                        %>--%>
-<%--                                                                <li><%=entry.getKey()%>: <%=entry.getValue()%></li>--%>
-<%--                                                    <%--%>
-<%--                                                            }--%>
-<%--                                                        }--%>
-<%--                                                    %>--%>
-<%--                                                    <%--%>
-<%--                                                        if (cartProduct instanceof CartProduct) {--%>
-<%--                                                    %>--%>
-<%--                                                    <p>Kích thước: <%=((CartProduct) cartProduct).getSize().getNameSize()%>--%>
-<%--                                                        (Giá kích thước: <%=FormatCurrency.vietNamCurrency(((CartProduct) cartProduct).getSize().getSizePrice())%>)</p>--%>
-<%--                                                    <%--%>
-<%--                                                        }--%>
-<%--                                                    %>--%>
+                                                        <%--                                                            // Convert JSONObject to a Map--%>
+                                                        <%--                                                            Map<String, String> map = new HashMap<>();--%>
+                                                        <%--                                                            for (String key : jsonObject.keySet()) {--%>
+                                                        <%--                                                                map.put(key, jsonObject.getString(key));--%>
+                                                        <%--                                                            }--%>
+                                                        <%--                                                    %>--%>
+                                                        <%--                                                    <p>Kích thước:</p>--%>
+                                                        <%--                                                        <%--%>
+                                                        <%--                                                            for (Map.Entry<String, String> entry : map.entrySet()) {--%>
+                                                        <%--                                                        %>--%>
+                                                        <%--                                                                <li><%=entry.getKey()%>: <%=entry.getValue()%></li>--%>
+                                                        <%--                                                    <%--%>
+                                                        <%--                                                            }--%>
+                                                        <%--                                                        }--%>
+                                                        <%--                                                    %>--%>
+                                                        <%--                                                    <%--%>
+                                                        <%--                                                        if (cartProduct instanceof CartProduct) {--%>
+                                                        <%--                                                    %>--%>
+                                                        <%--                                                    <p>Kích thước: <%=((CartProduct) cartProduct).getSize().getNameSize()%>--%>
+                                                        <%--                                                        (Giá kích thước: <%=FormatCurrency.vietNamCurrency(((CartProduct) cartProduct).getSize().getSizePrice())%>)</p>--%>
+                                                        <%--                                                    <%--%>
+                                                        <%--                                                        }--%>
+                                                        <%--                                                    %>--%>
                                                     <%=cartProduct.makeSizeFormat()%>
                                                 </ul>
                                             </div>
@@ -335,7 +335,7 @@
                         </div>
                         <span>Phí vận chuyển sẽ được tính ở trang thanh toán</span>
                         <div class="group__button--forward">
-                            <a href="checkout.jsp">
+                            <a href="${initParam.contextPath}/public/user/checkout.jsp">
                                 <button id="continue--checkout">Tiến hành thanh toán</button>
                             </a>
                             <a href="../product/productBuying.jsp">
@@ -349,7 +349,6 @@
     </div>
 </main>
 <div class="popup__deletion"></div>
-<jsp:include page="${initParam.contextPath}/public/footer.jsp"/>
 </body>
 <script src="${initParam.contextPath}/js/base.js"></script>
 <script src="${initParam.contextPath}/js/validateContactForm.js"></script>

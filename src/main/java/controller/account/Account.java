@@ -1,5 +1,6 @@
 package controller.account;
 
+import config.ConfigPage;
 import dao.UserDAO;
 import dao.UserDAOImplement;
 import models.User;
@@ -26,7 +27,7 @@ public class Account extends HttpServlet {
                 if (!userList.isEmpty()) {
                     User user = userList.get(0);
                     request.setAttribute("accountInfo", user);
-                    request.getRequestDispatcher("account.jsp").forward(request, response);
+                    request.getRequestDispatcher(ConfigPage.USER_ACCOUNT).forward(request, response);
                 } else {
                     response.getWriter().println("User not found");
                 }
@@ -34,7 +35,7 @@ public class Account extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(ConfigPage.DOMAIN+ConfigPage.USER_ACCOUNT);
         }
 
     }

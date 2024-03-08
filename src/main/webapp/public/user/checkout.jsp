@@ -5,13 +5,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="${initParam.contextPath}/public/commonLink.jsp"/>
+    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
     <link rel="stylesheet" href="${initParam.contextPath}/assets/css/checkout.css">
 
     <title>Thanh toán</title>
 </head>
 <body>
-<jsp:include page="${initParam.contextPath}/public/header.jsp"></jsp:include>
+<c:import url="${initParam.contextPath}/public/header.jsp"/>
 <main id="main">
     <div class="container-xl">
         <div class="checkout__container row">
