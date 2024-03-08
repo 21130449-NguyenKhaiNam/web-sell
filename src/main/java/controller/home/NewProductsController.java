@@ -1,5 +1,6 @@
 package controller.home;
 
+import config.ConfigPage;
 import models.Product;
 import services.HomeServices;
 
@@ -39,7 +40,7 @@ public class NewProductsController extends HttpServlet {
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("listProductsPerPage", listProductsPerPage);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("newProducts.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.PRODUCT_NEW);
         requestDispatcher.forward(request, response);
     }
 

@@ -1,5 +1,6 @@
 package controller.home;
 
+import config.ConfigPage;
 import models.Product;
 import services.HomeServices;
 
@@ -36,7 +37,7 @@ public class TrendingProductsController extends HttpServlet {
         request.setAttribute("listProductsPerPage", listProductsPerPage);
         System.out.println(listProductsPerPage);
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("trendingProducts.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.PRODUCT_TRENDING);
         requestDispatcher.forward(request, response);
     }
 

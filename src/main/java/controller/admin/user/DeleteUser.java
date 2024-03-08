@@ -24,8 +24,6 @@ public class DeleteUser extends HttpServlet {
             }
         }
         response.sendRedirect("AdminUser");
-
-
     }
 
     @Override

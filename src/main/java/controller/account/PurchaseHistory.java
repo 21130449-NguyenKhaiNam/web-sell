@@ -52,7 +52,6 @@ public class PurchaseHistory extends HttpServlet {
         for (OrderDetail orderdetails : listOrderDetail) {
             HistoryService.getINSTANCE().getProductInOrderDetail(orderdetails.getId());
         }
-        System.out.println(listOrderDetail);
         request.setAttribute("listPurchaseHistory", listOrderDetail);
         request.setAttribute("tag", statusString);
         request.getRequestDispatcher("purchaseHistory.jsp").forward(request, response);
