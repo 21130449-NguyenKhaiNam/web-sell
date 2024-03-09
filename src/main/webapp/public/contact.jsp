@@ -58,7 +58,7 @@
 
                 <div class="get-in-touch">
                     <h2 class="title__contact">Công ty TNHH Your Style</h2>
-                    <div class="contact-method">
+                    <div class="contact-method hvr-forward">
                         <div class="icon-contact">
                             <i class="fa-solid fa-location-dot"></i>
                         </div>
@@ -67,7 +67,7 @@
                             <p>721 Huỳnh Tấn Phát, Phường Phú Thuận, Quận 7, Tp. Hồ Chí Minh</p>
                         </div>
                     </div>
-                    <div class="contact-method">
+                    <div class="contact-method hvr-forward">
                         <div class="icon-contact">
                             <i class="fa-solid fa-phone"></i>
                         </div>
@@ -76,7 +76,7 @@
                             <p>0703637448</p>
                         </div>
                     </div>
-                    <div class="contact-method">
+                    <div class="contact-method hvr-forward">
                         <div class="icon-contact">
                             <i class="fa-solid fa-envelope"></i>
                         </div>
@@ -85,7 +85,7 @@
                             <p>yourstyle@support.com</p>
                         </div>
                     </div>
-                    <div class="contact-method">
+                    <div class="contact-method hvr-forward">
                         <div class="icon-contact">
                             <i class="fa-solid fa-business-time"></i>
                         </div>

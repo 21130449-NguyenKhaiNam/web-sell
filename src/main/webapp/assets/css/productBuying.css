@@ -163,6 +163,7 @@
     justify-content: flex-start;
     align-items: center;
     gap: 5px;
+    margin-bottom: 10px;
 }
 
 .filter-radio__icon-wrapper {
@@ -206,7 +207,7 @@
 }
 
 .filter__color:checked + .filter__color-show {
-    border: 2px solid #3f3f3f;
+    border: 2px solid var(--blue-color-medium);
 }
 
 .filter__color-show {

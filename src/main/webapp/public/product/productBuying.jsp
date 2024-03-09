@@ -82,7 +82,7 @@
                                         <input name="color" type="checkbox" value="${item.codeColor}"
                                                class="filter__input filter__color"
                                                hidden="hidden">
-                                        <span class="filter__color-show" style="background-color: ${item.codeColor}">
+                                        <span class="filter__color-show shadow rounded" style="background-color: ${item.codeColor}">
                                         </span>
                                     </label>
                                 </c:forEach>
