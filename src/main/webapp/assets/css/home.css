@@ -523,7 +523,14 @@
 #discovery__us--section .discovery__content .disco_thing {
     border-left: var(--blue-color-high) 4px solid;
     padding-left: 10px;
+    padding-right: 2px;
     text-align: left;
+    cursor: default;
+    padding-bottom: 4px;
+}
+
+#discovery__us--section .discovery__content .disco_thing.hvr-underline-from-left:before {
+    background: var(--blue-color-high);
 }
 
 #discovery__us--section .discovery__content .disco_thing p:first-child {

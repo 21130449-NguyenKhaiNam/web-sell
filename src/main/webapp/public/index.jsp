@@ -97,7 +97,9 @@
                             <div class="image--tag">
                                 <c:set value="${productFactory.getListImagesByProductId(trendProduct.id)}"
                                        var="listTrendProductImages"/>
-                                <img src="${initParam.contextPath}/assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
+                               <a target="_blank" href="${showProductDetail}">
+                                   <img src="${initParam.contextPath}/assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
+                               </a>
                                 <span class="product__tag">Thịnh hành</span>
                                 <form action="AddToCart" class="action__bar" method="post">
                                     <input type="hidden" name="productId" value="${trendProduct.id}">
@@ -232,16 +234,16 @@
         <div class="discovery__container">
             <h2 class="section__title">Bạn có thể khám phá được điều gì ở chúng tôi?</h2>
             <div class="discovery__content">
-                <div class="disco_thing">
+                <div class="disco_thing hvr-underline-from-left">
                     <p>50+</p>
                     <p>Mẫu đồ bạn có thể đặt may</p>
                 </div>
-                <div class="disco_thing">
+                <div class="disco_thing hvr-underline-from-left">
                     <p>1,000+</p>
                     <p>Khách hàng yêu cầu đặt may mỗi tháng</p>
                 </div>
 
-                <div class="disco_thing">
+                <div class="disco_thing hvr-underline-from-left">
                     <p>50+</p>
                     <p>Mẫu đồ được gia công liên tục</p>
                 </div>
@@ -252,7 +254,7 @@
     <div class="step__guide--section container-xl">
         <h2 class="section__title">Cách bước để bạn có thể đặt may một mẫu đồ</h2>
         <div class="guide__content row">
-            <div class="col">
+            <div class="col hvr-grow-shadow">
                 <div class="step__item">
                     <img src="${initParam.contextPath}/assets/img/step_guide/choose.png">
                     <div class="description_step">
@@ -261,7 +263,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col hvr-grow-shadow">
                 <div class="step__item">
                     <img src="${initParam.contextPath}/assets/img/step_guide/customize.png">
                     <div class="description_step">
@@ -270,7 +272,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col hvr-grow-shadow">
                 <div class="step__item">
                     <img src="${initParam.contextPath}/assets/img/step_guide/checkout.png">
                     <div class="description_step">
@@ -279,7 +281,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col hvr-grow-shadow">
                 <div class="step__item">
                     <img src="${initParam.contextPath}/assets/img/step_guide/receive.png">
                     <div class="description_step">

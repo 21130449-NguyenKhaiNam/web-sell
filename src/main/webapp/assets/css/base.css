@@ -179,9 +179,18 @@ background-color: var(--blue-color-low);
 
 .footer__desc {
     display: block;
-    padding-top: 10px;
     font-size: 16px;
     font-weight: 400;
+}
+
+.footer__desc.hvr-sweep-to-right:before {
+    background: var(--blue-color-low);
+}
+
+.footer__link {
+    display: flex;
+    width: 100%;
+    padding: 8px 5px;
 }
 
 .footer__desc:hover {
