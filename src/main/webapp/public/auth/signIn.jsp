@@ -12,7 +12,11 @@
     <div class="frame">
         <div class="frame__media">
         </div>
+
         <article>
+            <span class="text-cetner mb-3 d-flex justify-content-center hvr-bob">
+                <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
+            </span>
             <form action="${initParam.contextPath}/signIn" class="form form--signUp" method="post">
                 <div class="form__block">
                     <label for="username" class="form__label">Tên đăng nhập</label>
@@ -31,7 +35,7 @@
                 </div>
                 <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng nhập</button>
             </form>
-            <a href="signUp.jsp" id="form__link--signUp" class="form__link ">Đăng ký</a>
+            <a href="signUp.jsp" id="form__link--signUp" class="form__link hvr-float-shadow">Đăng ký</a>
         </article>
     </div>
 </main>
