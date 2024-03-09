@@ -1,7 +1,3 @@
-body {
-    background-color: var(--blue-color-low);
-}
-
 .order__heading::first-letter {
     text-transform: uppercase;
 }
@@ -40,6 +36,8 @@ body {
 
 .order__input {
     flex: 1;
+    background-color: #ccc;
+    padding: 10px;
 }
 
 .order__unit {

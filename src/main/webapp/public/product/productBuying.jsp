@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
     <jsp:include page="/public/commonLink.jsp"/>
-    <link rel="stylesheet" href=<c:url value="/assets/css/productBuying.css"/>>
+    <link rel="stylesheet" href=<c:url value="/assets/css/productBuying.css"/>
     <title>Gian hàng</title>
 </head>
 <body>
@@ -23,7 +23,8 @@
                         <div class="filter__group">
                             <span class="filter__title">Phân loại sản phẩm</span>
                             <div class="filter__radio-list">
-                                <c:forEach items="${pageContext.servletContext.getAttribute('categoryList')}" var="category">
+                                <c:forEach items="${pageContext.servletContext.getAttribute('categoryList')}"
+                                           var="category">
                                     <label class="filter__radio-item">
                                         <input name="categoryId" type="checkbox" class="filter__input filter__radio"
                                                hidden="hidden" value="${category.id}">
@@ -82,7 +83,8 @@
                                         <input name="color" type="checkbox" value="${item.codeColor}"
                                                class="filter__input filter__color"
                                                hidden="hidden">
-                                        <span class="filter__color-show shadow rounded" style="background-color: ${item.codeColor}">
+                                        <span class="filter__color-show shadow rounded"
+                                              style="background-color: ${item.codeColor}">
                                         </span>
                                     </label>
                                 </c:forEach>
@@ -157,7 +159,7 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                    </div>
+                        </div>
                     </c:if>
                     <c:if test="${empty list}">
                         <p class="product__list--empty">Không có sản phẩm nào ứng với bộ lọc</p>

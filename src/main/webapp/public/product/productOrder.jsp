@@ -14,28 +14,16 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="../../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-    <%--jquery--%>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
+    <c:import url="${initParam.contextPath}/public/commonLink.jsp" charEncoding="UTF-8"/>
     <!--Favicon-->
     <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="../../assets/favicon/site.webmanifest">
-    <!--Web font-->
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
 
     <!--CSS-->
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/productDetail.css">
-    <link rel="stylesheet" href="../../assets/css/productOrder.css">
+    <link rel="stylesheet" href=<c:url value="/assets/css/productDetail.css"/>>
+    <link rel="stylesheet" href=<c:url value="/assets/css/productOrder.css"/>>
     <title>Orther sản phẩm</title>
 </head>
 <body>
@@ -61,17 +49,20 @@
                     <div class="col-5">
                         <label class="order__group">
                             <label class="order__parameter">
-                                <input id="parameter${loop.index}" class="order__input" type="text"
+                                <input id="parameter${loop.index}" class="order__input form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" type="text"
                                        name="valueParameter"
-                                       placeholder="Hãy nhập số đo của ${fn:toLowerCase(parameter.name)}">
+                                       placeholder="Hãy nhập số đo của ${fn:toLowerCase(parameter.name)}" required>
                                 <c:set var="unit" value="${parameter.unit}"/>
                                 <span class="order__unit">${unit}</span>
                             </label>
-                            <p class="order__parameter-valid">
-                                Giá trị khả dụng chấp nhận từ <strong><span id="minValueParameter${loop.index}" class="order__parameter-min">${parameter.minValue}</span> ${unit}</strong> đến
-                                <strong><span id="maxValueParameter${loop.index}" class="order__parameter-max">${parameter.maxValue}</span> ${unit}</strong>
+                            <p class="order__parameter-valid ps-2">
+                                Giá trị khả dụng chấp nhận từ <strong><span id="minValueParameter${loop.index}"
+                                                                            class="order__parameter-min">${parameter.minValue}</span> ${unit}
+                            </strong> đến
+                                <strong><span id="maxValueParameter${loop.index}"
+                                              class="order__parameter-max">${parameter.maxValue}</span> ${unit}</strong>
                             </p>
-                            <p class="order__error"></p>
+                            <p class="order__error ps-2"></p>
                         </label>
                     </div>
                         <%--Image--%>
@@ -127,10 +118,11 @@
         </button>
     </div>
 </form>
-<script src="../../js/validateForm.js"></script>
+<c:import url="${initParam.contextPath}/public/footer.jsp"/>
+</body>
+<script src="${initParam.contextPath}/js/validateForm.js"></script>
 <script>
     const isLogin = "<%=session.getAttribute("auth") != null%>";
 </script>
-<script src="../../js/productOrder.js"></script>
-</body>
+<script src="${initParam.contextPath}/js/productOrder.js"></script>
 </html>
