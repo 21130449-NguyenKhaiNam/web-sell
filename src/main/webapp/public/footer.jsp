@@ -3,7 +3,20 @@
 <!--Footer-->
 <footer id="footer">
     <div class="container-xl">
-        <a href="#!" class="logo"></a>
+        <div class="row d-flex">
+           <div class="col-sm-6">
+               <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
+           </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-12 ml-auto d-flex justify-content-end">
+                        <a href="#" class="hvr-icon-up display-6">
+                            <i class="fa-regular fa-circle-up hvr-icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col ">
                 <div class="footer__block">
@@ -21,16 +34,16 @@
             </div>
             <div class="col">
                 <ul class="footer__block">
-                    <li class="footer__desc">
+                    <li class="footer__desc hvr-sweep-to-right">
                         <a href="${initParam.contextPath}/public/product/productBuying.jsp" class="footer__link">Gian hàng</a>
                     </li>
-                    <li class="footer__desc">
+                    <li class="footer__desc hvr-sweep-to-right">
                         <a href="${initParam.contextPath}/public/contact.jsp" class="footer__link">Liên hệ</a>
                     </li>
-                    <li class="footer__desc">
+                    <li class="footer__desc hvr-sweep-to-right">
                         <a href="${initParam.contextPath}/public/about.jsp" class="footer__link">Về chúng tôi</a>
                     </li>
-                    <li class="footer__desc">
+                    <li class="footer__desc hvr-sweep-to-right">
                         <a href="${initParam.contextPath}/public/policy.jsp" class="footer__link">Chính sách mua hàng</a>
                     </li>
                 </ul>
