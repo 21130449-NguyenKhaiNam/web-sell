@@ -13,7 +13,7 @@
     <title>${product.name}</title>
 </head>
 <body>
-<c:import url="${initParam.contextPath}/public/header.jsp" />
+<c:import url="${initParam.contextPath}/public/header.jsp"/>
 <main class="main">
     <section class="product__detail">
         <div class="container-xl">
@@ -22,22 +22,25 @@
                     <div class="product__media">
                         <c:set var="firstImage"
                                value="${productFactory.getListImagesByProductId(product.id).get(0).nameImage}"/>
-                        <img class="product__img" src="${initParam.contextPath}/assets/img/product_img/${firstImage}" alt="" loading="lazy">
+                        <img class="product__img" src="${initParam.contextPath}/assets/img/product_img/${firstImage}"
+                             alt="" loading="lazy">
                         <ul class="product__img-list">
                             <c:forEach var="image" varStatus="loop"
                                        items="${productFactory.getListImagesByProductId(product.id)}">
-                              <c:choose>
-                                  <c:when test="${loop.index == 0}">
-                                      <li class="product__img-item product__img-item--clicked">
-                                          <img src="${initParam.contextPath}/assets/img/product_img/${image.nameImage}" alt="" loading="lazy">
-                                      </li>
-                                  </c:when>
-                                  <c:otherwise>
-                                      <li class="product__img-item">
-                                          <img src="${initParam.contextPath}/assets/img/product_img/${image.nameImage}" alt="" loading="lazy">
-                                      </li>
-                                  </c:otherwise>
-                              </c:choose>
+                                <c:choose>
+                                    <c:when test="${loop.index == 0}">
+                                        <li class="product__img-item product__img-item--clicked">
+                                            <img src="${initParam.contextPath}/assets/img/product_img/${image.nameImage}"
+                                                 alt="" loading="lazy">
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="product__img-item">
+                                            <img src="${initParam.contextPath}/assets/img/product_img/${image.nameImage}"
+                                                 alt="" loading="lazy">
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </ul>
                     </div>
@@ -45,7 +48,7 @@
                 <div class="offset-1 col-5">
                     <div class="product__info">
                         <form action="AddToCart" method="post" id="form__product" class="product__form">
-                            <h1 class="product__name">${product.name}</h1>
+                            <h1 class="product__name" id="product__name">${product.name}</h1>
                             <input type="text" hidden="hidden" name="productId" value="${product.id}">
                             <c:forEach var="starA" begin="1" step="1"
                                        end="${productFactory.calculateStar(product.id)}">
@@ -63,11 +66,11 @@
                                                   var="salePrice"/>
                                 <c:choose>
                                     <c:when test="${product.salePrice == 0}">
-                                        <p class="product__price product__price--sale">${originalPrice}</p>
+                                        <p class="product__price product__price--sale hvr-grow">${originalPrice}</p>
                                     </c:when>
                                     <c:otherwise>
-                                        <p class="product__price product__price--sale">${originalPrice}</p>
-                                        <p class="product__price product__price--base">${salePrice}</p>
+                                        <p class="product__price product__price--sale hvr-grow">${originalPrice}</p>
+                                        <p class="product__price product__price--base hvr-bubble-left">${salePrice}</p>
                                     </c:otherwise>
                                 </c:choose>
 
@@ -84,7 +87,8 @@
                                 <c:set var="colors" value="${productFactory.getListColorsByProductId(product.id)}"/>
                                 <div class="form__choose-color">
                                     <c:forEach var="color" items="${colors}">
-                                        <label class="form__color-check" style="background-color: ${color.codeColor}">
+                                        <label class="form__color-check shadow rounded"
+                                               style="background-color: ${color.codeColor}">
                                             <input type="radio" name="color" hidden="hidden" value="${color.codeColor}">
                                         </label>
                                     </c:forEach>
@@ -99,9 +103,10 @@
                                 <c:set var="sizes" value="${productFactory.getListSizesByProductId(product.id)}"/>
                                 <div class="form__size-list">
                                     <c:forEach var="size" items="${sizes}">
-                                        <div class="form__size-item">
+                                        <div class="form__size-item hvr-skew-forward">
                                             <label>
-                                                <input type="radio" name="size" class="form__radio" hidden="hidden" value="${size.nameSize}"
+                                                <input type="radio" name="size" class="form__radio" hidden="hidden"
+                                                       value="${size.nameSize}"
                                                        size-price="${size.sizePrice}" onclick="addSizePrice(this)">
                                                     ${size.nameSize}
                                             </label>
@@ -120,28 +125,30 @@
                             <div class="form__block">
                                 <div class="form__quantity">
                                     <div class="form__quantity-inner">
-                                        <div class=" form___quantity-btn form___quantity--decrease"></div>
+                                        <div class=" form___quantity-btn form___quantity--decrease hvr-bounce-out"></div>
                                         <input id="quantity" type="text" name="quantity" value="1" readonly>
-                                        <div class=" form___quantity-btn form___quantity--increase"></div>
+                                        <div class=" form___quantity-btn form___quantity--increase hvr-bounce-in"></div>
                                     </div>
                                     <p class="form__error"></p>
                                 </div>
                             </div>
 
-                            <a href="${initParam.contextPath}/showProductOrder?id=${product.id}" type="submit" class="form__submit form__submit--order button "
-                                        data="Đặt may theo số đo">
+                            <a href="${initParam.contextPath}/showProductOrder?id=${product.id}" type="submit"
+                               class="form__submit form__submit--order button text-secondary"
+                               data="Đặt may theo số đo">
                             </a>
                             <button type="submit" class="form__submit form__submit--add button "
-                                        data="Thêm vào giỏ hàng">
+                                    data="Thêm vào giỏ hàng">
                             </button>
                         </form>
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-12 mb-5">
+                    <hr/>
 
                     <div class="product__desc-review">
-                        <div class="product__page product__page--clicked">Mô tả</div>
-                        <div class="product__page">Đánh giá</div>
+                        <div class="product__page product__page--clicked hvr-float-shadow">Mô tả</div>
+                        <div class="product__page hvr-float-shadow">Đánh giá</div>
                     </div>
 
                     <!--Desc product-->
@@ -158,10 +165,12 @@
                             <c:when test="${not empty requestScope.listReview}">
                                 <div class="review__list">
                                     <c:forEach var="review" items="${requestScope.listReview}">
-                                        <c:set var="user" value="${userFatory.getUserByIdProductDetail(review.orderDetailId)}"/>
+                                        <c:set var="user"
+                                               value="${userFatory.getUserByIdProductDetail(review.orderDetailId)}"/>
                                         <article class="review">
                                             <div class="review__avatar">
-                                                <img src="${initParam.contextPath}/assets/img/user/${user.avatar}" alt="${user.avatar}"
+                                                <img src="${initParam.contextPath}/assets/img/user/${user.avatar}"
+                                                     alt="${user.avatar}"
                                                      loading="lazy">
                                             </div>
                                             <div class="review__account">
@@ -193,7 +202,7 @@
                             </c:when>
                             <c:otherwise>
                                 <p class="review__empty">
-                                    Sản phẩm này hiện chưa có nhận xét.
+                                    Hãy trở thành người đầu tiên đánh giá sản phẩm.
                                 </p>
                             </c:otherwise>
                         </c:choose>
@@ -202,22 +211,24 @@
 
                 <div class="col-12">
                     <div class="product__related">
-                        <h3>Các sản phẩm liên quan</h3>
-                        <a href="${initParam.contextPath}/productBuying.jsp" class="product__more">Xem thêm
+                        <h3 id="suggest__title">Các sản phẩm liên quan</h3>
+                        <a href="${initParam.contextPath}/productBuying.jsp" class="product__more hvr-forward">Xem thêm
                             <i class="product__more-icon fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
                     <div class="product__list">
                         <c:forEach var="item" items="${requestScope.listProductRelated}">
-                            <div class="product__item">
+                            <div class="product__item hvr-grow-shadow">
                                 <c:set value="${productFactory.getListImagesByProductId(item.id)}"
                                        var="listProductImage"/>
-                                <img src="${initParam.contextPath}/assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
-                                     class="product__img" alt="" loading="lazy"/>
+                                <c:url var="linkProductDetail" value="${initParam.contextPath}/showProductDetail">
+                                    <c:param name="id" value="${item.id}"/>
+                                </c:url>
+                                <a href="${linkProductDetail}">
+                                    <img src="${initParam.contextPath}/assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
+                                         class="product__img" alt="" loading="lazy"/>
+                                </a>
                                 <div class="product__info">
-                                    <c:url var="linkProductDetail" value="${initParam.contextPath}/showProductDetail">
-                                        <c:param name="id" value="${item.id}"/>
-                                    </c:url>
                                     <a class="product__name" target="_self"
                                        href="${linkProductDetail}">${item.name}</a>
                                     <div class="product__review">
@@ -233,7 +244,7 @@
                                         </div>
                                         <a class="product__review-num" target="_blank"
                                            href="${linkProductDetail}">${productFactory.getReviewCount(item.id)} nhận
-                                                                                                                 xét</a>
+                                            xét</a>
                                     </div>
                                     <fmt:formatNumber value="${item.originalPrice}" type="currency" currencyCode="VND"
                                                       var="originalPrice"/>
@@ -259,11 +270,14 @@
 </main>
 <c:import url="${initParam.contextPath}/public/footer.jsp"/>
 <article class="dialog__size-guide"></article>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeit/5.0.2/typeit.min.js"
+        integrity="sha512-izh01C0sD66AuIVp4kRaEsvCSEC5bgs3n8Bm8Db/GhqJWei47La76LGf8Lbm8UHdIOsn+I7SxbeVLKb1k2ExMA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="${initParam.contextPath}/js/base.js"></script>
 <script>
     let useLoggedIn = false;
     <c:if test="${sessionScope.auth != null}">
-        useLoggedIn = true;
+    useLoggedIn = true;
     </c:if>
 </script>
 <script src="${initParam.contextPath}/js/validateForm.js"></script>

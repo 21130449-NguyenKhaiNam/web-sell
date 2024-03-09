@@ -1,7 +1,3 @@
-.main {
-    background-color: var(--blue-color-low);
-}
-
 .separate {
     display: block;
     width: 100%;
@@ -73,6 +69,7 @@
 }
 
 .product__name {
+    min-height: 120px;
     font-size: 35px;
     line-height: 1.67;
     font-weight: 500;
@@ -113,12 +110,19 @@
     font-size: 25px;
 }
 
+.product__price--base:hover.hvr-bubble-left:before {
+    transform: translateX(-25px);
+    border-color: transparent var(--blue-color-low) transparent transparent;
+}
+
+.product__price--base.hvr-bubble-left:before {
+    border-color: transparent;
+}
+
 .form__title {
     font-size: 20px;
     font-weight: 500;
 }
-
-
 
 .form__label {
     font-size: 18px;
@@ -216,7 +220,7 @@ label:has(.form__radio) {
     width: var(--size);
     height: var(--size);
     line-height: var(--size);
-    background-color: #fff;
+    background-color: #ccc;
     border-radius: 5px;
     text-align: center;
 }
@@ -252,6 +256,7 @@ label:has(.form__radio:checked) {
     text-align: center;
     line-height: var(--size);
     background-color: #fff;
+    font-size: 24px;
     color: #000;
 }
 
@@ -353,7 +358,6 @@ label:has(.form__radio:checked) {
 }
 
 .product__page {
-    color: #fff;
     flex: 1;
     text-align: center;
     font-size: 20px;
@@ -380,13 +384,13 @@ label:has(.form__radio:checked) {
 }
 
 .desc__title {
-    font-size: 18px;
+    font-size: 36px;
     font-weight: 500;
 }
 
 .desc__text {
     padding-top: 10px;
-    font-size: 15px;
+    font-size: 30px;
     font-weight: 400;
     line-height: 1.67;
 
@@ -494,7 +498,7 @@ label:has(.form__radio:checked) {
     background: #fff;
     border-radius: 10px;
     text-align: center;
-    font-size: 17px;
+    font-size: 30px;
 }
 /*Modal order products*/
 .modal {
@@ -560,8 +564,7 @@ label:has(.form__radio:checked) {
     margin: 40px 0;
 }
 .product__related h3 {
-    color: #fff;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 500;
 }
 
@@ -596,6 +599,11 @@ label:has(.form__radio:checked) {
     height: unset;
     background-color: #fff;
     border-radius: var(--border-radius);
+    border: 1px solid #d5cdcd;
+}
+
+.product__list .product__item:hover {
+    border: 2px solid var(--blue-color-low);
 }
 
 .product__list .product__img {

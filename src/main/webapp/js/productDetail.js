@@ -1,3 +1,16 @@
+// Animation for head title
+const idTitle = '#product__name'
+new TypeIt(idTitle, {
+    speed: 50,
+    waitUntilVisible: true,
+}).go
+
+// Animation for suggest title
+const idSuggets = '#suggest__title'
+new TypeIt(idSuggets, {
+    speed: 50,
+    waitUntilVisible: true,
+}).go
 
 // Form quantity
 var quantityCurrent = 1;
@@ -59,7 +72,7 @@ function clickTransImg() {
                         productItemOther.classList.remove("product__img-item--clicked");
                     }
                 });
-                productImg.src= imgCurrenct;
+                productImg.src = imgCurrenct;
             }
         }
     })
@@ -117,12 +130,12 @@ var formObj = new Validation({
 //     });
 // }
 
-function addToCartAjax(){
+function addToCartAjax() {
     const form = $('#form__product');
     console.log(useLoggedIn)
-    if(useLoggedIn === false){
+    if (useLoggedIn === false) {
         window.location.href = "signIn.jsp"
-    }else {
+    } else {
         let productId = $(form).find('input[name=productId]').val();
         let quantity = $(form).find('input[name=quantity]').val();
         let size = $(form).find('input[name=size]:checked').val();

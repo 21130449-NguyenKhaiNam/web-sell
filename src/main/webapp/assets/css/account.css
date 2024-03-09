@@ -5,7 +5,6 @@ body{
 .main {
     min-height: 100vh;
     padding: 50px 0;
-    background-color: var(--blue-color-low);
 }
 .service__section {
     padding: 20px 10px;
@@ -43,8 +42,11 @@ body{
     text-transform: uppercase;
     border: 1px solid #000;
     border-radius: 5px;
-    color: #FFFFFF;
     position: relative;
+}
+
+.service__item.hvr-shutter-in-vertical {
+    background: var(--blue-color-low);
 }
 
 .service__item ~ .service__item {
@@ -58,6 +60,7 @@ body{
 
 .service__item.service__item--clicked {
     background-color: var(--blue-color-high);
+    color: #fff;
 }
 
 h1{

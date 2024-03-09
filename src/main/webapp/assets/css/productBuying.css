@@ -23,6 +23,7 @@
     font-weight: 500;
     color: #3f3f3f;
 }
+
 .product__item {
     display: flex;
     flex-direction: column;

@@ -103,15 +103,15 @@
                                         <c:set var="image"
                                                value="${productFactory.getListImagesByProductId(item.id).get(0).nameImage}"/>
                                     </c:if>
+                                    <c:url var="linkProductDetail" value="/showProductDetail">
+                                        <c:param name="id" value="${item.id}"/>
+                                        <c:param name="ten-sapn-pham" value="${item.name}"/>
+                                    </c:url>
                                     <a href="${linkProductDetail}">
                                         <img src="${pageContext.servletContext.contextPath}/assets/img/product_img/${image}"
                                              class="product__img" alt="" loading="lazy"/>
                                     </a>
                                     <div class="product__info">
-                                        <c:url var="linkProductDetail" value="/showProductDetail">
-                                            <c:param name="id" value="${item.id}"/>
-                                            <c:param name="ten-sapn-pham" value="${item.name}"/>
-                                        </c:url>
                                         <a class="product__name" target="_blank"
                                            href="${linkProductDetail}">${item.name}</a>
                                         <div class="product__review">
