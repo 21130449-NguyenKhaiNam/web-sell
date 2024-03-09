@@ -17,9 +17,9 @@
         <div class="row">
             <div class="col-3">
                 <div class="service__list">
-                    <a class="service__item service__item--clicked ">Chỉnh sửa tài khoản</a>
-                    <a class="service__item" href="${initParam.contextPath}/ChangePassword">Đổi mật khẩu</a>
-                    <a class="service__item" href="${initParam.contextPath}/PurchaseHistory">Lịch sử mua hàng</a>
+                    <a class="service__item service__item--clicked">Chỉnh sửa tài khoản</a>
+                    <a class="service__item hvr-shutter-in-vertical" href="${initParam.contextPath}/ChangePassword">Đổi mật khẩu</a>
+                    <a class="service__item hvr-shutter-in-vertical" href="${initParam.contextPath}/PurchaseHistory">Lịch sử mua hàng</a>
                 </div>
             </div>
             <div class="col-9">
@@ -139,6 +139,7 @@
         </div>
     </div>
 </main>
+<c:import url="${initParam.contextPath}/public/footer.jsp"/>
 <script src="${initParam.contextPath}/js/validateForm.js"></script>
 <script src="${initParam.contextPath}/js/data.js"></script>
 <script src="${initParam.contextPath}/js/account.js"></script>

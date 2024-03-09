@@ -19,9 +19,9 @@
         <div class="row">
             <div class="col-3">
                 <div class="service__list">
-                    <a class="service__item" href="${initParam.contextPath}/Account" >Chỉnh sửa tài khoảng</a>
+                    <a class="service__item hvr-shutter-in-vertical" href="${initParam.contextPath}/Account" >Chỉnh sửa tài khoảng</a>
                     <a class="service__item service__item--clicked">Đổi mật khẩu</a>
-                    <a class="service__item" href="${initParam.contextPath}/PurchaseHistory" >Lịch sử mua hàng</a>
+                    <a class="service__item hvr-shutter-in-vertical" href="${initParam.contextPath}/PurchaseHistory" >Lịch sử mua hàng</a>
                 </div>
             </div>
             <div class="col-9">

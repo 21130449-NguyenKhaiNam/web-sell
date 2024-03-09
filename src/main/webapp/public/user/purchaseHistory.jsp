@@ -17,8 +17,8 @@
         <div class="row">
             <div class="col-3">
                 <div class="service__list">
-                    <a class="service__item" href="Account">Chỉnh sửa tài khoản</a>
-                    <a class="service__item" href="ChangePassword">Đổi mật khẩu</a>
+                    <a class="service__item hvr-shutter-in-vertical" href="Account">Chỉnh sửa tài khoản</a>
+                    <a class="service__item hvr-shutter-in-vertical" href="ChangePassword">Đổi mật khẩu</a>
                     <a class="service__item service__item--clicked">Lịch sử mua hàng</a>
                 </div>
             </div>

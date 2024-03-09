@@ -173,7 +173,9 @@
                             <div class="image--tag">
                                 <c:set value="${productFactory.getListImagesByProductId(newProduct.id)}"
                                        var="listNewProductImages"/>
-                                <img src="${initParam.contextPath}/assets/img/product_img/${listNewProductImages.get(0).nameImage}">
+                                <a class="product__name" target="_blank" href="${showProductDetail}">
+                                    <img src="${initParam.contextPath}/assets/img/product_img/${listNewProductImages.get(0).nameImage}">
+                                </a>
                                 <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
                                     <span class="product__tag">Thịnh hành</span>
                                 </c:if>
