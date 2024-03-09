@@ -91,19 +91,22 @@
                         <button class="filter__submit button--hover button" type="submit">Lọc</button>
                     </form>
                 </div>
+
                 <div class="col-9">
                     <c:set var="list" value="${requestScope.productCardList}"/>
                     <c:if test="${not empty list}">
                         <div class="product__list">
                             <c:forEach var="item" items="${list}">
-                                <div class="product__item">
+                                <div class="product__item hvr-grow-shadow">
                                     <c:set var="image" value="undifined"/>
                                     <c:if test="${!productFactory.getListImagesByProductId(item.id).isEmpty()}">
                                         <c:set var="image"
                                                value="${productFactory.getListImagesByProductId(item.id).get(0).nameImage}"/>
                                     </c:if>
-                                    <img src="${pageContext.servletContext.contextPath}/assets/img/product_img/${image}"
-                                         class="product__img" alt="" loading="lazy"/>
+                                    <a href="${linkProductDetail}">
+                                        <img src="${pageContext.servletContext.contextPath}/assets/img/product_img/${image}"
+                                             class="product__img" alt="" loading="lazy"/>
+                                    </a>
                                     <div class="product__info">
                                         <c:url var="linkProductDetail" value="/showProductDetail">
                                             <c:param name="id" value="${item.id}"/>

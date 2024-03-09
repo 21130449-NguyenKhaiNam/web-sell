@@ -1,5 +1,4 @@
 .main {
-    background-color: var(--blue-color-low);
     min-height: 300px;
 }
 
@@ -30,6 +29,11 @@
     height: unset;
     background-color: #fff;
     border-radius: var(--border-radius);
+    border: 1px solid #d5cdcd;
+}
+
+.product__item:hover {
+    border: 2px solid var(--blue-color-low);
 }
 
 .product__img {
@@ -104,6 +108,7 @@
     --border-radius: 5px;
     padding: 10px 15px;
     border-radius: 5px;
+    border: 1px solid #787878;
     background-color: #fff;
     box-shadow: 21px 13px 15px -4px rgba(0, 0, 0, 0.6);
     -webkit-box-shadow: 21px 13px 15px -4px rgba(0, 0, 0, 0.6);
