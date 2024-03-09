@@ -1,7 +1,8 @@
 .frame {
     display: flex;
     align-items: center;
-    background: linear-gradient(114deg, #80B3FF 39.92%, #687EFF 61.2%);
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, var(--blue-color-high) 35%,var(--blue-color-medium) 100%);
 }
 
 .frame__media {
@@ -33,7 +34,7 @@ article {
 }
 
 .form__block ~ .form__block {
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .form__label, .form__link {

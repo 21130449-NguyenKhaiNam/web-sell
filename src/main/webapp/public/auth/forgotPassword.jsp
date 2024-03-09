@@ -12,11 +12,14 @@
 <main class="main">
     <div class="frame">
         <article>
+             <span class="text-cetner mb-3 d-flex justify-content-center hvr-bob">
+                <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
+            </span>
             <form action="forgetPassword" class="form form--forget-password" method="post">
                 <h1 class="heading">Vui lòng nhập email của bạn để lấy lại mật khẩu</h1>
                 <div class="form__block">
                     <label for="email" class="form__label">Email</label>
-                    <input id="email" name="email" type="email" class="form__input">
+                    <input id="email" name="email" type="email" class="form__input mb-3 p-2">
                     <c:set var="emailError" value="${requestScope.emailError}"/>
                     <c:if test="${emailError != null}">
                         <p class="form__error">${emailError}</p>
@@ -26,10 +29,11 @@
                         <p class="form__error">${sendMail}</p>
                     </c:if>
                 </div>
-                <button id="form__submit" type="submit" class="form__submit button button--hover">Lấy lại mật
-                                                                                                  khẩu
+                <button id="form__submit" type="submit" class="form__submit button button--hover">
+                    Lấy lại mật khẩu
                 </button>
             </form>
+            <a href="signIn.jsp" id="form__link--signIn" class="form__link hvr-float-shadow">Đăng nhập</a>
         </article>
         <input type="checkbox" id="modal__hide" class="modal__hide" hidden="hidden" checked>
         <div class="modal">
