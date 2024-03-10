@@ -6,52 +6,35 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="../assets/bootstrap/bootstrap-grid.min.css">
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../assets/favicon/site.webmanifest">
-    <!--Web font-->
-    <link rel="stylesheet" href="../assets/font/webfonts/Montserrat.css">
-    <!--CSS-->
-    <link rel="stylesheet" href="../assets/css/reset.css">
-    <link rel="stylesheet" href="../assets/css/base.css">
-    <link rel="stylesheet" href="../assets/css/admin/admin.css">
-    <link rel="stylesheet" href="../assets/css/admin/dashboard.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
+    <link rel="stylesheet" href="<c:url  value="/assets/css/admin/dashboard.css"/>">
     <title>Dashboard</title>
 </head>
 <body>
-<jsp:include page="../public/header/header.jsp"></jsp:include>
+<c:import url="/public/header.jsp"/>
 <main id="main">
     <nav class="navbar">
         <div class="container-xl">
             <ul class="navbar__list">
                 <li
-                        class="navbar__item"><a href="adminProducts.jsp"
-                                                class="navbar__link button button button--hover ">Sản phẩm</a>
+                        class="navbar__item"><a href="<c:url value="/public/admin/adminProducts.jsp"/>"
+                                                class="navbar__link button button button--hover">Sản
+                    phẩm</a>
                 </li>
-                <li class="navbar__item"><a href="adminOrders.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminOrders.jsp"/>"
                                             class="navbar__link button button button--hover ">Đơn hàng</a>
                 </li>
-                <li class="navbar__item"><a href="AdminUser"
-                                            class="navbar__link button button button--hover ">Khách hàng</a>
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminUsers.jsp"/>"
+                                            class="navbar__link button button button--hover ">Người dùng</a>
                 </li>
-                <li class="navbar__item"><a href="adminReviews.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminReviews.jsp"/>"
                                             class="navbar__link button button button--hover ">Nhận xét</a>
                 </li>
-                <li class="navbar__item"><a href="adminCategories.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminCategories.jsp"/>"
                                             class="navbar__link button button button--hover ">Phân loại</a>
                 </li>
-                <li class="navbar__item"><a href="Dashboard"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/dashboard.jsp" />"
                                             class="navbar__link button button button--hover navbar__link--clicked">Thống kê</a>
                 </li>
             </ul>
@@ -70,7 +53,7 @@
                                     <h3>Người dùng</h3>
                                 </div>
                                 <div class="icon-case">
-                                    <img src="../assets/img/user.png" alt="">
+                                    <img src="<c:url value="/assets/img/user.png" />" alt="">
                                 </div>
                             </div>
                             <div class="card">
@@ -79,7 +62,7 @@
                                     <h3>Sản phẩm</h3>
                                 </div>
                                 <div class="icon-case">
-                                    <img src="../assets/img/product.png" alt="">
+                                    <img src="<c:url value="/assets/img/product.png"/>" alt="">
                                 </div>
                             </div>
                             <div class="card">
@@ -88,7 +71,7 @@
                                     <h3>Đơn hàng</h3>
                                 </div>
                                 <div class="icon-case">
-                                    <img src="../assets/img/orders.png" alt="">
+                                    <img src="<c:url value="/assets/img/orders.png" />" alt="">
                                 </div>
                             </div>
                             <div class="card">
@@ -97,7 +80,7 @@
                                     <h3>Review</h3>
                                 </div>
                                 <div class="icon-case">
-                                    <img src="../assets/img/CountRView.png" alt="">
+                                    <img src="<c:url value="/assets/img/CountRView.png"/>" alt="">
                                 </div>
                             </div>
                         </div>
@@ -124,20 +107,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
 </body>
 <script>
-    let top5NameProduct ="<%=request.getAttribute("nameTop5")%>";
-            console.log(top5NameProduct)
+    let top5NameProduct = "<%=request.getAttribute("nameTop5")%>";
+    console.log(top5NameProduct)
 
-    let top5QuantityProduct ="<%=request.getAttribute("QuantityTop5")%>";
+    let top5QuantityProduct = "<%=request.getAttribute("QuantityTop5")%>";
     console.log(top5QuantityProduct)
 
-    let totalQuantityByMonth ="<%=request.getAttribute("quantityOrderByMonth")%>";
+    let totalQuantityByMonth = "<%=request.getAttribute("quantityOrderByMonth")%>";
     console.log(totalQuantityByMonth)
 
-    let totalRevenueByMonth ="<%=request.getAttribute("revenueOrderByMonth")%>";
+    let totalRevenueByMonth = "<%=request.getAttribute("revenueOrderByMonth")%>";
     console.log(totalRevenueByMonth)
 </script>
-<script src="../js/admin/dashboard.js"></script>
-
-
-
+<script src="<c:url value="/js/admin/dashboard.js" />"></script>
 </html>

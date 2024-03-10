@@ -1,5 +1,6 @@
 package controller.admin.order;
 
+import config.ConfigPage;
 import models.Order;
 import services.AdminOrderServices;
 
@@ -8,7 +9,6 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
-
 @WebServlet(name = "AdminOrders", value = "/AdminOrders")
 public class AdminOrders extends HttpServlet {
     @Override
@@ -40,7 +40,7 @@ public class AdminOrders extends HttpServlet {
         request.setAttribute("listOrdersPerPage", listOrdersPerPage);
         request.setAttribute("servletProcess", getServletName());
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("adminOrders.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.ADMIN_ORDER);
         requestDispatcher.forward(request, response);
     }
 

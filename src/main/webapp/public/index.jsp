@@ -99,7 +99,7 @@
                                 <div class="image--tag">
                                     <c:set value="${productFactory.getListImagesByProductId(trendProduct.id)}"
                                            var="listTrendProductImages"/>
-                                    <img src="${initParam.contextPath}/assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
+                                    <img src="<c:url value="/assets/img/product_img/${listTrendProductImages.get(0).nameImage}"/>">
                                     <span class="product__tag">Thịnh hành</span>
                                     <form action="AddToCart" class="action__bar" method="post">
                                         <input type="hidden" name="productId" value="${trendProduct.id}">
@@ -174,7 +174,7 @@
                                 <div class="image--tag">
                                     <c:set value="${productFactory.getListImagesByProductId(newProduct.id)}"
                                            var="listNewProductImages"/>
-                                    <img src="${initParam.contextPath}/assets/img/product_img/${listNewProductImages.get(0).nameImage}">
+                                    <img src="<c:url value="/assets/img/product_img/${listNewProductImages.get(0).nameImage}"/>">
                                     <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
                                         <span class="product__tag">Thịnh hành</span>
                                     </c:if>
@@ -259,7 +259,7 @@
             <div class="guide__content row">
                 <div class="col">
                     <div class="step__item">
-                        <img src="${initParam.contextPath}/assets/img/step_guide/choose.png">
+                        <img src="<c:url value="/assets/img/step_guide/choose.png"/>">
                         <div class="description_step">
                             <span>Bước 1</span>
                             <p>Chọn một mẫu đồ mà bạn ưng ý</p>
@@ -268,7 +268,7 @@
                 </div>
                 <div class="col">
                     <div class="step__item">
-                        <img src="${initParam.contextPath}/assets/img/step_guide/customize.png">
+                        <img src="<c:url value="/assets/img/step_guide/customize.png"/>">
                         <div class="description_step">
                             <span>Bước 2</span>
                             <p>Tùy chọn size và kiểu dáng phù hợp với nhu cầu của bạn</p>
@@ -277,7 +277,7 @@
                 </div>
                 <div class="col">
                     <div class="step__item">
-                        <img src="${initParam.contextPath}/assets/img/step_guide/checkout.png">
+                        <img src="<c:url value="/assets/img/step_guide/checkout.png"/>">
                         <div class="description_step">
                             <span>Bước 3</span>
                             <p>Tiến hành đặt may và thanh toán</p>
@@ -286,7 +286,7 @@
                 </div>
                 <div class="col">
                     <div class="step__item">
-                        <img src="${initParam.contextPath}/assets/img/step_guide/receive.png">
+                        <img src="<c:url value="/assets/img/step_guide/receive.png"/>">
                         <div class="description_step">
                             <span>Bước 4</span>
                             <p>Chờ nhận hàng sau khi bạn đã thanh toán thành công</p>

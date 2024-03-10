@@ -10,7 +10,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(filterName = "adminReviews", urlPatterns = {"/adminReviews.jsp"})
+@WebFilter(filterName = "adminReviews", urlPatterns = {"/public/admin/adminReviews.jsp"})
 public class AdminReviews implements Filter {
     private final int LIMIT = 15;
     private final int DEFAULT_PAGE = 1;
