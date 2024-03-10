@@ -10,7 +10,7 @@ window.addEventListener('message', function (event) {
 
         function callAjaxRead() {
             $.ajax({
-                url: "admin-read-product?id=" + receivedData.productId,
+                url: "/admin-read-product?id=" + receivedData.productId,
                 type: "POST",
                 contentType: false,
                 processData: false,
@@ -63,12 +63,7 @@ window.addEventListener('message', function (event) {
 
         function fetchImage(name) {
             return new Promise(async (resolve, reject) => {
-                const currentURL = window.location.href;
-                const url = new URL(currentURL);
-                const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
-
-                const imageUrl = `${basePath}/read-image?name=${name}`;
-
+                const imageUrl = `/read-image?name=${name}`;
                 try {
                     const response = await fetch(imageUrl);
 

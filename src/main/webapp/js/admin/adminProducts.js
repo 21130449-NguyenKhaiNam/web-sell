@@ -1,16 +1,3 @@
-// // Date format (now)
-// const dateInputs = document.querySelectorAll(`input[type="date"]`);
-// dateInputs.forEach(function (dateInput) {
-// // Get today's date
-//     const today = new Date();
-//
-// // Format today's date as yyyy-mm-dd (required by input type="date")
-//     const formattedToday = today.toISOString().split('T')[0];
-//
-//     // Set the default value to today's date in dd/mm/yyyy format
-//     dateInput.value = formattedToday;
-// })
-
 //Load page btn
 document.querySelector(".reload__btn").onclick = function () {
     window.location.reload();
@@ -31,7 +18,7 @@ elementCloseRead.onclick = function () {
 };
 
 dataViewElement.forEach(function (element) {
-    const pageTarget = `${window.location.origin}/adminProductForm.jsp`;
+    const pageTarget = `${window.location.origin}/public/admin/adminProductForm.jsp`;
     element.onclick = function () {
         // Open dialog
         modalRead.style.display = "block";
@@ -59,7 +46,7 @@ if (role == 2){
     }
 
     modalCreateBtn.onclick = function () {
-        const pageTarget = `${window.location.origin}/adminProductForm.jsp`;
+        const pageTarget = `${window.location.origin}/public/admin/adminProductForm.jsp`;
         modalCreate.style.display = "block";
         // Send via iframe
         iframeCreate.contentWindow.postMessage({
@@ -80,7 +67,7 @@ elementCloseUpdate.onclick = function () {
 
 dataUpdateElement.forEach(function (element) {
     element.onclick = function () {
-        const pageTarget = `${window.location.origin}/adminProductUpdateForm.jsp`;
+        const pageTarget = `${window.location.origin}/public/admin/adminProductUpdateForm.jsp`;
         // Open dialog
         modalUpdate.style.display = "block";
 

@@ -5,14 +5,13 @@ import services.ProductCardServices;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
 @WebFilter(
         servletNames = {"formSearch"},
         urlPatterns = {"/public/product/productBuying.jsp",
-                "/adminProducts.jsp",
+                "/public/admin/adminProducts.jsp",
                 "/filterProductBuying",
                 "/filterProductAdmin"})
 public class FormSearch implements Filter {

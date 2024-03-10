@@ -1,5 +1,6 @@
 package controller.admin.order;
 
+import config.ConfigPage;
 import models.*;
 import services.AdminOrderServices;
 
@@ -56,7 +57,7 @@ public class SearchOrderByCustomerName extends HttpServlet {
         request.setAttribute("searchSelected", searchSelected);
         request.setAttribute("startDateFiltered", startDateFiltered);
         request.setAttribute("endDateFiltered", endDateFiltered);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("adminOrders.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.ADMIN_ORDER);
         requestDispatcher.forward(request, response);
     }
 

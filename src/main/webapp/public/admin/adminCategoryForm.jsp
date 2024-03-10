@@ -2,37 +2,15 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
-    <%--jquery--%>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <jsp:include page="/public/commonLink.jsp"/>
     <!--CK Editor-->
-    <script src="ckeditor/ckeditor.js"></script>
+    <script src="<c:url value="/ckeditor/ckeditor.js"/>"></script>
     <!--Ck Finder-->
-    <script src="ckfinder/ckfinder.js"></script>
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicon/site.webmanifest">
-    <!--Web font-->
-    <link rel="stylesheet" href="assets/font/webfonts/Montserrat.css">
-    <!--CSS-->
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/admin/admin.css">
-    <link rel="stylesheet" href="assets/css/admin/adminProducts.css">
-    <link rel="stylesheet" href="assets/css/admin/adminCategoryForm.css">
-    <link rel="stylesheet" href="assets/css/notify.css">
+    <script src="<c:url value="/ckfinder/ckfinder.js"/>"></script>
+    <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css" />">
+    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">
+    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminCategoryForm.css"/>">
+    <link rel="stylesheet" href="<c:url value="/assets/css/notify.css"/>">
     <title></title>
 </head>
 <body>
@@ -50,7 +28,8 @@
                                 </div>
                             </div>
                             <div class="category__block">
-                                <input type="text" name="nameCategory" id="nameCategory" class="category__name category__input">
+                                <input type="text" name="nameCategory" id="nameCategory"
+                                       class="category__name category__input">
                                 <p class="category__error"></p>
                             </div>
                         </label>
@@ -82,7 +61,8 @@
                                         </div>
                                     </div>
                                     <div class="category__block">
-                                        <input name="nameParameter" id="nameParameter" type="text" class="category__name category__input">
+                                        <input name="nameParameter" id="nameParameter" type="text"
+                                               class="category__name category__input">
                                         <p class="category__error"></p>
                                     </div>
                                 </label>
@@ -106,7 +86,8 @@
                                         </div>
                                     </div>
                                     <div class="category__block">
-                                        <input type="text" name="minValue" id="minValue" class="category__name category__input">
+                                        <input type="text" name="minValue" id="minValue"
+                                               class="category__name category__input">
                                         <p class="category__error"></p>
                                     </div>
                                 </label>
@@ -118,7 +99,8 @@
                                         </div>
                                     </div>
                                     <div class="category__block">
-                                        <input type="text" name="maxValue" id="maxValue" class="category__name category__input">
+                                        <input type="text" name="maxValue" id="maxValue"
+                                               class="category__name category__input">
                                         <p class="category__error"></p>
                                     </div>
                                 </label>
@@ -132,7 +114,8 @@
                                 </div>
                                 <div class="category__block">
                                     <label class="category__file">
-                                        <input id="guideImg" name="guideImg" type="file" accept="image/*" hidden="hidden">
+                                        <input id="guideImg" name="guideImg" type="file" accept="image/*"
+                                               hidden="hidden">
                                     </label>
                                     <p class="category__error"></p>
                                 </div>
@@ -144,7 +127,8 @@
                     <div class="button button--hover parameter__add">
                         <i class="fa-solid fa-plus parameter__add-icon"></i> Thêm thông số
                     </div>
-                    <button type="submit" id="form__submit" class="button__submit button button--hover button--hover parameter__add">
+                    <button type="submit" id="form__submit"
+                            class="button__submit button button--hover button--hover parameter__add">
                         Tạo phân loại
                     </button>
                 </div>
@@ -154,8 +138,8 @@
 </main>
 <div class="toast__list">
 </div>
-<script src="js/validateForm.js"></script>
-<script src="js/notify.js"></script>
-<script src="js/admin/adminCategoryForm.js"></script>
+<script src="<c:url value="/js/validateForm.js"/>"></script>
+<script src="<c:url value="/js/notify.js"/>"></script>
+<script src="<c:url value="/js/admin/adminCategoryForm.js"/>"></script>
 </body>
 </html>
