@@ -1,4 +1,4 @@
-package controller.checkout;
+package controller.api.checkout;
 
 import models.PaymentMethod;
 import models.DeliveryMethod;

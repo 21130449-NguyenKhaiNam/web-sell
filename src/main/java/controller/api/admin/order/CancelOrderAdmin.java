@@ -1,4 +1,4 @@
-package controller.admin.order;
+package controller.api.admin.order;
 
 import models.Order;
 import models.OrderStatus;

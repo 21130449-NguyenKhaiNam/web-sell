@@ -1,4 +1,4 @@
-package controller.checkout;
+package controller.api.checkout;
 
 import org.json.JSONObject;
 
@@ -15,10 +15,6 @@ public class PlaceOrderController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-//        HttpSession session = request.getSession(true);
-//        User userAuth = (User) session.getAttribute("auth");
-//        String userIdCart = String.valueOf(userAuth.getId());
-//        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         int invoiceNo = Math.abs(UUID.randomUUID().hashCode());
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("invoiceNo", invoiceNo);

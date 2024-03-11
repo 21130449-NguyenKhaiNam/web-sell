@@ -17,13 +17,13 @@
                     <p class="error__detail">Tài nguyên này có thể đã bị xóa hoặc không tồn tại, bạn nên quay trở lại
                         trang
                         chủ.</p>
-                    <a href="../index.jsp" class="button button--hover error__button">
+                    <a href="<c:url value="/public/index.jsp"/>" class="button button--hover error__button">
                         <i class="fa-solid fa-arrow-left"></i>
                         Trang chủ
                     </a>
                 </div>
                 <div class="col-6">
-                    <img src="<c:url value="/assets/img/error404.png" />" alt="">
+                    <img src="<c:url value="/assets/img/error404.png"/>" alt="">
                 </div>
             </div>
         </div>

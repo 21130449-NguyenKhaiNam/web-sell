@@ -23,31 +23,24 @@ public class AdminOrders implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
-        HttpSession session = request.getSession();
-        User userAuth = (User) session.getAttribute("auth");
-
-        if (userAuth == null) {
-            response.sendRedirect(ConfigPage.DOMAIN + ConfigPage.SIGN_IN);
+        String url = request.getServletPath();
+        if (url.contains("adminOrders.jsp")) {
+            response.sendRedirect(request.getContextPath() + "/AdminOrders");
         } else {
-            String url = request.getServletPath();
-            if (url.contains("adminOrders.jsp")) {
-                response.sendRedirect(request.getContextPath() + "/AdminOrders");
-            } else {
-                List<OrderStatus> listAllOrderStatus = AdminOrderServices.getINSTANCE().getListAllOrderStatus();
-                request.setAttribute("listAllOrderStatus", listAllOrderStatus);
+            List<OrderStatus> listAllOrderStatus = AdminOrderServices.getINSTANCE().getListAllOrderStatus();
+            request.setAttribute("listAllOrderStatus", listAllOrderStatus);
 
-                List<TransactionStatus> listAllTransactionStatus = AdminOrderServices.getINSTANCE().getListAllTransactionStatus();
-                request.setAttribute("listAllTransactionStatus", listAllTransactionStatus);
+            List<TransactionStatus> listAllTransactionStatus = AdminOrderServices.getINSTANCE().getListAllTransactionStatus();
+            request.setAttribute("listAllTransactionStatus", listAllTransactionStatus);
 
-                List<DeliveryMethod> listAllDeliveryMethodManage = AdminOrderServices.getINSTANCE().getListAllDeliveryMethodManage();
-                request.setAttribute("listAllDeliveryMethodManage", listAllDeliveryMethodManage);
+            List<DeliveryMethod> listAllDeliveryMethodManage = AdminOrderServices.getINSTANCE().getListAllDeliveryMethodManage();
+            request.setAttribute("listAllDeliveryMethodManage", listAllDeliveryMethodManage);
 
-                List<PaymentMethod> listAllPaymentMethodManage = AdminOrderServices.getINSTANCE().getListAllPaymentMethodManage();
-                request.setAttribute("listAllPaymentMethodManage", listAllPaymentMethodManage);
-            }
-            filterChain.doFilter(request, response);
+            List<PaymentMethod> listAllPaymentMethodManage = AdminOrderServices.getINSTANCE().getListAllPaymentMethodManage();
+            request.setAttribute("listAllPaymentMethodManage", listAllPaymentMethodManage);
         }
+        filterChain.doFilter(request, response);
+
     }
 
     @Override

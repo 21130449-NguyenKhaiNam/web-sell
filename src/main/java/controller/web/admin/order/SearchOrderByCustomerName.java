@@ -1,4 +1,4 @@
-package controller.admin.order;
+package controller.web.admin.order;
 
 import config.ConfigPage;
 import models.*;
@@ -11,10 +11,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "SearchFilterOrderById", value = "/SearchFilterOrderById")
-public class SearchFilterOrderById extends HttpServlet {
-
-    //Forward từ 1 servlet sang 1 servlet thì xử lý cùng kiểu method (POST hoặc GET)
+@WebServlet(name = "SearchOrderByCustomerName", value = "/SearchOrderByCustomerName")
+public class SearchOrderByCustomerName extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String contentSearch = (String) request.getAttribute("contentSearch");
@@ -24,10 +22,10 @@ public class SearchFilterOrderById extends HttpServlet {
         String startDateFiltered = (String) request.getAttribute("startDateFilter");
         String endDateFiltered = (String) request.getAttribute("endDateFilter");
 
-        List<Order> listOrderById = AdminOrderServices.getINSTANCE().getListOrdersBySearchFilter(mapOrderFilter, contentSearch, searchSelected, startDateFiltered, endDateFiltered);
+        List<Order> listOrderByCustomerName = AdminOrderServices.getINSTANCE().getListOrdersBySearchFilter(mapOrderFilter, contentSearch, searchSelected, startDateFiltered, endDateFiltered);
 
         int page = 0, itemsPerPage = 8;
-        int size = listOrderById.size();
+        int size = listOrderByCustomerName.size();
         int totalPage = (size % itemsPerPage == 0 ? (size / itemsPerPage) : ((size / itemsPerPage)) + 1);
 
         String xPage = request.getParameter("page");
@@ -44,7 +42,7 @@ public class SearchFilterOrderById extends HttpServlet {
         int start, end;
         start = (page - 1) * itemsPerPage;
         end = Math.min(page * itemsPerPage, size);
-        List<Order> listOrdersPerPage = getListOrdersPerPage(listOrderById, start, end);
+        List<Order> listOrdersPerPage = getListOrdersPerPage(listOrderByCustomerName, start, end);
 
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
@@ -63,10 +61,6 @@ public class SearchFilterOrderById extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    private List<Order> getListOrdersPerPage(List<Order> listOrderById, int start, int end) {
-        return listOrderById.subList(start, end);
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
@@ -75,5 +69,9 @@ public class SearchFilterOrderById extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
+    }
+
+    private List<Order> getListOrdersPerPage(List<Order> listOrderByCustomerName, int start, int end) {
+        return listOrderByCustomerName.subList(start, end);
     }
 }

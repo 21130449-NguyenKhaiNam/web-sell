@@ -1,4 +1,4 @@
-package controller.admin.order;
+package controller.web.admin.order;
 
 import config.ConfigPage;
 import models.Order;

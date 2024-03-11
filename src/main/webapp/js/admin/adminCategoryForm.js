@@ -239,7 +239,7 @@ window.addEventListener('message', function (event) {
         document.getElementById("form__submit").innerText = "Cập nhật phân loại";
         const categoryId = receivedData.categoryId;
         $.ajax({
-            url: "admin-read-category?categoryId=" + categoryId,
+            url: "/admin-read-category?categoryId=" + categoryId,
             type: "GET",
             contentType: false,
             processData: false,
@@ -315,7 +315,7 @@ window.addEventListener('message', function (event) {
     function create() {
         let category = new FormData(form);
         $.ajax({
-            url: "admin-create-category",
+            url: "/admin-create-category",
             type: "POST",
             contentType: false,
             processData: false,
@@ -344,7 +344,7 @@ window.addEventListener('message', function (event) {
         let category = new FormData(form);
         category.append("categoryId", receivedData.categoryId)
         $.ajax({
-            url: "admin-update-category",
+            url: "/admin-update-category",
             type: "POST",
             contentType: false,
             processData: false,

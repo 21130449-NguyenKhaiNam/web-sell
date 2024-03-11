@@ -1,4 +1,4 @@
-package controller.checkout;
+package controller.api.checkout;
 
 import models.DeliveryInfo;
 import models.DeliveryInfoStorage;
@@ -27,43 +27,9 @@ public class AddDeliveryInfoController extends HttpServlet {
         String address = (String) request.getAttribute("address");
 
         JSONObject errorFields = new JSONObject();
-//        boolean isRegisterValid = true;
 
         HttpSession session = request.getSession(true);
         DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
-//        if(deliveryInfoStorage == null){
-//            deliveryInfoStorage = new DeliveryInfoStorage();
-//            session.setAttribute("deliveryInfoStorage", deliveryInfoStorage);
-//        }
-
-//        if (fullName.isEmpty() || address.isEmpty()) {
-//            isRegisterValid = false;
-//            if (fullName.isEmpty()) {
-//                errorFields.put("fullNameError", "Vui lòng bạn nhập họ và tên");
-//            }
-//
-//            if (address.isEmpty()) {
-//                errorFields.put("addressError", "Vui lòng bạn nhập địa chỉ giao hàng");
-//            }
-//        }
-//
-//        if (email.isEmpty() || !isValidEmail(email)) {
-//            isRegisterValid = false;
-//            if (email.isEmpty()) {
-//                errorFields.put("emailError", "Vui lòng bạn nhập email");
-//            } else if (!isValidEmail(email)) {
-//                errorFields.put("emailError", "Vui lòng bạn nhập email hơp lệ (Cấu trúc email: tên_email@tên_miền)\nVí dụ: yourname@example.com");
-//            }
-//        }
-//
-//        if (phone.isEmpty() || !isValidPhone(phone)) {
-//            isRegisterValid = false;
-//            if (phone.isEmpty()) {
-//                errorFields.put("phoneError", "Vui lòng bạn nhập số điện thoại");
-//            } else if (!isValidPhone(phone)) {
-//                errorFields.put("phoneError", "Vui lòng bạn nhập số điện thoại hợp lệ (Số điện thoại gồm 10 bắt đầu bằng số 0)");
-//            }
-//        }
 
         boolean isRegisterValid = deliveryInfoStorage.checkAllValidationDeliveryInfo(errorFields, fullName, email, phone, address);
 

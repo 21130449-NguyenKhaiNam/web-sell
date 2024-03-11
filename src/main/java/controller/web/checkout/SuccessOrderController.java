@@ -1,4 +1,4 @@
-package controller.checkout;
+package controller.web.checkout;
 
 import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.CartProduct;
