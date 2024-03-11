@@ -12,6 +12,7 @@ new TypeIt(idSuggets, {
     waitUntilVisible: true,
 }).go
 
+
 // Form quantity
 var quantityCurrent = 1;
 var quantityInput = document.querySelector("#quantity");
@@ -72,6 +73,7 @@ function clickTransImg() {
                         productItemOther.classList.remove("product__img-item--clicked");
                     }
                 });
+
                 productImg.src = imgCurrenct;
             }
         }

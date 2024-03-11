@@ -1,5 +1,6 @@
 package controller.account;
 
+import config.ConfigPage;
 import models.Order;
 import models.OrderDetail;
 import models.User;
@@ -54,7 +55,7 @@ public class PurchaseHistory extends HttpServlet {
         }
         request.setAttribute("listPurchaseHistory", listOrderDetail);
         request.setAttribute("tag", statusString);
-        request.getRequestDispatcher("purchaseHistory.jsp").forward(request, response);
+        request.getRequestDispatcher(ConfigPage.USER_PURCHASE_HISTORY).forward(request, response);
     }
 
     @Override

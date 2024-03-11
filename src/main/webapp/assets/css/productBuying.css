@@ -5,6 +5,7 @@
 .products {
     padding: 100px 0;
 }
+
 .product__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -84,11 +85,13 @@
     color: #F7B500;
     font-size: 16px;
 }
-.product__review-num{
+
+.product__review-num {
     font-size: 16px;
     color: #687EFF;
 }
-.product__price{
+
+.product__price {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -159,6 +162,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
+
 .filter__radio-item {
     display: flex;
     justify-content: flex-start;
@@ -184,11 +188,11 @@
     display: none;
 }
 
-.filter__radio-item .filter__radio:checked + .filter-radio__icon-wrapper .filter-radio__icon {
+.filter__radio-item .filter__radio:checked+.filter-radio__icon-wrapper .filter-radio__icon {
     display: block;
 }
 
-.filter__radio-item .filter__radio:checked + .filter-radio__icon-wrapper {
+.filter__radio-item .filter__radio:checked+.filter-radio__icon-wrapper {
     background-color: blue;
 }
 
@@ -207,7 +211,7 @@
     gap: 10px;
 }
 
-.filter__color:checked + .filter__color-show {
+.filter__color:checked+.filter__color-show {
     border: 2px solid var(--blue-color-medium);
 }
 
@@ -219,7 +223,8 @@
 
 }
 
-.filter__submit, .filter__reset {
+.filter__submit,
+.filter__reset {
     margin-top: 20px;
     --width: 100%;
     height: 40px;
