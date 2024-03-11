@@ -4,7 +4,7 @@
 
         <head>
             <jsp:include page="/public/commonLink.jsp" />
-            <link rel="stylesheet" href="${initParam.contextPath}/assets/css/verify.css">
+            <link rel="stylesheet" href="<c:url value=" /assets/css/verify.css" />">
         </head>
 
         <body>

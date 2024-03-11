@@ -61,7 +61,6 @@ public class AddToCartController extends HttpServlet {
             cart.add(productId, quantityRequired, color, size);
             cartProductCount = cart.getTotalItems();
             session.setAttribute(userIdCart, cart);
-//            response.sendRedirect("index.jsp");
 
             response.getWriter().write(String.valueOf(cartProductCount));
         }
