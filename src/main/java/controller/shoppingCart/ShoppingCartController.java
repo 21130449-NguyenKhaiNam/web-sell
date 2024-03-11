@@ -49,23 +49,6 @@ public class ShoppingCartController extends HttpServlet {
                     break;
                 }
             }
-//            if (action.equals("increaseQuantity")) {
-//                requestDispatcher = request.getRequestDispatcher("IncreaseQuantity");
-//                requestDispatcher.forward(request, response);
-//            } else if (action.equals("decreaseQuantity")) {
-//                requestDispatcher = request.getRequestDispatcher("DecreaseQuantity");
-//                requestDispatcher.forward(request, response);
-//            } else if (action.equals("removeCartProduct")) {
-//                requestDispatcher = request.getRequestDispatcher("DeleteCartProduct");
-//                requestDispatcher.forward(request, response);
-//            } else if (action.equals("applyVoucher")) {
-//                String promotionCode = request.getParameter("promotionCode");
-//                double temporaryPrice = Double.parseDouble(request.getParameter("temporaryPrice"));
-//                request.setAttribute("promotionCode", promotionCode);
-//                request.setAttribute("temporaryPrice", temporaryPrice);
-//                requestDispatcher = request.getRequestDispatcher("ApplyVoucher");
-//                requestDispatcher.forward(request, response);
-//            }
         }
     }
 

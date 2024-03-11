@@ -1,4 +1,4 @@
-package controller.checkout;
+package controller.api.checkout;
 
 import models.DeliveryInfo;
 import models.DeliveryInfoStorage;
