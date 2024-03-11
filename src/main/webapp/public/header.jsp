@@ -65,39 +65,39 @@
                                                     </span>
                                                     </a>
                                                 </div>
-                                                <<<<<<< HEAD=======>>>>>>> f41c717c858d51c2af80ad58f5ddb81a8e70cef3
-                                                    <div class="account">
-                                                        <i class="account__icon fa-regular fa-user"></i>
-                                                        <div class="setting__list">
-                                                            <a href="<c:url value=" /Account" />" class="setting__item">
-                                                            <div class="setting__link">
-                                                                <div class="account__info">
-                                                                    <i class="account__icon fa-regular fa-user"></i>
-                                                                    <p class="account__name">
-                                                                        ${auth.getUsername()}
-                                                                    </p>
-                                                                </div>
+
+                                                <div class="account">
+                                                    <i class="account__icon fa-regular fa-user"></i>
+                                                    <div class="setting__list">
+                                                        <a href="<c:url value=" /Account" />" class="setting__item">
+                                                        <div class="setting__link">
+                                                            <div class="account__info">
+                                                                <i class="account__icon fa-regular fa-user"></i>
+                                                                <p class="account__name">
+                                                                    ${auth.getUsername()}
+                                                                </p>
                                                             </div>
-                                                            </a>
-                                                            <a href="<c:url value=" /Account" />" class="setting__item">
-                                                            <div class="setting__link">Tài khoản của tôi
-                                                            </div>
-                                                            </a>
-                                                            <c:if test="${auth.role == 2 || auth.role == 1}">
-                                                                <a href="<c:url value=" admin/adminProducts.jsp" />"
-                                                                class="setting__item">
-                                                                <div class="setting__link">Quản
-                                                                    lý
-                                                                </div>
-                                                            </c:if>
-                                                            <a href="<c:url value=" /signOut" />" class="setting__item
-                                                            ">
-                                                            <div class="setting__link setting__logOut">Đăng
-                                                                xuất
-                                                            </div>
-                                                            </a>
                                                         </div>
+                                                        </a>
+                                                        <a href="<c:url value=" /Account" />" class="setting__item">
+                                                        <div class="setting__link">Tài khoản của tôi
+                                                        </div>
+                                                        </a>
+                                                        <c:if test="${auth.role == 2 || auth.role == 1}">
+                                                            <a href="<c:url value=" /public/admin/adminProducts.jsp" />"
+                                                            class="setting__item">
+                                                            <div class="setting__link">Quản
+                                                                lý
+                                                            </div>
+                                                        </c:if>
+                                                        <a href="<c:url value=" /signOut" />" class="setting__item
+                                                        ">
+                                                        <div class="setting__link setting__logOut">Đăng
+                                                            xuất
+                                                        </div>
+                                                        </a>
                                                     </div>
+                                                </div>
                                             </div>
                                         </c:otherwise>
                                     </c:choose>

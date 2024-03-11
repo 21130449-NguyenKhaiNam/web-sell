@@ -8,55 +8,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
-    <!--Jquery-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
-    <!--Web font-->
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
-    <!--CSS-->
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/admin/admin.css">
-    <link rel="stylesheet" href="../../assets/css/productBuying.css">
-    <link rel="stylesheet" href="../../assets/css/admin/adminProducts.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
+    <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/> ">
+    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css" />">
     <title>Quản lý sản phẩm</title>
 </head>
 <body>
-<jsp:include page="../public/header/header.jsp"></jsp:include>
+<c:import url="/public/header.jsp"/>
 <main id="main">
     <nav class="navbar">
         <div class="container-xl">
             <ul class="navbar__list">
                 <li
-                        class="navbar__item"><a href="adminProducts.jsp"
-                                                class="navbar__link button button button--hover navbar__link--clicked">Sản phẩm</a>
+                        class="navbar__item"><a href="<c:url value="/public/admin/adminProducts.jsp" />"
+                                                class="navbar__link button button button--hover navbar__link--clicked">Sản
+                    phẩm</a>
                 </li>
-                <li class="navbar__item"><a href="adminOrders.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminOrders.jsp"/>"
                                             class="navbar__link button button button--hover ">Đơn hàng</a>
                 </li>
-                <li class="navbar__item"><a href="AdminUser"
-                                            class="navbar__link button button button--hover ">Khách hàng</a>
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminUsers.jsp"/>"
+                                            class="navbar__link button button button--hover ">Người dùng</a>
                 </li>
-                <li class="navbar__item"><a href="adminReviews.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminReviews.jsp"/>"
                                             class="navbar__link button button button--hover ">Nhận xét</a>
                 </li>
-                <li class="navbar__item"><a href="adminCategories.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminCategories.jsp"/>"
                                             class="navbar__link button button button--hover ">Phân loại</a>
                 </li>
-                <li class="navbar__item"><a href="Dashboard"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/dashboard.jsp" />"
                                             class="navbar__link button button button--hover ">Thống kê</a>
                 </li>
             </ul>
@@ -282,7 +263,8 @@
             <h1>Xem sản phẩm</h1>
             <i class="modal__product-close fa-solid fa-xmark"></i>
         </div>
-        <iframe class="modal__product-iframe" src="adminProductForm.jsp" frameborder="0"></iframe>
+        <iframe class="modal__product-iframe" src="<c:url value="/public/admin/adminProductForm.jsp"/>"
+                frameborder="0"></iframe>
     </article>
     <div class="modal__blur"></div>
 </div>
@@ -292,7 +274,8 @@
             <h1>Thêm sản phẩm</h1>
             <i class="modal__product-close fa-solid fa-xmark"></i>
         </div>
-        <iframe class="modal__product-iframe" src="adminProductForm.jsp" frameborder="0"></iframe>
+        <iframe class="modal__product-iframe" src="<c:url value="/public/admin/adminProductForm.jsp"/>"
+                frameborder="0"></iframe>
     </article>
     <div class="modal__blur"></div>
 </div>
@@ -302,14 +285,15 @@
             <h1>Cập nhập sản phẩm</h1>
             <i class="modal__product-close fa-solid fa-xmark"></i>
         </div>
-        <iframe class="modal__product-iframe" src="adminProductUpdateForm.jsp" frameborder="0"></iframe>
+        <iframe class="modal__product-iframe" src="<c:url value="/public/admin/adminProductUpdateForm.jsp"/>"
+                frameborder="0"></iframe>
     </article>
     <div class="modal__blur"></div>
 </div>
 <script>
     const role = "<%=((User)session.getAttribute("auth")).getRole()%>";
 </script>
-<script src="../../js/admin/adminProducts.js"></script>
+<script src="<c:url value="/js/admin/adminProducts.js"/>"></script>
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
     Object keyword = request.getAttribute("keyword");

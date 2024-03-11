@@ -46,19 +46,7 @@
 
                 function startTimer() {
 
-                    const countdown = setInterval(() => {
-                        countdownSeconds--;
-                        timerDisplay.innerText = countdownSeconds + "s";
-
-                        if (countdownSeconds <= 0) {
-                            clearInterval(countdown);
-                            window.location.href = '${initParam.contextPath}/public/index.jsp';
-                        }
-                    }, 1000);
-                }
-
-                startTimer();
-            </script>
+                    startTimer();
             </script>
 
             </html>

@@ -5,8 +5,8 @@
 
         <head>
             <jsp:include page="/public/commonLink.jsp" />
-            <link rel="stylesheet" href="${initParam.contextPath}/assets/css/logIn.css">
-            <link rel="stylesheet" href="${initParam.contextPath}/assets/css/forgetPassword.css">
+            <link rel="stylesheet" href="<c:url value=" /assets/css/logIn.css" />">
+            <link rel="stylesheet" href="<c:url value=" /assets/css/forgetPassword.css" />">
             <title>Quên mật khẩu</title>
         </head>
 

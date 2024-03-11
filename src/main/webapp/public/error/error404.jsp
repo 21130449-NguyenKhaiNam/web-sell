@@ -20,9 +20,10 @@
                                     quay trở lại
                                     trang
                                     chủ.</p>
-                                <a href="../index.jsp" class="button button--hover error__button">
-                                    <i class="fa-solid fa-arrow-left"></i>
-                                    Trang chủ
+                                <a href="<c:url value=" /public/index.jsp" />" class="button button--hover
+                                error__button">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                Trang chủ
                                 </a>
                             </div>
                             <div class="col-6">

@@ -16,7 +16,7 @@
 
 <head>
     <jsp:include page="commonLink.jsp"/>
-    <link rel="stylesheet" href="<c:url value=" ${pageContext.servletConfig}/assets/css/home.css" />">
+    <link rel="stylesheet" href="<c:url value="${pageContext.servletConfig}/assets/css/home.css" />">
     <title>Trang chủ</title>
 </head>
 
@@ -333,8 +333,8 @@
         <div class="guide__content row">
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img
-                            src="${initParam.contextPath}/assets/img/step_guide/choose.png">
+                    <img src="<c:url value="
+                                                                        /assets/img/step_guide/choose.png" />">
                     <div class="description_step">
                         <span>Bước 1</span>
                         <p>Chọn một mẫu đồ mà bạn ưng ý</p>
@@ -343,8 +343,8 @@
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img
-                            src="${initParam.contextPath}/assets/img/step_guide/customize.png">
+                    <img src="<c:url value="
+                                                                        /assets/img/step_guide/customize.png" />">
                     <div class="description_step">
                         <span>Bước 2</span>
                         <p>Tùy chọn size và kiểu dáng phù hợp với nhu
@@ -354,8 +354,8 @@
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img
-                            src="${initParam.contextPath}/assets/img/step_guide/checkout.png">
+                    <img src="<c:url value="
+                                                                        /assets/img/step_guide/checkout.png" />">
                     <div class="description_step">
                         <span>Bước 3</span>
                         <p>Tiến hành đặt may và thanh toán</p>
@@ -364,8 +364,8 @@
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img
-                            src="${initParam.contextPath}/assets/img/step_guide/receive.png">
+                    <img src="<c:url value="
+                                                                        /assets/img/step_guide/receive.png" />">
                     <div class="description_step">
                         <span>Bước 4</span>
                         <p>Chờ nhận hàng sau khi bạn đã thanh toán thành

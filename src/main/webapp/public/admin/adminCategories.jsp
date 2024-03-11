@@ -2,64 +2,42 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
-    <%--jquery--%>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <jsp:include page="/public/commonLink.jsp"/>
     <!--CK Editor-->
-    <script src="../../ckeditor/ckeditor.js"></script>
+    <script src="<c:url value="/ckeditor/ckeditor.js"/>"></script>
     <!--Ck Finder-->
-    <script src="../../ckfinder/ckfinder.js"></script>
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
-    <!--Web font-->
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
-    <!--CSS-->
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/admin/admin.css">
-    <link rel="stylesheet" href="../../assets/css/admin/adminProducts.css">
-    <link rel="stylesheet" href="../../assets/css/admin/adminCategories.css">
+    <script src="<c:url value="/ckfinder/ckfinder.js"/>"></script>
+    <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css" />">
+    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">
+    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminCategories.css"/>">
 
     <title>Quản lý phân loại</title>
 </head>
 <body>
 <c:set var="listCategory" value="${requestScope.listCategory}"/>
-<jsp:include page="../public/header/header.jsp"></jsp:include>
+<c:import url="/public/header.jsp"/>
 <main class="main">
     <nav class="navbar">
         <div class="container-xl">
             <ul class="navbar__list">
                 <li
-                        class="navbar__item"><a href="adminProducts.jsp"
-                                                class="navbar__link button button button--hover">Sản phẩm</a>
+                        class="navbar__item"><a href="<c:url value="/public/admin/adminProducts.jsp" />"
+                                                class="navbar__link button button button--hover ">Sản
+                    phẩm</a>
                 </li>
-                <li class="navbar__item"><a href="adminOrders.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminOrders.jsp"/>"
                                             class="navbar__link button button button--hover ">Đơn hàng</a>
                 </li>
-                <li class="navbar__item"><a href="AdminUser"
-                                            class="navbar__link button button button--hover ">Khách
-                                                                                              hàng</a>
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminUsers.jsp"/>"
+                                            class="navbar__link button button button--hover ">Người dùng</a>
                 </li>
-                <li class="navbar__item"><a href="adminReviews.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminReviews.jsp"/>"
                                             class="navbar__link button button button--hover ">Nhận xét</a>
                 </li>
-                <li class="navbar__item"><a href="adminCategories.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminCategories.jsp"/>"
                                             class="navbar__link button button button--hover navbar__link--clicked">Phân loại</a>
                 </li>
-                <li class="navbar__item"><a href="Dashboard"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/dashboard.jsp" />"
                                             class="navbar__link button button button--hover ">Thống kê</a>
                 </li>
             </ul>
@@ -71,12 +49,12 @@
                 <div>
                     <h1>Danh sách phân loại</h1>
                     <span class="reload__btn">
-                        <i class="reload__icon fa-solid fa-rotate"></i>
-                    </span>
+    <i class="reload__icon fa-solid fa-rotate"></i>
+    </span>
                     <span id="button-create-category" class="button button__add">
-                        <i class="fa-solid fa-plus"></i>
-                      Thêm phân loại
-                    </span>
+    <i class="fa-solid fa-plus"></i>
+    Thêm phân loại
+    </span>
                 </div>
             </div>
             <div class="col-12">
@@ -97,7 +75,7 @@
     <article class="modal__content modal__product">
         <div>
             <h1>Tạo phân loại</h1>
-            <i class="modal__product-close  modal__review-close fa-solid fa-xmark"></i>
+            <i class="modal__product-close modal__review-close fa-solid fa-xmark"></i>
         </div>
         <iframe class="modal__product-iframe" src="adminCategoryForm.jsp" frameborder="0"></iframe>
     </article>
@@ -107,7 +85,7 @@
     <article class="modal__content modal__product">
         <div>
             <h1>Chỉnh sửa phân loại</h1>
-            <i class="modal__product-close  modal__review-close fa-solid fa-xmark"></i>
+            <i class="modal__product-close modal__review-close fa-solid fa-xmark"></i>
         </div>
         <iframe class="modal__product-iframe" src="adminCategoryForm.jsp" frameborder="0"></iframe>
     </article>

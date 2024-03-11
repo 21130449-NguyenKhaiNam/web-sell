@@ -6,55 +6,36 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
-    <!--Web font-->
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
-    <!--CSS-->
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/admin/admin.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/admin/adminUsers.css">
+    <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/admin/adminUsers.css" />">
     <title>Quản lí người dùng</title>
 </head>
 <body>
-<jsp:include page="../public/header/header.jsp"></jsp:include>
+<c:import url="/public/header.jsp"/>
 <main id="main">
     <nav class="navbar">
         <div class="container-xl">
             <ul class="navbar__list">
                 <li
-                        class="navbar__item"><a href="adminProducts.jsp"
-                                                class="navbar__link button button button--hover ">Sản phẩm</a>
+                        class="navbar__item"><a href="<c:url value="/public/admin/adminProducts.jsp" />"
+                                                class="navbar__link button button button--hover">Sản
+                    phẩm</a>
                 </li>
-                <li class="navbar__item"><a href="adminOrders.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminOrders.jsp"/>"
                                             class="navbar__link button button button--hover ">Đơn hàng</a>
                 </li>
-                <li class="navbar__item"><a href="AdminUser"
-                                            class="navbar__link button button button--hover navbar__link--clicked">Khách hàng</a>
-                </li>
-                <li class="navbar__item"><a href="adminReviews.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminUsers.jsp"/>"
+                                            class="navbar__link button button button--hover navbar__link--clicked">Người
+                    dùng</a>
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminReviews.jsp"/>"
                                             class="navbar__link button button button--hover ">Nhận xét</a>
                 </li>
-                <li class="navbar__item"><a href="adminCategories.jsp"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminCategories.jsp"/>"
                                             class="navbar__link button button button--hover ">Phân loại</a>
                 </li>
-                <li class="navbar__item"><a href="Dashboard"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/dashboard.jsp" />"
                                             class="navbar__link button button button--hover ">Thống kê</a>
                 </li>
-
             </ul>
         </div>
     </nav>
@@ -67,7 +48,8 @@
                         <article action="#!" class="form__search-block filler__block">
                             <i class="search__icon fa-solid fa-magnifying-glass"></i>
                             <form action="AdminUser" method="get">
-                                <input id="search-input" type="text" name="search" placeholder="Tìm kiếm theo username hoặc email người dùng">
+                                <input id="search-input" type="text" name="search"
+                                       placeholder="Tìm kiếm theo username hoặc email người dùng">
                             </form>
                         </article>
                         <button id="button-add-user" class="button button__delete">
@@ -96,7 +78,8 @@
                             <c:forEach items="${requestScope.lists}" var="user">
                                 <tr class="table__row">
                                     <td class="table__data">
-                                        <a id="updateUser" onclick="openUpdateDialog(${user.id}, '${user.username}', '${user.fullName}', '${user.gender}', '${user.email}', '${user.phone}', '${user.address}', '${user.birthDay}','${user.role}')">
+                                        <a id="updateUser"
+                                           onclick="openUpdateDialog(${user.id}, '${user.username}', '${user.fullName}', '${user.gender}', '${user.email}', '${user.phone}', '${user.address}', '${user.birthDay}','${user.role}')">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                     </td>
@@ -110,7 +93,8 @@
                                         <p class="table__cell"><c:out value="${user.email}"/></p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell table__data--fullname"><c:out value="${user.fullName}"/></p>
+                                        <p class="table__cell table__data--fullname"><c:out
+                                                value="${user.fullName}"/></p>
                                     </td>
                                     <td class="table__data">
                                         <p class="table__cell"><c:out value="${user.gender}"/></p>
@@ -126,7 +110,7 @@
                                     </td>
                                     <td class="table__data">
                                         <p class="table__cell">
-                                            <%--  <c:out value="${user.role}"/>--%>
+                                                <%--  <c:out value="${user.role}"/>--%>
                                             <c:if test="${user.role == '2'}">admin</c:if>
                                             <c:if test="${user.role == '1'}">mod</c:if>
                                             <c:if test="${user.role == '0'}">khách</c:if>
@@ -295,10 +279,7 @@
         </div>
     </div>
 </div>
-
-<%--<script src="js/data.js"></script>--%>
-<%--<script src="js/paging.js"></script>--%>
-<script src="../../js/admin/adminUsers.js"></script>
+<script src="<c:url value="/js/admin/adminUsers.js" />"></script>
 </body>
 
 <script>
