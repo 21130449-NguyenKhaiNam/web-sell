@@ -1,19 +1,20 @@
 package controller.web;
 
+import config.ConfigPage;
 import models.SubjectContact;
 import models.User;
 import org.json.JSONObject;
 import services.ContactServices;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,7 +25,7 @@ public class ContactController extends HttpServlet implements Serializable {
         List<SubjectContact> listContactSubjects = ContactServices.getINSTANCE().getListContactSubjects();
         request.setCharacterEncoding("UTF-8");
         request.setAttribute("listContactSubjects", listContactSubjects);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("contact.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.CONTACT);
         requestDispatcher.forward(request, response);
     }
 
@@ -47,14 +48,14 @@ public class ContactController extends HttpServlet implements Serializable {
         jsonObject.put("isContactValid", isContactValid);
         jsonObject.put("errorFields", errorFields);
 
-        if(isContactValid){
+        if (isContactValid) {
             int subjectId = ContactServices.getINSTANCE().getIdContactSubjectByName(subject);
             User userAuth = (User) request.getSession(true).getAttribute("auth");
             Integer userAuthId;
 
-            if(userAuth != null){
+            if (userAuth != null) {
                 userAuthId = userAuth.getId();
-            }else{
+            } else {
                 userAuthId = null;
             }
             ContactServices.getINSTANCE().addNewRecordUserContact(userAuthId, fullName, phone, email, subjectId, message);
@@ -66,15 +67,7 @@ public class ContactController extends HttpServlet implements Serializable {
         response.getWriter().print(jsonObject);
     }
 
-//    private boolean validationFullName(HttpServletRequest request, String fullName)  throws ServletException, IOException{
-//        if(fullName == null || fullName.trim().isEmpty()){
-//            request.setAttribute("fullNameError", "Vui lòng bạn nhập họ và tên");
-//            return false;
-//        }
-//        return true;
-//    }
-
-    public boolean checkAllValidationContact(JSONObject errorFields, String fullName, String email, String phone){
+    public boolean checkAllValidationContact(JSONObject errorFields, String fullName, String email, String phone) {
         boolean isAllValid = true;
         if (fullName.isEmpty()) {
             errorFields.put("fullNameError", "Vui lòng bạn nhập họ và tên");
@@ -111,36 +104,4 @@ public class ContactController extends HttpServlet implements Serializable {
         Matcher matcherPhone = patternPhone.matcher(phone);
         return matcherPhone.matches();
     }
-
-//    private boolean validationPhone(HttpServletRequest request, String phone) throws ServletException, IOException{
-//        if(phone == null || phone.trim().isEmpty()){
-//            request.setAttribute("phoneError", "Vui lòng bạn nhập số điện thoại");
-//            return false;
-//        }else{
-//            Pattern  patternPhone = Pattern.compile("^\\+?(?:\\d\\s?){9,13}$");
-//            Matcher matcherPhone = patternPhone.matcher(phone);
-//            if(!matcherPhone.matches()){
-//                request.setAttribute("phoneError", "Vui lòng bạn nhập số điện thoại hợp lệ (Số điện thoại gồm 10 bắt đầu bằng số 0)");
-//                return false;
-//            }else{
-//                return true;
-//            }
-//        }
-//    }
-//    private boolean validationEmail(HttpServletRequest request, String email) throws ServletException, IOException{
-////        String demoRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]+$";
-//        if(email == null || email.trim().isEmpty()){
-//            request.setAttribute("emailError", "Vui lòng bạn nhập email");
-//            return false;
-//        }else{
-//            Pattern patternEmail = Pattern.compile("^\\w+@\\w+\\.[A-Za-z]+$");
-//            Matcher matcherEmail = patternEmail.matcher(email);
-//            if(!matcherEmail.matches()){
-//                request.setAttribute("emailError", " Vui lòng bạn nhập email hơp lệ (Cấu trúc email: tên_email@tên_miền) <br/> Ví dụ: yourname@example.com");
-//                return false;
-//            }else{
-//                return true;
-//            }
-//        }
-//    }
 }

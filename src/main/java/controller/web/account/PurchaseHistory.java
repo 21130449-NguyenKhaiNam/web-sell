@@ -38,7 +38,6 @@ public class PurchaseHistory extends HttpServlet {
             listOrder = HistoryService.getINSTANCE().getOrderByUserIdAndStatusOrder(auth.getId(), status);
             if (status == 4) {
                 List<OrderDetail> listOrderDetailNotReview = HistoryService.getINSTANCE().getOrderDetailNotReview(auth.getId());
-                System.out.println(listOrderDetailNotReview);
                 request.setAttribute("OrderDetailNotReview", listOrderDetailNotReview);
             }
         }

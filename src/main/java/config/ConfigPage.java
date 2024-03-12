@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class ConfigPage implements ServletContextListener {
     public static String DOMAIN;
+
+    public static String CONTACT;
     //    Auth
     public static String SIGN_IN, SIGN_UP, RESET_PASSWORD, VERIFY, FORGET_PASSWORD;
     //    User
-    public static String USER_ACCOUNT, USER_CHANGE_PASSWORD, USER_PURCHASE_HISTORY, USER_CART, USER_CHECKOUT;
+    public static String USER_ACCOUNT, USER_CHANGE_PASSWORD, USER_PURCHASE_HISTORY, USER_CART, USER_CHECKOUT, USER_SUCCESS_ORDER;
     //    Product
     public static String HOME, PRODUCT_BUYING, PRODUCT_DETAIL, PRODUCT_ORDER, PRODUCT_NEW, PRODUCT_TRENDING;
     //    Admin/Product
@@ -27,6 +29,7 @@ public class ConfigPage implements ServletContextListener {
 
     private void init() {
         HOME = "/";
+        CONTACT = "/contact.jsp";
 //        Config path /public/auth/
         String folderAuth = "/public/auth/";
         SIGN_IN = folderAuth + "signIn.jsp";
@@ -42,6 +45,7 @@ public class ConfigPage implements ServletContextListener {
         USER_PURCHASE_HISTORY = folderUser + "purchaseHistory.jsp";
         USER_CART = folderUser + "shoppingCart.jsp";
         USER_CHECKOUT = folderUser + "checkout.jsp";
+        USER_SUCCESS_ORDER = folderUser + "successOrder.jsp";
 
 //        Config path /public/product/
         String folderProduct = "/public/product/";

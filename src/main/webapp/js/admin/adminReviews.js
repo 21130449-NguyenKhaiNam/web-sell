@@ -35,7 +35,7 @@ dataHideElement.forEach(function (element) {
         const idReview = tableRow.querySelector(".table__data-id").textContent.trim();
         // Show alert
         if (element.classList.contains("button__hide")) {
-            hideProductAlert( idReview);
+            hideProductAlert(idReview);
         }
         if (element.classList.contains("button__un-hide")) {
             unHideProductAlert(idReview);
@@ -44,18 +44,19 @@ dataHideElement.forEach(function (element) {
     }
 });
 
-function hideProductAlert( reviewId) {
+function hideProductAlert(reviewId) {
     const message = `Bạn có muốn ẩn nhận xét này không?`;
     const result = window.confirm(message);
     if (result) {
         //     Handle
         $.ajax({
-            url: "admin-hide-review?id=" + reviewId,
+            url: "/admin-hide-review",
             type: "POST",
-            contentType: false,
-            processData: false,
+            data: {
+                id: reviewId
+            },
             dataType: "json",
-            cache: false,
+            cache: true,
             success: function (data) {
                 const status = data.status;
                 if (status) {
@@ -77,12 +78,13 @@ function unHideProductAlert(reviewId) {
     if (result) {
         //     Handle
         $.ajax({
-            url: "admin-un-hide-review?id=" + reviewId,
+            url: "/admin-un-hide-review",
             type: "POST",
-            contentType: false,
-            processData: false,
+            data: {
+                id: reviewId
+            },
             dataType: "json",
-            cache: false,
+            cache: true,
             success: function (data) {
                 const status = data.status;
                 if (status) {

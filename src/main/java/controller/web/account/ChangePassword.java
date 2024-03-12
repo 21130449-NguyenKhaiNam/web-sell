@@ -67,7 +67,7 @@ public class ChangePassword extends HttpServlet {
             try {
                 int id = Integer.parseInt(idString);
                 UserServices.getINSTANCE().updateUserPassword(id, Encoding.getINSTANCE().toSHA1(newPass));
-                response.sendRedirect(request.getContextPath() + "/ChangePassword");
+                request.getRequestDispatcher(ConfigPage.USER_ACCOUNT).forward(request, response);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }

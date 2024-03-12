@@ -1,5 +1,6 @@
 package controller.web.authentication;
 
+import config.ConfigPage;
 import services.AuthenticateServices;
 
 import javax.servlet.*;
@@ -23,9 +24,9 @@ public class Verify extends HttpServlet {
 
         request.setAttribute("username", username);
         if (status) {
-            request.getRequestDispatcher("verifySuccess.jsp").forward(request, response);
+            request.getRequestDispatcher(ConfigPage.VERIFY).forward(request, response);
         }else{
-            response.sendError(404);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }

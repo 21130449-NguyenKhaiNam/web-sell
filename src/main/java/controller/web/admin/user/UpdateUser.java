@@ -1,16 +1,15 @@
 package controller.web.admin.user;
 
-import dao.UserDAO;
-import dao.UserDAOImplement;
 import models.User;
 import services.UserServices;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "UpdateUser", value = "/UpdateUser")
@@ -26,8 +25,6 @@ public class UpdateUser extends HttpServlet {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -47,7 +44,7 @@ public class UpdateUser extends HttpServlet {
             int userId = Integer.parseInt(userIdString);
             Date birthDay = Date.valueOf(birthDayString);
 
-            UserServices.getINSTANCE().updateUserByIDWithRole(userId, username, fullName, gender, email, phone, address, birthDay,role);
+            UserServices.getINSTANCE().updateUserByIDWithRole(userId, username, fullName, gender, email, phone, address, birthDay, role);
 
             response.sendRedirect(request.getContextPath() + "/AdminUser");
         } catch (NumberFormatException e) {

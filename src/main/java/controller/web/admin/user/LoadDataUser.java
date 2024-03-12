@@ -1,13 +1,14 @@
 package controller.web.admin.user;
 
 import config.ConfigPage;
-import models.Product;
 import models.User;
 import services.UserServices;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +45,13 @@ public class LoadDataUser extends HttpServlet {
         }
 
         request.getRequestDispatcher(ConfigPage.ADMIN_USER).forward(request, response);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request,response);
+        doGet(request, response);
     }
+
     public List<User> getListUserPerPage(List<User> listUser, int start, int end) {
         List<User> listUserPerPage = new ArrayList<>();
         for (int i = start; i < end; i++) {

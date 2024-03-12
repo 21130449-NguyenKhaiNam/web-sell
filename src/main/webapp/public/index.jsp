@@ -91,7 +91,7 @@
                 <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
                 <div class="product__items">
                     <c:forEach items="${requestScope.list6TrendingProducts}" var="trendProduct">
-                        <c:url var="showProductDetail" value="showProductDetail">
+                        <c:url var="showProductDetail" value="/showProductDetail">
                             <c:param name="id" value="${trendProduct.id}"/>
                         </c:url>
                         <div class="product__item">
@@ -166,7 +166,7 @@
                 <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
                 <div class="product__items">
                     <c:forEach items="${requestScope.list6NewProducts}" var="newProduct">
-                        <c:url var="showProductDetail" value="showProductDetail">
+                        <c:url var="showProductDetail" value="/showProductDetail">
                             <c:param name="id" value="${newProduct.id}"/>
                         </c:url>
                         <div class="product__item">
