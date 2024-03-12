@@ -50,17 +50,17 @@
                     <input type="hidden" name="userId" value="<c:out value='${auth.getId()}'/>">
                     <h1 class="title">Lịch sử mua hàng</h1>
                     <div class="statusOrder">
-                        <a class="${tag=="TẤT CẢ"?"status__list status__list--click":"status__list"}"
+                        <a class="${tag=='TẤT CẢ'?"status__list status__list--click":"status__list"}"
                            href="PurchaseHistory?status=TẤT CẢ">Tất cả</a>
-                        <a class="${tag=="1"?"status__list status__list--click":"status__list"}"
+                        <a class="${tag=='1'?"status__list status__list--click":"status__list"}"
                            href="PurchaseHistory?status=1">Chờ xác nhận</a>
-                        <a class="${tag=="2"?"status__list status__list--click":"status__list"}"
+                        <a class="${tag=='2'?"status__list status__list--click":"status__list"}"
                            href="PurchaseHistory?status=2">Đã xác nhận</a>
-                        <a class="${tag=="3"?"status__list status__list--click":"status__list"}"
+                        <a class="${tag=='3'?"status__list status__list--click":"status__list"}"
                            href="PurchaseHistory?status=3">Đang vận chuyển</a>
-                        <a class="${tag=="4"?"status__list status__list--click":"status__list"}"
+                        <a class="${tag=='4'?"status__list status__list--click":"status__list"}"
                            href="PurchaseHistory?status=4">Hoàn thành</a>
-                        <a class="${tag=="5"?"status__list status__list--click":"status__list"}"
+                        <a class="${tag=='5'?"status__list status__list--click":"status__list"}"
                            href="PurchaseHistory?status=5">Đã hủy</a>
                     </div>
                     <div id="serviceOrderContainer" class="service__order service__order--show">
