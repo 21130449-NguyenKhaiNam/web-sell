@@ -490,12 +490,12 @@
                         <div class="order__heading">
                             <h1><i class="fa-solid fa-list"></i> Danh sách đơn hàng</h1>
                             <div class="delete__cancel">
-                                <div class="delete__wrapper">
+                              <%--   <div class="delete__wrapper">
                                     <div class="button button__delete">
                                         <i class="fa-solid fa-trash"></i>
                                         Xóa đơn hàng
                                     </div>
-                                </div>
+                                </div>--%>
                                 <div class="cancel__wrapper">
                                     <div class="button button__cancel">
                                         <i class="fa-solid fa-ban"></i>

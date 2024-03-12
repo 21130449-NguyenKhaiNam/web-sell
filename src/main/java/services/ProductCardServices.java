@@ -128,6 +128,9 @@ public class ProductCardServices {
     public List<Product> getProductByCategoryId(int categoryId, int quantity, boolean isRandom) {
         List<Product> productList = productCardDAO.getProductByCategoryId(categoryId);
         List<Product> result = new ArrayList<>();
+        System.out.println("category id: " + categoryId);
+        System.out.println("size: " + productList.size());
+        
         if ((productList.size() - quantity) < 10) {
             for (int i = 0; i < quantity; i++) {
                 try {
