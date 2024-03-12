@@ -91,6 +91,6 @@
     </article>
     <div class="modal__blur"></div>
 </div>
-<script src="../../js/admin/adminCategory.js"></script>
+<script src="<c:url value="/js/admin/adminCategory.js" />"></script>
 </body>
 </html>
