@@ -227,7 +227,7 @@ public class ProductCardDAO {
                 .append("WHERE categoryId = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, categoryId);
     }
-
+  
     public List<Product> getIdProductByName(String name) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id ").append("FROM products ").append("WHERE name LIKE ?");

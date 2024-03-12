@@ -13,6 +13,10 @@ public class ProductDao {
         return GeneralDao.executeQueryWithSingleTable(sql, Image.class, productId);
     }
 
+    public static void main(String[] args) {
+		ProductDao o = new ProductDao();
+		System.out.println(o.getListImagesByProductId(73));
+	}
 
     public List<Color> getListColorsByProductId(int productId) {
         String sql = "SELECT id, codeColor, productId FROM colors WHERE productId = ?";

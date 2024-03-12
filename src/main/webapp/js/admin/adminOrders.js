@@ -89,13 +89,11 @@ function handleCloseDialogOrder(dialogUpdateOrder){
 function handelAbleButtonDelete() {
     document.querySelectorAll('.table__data .check:not(input:checked)').forEach((check) => {
         check.addEventListener('click', () => {
-            document.querySelector('.button__delete').classList.add('active');
             document.querySelector('.button__cancel').classList.add('active')
-            handleOpenPopupRemoveOrder();
+            //handleOpenPopupRemoveOrder();
             handleOpenPopupCancelOrder();
             let checkedNumber = document.querySelectorAll('.table__data .check:has(input:checked)').length
             if (checkedNumber === 0) {
-                document.querySelector('.button__delete').classList.remove('active');
                 document.querySelector('.button__cancel').classList.remove('active')
             }
         })
@@ -178,7 +176,6 @@ function handleRemoveOrCancelOrderAdmin(processOrderForm, processOrderButton, pr
                 $(processOrderPopup).find('.popup__container').remove()
                 $(orderCheckbox).each(function (){
                     $(this).prop('checked', false)
-                    $('.delete__wrapper .button__delete').removeClass('active');
                     $('.cancel__wrapper .button__cancel').removeClass('active')
                     let tableRowTarget = $(this).closest('.table__row')
                     if(action === response.cancelOrderAction && response.cancelOrderAction !== undefined){

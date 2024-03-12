@@ -140,8 +140,8 @@ public class UserDAOImplement implements UserDAO {
     }
 
     @Override
-    public void deleteUserById(int id){
-        String query = "DELETE FROM users WHERE id = ?";
+    public void hiddenUserById(int id){
+        String query = "UPDATE users set isVerify = 2 WHERE id = ?";
         GeneralDao.executeAllTypeUpdate(query, id);
     }
 

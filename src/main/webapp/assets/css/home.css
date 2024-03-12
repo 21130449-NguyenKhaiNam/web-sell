@@ -433,6 +433,7 @@
     box-shadow: 0px 3px 6px rgba(68, 125, 248, 0.2);
     position: absolute;
     cursor: pointer;
+    z-index: 2;
 }
 
 .left__button:hover, .right__button:hover, .navigation__button:hover {
