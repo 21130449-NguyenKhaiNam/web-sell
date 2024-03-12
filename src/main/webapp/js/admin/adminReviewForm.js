@@ -1,12 +1,13 @@
 window.addEventListener('message', function (event) {
         const data = event.data;
         $.ajax({
-            url: "admin-read-review?id=" + data.reviewId,
+            url: "/admin-read-review",
             type: "GET",
-            contentType: false,
-            processData: false,
+            data: {
+                id: data.reviewId
+            },
             dataType: "json",
-            cache: false,
+            cache: true,
             success: function (data) {
                 console.log(data)
                 applyData(data);
@@ -24,7 +25,7 @@ window.addEventListener('message', function (event) {
             const feedback = document.querySelector("#feedback");
 
             name.innerText = data.name;
-            image.src = `assets/img/product_img/${data.image}`;
+            image.src = `/assets/img/product_img/${data.image}`;
             category.innerText = data.category;
             color.style.backgroundColor = data.colorRequired;
             quantity.innerText = data.quantityRequired;
@@ -75,4 +76,3 @@ window.addEventListener('message', function (event) {
         }
     }
 )
-;
