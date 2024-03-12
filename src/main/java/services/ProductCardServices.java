@@ -51,11 +51,20 @@ public class ProductCardServices {
         return productCardList;
     }
 
+    /* lấy ra tất cả số trang của tất cả sản phẩm
+     * ví dụ: 1 trang chứa 9 sản phẩm và có tổng cộng 18 sản phẩm
+     * thì có 2 trang
+    */
     public int getQuantityPage() {
         double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct(true) + "") / LIMIT);
         return (int) quantityPage;
     }
-
+    
+    /* lấy ra số lượng trang của từng loại sản phẩm
+     * ví dụ: 1 trang chứa 9 sản phẩm, loại 1 có 10 sp và loại 2 có 8 sp
+     * thì trang loại 1 có 10/9 trang(2 trang)
+     *    	     loại 2 có 8/9 trang(1 trang)
+     * */
     public int getQuantityPage(List<Integer> listId) {
         double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct(listId, true) + "") / LIMIT);
         return (int) quantityPage;
