@@ -17,25 +17,30 @@
     <nav class="navbar">
         <div class="container-xl">
             <ul class="navbar__list">
-                <li
-                        class="navbar__item"><a href="<c:url value="/public/admin/adminProducts.jsp"/>"
-                                                class="navbar__link button button button--hover">Sản
-                    phẩm</a>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminProducts.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Sản
+                        phẩm</a>
                 </li>
-                <li class="navbar__item"><a href="<c:url value="/public/admin/adminOrders.jsp"/>"
-                                            class="navbar__link button button button--hover ">Đơn hàng</a>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminOrders.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Đơn hàng</a>
                 </li>
-                <li class="navbar__item"><a href="<c:url value="/public/admin/adminUsers.jsp"/>"
-                                            class="navbar__link button button button--hover ">Người dùng</a>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminUsers.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Người dùng</a>
                 </li>
-                <li class="navbar__item"><a href="<c:url value="/public/admin/adminReviews.jsp"/>"
-                                            class="navbar__link button button button--hover ">Nhận xét</a>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminReviews.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Nhận xét</a>
                 </li>
-                <li class="navbar__item"><a href="<c:url value="/public/admin/adminCategories.jsp"/>"
-                                            class="navbar__link button button button--hover ">Phân loại</a>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminCategories.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Phân loại</a>
                 </li>
-                <li class="navbar__item"><a href="<c:url value="/public/admin/dashboard.jsp" />"
-                                            class="navbar__link button button button--hover navbar__link--clicked">Thống kê</a>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/dashboard.jsp" />"
+                       class="navbar__link button button button--hover navbar__link--clicked hvr-grow-shadow">Thống kê</a>
                 </li>
             </ul>
         </div>
@@ -47,36 +52,36 @@
                     <div class="dashbord--contain">
                         <h2 class="title">DASHBOARD</h2>
                         <div class="cards">
-                            <div class="card">
+                            <div class="card hvr-float-shadow">
                                 <div class="box">
-                                    <h1>${user}</h1>
+                                    <h1 class="text-center">${user}</h1>
                                     <h3>Người dùng</h3>
                                 </div>
                                 <div class="icon-case">
                                     <img src="<c:url value="/assets/img/user.png" />" alt="">
                                 </div>
                             </div>
-                            <div class="card">
+                            <div class="card hvr-float-shadow">
                                 <div class="box">
-                                    <h1>${product}</h1>
+                                    <h1 class="text-center">${product}</h1>
                                     <h3>Sản phẩm</h3>
                                 </div>
                                 <div class="icon-case">
                                     <img src="<c:url value="/assets/img/product.png"/>" alt="">
                                 </div>
                             </div>
-                            <div class="card">
+                            <div class="card hvr-float-shadow">
                                 <div class="box">
-                                    <h1>${order}</h1>
+                                    <h1 class="text-center">${order}</h1>
                                     <h3>Đơn hàng</h3>
                                 </div>
                                 <div class="icon-case">
                                     <img src="<c:url value="/assets/img/orders.png" />" alt="">
                                 </div>
                             </div>
-                            <div class="card">
+                            <div class="card hvr-float-shadow">
                                 <div class="box">
-                                    <h1>${review}</h1>
+                                    <h1 class="text-center">${review}</h1>
                                     <h3>Review</h3>
                                 </div>
                                 <div class="icon-case">

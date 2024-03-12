@@ -13,28 +13,31 @@
                         <a href="<c:url value="/"/>" class="nav__link hvr-grow-shadow">Trang chủ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="<c:url value="/public/product/productBuying.jsp" />" class="nav__link           hvr-grow-shadow">
+                        <a href="<c:url value="/public/product/productBuying.jsp" />"
+                           class="nav__link           hvr-grow-shadow">
                             Gian hàng
                         </a>
                     </li>
                     <li class="nav__item">
-                        <a href="<c:url value="/public/contact.jsp" />" class="nav__link           hvr-grow-shadow">
+                        <a href="<c:url value="/public/contact.jsp" />" class="nav__link hvr-grow-shadow">
                             Liên hệ
                         </a>
                     </li>
                     <li class="nav__item">
-                        <a href="<c:url value="/public/about.jsp" />" class="nav__link           hvr-grow-shadow"> Về
+                        <a href="<c:url value="/public/about.jsp" />" class="nav__link hvr-grow-shadow"> Về
                             chúng tôi
                         </a>
                     </li>
                 </ul>
-                <c:set var="auth" value="${sessionScope.auth}" /> <%-- log: ${auth}--%> <c:choose>
+                <c:set var="auth" value="${sessionScope.auth}"/> <%-- log: ${auth}--%> <c:choose>
                 <c:when test="${auth == null}"> <!--cta == call to action-->
                     <div class="nav__cta">
-                        <a href="<c:url value="/public/auth/signIn.jsp" />" class="me-3             nav__button nav__button--signIn hvr-ripple-in">
+                        <a href="<c:url value="/public/auth/signIn.jsp" />"
+                           class="me-3 nav__button nav__button--signIn hvr-ripple-in">
                             Đăng nhập
                         </a>
-                        <a href="<c:url value="/public/auth/signUp.jsp" />" class="nav__button nav__button--signUp button button button--hover             hvr-round-corners hvr-radial-out">
+                        <a href="<c:url value="/public/auth/signUp.jsp" />"
+                           class="nav__button nav__button--signUp button button button--hover hvr-round-corners hvr-radial-out">
                             Đăng ký
                         </a>
                     </div>
@@ -43,13 +46,17 @@
                     <!--Giỏ hàng-->
                     <div class="cart__wrapper">
                         <a href="<c:url value="/public/user/shoppingCart.jsp" />" class="cart">
-                            <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ          hàng</span>
+                            <span class="cart__content">
+                                <i class="cart__icon fa-solid fa-cart-shopping"></i>Giỏ hàng</span>
                             <span class="qlt__swapper">
                                 <span class="qlt__value">
-                                    <c:set var="userIdCart" value="${String.valueOf(auth.id)}" />           <c:choose>
-                                    <c:when test="${sessionScope[userIdCart] == null}">0 </c:when>
-                                    <c:otherwise>${sessionScope[userIdCart].getTotalItems()}            </c:otherwise>
-                                </c:choose>
+                                    <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
+                                    <c:choose>
+                                        <c:when test="${sessionScope[userIdCart] == null}">0
+                                        </c:when>
+                                        <c:otherwise>${sessionScope[userIdCart].getTotalItems()}
+                                        </c:otherwise>
+                                    </c:choose>
                                 </span>
                             </span>
                         </a>

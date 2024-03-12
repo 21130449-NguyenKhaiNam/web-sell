@@ -169,6 +169,7 @@
     align-items: center;
     gap: 5px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .filter-radio__icon-wrapper {
@@ -209,6 +210,9 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
+}
+.filter__color-item {
+    cursor: pointer;
 }
 
 .filter__color:checked+.filter__color-show {
