@@ -66,11 +66,7 @@ public class SearchFilterOrderAdmin extends HttpServlet {
         request.setAttribute("mapOrderFilter", mapOrderFilter);
         request.setAttribute("startDateFilter", startDateFilter);
         request.setAttribute("endDateFilter", endDateFilter);
-
         request.setAttribute("servletProcess", getServletName());
-
-        System.out.println("1: " + queryStringFilter);
-        System.out.println("2: " + request.getAttribute("queryStringFilter"));
 
         RequestDispatcher requestDispatcher = null;
         switch (searchSelect) {

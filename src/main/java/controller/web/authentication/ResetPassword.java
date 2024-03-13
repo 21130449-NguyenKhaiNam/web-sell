@@ -1,5 +1,6 @@
 package controller.web.authentication;
 
+import config.ConfigPage;
 import services.AuthenticateServices;
 
 import javax.servlet.*;
@@ -21,9 +22,9 @@ public class ResetPassword extends HttpServlet {
         if (status) {
             request.setAttribute("email", email);
             request.setAttribute("token", tokenResetPassword);
-            request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+            request.getRequestDispatcher(ConfigPage.RESET_PASSWORD).forward(request, response);
         } else {
-            response.sendError(404);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }

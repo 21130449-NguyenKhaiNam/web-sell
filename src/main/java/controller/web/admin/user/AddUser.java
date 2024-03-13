@@ -43,6 +43,5 @@ public class AddUser extends HttpServlet {
 
         UserServices.getINSTANCE().insertUser(username, Encoding.getINSTANCE().toSHA1(passwordEncoding), fullName, gender, email, phone, address, sqlBirthDay, role);
         response.sendRedirect("AdminUser");
-
     }
 }

@@ -1,17 +1,17 @@
 package controller.web.account;
 
-import dao.UserDAO;
-import dao.UserDAOImplement;
-import properties.PathProperties;
-import services.UploadImageServices;
+import config.ConfigPage;
 import services.UserServices;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
+
 @MultipartConfig(maxFileSize = 16777216)
 @WebServlet(name = "UpdateAccount", value = "/UpdateAccount")
 public class UpdateAccount extends HttpServlet {
@@ -36,23 +36,11 @@ public class UpdateAccount extends HttpServlet {
 
         String birthDayString = year + "-" + month + "-" + day;
 
-//        Part avatar = request.getPart("userCoverPhoto");
-//        String root = request.getServletContext().getRealPath("/") + PathProperties.getINSTANCE().getPathAvatarUserWeb();
-//        UploadImageServices uploadImageServices = new UploadImageServices(root);
-//
-//        uploadImageServices.addImage(avatar);
-//
-//        List<String> nameImages = uploadImageServices.getNameImages();
-//        String nameAvatar = nameImages.isEmpty() ? "" : nameImages.get(0);
-
         try {
             int userId = Integer.parseInt(userIdString);
             Date birthDay = Date.valueOf(birthDayString);
-
-//            UserDAO userDAO = new UserDAOImplement();
-//            userDAO.updateInfoUser(userId, userName, fullName, gender, email, phone, address, birthDay, nameAvatar);
-           UserServices.getINSTANCE().updateUserByID(userId, userName, fullName, gender, email, phone, address, birthDay);
-            response.sendRedirect(request.getContextPath() + "/Account");
+            UserServices.getINSTANCE().updateUserByID(userId, userName, fullName, gender, email, phone, address, birthDay);
+            request.getRequestDispatcher(ConfigPage.USER_ACCOUNT).forward(request, response);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }

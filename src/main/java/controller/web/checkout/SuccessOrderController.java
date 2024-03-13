@@ -1,18 +1,21 @@
 package controller.web.checkout;
 
-import models.shoppingCart.AbstractCartProduct;
-import models.shoppingCart.CartProduct;
-import models.shoppingCart.CartProductCustom;
-import models.shoppingCart.ShoppingCart;
+import config.ConfigPage;
 import models.User;
+import models.shoppingCart.AbstractCartProduct;
+import models.shoppingCart.ShoppingCart;
 import services.CheckoutServices;
 import services.IMailServices;
 import services.MailPlaceOrderService;
 
 import javax.mail.MessagingException;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -35,11 +38,11 @@ public class SuccessOrderController extends HttpServlet {
         Integer deliveryMethodId = null;
 
         try {
-            if(cart.getVoucherApplied() != null){
+            if (cart.getVoucherApplied() != null) {
                 voucherId = cart.getVoucherApplied().getId();
             }
 
-            if(cart.getDeliveryMethod() != null){
+            if (cart.getDeliveryMethod() != null) {
                 deliveryMethodId = cart.getDeliveryMethod().getId();
             }
 
@@ -67,7 +70,7 @@ public class SuccessOrderController extends HttpServlet {
         session.removeAttribute("failedApply");
         session.removeAttribute("successApplied");
         request.setAttribute("invoiceNo", invoiceNo);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("successOrder.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_SUCCESS_ORDER);
         requestDispatcher.forward(request, response);
     }
 
