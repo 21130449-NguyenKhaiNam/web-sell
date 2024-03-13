@@ -1,14 +1,16 @@
 package controller.web.account;
 
 
+import config.ConfigPage;
 import models.User;
 import properties.PathProperties;
 import services.UploadImageServices;
 import services.UserServices;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 import java.io.IOException;
 
 
@@ -30,15 +32,10 @@ public class UploadAvatar extends HttpServlet {
         String root = request.getServletContext().getRealPath("/") + PathProperties.getINSTANCE().getPathAvatarUserWeb();
         UploadImageServices uploadImageServices = new UploadImageServices(root);
 
-
         uploadImageServices.addImage(avatar);
         String nameAvatar = uploadImageServices.getNameImages().get(0);
 
-
         UserServices.getINSTANCE().updateInfoUser(id, nameAvatar);
-        response.sendRedirect(request.getContextPath() + "/Account");
-
+        request.getRequestDispatcher(ConfigPage.USER_ACCOUNT).forward(request, response);
     }
-
-
 }

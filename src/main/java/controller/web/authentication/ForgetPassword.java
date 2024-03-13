@@ -1,5 +1,6 @@
 package controller.web.authentication;
 
+import config.ConfigPage;
 import models.User;
 import services.AuthenticateServices;
 import utils.Validation;
@@ -30,6 +31,6 @@ public class ForgetPassword extends HttpServlet {
         }else{
             request.setAttribute("emailError", validation.getFieldEmail());
         }
-        request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
+        request.getRequestDispatcher(ConfigPage.FORGET_PASSWORD).forward(request, response);
     }
 }
