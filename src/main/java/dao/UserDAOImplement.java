@@ -29,10 +29,10 @@ public class UserDAOImplement implements UserDAO {
     public List<User> selectByEmail(String email, String isVerify) {
         String query;
         if (isVerify == null) {
-            query = "SELECT id, username, email, passwordEncoding, tokenResetPassword FROM users WHERE email = ?";
+            query = "SELECT id, username, email, passwordEncoding, role, tokenResetPassword FROM users WHERE email = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, email);
         } else {
-            query = "SELECT id, username, email, passwordEncoding, tokenResetPassword FROM users WHERE email = ? AND isVerify = ?";
+            query = "SELECT id, username, email, passwordEncoding, role, tokenResetPassword FROM users WHERE email = ? AND isVerify = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, email, isVerify);
         }
     }
