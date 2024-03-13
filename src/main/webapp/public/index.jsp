@@ -16,7 +16,7 @@
 
 <head>
     <jsp:include page="commonLink.jsp"/>
-    <link rel="stylesheet" href="<c:url value=" /assets/css/home.css" />">
+    <link rel="stylesheet" href="<c:url value="/assets/css/home.css" />">
     <title>Trang chủ</title>
 </head>
 
@@ -97,62 +97,62 @@
             <div class="product__items">
                 <c:forEach items="${requestScope.list6TrendingProducts}"
                            var="trendProduct">
-                <c:url var="showProductDetail"
-                       value="/showProductDetail">
-                    <c:param name="id" value="${trendProduct.id}"/>
-                </c:url>
-                <div class="product__item">
-                    <div class="product__content">
-                        <div class="image--tag">
-                            <c:set
-                                    value="${productFactory.getListImagesByProductId(trendProduct.id)}"
-                                    var="listTrendProductImages"/>
-                            <img src="<c:url value="/assets/img/product_img/${listTrendProductImages.get(0).nameImage}" />">
-                            <span class="product__tag">Thịnh hành</span>
-                            <form action="AddToCart"
-                                  class="action__bar" method="post">
-                                <input type="hidden"
-                                       name="productId"
-                                       value="${trendProduct.id}">
-                                <button type="submit"
-                                        class="add__cart"><i
-                                        class="fa-solid fa-cart-shopping"></i>
-                                </button>
-                                <a class="see__detail"
-                                   target="_blank"
-                                   href="${showProductDetail}"><i
-                                        class="fa-solid fa-eye"></i></a>
-                            </form>
-                        </div>
-                        <div class="product__info">
-                            <a class="product__name" target="_blank"
-                               href="${showProductDetail}">${trendProduct.name}</a>
-                            <div class="product__review">
-                                <div class="review__icon">
-                                    <c:forEach var="starA" begin="1"
-                                               step="1"
-                                               end="${productFactory.calculateStar(trendProduct.id)}">
-                                        <i class="fa-solid fa-star icon__item"></i>
-                                    </c:forEach>
-                                    <c:forEach var="starB" begin="1"
-                                               step="1"
-                                               end="${5 - productFactory.calculateStar(trendProduct.id)}">
-                                        <i class="fa-regular fa-star icon__item"></i>
-                                    </c:forEach>
+                    <c:url var="showProductDetail"
+                           value="/showProductDetail">
+                        <c:param name="id" value="${trendProduct.id}"/>
+                    </c:url>
+                    <div class="product__item">
+                        <div class="product__content">
+                            <div class="image--tag">
+                                <c:set value="${productFactory.getListImagesByProductId(trendProduct.id)}"
+                                       var="listTrendProductImages"/>
+                                <img src="<c:url value="/assets/img/product_img/${listTrendProductImages.get(0).nameImage}" />">
+                                <span class="product__tag">Thịnh hành</span>
+                                <form action="AddToCart"
+                                      class="action__bar" method="post">
+                                    <input type="hidden"
+                                           name="productId"
+                                           value="${trendProduct.id}">
+                                    <button type="submit"
+                                            class="add__cart"><i
+                                            class="fa-solid fa-cart-shopping"></i>
+                                    </button>
+                                    <a class="see__detail"
+                                       target="_blank"
+                                       href="${showProductDetail}"><i
+                                            class="fa-solid fa-eye"></i></a>
+                                </form>
+                            </div>
+                            <div class="product__info">
+                                <a class="product__name" target="_blank"
+                                   href="${showProductDetail}">${trendProduct.name}</a>
+                                <div class="product__review">
+                                    <div class="review__icon">
+                                        <c:forEach var="starA" begin="1"
+                                                   step="1"
+                                                   end="${productFactory.calculateStar(trendProduct.id)}">
+                                            <i class="fa-solid fa-star icon__item"></i>
+                                        </c:forEach>
+                                        <c:forEach var="starB" begin="1"
+                                                   step="1"
+                                                   end="${5 - productFactory.calculateStar(trendProduct.id)}">
+                                            <i class="fa-regular fa-star icon__item"></i>
+                                        </c:forEach>
+                                    </div>
+                                    <a class="number__turns--ratting"
+                                       href="${showProductDetail}">${productFactory.getReviewCount(trendProduct.id)}
+                                        nhận xét</a>
                                 </div>
-                                <a class="number__turns--ratting"
-                                   href="${showProductDetail}">${productFactory.getReviewCount(trendProduct.id)}
-                                    nhận xét</a>
                             </div>
                         </div>
                     </div>
-                    </c:forEach>
-                </div>
-                <button class="right__button">
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
+                </c:forEach>
             </div>
+            <button class="right__button">
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </div>
+    </div>
     </div>
 
     <div class="new__section container-xl">
@@ -286,8 +286,7 @@
         <div class="guide__content row">
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="
-                                                                        /assets/img/step_guide/choose.png" />">
+                    <img src="<c:url value="/assets/img/step_guide/choose.png" />">
                     <div class="description_step">
                         <span>Bước 1</span>
                         <p>Chọn một mẫu đồ mà bạn ưng ý</p>
@@ -296,19 +295,16 @@
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="
-                                                                        /assets/img/step_guide/customize.png" />">
+                    <img src="<c:url value="/assets/img/step_guide/customize.png" />">
                     <div class="description_step">
                         <span>Bước 2</span>
-                        <p>Tùy chọn size và kiểu dáng phù hợp với nhu
-                            cầu của bạn</p>
+                        <p>Tùy chọn size và kiểu dáng phù hợp với nhu cầu của bạn</p>
                     </div>
                 </div>
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="
-                                                                        /assets/img/step_guide/checkout.png" />">
+                    <img src="<c:url value="/assets/img/step_guide/checkout.png" />">
                     <div class="description_step">
                         <span>Bước 3</span>
                         <p>Tiến hành đặt may và thanh toán</p>
@@ -317,12 +313,10 @@
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="
-                                                                        /assets/img/step_guide/receive.png" />">
+                    <img src="<c:url value="/assets/img/step_guide/receive.png" />">
                     <div class="description_step">
                         <span>Bước 4</span>
-                        <p>Chờ nhận hàng sau khi bạn đã thanh toán thành
-                            công</p>
+                        <p>Chờ nhận hàng sau khi bạn đã thanh toán thành công</p>
                     </div>
                 </div>
             </div>
@@ -357,7 +351,18 @@
                         url: form.attr('action'),
                         data: {productId: productId},
                         success: function (response) {
-                            let addToCartSuccessHTML = `<div class="notification__cart">                                 <div class="status__success">                                   <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>                                   <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>                                 </div>                                 <a class="view__cart" href="user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>                               </div>`;
+                            let addToCartSuccessHTML = `<div class="notification__cart">
+                                                            <div class="status__success">
+                                                                <span>
+                                                                <i class="fa-solid fa-circle-check icon__success"></i>
+                                                                Đã thêm vào giỏ hàng thành công
+                                                                </span>
+                                                                <span onclick="handleCloseNotificationCart()">
+                                                                <i class="fa-solid fa-xmark close__notification"></i>
+                                                                </span>
+                                                            </div>
+                                                            <a class="view__cart" href="user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                        </div>`;
                             $('.cart__wrapper').append(addToCartSuccessHTML)
                             $('.qlt__value').text(response);
                         },
