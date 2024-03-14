@@ -19,7 +19,7 @@
         <div class="container-xl">
             <div class="row ">
                 <div class="col-3">
-                    <form action="filterProductBuying" class="form__filter">
+                    <form action="/filterProductBuying" class="form__filter">
                         <div class="filter__group">
                             <span class="filter__title">Phân loại sản phẩm</span>
                             <div class="filter__radio-list">

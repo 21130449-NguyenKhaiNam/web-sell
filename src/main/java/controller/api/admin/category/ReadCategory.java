@@ -3,7 +3,7 @@ package controller.api.admin.category;
 import models.Category;
 import models.Parameter;
 import org.json.JSONObject;
-import services.AdminCategoryServices;
+import services.admin.AdminCategoryServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

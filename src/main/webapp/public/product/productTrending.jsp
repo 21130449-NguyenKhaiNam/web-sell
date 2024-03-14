@@ -21,7 +21,7 @@
                     <div class="product__content">
                         <div class="image--tag">
                             <c:set value="${productFactory.getListImagesByProductId(trendProduct.id)}" var="listTrendProductImages"/>
-                            <img src="./assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
+                            <img src="/assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
                             <span class="product__tag">Thịnh hành</span>
                             <form class="action__bar" action="AddToCart" method="post">
                                 <input type="hidden" name="productId" value="${trendProduct.id}">

@@ -1,4 +1,4 @@
-package controller.shoppingCart;
+package controller.api.shoppingCart;
 
 import models.shoppingCart.ShoppingCart;
 import models.User;

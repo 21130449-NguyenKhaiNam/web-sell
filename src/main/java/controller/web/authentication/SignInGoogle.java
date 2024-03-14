@@ -4,7 +4,7 @@ import config.ConfigPage;
 import models.GoogleUser;
 import models.User;
 import services.UserServices;
-import utils.GoogleUtils;
+import services.authentication.GoogleLoginServices;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,16 +24,17 @@ public class SignInGoogle extends HttpServlet {
             RequestDispatcher dis = request.getRequestDispatcher(ConfigPage.HOME);
             dis.forward(request, response);
         } else {
-            String accessToken = GoogleUtils.getToken(code);
-            GoogleUser googleUserAccount = GoogleUtils.getUserInfo(accessToken);
-            List<User> users = UserServices.getINSTANCE().getUserById(googleUserAccount.getEmail());
+            String accessToken = GoogleLoginServices.getINSTANCE().getToken(code);
+            GoogleUser googleUserAccount = (GoogleUser) GoogleLoginServices.getINSTANCE().getUserInfo(accessToken);
+            String emailGoogle = googleUserAccount.getEmail();
+            List<User> users = UserServices.getINSTANCE().getUserById(emailGoogle);
             if (users.size() == 1) {
 //                Tài khoản đã tồn tại
                 request.getSession().setAttribute("auth", users.get(0));
                 response.sendRedirect(ConfigPage.HOME);
             } else {
 //                Tài khoản chưas tồn tại
-                request.setAttribute("google", googleUserAccount);
+                request.setAttribute("email", emailGoogle);
                 RequestDispatcher dis = request.getRequestDispatcher(ConfigPage.SIGN_UP);
                 dis.forward(request, response);
             }

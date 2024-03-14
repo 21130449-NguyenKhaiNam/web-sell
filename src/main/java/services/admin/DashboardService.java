@@ -1,7 +1,6 @@
-package services;
+package services.admin;
 
 import dao.DashboadDAO;
-import dao.GeneralDao;
 
 import models.*;
 

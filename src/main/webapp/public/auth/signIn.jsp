@@ -40,13 +40,13 @@
                     <a href="<c:url value="/public/auth/signUp.jsp" />" id="form__link--signUp" class="form__link ">Đăng
                                                                                                                     ký
                     </a>
-                    <c:url var="googleUser" value="https://accounts.googleUser.com/o/oauth2/auth">
+                    <c:url var="google" value="https://accounts.google.com/o/oauth2/auth">
                         <c:param name="scope" value="email" />
                         <c:param name="redirect_uri" value="http://localhost:8080/signInGoogle" />
                         <c:param name="response_type" value="code" />
                         <c:param name="client_id" value="336186921669-k0vb5vt05phajcah47psl3v0t4h3eah0.apps.googleusercontent.com" />
                         <c:param name="approval_prompt" value="force" /> </c:url>
-                    <a class="btn btn-primary" href="${googleUser}">Đăng nhập với Google</a>
+                    <a class="btn btn-primary" href="${google}">Đăng nhập với Google</a>
                     <c:url var="facebook" value="https://www.facebook.com/v19.0/dialog/oauth">
                         <c:param name="scope" value="email" />
                         <c:param name="redirect_uri" value="http://localhost:8080/signInFacebook" />

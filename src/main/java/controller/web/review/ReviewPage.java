@@ -1,7 +1,7 @@
 package controller.web.review;
 
 import models.Review;
-import services.AdminReviewServices;
+import services.admin.AdminReviewServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

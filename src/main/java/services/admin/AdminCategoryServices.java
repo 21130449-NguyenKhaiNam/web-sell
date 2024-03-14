@@ -1,13 +1,10 @@
-package services;
+package services.admin;
 
 import dao.CategoryDAO;
 import dao.ParameterDAO;
 import models.Category;
 import models.Parameter;
-import properties.PathProperties;
 
-import javax.servlet.http.Part;
-import java.io.IOException;
 import java.util.List;
 
 public class AdminCategoryServices {

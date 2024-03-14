@@ -47,7 +47,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-3">
-                    <form action="filterProductAdmin" class="form__filter">
+                    <form action="/filterProductAdmin" class="form__filter">
                         <div class="filter__group">
                             <span class="filter__title">Tên sản phẩm</span>
                             <label class="filter__text-block">

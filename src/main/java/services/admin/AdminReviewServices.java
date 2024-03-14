@@ -1,4 +1,4 @@
-package services;
+package services.admin;
 
 import dao.ReviewDAO;
 import dao.UserDAO;

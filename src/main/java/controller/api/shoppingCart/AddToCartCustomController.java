@@ -1,4 +1,4 @@
-package controller.shoppingCart;
+package controller.api.shoppingCart;
 
 //import cartShopping.ShoppingCart;
 import config.ConfigPage;
@@ -69,7 +69,6 @@ public class AddToCartCustomController extends HttpServlet {
             cart.add(productId, quantityRequired, color, sizeRequired);
             cartProductCount = cart.getTotalItems();
             session.setAttribute(userIdCart, cart);
-//            response.sendRedirect("index.jsp");
 
             response.getWriter().write(String.valueOf(cartProductCount));
         }

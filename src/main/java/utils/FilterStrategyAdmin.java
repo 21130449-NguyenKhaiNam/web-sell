@@ -1,7 +1,7 @@
 package utils;
 
 import models.Product;
-import services.AdminProductServices;
+import services.admin.AdminProductServices;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;

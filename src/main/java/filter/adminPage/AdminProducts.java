@@ -1,7 +1,7 @@
 package filter.adminPage;
 
 import models.Product;
-import services.AdminProductServices;
+import services.admin.AdminProductServices;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;

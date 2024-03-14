@@ -1,4 +1,4 @@
-package services;
+package services.mail;
 
 import javax.mail.MessagingException;
 

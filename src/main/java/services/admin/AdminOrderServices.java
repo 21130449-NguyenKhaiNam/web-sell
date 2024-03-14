@@ -1,4 +1,4 @@
-package services;
+package services.admin;
 
 import dao.OrderDetailDAO;
 import dao.OrderDaoAdmin;

@@ -2,7 +2,7 @@ package controller.web.authentication;
 
 import config.ConfigPage;
 import models.User;
-import services.AuthenticateServices;
+import services.authentication.ValidateFormServices;
 import utils.Validation;
 
 
@@ -27,9 +27,9 @@ public class SignUp extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirm-password");
 
-        Validation validation = AuthenticateServices.getINSTANCE().checkSignUp(username, email, password, confirmPassword);
+        Validation validation = ValidateFormServices.getINSTANCE().checkSignUp(username, email, password, confirmPassword);
 
-        Map<String, String> mapErrorPassword = AuthenticateServices.getINSTANCE().checkPasswordTemplate(password);
+        Map<String, String> mapErrorPassword = ValidateFormServices.getINSTANCE().checkPasswordTemplate(password);
 
 
 // Đăng nhập thành công khi: mapErrorPassword == null và validation.getObjReturn() != null
@@ -37,7 +37,7 @@ public class SignUp extends HttpServlet {
 
         if (validation.getObjReturn() != null && mapErrorPassword == null) {
             User newUser = (User) validation.getObjReturn();
-            AuthenticateServices.getINSTANCE().createUser(newUser);
+            ValidateFormServices.getINSTANCE().createUser(newUser);
             request.setAttribute("sendMail", "Send Mail Success");
         } else {
             request.setAttribute("usernameError", validation.getFieldUsername());

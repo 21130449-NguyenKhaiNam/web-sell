@@ -2,7 +2,7 @@ package controller.web.authentication;
 
 import config.ConfigPage;
 import models.User;
-import services.AuthenticateServices;
+import services.authentication.ValidateFormServices;
 import utils.Validation;
 
 import javax.servlet.*;
@@ -22,12 +22,12 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
-        Validation validation = AuthenticateServices.getINSTANCE().checkForgetPassword(email);
+        Validation validation = ValidateFormServices.getINSTANCE().checkForgetPassword(email);
 
         if (validation.getObjReturn() != null) {
             User user = (User) validation.getObjReturn();
             request.setAttribute("sendMail",sendMailSuccess);
-            AuthenticateServices.getINSTANCE().sendMailResetPassword(user);
+            ValidateFormServices.getINSTANCE().sendMailResetPassword(user);
         }else{
             request.setAttribute("emailError", validation.getFieldEmail());
         }

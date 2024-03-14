@@ -1,10 +1,13 @@
-package services;
+package services.authentication;
 
 import dao.UserDAO;
 import dao.UserDAOImplement;
 import models.User;
 import properties.MailProperties;
 import properties.RoleProperties;
+import services.mail.IMailServices;
+import services.mail.MailResetPasswordServices;
+import services.mail.MailVerifyServices;
 import utils.Encoding;
 import utils.Token;
 import utils.ValidatePassword;
@@ -21,16 +24,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class AuthenticateServices {
-    private static AuthenticateServices INSTANCE;
+public class ValidateFormServices {
+    private static ValidateFormServices INSTANCE;
 
     UserDAO userDAO = new UserDAOImplement();
 
-    private AuthenticateServices() {
+    private ValidateFormServices() {
     }
 
-    public static AuthenticateServices getINSTANCE() {
-        if (INSTANCE == null) INSTANCE = new AuthenticateServices();
+    public static ValidateFormServices getINSTANCE() {
+        if (INSTANCE == null) INSTANCE = new ValidateFormServices();
         return INSTANCE;
     }
 

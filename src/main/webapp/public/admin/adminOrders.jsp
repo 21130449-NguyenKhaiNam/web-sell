@@ -1,4 +1,4 @@
-<jsp:useBean id="adminOrderServices" class="services.AdminOrderServices"/>
+<jsp:useBean id="adminOrderServices" class="services.admin.AdminOrderServices"/>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -6,9 +6,6 @@
 <html lang="en">
 <head>
     <jsp:include page="/public/commonLink.jsp"/>
-    <%--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"--%>
-    <%--          integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="--%>
-    <%--          crossorigin="anonymous" referrerpolicy="no-referrer"/>--%>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminOrders.css"/>">
     <title>Admin</title>

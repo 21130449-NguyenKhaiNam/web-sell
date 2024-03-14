@@ -1,8 +1,6 @@
 package filter.adminPage;
 
 import models.Category;
-import models.Image;
-import services.AdminProductServices;
 import services.ProductCardServices;
 
 import javax.servlet.*;
