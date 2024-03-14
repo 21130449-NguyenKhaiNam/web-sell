@@ -2,16 +2,15 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <jsp:include page="commonLink.jsp"/>
-    <link rel="stylesheet" href="<c:url value="/assets/css/about.css" />">
+    <c:import url="${initParam.contextPath}/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="${initParam.contextPath}/assets/css/about.css">
     <title>Giới thiệu</title>
 </head>
-
 <body>
-<c:import url="/public/header.jsp"/>
-<main class="wraper">
+
+<c:import url="header.jsp"/>
+<main class="wrapper">
     <div class="container">
         <div class="about">
             <h1 class="title">Về chúng tôi</h1>
@@ -29,10 +28,7 @@
                         <h4>LINH HOẠT</h4>
                     </div>
                     <div class="text">
-                        <p>Với sự tự tin, Your Style tin rằng mình không chỉ đáp ứng các yêu cầu sản xuất đa dạng của
-                            khách hàng, từ các tập đoàn lớn đến các doanh nghiệp mới nổi trong ngành thời trang, mà còn
-                            linh hoạt trong việc phục vụ từ chuỗi sản xuất thời trang quy mô lớn đến các dự án nhỏ của
-                            các bạn trẻ khởi nghiệp.</p>
+                        <p>Với sự tự tin, Your Style tin rằng mình không chỉ đáp ứng các yêu cầu sản xuất đa dạng của khách hàng, từ các tập đoàn lớn đến các doanh nghiệp mới nổi trong ngành thời trang, mà còn linh hoạt trong việc phục vụ từ chuỗi sản xuất thời trang quy mô lớn đến các dự án nhỏ của các bạn trẻ khởi nghiệp.</p>
                     </div>
                 </div>
                 <div class="card__item">
@@ -68,9 +64,8 @@
                         <h4>UY TÍN</h4>
                     </div>
                     <div class="text">
-                        <p>Trong quá trình làm việc, Your Style luôn đặt "uy tín" lên hàng đầu. Từ chất lượng sản phẩm,
-                            thời gian giao hàng đúng hẹn đến bảo mật mẫu mã và thông tin khách hàng.
-                        </p>
+                        <p>Trong quá trình làm việc, Your Style luôn đặt "uy tín" lên hàng đầu. Từ chất lượng sản
+                            phẩm, thời gian giao hàng đúng hẹn đến bảo mật mẫu mã và thông tin khách hàng.</p>
                     </div>
                 </div>
             </div>
@@ -132,8 +127,7 @@
                     </div>
                     <div class="text">
                         <p>Đội ngũ Your Style được đào tạo chuyên nghiệp, trải nghiệm sâu sắc trong ngành may. Đảm bảo
-                            quý khách có hàng đúng như mong muốn, trong đúng khoảng thời gian đã thống nhất.
-                        </p>
+                            quý khách có hàng đúng như mong muốn, trong đúng khoảng thời gian đã thống nhất.</p>
                     </div>
                 </div>
             </div>
@@ -155,14 +149,15 @@
                 </ul>
             </div>
             <div class="pic">
-                <a href="<c:url value="/public/index.jsp" />">
-                    <img src="<c:url value="/assets/img/YourStyleLogo.png"/>"/> </a>
+                <a href="${initParam.contextPath}/public/index.jsp">
+                    <img src="${initParam.contextPath}/assets/img/YourStyleLogo.png"/>
+                </a>
             </div>
         </div>
     </div>
 </main>
 <%@include file="footer.jsp" %>
-<script src="<c:url value="/js/base.js"/>"></script>
+<script src="${initParam.contextPath}/js/base.js"></script>
 <script>
     const diamonds = document.querySelectorAll('.diamond');
     const textCompos = document.querySelectorAll('.text__compo');
@@ -180,5 +175,4 @@
     });
 </script>
 </body>
-
 </html>
