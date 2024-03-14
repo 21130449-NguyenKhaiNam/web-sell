@@ -186,52 +186,7 @@
 					</div>
 				</div>
 
-				<ul class="paging">
-					<%
-					if ((int) request.getAttribute("currentPage") > 3) {
-						String link = request.getAttribute("requestURL").toString();
-						System.out.println("linkkkkkkkk: " + link);
-					%>
-					<c:url var="linkPaging" value="${link}">
-							<c:param name="page" value="${pageNumber}" />
-					</c:url>
-					<a class="page" href="${linkPaging}1">1</a>
-
-					<c:forEach var="pageNumber" begin="${requestScope.quantityPageMin}"
-						end="${requestScope.quantityPageMax}">
-						<c:url var="linkPaging" value="${requestScope.requestURL}">
-							<c:param name="page" value="${pageNumber}" />
-						</c:url>
-						<c:choose>
-							<c:when test="${pageNumber == requestScope.currentPage}">
-								<a class="page page--current" href="${linkPaging}">${pageNumber}</a>
-							</c:when>
-							<c:otherwise>
-								<a class="page" href="${linkPaging}">${pageNumber}</a>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<%
-					} else {
-					%>
-					<c:forEach var="pageNumber" begin="${requestScope.quantityPageMin}"
-						end="${requestScope.quantityPageMax}">
-						<c:url var="linkPaging" value="${requestScope.requestURL}">
-							<c:param name="page" value="${pageNumber}" />
-						</c:url>
-						<c:choose>
-							<c:when test="${pageNumber == requestScope.currentPage}">
-								<a class="page page--current" href="${linkPaging}">${pageNumber}</a>
-							</c:when>
-							<c:otherwise>
-								<a class="page" href="${linkPaging}">${pageNumber}</a>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<%
-					}
-					%>
-				</ul>
+				<jsp:include page="paging.jsp"></jsp:include>
 			</div>
 		</section>
 	</main>
