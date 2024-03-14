@@ -9,7 +9,6 @@ import java.util.List;
 
 public class FilterStrategyBuying extends FilterStrategy {
 	private final int QUANTITY_PAGE_DEFAULT = 5;
-	private int quantityPageTotal;
 	private int quantityPageMin;
 	private int quantityPageMax;
 	private int currentPage;
@@ -47,7 +46,7 @@ public class FilterStrategyBuying extends FilterStrategy {
 //        listIDFiltered == 0 -> 0
 //        listIDFiltered.size() < LIMIT -> 1
 //        listIDFiltered.size() >= LIMIT
-
+		int quantityPageTotal;
 		if (productCardFiltered.isEmpty()) {
 			quantityPageTotal = 0;
 		} else {
@@ -60,11 +59,12 @@ public class FilterStrategyBuying extends FilterStrategy {
 		requestURL.append("?").append(queryString);
 
 		List<String> listInputChecked = listValueChecked(queryString);
-		generateQuantityPage();
 
-		if(quantityPageMax > quantityPageTotal) {
+		generateQuantityPage();
+		if (quantityPageMax > quantityPageTotal) {
 			quantityPageMax = quantityPageTotal;
 		}
+
 		request.setAttribute("requestURL", requestURL);
 		request.setAttribute("productCardList", productCardFiltered);
 		request.setAttribute("quantityPageMin", quantityPageMin);

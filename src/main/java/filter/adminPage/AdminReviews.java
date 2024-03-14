@@ -10,26 +10,37 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(filterName = "adminReviews", urlPatterns = {"/adminReviews.jsp"})
+@WebFilter(filterName = "adminReviews", urlPatterns = { "/adminReviews.jsp" })
 public class AdminReviews implements Filter {
-    private final int LIMIT = 15;
-    private final int DEFAULT_PAGE = 1;
-    public void init(FilterConfig config) throws ServletException {
-    }
+	private final int LIMIT = 15;
+	private final int DEFAULT_PAGE = 1;
+	private final int QUANTITY_PAGE_DEFAULT = 5;
 
-    public void destroy() {
-    }
+	public void init(FilterConfig config) throws ServletException {
+	}
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        List<Review> listReview  = AdminReviewServices.getINSTANCE().getReviews(DEFAULT_PAGE);
-        request.setAttribute("listReview", listReview);
-        int quantityPage = AdminReviewServices.getINSTANCE().getQuantityPage();
-        request.setAttribute("quantityPage", quantityPage);
-        String requestURL = "/reviewPage?";
-        request.setAttribute("requestURL", requestURL);
-        chain.doFilter(request, response);
-    }
-    
+	public void destroy() {
+	}
+
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws ServletException, IOException {
+		List<Review> listReview = AdminReviewServices.getINSTANCE().getReviews(DEFAULT_PAGE);
+		int quantityPage = AdminReviewServices.getINSTANCE().getQuantityPage();
+
+		String requestURL = "/reviewPage?";
+		int quantityPageMax = QUANTITY_PAGE_DEFAULT;
+		if (quantityPageMax > quantityPage)
+			quantityPageMax = quantityPage;
+
+		
+		request.setAttribute("listReview", listReview);
+		request.setAttribute("quantityPage", quantityPage);
+		request.setAttribute("requestURL", requestURL);
+		request.setAttribute("currentPage", 1);
+		request.setAttribute("quantityPageMin", DEFAULT_PAGE);
+		request.setAttribute("quantityPageMax", quantityPageMax);
+		chain.doFilter(request, response);
+	}
+
 }
- 
