@@ -1,0 +1,65 @@
+div:has(> h1) {
+    margin-top: 20px;
+}
+
+.category__list {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px 30px;
+}
+
+.category__item {
+    position: relative;
+    padding: 15px 10px;
+    border-radius: 10px;
+    background-color: var(--blue-color-high);
+    color: #fff;
+}
+
+.category__item:hover {
+    background-color: var(--blue-color-medium);
+    cursor: pointer;
+}
+
+.category__name {
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 20px;
+}
+
+.category__icon-detail {
+    --width: 20px;
+    --height: 2px;
+    position: relative;
+    display: block;
+    background-color: currentColor;
+    width: var(--width);
+    height: var(--height);
+    border-radius: 10px;
+}
+
+.category__icon-detail:after, .category__icon-detail::before {
+    content: "";
+    display: block;
+    position: absolute;
+    height: var(--height);
+    background-color: inherit;
+    border-radius: inherit;
+}
+
+.category__icon-detail::before {
+    top: -5px;
+    width: calc(var(--width) + 2px);
+}
+
+.category__icon-detail:after {
+    width: calc(var(--width) - 2px);
+    bottom: -5px;
+}
+
+.category__icon-edit {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}

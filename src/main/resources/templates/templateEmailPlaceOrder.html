@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <style>
+        *{font-family: Helvetica, Arial, sans-serif;}
+    </style>
+</head>
+<body>
+<div class='container' style='font-size: 16px;letter-spacing: -1px;'>
+    <div class='invoice__header' style='padding: 20px 16px;'>
+        <table style="width: 100%">
+            <tbody>
+            <tr>
+                <td style="vertical-align: middle; text-align: left;"><strong style='font-size: 46px; color: #447df8;  font-weight: 900;'>YOURSTYLE</strong></td>
+                <td style="text-align: right; vertical-align: middle; display: grid">
+                    <strong style='font-size: 26px; margin-bottom: 4px;'>HÓA ĐƠN</strong>
+                    <span style="margin-bottom: 4px;">Số hóa đơn: <strong>%%INVOICENO%%</strong></span>
+                    <span style="margin-bottom: 4px;">Ngày lập hóa đơn: <strong>%%INVOICEDATE%%</strong></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class='invoice-section-first invoice-section' style='display: grid; font-size: 15px; background-color: #d9eef8;padding: 16px'>
+        <strong style='font-size: 26px; color: #447df8; margin-bottom: 8px;'>Xin chào, %%FULLNAME%%</strong>
+        <p style='margin: unset; line-height: 22px; margin-bottom: 8px;'><strong style='font-size: 20px;color: #447df8; '>YourStyle</strong> đã tiếp nhận được <strong style='font-weight: 700'>đơn hàng <span style='font-size: 16px;'>#%%INVOICENO%%</span></strong> của quý khách và đang trong quá trình xử lý. Quý khách sẽ nhận được thông báo tiếp theo khi đơn hàng chuản bị được giao</p>
+        <p style='margin: unset; line-height: 22px;'><strong style='font-weight: 700;'>Lưu ý:</strong> Quý khách chỉ nên nhận hàng khi trạng thái đơn hàng là <strong style='color: #447df8; font-weight: 700;'>'Đang giao hàng'</strong> và trong quá trình nhận hàng nhớ kiểm tra mã đơn hàng, thông tin người gửi và mã vận đơn để nhận đúng kiện hàng</p>
+    </div>
+    <div class='invoice-section-second invoice-section' style='padding: 0px 16px;'>
+        <div style='border-bottom: 4px solid #447df8; padding: 20px 0px;'>
+            <strong style='font-size: 26px; color: #447df8; margin-bottom: 8px; display: inline-block;'>Đơn hàng được giao đến</strong>
+            <div class='info__delivery' style='display: grid;'>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td style="padding: 2px 0px;">Tên khách hàng:</td>
+                        <td>%%FULLNAME%%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 2px 0px;">Email:</td>
+                        <td>%%EMAIL%%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 2px 0px;">Số điện thoại:</td>
+                        <td>%%PHONE%%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 2px 0px;">Địa chỉ nhận hàng:</td>
+                        <td>%%ADDRESS%%</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class='invoice-section-third invoice-section' style= 'padding: 20px 16px;'>
+        <table style='border-collapse: collapse; width: 100%;'>
+            <thead>
+            <tr>
+                <th style="border: 1px solid #d9d9d9;text-align: center;vertical-align: middle;padding: 10px; background-color: #447df8;color: white; width: 700px;">Sản phẩm</th>
+                <th style="border: 1px solid #d9d9d9;text-align: center;vertical-align: middle;padding: 10px; background-color: #447df8;color: white; width: 120px;">Giá may</th>
+                <th style="border: 1px solid #d9d9d9;text-align: center;vertical-align: middle;padding: 10px; background-color: #447df8;color: white; width: 120px;">Số lượng</th>
+                <th style="border: 1px solid #d9d9d9;text-align: center;vertical-align: middle;padding: 10px; background-color: #447df8;color: white; width: 120px;">Thành tiền</th>
+            </tr>
+            </thead>
+            <tbody>%%ITEMSBOUGHT%%</tbody>
+        </table>
+    </div>
+    <div class='invoice-section-fourth invoice-section' style='padding: 0px 16px;'>
+        <div style='padding: 12px 0px; border-bottom: 2px solid #447df8; border-top: 1px solid black;'>
+            <table style="width: 100%; font-size: 18px">
+                <tbody>
+                    <tr><td style='vertical-align: middle; text-align: left;'>Tạm tính (%%TOTALITEM%% sản phẩm):</td><td style='vertical-align: middle; text-align: right'><strong>%%TEMPPRICE%%</strong></td></tr>
+                    <tr><td style='vertical-align: middle; text-align: left;'>Tiền giảm:</td><td style='vertical-align: middle; text-align: right'><strong>%%DISCOUNTPRICE%%</strong></td></tr>
+                    <tr><td style='vertical-align: middle; text-align: left;'>Phí vận chuyển:</td><td style='vertical-align: middle; text-align: right'><strong>%%SHIPPINGFEE%%</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <table style='padding: 10px 0px; border-bottom: 1px solid black; width: 100%'>
+            <tbody>
+            <tr>
+                <td style='vertical-align: baseline; text-align: left; font-size: 18px'><strong>Tổng cộng:</strong></td>
+                <td style='font-size: 30px; color: #447df8; vertical-align: baseline; text-align: right'><strong>%%TOTALPRICE%%</strong></td>
+            </tr>
+            </tbody>
+        </table>
+        <div style='padding: 12px 0px;'>
+            <table style="width: 100%">
+                <tbody>
+                <tr>
+                    <td style='vertical-align: middle; text-align: left; padding: 2px 0px'>Phương thức vận chuyển:</td>
+                    <td style='vertical-align: middle; text-align: right'>%%DELIVERYMETHOD%%</td>
+                </tr>
+                <tr>
+                    <td style='vertical-align: middle; text-align: left; padding: 2px 0px'>Phương thức thanh toán:</td>
+                    <td style='vertical-align: middle; text-align: right'>%%PAYMENTMETHOD%%</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
