@@ -3,7 +3,7 @@ package controller.api.admin.product;
 import models.Product;
 import properties.PathProperties;
 import services.admin.AdminProductServices;
-import services.UploadImageServices;
+import services.image.UploadImageServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

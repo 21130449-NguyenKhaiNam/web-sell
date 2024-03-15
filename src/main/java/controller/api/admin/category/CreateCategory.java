@@ -4,7 +4,7 @@ import models.Category;
 import models.Parameter;
 import properties.PathProperties;
 import services.admin.AdminCategoryServices;
-import services.UploadImageServices;
+import services.image.UploadImageServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

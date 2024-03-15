@@ -5,7 +5,7 @@ import models.Color;
 import models.Image;
 import models.Product;
 import models.Size;
-import services.UploadImageServices;
+import services.image.UploadImageServices;
 import utils.Comparison;
 
 import javax.servlet.http.Part;

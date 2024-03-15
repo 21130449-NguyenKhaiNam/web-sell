@@ -1,4 +1,4 @@
-package services;
+package services.image;
 
 import utils.Token;
 
