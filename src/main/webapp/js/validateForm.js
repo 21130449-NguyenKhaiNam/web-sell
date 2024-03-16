@@ -112,6 +112,15 @@ Validation.isRequired = function (selectorInput) {
         },
     }
 }
+Validation.isPhone = function (selectPhone) {
+    return {
+        element: selectPhone,
+        check: function (value) {
+            const regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+            return regex.test(value) ? undefined : "Số điện thoại không hợp lệ";
+        }
+    }
+}
 Validation.isExistsEmail = function (selectEmail) {
     let mess;
     let debounceTimer;
