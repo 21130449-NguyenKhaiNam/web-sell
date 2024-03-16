@@ -124,8 +124,7 @@
                                             <div class="lable__address lable-compo">
                                                 <label for="Address">Địa chỉ</label>
                                             </div>
-                                            <input type="text" class="input-compo" id="Address" name="address" value="<c:out value="
-                                                            ${accountInfo.address}"/>">
+                                            <input type="text" class="input-compo" id="Address" name="address" value="<c:out value="${accountInfo.address}"/>">
                                         </div>
                                         <div class="save save__userInfo">
                                             <button>Lưu thay đổi</button>
