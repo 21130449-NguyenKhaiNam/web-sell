@@ -34,6 +34,32 @@ public class AuthenticateServices {
         return INSTANCE;
     }
 
+    public Validation checkEmailExists(String email) {
+        Validation validation = new Validation();
+        validation.setFieldEmail(email.isBlank() ?
+                "Email không được để trống" :
+                (
+                        !userDAO.selectByEmail(email, null).isEmpty() ?
+                                "Email đã tồn tại." :
+                                ""
+                )
+        );
+        return validation;
+    }
+
+    public Validation checkUsernameExists(String username) {
+        Validation validation = new Validation();
+        validation.setFieldUsername(username.isBlank() ?
+                "Tên đăng nhập không được để trống" :
+                (
+                        !userDAO.selectAccount(username, null).isEmpty() ?
+                                "Tên đăng nhập đã tồn tại." :
+                                ""
+                )
+        );
+        return validation;
+    }
+
     public Validation checkSignIn(String username, String password) {
         Validation validation = new Validation();
 //        Check username empty
