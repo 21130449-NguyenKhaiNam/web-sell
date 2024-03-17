@@ -35,29 +35,16 @@
 <!--CSS-->
 <link rel="stylesheet" href="assets/css/reset.css">
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/admin/admin.css">
-<link rel="stylesheet" href="assets/css/productBuying.css">
-<link rel="stylesheet" href="assets/css/admin/adminProducts.css">
 <title>Paging</title>
+
 </head>
 <body>
 	<ul class="paging">
 		<c:if test="${requestScope.quantityPage != 0}">
 			<%
-			int currentPage = 1;
-			if (request.getAttribute("currentPage") == null) {
-				currentPage = 1;
-			}
-			else{
-				currentPage = (int)request.getAttribute("currentPage");
-			}
-
-			if (currentPage > 3) {
+			if ((int) request.getAttribute("currentPage") > 3) {
 			%>
-			<c:url var="linkPaging" value="${link}">
-				<c:param name="page" value="${pageNumber}" />
-			</c:url>
-			<a class="page" href="${linkPaging}1">1</a>
+			<a class="page access_page_quickly">...</a>
 			<%
 			}
 			%>
@@ -79,4 +66,36 @@
 		</c:if>
 	</ul>
 </body>
+
+<!--tippy tooltip-->
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@5/dist/tippy-bundle.iife.js"></script>
+
+
+<%
+int minPage = (int) request.getAttribute("quantityPageMin");
+Object linkPaging = request.getAttribute("requestURL");
+%>
+<script>
+	const div = document.createElement('div')
+	div.style.width = '200px'
+	div.style.height = '50px'
+	div.style.overflow = 'auto'
+
+	for (let i = 1; i < <%=minPage%>; i++) {
+		const a = document.createElement('a')
+		a.innerText = i
+		a.href = "<%=linkPaging%>page=" + i
+		a.classList.add("page")
+		div.appendChild(a)
+	}
+
+	tippy('.access_page_quickly', {
+		content : div,
+		placement : 'top-start',
+		interactive : true,
+		duration : [ 500, 250 ],
+		arrow : true,
+	});
+</script>
 </html>
