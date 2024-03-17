@@ -395,6 +395,7 @@
         })
     }
     addToCartAjax();
+    
 </script>
 </body>
 </html>
