@@ -20,6 +20,9 @@
                             <label for="username" class="form__label">Tên đăng nhập</label>
                             <input id="username" name="username" type="text" class="form__input" value="">
                             <c:set value="${requestScope.usernameError}" var="usernameError" />
+                            <c:if test="${requestScope.spam != null}">
+                                ${requestScope.spam}
+                            </c:if>
                             <p class="form__error"><c:if test="${usernameError != null}">${usernameError}</c:if></p>
                         </div>
                         <div class="form__block">

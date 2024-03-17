@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <jsp:include page="/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="<c:url value="/assets/css/checkout.css" />">
+    <link rel="stylesheet" href="/assets/css/checkout.css">
     <title>Thanh toán</title>
 </head>
 <body>
@@ -129,7 +129,7 @@
                             <h2 class="checkout__subtitle">Phương thức vận chuyển</h2>
                             <form id="delivery__method--form" class="radio__section">
                                 <input type="hidden" name="action" value="choiceDeliveryMethod">
-                                <c:forEach items="${requestScope.listDeliveryMethod}" var="deliveryMethod">
+                                <c:forEach items="${applicationScope.listDeliveryMethod}" var="deliveryMethod">
                                     <div class="method__content">
                                         <div class="method__item section__info--selection">
                                             <input
@@ -155,7 +155,7 @@
                     <h2 class="checkout__subtitle">Phương thức thanh toán</h2>
                     <form id="payment__method--form" class="radio__section">
                         <input type="hidden" name="action" value="choicePaymentMethod">
-                        <c:forEach items="${requestScope.listPaymentMethod}" var="paymentMethod">
+                        <c:forEach items="${applicationScope.listPaymentMethod}" var="paymentMethod">
                             <div class="method__content">
                                 <div class="method__item section__info--selection">
                                     <input
@@ -218,7 +218,7 @@
                                                 </tbody>
                                             </table>
                                             <div class="payment__qr">
-                                                <img class="qr__code" src="assets/img/paymentQR/${qrImage}">
+                                                <img class="qr__code" src="<c:url value="/assets/img/paymentQR/${qrImage}" />">
                                                 <div>
                                                     <span>Hoặc bạn có thể quét QR code bên cạnh để tiến hành thanh toán một cách nhanh chóng và chính xác hơn</span>
                                                     <span><strong style="font-weight: 500">* Lưu ý:</strong> Trước khi thanh toán vui lòng kiểm tra thật kỹ số tiền cần thanh toán và nội dung chuyển khoản. Trong trường hợp chuyển khoản sai nội dung hoặc thanh toán với số tiền không đúng thì chúng tôi hoàn toàn không chịu trách nhiệm với số tiền bạn đã chuyển và đơn hàng không thể đóng gói đến bạn</span>
@@ -255,7 +255,7 @@
                                         <div class="product__item">
                                             <c:set var="listImagesProduct"
                                                    value="${productFactory.getListImagesByProductId(productId)}"/>
-                                            <img src='assets/img/product_img/${listImagesProduct.get(0).nameImage}'>
+                                            <img src='/assets/img/product_img/${listImagesProduct.get(0).nameImage}'>
                                             <div class="order__product--info">
                                                 <p class="product__name">${cartProduct.product.name}</p>
                                                 <p class="order__color">Màu sắc: ${cartProduct.color.codeColor}</p>
@@ -299,7 +299,7 @@
                     </div>
                     <div class="ground__button--forward">
                         <button class="place__order">Đặt hàng</button>
-                        <a href="${initParam.contextPath}/public/user/shoppingCart.jsp">
+                        <a href="<c:url value="/public/user/shoppingCart.jsp" />">
                             <button class="back--shopping__cart">Quay lại giỏ hàng</button>
                         </a>
                     </div>
@@ -322,7 +322,7 @@
                 let deliveryMethodId = $(this).val();
                 $.ajax({
                     type: 'POST',
-                    url: 'Checkout',
+                    url: '/Checkout',
                     data: {
                         action: action,
                         deliveryMethodId: deliveryMethodId
@@ -348,7 +348,7 @@
                 let paymentMethodId = $(this).val();
                 $.ajax({
                     type: 'POST',
-                    url: 'Checkout',
+                    url: '/Checkout',
                     data: {
                         action: action,
                         paymentMethodId: paymentMethodId
@@ -375,7 +375,7 @@
                     let typeEdit = buttonChoiceClicked.val();
                     $.ajax({
                         type: 'POST',
-                        url: 'Checkout',
+                        url: '/Checkout',
                         data: {
                             typeEdit: typeEdit,
                             deliveryInfoKey: deliveryInfoKey
@@ -424,7 +424,7 @@
                 $(popupDeletion).find('.agree__button').on('click', function () {
                     $.ajax({
                         type: 'POST',
-                        url: 'Checkout',
+                        url: '/Checkout',
                         data: {
                             typeEdit: typeEdit,
                             deliveryInfoKey: deliveryInfoKey,
@@ -453,7 +453,7 @@
         $('.place__order').on('click', function () {
             $.ajax({
                 type: 'POST',
-                url: 'PlaceOrder',
+                url: '/PlaceOrder',
                 data: {},
                 dataType: 'json',
                 success: function (response) {
@@ -475,11 +475,7 @@
                     setTimeout(function () {
                         let invoiceNo = response.invoiceNo;
                         let dateOrder = response.dateOrder;
-                        window.location.href = "${initParam.contextPath}/SuccessOrder?invoiceNo=" + invoiceNo;
-
-                        // $(document).find('.message__process').html(response);
-                        // $(document).find('.loading__order').removeClass('loading__order').html(`<i class="fa-regular fa-circle-check"></i>`).css({'margin': '16px auto', 'fontSize': '80px'});
-                        // $(document).find('.popup__order').append(`<a href="" style="padding: 14px 16px; background-color: #5ee95e; font-weight: 600; display: inline-block; margin: 16px 0px; border-radius: 6px">Đến trang đánh giá</a>`)
+                        window.location.href = "/SuccessOrder?invoiceNo=" + invoiceNo;
                     }, 3000);
                 }
             })

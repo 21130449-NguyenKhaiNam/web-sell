@@ -35,7 +35,7 @@ dataViewElement.forEach(function (element) {
 });
 
 //Create product
-if (role == 2){
+if (role == 2) {
     const iframeCreate = document.querySelector("#dialog-product-create .modal__product-iframe");
     const modalCreateBtn = document.querySelector("#button-create-product");
     const modalCreate = document.querySelector("#dialog-product-create");
@@ -106,12 +106,13 @@ function hideProductAlert(nameProduct, idProduct) {
     if (result) {
         //     Handle
         $.ajax({
-            url: "admin-hide-product?id=" + idProduct,
+            url: "/admin-hide-product",
             type: "POST",
-            contentType: false,
-            processData: false,
+            data: {
+                id: idProduct
+            },
             dataType: "json",
-            cache: false,
+            cache: true,
             success: function (data) {
                 const status = data.status;
                 if (status) {
@@ -133,12 +134,12 @@ function unHideProductAlert(nameProduct, idProduct) {
     if (result) {
         //     Handle
         $.ajax({
-            url: "admin-un-hide-product?id=" + idProduct,
+            url: "/admin-un-hide-product",
             type: "POST",
-            contentType: false,
-            processData: false,
+            data: {
+                id: idProduct
+            },
             dataType: "json",
-            cache: false,
             success: function (data) {
                 const status = data.status;
                 if (status) {

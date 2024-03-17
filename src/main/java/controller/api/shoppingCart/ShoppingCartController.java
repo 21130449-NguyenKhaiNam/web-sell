@@ -22,7 +22,6 @@ public class ShoppingCartController extends HttpServlet {
             request.setAttribute("productId", productId);
             request.setAttribute("cartProductIndex", cartProductIndex);
 
-
             switch (action) {
                 case "increaseQuantity": {
                     requestDispatcher = request.getRequestDispatcher("IncreaseQuantity");

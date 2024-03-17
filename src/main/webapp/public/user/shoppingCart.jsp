@@ -68,70 +68,8 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <%--                    <div class="cart__content col">--%>
-                    <%--                        <div>--%>
-                    <%--                            <table id="cart__table">--%>
-                    <%--                                <thead class="cart__header">--%>
-                    <%--                                <tr>--%>
-                    <%--                                    <th>Sản phẩm</th>--%>
-                    <%--                                    <th>Giá may</th>--%>
-                    <%--                                    <th>Số lượng</th>--%>
-                    <%--                                    <th>Thành tiền</th>--%>
-                    <%--                                    <th>Xóa</th>--%>
-                    <%--                                </tr>--%>
-                    <%--                                </thead>--%>
-                    <%--                                <tbody class="cart__items">--%>
-                    <%--                                <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.keySet()}" var="productId">--%>
-                    <%--                                    <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.get(productId)}" var="cartProduct">--%>
-                    <%--                                        <c:set value="${sessionScope[userIdCart].shoppingCartMap.get(productId).indexOf(cartProduct)}" var="cartProductItem"/>--%>
-                    <%--                                        <c:url var="scart" value="ShoppingCart">--%>
-                    <%--                                            <c:param name="productId" value="${productId}"/>--%>
-                    <%--                                            <c:param name="cartProductItem" value="${cartProductItem}"/>--%>
-                    <%--                                        </c:url>--%>
-                    <%--                                        <form class="shopping__cart--form" action="${scart}" method="post">--%>
-                    <%--                                            <tr class="cart__item" data-product-id="${productId}" data-cart-product-item="${cartProductItem}">--%>
-                    <%--                                                <td class="product__item">--%>
-                    <%--                                                    <div class="product__content">--%>
-                    <%--                                                        <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->--%>
-                    <%--                                                            <c:set var="listImagesProduct" value="${productFactory.getListImagesByProductId(productId)}"/>--%>
-                    <%--                                                            <img src='assets/img/product_img/${listImagesProduct.get(0).nameImage}'>--%>
-                    <%--                                                        </a>--%>
-                    <%--                                                        <div class="order__product--info">--%>
-                    <%--                                                            <a href="#" class="product__name">${cartProduct.product.name}</a>--%>
-                    <%--                                                            <p class="order__color">Màu sắc: ${cartProduct.color.codeColor}</p>--%>
-                    <%--                                                            <ul class="order__size--specification">--%>
-                    <%--                                                                Kích thước: ${cartProduct.size.nameSize} (Giá kích thứớc: <fmt:formatNumber type="currency" value="${cartProduct.size.sizePrice}"/>)--%>
-                    <%--                                                            </ul>--%>
-                    <%--                                                        </div>--%>
-                    <%--                                                    </div>--%>
-                    <%--                                                </td>--%>
-                    <%--                                                <td class="unit__price">${cartProduct.sewingPriceFormat()}</td>--%>
-                    <%--                                                <td>--%>
-                    <%--                                                    <div class="quality__swapper">--%>
-                    <%--                                                        <button type="submit" class="minus__quality change__quality" name="action" value="decreaseQuantity"><i class="fa-solid fa-minus"></i></button>--%>
-                    <%--                                                        <input type="number" name="quality__required" class="quality__required" min="1" value="${cartProduct.quantity}">--%>
-                    <%--                                                        <button type="submit" class="plus__quality change__quality" name="action" value="increaseQuantity"><i class="fa-solid fa-plus"></i></button>--%>
-                    <%--                                                    </div>--%>
-                    <%--                                                </td>--%>
-                    <%--                                                <td class="subtotal__item">${cartProduct.subtotalFormat()}</td>--%>
-                    <%--                                                <td class="remove__action">--%>
-                    <%--                                                    <button type="submit" name="action" value="removeCartProduct" class="remove__item"><i class="fa-solid fa-trash-can"></i></button>--%>
-                    <%--                                                </td>--%>
-                    <%--                                            </tr>--%>
-                    <%--                                        </form>--%>
-                    <%--                                    </c:forEach>--%>
-                    <%--                                </c:forEach>--%>
-                    <%--                                </tbody>--%>
-                    <%--                            </table>--%>
-                    <%--                        </div>--%>
-                    <%--                        <!-- New update template -->--%>
-                    <%--                        <div class="order__note">--%>
-                    <%--                            <label for="area__note">Ghi chú đơn hàng</label>--%>
-                    <%--                            <textarea id="area__note" rows="6" name="area__note" placeholder="Ghi chú"></textarea>--%>
-                    <%--                        </div><!-- New update template -->--%>
-                    <%--                    </div>--%>
                     <div class="cart__content col">
-                        <form class="shopping__cart--form" action="ShoppingCart" method="post">
+                        <form class="shopping__cart--form" action="/ShoppingCart" method="post">
                             <table id="cart__table">
                                 <thead class="cart__header">
                                 <tr>
@@ -143,44 +81,6 @@
                                 </tr>
                                 </thead>
                                 <tbody class="cart__items">
-                                    <%--                                <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.keySet()}"--%>
-                                    <%--                                           var="productId">&lt;%&ndash;key&ndash;%&gt;--%>
-                                    <%--                                    <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.get(productId)}"--%>
-                                    <%--                                               var="cartProduct">&lt;%&ndash;item&ndash;%&gt;--%>
-                                    <%--                                        <c:set value="${sessionScope[userIdCart].shoppingCartMap.get(productId).indexOf(cartProduct)}" var="cartProductIndex"/>--%>
-                                    <%--                                        <tr class="cart__item" data-product-id="${productId}" data-cart-product-index="${cartProductIndex}">--%>
-                                    <%--                                            <td class="product__item">--%>
-                                    <%--                                                <div class="product__content">--%>
-                                    <%--                                                    <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->--%>
-                                    <%--                                                        <c:set var="listImagesProduct" value="${productFactory.getListImagesByProductId(productId)}"/>--%>
-                                    <%--                                                        <img src='assets/img/product_img/${listImagesProduct.get(0).nameImage}'>--%>
-                                    <%--                                                    </a>--%>
-                                    <%--                                                    <div class="order__product--info">--%>
-                                    <%--                                                        <a href="#" class="product__name">${cartProduct.product.name}</a>--%>
-                                    <%--                                                        <p class="order__color">Màu sắc: ${cartProduct.color.codeColor}</p>--%>
-                                    <%--                                                        <ul class="order__size--specification">--%>
-                                    <%--                                                            Kích thước:${cartProduct.size.nameSize} (Giá kích thứớc:--%>
-                                    <%--                                                            <fmt:formatNumber type="currency"--%>
-                                    <%--                                                                              value="${cartProduct.size.sizePrice}"/>)--%>
-                                    <%--                                                        </ul>--%>
-                                    <%--                                                    </div>--%>
-                                    <%--                                                </div>--%>
-                                    <%--                                            </td>--%>
-                                    <%--                                            <td class="unit__price">${cartProduct.sewingPriceFormat()}</td>--%>
-                                    <%--                                            <td>--%>
-                                    <%--                                                <div class="quality__swapper">--%>
-                                    <%--                                                    <button type="submit" class="minus__quality change__quality" name="action" value="decreaseQuantity"><i class="fa-solid fa-minus"></i></button>--%>
-                                    <%--                                                    <input type="number" name="quality__required" class="quality__required" min="1" value="${cartProduct.quantity}">--%>
-                                    <%--                                                    <button type="submit" class="plus__quality change__quality" name="action" value="increaseQuantity"><i class="fa-solid fa-plus"></i></button>--%>
-                                    <%--                                                </div>--%>
-                                    <%--                                            </td>--%>
-                                    <%--                                            <td class="subtotal__item">${cartProduct.subtotalFormat()}</td>--%>
-                                    <%--                                            <td class="remove__action">--%>
-                                    <%--                                                <button type="submit" name="action" value="removeCartProduct" class="remove__item"><i class="fa-solid fa-trash-can"></i></button>--%>
-                                    <%--                                            </td>--%>
-                                    <%--                                        </tr>--%>
-                                    <%--                                    </c:forEach>--%>
-                                    <%--                                </c:forEach>--%>
                                 <%
                                     String userIdCart = String.valueOf(((User) session.getAttribute("auth")).getId());
                                     Map<Integer, List<AbstractCartProduct>> shoppingCartMap = ((ShoppingCart) request.getSession().getAttribute(userIdCart)).getShoppingCartMap();
@@ -195,9 +95,6 @@
                                         <div class="product__content">
                                             <a class="product__image"
                                                href="<c:url value="/showProductDetail"/>?id=<%=productId%>">
-                                                <!-- Back-to-detail_product-page-->
-                                                    <%--                                                <c:set var="listImagesProduct"--%>
-                                                    <%--                                                       value="${productFactory.getListImagesByProductId(productId)}"/>--%>
                                                 <img src='<c:url value="/assets/img/product_img/" /><%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
                                             </a>
                                             <div class="order__product--info">
@@ -208,38 +105,6 @@
                                                     sắc: <%=cartProduct.getColor().getCodeColor()%>
                                                 </p>
                                                 <ul class="order__size--specification">
-                                                        <%--                                                    <%--%>
-                                                        <%--                                                        if (cartProduct instanceof CartProductCustom) {--%>
-                                                        <%--                                                            // Your JSON string--%>
-                                                        <%--                                                            String jsonString = ((CartProductCustom) cartProduct).getJsonSize();--%>
-                                                        <%--                                                            System.out.println(jsonString);--%>
-
-                                                        <%--                                                            // Convert JSON string to a JSONObject--%>
-                                                        <%--                                                            JSONObject jsonObject = new JSONObject(jsonString);--%>
-
-                                                        <%--                                                            // Convert JSONObject to a Map--%>
-                                                        <%--                                                            Map<String, String> map = new HashMap<>();--%>
-                                                        <%--                                                            for (String key : jsonObject.keySet()) {--%>
-                                                        <%--                                                                map.put(key, jsonObject.getString(key));--%>
-                                                        <%--                                                            }--%>
-                                                        <%--                                                    %>--%>
-                                                        <%--                                                    <p>Kích thước:</p>--%>
-                                                        <%--                                                        <%--%>
-                                                        <%--                                                            for (Map.Entry<String, String> entry : map.entrySet()) {--%>
-                                                        <%--                                                        %>--%>
-                                                        <%--                                                                <li><%=entry.getKey()%>: <%=entry.getValue()%></li>--%>
-                                                        <%--                                                    <%--%>
-                                                        <%--                                                            }--%>
-                                                        <%--                                                        }--%>
-                                                        <%--                                                    %>--%>
-                                                        <%--                                                    <%--%>
-                                                        <%--                                                        if (cartProduct instanceof CartProduct) {--%>
-                                                        <%--                                                    %>--%>
-                                                        <%--                                                    <p>Kích thước: <%=((CartProduct) cartProduct).getSize().getNameSize()%>--%>
-                                                        <%--                                                        (Giá kích thước: <%=FormatCurrency.vietNamCurrency(((CartProduct) cartProduct).getSize().getSizePrice())%>)</p>--%>
-                                                        <%--                                                    <%--%>
-                                                        <%--                                                        }--%>
-                                                        <%--                                                    %>--%>
                                                     <%=cartProduct.makeSizeFormat()%>
                                                 </ul>
                                             </div>
@@ -282,7 +147,7 @@
                         <c:set var="temporaryPrice" value="${sessionScope[userIdCart].getTemporaryPrice()}"/>
                         <div class="apply__promotion">
                             <h2>Khuyến mãi</h2>
-                            <form id="promotion__form" action="ShoppingCart" method="post">
+                            <form id="promotion__form" action="/ShoppingCart" method="post">
                                 <!-- New update template -->
                                 <div class="promotion__all">
                                     <span><i class="fa-solid fa-ticket-simple"></i> Mã giảm giá</span>
@@ -336,10 +201,10 @@
                         </div>
                         <span>Phí vận chuyển sẽ được tính ở trang thanh toán</span>
                         <div class="group__button--forward">
-                            <a href="${initParam.contextPath}/public/user/checkout.jsp">
+                            <a href="/public/user/checkout.jsp">
                                 <button id="continue--checkout">Tiến hành thanh toán</button>
                             </a>
-                            <a href="../product/productBuying.jsp">
+                            <a href="/public/product/productBuying.jsp">
                                 <button id="continue--shopping">Tiến tục mua sắm</button>
                             </a>
                         </div>

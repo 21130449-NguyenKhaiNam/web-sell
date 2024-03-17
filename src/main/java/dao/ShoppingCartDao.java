@@ -11,15 +11,6 @@ public class ShoppingCartDao {
         return GeneralDao.executeQueryWithSingleTable(sql, Voucher.class);
     }
 
-//    public static Voucher getDiscountPercentByCode(double temporaryPrice, String code){
-//        String sql = "SELECT discountPercent, `code` FROM vouchers WHERE minimumPrice <= ? AND expiryDate >= CURDATE() AND `code` = ?";
-//        List<Voucher> listVouchers = GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, temporaryPrice, code);
-//        if (!listVouchers.isEmpty()){
-//            return listVouchers.get(0);
-//        }else{
-//            return null;
-//        }
-//    }
 
     public Voucher getValidVoucherApply(String code){
         String sql = "SELECT id, discountPercent, `code`, minimumPrice, `description` FROM vouchers WHERE expiryDate >= CURDATE() AND availableTurns > 0 AND `code` = ?";
@@ -41,8 +32,4 @@ public class ShoppingCartDao {
         return listCodeOfVouchers;
     }
 
-//    public double getMinPriceApplyVoucherByCode(String code){
-//        String sql = "SELECT minimumPrice FROM vouchers WHERE code = ?";
-//        return GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, code).get(0).getMinimumPrice();
-//    }
 }

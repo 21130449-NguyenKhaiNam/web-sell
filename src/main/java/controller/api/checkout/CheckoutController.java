@@ -1,26 +1,30 @@
 package controller.api.checkout;
 
-import models.PaymentMethod;
+import config.ConfigPage;
 import models.DeliveryMethod;
-import models.shoppingCart.ShoppingCart;
+import models.PaymentMethod;
 import models.User;
+import models.shoppingCart.ShoppingCart;
 import services.CheckoutServices;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "CheckoutController", value = "/Checkout")
 public class CheckoutController extends HttpServlet {
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
-        if(action != null){
+        if (action != null) {
             switch (action) {
                 case "choiceDeliveryMethod" -> {
                     String deliveryMethodId = request.getParameter("deliveryMethodId");
@@ -36,7 +40,7 @@ public class CheckoutController extends HttpServlet {
                 }
             }
 
-            if(action.equals("addDeliveryInfo") || action.equals("editDeliveryInfo")){
+            if (action.equals("addDeliveryInfo") || action.equals("editDeliveryInfo")) {
                 String fullName = request.getParameter("fullName");
                 String email = request.getParameter("email");
                 String phone = request.getParameter("phone");
@@ -46,21 +50,21 @@ public class CheckoutController extends HttpServlet {
                 request.setAttribute("phone", phone);
                 request.setAttribute("address", address);
 
-                if(action.equals("addDeliveryInfo")){
+                if (action.equals("addDeliveryInfo")) {
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("AddDeliveryInfo");
                     requestDispatcher.forward(request, response);
                 }
 
-                if(action.equals("editDeliveryInfo")){
+                if (action.equals("editDeliveryInfo")) {
                     String deliveryInfoKey = request.getParameter("deliveryInfoKey");
                     request.setAttribute("deliveryInfoKey", deliveryInfoKey);
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("EditDeliveryInfo");
                     requestDispatcher.forward(request, response);
                 }
             }
-        }else{
+        } else {
             String typeEdit = request.getParameter("typeEdit");
-            if(typeEdit != null) {
+            if (typeEdit != null) {
                 String deliveryInfoKey = request.getParameter("deliveryInfoKey");
                 request.setAttribute("deliveryInfoKey", deliveryInfoKey);
                 switch (typeEdit) {
@@ -79,10 +83,9 @@ public class CheckoutController extends HttpServlet {
         }
 
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<DeliveryMethod> listDeliveryMethod = CheckoutServices.getINSTANCE().getAllInformationDeliveryMethod();
-        List<PaymentMethod> listPaymentMethod = CheckoutServices.getINSTANCE().getAllPaymentMethod();
         HttpSession session = request.getSession();
 
         User userAuth = (User) session.getAttribute("auth");
@@ -90,26 +93,24 @@ public class CheckoutController extends HttpServlet {
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
 
-        if(cart.getTotalPrice(false) < 5000000){
-            if(cart.getDeliveryMethod() == null){
+        if (cart.getTotalPrice(false) < 5000000) {
+            if (cart.getDeliveryMethod() == null) {
                 DeliveryMethod deliveryMethodDefault = CheckoutServices.getINSTANCE().getDeliveryMethodById(1);
                 cart.setDeliveryMethod(deliveryMethodDefault);
                 session.setAttribute(userIdCart, cart);
             }
-        }else {
+        } else {
             cart.setDeliveryMethod(null);
             session.setAttribute(userIdCart, cart);
         }
 
-        if(cart.getPaymentMethod() == null){
+        if (cart.getPaymentMethod() == null) {
             PaymentMethod paymentMethodDefault = CheckoutServices.getINSTANCE().getPaymentMethodById(1);
             cart.setPaymentMethod(paymentMethodDefault);
             session.setAttribute(userIdCart, cart);
         }
 
-        request.setAttribute("listDeliveryMethod",listDeliveryMethod);
-        request.setAttribute("listPaymentMethod", listPaymentMethod);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("checkout.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_CHECKOUT);
         requestDispatcher.forward(request, response);
     }
 

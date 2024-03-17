@@ -64,16 +64,4 @@ public class AddDeliveryInfoController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
-
-//    private boolean isValidEmail(String email) {
-//        Pattern patternEmail = Pattern.compile("^\\w+@\\w+\\.[A-Za-z]+$");
-//        Matcher matcherEmail = patternEmail.matcher(email);
-//        return matcherEmail.matches();
-//    }
-//
-//    private boolean isValidPhone(String phone) {
-//        Pattern patternPhone = Pattern.compile("^\\+?(?:\\d\\s?){9,13}$");
-//        Matcher matcherPhone = patternPhone.matcher(phone);
-//        return matcherPhone.matches();
-//    }
 }
