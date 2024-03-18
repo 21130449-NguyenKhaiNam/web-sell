@@ -87,7 +87,7 @@
                 <a href="${prevURLPage}" class="previous__page"><i class="fa-solid fa-chevron-left"></i></a>
             </c:if>
             <c:forEach begin="${1}" end="${requestScope.totalPage}" var="i">
-                <c:url var="trURLPage" value="newProducts">
+                <c:url var="trURLPage" value="/newProducts">
                     <c:param name="page" value="${i}"/>
                 </c:url>
                 <a class="${i == page ? "active" : "page__forward"}" href="${trURLPage}">${i}</a>

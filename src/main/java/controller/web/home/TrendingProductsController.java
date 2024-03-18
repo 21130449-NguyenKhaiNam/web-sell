@@ -1,25 +1,23 @@
-package filter.home;
+package controller.web.home;
 
 import config.ConfigPage;
 import models.Product;
 import services.HomeServices;
 
-import javax.servlet.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebFilter(filterName = "trendingProduct", urlPatterns = {"/public/product/productTrending.jsp"})
-public class TrendingProduct implements Filter {
-    public void init(FilterConfig config) throws ServletException {
-    }
-
-    public void destroy() {
-    }
-
+@WebServlet(name = "TrendingProductController", value = "/trendingProducts")
+public class TrendingProductsController extends HttpServlet {
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Product> listAllTrendingProducts = HomeServices.getINSTANCE().getListTrendProducts(true);
         int page, itemsPerPage = 8;
         int size = listAllTrendingProducts.size();
@@ -40,7 +38,13 @@ public class TrendingProduct implements Filter {
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("listProductsPerPage", listProductsPerPage);
-        chain.doFilter(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.PRODUCT_TRENDING);
+        requestDispatcher.forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 
     public List<Product> getListProductsPerPage(List<Product> listProducts, int start, int end) {
