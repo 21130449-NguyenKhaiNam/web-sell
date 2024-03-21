@@ -39,6 +39,15 @@
         </div>
     </div>
     <div class="container-xl">
+        <div class="mt-3 p-5 search">
+            <form class="form-inline my-2 my-lg-0 d-flex">
+                <input class="search__inp form-control mr-sm-2 p-3 me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="search__btn btn btn-outline-success my-2 my-sm-0 ps-4 pe-4 hvr-rectangle-out" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+
         <div id="slider__category--section">
             <div class="slider__container">
                 <div class="slider__items">
