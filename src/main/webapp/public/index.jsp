@@ -26,8 +26,7 @@
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main"> <!--Hero-->
     <div class="hero">
-        <img src="<c:url value=" /assets/img/hero__img.png" />" alt=""
-             class="hero__img">
+        <img src="<c:url value=" /assets/img/hero__img.png" />" alt="" class="hero__img">
         <div class="hero__slogan">
             <h1>Change Your Styles Now</h1>
             <p>Cùng chúng tôi tạo nên thiết kế khác biệt cho quần áo của

@@ -15,18 +15,20 @@
 <body>
 <c:import url="/public/header.jsp"/>
 <main class="main">
+    <div class="p-5">
+        <div class="p-5 search">
+            <form class="form-inline my-2 my-lg-0 d-flex">
+                <input class="search__inp form-control mr-sm-2 p-3 me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="search__btn btn btn-outline-success my-2 my-sm-0 ps-4 pe-4 hvr-rectangle-out" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
     <section class="products">
         <div class="container-xl">
-            <div class="ps-5 pe-5 pb-5 search">
-                <form class="form-inline my-2 my-lg-0 d-flex">
-                    <input class="search__inp form-control mr-sm-2 p-3 me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="search__btn btn btn-outline-success my-2 my-sm-0 ps-4 pe-4 hvr-rectangle-out" type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
-            </div>
-
-            <div class="row ">
+            <div class="row">
                 <div class="col-3">
                     <form action="filterProductBuying" class="form__filter">
                         <div class="filter__group"><span class="filter__title">Phân loại sản phẩm</span>
