@@ -4,12 +4,13 @@
 
 <head>
 	<jsp:include page="commonLink.jsp"/>
-	<link rel="stylesheet" href="<c:url value=" /assets/css/policy.css" />">
+	<link rel="stylesheet" href="<c:url value="/assets/css/home.css" />">
 	<title>Chính sách</title>
 </head>
 
 <body>
-<c:import url="/public/header.jsp"/>
+<!--Header-->
+<c:import url="header.jsp" charEncoding="UTF-8"/>
 <main class="main">
 	<div class="container-xl">
 		<div class="row">
@@ -148,7 +149,8 @@
 		</div>
 	</div>
 </main
-<%@include file="footer.jsp" %>
+		<!--Header-->
+<c:import url="footer.jsp" charEncoding="UTF-8"/>
 </body>
 <script>
     var listPolicyBtn = document.querySelectorAll(".policy__item");

@@ -25,9 +25,15 @@
                                     <label class="filter__radio-item">
                                         <input name="categoryId" type="checkbox" class="filter__input filter__radio"
                                                hidden="hidden" value="${category.id}">
-                                        <span class="filter-radio__icon-wrapper">                                   <i
-                                                class="fa-solid fa-check filter-radio__icon"></i>                                 </span> ${category.nameType}
-                                    </label> </c:forEach></div>
+                                        <span class="filter-radio__icon-wrapper ">
+                                            <i class="fa-solid fa-check filter-radio__icon"></i>
+                                        </span>
+                                        <span class="hvr-skew-forward">
+                                                ${category.nameType}
+                                        </span>
+                                    </label>
+                                </c:forEach>
+                            </div>
                         </div>
                         <span class="filter__separate"></span>
                         <div class="filter__group"><span class="filter__title">Mức giá</span>
@@ -42,8 +48,11 @@
                                         <input name="moneyRange" type="checkbox" class="filter__input filter__radio"
                                                hidden="hidden" value="${moneyRange.getFrom()}-${moneyRange.getTo()}">
                                         <span class="filter-radio__icon-wrapper"><i
-                                                class="fa-solid fa-check filter-radio__icon"></i>                         </span> ${moneyFrom}
-                                        - ${moneyTo}
+                                                class="fa-solid fa-check filter-radio__icon"></i>
+                                        </span>
+                                        <span class="hvr-skew-forward">
+                                                ${moneyFrom} - ${moneyTo}
+                                        </span>
                                     </label> </c:forEach>
                             </div>
                         </div>
@@ -56,7 +65,10 @@
                                                class="filter__input filter__radio" hidden="hidden">
                                         <span class="filter-radio__icon-wrapper">
                                             <i class="fa-solid fa-check filter-radio__icon"></i>
-                                        </span> ${item.nameSize}
+                                        </span>
+                                        <span class="hvr-skew-forward">
+                                                ${item.nameSize}
+                                        </span>
                                     </label>
                                 </c:forEach>
                             </div>
@@ -68,7 +80,7 @@
                                     <label class="filter__color-item">
                                         <input name="color" type="checkbox" value="${item.codeColor}"
                                                class="filter__input filter__color" hidden="hidden">
-                                        <span class="filter__color-show shadow rounded"
+                                        <span class="filter__color-show shadow rounded hvr-grow"
                                               style="background-color: ${item.codeColor}"></span>
                                     </label> </c:forEach>
                             </div>
