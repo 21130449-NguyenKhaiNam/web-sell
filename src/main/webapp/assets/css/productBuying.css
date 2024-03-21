@@ -6,6 +6,27 @@
     padding: 100px 0;
 }
 
+/* Search */
+
+.search__inp:focus {
+    box-shadow: 0 0 0 0.25rem var(--blue-color-medium);
+    border-color: var(--blue-color-high);
+}
+
+.search__btn.btn-outline-success {
+    border: 1px solid;
+    color: var(--blue-color-high);
+}
+
+.search__btn:hover {
+    background-color: var(--blue-color-low);
+    border: none;
+}
+
+.search__btn.hvr-rectangle-out:before {
+    border-radius: 5px;
+}
+
 .product__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
