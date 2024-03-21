@@ -16,7 +16,7 @@ public class CloudinaryProperties {
             properties.load(inputStream);
 
             cloudName = properties.getProperty("cloud.name");
-            apiKey = properties.getProperty("api.key ");
+            apiKey = properties.getProperty("api.key");
 
             apiSecret = properties.getProperty("api.secret");
         } catch (Exception e) {
