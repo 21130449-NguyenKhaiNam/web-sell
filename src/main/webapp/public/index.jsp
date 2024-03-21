@@ -116,7 +116,7 @@
                                 <c:set value="${productFactory.getListImagesByProductId(trendProduct.id)}"
                                        var="listTrendProductImages"/>
                                 <img src="<c:url value="/assets/img/product_img/${listTrendProductImages.get(0).nameImage}" />">
-                                <span class="product__tag">Thịnh hành</span>
+                                <span class="product__tag" data-style="popular">Thịnh hành</span>
                                 <form action="AddToCart"
                                       class="action__bar" method="post">
                                     <input type="hidden"
@@ -190,7 +190,7 @@
                                     <img src="${initParam.contextPath}/assets/img/product_img/${listNewProductImages.get(0).nameImage}">
                                 </a>
                                 <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
-                                    <span class="product__tag">Thịnh hành</span>
+                                    <span class="product__tag" data-style="popular">Thịnh hành</span>
                                 </c:if>
                                 <form class="action__bar"
                                       action="AddToCart" method="post">

@@ -329,16 +329,21 @@
     padding: 8px 8px;
     width: fit-content;
     border-radius: 4px;
-    background-color: #E40F0A;
     color: white;
-    /* New update */
     font-size: 14px;
-    /* New update */
     font-weight: 600;
     position: absolute;
     top: 14px;
     right: 16px;
     opacity: 80%;
+}
+
+.product__tag[data-style="popular"] {
+    background: linear-gradient(to right,#faab08,#d42611);
+}
+
+.product__tag[data-style="guaranteed"] {
+    background: linear-gradient(to right,#3bacf0,#1b6dc1);
 }
 
 .action__bar {
