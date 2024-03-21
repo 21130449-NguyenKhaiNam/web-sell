@@ -10,8 +10,10 @@
 <head>
     <jsp:include page="/public/commonLink.jsp"/>
     <link rel="stylesheet" href=<c:url value="/assets/css/productBuying.css"/>>
-    <title>Gian hàng</title></head>
-<body><c:import url="/public/header.jsp"/>
+    <title>Gian hàng</title>
+</head>
+<body>
+<c:import url="/public/header.jsp"/>
 <main class="main">
     <section class="products">
         <div class="container-xl">
