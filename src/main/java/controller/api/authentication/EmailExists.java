@@ -26,6 +26,5 @@ public class EmailExists extends HttpServlet {
             resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(emailError);
         }
-
     }
 }
