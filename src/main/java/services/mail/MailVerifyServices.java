@@ -6,6 +6,7 @@ import services.mail.IMailServices;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletContext;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ public class MailVerifyServices implements IMailServices {
     private String username;
     private String tokenVerify;
     private Timestamp dateExpired;
+
     public MailVerifyServices(String emailTo, String username, String tokenVerify) {
         this.emailTo = emailTo;
         this.username = username;

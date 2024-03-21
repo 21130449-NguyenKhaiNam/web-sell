@@ -3,7 +3,7 @@ package models;
 import java.util.Date;
 import java.util.Objects;
 
-public class Product {
+public class Product extends AbstractModel {
     private int id;
     private String name;
     private int categoryId;
@@ -105,5 +105,15 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    void insert(Log log) {
+
+    }
+
+    @Override
+    void delete(int id) {
+
     }
 }
