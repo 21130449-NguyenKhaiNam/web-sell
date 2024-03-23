@@ -7,46 +7,53 @@ import properties.CloudinaryProperties;
 
 import javax.servlet.http.Part;
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class CloudinaryUpload implements IUpload {
-    private static CloudinaryUpload INSTANCE = null;
+//Services dùng để upload ảnh, service hiện tại đang sử dụng Cloudinary làm cloud lưu trữ ảnh
+public class CloudinaryUploadServices implements IUpload {
+    private static CloudinaryUploadServices INSTANCE = null;
     private Cloudinary cloudinary;
+    // Chiều cao và chiều dài cho ảnh lấy (bên cloud tự điều chỉnh kích thước width và height, nếu để null thì lấy kích thước gốc của ảnh)
     private Integer width;
     private Integer height;
+//    Obj dùng để thao tác trên ảnh
     private Transformation transformation;
 
+    //Khởi tạo các giá trị cần thiết cho biến
     private void init() {
-        cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", CloudinaryProperties.getCloudName(), "api_key", CloudinaryProperties.getApiKey(), "api_secret", CloudinaryProperties.getApiSecret(), "access_mode", "public"));
+        cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", CloudinaryProperties.getCloudName(), "api_key", CloudinaryProperties.getApiKey(), "api_secret", CloudinaryProperties.getApiSecret(), "access_mode", "public", "secure", true));
         transformation = new Transformation().width(width).height(height).crop("fill");
     }
 
-    private CloudinaryUpload() {
+    private CloudinaryUploadServices() {
         init();
     }
 
-    public static CloudinaryUpload getINSTANCE() {
+    // Áp dụng Singleton pattern: đảm bảo chỉ có 1 service đang chạy, tránh có nhiều khởi tạo nhiều instances
+//Mỗi khi muốn lấy Service upload ảnh chỉ cần gọi Cloudinary.getInstance().method
+    public static CloudinaryUploadServices getINSTANCE() {
         if (INSTANCE == null) {
-            INSTANCE = new CloudinaryUpload();
+            INSTANCE = new CloudinaryUploadServices();
         }
         return INSTANCE;
     }
 
+    //    Lấy 1 link ảnh từ cloudinary
     @Override
     public String getImage(String folderPath, String imageName) {
         return cloudinary.url().transformation(transformation).generate(folderPath + "/" + imageName);
     }
 
+    //    Lấy danh sách link ảnh từ cloudinary
     @Override
     public List<String> getImages(String folderPath, String[] imageNameArray) {
         return Arrays.stream(imageNameArray).map(imageName -> getImage(folderPath, imageName)).collect(Collectors.toList());
     }
 
-
+    //    Upload 1 ảnh lên cloudinary
     @Override
     public void uploadImage(String folderName, String imageName, Part part) throws Exception {
         Map<String, Object> folderParams = ObjectUtils.asMap("folder", folderName);
@@ -57,6 +64,7 @@ public class CloudinaryUpload implements IUpload {
         cloudinary.uploader().upload(tempFile, ObjectUtils.asMap("folder", folderName, "public_id", imageName));
     }
 
+    //    Upload nhiều ảnh lên cloudinary
     @Override
     public void uploadImages(String folderName, String imageName, Part[] parts) throws Exception {
         for (Part part : parts) {
@@ -64,35 +72,11 @@ public class CloudinaryUpload implements IUpload {
         }
     }
 
-    public void uploadImage(String folderName, String imageName, File file) throws Exception {
-        Map<String, Object> folderParams = ObjectUtils.asMap("folder", folderName);
-        cloudinary.api().createFolder(folderName, folderParams);
-
-        cloudinary.uploader().upload(file, ObjectUtils.asMap("folder", folderName, "public_id", imageName));
-    }
-
+    //    Tạo 1 folder trên cloudinary
     @Override
     public void createFolder(String folderName) throws Exception {
         Map<String, Object> folderParams = ObjectUtils.asMap("folder", folderName);
         cloudinary.api().createFolder(folderName, folderParams);
-    }
-
-    public void uploadFolder(File folder, String cloudinaryFolder) throws IOException {
-        for (File file : folder.listFiles()) {
-            if (file.isDirectory()) {
-                String subCloudinaryFolder = cloudinaryFolder + "/" + file.getName();
-                createCloudinaryFolder(subCloudinaryFolder);
-                uploadFolder(file, subCloudinaryFolder); // Recursive call for subdirectories
-            } else {
-                // Upload file to Cloudinary
-                Map<?, ?> result = cloudinary.uploader().upload(file, ObjectUtils.asMap("folder", cloudinaryFolder));
-                System.out.println("Uploaded: " + result.get("secure_url"));
-            }
-        }
-    }
-
-    private void createCloudinaryFolder(String folderName) throws IOException {
-        cloudinary.uploader().upload(ObjectUtils.emptyMap(), ObjectUtils.asMap("folder", folderName));
     }
 
     public Integer getWidth() {

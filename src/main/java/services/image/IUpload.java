@@ -3,6 +3,8 @@ package services.image;
 import javax.servlet.http.Part;
 import java.util.List;
 
+//Interface dùng để quản lý các services upload ảnh
+//Mở rộng các services upload ảnh khác nhau, nếu
 public interface IUpload {
     String getImage(String folderPath, String imageName);
 
