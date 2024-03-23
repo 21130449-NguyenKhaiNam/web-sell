@@ -243,8 +243,8 @@
                             <div class="product__review-stars">` + stars + noStars + `</div>
                             <a class="product__review-num" target="_blank" href="` + linkProductDetail + `">` +  contentProduct.reviewCounts + ` nhận xét</a>
                         </div>
-                        <span class="product__price"><strong class="product__price--sale">` + contentProduct.salePrice + ` </strong>
-                        <strong class="product__price--original">` + contentProduct.originalPrice + `</strong></span>
+                        <span class="product__price"><strong class="product__price--sale">` + ${vndFormat.format(contentProduct.salePrice)} + ` </strong>
+                        <strong class="product__price--original">` + ${vndFormat.format(contentProduct.originalPrice)} + `</strong></span>
                     </div>
                 </div>`;
                 })
