@@ -28,7 +28,7 @@ public class ConfigPage implements ServletContextListener {
     }
 
     private void init() {
-        HOME = "/LTW_project_servlet/public/index.jsp";
+        HOME = "/";
         CONTACT = "/contact.jsp";
 //        Config path /public/auth/
         String folderAuth = "/public/auth/";
