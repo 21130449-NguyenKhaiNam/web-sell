@@ -24,6 +24,7 @@
                         type="submit">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
+                <ul class="search__box shadow"></ul>
             </form>
         </div>
     </div>
@@ -199,10 +200,10 @@
 
             $.ajax({
                 type: 'GET',
-                url: $(this).attr('action'),
+                url: '/searchProduct',
                 data: formData,
                 success: function (response) {
-                    updateProducts(response)
+                    console.log(response)
                 },
                 error: function (err) {
                     console.log(err)
@@ -233,6 +234,8 @@
                     for(let star = 5 - contentProduct.stars; star >= 0; --star) {
                         noStars += '<i class="fa-regular fa-star"></i>'
                     }
+                    const salePrice = contentProduct.salePrice
+                    const originPrice = contentProduct.originalPrice
                     return ` <div class = "product__item" >
                     <a class="product__name" target="_blank" href="` + linkProductDetail + `">
                         <img src = "${pageContext.servletContext.contextPath}/assets/img/product_img/` + product.images[0].nameImage + `" class="product__img" >
@@ -243,8 +246,8 @@
                             <div class="product__review-stars">` + stars + noStars + `</div>
                             <a class="product__review-num" target="_blank" href="` + linkProductDetail + `">` +  contentProduct.reviewCounts + ` nhận xét</a>
                         </div>
-                        <span class="product__price"><strong class="product__price--sale">` + ${vndFormat.format(contentProduct.salePrice)} + ` </strong>
-                        <strong class="product__price--original">` + ${vndFormat.format(contentProduct.originalPrice)} + `</strong></span>
+                        <span class="product__price"><strong class="product__price--sale">` + salePrice + ` </strong>
+                        <strong class="product__price--original">` + originPrice + `</strong></span>
                     </div>
                 </div>`;
                 })
@@ -252,6 +255,52 @@
             container.innerHTML = content.join("")
         }
     })
+
+    let ulCom = $('.search__box')[0]
+
+    function handelSearch() {
+        let debounceTimer;
+        $('.search__inp').keydown(function () {
+
+            var formData = $(this).serialize();
+
+            clearTimeout(debounceTimer);
+
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: '/searchProduct',
+                    method: 'GET',
+                    data: formData,
+                    success: function (response) {
+                        ulCom.innerHTML = ""
+                        for (let i = 0; i < response.length; ++i) {
+                            const li = document.createElement("li")
+                            li.setAttribute("class", "mb-1")
+                            const a = document.createElement("a")
+                            a.setAttribute("class", "text-dark mb-2 search__box-item")
+                            a.setAttribute("href", "/")
+                            a.innerText = response[i]
+                            li.appendChild(a)
+                            ulCom.appendChild(li)
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                })
+            }, 800);
+        })
+    }
+
+    handelSearch()
+
+    $('.search__inp').on('focus', function() {
+        $('.search__box').addClass('focused');
+    });
+
+    $('.search__inp').on('blur', function() {
+        $('.search__box').removeClass('focused');
+    });
 </script>
 </body>
 </html>

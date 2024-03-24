@@ -40,11 +40,14 @@
     <div class="container-xl">
         <div class="mt-3 p-5 search">
             <div class="form-inline my-2 my-lg-0 d-flex">
-                <input class="search__inp form-control mr-sm-2 p-3 me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="search__btn btn btn-outline-success my-2 my-sm-0 ps-4 pe-4 hvr-rectangle-out" type="submit">
+                <input class="search__inp form-control mr-sm-2 p-3 me-2" type="search" placeholder="Search"
+                       aria-label="Search">
+                <button class="search__btn btn btn-outline-success my-2 my-sm-0 ps-4 pe-4 hvr-rectangle-out"
+                        type="submit">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
+            <ul class="search__box shadow"></ul>
         </div>
 
         <div id="slider__category--section">
@@ -385,19 +388,33 @@
 }
 
 addToCartAjax();
-    
+let ulCom = $('.search__box')[0]
+
+function handelSearch() {
+    let debounceTimer;
     $('.search__inp').keydown(function () {
-        let debounceTimer;
+
+        var formData = $(this).serialize();
 
         clearTimeout(debounceTimer);
 
         debounceTimer = setTimeout(() => {
             $.ajax({
-                url: '/emailExists',
-                method: 'POST',
-                data: {email: value},
+                url: '/searchProduct',
+                method: 'GET',
+                data: formData,
                 success: function (response) {
-                    mess = response;
+                    ulCom.innerHTML = ""
+                    for (let i = 0; i < response.length; ++i) {
+                        const li = document.createElement("li")
+                        li.setAttribute("class", "mb-1")
+                        const a = document.createElement("a")
+                        a.setAttribute("class", "text-dark mb-2 search__box-item")
+                        a.setAttribute("href", "/")
+                        a.innerText = response[i]
+                        li.appendChild(a)
+                        ulCom.appendChild(li)
+                    }
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText);
@@ -405,6 +422,17 @@ addToCartAjax();
             })
         }, 800);
     })
+}
+
+handelSearch()
+
+$('.search__inp').on('focus', function() {
+    $('.search__box').addClass('focused');
+});
+
+$('.search__inp').on('blur', function() {
+    $('.search__box').removeClass('focused');
+});
 </script>
 </body>
 

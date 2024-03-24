@@ -52,18 +52,17 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-3">
-                    <!-- form__filter them class neu can css -->
-                    <%--                    <form class="mb-2">--%>
-                    <%--                        <div class="filter__group">--%>
-                    <%--                            <span class="filter__title">Tên sản phẩm</span>--%>
-                    <%--                            <label class="filter__text-block">--%>
-                    <%--                                <i class="fa-solid fa-magnifying-glass"></i>--%>
-                    <%--                                <input class="filter__input filter__text" type="text" name="keyword">--%>
-                    <%--                            </label>--%>
-                    <%--                        </div>--%>
-                    <%--                    </form>--%>
+                    <div class="mb-2 form__filter" id="form__search">
+                        <div class="filter__group">
+                            <span class="filter__title">Tên sản phẩm</span>
+                            <label class="filter__text-block">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input class="filter__input filter__text" type="text" name="keyword">
+                            </label>
+                        </div>
+                    </div>
 
-                    <form action="/filterProductAdmin" class="form__filter">
+                    <form action="/filterProductAdmin" class="form__filter" id="form__filter">
                         <div class="filter__group">
                             <span class="filter__title">Thời gian cập nhập</span>
                             <div class="filter__date-block">
@@ -169,25 +168,25 @@
                     <div class="table__wrapper">
                         <table class="table">
                             <thead>
-                                <tr class="table__row">
-                                    <th class="table__head">Xem</th>
-                                    <c:if test="${sessionScope.auth.role == '2'}">
-                                        <th class="table__head">Chỉnh sửa</th>
-                                    </c:if>
-                                    <th class="table__head">Mã sản phẩm</th>
-                                    <th class="table__head">Tên sản phẩm</th>
-                                    <th class="table__head">
-                                        Phân loại sản phẩm
-                                    </th>
-                                    <th class="table__head">Giá gốc</th>
-                                    <th class="table__head">Giá giảm</th>
-                                    <th>Hiển thị</th>
-                                </tr>
+                            <tr class="table__row">
+                                <th class="table__head">Xem</th>
+                                <c:if test="${sessionScope.auth.role == '2'}">
+                                    <th class="table__head">Chỉnh sửa</th>
+                                </c:if>
+                                <th class="table__head">Mã sản phẩm</th>
+                                <th class="table__head">Tên sản phẩm</th>
+                                <th class="table__head">
+                                    Phân loại sản phẩm
+                                </th>
+                                <th class="table__head">Giá gốc</th>
+                                <th class="table__head">Giá giảm</th>
+                                <th>Hiển thị</th>
+                            </tr>
                             </thead>
                             <tbody class="product__list-admin">
-                                <c:set var="list" value="${requestScope.productCardList}"/>
+                            <c:set var="list" value="${requestScope.productCardList}"/>
 
-                                <c:forEach var="item" items="${list}">
+                            <c:forEach var="item" items="${list}">
                                 <tr class="table__row">
                                     <td class="table__data-view">
                                         <label>
@@ -343,7 +342,7 @@
     <%}%>
 
     $(document).ready(function () {
-        $('.form__filter').submit(
+        $('#form__filter').submit(
             function (event) {
                 // Ngăn chặn hành vi mặc định của form (chẳng hạn chuyển hướng trang)
                 event.preventDefault();
