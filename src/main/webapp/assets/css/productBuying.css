@@ -7,12 +7,13 @@
 }
 
 /* Search */
+
 .search {
     background-image: url("/assets/img/background__search.png");
     background-size: cover;
     background-repeat: no-repeat;
-    padding-bottom: 4rem !important;
     border-radius: 5px;
+    position: relative;
 }
 
 .search__inp:focus {
@@ -32,6 +33,40 @@
 
 .search__btn.hvr-rectangle-out:before {
     border-radius: 5px;
+}
+
+.search__box {
+    min-height: 20px;
+    max-height: 200px;
+    width: calc(100% - 168px);
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+    z-index: 999;
+    border-radius: 5px;
+    margin-left: 1px;
+    padding: 15px;
+    margin-top: 5px;
+    display: none;
+    flex-direction: column;
+    top: 70%;
+}
+
+.search__box-item {
+    font-size: 20px;
+    cursor: default;
+    display: inherit;
+    border-radius: 5px;
+    padding: 5px 2px;
+    width: calc(100% - 20px);
+}
+
+.search__box.focused {
+    display: flex;
+}
+
+.search__box-item:hover {
+    background-color: var(--blue-color-medium);
 }
 
 .product__list {
