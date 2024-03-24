@@ -32,7 +32,7 @@ public interface UserDAO extends DAO<User> {
     int delete(User o);
     public List<User> selectALl();
 
-    public void hiddenUserById(int id);
+    public void deleteUserById(int id);
 
     public List<User> searchUsersByName(String search);
 

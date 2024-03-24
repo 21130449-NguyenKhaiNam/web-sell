@@ -1,11 +1,11 @@
 .main {
-    background-color: var(--blue-color-low);
     min-height: 300px;
 }
 
 .products {
     padding: 100px 0;
 }
+
 .product__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -24,12 +24,18 @@
     font-weight: 500;
     color: #3f3f3f;
 }
+
 .product__item {
     display: flex;
     flex-direction: column;
     height: unset;
     background-color: #fff;
     border-radius: var(--border-radius);
+    border: 1px solid #d5cdcd;
+}
+
+.product__item:hover {
+    border: 2px solid var(--blue-color-low);
 }
 
 .product__img {
@@ -79,11 +85,13 @@
     color: #F7B500;
     font-size: 16px;
 }
-.product__review-num{
+
+.product__review-num {
     font-size: 16px;
     color: #687EFF;
 }
-.product__price{
+
+.product__price {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -104,6 +112,7 @@
     --border-radius: 5px;
     padding: 10px 15px;
     border-radius: 5px;
+    border: 1px solid #787878;
     background-color: #fff;
     box-shadow: 21px 13px 15px -4px rgba(0, 0, 0, 0.6);
     -webkit-box-shadow: 21px 13px 15px -4px rgba(0, 0, 0, 0.6);
@@ -153,11 +162,14 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
+
 .filter__radio-item {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .filter-radio__icon-wrapper {
@@ -177,11 +189,11 @@
     display: none;
 }
 
-.filter__radio-item .filter__radio:checked + .filter-radio__icon-wrapper .filter-radio__icon {
+.filter__radio-item .filter__radio:checked+.filter-radio__icon-wrapper .filter-radio__icon {
     display: block;
 }
 
-.filter__radio-item .filter__radio:checked + .filter-radio__icon-wrapper {
+.filter__radio-item .filter__radio:checked+.filter-radio__icon-wrapper {
     background-color: blue;
 }
 
@@ -199,9 +211,12 @@
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
 }
+.filter__color-item {
+    cursor: pointer;
+}
 
-.filter__color:checked + .filter__color-show {
-    border: 2px solid #3f3f3f;
+.filter__color:checked+.filter__color-show {
+    border: 2px solid var(--blue-color-medium);
 }
 
 .filter__color-show {
@@ -212,7 +227,8 @@
 
 }
 
-.filter__submit, .filter__reset {
+.filter__submit,
+.filter__reset {
     margin-top: 20px;
     --width: 100%;
     height: 40px;

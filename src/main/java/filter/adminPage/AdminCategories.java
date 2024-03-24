@@ -8,7 +8,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(filterName = "adminCategories", urlPatterns = {"/adminCategories.jsp"})
+@WebFilter(filterName = "adminCategories", urlPatterns = {"/public/admin/adminCategories.jsp"})
 public class AdminCategories implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }

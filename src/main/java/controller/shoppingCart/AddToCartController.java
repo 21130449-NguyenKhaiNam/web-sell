@@ -1,6 +1,6 @@
 package controller.shoppingCart;
 
-//import cartShopping.ShoppingCart;
+import config.ConfigPage;
 import models.Color;
 import models.shoppingCart.ShoppingCart;
 import models.Size;
@@ -24,7 +24,7 @@ public class AddToCartController extends HttpServlet {
         User userAuth = (User) session.getAttribute("auth");
 
         if(userAuth == null){
-            response.sendRedirect("signIn.jsp");
+            response.sendRedirect(ConfigPage.SIGN_IN);
         }else{
             int productId = 0;
             int quantityRequired = 0;
@@ -61,7 +61,6 @@ public class AddToCartController extends HttpServlet {
             cart.add(productId, quantityRequired, color, size);
             cartProductCount = cart.getTotalItems();
             session.setAttribute(userIdCart, cart);
-//            response.sendRedirect("index.jsp");
 
             response.getWriter().write(String.valueOf(cartProductCount));
         }

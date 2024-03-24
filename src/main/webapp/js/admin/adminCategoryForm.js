@@ -9,6 +9,7 @@ window.addEventListener('message', function (event) {
     const htmlCloseBtn = ` <span class="parameter__item-close" >
                                         <i class="parameter__item-close-icon fa-solid fa-xmark"></i>
                                     </span>`
+
     function deleteParameter(parameter) {
         const closeBtn = parameter.querySelector(".parameter__item-close");
         const idCount = parameter.getAttribute("id-count");
@@ -38,6 +39,7 @@ window.addEventListener('message', function (event) {
         lastElement.insertAdjacentHTML("beforeend", htmlCloseBtn);
         deleteParameter(lastElement);
     }
+
     function loadImg(label, idCount) {
         const inputFile = label.querySelector(`input[type="file"]`);
         inputFile.addEventListener('change', function () {
@@ -239,10 +241,12 @@ window.addEventListener('message', function (event) {
         document.getElementById("form__submit").innerText = "Cập nhật phân loại";
         const categoryId = receivedData.categoryId;
         $.ajax({
-            url: "admin-read-category?categoryId=" + categoryId,
+            url: "/admin-read-category",
             type: "GET",
-            contentType: false,
-            processData: false,
+            data: {
+                categoryId: categoryId,
+            },
+            cache: false,
             dataType: "json",
             success: function (data) {
                 applyData(data)
@@ -260,9 +264,9 @@ window.addEventListener('message', function (event) {
                 const sizeTableImage = document.querySelector("#sizeTableImage").parentElement;
                 nameCategory.value = category.nameType;
                 if (sizeTableImage.querySelector('.category__img')) {
-                    sizeTableImage.querySelector('.category__img').src = `assets/img/size_table/${category.sizeTableImage}`;
+                    sizeTableImage.querySelector('.category__img').src = `/assets/img/size_table/${category.sizeTableImage}`;
                 } else {
-                    sizeTableImage.insertAdjacentHTML("beforeend", `<img class="category__img" src="assets/img/size_table/${category.sizeTableImage}" alt="">`);
+                    sizeTableImage.insertAdjacentHTML("beforeend", `<img class="category__img" src="/assets/img/size_table/${category.sizeTableImage}" alt="">`);
                 }
             }
 
@@ -299,7 +303,7 @@ window.addEventListener('message', function (event) {
                     if (guideImg.querySelector('.category__img')) {
                         guideImg.querySelector('.category__img').src = `assets/img/parameter_guide/${parameters[i].guideImg}`;
                     } else {
-                        guideImg.insertAdjacentHTML("beforeend", `<img class="category__img" src="assets/img/parameter_guide/${parameters[i].guideImg}" alt="">`);
+                        guideImg.insertAdjacentHTML("beforeend", `<img class="category__img" src="/assets/img/parameter_guide/${parameters[i].guideImg}" alt="">`);
                     }
                 }
                 removeRule('sizeTableImage');
@@ -315,7 +319,7 @@ window.addEventListener('message', function (event) {
     function create() {
         let category = new FormData(form);
         $.ajax({
-            url: "admin-create-category",
+            url: "/admin-create-category",
             type: "POST",
             contentType: false,
             processData: false,
@@ -344,10 +348,8 @@ window.addEventListener('message', function (event) {
         let category = new FormData(form);
         category.append("categoryId", receivedData.categoryId)
         $.ajax({
-            url: "admin-update-category",
+            url: "/admin-update-category",
             type: "POST",
-            contentType: false,
-            processData: false,
             dataType: "json",
             data: category,
             cache: false,
