@@ -41,6 +41,7 @@ public class FilterStrategyBuying extends FilterStrategy {
             productCardFiltered = ProductCardServices.getINSTANCE().filter(null, currentPage);
         } else {
             productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, currentPage);
+
         }
 //        listIDFiltered lọc dựa trên visibility
 //        listIDFiltered == 0 -> 0
@@ -83,3 +84,4 @@ public class FilterStrategyBuying extends FilterStrategy {
     }
 
 }
+

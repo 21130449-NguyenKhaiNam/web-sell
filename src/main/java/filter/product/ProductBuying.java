@@ -12,6 +12,9 @@ import java.util.List;
 public class ProductBuying implements Filter {
     private final int DEFAULT_PAGE = 1;
 
+    public void init(FilterConfig config) throws ServletException {
+    }
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(DEFAULT_PAGE);
@@ -20,7 +23,6 @@ public class ProductBuying implements Filter {
         request.setAttribute("quantityPage", quantityPage);
         String requestURL = "/filterProductBuying?";
         request.setAttribute("requestURL", requestURL);
-
         request.setAttribute("quantityPageMin", 1);
         request.setAttribute("quantityPageMax", 5);
 
