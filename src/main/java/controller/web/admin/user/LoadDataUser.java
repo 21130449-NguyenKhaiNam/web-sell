@@ -42,7 +42,6 @@ public class LoadDataUser extends HttpServlet {
             request.setAttribute("totalPage", totalPage);
 
             request.setAttribute("lists", listUserPerPage);
-            System.out.println("user controller: " + listUserPerPage);
         }
 
         request.getRequestDispatcher(ConfigPage.ADMIN_USER).forward(request, response);
