@@ -7,7 +7,6 @@ body {
 .account__wrapper {
     display: flex;
     gap: 5px;
-    background-color: var(--blue-color-low);
     color: #fff;
     padding: 5px;
     border-radius: 10px;
@@ -295,7 +294,7 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
     border-top-right-radius: 10px;
     padding: 20px 10px;
 
-    background-color: var(--blue-color-medium);
+    background-color: var(--blue-color-high);
     color: #fff;
 }
 

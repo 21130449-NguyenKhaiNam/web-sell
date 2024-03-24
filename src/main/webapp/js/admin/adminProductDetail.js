@@ -285,8 +285,9 @@ window.addEventListener('message', function (event) {
         }
 
         function callAjax() {
+            console.log(1)
             $.ajax({
-                url: "admin-read-product?id=" + receivedData.productId,
+                url: "/admin-read-product?id=" + receivedData.productId,
                 type: "POST",
                 contentType: false,
                 processData: false,
@@ -308,16 +309,16 @@ window.addEventListener('message', function (event) {
         const url = new URL(currentURL);
 
 // Extract the base URL
-        const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
+        const basePath = `${url.protocol}//${url.hostname}:${url.port}/}`;
 
         async function asyncImageLoading(images) {
             for (let i = 0; i < images.length; i++) {
-                const url = `${basePath}/read-image?name=${images[i]["nameImage"]}`
+                const url = `/read-image?name=${images[i]["nameImage"]}`
                 const response = await fetch(url)
                 const blob = await response.blob();
                 const blobUrl = URL.createObjectURL(blob);
                 addImages(blobUrl);
-                console.log(images[i]["nameImage"])
+                // console.log(images[i]["nameImage"])
             }
         }
         function addSize(sizes) {

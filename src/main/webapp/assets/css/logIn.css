@@ -1,7 +1,8 @@
 .frame {
     display: flex;
     align-items: center;
-    background: linear-gradient(114deg, #80B3FF 39.92%, #687EFF 61.2%);
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, var(--blue-color-high) 35%, var(--blue-color-medium) 100%);
 }
 
 .frame__media {
@@ -32,11 +33,12 @@ article {
     outline: 1.5px solid red;
 }
 
-.form__block ~ .form__block {
-    margin-top: 10px;
+.form__block~.form__block {
+    margin-top: 8px;
 }
 
-.form__label, .form__link {
+.form__label,
+.form__link {
     font-size: 18px;
     font-weight: 500;
     color: #fff;
@@ -65,7 +67,7 @@ article {
     align-items: center;
 }
 
-.form__block:has(.form__link) > *:not(.form__checkbox) {
+.form__block:has(.form__link)>*:not(.form__checkbox) {
     display: inline-block;
     padding-bottom: 10px;
 }
@@ -100,11 +102,11 @@ article {
     rotate: -45deg;
 }
 
-#forget-password:checked + .icon_checkbox {
+#forget-password:checked+.icon_checkbox {
     background-color: var(--blue-color-medium);
 }
 
-#forget-password:checked + .icon_checkbox:after {
+#forget-password:checked+.icon_checkbox:after {
     display: block;
 }
 
@@ -124,7 +126,8 @@ article {
     --background-color: var(--blue-color-medium);
 }
 
-#form__link--signIn, #form__link--signUp {
+#form__link--signIn,
+#form__link--signUp {
     display: block;
     width: 100%;
     text-align: center;
@@ -144,6 +147,7 @@ article {
 .modal {
     display: block;
 }
+
 .modal {
     display: block;
 }
