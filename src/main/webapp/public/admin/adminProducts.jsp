@@ -60,6 +60,7 @@
                                 <input class="filter__input filter__text" type="text" name="keyword">
                             </label>
                         </div>
+                        <ul class="search__box shadow"></ul>
                     </div>
 
                     <form action="/filterProductAdmin" class="form__filter" id="form__filter">
@@ -420,6 +421,51 @@
                 }
             })
     })
+    let ulCom = $('.search__box')[0]
+
+    function handelSearch() {
+        let debounceTimer;
+        $('.filter__input').keydown(function () {
+
+            var formData = $(this).serialize();
+
+            clearTimeout(debounceTimer);
+
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: '/searchProduct',
+                    method: 'GET',
+                    data: formData,
+                    success: function (response) {
+                        ulCom.innerHTML = ""
+                        for (let i = 0; i < response.length; ++i) {
+                            const li = document.createElement("li")
+                            li.setAttribute("class", "mb-1")
+                            const a = document.createElement("a")
+                            a.setAttribute("class", "text-dark mb-2 search__box-item")
+                            a.setAttribute("href", "/")
+                            a.innerText = response[i]
+                            li.appendChild(a)
+                            ulCom.appendChild(li)
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                })
+            }, 800);
+        })
+    }
+
+    handelSearch()
+
+    $('.filter__input').on('focus', function () {
+        $('.search__box').addClass('focused');
+    });
+
+    $('.filter__input').on('blur', function () {
+        $('.search__box').removeClass('focused');
+    });
 </script>
 </body>
 </html>
