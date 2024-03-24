@@ -2,7 +2,7 @@ package controller.web.review;
 
 import config.ConfigPage;
 import models.Review;
-import services.AdminReviewServices;
+import services.admin.AdminReviewServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -60,5 +60,4 @@ public class ReviewPage extends HttpServlet {
             quantityPageMax = QUANTITY_PAGE_DEFAULT;
         }
     }
-
 }

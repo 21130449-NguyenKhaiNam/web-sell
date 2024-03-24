@@ -1,7 +1,7 @@
 package utils;
 
 import models.Product;
-import services.AdminProductServices;
+import services.admin.AdminProductServices;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
@@ -74,7 +74,6 @@ public class FilterStrategyAdmin extends FilterStrategy {
         requestURL.append("?").append(queryString);
 
         List<String> listInputChecked = listValueChecked(queryString);
-
         generateQuantityPage();
         if (quantityPageMax > quantityPage) {
             quantityPageMax = quantityPage;
@@ -90,6 +89,7 @@ public class FilterStrategyAdmin extends FilterStrategy {
 
     private List<Integer> filterByTimeUpdate() throws ParseException {
         String[] dates = request.getParameterValues("date");
+
         if (dates == null || dates.length == 1 || dates[0].isBlank() || dates[1].isBlank())
             return new ArrayList<>();
 
@@ -131,3 +131,4 @@ public class FilterStrategyAdmin extends FilterStrategy {
     }
 
 }
+
