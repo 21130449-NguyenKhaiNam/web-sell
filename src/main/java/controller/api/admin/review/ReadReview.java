@@ -1,12 +1,9 @@
 package controller.api.admin.review;
 
 import models.OrderDetail;
-import models.Parameter;
-import models.Product;
 import models.Review;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import services.AdminReviewServices;
+import services.admin.AdminReviewServices;
 import services.ProductCardServices;
 import services.ReviewServices;
 import utils.ProductFactory;
@@ -15,7 +12,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "adminReadReview", value = "/admin-read-review")
 public class ReadReview extends HttpServlet {

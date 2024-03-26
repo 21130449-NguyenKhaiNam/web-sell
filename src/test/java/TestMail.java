@@ -1,5 +1,5 @@
-import services.IMailServices;
-import services.MailResetPasswordServices;
+import services.mail.IMailServices;
+import services.mail.MailResetPasswordServices;
 
 import javax.mail.MessagingException;
 

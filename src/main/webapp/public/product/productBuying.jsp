@@ -1,5 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.net.URLEncoder" %>
+<%@ page import="services.image.CloudinaryUploadServices" %>
+<%@ page import="models.Product" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -76,63 +79,60 @@
                         <button class="filter__submit button--hover button" type="submit">Lọc</button>
                     </form>
                 </div>
-                <div class="col-9"><c:set var="list" value="${requestScope.productCardList}"/>
-                    <c:if test="${not empty list}">
-                        <div class="product__list"><c:forEach var="item" items="${list}">
-                            <div class="product__item hvr-grow-shadow"><c:set var="image" value="undifined"/>
-                                <c:if test="${!productFactory.getListImagesByProductId(item.id).isEmpty()}">
-                                    <c:set var="image"
-                                           value="${productFactory.getListImagesByProductId(item.id).get(0).nameImage}"/>
-                                </c:if> <c:url var="linkProductDetail" value="/showProductDetail">
-                                    <c:param name="id" value="${item.id}"/>
-                                    <c:param name="ten-sapn-pham" value="${item.name}"/> </c:url>
-                                <a href="${linkProductDetail}">
-                                    <img src="${pageContext.servletContext.contextPath}/assets/img/product_img/${image}"
+                <div class="col-9">
+                    <div class="product__list">
+                        <%for(Product item : (List<Product>)request.getAttribute("productCardList")){%>
+                            <div class="product__item hvr-grow-shadow">
+
+                                <%String image = productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage();%>
+                                <a href="/showProductDetail?id=<%=item.getId()%>">
+                                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img/", image)%>"
                                          class="product__img" alt="" loading="lazy"/>
                                 </a>
+
                                 <div class="product__info">
-                                    <a class="product__name" target="_blank"
-                                       href="${linkProductDetail}">${item.name}</a>
+                                    <a class="product__name" target="_blank" href="/showProductDetail?id=<%=item.getId()%>"><%=item.getName()%></a>
                                     <div class="product__review">
                                         <div class="product__review-stars">
-                                            <c:forEach var="starA" begin="1" step="1"
-                                                       end="${productFactory.calculateStar(item.id)}">
-                                                <i class="fa-solid fa-star"></i> </c:forEach>
-                                            <c:forEach var="starB" begin="1" step="1"
-                                                       end="${5 - productFactory.calculateStar(item.id)}">
-                                                <i class="fa-regular fa-star"></i> </c:forEach></div>
-                                        <a class="product__review-num" target="_blank"
-                                           href="${linkProductDetail}">${productFactory.getReviewCount(item.id)}
+                                            <%for(int starA = 0; starA < productFactory.calculateStar(item.getId());starA++){%>
+                                                <i class="fa-solid fa-star"></i>
+                                            <%}%>
+
+                                            <%for(int starB = 0; starB < 5 - productFactory.calculateStar(item.getId());starB++){%>
+                                                <i class="fa-regular fa-star"></i>
+                                            <%}%>
+
+                                        </div>
+                                        <a class="product__review-num" target="_blank" href="/showProductDetail"><%=productFactory.getReviewCount(item.getId())%>
                                             nhận xét
                                         </a>
+
                                     </div>
                                     <span class="product__price">
-                                                <fmt:formatNumber value="${item.originalPrice}" type="currency"
-                                                                  currencyCode="VND" var="originalPrice"/>                     <c:choose>
-                                        <c:when test="${item.salePrice != null}">
-                                                    <strong class="product__price--sale">
-                                                        <fmt:formatNumber value="${item.salePrice}" type="currency"
-                                                                          currencyCode="VND"
-                                                                          var="salePrice"/>                           ${salePrice}                         </strong>
-                                            <strong class="product__price--original"> ${originalPrice} </strong>
-                                        </c:when> <c:otherwise>
-                                        <strong class="product__price--sale"> ${originalPrice} </strong> </c:otherwise>
-                                    </c:choose>                   </span></div>
+                                        <fmt:formatNumber value="<%=item.getOriginalPrice()%>" type="currency"
+                                                          currencyCode="VND"
+                                                          var="originalPrice"/>
+
+                                        <fmt:formatNumber value="<%=item.getSalePrice()%>" type="currency"
+                                                          currencyCode="VND"
+                                                          var="salePrice"/>
+
+                                        <strong class="product__price--original">${originalPrice}</strong>
+                                        <strong class="product__price--sale">${salePrice}</strong>
+                                    </span>
+                                </div>
                             </div>
-                        </c:forEach></div>
-                    </c:if> <c:if test="${empty list}"><p class="product__list--empty">Không có sản phẩm nào ứng
-                        với bộ lọc </p></c:if>
+                        <%}%>
+                    </div>
+
+<%--                    <c:if test="${empty list}">--%>
+<%--                        <p class="product__list--empty">Không có sản phẩm nào ứng--%>
+<%--                        với bộ lọc </p>--%>
+<%--                    </c:if>--%>
                 </div>
             </div>
-            <ul class="paging"><c:if test="${requestScope.quantityPage != 0}">
-                <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
-                    <c:url var="linkPaing" value="${requestScope.requestURL}">
-                        <c:param name="page" value="${pageNumber}"/> </c:url> <c:choose>
-                    <c:when test="${pageNumber == requestScope.currentPage}">
-                        <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
-                    </c:when> <c:otherwise>
-                    <a class="page" href="${linkPaing}">${pageNumber}</a>
-                </c:otherwise> </c:choose> </c:forEach> </c:if></ul>
+
+            <jsp:include page="/public/paging.jsp"/>
         </div>
     </section>
 </main>
