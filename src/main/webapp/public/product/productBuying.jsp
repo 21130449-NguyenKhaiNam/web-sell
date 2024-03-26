@@ -81,12 +81,12 @@
                 </div>
                 <div class="col-9">
                     <div class="product__list">
-                        <%for(Product item : (ArrayList<Product>)request.getAttribute("productCardList")){%>
+                        <%for(Product item : (List<Product>)request.getAttribute("productCardList")){%>
                             <div class="product__item hvr-grow-shadow">
 
                                 <%String image = productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage();%>
                                 <a href="/showProductDetail?id=<%=item.getId()%>">
-                                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage(image)%>"
+                                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img/", image)%>"
                                          class="product__img" alt="" loading="lazy"/>
                                 </a>
 
