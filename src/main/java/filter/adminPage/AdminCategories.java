@@ -1,7 +1,7 @@
 package filter.adminPage;
 
 import models.Category;
-import services.admin.AdminCategoryServices;
+import services.AdminCategoryServices;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;

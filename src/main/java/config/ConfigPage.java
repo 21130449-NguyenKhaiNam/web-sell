@@ -13,7 +13,7 @@ public class ConfigPage implements ServletContextListener {
     //    Auth
     public static String SIGN_IN, SIGN_UP, RESET_PASSWORD, VERIFY, FORGET_PASSWORD;
     //    User
-    public static String USER_ACCOUNT, USER_CHANGE_PASSWORD, USER_PURCHASE_HISTORY, USER_CART, USER_CHECKOUT, USER_SUCCESS_ORDER;
+    public static String USER_ACCOUNT, USER_CHANGE_PASSWORD, USER_PURCHASE_HISTORY, USER_CART, USER_CHECKOUT, USER_SUCCESS_ORDER, USER_REVIEW, USER_REVIEW_SUCCESS;
     //    Product
     public static String HOME, PRODUCT_BUYING, PRODUCT_DETAIL, PRODUCT_ORDER, PRODUCT_NEW, PRODUCT_TRENDING;
     //    Admin/Product
@@ -46,6 +46,8 @@ public class ConfigPage implements ServletContextListener {
         USER_CART = folderUser + "shoppingCart.jsp";
         USER_CHECKOUT = folderUser + "checkout.jsp";
         USER_SUCCESS_ORDER = folderUser + "successOrder.jsp";
+        USER_REVIEW = folderUser + "review.jsp";
+        USER_REVIEW_SUCCESS = folderUser + "reviewSuccess.jsp";
 
 //        Config path /public/product/
         String folderProduct = "/public/product/";

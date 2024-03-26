@@ -1,7 +1,7 @@
 window.addEventListener('message', function (event) {
         const data = event.data;
         $.ajax({
-            url: "/admin-read-review",
+            url: "/api/admin/review/read",
             type: "GET",
             data: {
                 id: data.reviewId

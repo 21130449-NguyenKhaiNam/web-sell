@@ -2,46 +2,49 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <jsp:include page="/public/commonLink.jsp" />
-        <link rel="stylesheet" href="<c:url value="/assets/css/logIn.css" />">
+        <link rel="stylesheet" href="<c:url value="/assets/css/logIn.css"/>">
         <title>Đăng nhập</title>
     </head>
+
     <body>
-        <div id="fb-root"></div>
-        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0&appId=797814205366191" nonce="rWVJged8"></script>
         <main class="main">
             <div class="frame">
-                <div class="frame__media">
-                </div>
+                <div class="frame__media"></div>
+
                 <article>
-                    <form action="<c:url value="/signIn" />" class="form form--signUp" method="post">
+                        <span class="text-cetner mb-3 d-flex justify-content-center hvr-bob">
+                            <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
+                        </span>
+                    <form action="<c:url value="/signIn"/>" class="form form--signUp" method="post">
                         <div class="form__block">
                             <label for="username" class="form__label">Tên đăng nhập</label>
-                            <input id="username" name="username" type="text" class="form__input" value="">
+                            <input id="username" name="username" type="text" class="form__input">
                             <c:set value="${requestScope.usernameError}" var="usernameError" />
-                            <c:if test="${requestScope.spam != null}">
-                                ${requestScope.spam}
-                            </c:if>
-                            <p class="form__error"><c:if test="${usernameError != null}">${usernameError}</c:if></p>
+                            <p class="form__error">
+                                <c:if test="${usernameError != null}">${usernameError}</c:if>
+                            </p>
                         </div>
                         <div class="form__block">
                             <label for="password" class="form__label">Mật khẩu</label>
                             <input id="password" name="password" type="password" class="form__input">
                             <c:set value="${requestScope.passwordError}" var="passwordError" />
-                            <p class="form__error"><c:if test="${passwordError != null}">${passwordError}</c:if></p>
+                            <p class="form__error">
+                                <c:if test="${passwordError != null}">${passwordError}</c:if>
+                            </p>
                         </div>
                         <div class="form__block">
                             <a href="<c:url value ="/public/auth/forgotPassword.jsp"/>" id="form__forget-password" class="form__link">
                                 Quên mật khẩu
                             </a>
                         </div>
-                        <p style="color: red">${requestScope.error}</p>
                         <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng nhập
                         </button>
                     </form>
-                    <a href="<c:url value="/public/auth/signUp.jsp" />" id="form__link--signUp" class="form__link ">Đăng
-                                                                                                                    ký
+                    <a href="<c:url value="/public/auth/signUp.jsp"/>" id="form__link--signUp" class="form__link
+                        hvr-float-shadow">Đăng ký
                     </a>
                     <c:url var="google" value="https://accounts.google.com/o/oauth2/auth">
                         <c:param name="scope" value="email" />
@@ -73,4 +76,5 @@
             })
         </script>
     </body>
+
 </html>

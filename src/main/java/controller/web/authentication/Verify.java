@@ -1,7 +1,7 @@
 package controller.web.authentication;
 
 import config.ConfigPage;
-import services.authentication.ValidateFormServices;
+import services.authentication.AuthenticateServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -19,7 +19,7 @@ public class Verify extends HttpServlet {
         String username = request.getParameter("username");
         String tokenVerify = request.getParameter("token-verify");
         System.out.println(username + "\n" + tokenVerify);
-        boolean status = ValidateFormServices.getINSTANCE().verify(username, tokenVerify);
+        boolean status = AuthenticateServices.getINSTANCE().verify(username, tokenVerify);
 
         request.setAttribute("username", username);
         if (status) {

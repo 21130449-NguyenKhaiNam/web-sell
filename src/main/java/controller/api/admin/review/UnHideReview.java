@@ -17,9 +17,6 @@ public class UnHideReview extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
         String idParameter = request.getParameter("id");
         int productId;
         try {

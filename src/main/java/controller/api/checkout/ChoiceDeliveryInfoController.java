@@ -2,21 +2,18 @@ package controller.api.checkout;
 
 import models.DeliveryInfo;
 import models.DeliveryInfoStorage;
-import models.User;
 import models.shoppingCart.ShoppingCart;
+import models.User;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "ChoiceDeliveryInfoController", value = "/ChoiceDeliveryInfo")
 public class ChoiceDeliveryInfoController extends HttpServlet {
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String deliveryInfoKey = (String) request.getAttribute("deliveryInfoKey");
 
         HttpSession session = request.getSession(true);

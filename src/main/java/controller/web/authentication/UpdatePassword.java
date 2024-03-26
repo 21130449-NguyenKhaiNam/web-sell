@@ -1,7 +1,7 @@
 package controller.web.authentication;
 
 import config.ConfigPage;
-import services.authentication.ValidateFormServices;
+import services.authentication.AuthenticateServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -35,7 +35,7 @@ public class UpdatePassword extends HttpServlet {
             countError++;
         }
         if (countError == 0) {
-            boolean isSuccess = ValidateFormServices.getINSTANCE().updatePassword(email, password);
+            boolean isSuccess = AuthenticateServices.getINSTANCE().updatePassword(email, password);
             if (isSuccess) {
                 request.setAttribute("updateSuccess", updateSuccess);
             } else {

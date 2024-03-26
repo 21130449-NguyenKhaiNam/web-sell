@@ -1,5 +1,6 @@
 package controller.web.review;
 
+import config.ConfigPage;
 import models.Review;
 import models.User;
 import services.ReviewServices;
@@ -62,6 +63,6 @@ public class CreateReview extends HttpServlet {
             return;
         }
         request.setAttribute("nameProduct", nameProduct);
-        request.getRequestDispatcher("reviewSuccess.jsp").forward(request, response);
+        request.getRequestDispatcher(ConfigPage.USER_REVIEW_SUCCESS).forward(request, response);
     }
 }

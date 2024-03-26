@@ -18,11 +18,6 @@ import java.util.List;
 
 @WebServlet(name = "SignInFaceBook", value = "/signInFacebook")
 public class SignInFacebook extends HttpServlet {
-    private static final String GRAPH_API_URL = "https://graph.facebook.com/me?fields=email&access_token=";
-    private static final String APP_ID = "2825100177629702";
-    private static final String APP_SECRET = "f52c1f23c0884cccf05178bbbe24f810";
-    private static final String REDIRECT_URI = "http://localhost:8080/signInFacebook"; // Update the URI accordingly
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String code = request.getParameter("code");

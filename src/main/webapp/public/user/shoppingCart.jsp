@@ -147,7 +147,7 @@
                         <c:set var="temporaryPrice" value="${sessionScope[userIdCart].getTemporaryPrice()}"/>
                         <div class="apply__promotion">
                             <h2>Khuyến mãi</h2>
-                            <form id="promotion__form" action="/ShoppingCart" method="post">
+                            <form id="promotion__form" action="/api/cart" method="post">
                                 <!-- New update template -->
                                 <div class="promotion__all">
                                     <span><i class="fa-solid fa-ticket-simple"></i> Mã giảm giá</span>

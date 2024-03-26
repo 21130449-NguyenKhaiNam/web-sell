@@ -1,5 +1,6 @@
 package controller.web.review;
 
+import config.ConfigPage;
 import models.OrderDetail;
 import models.Parameter;
 import org.json.JSONArray;
@@ -54,7 +55,7 @@ public class ShowReview extends HttpServlet {
         request.setAttribute("color", color);
         request.setAttribute("sizes", sizes);
         request.setAttribute("quantity", quantity);
-        request.getRequestDispatcher("review.jsp").forward(request, response);
+        request.getRequestDispatcher(ConfigPage.USER_REVIEW).forward(request, response);
     }
 
     private String[] readSizes(String sizesRequired) {

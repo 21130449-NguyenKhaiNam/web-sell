@@ -1,5 +1,6 @@
-package controller.web.review;
+package controller.web.admin.review;
 
+import config.ConfigPage;
 import models.Review;
 import services.admin.AdminReviewServices;
 
@@ -25,7 +26,7 @@ public class ReviewPage extends HttpServlet {
         request.setAttribute("listReview", listReview);
         request.setAttribute("currentPage", page);
         request.setAttribute("quantityPage", quantityPage);
-        request.getRequestDispatcher("adminReviews.jsp").forward(request, response);
+        request.getRequestDispatcher(ConfigPage.ADMIN_REVIEW).forward(request, response);
     }
 
     @Override

@@ -24,16 +24,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class ValidateFormServices {
-    private static ValidateFormServices INSTANCE;
+public class AuthenticateServices {
+    private static AuthenticateServices INSTANCE;
 
     UserDAO userDAO = new UserDAOImplement();
 
-    private ValidateFormServices() {
+    private AuthenticateServices() {
     }
 
-    public static ValidateFormServices getINSTANCE() {
-        if (INSTANCE == null) INSTANCE = new ValidateFormServices();
+    public static AuthenticateServices getINSTANCE() {
+        if (INSTANCE == null) INSTANCE = new AuthenticateServices();
         return INSTANCE;
     }
 
@@ -76,7 +76,6 @@ public class ValidateFormServices {
         String errorUsername = "Tên đăng nhập đã tồn tại";
         String errorPassword = "Mật khẩu có không thỏa điều kiện";
         String errorPasswordConfirm = "Mật khẩu nhập lại không hợp lệ";
-
         String emptyField = "Không được để trống trường này";
 
 //        checkEmpty

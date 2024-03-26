@@ -2,7 +2,7 @@ package controller.web.authentication;
 
 import config.ConfigPage;
 import models.User;
-import services.authentication.ValidateFormServices;
+import services.authentication.AuthenticateServices;
 import utils.Validation;
 
 
@@ -22,7 +22,7 @@ public class SignIn extends HttpServlet {
         String username = request.getParameter("username").trim();
         String password = request.getParameter("password").trim();
 
-        Validation validation = ValidateFormServices.getINSTANCE().checkSignIn(username, password);
+        Validation validation = AuthenticateServices.getINSTANCE().checkSignIn(username, password);
 
         if (validation.getObjReturn() != null) {
             User userAuth = (User) validation.getObjReturn();
