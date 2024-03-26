@@ -3,8 +3,8 @@ package controller.api.admin.category;
 import models.Category;
 import models.Parameter;
 import properties.PathProperties;
-import services.AdminCategoryServices;
-import services.UploadImageServices;
+import services.admin.AdminCategoryServices;
+import services.image.UploadImageServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

@@ -1,16 +1,8 @@
 package controller.api.admin.product;
 
-import dao.ColorDAO;
-import dao.ProductDao;
-import models.Color;
-import models.Image;
 import models.Product;
-import models.Size;
 import properties.PathProperties;
-import services.AdminProductServices;
-import services.ProductCardServices;
-import services.ProductServices;
-import utils.ProductFactory;
+import services.admin.AdminProductServices;
 import utils.Token;
 
 import javax.servlet.*;
@@ -21,7 +13,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 

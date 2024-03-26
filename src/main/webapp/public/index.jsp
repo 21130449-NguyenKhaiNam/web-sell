@@ -5,6 +5,9 @@
 <%@ page import="services.HomeServices" %>
 <%@ page import="models.Image" %>
 <%@ page import="utils.ProductFactory" %>
+<%@ page import="models.Slider" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="services.image.CloudinaryUploadServices" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -26,7 +29,7 @@
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main"> <!--Hero-->
     <div class="hero">
-        <img src="<c:url value=" /assets/img/hero__img.png" />" alt=""
+        <img src="<c:url value="/assets/img/hero__img.png"/>" alt=""
              class="hero__img">
         <div class="hero__slogan">
             <h1>Change Your Styles Now</h1>
@@ -42,11 +45,11 @@
         <div id="slider__category--section">
             <div class="slider__container">
                 <div class="slider__items">
-                    <c:forEach items="${requestScope.listSlideShow}"
-                               var="slide">
-                        <img class="slider__item" src="<c:url value="/assets/img/slider/${slide.nameImage}" />"
-                             alt=""/>
-                    </c:forEach>
+                    <%for (Slider slide : (List<Slider>) request.getAttribute("listSlideShow")) {%>
+                    <img class="slider__item"
+                         src="<%=CloudinaryUploadServices.getINSTANCE().getImage("slider/", slide.getNameImage())%>"
+                         alt=""/>
+                    <%}%>
                 </div>
                 <div class="navigation__button nav__prev hvr-bounce-in">
                     <i class="fa-solid fa-chevron-left"></i>
@@ -64,23 +67,23 @@
             <div class="category__container category__items">
                 <div class="category__item">
                     <p class="item__text">Áo thun / T-Shirt</p>
-                    <img class="item__image" src="<c:url value="/assets/img/category/T-shirt.png" />">
+                    <img class="item__image" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "T-shirt")%>">
                 </div>
                 <div class="category__item">
                     <p class="item__text">Áo hoodie / Hoodie</p>
-                    <img class="item__image" src="<c:url value="/assets/img/category/hoodie.png" />">
+                    <img class="item__image" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "hoodie")%>">
                 </div>
                 <div class="category__item">
                     <p class="item__text">Balo / Backpack</p>
-                    <img class="item__image" src="<c:url value="/assets/img/category/backpack.png" />">
+                    <img class="item__image" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "backpack")%>">
                 </div>
                 <div class="category__item">
                     <p class="item__text">Quần dài / Pants</p>
-                    <img class="item__image" src="<c:url value="/assets/img/category/pants.png" />">
+                    <img class="item__image" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "pants")%>">
                 </div>
                 <div class="category__item">
                     <p class="item__text">Nón / Cap</p>
-                    <img class="item__image" src="<c:url value="/assets/img/category/hat.png" />">
+                    <img class="item__image" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "hat")%>">
                 </div>
             </div>
         </div>
@@ -95,58 +98,53 @@
             <button class="left__button"><i
                     class="fa-solid fa-arrow-left"></i></button>
             <div class="product__items">
-                <c:forEach items="${requestScope.list6TrendingProducts}"
-                           var="trendProduct">
-                    <c:url var="showProductDetail"
-                           value="/showProductDetail">
-                        <c:param name="id" value="${trendProduct.id}"/>
-                    </c:url>
+                <%for (Product trendProduct : (List<Product>) request.getAttribute("list6TrendingProducts")) {%>
                     <div class="product__item">
                         <div class="product__content">
                             <div class="image--tag">
-                                <c:set value="${productFactory.getListImagesByProductId(trendProduct.id)}"
-                                       var="listTrendProductImages"/>
-                                <img src="<c:url value="/assets/img/product_img/${listTrendProductImages.get(0).nameImage}" />">
+                                <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(trendProduct.getId());%>
+
+                                <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
+
                                 <span class="product__tag">Thịnh hành</span>
                                 <form action="AddToCart"
                                       class="action__bar" method="post">
                                     <input type="hidden"
                                            name="productId"
-                                           value="${trendProduct.id}">
+                                           value="<%=trendProduct.getId()%>">
                                     <button type="submit"
                                             class="add__cart"><i
                                             class="fa-solid fa-cart-shopping"></i>
                                     </button>
                                     <a class="see__detail"
                                        target="_blank"
-                                       href="${showProductDetail}"><i
-                                            class="fa-solid fa-eye"></i></a>
+                                       href="/showProductDetail?id=<%=trendProduct.getId()%>">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
                                 </form>
                             </div>
+
                             <div class="product__info">
                                 <a class="product__name" target="_blank"
-                                   href="${showProductDetail}">${trendProduct.name}</a>
+                                   href="/showProductDetail?id=<%=trendProduct.getId()%>"><%=trendProduct.getName()%></a>
                                 <div class="product__review">
                                     <div class="review__icon">
-                                        <c:forEach var="starA" begin="1"
-                                                   step="1"
-                                                   end="${productFactory.calculateStar(trendProduct.id)}">
+                                        <%for (int starA = 1; starA <= productFactory.calculateStar(trendProduct.getId()); starA++) {%>
                                             <i class="fa-solid fa-star icon__item"></i>
-                                        </c:forEach>
-                                        <c:forEach var="starB" begin="1"
-                                                   step="1"
-                                                   end="${5 - productFactory.calculateStar(trendProduct.id)}">
+                                        <%}%>
+
+                                        <%for (int starB = 1; starB <= 5 - productFactory.calculateStar(trendProduct.getId()); starB++) {%>
                                             <i class="fa-regular fa-star icon__item"></i>
-                                        </c:forEach>
+                                        <%}%>
                                     </div>
                                     <a class="number__turns--ratting"
-                                       href="${showProductDetail}">${productFactory.getReviewCount(trendProduct.id)}
+                                       href="${showProductDetail}"><%=productFactory.getReviewCount(trendProduct.getId())%>
                                         nhận xét</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </c:forEach>
+                <%}%>
             </div>
             <button class="right__button">
                 <i class="fa-solid fa-arrow-right"></i>
@@ -164,95 +162,53 @@
             <button class="left__button"><i
                     class="fa-solid fa-arrow-left"></i></button>
             <div class="product__items">
-                <c:forEach items="${requestScope.list6NewProducts}"
-                           var="newProduct">
-                    <c:url var="showProductDetail"
-                           value="/showProductDetail">
-                        <c:param name="id" value="${newProduct.id}"/>
-                    </c:url>
-                    <div class="product__item">
-                        <div class="product__content">
-                            <div class="image--tag">
-                                <c:set
-                                        value="${productFactory.getListImagesByProductId(newProduct.id)}"
-                                        var="listNewProductImages"/>
-                                <a class="product__name" target="_blank"
-                                   href="${showProductDetail}">
-                                    <img src="${initParam.contextPath}/assets/img/product_img/${listNewProductImages.get(0).nameImage}">
+                <%for (Product newProduct : (List<Product>) request.getAttribute("list6NewProducts")) {%>
+                <div class="product__item">
+                    <div class="product__content">
+                        <div class="image--tag">
+                            <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(newProduct.getId());%>
+
+                            <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
+
+                            <span class="product__tag">Thịnh hành</span>
+                            <form action="AddToCart"
+                                  class="action__bar" method="post">
+                                <input type="hidden"
+                                       name="productId"
+                                       value="<%=newProduct.getId()%>">
+                                <button type="submit"
+                                        class="add__cart"><i
+                                        class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                                <a class="see__detail"
+                                   target="_blank"
+                                   href="/showProductDetail?id=<%=newProduct.getId()%>">
+                                    <i class="fa-solid fa-eye"></i>
                                 </a>
-                                <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
-                                    <span class="product__tag">Thịnh hành</span>
-                                </c:if>
-                                <form class="action__bar"
-                                      action="AddToCart" method="post">
-                                    <input type="hidden"
-                                           name="productId"
-                                           value="${newProduct.id}">
-                                    <button type="submit"
-                                            class="add__cart">
-                                        <i
-                                                class="fa-solid fa-cart-shopping"></i>
-                                    </button>
-                                    <a class="see__detail"
-                                       target="_blank"
-                                       href="${showProductDetail}">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </a>
-                                </form>
-                            </div>
-                            <div class="product__info">
-                                <a class="product__name" target="_blank"
-                                   href="${showProductDetail}">${newProduct.name}</a>
-                                <div class="product__review">
-                                    <div class="review__icon">
-                                        <c:forEach var="starA" begin="1"
-                                                   step="1"
-                                                   end="${productFactory.calculateStar(newProduct.id)}">
-                                            <i
-                                                    class="fa-solid fa-star icon__item"></i>
-                                        </c:forEach>
-                                        <c:forEach var="starB" begin="1"
-                                                   step="1"
-                                                   end="${5 - productFactory.calculateStar(newProduct.id)}">
-                                            <i
-                                                    class="fa-regular fa-star icon__item"></i>
-                                        </c:forEach>
-                                    </div>
-                                    <a class="number__turns--ratting"
-                                       href="${showProductDetail}">${productFactory.getReviewCount(newProduct.id)}
-                                        nhận xét
-                                    </a>
+                            </form>
+                        </div>
+
+                        <div class="product__info">
+                            <a class="product__name" target="_blank"
+                               href="/showProductDetail?id=<%=newProduct.getId()%>"><%=newProduct.getName()%></a>
+                            <div class="product__review">
+                                <div class="review__icon">
+                                    <%for (int starA = 1; starA <= productFactory.calculateStar(newProduct.getId()); starA++) {%>
+                                    <i class="fa-solid fa-star icon__item"></i>
+                                    <%}%>
+
+                                    <%for (int starB = 1; starB <= 5 - productFactory.calculateStar(newProduct.getId()); starB++) {%>
+                                    <i class="fa-regular fa-star icon__item"></i>
+                                    <%}%>
                                 </div>
-                                <span class="product__price">
-                                    <fmt:setLocale value="vi_VN"/>
-                                    <c:choose>
-                                        <c:when
-                                                test="${newProduct.salePrice == null}">
-                                            <strong
-                                                    class="priority__price">
-                                                <fmt:formatNumber
-                                                        value="${newProduct.originalPrice}"
-                                                        type="currency"/>
-                                            </strong>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <strong class="sale__price">
-                                                <fmt:formatNumber
-                                                        value="${newProduct.salePrice}"
-                                                        type="currency"/>
-                                            </strong>
-                                            <s class="original__price">
-                                                <fmt:formatNumber
-                                                        value="${newProduct.originalPrice}"
-                                                        type="currency"/>
-                                            </s>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </span>
+                                <a class="number__turns--ratting"
+                                   href="${showProductDetail}"><%=productFactory.getReviewCount(newProduct.getId())%>
+                                    nhận xét</a>
                             </div>
                         </div>
                     </div>
-                </c:forEach>
+                </div>
+                <%}%>
             </div>
             <button class="right__button">
                 <i class="fa-solid fa-arrow-right"></i>
@@ -286,7 +242,7 @@
         <div class="guide__content row">
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="/assets/img/step_guide/choose.png" />">
+                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("step_guide", "choose")%>">
                     <div class="description_step">
                         <span>Bước 1</span>
                         <p>Chọn một mẫu đồ mà bạn ưng ý</p>
@@ -295,7 +251,7 @@
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="/assets/img/step_guide/customize.png" />">
+                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("step_guide", "customize")%>">
                     <div class="description_step">
                         <span>Bước 2</span>
                         <p>Tùy chọn size và kiểu dáng phù hợp với nhu cầu của bạn</p>
@@ -304,7 +260,7 @@
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="/assets/img/step_guide/checkout.png" />">
+                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("step_guide", "checkout")%>">
                     <div class="description_step">
                         <span>Bước 3</span>
                         <p>Tiến hành đặt may và thanh toán</p>
@@ -313,7 +269,7 @@
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="/assets/img/step_guide/receive.png" />">
+                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("step_guide", "receive")%>">
                     <div class="description_step">
                         <span>Bước 4</span>
                         <p>Chờ nhận hàng sau khi bạn đã thanh toán thành công</p>
@@ -322,11 +278,12 @@
             </div>
         </div>
     </div>
+
 </main>
 <!--Footer-->
 <%@include file="footer.jsp" %>
-<script src="<c:url value=" /js/home.js" />"></script>
-<script src="<c:url value=" /js/base.js" />"></script>
+<script src="<c:url value="/js/home.js"/>"></script>
+<script src="<c:url value="/js/base.js"/>"></script>
 <script type="text/javascript">   function addToCartAjax() {
     $(document).ready(function () {
         $('.action__bar').each(function (index, actionBar) {

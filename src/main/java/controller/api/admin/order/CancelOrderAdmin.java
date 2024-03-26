@@ -3,7 +3,7 @@ package controller.api.admin.order;
 import models.Order;
 import models.OrderStatus;
 import org.json.JSONObject;
-import services.AdminOrderServices;
+import services.admin.AdminOrderServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

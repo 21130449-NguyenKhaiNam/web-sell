@@ -72,6 +72,7 @@
                             </thead>
                             <tbody>
                             <c:set var="list" value="${requestScope.listReview}"/>
+
                             <c:forEach var="item" items="${list}">
                                 <c:set var="user" value="${userFactory.getUserByIdProductDetail(item.orderDetailId)}"/>
                                 <tr class="table__row">
@@ -117,23 +118,8 @@
                         </table>
                     </div>
 
-                    <ul class="paging">
-                        <c:if test="${requestScope.quantityPage != 0}">
-                            <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
-                                <c:url var="linkPaing" value="${requestScope.requestURL}">
-                                    <c:param name="page" value="${pageNumber}"/>
-                                </c:url>
-                                <c:choose>
-                                    <c:when test="${pageNumber == requestScope.currentPage}">
-                                        <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a class="page" href="${linkPaing}">${pageNumber}</a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </c:if>
-                    </ul>
+                    <c:import url="/public/paging.jsp"/>
+
                 </div>
             </div>
         </div>
