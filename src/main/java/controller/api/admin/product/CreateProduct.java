@@ -13,7 +13,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
 
-@WebServlet(name = "adminCreateProduct", value = "/admin-create-product")
+@WebServlet(name = "adminCreateProduct", value = "/api/admin/product/create")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 12024,
         maxFileSize = 1024 * 1024 * 10,
@@ -27,10 +27,6 @@ public class CreateProduct extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
-
         String name = request.getParameter("name");
         String idCategory = request.getParameter("idCategory");
         String originalPrice = request.getParameter("originalPrice");

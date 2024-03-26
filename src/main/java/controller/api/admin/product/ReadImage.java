@@ -10,7 +10,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-@WebServlet(name = "readImage", value = "/read-image")
+@WebServlet(name = "readImage", value = "/api/admin/product/read-image")
 public class ReadImage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

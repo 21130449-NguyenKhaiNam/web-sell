@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-@WebFilter(filterName = "APIFilter", servletNames = {"IncreaseQuantityController"}, urlPatterns = {"/api/*"})
+@WebFilter(filterName = "APIFilter", urlPatterns = {"/api/*"})
 public class APIFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

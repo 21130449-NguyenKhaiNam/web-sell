@@ -106,7 +106,7 @@ function hideProductAlert(nameProduct, idProduct) {
     if (result) {
         //     Handle
         $.ajax({
-            url: "/admin-hide-product",
+            url: "/api/admin/product/hide",
             type: "POST",
             data: {
                 id: idProduct
@@ -134,7 +134,7 @@ function unHideProductAlert(nameProduct, idProduct) {
     if (result) {
         //     Handle
         $.ajax({
-            url: "/admin-un-hide-product",
+            url: "/api/admin/product/un-hide",
             type: "POST",
             data: {
                 id: idProduct

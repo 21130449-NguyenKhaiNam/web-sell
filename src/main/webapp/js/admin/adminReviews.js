@@ -50,7 +50,7 @@ function hideProductAlert(reviewId) {
     if (result) {
         //     Handle
         $.ajax({
-            url: "/admin-hide-review",
+            url: "/api/admin/review/hide",
             type: "POST",
             data: {
                 id: reviewId
@@ -78,7 +78,7 @@ function unHideProductAlert(reviewId) {
     if (result) {
         //     Handle
         $.ajax({
-            url: "/admin-un-hide-review",
+            url: "/api/admin/review/un-hide",
             type: "POST",
             data: {
                 id: reviewId

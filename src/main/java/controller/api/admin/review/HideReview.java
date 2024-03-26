@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "adminHideReview", value = "/admin-hide-review")
+@WebServlet(name = "adminHideReview", value = "/api/admin/review/hide")
 public class HideReview extends HttpServlet {
     private final boolean HIDE_STATE = false;
 

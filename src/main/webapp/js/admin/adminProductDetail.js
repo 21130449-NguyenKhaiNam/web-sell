@@ -182,7 +182,7 @@ window.addEventListener('message', function (event) {
         function create() {
             const product = getDataForm(form);
             $.ajax({
-                url: "admin-create-product",
+                url: "/api/admin/product/create",
                 type: "POST",
                 contentType: false,
                 processData: false,
@@ -285,12 +285,12 @@ window.addEventListener('message', function (event) {
         }
 
         function callAjax() {
-            console.log(1)
             $.ajax({
-                url: "/admin-read-product?id=" + receivedData.productId,
-                type: "POST",
-                contentType: false,
-                processData: false,
+                url: "/api/admin/product/read",
+                type: "GET",
+                data: {
+                    id: receivedData.productId
+                },
                 dataType: "json",
                 cache: false,
                 success: function (data) {
@@ -313,7 +313,7 @@ window.addEventListener('message', function (event) {
 
         async function asyncImageLoading(images) {
             for (let i = 0; i < images.length; i++) {
-                const url = `/read-image?name=${images[i]["nameImage"]}`
+                const url = `/api/admin/product/read-image?name=${images[i]["nameImage"]}`
                 const response = await fetch(url)
                 const blob = await response.blob();
                 const blobUrl = URL.createObjectURL(blob);

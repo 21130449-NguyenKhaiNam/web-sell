@@ -19,7 +19,7 @@ import java.util.Collection;
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 100
 )
-@WebServlet(name = "adminUpdateProduct", value = "/admin-update-product")
+@WebServlet(name = "adminUpdateProduct", value = "/api/admin/product/update")
 public class UpdateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
