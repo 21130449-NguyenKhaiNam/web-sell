@@ -5,7 +5,7 @@ import models.Parameter;
 
 import java.util.List;
 
-public class CategoryDAO {
+public class CategoryDAO implements IDao {
     public List<Category> getAllCategory() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id, nameType ")
