@@ -1,23 +1,24 @@
 package controller.api.shoppingCart;
 
-import models.shoppingCart.ShoppingCart;
 import models.User;
 import models.Voucher;
+import models.shoppingCart.ShoppingCart;
 import org.json.JSONObject;
 import services.ShoppingCartServices;
 import utils.FormatCurrency;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "DeleteCartProductController", value = "/DeleteCartProduct")
+@WebServlet(name = "DeleteCartProductController", value = "/api/cart/delete")
 public class DeleteCartProductController extends HttpServlet {
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int productId = 0;
         int cartProductIndex = 0;
         HttpSession session = request.getSession(true);
@@ -27,7 +28,7 @@ public class DeleteCartProductController extends HttpServlet {
         try {
             productId = Integer.parseInt((String) request.getAttribute("productId"));
             cartProductIndex = Integer.parseInt((String) request.getAttribute("cartProductIndex"));
-        }catch (NumberFormatException exception){
+        } catch (NumberFormatException exception) {
             exception.printStackTrace();
         }
 
@@ -36,13 +37,13 @@ public class DeleteCartProductController extends HttpServlet {
         JSONObject jsonObject = new JSONObject();
         response.setContentType("application/json");
 
-        if(code != null){
+        if (code != null) {
             Voucher voucher = cart.getVoucherApplied();
-            if (voucher == null){
+            if (voucher == null) {
                 voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
             }
 
-            if (cart.getTemporaryPrice() < voucher.getMinimumPrice()){
+            if (cart.getTemporaryPrice() < voucher.getMinimumPrice()) {
                 double minPriceToApply = voucher.getMinimumPrice();
                 double currentTempPrice = cart.getTemporaryPrice();
 
@@ -67,9 +68,9 @@ public class DeleteCartProductController extends HttpServlet {
         jsonObject.put("newTotalItems", newTotalItems);
         jsonObject.put("discountPrice", cart.getDiscountPrice());
 
-        if(session.getAttribute("failedApply") != null){
+        if (session.getAttribute("failedApply") != null) {
             jsonObject.put("failedApply", session.getAttribute("failedApply"));
-        }else {
+        } else {
             jsonObject.remove("failedApply");
             jsonObject.put("discountPriceFormat", discountPriceFormat);
         }

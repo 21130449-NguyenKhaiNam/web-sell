@@ -1,25 +1,25 @@
 package controller.api.shoppingCart;
 
-import models.shoppingCart.AbstractCartProduct;
-import models.shoppingCart.CartProduct;
-import models.shoppingCart.ShoppingCart;
 import models.User;
 import models.Voucher;
+import models.shoppingCart.AbstractCartProduct;
+import models.shoppingCart.ShoppingCart;
 import org.json.JSONObject;
 import services.ShoppingCartServices;
 import utils.FormatCurrency;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "DecreaseQuantityController", value = "/DecreaseQuantity")
+@WebServlet(name = "DecreaseQuantityController", value = "/api/cart/decrease")
 public class DecreaseQuantityController extends HttpServlet {
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int productId = 0;
         int cartProductIndex = 0;
         HttpSession session = request.getSession(true);
@@ -70,9 +70,9 @@ public class DecreaseQuantityController extends HttpServlet {
         jsonObject.put("newTotalPriceFormat", newTotalPriceFormat);
         jsonObject.put("discountPrice", cart.getDiscountPrice());
 
-        if(session.getAttribute("failedApply") != null){
+        if (session.getAttribute("failedApply") != null) {
             jsonObject.put("failedApply", session.getAttribute("failedApply"));
-        }else {
+        } else {
             jsonObject.remove("failedApply");
             jsonObject.put("discountPriceFormat", discountPriceFormat);
         }

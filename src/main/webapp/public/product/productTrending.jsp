@@ -23,7 +23,7 @@
                             <c:set value="${productFactory.getListImagesByProductId(trendProduct.id)}" var="listTrendProductImages"/>
                             <img src="/assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
                             <span class="product__tag">Thịnh hành</span>
-                            <form class="action__bar" action="/AddToCart" method="post">
+                            <form class="action__bar" action="/api/cart/add" method="post">
                                 <input type="hidden" name="productId" value="${trendProduct.id}">
                                 <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
                                 <a class="see__detail" target="_blank" href="${showProductDetail}"><i class="fa-solid fa-eye"></i></a>

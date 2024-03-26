@@ -47,7 +47,7 @@
                 </div>
                 <div class="offset-1 col-5">
                     <div class="product__info">
-                        <form action="AddToCart" method="post" id="form__product" class="product__form">
+                        <form action="/api/cart/add" method="post" id="form__product" class="product__form">
                             <h1 class="product__name">${product.name}</h1>
                             <input type="text" hidden="hidden" name="productId" value="${product.id}">
                             <c:forEach var="starA" begin="1" step="1"

@@ -1,8 +1,8 @@
 package controller.api.shoppingCart;
 
-import models.shoppingCart.ShoppingCart;
 import models.User;
 import models.Voucher;
+import models.shoppingCart.ShoppingCart;
 import org.json.JSONObject;
 import services.ShoppingCartServices;
 import utils.FormatCurrency;
@@ -16,12 +16,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ApplyVoucherController", value = "/ApplyVoucher")
+@WebServlet(name = "ApplyVoucherController", value = "/api/cart/apply-voucher")
 public class ApplyVoucherController extends HttpServlet {
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<String> listCodeOfVouchers = ShoppingCartServices.getINSTANCE().getListCodeOfVouchers();
         String code = (String) request.getAttribute("promotionCode");
         double temporaryPrice = (double) request.getAttribute("temporaryPrice");

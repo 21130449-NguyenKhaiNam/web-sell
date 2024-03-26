@@ -30,7 +30,7 @@
                             <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
                                 <span class="product__tag">Thịnh hành</span>
                             </c:if>
-                            <form class="action__bar" action="AddToCart" method="post">
+                            <form class="action__bar" action="/api/cart/add" method="post">
                                 <input type="hidden" name="productId" value="${newProduct.id}">
                                 <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i>
                                 </button>

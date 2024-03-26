@@ -14,12 +14,10 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "IncreaseQuantityController", value = "/IncreaseQuantity")
+@WebServlet(name = "IncreaseQuantityController", value = "/api/cart/increase")
 public class IncreaseQuantityController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         int productId = 0;
         int cartProductIndex = 0;
         HttpSession session = request.getSession(true);

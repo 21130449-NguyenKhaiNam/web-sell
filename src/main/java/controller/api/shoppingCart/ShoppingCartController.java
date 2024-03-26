@@ -4,13 +4,16 @@ import config.ConfigPage;
 import models.Voucher;
 import services.ShoppingCartServices;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ShoppingCartController", value = "/ShoppingCart")
+@WebServlet(name = "ShoppingCartController", value = "/api/cart")
 public class ShoppingCartController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,29 +26,25 @@ public class ShoppingCartController extends HttpServlet {
             request.setAttribute("cartProductIndex", cartProductIndex);
 
             switch (action) {
-                case "increaseQuantity": {
-                    requestDispatcher = request.getRequestDispatcher("IncreaseQuantity");
+                case "increaseQuantity" -> {
+                    requestDispatcher = request.getRequestDispatcher("/api/cart/increase");
                     requestDispatcher.forward(request, response);
-                    break;
                 }
-                case "decreaseQuantity": {
-                    requestDispatcher = request.getRequestDispatcher("DecreaseQuantity");
+                case "decreaseQuantity" -> {
+                    requestDispatcher = request.getRequestDispatcher("/api/cart/decrease");
                     requestDispatcher.forward(request, response);
-                    break;
                 }
-                case "removeCartProduct": {
-                    requestDispatcher = request.getRequestDispatcher("DeleteCartProduct");
+                case "removeCartProduct" -> {
+                    requestDispatcher = request.getRequestDispatcher("api/cart/delete");
                     requestDispatcher.forward(request, response);
-                    break;
                 }
-                case "applyVoucher": {
+                case "applyVoucher" -> {
                     String promotionCode = request.getParameter("promotionCode");
                     double temporaryPrice = Double.parseDouble(request.getParameter("temporaryPrice"));
                     request.setAttribute("promotionCode", promotionCode);
                     request.setAttribute("temporaryPrice", temporaryPrice);
-                    requestDispatcher = request.getRequestDispatcher("ApplyVoucher");
+                    requestDispatcher = request.getRequestDispatcher("/api/cart/apply-voucher");
                     requestDispatcher.forward(request, response);
-                    break;
                 }
             }
         }
