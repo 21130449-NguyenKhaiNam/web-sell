@@ -65,7 +65,7 @@ window.addEventListener('message', function (event) {
             return new Promise(async (resolve, reject) => {
                 const imageUrl = `/read-image?name=${name}`;
                 try {
-                    const response = await fetch(imageUrl);
+                    const response = await fetch(imageUrl)
 
                     if (!response.ok) {
                         throw new Error('Network response was not ok.');
@@ -385,31 +385,31 @@ window.addEventListener('message', function (event) {
         //Update------------------------------------------------------------------------------------------
         function callAjaxUpdate() {
             console.log(1)
-            // $.ajax({
-            //     url: "admin-update-product",
-            //     type: "POST",
-            //     contentType: false,
-            //     processData: false,
-            //     dataType: "json",
-            //     cache: false,
-            //     data: getDataForm(form),
-            //     success: function (data) {
-            //         if (data.status === true) {
-            //             notifySuccess({
-            //                 title: "Cập nhập sản phẩm thành công",
-            //                 body: "Sản phẩm đã được cập nhập vào gian hàng."
-            //             });
-            //         } else {
-            //             notifyFailed({
-            //                 title: "Cập nhập sản phẩm thất bại",
-            //                 body: "Sản phẩm chưa được cập nhập vào gian hàng."
-            //             });
-            //         }
-            //     },
-            //     error: function (error) {
-            //         console.log(error)
-            //     },
-            // });
+            $.ajax({
+                url: "/admin-update-product",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                cache: false,
+                data: getDataForm(form),
+                success: function (data) {
+                    if (data.status === true) {
+                        notifySuccess({
+                            title: "Cập nhập sản phẩm thành công",
+                            body: "Sản phẩm đã được cập nhập vào gian hàng."
+                        });
+                    } else {
+                        notifyFailed({
+                            title: "Cập nhập sản phẩm thất bại",
+                            body: "Sản phẩm chưa được cập nhập vào gian hàng."
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                },
+            });
         }
 
         const inputDesc = document.querySelector(`input[name = "description"]`)

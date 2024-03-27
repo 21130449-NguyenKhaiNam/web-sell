@@ -4,7 +4,6 @@
 <%@ page import="models.Review" %>
 <%@ page import="java.util.List" %>
 <%@ page import="models.User" %>
-<%@ page import="com.cloudinary.taglib.CloudinaryUnsignedUploadTag" %>
 <%@ page import="config.ConfigPage" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -53,25 +52,6 @@
                                             </c:otherwise>
                                         </c:choose>
                                         <%i++;%>
-                                    <%}%>
-
-                                    <%int j = 0;%>
-                                    <%for(Image image : productFactory.getListImagesByProductId(product.getId())){%>
-                                        <c:choose>
-                                            <c:when test="<%=i == 0%>">
-                                                <li class="product__img-item product__img-item--clicked">
-                                                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", image.getNameImage())%>"
-                                                         alt="" loading="lazy">
-                                                </li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li class="product__img-item">
-                                                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", image.getNameImage())%>"
-                                                         alt="" loading="lazy">
-                                                </li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <%j++;%>
                                     <%}%>
                                 </ul>
                             </div>
