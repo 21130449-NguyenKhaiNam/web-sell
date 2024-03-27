@@ -5,7 +5,11 @@ import models.Parameter;
 
 import java.util.List;
 
+<<<<<<< HEAD
 public class CategoryDAO {
+=======
+public class CategoryDAO implements IDao {
+>>>>>>> 21130449
     public List<Category> getAllCategory() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id, nameType ")

@@ -17,9 +17,15 @@
                 <div class="frame__media"></div>
 
                 <article>
+<<<<<<< HEAD
                                 <span class="text-cetner mb-3 d-flex justify-content-center hvr-bob">
                                     <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
                                 </span>
+=======
+                    <span class="text-cetner mb-3 d-flex justify-content-center hvr-bob">
+                        <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
+                    </span>
+>>>>>>> 21130449
                     <form action="<c:url value="/signUp"/>" method="post" class="form form--signUp">
                         <div class="form__block">
                             <label for="username" class="form__label">Tên đăng nhập</label>
@@ -37,6 +43,16 @@
                                 <c:if test="${emailError != null}">${emailError}</c:if>
                             </p>
                         </div>
+<<<<<<< HEAD
+=======
+                        <div class="form__block mb-3">
+                            <label for="gender" class="form__label">Giới tính</label>
+                            <select id="gender" class="d-block w-100 p-2 rounded">
+                                <option name="gender" value="Free Male">Nam</option>
+                                <option name="gender" value="Male">Nữ</option>
+                            </select>
+                        </div>
+>>>>>>> 21130449
                         <div class="form__block">
                             <label for="password" class="form__label">Mật khẩu</label>
                             <input id="password" name="password" type="password" class="form__input">
@@ -45,13 +61,22 @@
                                 <c:if test="${passwordError != null}">${passwordError}</c:if>
                             </p>
                         </div>
+<<<<<<< HEAD
                         <div class="form__password-error">
+=======
+                        <div class="form__password-error rounded">
+>>>>>>> 21130449
                             <h3>Mật khẩu cần phải có:</h3>
                             <div class="error__list">
                                 <c:set var="charMinLength" value="${requestScope.charMinLength}" />
                                 <p id="minLength" class="error__item <c:if test=" ${charMinLength !=null}">
                                             error__item--correct</c:if> ">
+<<<<<<< HEAD
                                     <i class="error__icon fa-solid fa-check"></i> <span>Có ít nhất 8 kí tự.</span>
+=======
+                                    <i class="error__icon fa-solid fa-check"></i>
+                                    <span>Có ít nhất 8 kí tự.</span>
+>>>>>>> 21130449
                                 </p>
                                 <c:set var="charNumber" value="${requestScope.charNumber}" />
                                 <p id="atLeast1Digit" class="error__item <c:if test=" ${charNumber !=null}">
@@ -97,7 +122,12 @@
                 </article>
             </div>
 
+<<<<<<< HEAD
             <c:if test="${requestScope.sendMail != null}"> <!--Modal -->
+=======
+            <c:if test="${requestScope.sendMail != null}">
+                <!--Modal -->
+>>>>>>> 21130449
                 <input type="checkbox" id="modal__hide" hidden="hidden">
                 <div class="modal">
                     <div class="modal__notify">
@@ -115,14 +145,35 @@
         <!--JS validate-->
         <script src="<c:url value="/js/validateForm.js"/>"></script>
         <script>
+<<<<<<< HEAD
+=======
+            // Check nhập không phù hợp
+            $("input.form__input").on({
+                keydown: function(e) {
+                    if (e.which === 32)
+                        return false;
+                },
+                change: function() {
+                    this.value = this.value.replace(/\s/g, "");
+                }
+            });
+
+>>>>>>> 21130449
             var validation = new Validation({
                 formSelector: ".form",
                 formBlockClass: "form__block",
                 errorSelector: ".form__error",
                 rules: [
                     Validation.isRequired("#username"),
+<<<<<<< HEAD
                     Validation.isRequired("#email"),
                     Validation.isEmail("#email"),
+=======
+                    Validation.isExistsUsername("#username"),
+                    Validation.isRequired("#email"),
+                    Validation.isEmail("#email"),
+                    Validation.isExistsEmail("#email"),
+>>>>>>> 21130449
                     Validation.isRequired("#password"),
                     Validation.isUnique("#password"),
                     Validation.isRequired("#confirm-password"),
@@ -131,7 +182,10 @@
                     })
                 ],
                 submitSelector: "#form__submit",
+<<<<<<< HEAD
 
+=======
+>>>>>>> 21130449
             })
         </script>
     </body>

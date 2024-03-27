@@ -562,6 +562,7 @@ body {
 .paging {
     display: flex;
     justify-content: center;
+<<<<<<< HEAD
     margin-top: 30px;
 }
 
@@ -570,6 +571,17 @@ body {
     padding: 9px 11px;
     margin: 0px 6px;
     font-size: 15px;
+=======
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.page {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+    line-height: 30px;
+>>>>>>> 21130449
     text-align: center;
     border-radius: 5px;
     border: 1px solid #ccc;
