@@ -132,6 +132,13 @@
     cursor: pointer;
 }
 
+<<<<<<< HEAD
+=======
+.form__error {
+    color: red;
+}
+
+>>>>>>> 21130449
 .select__box{
     width: 100%;
 }

@@ -43,13 +43,13 @@
             <version>1.2</version>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/org.jdbi/jdbi3-core -->
         <dependency>
             <groupId>org.jdbi</groupId>
             <artifactId>jdbi3-core</artifactId>
             <version>3.40.0</version>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
         <dependency>
@@ -249,8 +249,6 @@
             <version>2.2.4</version>
         </dependency>
     </dependencies>
-
-
 
     <build>
         <finalName>LTW_project_servlet</finalName>

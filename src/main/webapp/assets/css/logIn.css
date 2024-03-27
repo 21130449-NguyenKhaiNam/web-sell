@@ -1,14 +1,26 @@
 .frame {
+<<<<<<< HEAD
+=======
+    height: 100%;
+>>>>>>> 21130449
     display: flex;
     align-items: center;
     background: rgb(2, 0, 36);
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, var(--blue-color-high) 35%, var(--blue-color-medium) 100%);
+<<<<<<< HEAD
+=======
+    padding-bottom: 20px;
+>>>>>>> 21130449
 }
 
 .frame__media {
     flex: 1;
     height: 100vh;
     background: url("../img/login__img.png") left / 100% no-repeat;
+<<<<<<< HEAD
+=======
+    border-radius: 5px;
+>>>>>>> 21130449
 }
 
 article {
@@ -128,6 +140,10 @@ article {
 
 #form__link--signIn,
 #form__link--signUp {
+<<<<<<< HEAD
+=======
+    padding-bottom: 5px;
+>>>>>>> 21130449
     display: block;
     width: 100%;
     text-align: center;

@@ -5,8 +5,13 @@ import models.User;
 import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.ShoppingCart;
 import services.CheckoutServices;
+<<<<<<< HEAD
 import services.mail.IMailServices;
 import services.mail.MailPlaceOrderService;
+=======
+import services.IMailServices;
+import services.MailPlaceOrderService;
+>>>>>>> 21130449
 
 import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
