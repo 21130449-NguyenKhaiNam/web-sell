@@ -36,7 +36,6 @@ const folderAvatarUser = "/assets/img/user/"
 $(".admin__detail").each((index, item) => {
     item.addEventListener("click", function () {
         const userId = item.getAttribute("data-id");
-        console.log(userId)
         showDialog(userId);
     });
 
@@ -53,7 +52,6 @@ function showDialog(userId) {
         cache: true,
         success: function (data) {
             applyDataDialog(data);
-            console.log(data)
         },
         error: function (error) {
         },

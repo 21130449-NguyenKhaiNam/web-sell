@@ -126,7 +126,6 @@
                             <a href="${nextURLPage}" class="next__page"><i class="fa-solid fa-chevron-right"></i></a>
                         </c:if>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -191,7 +190,7 @@
                 </div>
             </div>
         </div>
-<%--<script src="<c:url value="/js/admin/adminUsers.js" />"></script>--%>
+</div>
     <script src="/js/admin/adminUsers.js"></script>
 </body>
 

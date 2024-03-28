@@ -19,8 +19,8 @@ public class APIFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        request.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        request.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         chain.doFilter(request, response);
     }

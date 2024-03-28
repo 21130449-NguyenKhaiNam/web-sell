@@ -1,54 +1,37 @@
-//Read dialog
-const iframeRead = document.querySelector("#dialog-review-read .modal__product-iframe");
-const dataViewElement = document.querySelectorAll(".table__data-view");
-const modalRead = document.querySelector("#dialog-review-read");
-const elementCloseRead = getClose(modalRead);
+// //Hide review
+// const dataHideElement = document.querySelectorAll(".table__data-visibility .button");
+// dataHideElement.forEach(function (element) {
+//     element.onclick = function () {
+//         // Get name product
+//         const idReview = tableRow.querySelector(".table__data-id").textContent.trim();
+//         // Show alert
+//         if (element.classList.contains("button__hide")) {
+//             hideProductAlert(idReview);
+//         }
+//         if (element.classList.contains("button__un-hide")) {
+//             unHideProductAlert(idReview);
+//         }
+//
+//     }
+// });
 
-function getClose(modal) {
-    return modal.querySelector(".modal__review-close");
-}
-
-elementCloseRead.onclick = function () {
-    modalRead.style.display = "none";
-};
-
-dataViewElement.forEach(function (element) {
-    const pageTarget = `${window.location.origin}/adminReviewForm.jsp`;
-    element.onclick = function () {
-        // Open dialog
-        modalRead.style.display = "block";
-
-        const tableRow = this.parentNode;
-        const reviewId = tableRow.querySelector(".table__data-id").textContent.trim();
-        iframeRead.contentWindow.postMessage({
-            reviewId: reviewId,
-        }, pageTarget);
-    }
-});
-
-//Hide review
-const dataHideElement = document.querySelectorAll(".table__data-visibility .button");
-dataHideElement.forEach(function (element) {
-    element.onclick = function () {
-        // Get name product
-        const tableRow = this.parentNode.parentNode;
-        const idReview = tableRow.querySelector(".table__data-id").textContent.trim();
-        // Show alert
-        if (element.classList.contains("button__hide")) {
+$('.table__data-visibility .button').each((index, item) => {
+    $(item).on('click', () => {
+        const idReview = $(item).data("id-review")
+        console.log(idReview)
+        if ($(item).hasClass("button__hide")) {
             hideProductAlert(idReview);
         }
-        if (element.classList.contains("button__un-hide")) {
+        if ($(item).hasClass("button__un-hide")) {
             unHideProductAlert(idReview);
         }
-
-    }
+    });
 });
 
 function hideProductAlert(reviewId) {
     const message = `Bạn có muốn ẩn nhận xét này không?`;
     const result = window.confirm(message);
     if (result) {
-        //     Handle
         $.ajax({
             url: "/api/admin/review/hide",
             type: "POST",
@@ -76,7 +59,6 @@ function unHideProductAlert(reviewId) {
     const message = `Bạn có muốn bỏ ẩn nhận xét không?`;
     const result = window.confirm(message);
     if (result) {
-        //     Handle
         $.ajax({
             url: "/api/admin/review/un-hide",
             type: "POST",
@@ -99,3 +81,48 @@ function unHideProductAlert(reviewId) {
         });
     }
 }
+
+$('.review__detail').each((index, item) => {
+    $(item).on('click', () => {
+        const idReview = $(item).data("id-review")
+        showDialog(idReview);
+    })
+});
+
+function showDialog(idReview) {
+    $.ajax({
+        url: "/api/admin/review/read",
+        type: "GET",
+        data: {
+            id: idReview
+        },
+        dataType: "json",
+        cache: true,
+        success: function (data) {
+            console.log(data)
+            applyDataDialog(data);
+        },
+        error: function (error) {
+        },
+    });
+}
+
+const folderProduct = "/assets/img/product_img/"
+
+function applyDataDialog(review) {
+    const model = $("#model");
+
+    function loadStars(stars) {
+        model.find("#staticStars").text();
+    }
+
+    model.find("#staticImageProduct").attr("src", folderProduct + review.image);
+    model.find("#staticNameProduct").text(review.name);
+    model.find("#staticCategory").text(review.category);
+    model.find("#staticDate").text(review.date);
+    model.find("#staticQuantity").text(review.quantityRequired);
+    model.find("#staticSize").text(review.sizeRequired);
+    loadStars(review.stars);
+    model.find("#staticReview").text(review.feedback);
+}
+
