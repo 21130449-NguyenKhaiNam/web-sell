@@ -1,12 +1,11 @@
-package filter;
+package filter.api;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
-@WebFilter(filterName = "APIFilter", urlPatterns = {"/api/*"})
-public class APIFilter implements Filter {
+@WebFilter(urlPatterns = {"/api/*"})
+public class Encoding implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);

@@ -1,7 +1,6 @@
 package filter.authorization;
 
 import models.User;
-import properties.RoleProperties;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "admin", urlPatterns = {"/public/admin/*"})
+@WebFilter(filterName = "admin", urlPatterns = {"/public/admin/*", "/api/admin/*"})
 public class AdminRole implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }

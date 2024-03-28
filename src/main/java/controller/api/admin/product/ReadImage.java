@@ -14,7 +14,7 @@ import java.net.URL;
 public class ReadImage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = (String) request.getParameter("name");
+        String name = request.getParameter("name");
         if (name != null) {
             String urlImg = getPathServer(request) + PathProperties.getINSTANCE().getPathProductWeb() + name;
 

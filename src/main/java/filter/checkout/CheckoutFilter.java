@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "checkoutFilter", urlPatterns = {"/public/user/checkout.jsp", "/Checkout"})
+@WebFilter(filterName = "checkoutFilter", urlPatterns = {"/public/user/checkout.jsp", "/api/checkout/*"})
 public class CheckoutFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

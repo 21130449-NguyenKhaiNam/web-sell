@@ -35,10 +35,6 @@ public class Home implements Filter {
         request.setAttribute("listSlideShow", listSlideShow);
         request.setAttribute("list6TrendingProducts", list6TrendProducts);
         request.setAttribute("list6NewProducts", list6NewProducts);
-//        String url = request.getServletPath();
-//        if (url.contains("index.jsp") && !url.contains("error404.jsp")) {
-//            response.sendRedirect("Home");
-//        }
         filterChain.doFilter(request, response);
     }
 

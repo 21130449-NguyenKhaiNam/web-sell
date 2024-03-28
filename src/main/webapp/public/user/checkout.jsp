@@ -453,7 +453,7 @@
         $('.place__order').on('click', function () {
             $.ajax({
                 type: 'POST',
-                url: '/PlaceOrder',
+                url: '/api/checkout/address',
                 data: {},
                 dataType: 'json',
                 success: function (response) {
