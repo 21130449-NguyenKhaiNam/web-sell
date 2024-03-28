@@ -13,12 +13,10 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "ChoiceDeliveryMethodController", value = "/ChoiceDeliveryMethod")
+@WebServlet(name = "ChoiceDeliveryMethodController", value = "/api/checkout/delivery/method")
 public class ChoiceDeliveryMethodController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         int deliveryMethodId = 0;
         try {
             deliveryMethodId = Integer.parseInt((String) request.getAttribute("deliveryMethodId"));

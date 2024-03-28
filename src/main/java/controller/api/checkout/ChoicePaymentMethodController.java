@@ -12,12 +12,10 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.UUID;
 
-@WebServlet(name = "ChoicePaymentMethodController", value = "/ChoicePaymentMethod")
+@WebServlet(name = "ChoicePaymentMethodController", value = "/api/checkout/payment/method")
 public class ChoicePaymentMethodController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         int paymentMethodId = 0;
         try {
             paymentMethodId = Integer.parseInt((String) request.getAttribute("paymentMethodId"));

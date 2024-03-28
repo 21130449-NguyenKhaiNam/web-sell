@@ -1,20 +1,3 @@
-// //Hide review
-// const dataHideElement = document.querySelectorAll(".table__data-visibility .button");
-// dataHideElement.forEach(function (element) {
-//     element.onclick = function () {
-//         // Get name product
-//         const idReview = tableRow.querySelector(".table__data-id").textContent.trim();
-//         // Show alert
-//         if (element.classList.contains("button__hide")) {
-//             hideProductAlert(idReview);
-//         }
-//         if (element.classList.contains("button__un-hide")) {
-//             unHideProductAlert(idReview);
-//         }
-//
-//     }
-// });
-
 $('.table__data-visibility .button').each((index, item) => {
     $(item).on('click', () => {
         const idReview = $(item).data("id-review")

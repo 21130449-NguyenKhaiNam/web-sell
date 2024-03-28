@@ -10,12 +10,11 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "ChoiceDeliveryInfoController", value = "/ChoiceDeliveryInfo")
+@WebServlet(name = "ChoiceDeliveryInfoController", value = "/api/checkout/delivery/choice")
 public class ChoiceDeliveryInfoController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String deliveryInfoKey = (String) request.getAttribute("deliveryInfoKey");
-
         HttpSession session = request.getSession(true);
         User userAuth = (User) session.getAttribute("auth");
         String userIdCart = String.valueOf(userAuth.getId());

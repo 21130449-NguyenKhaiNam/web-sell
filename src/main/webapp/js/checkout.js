@@ -184,7 +184,7 @@ function handleCustomizeDeliveryInfo(){
 
             $.ajax({
                 type: "POST",
-                url: "/Checkout",
+                url: "/api/checkout",
                 data: objectData,
                 dataType: 'json',
                 success: function (response){

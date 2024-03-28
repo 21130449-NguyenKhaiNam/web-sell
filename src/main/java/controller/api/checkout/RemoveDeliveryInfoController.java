@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "RemoveDeliveryInfoController", value = "/RemoveDeliveryInfo")
+@WebServlet(name = "RemoveDeliveryInfoController", value = "/api/checkout/delivery/remove")
 public class RemoveDeliveryInfoController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
