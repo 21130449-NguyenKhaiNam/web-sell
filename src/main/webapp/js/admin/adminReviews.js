@@ -96,7 +96,20 @@ function applyDataDialog(review) {
     const model = $("#model");
 
     function loadStars(stars) {
-        model.find("#staticStars").text();
+        const reviewStars = model.find("#staticStars");
+        const htmls = [];
+        let i;
+        for (i = 0; i < stars; i++) {
+            htmls.push(`<i class="star fa-solid fa-star"></i>`);
+        }
+        for (; i < 5; i++) {
+            htmls.push(`<i class=" star fa-regular fa-star"></i>`);
+        }
+        reviewStars.html(htmls.join(""));
+    }
+
+    function handleColor(color){
+        model.find("#staticColor").text(color).css("background-color", color);
     }
 
     model.find("#staticImageProduct").attr("src", folderProduct + review.image);
@@ -106,6 +119,8 @@ function applyDataDialog(review) {
     model.find("#staticQuantity").text(review.quantityRequired);
     model.find("#staticSize").text(review.sizeRequired);
     loadStars(review.stars);
+    handleColor(review.colorRequired)
     model.find("#staticReview").text(review.feedback);
+    model.find("#staticDate").text(review.date);
 }
 

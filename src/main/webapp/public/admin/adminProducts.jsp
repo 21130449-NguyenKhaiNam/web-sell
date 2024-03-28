@@ -20,8 +20,7 @@
     <nav class="navbar">
         <div class="container-xl">
             <ul class="navbar__list">
-                <li
-                        class="navbar__item"><a href="<c:url value="/public/admin/adminProducts.jsp" />"
+                <li class="navbar__item"><a href="<c:url value="/public/admin/adminProducts.jsp" />"
                                                 class="navbar__link button button button--hover navbar__link--clicked">Sản
                     phẩm</a>
                 </li>

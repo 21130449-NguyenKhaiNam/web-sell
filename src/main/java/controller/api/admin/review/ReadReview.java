@@ -47,6 +47,7 @@ public class ReadReview extends HttpServlet {
         jsonObject.put("quantityRequired", quantity);
         jsonObject.put("feedback", review.getFeedback());
         jsonObject.put("stars", review.getRatingStar());
+        jsonObject.put("date", review.getReviewDate());
         response.getWriter().write(jsonObject.toString());
     }
 

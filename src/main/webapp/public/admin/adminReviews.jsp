@@ -99,11 +99,15 @@
                                                 </td>
                                                 <c:choose> <c:when test="${item.visibility==true}">
                                                     <td class="table__data table__data-visibility table__data-hide">
-                                                        <div data-id-review="${item.id}" class="button button--hover button__hide ">Ẩn</div>
+                                                        <div data-id-review="${item.id}" class="button button--hover button__hide ">
+                                                            Ẩn
+                                                        </div>
                                                     </td>
                                                 </c:when> <c:otherwise>
                                                     <td class="table__data table__data-visibility table__data-un-hide">
-                                                        <div data-id-review="${item.id}" class="button button--hover button__un-hide ">Bỏ ẩn</div>
+                                                        <div data-id-review="${item.id}" class="button button--hover button__un-hide ">
+                                                            Bỏ ẩn
+                                                        </div>
                                                     </td>
                                                 </c:otherwise> </c:choose>
                                             </tr>
@@ -158,7 +162,9 @@
                                     </div>
                                     <div class="col-4 mt-2">
                                         <h3 class="form-label text-nowrap">Màu sắc</h3>
-                                        <div class="form-control" disabled id="staticColor"></div>
+                                        <div class="form-control " id="">
+                                            <div id="staticColor" class="round border"></div>
+                                        </div>
                                     </div>
                                     <div class="col-2 mt-2">
                                         <h3 class="form-label text-nowrap">Số lượng</h3>
@@ -166,10 +172,12 @@
                                     </div>
                                     <div class="col-4 mt-2">
                                         <h3 class="form-label text-nowrap">Số sao</h3>
-                                        <div class="form-control" id="staticStars"></div>
+                                        <div class="form-control">
+                                            <div class="d-flex gap-1" id="staticStars"></div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-6 mt-2">
+                                <div class="col-12 mt-2">
                                     <h3 class="form-label text-wrap">Kích cỡ</h3>
                                     <div class="form-control" id="staticSize"></div>
                                 </div>
