@@ -1,5 +1,6 @@
 package filter.authorization;
 
+import config.ConfigPage;
 import models.User;
 
 import javax.servlet.*;
