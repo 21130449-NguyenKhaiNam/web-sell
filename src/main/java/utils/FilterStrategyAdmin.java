@@ -1,5 +1,11 @@
 package utils;
 
+<<<<<<< HEAD
+import models.Product;
+import services.admin.AdminProductServices;
+
+import javax.servlet.http.HttpServletRequest;
+=======
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Image;
@@ -9,6 +15,7 @@ import services.AdminProductServices;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+>>>>>>> 21130449
 import java.sql.Date;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -18,9 +25,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilterStrategyAdmin extends FilterStrategy {
+<<<<<<< HEAD
+    private final int QUANTITY_PAGE_DEFAULT = 5;
+    private int quantityPageMin;
+    private int quantityPageMax;
+    private int currentPage;
+
+    public FilterStrategyAdmin(HttpServletRequest request) {
+        super(request);
+=======
 
     public FilterStrategyAdmin(HttpServletRequest request, HttpServletResponse response) {
         super(request, response);
+>>>>>>> 21130449
     }
 
     @Override
@@ -39,12 +56,22 @@ public class FilterStrategyAdmin extends FilterStrategy {
         List<Integer> filterBySize = filterBySize();
 
         String pageNumber = request.getParameter("page");
+<<<<<<< HEAD
+
+        try {
+            currentPage = Integer.parseInt(pageNumber);
+        } catch (NumberFormatException e) {
+            currentPage = 1;
+        }
+
+=======
         int page;
         try {
             page = Integer.parseInt(pageNumber);
         } catch (NumberFormatException e) {
             page = 1;
         }
+>>>>>>> 21130449
         List<List<Integer>> listId = new ArrayList<>();
         listId.add(filterByDate);
         listId.add(filterByName);
@@ -56,9 +83,15 @@ public class FilterStrategyAdmin extends FilterStrategy {
         List<Integer> listIDFiltered = findCommonIDs(listId);
         List<Product> productCardFiltered;
         if (listIDFiltered.isEmpty()) {
+<<<<<<< HEAD
+            productCardFiltered = AdminProductServices.getINSTANCE().filter(null, currentPage);
+        } else {
+            productCardFiltered = AdminProductServices.getINSTANCE().filter(listIDFiltered, currentPage);
+=======
             productCardFiltered = AdminProductServices.getINSTANCE().filter(null, page);
         } else {
             productCardFiltered = AdminProductServices.getINSTANCE().filter(listIDFiltered, page);
+>>>>>>> 21130449
         }
 
         int quantityPage;
@@ -74,6 +107,19 @@ public class FilterStrategyAdmin extends FilterStrategy {
         requestURL.append("?").append(queryString);
 
         List<String> listInputChecked = listValueChecked(queryString);
+<<<<<<< HEAD
+        generateQuantityPage();
+        if (quantityPageMax > quantityPage) {
+            quantityPageMax = quantityPage;
+        }
+
+        request.setAttribute("requestURL", requestURL);
+        request.setAttribute("productCardList", productCardFiltered);
+        request.setAttribute("quantityPageMin", quantityPageMin);
+        request.setAttribute("quantityPageMax", quantityPageMax);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("listInputChecked", listInputChecked);
+=======
 //        request.setAttribute("requestURL", requestURL);
 //        request.setAttribute("productCardList", productCardFiltered);
 //        request.setAttribute("quantityPage", quantityPage);
@@ -100,11 +146,18 @@ public class FilterStrategyAdmin extends FilterStrategy {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+>>>>>>> 21130449
     }
 
     private List<Integer> filterByTimeUpdate() throws ParseException {
         String[] dates = request.getParameterValues("date");
+<<<<<<< HEAD
+
+        if (dates == null || dates.length == 1 || dates[0].isBlank() || dates[1].isBlank())
+            return new ArrayList<>();
+=======
         if (dates == null || dates.length == 1 || dates[0].isBlank() || dates[1].isBlank()) return new ArrayList<>();
+>>>>>>> 21130449
 
         try {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -125,7 +178,12 @@ public class FilterStrategyAdmin extends FilterStrategy {
 
     private List<Integer> filterByNameProduct() {
         String nameProduct = request.getParameter("keyword");
+<<<<<<< HEAD
+        if (nameProduct == null || nameProduct.isBlank())
+            return new ArrayList<>();
+=======
         if (nameProduct == null || nameProduct.isBlank()) return new ArrayList<>();
+>>>>>>> 21130449
 
         List<Integer> listId = AdminProductServices.getINSTANCE().getProductByName(nameProduct);
         request.setAttribute("keyword", nameProduct);
@@ -133,6 +191,14 @@ public class FilterStrategyAdmin extends FilterStrategy {
         return listId;
     }
 
+<<<<<<< HEAD
+    public void generateQuantityPage() {
+        quantityPageMin = currentPage - 2;
+        quantityPageMax = currentPage + 2;
+        if (quantityPageMin < 1) {
+            quantityPageMin = 1;
+            quantityPageMax = QUANTITY_PAGE_DEFAULT;
+=======
     private class DetailProduct {
         private Product product;
         private List<Image> imgs;
@@ -243,7 +309,12 @@ public class FilterStrategyAdmin extends FilterStrategy {
 
         public void setListInputChecked(List<String> listInputChecked) {
             this.listInputChecked = listInputChecked;
+>>>>>>> 21130449
         }
     }
 
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 21130449
