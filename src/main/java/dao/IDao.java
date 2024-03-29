@@ -6,7 +6,7 @@ import services.LogServices;
  * Dành cho những lớp muốn ghi lại sự thay đổi thì implement
  * @param <U>
  */
-public interface IDao<U extends IDao> {
+public interface IDao<U> {
 //    Ghi lại sự thay đổi về nội dung
     default void update(U info, Object... objs) {
         LogServices.update(info, objs);
