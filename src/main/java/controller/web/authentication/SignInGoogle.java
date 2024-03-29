@@ -5,6 +5,7 @@ import models.GoogleUser;
 import models.User;
 import services.UserServices;
 import services.authentication.GoogleLoginServices;
+import session.SessionManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,7 +31,7 @@ public class SignInGoogle extends HttpServlet {
             List<User> users = UserServices.getINSTANCE().getUserById(emailGoogle);
             if (users.size() == 1) {
 //                Tài khoản đã tồn tại
-                request.getSession().setAttribute("auth", users.get(0));
+                SessionManager.getInstance(request, response).addUser(users.get(0));
                 response.sendRedirect(ConfigPage.HOME);
             } else {
 //                Tài khoản chưas tồn tại

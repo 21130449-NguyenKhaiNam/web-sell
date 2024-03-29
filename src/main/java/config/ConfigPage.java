@@ -4,6 +4,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpSession;
 
 @WebListener
 public class ConfigPage implements ServletContextListener {
@@ -71,4 +72,5 @@ public class ConfigPage implements ServletContextListener {
         ADMIN_USER = folderAdminProduct + "adminUsers.jsp";
         DASHBOARD = folderAdminProduct + "dashboard.jsp";
     }
+
 }

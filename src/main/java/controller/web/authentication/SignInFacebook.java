@@ -6,6 +6,7 @@ import config.ConfigPage;
 import properties.FacebookProperties;
 import services.UserServices;
 import services.authentication.FacebookLoginServices;
+import session.SessionManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,7 +37,7 @@ public class SignInFacebook extends HttpServlet {
                 List<models.User> users = UserServices.getINSTANCE().getUserById(emailFacebook);
                 if (users.size() == 1) {
 //                Tài khoản đã tồn tại
-                    request.getSession().setAttribute("auth", users.get(0));
+                    SessionManager.getInstance(request, response).addUser( users.get(0));
                     response.sendRedirect(ConfigPage.HOME);
                 } else {
 //                Tài khoản chưa tồn tại

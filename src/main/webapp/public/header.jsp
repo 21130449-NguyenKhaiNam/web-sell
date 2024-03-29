@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="models.User" %>
 <%@ page import="models.UserSessionAccess" %>
+<%@ page import="java.util.Arrays" %>
 <!--Header-->
 <header id="header">
     <nav class="nav">
@@ -24,13 +25,14 @@
                         </a>
                     </li>
                     <li class="nav__item">
-                        <a href="<c:url value="/public/about.jsp" />" class="nav__link hvr-grow-shadow"> Về
-                            chúng tôi
+                        <a href="<c:url value="/public/about.jsp" />" class="nav__link hvr-grow-shadow"> Về chúng tôi
                         </a>
                     </li>
                 </ul>
-                <c:set var="auth" value="${sessionScope.auth}"/> <%-- log: ${auth}--%> <c:choose>
-                <c:when test="${auth == null}"> <!--cta == call to action-->
+                <c:set var="sessionId" value="${cookie['sessionId'].value}" />
+                <c:set var="auth" value="${sessionScope.sessionUser[sessionId]}" />
+                <c:choose>
+                <c:when test="${empty auth}"> <!--cta == call to action-->
                     <div class="nav__cta">
                         <a href="<c:url value="/public/auth/signIn.jsp" />"
                            class="me-3 nav__button nav__button--signIn hvr-ripple-in">
@@ -46,17 +48,15 @@
                     <!--Giỏ hàng-->
                     <div class="cart__wrapper">
                         <a href="<c:url value="/public/user/shoppingCart.jsp" />" class="cart">
-                            <span class="cart__content">
-                                <i class="cart__icon fa-solid fa-cart-shopping"></i>Giỏ hàng</span>
+                                <span class="cart__content">
+                                    <i class="cart__icon fa-solid fa-cart-shopping"></i>Giỏ hàng</span>
                             <span class="qlt__swapper">
                                 <span class="qlt__value">
-                                    <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
-                                    <c:choose>
-                                        <c:when test="${sessionScope[userIdCart] == null}">0
-                                        </c:when>
-                                        <c:otherwise>${sessionScope[userIdCart].getTotalItems()}
-                                        </c:otherwise>
-                                    </c:choose>
+<%--                                    <c:set var="userIdCart" value="${String.valueOf(auth.id)}" />--%>
+<%--                                    <c:choose> <c:when test="${sessionScope[userIdCart] == null}"> 0 </c:when>--%>
+<%--                                        <c:otherwise>--%>
+<%--                                            ${sessionScope[userIdCart].getTotalItems()}--%>
+<%--                                        </c:otherwise> </c:choose>--%>
                                 </span>
                             </span>
                         </a>
@@ -85,7 +85,8 @@
                         </div>
                     </div>
                 </div>
-            </c:otherwise> </c:choose></div>
+            </c:otherwise> </c:choose>
+            </div>
         </div>
     </nav>
 </header>
