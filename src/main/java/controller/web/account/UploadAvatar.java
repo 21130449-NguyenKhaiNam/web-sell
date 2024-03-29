@@ -4,7 +4,7 @@ package controller.web.account;
 import config.ConfigPage;
 import models.User;
 import properties.PathProperties;
-import services.UploadImageServices;
+import services.image.UploadImageServices;
 import services.UserServices;
 
 import javax.servlet.ServletException;

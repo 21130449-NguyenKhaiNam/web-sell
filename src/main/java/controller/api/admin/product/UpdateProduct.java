@@ -2,9 +2,9 @@ package controller.api.admin.product;
 
 import models.Product;
 import properties.PathProperties;
-import services.AdminProductServices;
+import services.admin.AdminProductServices;
 import services.ProductServices;
-import services.UploadImageServices;
+import services.image.UploadImageServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

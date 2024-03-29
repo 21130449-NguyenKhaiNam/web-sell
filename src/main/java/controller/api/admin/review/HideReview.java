@@ -1,7 +1,6 @@
 package controller.api.admin.review;
 
-import services.AdminProductServices;
-import services.AdminReviewServices;
+import services.admin.AdminReviewServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

@@ -21,7 +21,11 @@
                     <form action="<c:url value="/signIn"/>" class="form form--signUp" method="post">
                         <div class="form__block">
                             <label for="username" class="form__label">Tên đăng nhập</label>
+<<<<<<< HEAD
+                            <input id="username" name="username" type="text" class="form__input">
+=======
                             <input id="username" name="username" type="text" class="form__input p-2">
+>>>>>>> 21130449
                             <c:set value="${requestScope.usernameError}" var="usernameError" />
                             <p class="form__error">
                                 <c:if test="${usernameError != null}">${usernameError}</c:if>
@@ -29,13 +33,21 @@
                         </div>
                         <div class="form__block">
                             <label for="password" class="form__label">Mật khẩu</label>
+<<<<<<< HEAD
+                            <input id="password" name="password" type="password" class="form__input">
+=======
                             <input id="password" name="password" type="password" class="form__input p-2">
+>>>>>>> 21130449
                             <c:set value="${requestScope.passwordError}" var="passwordError" />
                             <p class="form__error">
                                 <c:if test="${passwordError != null}">${passwordError}</c:if>
                             </p>
                         </div>
+<<<<<<< HEAD
+                        <div class="form__block">
+=======
                         <div class="form__block hvr-forward">
+>>>>>>> 21130449
                             <a href="<c:url value ="/public/auth/forgotPassword.jsp"/>" id="form__forget-password" class="form__link">
                                 Quên mật khẩu
                             </a>
@@ -44,7 +56,11 @@
                         </button>
                     </form>
                     <a href="<c:url value="/public/auth/signUp.jsp"/>" id="form__link--signUp" class="form__link
+<<<<<<< HEAD
+                        hvr-float-shadow">Đăng ký
+=======
                         hvr-float-shadow p-2">Đăng ký
+>>>>>>> 21130449
                     </a>
                 </article>
             </div>
@@ -52,6 +68,8 @@
         <!--JS validate-->
         <script src="<c:url value="/js/validateForm.js"/>"></script>
         <script>
+<<<<<<< HEAD
+=======
             // Check nhập không phù hợp
             $("input.form__input").on({
                 keydown: function(e) {
@@ -63,6 +81,7 @@
                 }
             });
 
+>>>>>>> 21130449
             var validation = new Validation({
                 formSelector: ".form",
                 formBlockClass: "form__block",

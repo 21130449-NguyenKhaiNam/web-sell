@@ -2,7 +2,11 @@ package dao;
 
 import java.util.List;
 
+<<<<<<< HEAD
+public interface DAO<T> {
+=======
 public interface DAO<T> extends IDao{
+>>>>>>> 21130449
 
     T selectById(int id);
 

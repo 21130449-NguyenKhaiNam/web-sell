@@ -2,20 +2,16 @@ package controller.api.admin.product;
 
 import models.Product;
 import properties.PathProperties;
-import services.AdminProductServices;
-import services.UploadImageServices;
-import utils.Token;
+import services.admin.AdminProductServices;
+import services.image.UploadImageServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @WebServlet(name = "adminCreateProduct", value = "/admin-create-product")
 @MultipartConfig(
