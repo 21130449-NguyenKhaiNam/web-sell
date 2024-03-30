@@ -69,14 +69,18 @@ public class CreateProduct extends HttpServlet {
 
 //        Add Images
             Collection<Part> images = request.getParts();
-            uploadImg(images, productId);
+            try {
+                uploadImg(images, productId);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             objJson.append("{\"status\":").append("true}");
         }
         response.getWriter().write(objJson.toString());
     }
 
 
-    public void uploadImg(Collection<Part> parts, int productId) throws IOException {
+    public void uploadImg(Collection<Part> parts, int productId) throws Exception {
         ServletContext servletContext = getServletContext();
         String root = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathProductWeb();
 //       Add to local project tree
