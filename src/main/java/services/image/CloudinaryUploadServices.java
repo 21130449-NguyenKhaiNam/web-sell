@@ -7,6 +7,8 @@ import properties.CloudinaryProperties;
 
 import javax.servlet.http.Part;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -51,8 +53,13 @@ public class CloudinaryUploadServices implements IUpload {
 
     //    Lấy danh sách link ảnh từ cloudinary
     @Override
-    public List<String> getImages(String folderPath, String[] imageNameArray) {
-        return Arrays.stream(imageNameArray).map(imageName -> getImage(folderPath, imageName)).collect(Collectors.toList());
+    public List<String> getImages(String folderPath, List<String> imageNameArray) {
+        List<String> res = new ArrayList<>();
+
+        for(String imageName : imageNameArray){
+            res.add( getImage(folderPath, imageName));
+        }
+        return res;
     }
 
     //    Upload 1 ảnh lên cloudinary
@@ -63,14 +70,14 @@ public class CloudinaryUploadServices implements IUpload {
 
         File tempFile = File.createTempFile("temp", null);
         part.write(tempFile.getAbsolutePath());
-        cloudinary.uploader().upload(tempFile, ObjectUtils.asMap("folder", folderName, "public_id", imageName));
+        cloudinary.uploader().uploadLarge(tempFile, ObjectUtils.asMap("folder", folderName, "public_id", imageName));
     }
 
     public void upload(String folderName, String imageName, File file) throws Exception {
         Map<String, Object> folderParams = ObjectUtils.asMap("folder", folderName);
         cloudinary.api().createFolder(folderName, folderParams);
 
-        cloudinary.uploader().upload(file, ObjectUtils.asMap("folder", folderName, "public_id", imageName));
+        cloudinary.uploader().uploadLarge(file, ObjectUtils.asMap("folder", folderName, "public_id", imageName));
     }
 
     //    Upload nhiều ảnh lên cloudinary
@@ -78,6 +85,16 @@ public class CloudinaryUploadServices implements IUpload {
     public void uploadImages(String folderName, String imageName, Part[] parts) throws Exception {
         for (Part part : parts) {
             uploadImage(folderName, imageName, part);
+        }
+    }
+
+    public void deleteImage(String imageFolder) throws IOException {
+        cloudinary.uploader().destroy(imageFolder, ObjectUtils.emptyMap());
+    }
+
+    public void deleteImages(List<String> imagesFolder) throws IOException {
+        for (String imageFolder : imagesFolder){
+            cloudinary.uploader().destroy(imageFolder, ObjectUtils.emptyMap());
         }
     }
 
