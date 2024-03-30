@@ -28,6 +28,7 @@ public class SignIn extends HttpServlet {
         Validation validation = AuthenticateServices.getINSTANCE().checkSignIn(username, password);
 
         if (validation.getObjReturn() != null) {
+//            Cookie ko co user, ko sessionId
             User userAuth = (User) validation.getObjReturn();
             SessionManager.getInstance(request, response).addUser(userAuth);
             response.sendRedirect(ConfigPage.HOME);

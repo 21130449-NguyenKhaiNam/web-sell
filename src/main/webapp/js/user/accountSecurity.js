@@ -23,6 +23,12 @@ $(document).ready(function () {
         onkeyup: function (element) {
             $(element).valid();
         },
+        onfocusout: function (element) {
+            $(element).valid();
+        },
+        onblur: function (element) {
+            $(element).valid();
+        },
         validClass: 'is-valid',
         errorClass: 'is-invalid',
         errorPlacement: function (error, element) {
@@ -59,11 +65,11 @@ $(document).ready(function () {
     function handleResponse(response) {
         if (response.status === 200) {
             console.log("Đổi mật khẩu thành công");
-            createToast("#toast-container","Đổi mật khẩu thành công", "success");
+            createToast("#toast-container", "Đổi mật khẩu thành công", "success");
 
         } else {
             console.log("Đổi mật khẩu ko thành công");
-            createToast("#toast-container","Đổi mật khẩu ko thành công", "danger");
+            createToast("#toast-container", "Đổi mật khẩu ko thành công", "danger");
 
         }
     }

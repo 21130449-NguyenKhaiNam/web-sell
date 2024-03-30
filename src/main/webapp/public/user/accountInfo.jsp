@@ -5,81 +5,14 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Thông tin cá nhân</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <jsp:include page="/public/commonLink.jsp" />
-        <style type="text/css">
-            body {
-                margin-top: 20px;
-                background-color: #f2f6fc;
-                color: #69707a;
-            }
-
-            .img-account-profile {
-                height: 10rem;
-            }
-
-            .rounded-circle {
-                border-radius: 50% !important;
-            }
-
-            .card {
-                box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
-            }
-
-            .card .card-header {
-                font-weight: 500;
-            }
-
-            .card-header:first-child {
-                border-radius: 0.35rem 0.35rem 0 0;
-            }
-
-            .card-header {
-                padding: 1rem 1.35rem;
-                margin-bottom: 0;
-                background-color: rgba(33, 40, 50, 0.03);
-                border-bottom: 1px solid rgba(33, 40, 50, 0.125);
-            }
-
-            .form-control, .dataTable-input {
-                display: block;
-                width: 100%;
-                padding: 0.875rem 1.125rem;
-                font-size: 0.875rem;
-                font-weight: 400;
-                line-height: 1;
-                color: #69707a;
-                background-color: #fff;
-                background-clip: padding-box;
-                border: 1px solid #c5ccd6;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-                border-radius: 0.35rem;
-                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-            }
-
-            .nav-borders .nav-link.active {
-                color: #0061f2;
-                border-bottom-color: #0061f2;
-            }
-
-            .nav-borders .nav-link {
-                color: #69707a;
-                border-bottom-width: 0.125rem;
-                border-bottom-style: solid;
-                border-bottom-color: transparent;
-                padding-top: 0.5rem;
-                padding-bottom: 0.5rem;
-                padding-left: 0;
-                padding-right: 0;
-                margin-left: 1rem;
-                margin-right: 1rem;
-            }
-        </style>
+        <link rel="stylesheet" href="/assets/css/user/account.css">
+        <link rel="stylesheet" href="/assets/css/user/accountInfo.css">
+        <title>Thông tin cá nhân</title>
     </head>
     <body>
+        <c:set var="user" value="${requestScope.accountInfo}" />
         <div class="container-xl px-4 mt-4">
 
             <nav class="nav nav-borders">
@@ -100,13 +33,16 @@
                     <div class="card mb-4 mb-xl-0">
                         <div class="card-header">Ảnh đại diện</div>
                         <div class="card-body text-center">
-
                             <img class="img-account-profile rounded-circle mb-2" src="/assets/img/user/userDefaultAvatar.jpg" alt>
+                            <div id="username" class="medium  text-muted mb-2">${user.username}</div>
+                            <div id="email" class="small  text-muted mb-4">${user.email}</div>
+                            <div id="open-form" class="btn btn-primary ">Thay đổi ảnh</div>
 
-                            <div class="small font-italic text-muted mb-4"></div>
-
-                            <form action="">
-                                <button class="btn btn-primary" type="button">Cập nhập ảnh</button>
+                            <form id="form-avatar" enctype="multipart/form-data">
+                                <input id="avatar" name="avatar" type="file" class="form-control" accept="image/png">
+                                <div class="mt-2 small">
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mt-2">Cập nhập ảnh</button>
                             </form>
                         </div>
                     </div>
@@ -117,7 +53,7 @@
                         <div class="card-header">Thông tin cá nhân</div>
                         <div class="card-body">
                             <form>
-                                <c:set var="user" value="${requestScope.accountInfo}" />
+
                                 <div class="mb-3">
                                     <label class="medium mb-1" for="inputUsername">Họ và tên</label>
                                     <input class="form-control" id="inputUsername" type="text" placeholder="Vui lòng nhập tên của bạn" value="${user.fullName}">
@@ -151,31 +87,31 @@
                                 </div>
 
 
-                                <div class="medium mb-1">Địa chỉ</div>
+                                <div class="row">
+                                    <div class="medium mb-1">Địa chỉ</div>
+                                </div>
 
                                 <div class="row gx-3 mb-3 mt-2">
-
-                                    <div class="col-md-4">
-                                        <label class="small mb-1" for="inputProvince">Tỉnh / Thành phố </label>
+                                    <div class="col-md-4 col-sm-12">
+                                        <label class="small  py-1" for="inputProvince">Tỉnh / Thành phố </label>
                                         <select id="inputProvince" class="form-select" aria-label="Chọn">
                                             <option value=""></option>
                                         </select>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <label class="small mb-1" for="inputDistrict"> Quận / Huyện </label>
+                                    <div class="col-md-4 col-sm-12">
+                                        <label class="small py-1" for="inputDistrict"> Quận / Huyện </label>
                                         <select id="inputDistrict" class="form-select" aria-label="Chọn">
                                             <option value=""></option>
                                         </select>
                                     </div>
-                                    <div class="col-md-4">
-                                        <label class="small mb-1" for="inputWard">Phường</label>
+                                    <div class="col-md-4 col-sm-12">
+                                        <label class="small py-1" for="inputWard">Phường</label>
                                         <select id="inputWard" class="form-select" aria-label="Chọn">
                                             <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
-
                                 <button class="btn btn-primary" type="button">Thay đổi</button>
                             </form>
                         </div>
@@ -183,13 +119,18 @@
                 </div>
             </div>
         </div>
+        <div id="progress-container">
+            <div id="progress"></div>
+        </div>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <script src="/js/accountInfo.js">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
+        <script src="/js/user/accountInfo.js">
         </script>
     </body>
 </html>

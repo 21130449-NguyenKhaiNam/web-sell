@@ -1,6 +1,5 @@
 package controller.api.user;
 
-import com.google.gson.Gson;
 import models.User;
 import org.json.JSONObject;
 import services.UserServices;

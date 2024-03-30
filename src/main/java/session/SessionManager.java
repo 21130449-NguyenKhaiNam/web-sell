@@ -32,7 +32,6 @@ public class SessionManager {
             sessionTable = (Map<String, User>) session.getAttribute(SESSION_TABLE);
         }
         session.setAttribute(SESSION_TABLE, sessionTable);
-        System.out.println("Session Table: " + sessionTable);
     }
 
 
@@ -82,6 +81,5 @@ public class SessionManager {
                 }
             }
         }
-
     }
 }

@@ -56,7 +56,9 @@
     <div class="container-xl">
         <h1 class="cart__title">Giỏ hàng</h1>
         <div class="cart__container row">
-            <c:set var="userIdCart" value="${String.valueOf(sessionScope.auth.id)}"/>
+            <c:set var="sessionId" value="${cookie['sessionId'].value}" />
+            <c:set var="auth" value="${sessionScope.sessionUser[sessionId]}" />
+            <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
             <c:choose>
                 <c:when test="${sessionScope[userIdCart].getTotalItems() == 0 || sessionScope[userIdCart] == null}">
                     <div class="cart__container--empty">
@@ -136,11 +138,6 @@
                                 %>
                                 </tbody>
                             </table>
-                                <%--                            <!-- New update template -->--%>
-                                <%--                            <div class="order__note">--%>
-                                <%--                                <label for="area__note">Ghi chú đơn hàng</label>--%>
-                                <%--                                <textarea id="area__note" rows="6" name="area__note" placeholder="Ghi chú">${sessionScope[userIdCart].noteOrder != null ? sessionScope[userIdCart].noteOrder : ""}</textarea>--%>
-                                <%--                            </div><!-- New update template -->--%>
                         </form>
                     </div>
                     <div class="invoice__promotion col">
