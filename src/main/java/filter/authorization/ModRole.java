@@ -32,17 +32,10 @@ public class ModRole implements Filter {
             return;
         }
 
-<<<<<<< HEAD
         if (!isLogin) {
             httpServletResponse.sendRedirect("signIn.jsp");
             return;
         }
-=======
-//        if (!isLogin) {
-//            httpServletResponse.sendRedirect("signIn.jsp");
-//            return;
-//        }
->>>>>>> 21130449
 
 //        if (isAdmin) {
 //            chain.doFilter(request, response);

@@ -1,9 +1,5 @@
 .main {
     padding: 50px 0;
-<<<<<<< HEAD
-    background-color: var(--blue-color-low);
-=======
->>>>>>> 21130449
 }
 
 .policy__section {
@@ -17,10 +13,6 @@
     background-color: var(--blue-color-high);
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 21130449
 .policy__list {
     position: sticky;
     top: 100px;
