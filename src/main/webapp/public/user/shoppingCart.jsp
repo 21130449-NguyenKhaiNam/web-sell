@@ -9,7 +9,10 @@
 <%@ page import="org.json.JSONObject" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="utils.FormatCurrency" %>
+<<<<<<< HEAD
 <%@ page import="services.image.CloudinaryUploadServices" %>
+=======
+>>>>>>> 21130449
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -120,7 +123,11 @@
                                         <td class="product__item">
                                             <div class="product__content">
                                                 <a class="product__image" href="<c:url value="/showProductDetail" />?id=<%=productId%> ">
+<<<<<<< HEAD
                                                     <img src='<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", ProductFactory.getListImagesByProductId(productId).get(0).getNameImage())%>'>
+=======
+                                                    <img src='<c:url value="/assets/img/product_img/" /><%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
+>>>>>>> 21130449
                                                 </a>
                                                 <div class="order__product--info">
                                                     <a href="#" class="product__name">

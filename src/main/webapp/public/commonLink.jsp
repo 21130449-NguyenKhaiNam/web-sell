@@ -34,4 +34,13 @@
 <link rel="stylesheet" href="<c:url value="/assets/font/webfonts/Montserrat.css"/>">
 <!--CSS-->
 <link rel="stylesheet" href=<c:url value="/assets/css/reset.css"/>>
+<<<<<<< HEAD
 <link rel="stylesheet" href=<c:url value="/assets/css/base.css"/>>
+=======
+<link rel="stylesheet" href=<c:url value="/assets/css/base.css"/>>
+<!-- Tippy -->
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+<link src="https://unpkg.com/tippy.js@6/animations/scale.css" />
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css">
+>>>>>>> 21130449

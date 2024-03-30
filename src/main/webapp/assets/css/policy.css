@@ -1,6 +1,9 @@
 .main {
     padding: 50px 0;
+<<<<<<< HEAD
     background-color: var(--blue-color-low);
+=======
+>>>>>>> 21130449
 }
 
 .policy__section {
@@ -14,7 +17,10 @@
     background-color: var(--blue-color-high);
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 21130449
 .policy__list {
     position: sticky;
     top: 100px;
@@ -26,11 +32,25 @@
     text-transform: uppercase;
     border: 1px solid #000;
     border-radius: 5px;
+<<<<<<< HEAD
     color: #FFFFFF;
 }
 
 .policy__item.policy__item--clicked {
     background-color: var(--blue-color-high);
+=======
+    width: 250px;
+}
+
+.policy__item--clicked.hvr-shutter-in-vertical {
+    background-color: var(--blue-color-high);
+    color: white;
+    cursor: pointer;
+}
+
+.policy__item--clicked.hvr-shutter-in-vertical:before {
+    background: none;
+>>>>>>> 21130449
 }
 
 .policy__item ~ .policy__item {

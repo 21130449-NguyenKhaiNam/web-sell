@@ -51,6 +51,7 @@
                 <div class="footer__block">
                     <div class="footer__title">Kết nối với chúng tôi thông qua</div>
                     <div class="footer__block social__list">
+<<<<<<< HEAD
                         <a href="#!" class="social__item">
                             <i class="social__item-icon fa-brands fa-facebook-f"></i>
                         </a>
@@ -61,13 +62,29 @@
                             <i class="social__item-icon fa-brands fa-instagram"></i>
                         </a>
                         <a href="#!" class="social__item">
+=======
+                        <a href="#!" class="social__item p-1 hvr-wobble-to-top-right">
+                            <i class="social__item-icon fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#!" class="social__item p-1 hvr-wobble-to-top-right">
+                            <i class="social__item-icon fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="#!" class="social__item p-1 hvr-wobble-to-top-right">
+                            <i class="social__item-icon fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#!" class="social__item p-1 hvr-wobble-to-top-right">
+>>>>>>> 21130449
                             <i class="social__item-icon fa-brands fa-linkedin-in"></i>
                         </a>
                     </div>
 
                     <div class="footer__block">
                         <p class="footer__title">Nhận thêm thông tin thông qua</p>
+<<<<<<< HEAD
                         <form action="#" class="footer__form">
+=======
+                        <form action="${pageContext.request.contextPath}" class="footer__form">
+>>>>>>> 21130449
                             <input placeholder="Email" type="email" class="footer__input" required />
                             <button type="submit" class="footer__submit button button--hover">
                                 <i class="footer__submit-icon fa-regular fa-paper-plane"></i>

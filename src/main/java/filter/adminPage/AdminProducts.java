@@ -1,7 +1,11 @@
 package filter.adminPage;
 
 import models.Product;
+<<<<<<< HEAD
 import services.admin.AdminProductServices;
+=======
+import services.AdminProductServices;
+>>>>>>> 21130449
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
@@ -29,12 +33,15 @@ public class AdminProducts implements Filter {
         request.setAttribute("quantityPage", quantityPage);
         String requestURL = "/filterProductAdmin?";
         request.setAttribute("requestURL", requestURL);
+<<<<<<< HEAD
 
         int quantityPageMin = 1;
         int quantityPageMax = 5;
         request.setAttribute("quantityPageMin", quantityPageMin);
         request.setAttribute("quantityPageMax", quantityPageMax);
 
+=======
+>>>>>>> 21130449
         chain.doFilter(request, response);
     }
 }

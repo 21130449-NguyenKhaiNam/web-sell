@@ -24,6 +24,11 @@ public class SignUp extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
+<<<<<<< HEAD
+=======
+        // Chưa check và thêm giới tính
+        String[] gender = request.getParameterValues("gender");
+>>>>>>> 21130449
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirm-password");
 
