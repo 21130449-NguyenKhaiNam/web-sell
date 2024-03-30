@@ -1,22 +1,12 @@
 package filter.adminPage;
 
-<<<<<<< HEAD
 import models.*;
 import services.admin.AdminOrderServices;
-=======
-import config.ConfigPage;
-import models.*;
-import services.AdminOrderServices;
->>>>>>> 21130449
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
-=======
-import javax.servlet.http.HttpSession;
->>>>>>> 21130449
 import java.io.IOException;
 import java.util.List;
 
@@ -32,10 +22,6 @@ public class AdminOrders implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String url = request.getServletPath();
-<<<<<<< HEAD
-
-=======
->>>>>>> 21130449
         if (url.contains("adminOrders.jsp")) {
             response.sendRedirect(request.getContextPath() + "/AdminOrders");
         } else {
@@ -51,13 +37,7 @@ public class AdminOrders implements Filter {
             List<PaymentMethod> listAllPaymentMethodManage = AdminOrderServices.getINSTANCE().getListAllPaymentMethodManage();
             request.setAttribute("listAllPaymentMethodManage", listAllPaymentMethodManage);
         }
-<<<<<<< HEAD
-
         filterChain.doFilter(request, response);
-=======
-        filterChain.doFilter(request, response);
-
->>>>>>> 21130449
     }
 
     @Override

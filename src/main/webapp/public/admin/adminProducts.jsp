@@ -56,11 +56,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-3">
-<<<<<<< HEAD
-                    <form action="filterProductAdmin" class="form__filter">
-=======
                     <div class="mb-2 form__filter" id="form__search">
->>>>>>> 21130449
                         <div class="filter__group">
                             <span class="filter__title">Tên sản phẩm</span>
                             <label class="filter__text-block">
@@ -68,26 +64,6 @@
                                 <input class="filter__input filter__text" type="text" name="keyword">
                             </label>
                         </div>
-<<<<<<< HEAD
-                        <span class="filter__separate"></span>
-                        <div class="filter__group">
-                            <span class="filter__title">Thời gian cập nhập</span>
-                            <div class="filter__date-block">
-
-                                <label class="filter__date">
-                                    <span>Từ:</span>
-
-                                    <input type="date" name="date"
-                                           id="date-start" placeholder="dd-mm-yyyy">
-
-                                </label>
-                                <label class="filter__date">
-                                    <span>Đến:</span>
-
-                                    <input type="date" name="date"
-                                           id="date-end">
-
-=======
                         <ul class="search__box shadow"></ul>
                     </div>
 
@@ -104,7 +80,6 @@
                                     <span>Đến:</span>
                                     <input type="date" name="date"
                                            id="date-end">
->>>>>>> 21130449
                                 </label>
                             </div>
                         </div>
@@ -213,11 +188,7 @@
                                 <th>Hiển thị</th>
                             </tr>
                             </thead>
-<<<<<<< HEAD
-                            <tbody>
-=======
                             <tbody class="product__list-admin">
->>>>>>> 21130449
                             <c:set var="list" value="${requestScope.productCardList}"/>
 
                             <c:forEach var="item" items="${list}">
@@ -272,28 +243,8 @@
                         </table>
                     </div>
                     <!--Paging-->
-<<<<<<< HEAD
                     <c:import url="/public/paging.jsp"/>
 
-=======
-                    <ul class="paging">
-                        <c:if test="${requestScope.quantityPage != 0}">
-                            <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
-                                <c:url var="linkPaing" value="${requestScope.requestURL}">
-                                    <c:param name="page" value="${pageNumber}"/>
-                                </c:url>
-                                <c:choose>
-                                    <c:when test="${pageNumber == requestScope.currentPage}">
-                                        <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a class="page" href="${linkPaing}">${pageNumber}</a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </c:if>
-                    </ul>
->>>>>>> 21130449
                 </div>
             </div>
         </div>
@@ -379,8 +330,6 @@
     <% if (dateEnd != null){%>
     checkDate(document.querySelector("#date-end"), "<%=dateEnd%>");
     <%}%>
-<<<<<<< HEAD
-=======
 
     $(document).ready(function () {
         $('#form__filter').submit(
@@ -506,7 +455,6 @@
     $('.filter__input').on('blur', function () {
         $('.search__box').removeClass('focused');
     });
->>>>>>> 21130449
 </script>
 </body>
 </html>
