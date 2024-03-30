@@ -42,6 +42,18 @@
                         </div>
                         <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng nhập
                         </button>
+                        <c:url var="google" value="https://accounts.google.com/o/oauth2/auth">
+                            <c:param name="scope" value="email" />
+                            <c:param name="redirect_uri" value="http://localhost:8080/signInGoogle" />
+                            <c:param name="response_type" value="code" />
+                            <c:param name="client_id" value="336186921669-k0vb5vt05phajcah47psl3v0t4h3eah0.apps.googleusercontent.com" />
+                            <c:param name="approval_prompt" value="force" /> </c:url>
+                        <a className="btn btn-primary" href="${google}">Đăng nhập với Google</a>
+                        <c:url var="facebook" value="https://www.facebook.com/v19.0/dialog/oauth">
+                            <c:param name="scope" value="email" />
+                            <c:param name="redirect_uri" value="http://localhost:8080/signInFacebook" />
+                            <c:param name="client_id" value="2825100177629702" /> </c:url>
+                        <a className="btn btn-primary" href="${facebook}">Đăng nhập với Facebook</a>
                     </form>
                     <a href="<c:url value="/public/auth/signUp.jsp"/>" id="form__link--signUp" class="form__link
                         hvr-float-shadow p-2">Đăng ký
@@ -62,7 +74,6 @@
                     this.value = this.value.replace(/\s/g, "");
                 }
             });
-
             var validation = new Validation({
                 formSelector: ".form",
                 formBlockClass: "form__block",
