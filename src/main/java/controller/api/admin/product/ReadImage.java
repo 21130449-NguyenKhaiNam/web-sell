@@ -1,8 +1,6 @@
 package controller.api.admin.product;
 
-
-import properties.PathProperties;
-
+import services.image.CloudinaryUploadServices;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -14,9 +12,10 @@ import java.net.URL;
 public class ReadImage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String name = (String) request.getParameter("name");
         if (name != null) {
-            String urlImg = getPathServer(request) + PathProperties.getINSTANCE().getPathProductWeb() + name;
+            String urlImg = CloudinaryUploadServices.getINSTANCE().getImage("product_img", name);
 
             URL url = new URL(urlImg);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

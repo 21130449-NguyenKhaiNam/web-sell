@@ -64,11 +64,15 @@ public class CreateCategory extends HttpServlet {
             }
             parameterList.add(parameter);
         }
-        uploadImg(request.getParts());
+        try {
+            uploadImg(request.getParts());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         response.getWriter().write("{\"status\":true}");
     }
 
-    public void uploadImg(Collection<Part> parts) throws IOException {
+    public void uploadImg(Collection<Part> parts) throws Exception {
         List<Part> partAfterFilter = new ArrayList<>();
         ServletContext servletContext = getServletContext();
         String rootSizeGuideImg = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathCategoryWeb();
