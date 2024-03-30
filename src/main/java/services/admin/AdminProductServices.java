@@ -108,6 +108,7 @@ public class AdminProductServices {
         }
         return listId;
     }
+
     public List<Product> getProducts(int numberPage) {
         List<Product> productList = productCardDAO.getProducts(numberPage, LIMIT);
         return productList;
@@ -185,18 +186,36 @@ public class AdminProductServices {
     private List<String> getNameImages(int quantityFromRightToLeft, int productId) {
         List<Image> imageList = imageDAO.getNameImages(productId);
         Collections.reverse(imageList);
-        List<String> nameImageList = new ArrayList<>();
-        for (int i = 0; i < quantityFromRightToLeft; i++) {
-            nameImageList.add(imageList.get(i).getNameImage());
+
+        List<Image> imageDelete = imageList.subList(0, quantityFromRightToLeft);
+        for (int i = 0; i < imageDelete.size(); i++) {
+            if(keepImageAvailable(imageList, imageDelete.get(i)) > 1){
+                imageDelete.remove(imageDelete.get(i));
+            }
         }
+
+        List<String> nameImageList = new ArrayList<>();
+        for(Image img : imageDelete){
+            nameImageList.add("product_img/" + img.getNameImage());
+        }
+
         return nameImageList;
+    }
+
+    public int keepImageAvailable(List<Image> imageList, Image image){
+        int count = 0;
+        for (Image img : imageList){
+            if(img.equals(image)){
+                count++;
+            }
+        }
+        return count;
     }
 
     private List<Integer> getIdImages(int quantityImgDelete, int productId) {
         List<Image> imageList = imageDAO.getIdImages(productId);
         List<Integer> nameImageList = new ArrayList<>();
-        for (Image image : imageList
-        ) {
+        for (Image image : imageList) {
             nameImageList.add(image.getId());
         }
         return nameImageList.subList(imageList.size() - quantityImgDelete, imageList.size());
@@ -206,19 +225,17 @@ public class AdminProductServices {
         imageDAO.deleteImages(nameImages);
     }
 
-    public void updateImages(UploadImageServices uploadImageServices, Collection<Part> images, int quantityImgDelete, int productId) {
+    public void updateImages(UploadImageServices uploadImageServices, Collection<Part> images, int quantityImgDelete, int productId) throws Exception {
         if (quantityImgDelete != 0) {
             List<String> nameImages = getNameImages(quantityImgDelete, productId);
             List<Integer> imageId = getIdImages(quantityImgDelete, productId);
-            uploadImageServices.deleteImages(nameImages);//delete in local
+            uploadImageServices.deleteImages(nameImages);//delete in cloud
             deleteImages(imageId);//delete in db
         }
-        try {
-            uploadImageServices.addImages(images);//add in local
+        else{
+            uploadImageServices.addImages(images);//add in cloud
             List<String> nameImagesAdded = uploadImageServices.getNameImages();
             addImages(nameImagesAdded, productId);//add in db
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 

@@ -1,5 +1,10 @@
 package models;
 
+import com.restfb.types.VideoList;
+
+import java.util.HashMap;
+import java.util.Objects;
+
 public class Image {
     private int id;
     private String nameImage;
@@ -7,6 +12,13 @@ public class Image {
 
     public Image() {
     }
+
+    public Image(int id, String nameImage, int productId){
+        this.id = id;
+        this.nameImage = nameImage;
+        this.productId = productId;
+    }
+
 
     public int getId() {
         return id;
@@ -39,5 +51,18 @@ public class Image {
                 ", nameImage='" + nameImage + '\'' +
                 ", productId=" + productId +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Image)) return false;
+        Image image = (Image) o;
+        return productId == image.productId && Objects.equals(nameImage, image.nameImage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nameImage, productId);
     }
 }

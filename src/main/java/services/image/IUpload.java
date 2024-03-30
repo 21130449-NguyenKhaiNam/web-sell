@@ -8,7 +8,7 @@ import java.util.List;
 public interface IUpload {
     String getImage(String folderPath, String imageName);
 
-    List<String> getImages(String folderPath, String[] imageNameArray);
+    List<String> getImages(String folderPath, List<String> imageNameArray);
 
     void uploadImage(String folderName, String imageName, Part part) throws Exception;
 

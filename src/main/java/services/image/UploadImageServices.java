@@ -10,13 +10,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class UploadImageServices {
-    private File rootFolder;
+    private String ROOT_FOLDER;
     private List<String> nameImages;
 
     public UploadImageServices(String root) {
-        this.rootFolder = new File(root);
+        this.ROOT_FOLDER = root;
         this.nameImages = new ArrayList<>();
-        if (!rootFolder.exists()) rootFolder.mkdirs();
     }
 
     public static boolean isPartImage(Part part) {
@@ -34,32 +33,41 @@ public class UploadImageServices {
         return fileExtension;
     }
 
-    public void addImages(Collection<Part> parts) throws IOException {
+    public void addImages(Collection<Part> parts) throws Exception {
         for (Part part : parts) {
             addImage(part);
         }
     }
 
-    public void addImage(Part part) throws IOException {
-        if (!isPartImage(part)) {
-            nameImages.add(null);
-            return;
+    public void addImage(Part part) throws Exception {
+        if(isPartImage(part)){
+            String root = ROOT_FOLDER.substring(0, ROOT_FOLDER.lastIndexOf("/"));
+            String idCategory = ROOT_FOLDER.substring(ROOT_FOLDER.lastIndexOf("/")+1, ROOT_FOLDER.length());
+            String imageName = idCategory + "/" + getFileName(part);
+
+            nameImages.add(imageName);
+            CloudinaryUploadServices.getINSTANCE().uploadImage(root, imageName.substring(0, imageName.lastIndexOf(".")), part);
         }
-        String fileName = Token.generateToken();
-        String pathImage = rootFolder.getAbsolutePath() + "/" + fileName + "." + getFileExtension(part);
-        part.write(pathImage);
-        nameImages.add(fileName + "." + getFileExtension(part));
     }
 
-    public void deleteImage(String nameImage) {
-        File file = new File(rootFolder.getAbsolutePath() + "/" + nameImage);
-        if (file.exists() && file.isFile()) {
-            file.delete();
-            System.out.println("DELETE Success");
+    private String getFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+
+        String[] tokens = contentDisp.split(";");
+        for (String token : tokens) {
+            if (token.trim().startsWith("filename")) {
+                return token.substring(token.indexOf("=") + 2, token.length()-1);
+            }
         }
+        return "";
     }
-    public void deleteImages(List<String> nameImages) {
+
+    public void deleteImage(String imageName) throws IOException {
+        CloudinaryUploadServices.getINSTANCE().deleteImage(imageName);
+    }
+    public void deleteImages(List<String> nameImages) throws IOException {
         for (String nameImage : nameImages) {
+            nameImage = nameImage.substring(0, nameImage.lastIndexOf("."));
             deleteImage(nameImage);
         }
     }
