@@ -1,7 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="models.User" %>
-<%@ page import="models.UserSessionAccess" %>
 <%@ page import="java.util.Arrays" %>
 <!--Header-->
 <header id="header">
@@ -52,11 +51,15 @@
                                     <i class="cart__icon fa-solid fa-cart-shopping"></i>Giỏ hàng</span>
                             <span class="qlt__swapper">
                                 <span class="qlt__value">
-<%--                                    <c:set var="userIdCart" value="${String.valueOf(auth.id)}" />--%>
-<%--                                    <c:choose> <c:when test="${sessionScope[userIdCart] == null}"> 0 </c:when>--%>
-<%--                                        <c:otherwise>--%>
-<%--                                            ${sessionScope[userIdCart].getTotalItems()}--%>
-<%--                                        </c:otherwise> </c:choose>--%>
+                                    <c:set var="userIdCart" value="${String.valueOf(auth.id)}" />
+                                    <c:choose>
+                                        <c:when test="${sessionScope[userIdCart] == null}">
+                                            0
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${sessionScope[userIdCart].getTotalItems()}
+                                        </c:otherwise>
+                                    </c:choose>
                                 </span>
                             </span>
                         </a>
