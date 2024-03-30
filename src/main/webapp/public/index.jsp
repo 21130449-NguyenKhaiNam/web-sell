@@ -54,14 +54,14 @@
             <ul class="search__box shadow"></ul>
         </div>
 
-         <div id="slider__category--section">
-            <div class="slider__container">
-                <div class="slider__items">
-                    <%for (Slider slide : (List<Slider>) request.getAttribute("listSlideShow")) {%>
-                    <img class="slider__item"
-                         src="<%=CloudinaryUploadServices.getINSTANCE().getImage("slider/", slide.getNameImage())%>"
-                         alt=""/>
-                    <%}%>
+                    <div id="slider__category--section">
+                        <div class="slider__container">
+                            <div class="slider__items">
+                                <%for (Slider slide : (List<Slider>) request.getAttribute("listSlideShow")) {%>
+                                <img class="slider__item"
+                                     src="<%=CloudinaryUploadServices.getINSTANCE().getImage("slider/", slide.getNameImage())%>"
+                                     alt=""/>
+                                <%}%>
                 </div>
                 <div class="navigation__button nav__prev hvr-bounce-in">
                     <i class="fa-solid fa-chevron-left"></i>

@@ -1,10 +1,6 @@
-<<<<<<< HEAD
+
 import services.mail.IMailServices;
 import services.mail.MailResetPasswordServices;
-=======
-import services.IMailServices;
-import services.MailResetPasswordServices;
->>>>>>> 21130449
 
 import javax.mail.MessagingException;
 
