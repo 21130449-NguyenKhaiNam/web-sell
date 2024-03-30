@@ -5,7 +5,6 @@
 <%@ page import="models.User" %>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <jsp:include page="/public/commonLink.jsp" />
         <link rel="stylesheet" href="<c:url value="/assets/css/account.css"/>">
@@ -30,7 +29,6 @@
                     </div>
                     <div class="col-9">
                         <section class="service__section service__section--show">
-                            <c:set var="auth" value="${sessionScope.auth}" />
                             <c:set var="accountInfo" value="${requestScope.accountInfo}" />
                             <c:set var="selectedGender" value="${accountInfo.gender}" />
                             <c:set var="birthday" value="${accountInfo.birthDay}" />
@@ -49,7 +47,7 @@
                                 </div>
                                 <form action="<c:url value="/UpdateAccount"/>" method="post" enctype="multipart/form-data" class="form__updateAccount">
                                     <div class="user__info user">
-                                        <input type="hidden" name="userId" value="<c:out value='${auth.getId()}'/>">
+                                        <input type="hidden" name="userId" value="<c:out value='${accountInfo.id}'/>">
                                         <div class="user__info--name info-compo">
                                             <div class="lable__name lable-compo">
                                                 <label for="Username">Tên người dùng</label>
@@ -188,6 +186,4 @@
             });
         </script>
     </body>
-
-
 </html>

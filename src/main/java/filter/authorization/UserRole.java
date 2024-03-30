@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "user", urlPatterns = {"/public/user/*", "/api/cart/*", "/api/checkout/*"})
+@WebFilter(filterName = "user", urlPatterns = {"/public/user/*", "/api/cart/*", "/api/checkout/*", "/api/user/*"})
 public class UserRole implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }

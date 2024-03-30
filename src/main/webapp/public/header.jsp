@@ -67,7 +67,7 @@
                     <div class="account">
                         <i class="account__icon fa-regular fa-user"></i>
                         <div class="setting__list">
-                            <a href="<c:url value="/Account" />" class="setting__item">
+                            <a href="/public/user/accountInfo.jsp" class="setting__item">
                                 <div class="setting__link">
                                     <div class="account__info">
                                         <i class="account__icon fa-regular fa-user"></i>
