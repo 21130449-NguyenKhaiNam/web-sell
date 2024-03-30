@@ -2,9 +2,6 @@ th {
     text-wrap: nowrap;
 }
 
-<<<<<<< HEAD
-=======
-
 .search {
     background-image: url("/assets/img/background__search.png");
     background-size: cover;
@@ -66,7 +63,6 @@ th {
     background-color: var(--blue-color-medium);
 }
 
->>>>>>> 21130449
 .reload__btn {
     margin-left: 10px;
     border-radius: 5px;

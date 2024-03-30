@@ -134,15 +134,10 @@
 
                     <c:set value="${requestScope.page}" var="page"/>
                     <div class="pagination">
-<<<<<<< HEAD
                         <%System.out.println(request.getAttribute("AdminUser"));%>
                         <c:if test="${page > 1}">
                             <c:url var="prevURLPage" value="AdminUser">
 
-=======
-                        <c:if test="${page > 1}">
-                            <c:url var="prevURLPage" value="AdminUser">
->>>>>>> 21130449
                                 <c:param name="page" value="${page - 1}"/>
                             </c:url>
                             <a href="${prevURLPage}" class="previous__page"><i class="fa-solid fa-chevron-left"></i></a>
