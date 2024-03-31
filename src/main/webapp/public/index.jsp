@@ -9,6 +9,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="services.image.CloudinaryUploadServices" %>
 <%@ page import="config.ConfigPage" %>
+<%@ page import="controller.web.authentication.SignIn" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -30,7 +31,7 @@
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main"> <!--Hero-->
     <div class="hero">
-        <img src="<c:url value=" /assets/img/hero__img.png" />" alt="" class="hero__img">
+        <img src="<c:url value="/assets/img/hero__img.png" />" alt="" class="hero__img">
         <div class="hero__slogan">
             <h1>Change Your Styles Now</h1>
             <p>Cùng chúng tôi tạo nên thiết kế khác biệt cho quần áo của
@@ -293,9 +294,10 @@
 </main>
 <!--Footer-->
 <%@include file="footer.jsp" %>
-<script src="<c:url value=" /js/home.js" />"></script>
-<script src="<c:url value=" /js/base.js" />"></script>
-<script type="text/javascript">   function addToCartAjax() {
+<script src="<c:url value="/js/home.js" />"></script>
+<script src="<c:url value="/js/base.js" />"></script>
+<script type="text/javascript">
+    function addToCartAjax() {
     $(document).ready(function () {
         $('.action__bar').each(function (index, actionBar) {
             $(actionBar).on('submit', function (event) {
@@ -311,7 +313,7 @@
                     </c:otherwise>
                 </c:choose>
                 if (userLoggedIn === false) {
-                    window.location.href = <%=signIN%>;
+                    window.location.href = <%=ConfigPage.SIGN_IN%>
                 } else {
                     const form = $(actionBar);
                     let productId = form.find('input[name="productId"]').val();
