@@ -1,11 +1,6 @@
 package filter.adminPage;
 
 import models.Category;
-<<<<<<< HEAD
-=======
-import models.Image;
-import services.AdminProductServices;
->>>>>>> 21130449
 import services.ProductCardServices;
 
 import javax.servlet.*;

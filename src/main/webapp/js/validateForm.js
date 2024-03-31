@@ -112,8 +112,7 @@ Validation.isRequired = function (selectorInput) {
         },
     }
 }
-<<<<<<< HEAD
-=======
+
 Validation.isPhone = function (selectPhone) {
     return {
         element: selectPhone,
@@ -181,7 +180,7 @@ Validation.isExistsUsername = function (selectUsername) {
         }
     }
 }
->>>>>>> 21130449
+
 Validation.isRequiredRadio = function (selectorInput) {
     return {
         element: selectorInput,
@@ -199,10 +198,7 @@ Validation.isEmail = function (selectionInput) {
         }
     }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 21130449
 Validation.minLength = function (selectionInput, minLength) {
     return {
         element: selectionInput,
@@ -297,10 +293,7 @@ Validation.smallerThan = function (selectionInput, selectionMaxValue) {
         }
     }
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 21130449
 function getParent(child, parent) {
     while (!child.classList.contains(parent)) {
         child = child.parentElement;

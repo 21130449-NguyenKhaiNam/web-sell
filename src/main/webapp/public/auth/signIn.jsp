@@ -21,11 +21,7 @@
                     <form action="<c:url value="/signIn"/>" class="form form--signUp" method="post">
                         <div class="form__block">
                             <label for="username" class="form__label">Tên đăng nhập</label>
-<<<<<<< HEAD
-                            <input id="username" name="username" type="text" class="form__input">
-=======
                             <input id="username" name="username" type="text" class="form__input p-2">
->>>>>>> 21130449
                             <c:set value="${requestScope.usernameError}" var="usernameError" />
                             <p class="form__error">
                                 <c:if test="${usernameError != null}">${usernameError}</c:if>
@@ -33,34 +29,34 @@
                         </div>
                         <div class="form__block">
                             <label for="password" class="form__label">Mật khẩu</label>
-<<<<<<< HEAD
-                            <input id="password" name="password" type="password" class="form__input">
-=======
                             <input id="password" name="password" type="password" class="form__input p-2">
->>>>>>> 21130449
                             <c:set value="${requestScope.passwordError}" var="passwordError" />
                             <p class="form__error">
                                 <c:if test="${passwordError != null}">${passwordError}</c:if>
                             </p>
                         </div>
-<<<<<<< HEAD
-                        <div class="form__block">
-=======
                         <div class="form__block hvr-forward">
->>>>>>> 21130449
                             <a href="<c:url value ="/public/auth/forgotPassword.jsp"/>" id="form__forget-password" class="form__link">
                                 Quên mật khẩu
                             </a>
                         </div>
                         <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng nhập
                         </button>
+                        <c:url var="google" value="https://accounts.google.com/o/oauth2/auth">
+                            <c:param name="scope" value="email" />
+                            <c:param name="redirect_uri" value="http://localhost:8080/signInGoogle" />
+                            <c:param name="response_type" value="code" />
+                            <c:param name="client_id" value="336186921669-k0vb5vt05phajcah47psl3v0t4h3eah0.apps.googleusercontent.com" />
+                            <c:param name="approval_prompt" value="force" /> </c:url>
+                        <a className="btn btn-primary" href="${google}">Đăng nhập với Google</a>
+                        <c:url var="facebook" value="https://www.facebook.com/v19.0/dialog/oauth">
+                            <c:param name="scope" value="email" />
+                            <c:param name="redirect_uri" value="http://localhost:8080/signInFacebook" />
+                            <c:param name="client_id" value="2825100177629702" /> </c:url>
+                        <a className="btn btn-primary" href="${facebook}">Đăng nhập với Facebook</a>
                     </form>
                     <a href="<c:url value="/public/auth/signUp.jsp"/>" id="form__link--signUp" class="form__link
-<<<<<<< HEAD
-                        hvr-float-shadow">Đăng ký
-=======
                         hvr-float-shadow p-2">Đăng ký
->>>>>>> 21130449
                     </a>
                 </article>
             </div>
@@ -68,8 +64,6 @@
         <!--JS validate-->
         <script src="<c:url value="/js/validateForm.js"/>"></script>
         <script>
-<<<<<<< HEAD
-=======
             // Check nhập không phù hợp
             $("input.form__input").on({
                 keydown: function(e) {
@@ -80,8 +74,6 @@
                     this.value = this.value.replace(/\s/g, "");
                 }
             });
-
->>>>>>> 21130449
             var validation = new Validation({
                 formSelector: ".form",
                 formBlockClass: "form__block",

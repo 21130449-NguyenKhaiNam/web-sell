@@ -27,7 +27,6 @@ public class AdminCategoryServices {
 
     public List<Category> getCategories() {
         List<Category> categories = categoryDAO.getAllCategory();
-        categoryDAO.select(categories);
         return categories;
     }
 

@@ -1,11 +1,7 @@
 package utils;
 
 import models.*;
-<<<<<<< HEAD
 import services.admin.AdminReviewServices;
-=======
-import services.AdminReviewServices;
->>>>>>> 21130449
 import services.ProductCardServices;
 import services.ProductServices;
 
