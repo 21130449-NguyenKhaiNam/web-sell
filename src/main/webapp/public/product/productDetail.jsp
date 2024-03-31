@@ -55,24 +55,6 @@
                                         <%i++;%>
                                     <%}%>
 
-                                    <%int j = 0;%>
-                                    <%for(Image image : productFactory.getListImagesByProductId(product.getId())){%>
-                                        <c:choose>
-                                            <c:when test="<%=i == 0%>">
-                                                <li class="product__img-item product__img-item--clicked">
-                                                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", image.getNameImage())%>"
-                                                         alt="" loading="lazy">
-                                                </li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li class="product__img-item">
-                                                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", image.getNameImage())%>"
-                                                         alt="" loading="lazy">
-                                                </li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <%j++;%>
-                                    <%}%>
                                 </ul>
                             </div>
                         </div>
