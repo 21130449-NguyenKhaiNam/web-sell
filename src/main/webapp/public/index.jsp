@@ -30,8 +30,7 @@
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main"> <!--Hero-->
     <div class="hero">
-        <img src="<c:url value="/assets/img/hero__img.png"/>" alt=""
-             class="hero__img">
+        <img src="<c:url value=" /assets/img/hero__img.png" />" alt="" class="hero__img">
         <div class="hero__slogan">
             <h1>Change Your Styles Now</h1>
             <p>Cùng chúng tôi tạo nên thiết kế khác biệt cho quần áo của
@@ -43,7 +42,19 @@
         </div>
     </div>
     <div class="container-xl">
-        <div id="slider__category--section">
+        <div class="mt-3 p-5 search">
+            <div class="form-inline my-2 my-lg-0 d-flex">
+                <input class="search__inp form-control mr-sm-2 p-3 me-2" type="search" placeholder="Search"
+                       aria-label="Search" name="keyword">
+                <button class="search__btn btn btn-outline-success my-2 my-sm-0 ps-4 pe-4 hvr-rectangle-out"
+                        type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+            <ul class="search__box shadow"></ul>
+        </div>
+
+         <div id="slider__category--section">
             <div class="slider__container">
                 <div class="slider__items">
                     <%for (Slider slide : (List<Slider>) request.getAttribute("listSlideShow")) {%>
@@ -107,7 +118,7 @@
 
                                 <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
 
-                                <span class="product__tag">Thịnh hành</span>
+                               <span class="product__tag" data-style="popular">Thịnh hành</span>
                                 <form action="AddToCart"
                                       class="action__bar" method="post">
                                     <input type="hidden"
@@ -279,15 +290,12 @@
             </div>
         </div>
     </div>
-
 </main>
 <!--Footer-->
-<%String signIN = ConfigPage.SIGN_IN;%>
 <%@include file="footer.jsp" %>
-<script src="<c:url value="/js/home.js"/>"></script>
-<script src="<c:url value="/js/base.js"/>"></script>
-<script type="text/javascript">
-    function addToCartAjax() {
+<script src="<c:url value=" /js/home.js" />"></script>
+<script src="<c:url value=" /js/base.js" />"></script>
+<script type="text/javascript">   function addToCartAjax() {
     $(document).ready(function () {
         $('.action__bar').each(function (index, actionBar) {
             $(actionBar).on('submit', function (event) {
@@ -338,6 +346,52 @@
 }
 
 addToCartAjax();
+
+let ulCom = $('.search__box')[0]
+
+function handelSearch() {
+    let debounceTimer;
+    $('.search__inp').keydown(function () {
+
+        var formData = $(this).serialize();
+
+        clearTimeout(debounceTimer);
+
+        debounceTimer = setTimeout(() => {
+            $.ajax({
+                url: '/searchProduct',
+                method: 'GET',
+                data: formData,
+                success: function (response) {
+                    ulCom.innerHTML = ""
+                    for (let i = 0; i < response.length; ++i) {
+                        const li = document.createElement("li")
+                        li.setAttribute("class", "mb-1")
+                        const a = document.createElement("a")
+                        a.setAttribute("class", "text-dark mb-2 search__box-item")
+                        a.setAttribute("href", "/")
+                        a.innerText = response[i].name
+                        li.appendChild(a)
+                        ulCom.appendChild(li)
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            })
+        }, 800);
+    })
+}
+
+handelSearch()
+
+$('.search__inp').on('focus', function() {
+    $('.search__box').addClass('focused');
+});
+
+$('.search__inp').on('blur', function() {
+    $('.search__box').removeClass('focused');
+});
 </script>
 </body>
 

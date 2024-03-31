@@ -5,9 +5,12 @@ import dao.UserDAOImplement;
 import models.User;
 import properties.MailProperties;
 import properties.RoleProperties;
+<<<<<<< HEAD
 import services.mail.IMailServices;
 import services.mail.MailResetPasswordServices;
 import services.mail.MailVerifyServices;
+=======
+>>>>>>> 21130449
 import utils.Encoding;
 import utils.Token;
 import utils.ValidatePassword;
@@ -37,6 +40,35 @@ public class AuthenticateServices {
         return INSTANCE;
     }
 
+<<<<<<< HEAD
+=======
+    public Validation checkEmailExists(String email) {
+        Validation validation = new Validation();
+        validation.setFieldEmail(email.isBlank() ?
+                "Email không được để trống" :
+                (
+                        !userDAO.selectByEmail(email, null).isEmpty() ?
+                                "Email đã tồn tại." :
+                                ""
+                )
+        );
+        return validation;
+    }
+
+    public Validation checkUsernameExists(String username) {
+        Validation validation = new Validation();
+        validation.setFieldUsername(username.isBlank() ?
+                "Tên đăng nhập không được để trống" :
+                (
+                        !userDAO.selectAccount(username, null).isEmpty() ?
+                                "Tên đăng nhập đã tồn tại." :
+                                ""
+                )
+        );
+        return validation;
+    }
+
+>>>>>>> 21130449
     public Validation checkSignIn(String username, String password) {
         Validation validation = new Validation();
 //        Check username empty
