@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE})
-@interface LogTable {
+public @interface LogTable {
     String USER = "1";
         String value();
 }

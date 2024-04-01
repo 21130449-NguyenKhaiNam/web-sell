@@ -1,7 +1,7 @@
 package services;
 
-import dao.UserDAO;
-import dao.UserDAOImplement;
+import dao.IUserDAO;
+import dao.UserDAOImp;
 import models.User;
 import properties.MailProperties;
 import properties.RoleProperties;
@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 public class AuthenticateServices {
     private static AuthenticateServices INSTANCE;
 
-    UserDAO userDAO = new UserDAOImplement();
+    IUserDAO userDAO = LogService.createProxy(new UserDAOImp());
 
     private AuthenticateServices() {
     }

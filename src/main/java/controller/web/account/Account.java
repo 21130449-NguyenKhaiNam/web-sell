@@ -1,8 +1,6 @@
 package controller.web.account;
 
 import config.ConfigPage;
-import dao.UserDAO;
-import dao.UserDAOImplement;
 import models.User;
 import services.UserServices;
 
@@ -10,7 +8,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 
 @WebServlet(name = "Account", value = "/Account")

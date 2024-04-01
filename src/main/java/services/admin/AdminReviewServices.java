@@ -1,10 +1,11 @@
 package services.admin;
 
+import dao.IUserDAO;
 import dao.ReviewDAO;
-import dao.UserDAO;
-import dao.UserDAOImplement;
+import dao.UserDAOImp;
 import models.Review;
 import models.User;
+import services.LogService;
 
 import java.util.List;
 
@@ -12,11 +13,11 @@ public class AdminReviewServices {
     public static AdminReviewServices INSTANCE;
     private static final int LIMIT = 10;
     private ReviewDAO reviewDAO;
-    private UserDAO userDAO;
+    private IUserDAO userDAO;
 
     private AdminReviewServices() {
         this.reviewDAO = new ReviewDAO();
-        this.userDAO = new UserDAOImplement();
+        this.userDAO = LogService.createProxy(new UserDAOImp());
     }
 
     public static AdminReviewServices getINSTANCE() {

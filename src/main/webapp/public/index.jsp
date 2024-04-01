@@ -311,7 +311,7 @@
                     </c:otherwise>
                 </c:choose>
                 if (userLoggedIn === false) {
-                    window.location.href = <%=signIN%>;
+                    window.location.href = "signIn.jsp";
                 } else {
                     const form = $(actionBar);
                     let productId = form.find('input[name="productId"]').val();
