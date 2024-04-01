@@ -17,11 +17,25 @@
 <body>
 <c:import url="/public/header.jsp"/>
 <main class="main">
+    <div class="p-5">
+        <div class="p-5 search">
+            <form class="form-inline my-2 my-lg-0 d-flex">
+                <input class="search__inp form-control mr-sm-2 p-3 me-2" type="search" placeholder="Search"
+                       aria-label="Search" name="keyword">
+                <button class="search__btn btn btn-outline-success my-2 my-sm-0 ps-4 pe-4 hvr-rectangle-out"
+                        type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <ul class="search__box shadow"></ul>
+            </form>
+        </div>
+    </div>
+
     <section class="products">
         <div class="container-xl">
             <div class="row ">
                 <div class="col-3">
-                    <form action="filterProductBuying" class="form__filter">
+                    <form action="/filterProductBuying" class="form__filter" id="form__filter">
                         <div class="filter__group"><span class="filter__title">Phân loại sản phẩm</span>
                             <div class="filter__radio-list">
                                 <c:forEach items="${pageContext.servletContext.getAttribute('categoryList')}"
@@ -29,12 +43,15 @@
                                     <label class="filter__radio-item">
                                         <input name="categoryId" type="checkbox" class="filter__input filter__radio"
                                                hidden="hidden" value="${category.id}">
-                                        <span class="filter-radio__icon-wrapper">
+                                        <span class="filter-radio__icon-wrapper ">
                                             <i class="fa-solid fa-check filter-radio__icon"></i>
-                                        </span> ${category.nameType}
+                                        </span>
+                                        <span class="hvr-skew-forward">
+                                                ${category.nameType}
+                                        </span>
                                     </label>
                                 </c:forEach>
-                            </div
+                            </div>
                         </div>
                         <span class="filter__separate"></span>
                         <div class="filter__group"><span class="filter__title">Mức giá</span>
@@ -49,8 +66,11 @@
                                         <input name="moneyRange" type="checkbox" class="filter__input filter__radio"
                                                hidden="hidden" value="${moneyRange.getFrom()}-${moneyRange.getTo()}">
                                         <span class="filter-radio__icon-wrapper"><i
-                                                class="fa-solid fa-check filter-radio__icon"></i>                         </span> ${moneyFrom}
-                                        - ${moneyTo}
+                                                class="fa-solid fa-check filter-radio__icon"></i>
+                                        </span>
+                                        <span class="hvr-skew-forward">
+                                                ${moneyFrom} - ${moneyTo}
+                                        </span>
                                     </label> </c:forEach>
                             </div>
                         </div>
@@ -80,45 +100,46 @@
                                                class="filter__input filter__color" hidden="hidden">
                                         <span class="filter__color-show shadow rounded hvr-grow"
                                               style="background-color: ${item.codeColor}"></span>
-                                    </label>
-                                </c:forEach>
+                                    </label> </c:forEach>
                             </div>
                         </div>
                         <button class="filter__submit button--hover button" type="submit">Lọc</button>
                     </form>
                 </div>
-            </div>
 
-            <div class="col-9">
-                <div class="product__list">
-                    <%for(Product item : (List<Product>)request.getAttribute("productCardList")){%>
-                    <div class="product__item hvr-grow-shadow">
+                <div class="col-9">
+                    <div class="product__list">
+                        <%for (Product item : (List<Product>) request.getAttribute("productCardList")) {%>
+                        <div class="product__item hvr-grow-shadow">
 
-                        <%String image = productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage();%>
-                        <a href="/showProductDetail?id=<%=item.getId()%>">
-                            <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img/", image)%>"
-                                 class="product__img" alt="" loading="lazy"/>
-                        </a>
+                            <%String image = productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage();%>
+                            <a href="/showProductDetail?id=<%=item.getId()%>">
+                                <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img/", image)%>"
+                                     class="product__img" alt="" loading="lazy"/>
+                            </a>
 
-                        <div class="product__info">
-                            <a class="product__name" target="_blank" href="/showProductDetail?id=<%=item.getId()%>"><%=item.getName()%></a>
-                            <div class="product__review">
-                                <div class="product__review-stars">
-                                    <%for(int starA = 0; starA < productFactory.calculateStar(item.getId());starA++){%>
-                                    <i class="fa-solid fa-star"></i>
-                                    <%}%>
+                            <div class="product__info">
+                                <a class="product__name" target="_blank"
+                                   href="/showProductDetail?id=<%=item.getId()%>"><%=item.getName()%>
+                                </a>
+                                <div class="product__review">
+                                    <div class="product__review-stars">
+                                        <%for (int starA = 0; starA < productFactory.calculateStar(item.getId()); starA++) {%>
+                                        <i class="fa-solid fa-star"></i>
+                                        <%}%>
 
-                                    <%for(int starB = 0; starB < 5 - productFactory.calculateStar(item.getId());starB++){%>
-                                    <i class="fa-regular fa-star"></i>
-                                    <%}%>
+                                        <%for (int starB = 0; starB < 5 - productFactory.calculateStar(item.getId()); starB++) {%>
+                                        <i class="fa-regular fa-star"></i>
+                                        <%}%>
+
+                                    </div>
+                                    <a class="product__review-num" target="_blank"
+                                       href="/showProductDetail"><%=productFactory.getReviewCount(item.getId())%>
+                                        nhận xét
+                                    </a>
 
                                 </div>
-                                <a class="product__review-num" target="_blank" href="/showProductDetail"><%=productFactory.getReviewCount(item.getId())%>
-                                    nhận xét
-                                </a>
-
-                            </div>
-                            <span class="product__price">
+                                <span class="product__price">
                                         <fmt:formatNumber value="<%=item.getOriginalPrice()%>" type="currency"
                                                           currencyCode="VND"
                                                           var="originalPrice"/>
@@ -130,18 +151,18 @@
                                         <strong class="product__price--original">${originalPrice}</strong>
                                         <strong class="product__price--sale">${salePrice}</strong>
                                     </span>
+                            </div>
                         </div>
+                        <%}%>
                     </div>
-                    <%}%>
-                </div>
 
-                <%--                    <c:if test="${empty list}">--%>
-                <%--                        <p class="product__list--empty">Không có sản phẩm nào ứng--%>
-                <%--                        với bộ lọc </p>--%>
-                <%--                    </c:if>--%>
+                    <%--                    <c:if test="${empty list}">--%>
+                    <%--                        <p class="product__list--empty">Không có sản phẩm nào ứng--%>
+                    <%--                        với bộ lọc </p>--%>
+                    <%--                    </c:if>--%>
+                </div>
             </div>
-        </div>
-        <jsp:include page="/public/paging.jsp"/>
+            <jsp:include page="/public/paging.jsp"/>
     </section>
 </main>
 <c:import url="/public/footer.jsp"/>
