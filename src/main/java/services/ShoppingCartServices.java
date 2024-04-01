@@ -1,18 +1,18 @@
 package services;
 
-import dao.ShoppingCartDao;
+import dao.ShoppingCartDAOImp;
 import models.Voucher;
 
 import java.util.List;
 
 public class ShoppingCartServices {
 
-    private ShoppingCartDao shoppingCartDao;
+    private ShoppingCartDAOImp shoppingCartDao;
 
     private static ShoppingCartServices INSTANCE;
 
     public ShoppingCartServices() {
-        shoppingCartDao = new ShoppingCartDao();
+        shoppingCartDao = new ShoppingCartDAOImp();
     }
 
     public static ShoppingCartServices getINSTANCE() {

@@ -6,21 +6,21 @@ import models.*;
 import java.util.List;
 import java.util.Map;
 
-public class OrderDaoAdmin implements IOrderDAOAdmin {
+public class OrderAdminDAOImp implements IOrderAdminDAO {
 
     public List<Order> getListAllOrders() {
         String sql = "SELECT id, userId, dateOrder, deliveryMethodId, paymentMethodId, fullName, email, phone, address, orderStatusId, transactionStatusId, voucherId FROM orders";
-        return GeneralDAO.executeQueryWithSingleTable(sql, Order.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql, Order.class);
     }
 
     public List<PaymentMethod> getListAllPaymentMethodManage(){
         String sql = "SELECT id, typePayment FROM payment_methods";
-        return GeneralDAO.executeQueryWithSingleTable(sql, PaymentMethod.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql, PaymentMethod.class);
     }
 
     public List<DeliveryMethod> getListAllDeliveryMethodManage(){
         String sql = "SELECT id, typeShipping, description, shippingFee FROM delivery_methods";
-        return GeneralDAO.executeQueryWithSingleTable(sql, DeliveryMethod.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql, DeliveryMethod.class);
     }
 
     public List<Order> getListOrdersBySearchFilter(Map<Object, List<String>> mapFilterSectionOrders, String contentSearch, String searchSelect, String startDate, String endDate) {
@@ -57,23 +57,23 @@ public class OrderDaoAdmin implements IOrderDAOAdmin {
             sql.append(" AND dateOrder <= ").append(surrEndDateFmt);
         }
 
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Order.class, "%" + contentSearch + "%");
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Order.class, "%" + contentSearch + "%");
     }
 
     public PaymentMethod getPaymentMethodMangeById(int id){
         String sql = "SELECT id, typePayment FROM payment_methods WHERE id = ?";
-        return GeneralDAO.executeQueryWithSingleTable(sql, PaymentMethod.class, id).get(0);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql, PaymentMethod.class, id).get(0);
     }
 
     public DeliveryMethod getDeliveryMethodManageById(int id){
         String sql = "SELECT id, typeShipping, description, shippingFee FROM delivery_methods WHERE id = ?";
-        return GeneralDAO.executeQueryWithSingleTable(sql, DeliveryMethod.class, id).get(0);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql, DeliveryMethod.class, id).get(0);
     }
 
     public Order getOrderById(String id){
         StringBuilder sql = new StringBuilder("SELECT id, userId, dateOrder, deliveryMethodId, paymentMethodId, fullName, email, phone, address, orderStatusId, transactionStatusId, voucherId");
         sql.append(" FROM orders WHERE id = ?");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Order.class, id).get(0);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Order.class, id).get(0);
     }
 
 //    public List<Order> getListOrderByPartialId(String orderId){
@@ -104,23 +104,23 @@ public class OrderDaoAdmin implements IOrderDAOAdmin {
         String fillEntry = String.format("'%s'", String.join("','", multipleId));
         StringBuilder sql = new StringBuilder("DELETE FROM orders");
         sql.append(" WHERE id IN(" + fillEntry + ")");
-        GeneralDAO.executeAllTypeUpdate(sql.toString());
+        GeneralDAOImp.executeAllTypeUpdate(sql.toString());
     }
 
     public void cancelOrderByArrayMultipleId(String[] multipleId){
         String fillEntry = String.format("'%s'", String.join("','", multipleId));
         String sql = "UPDATE orders SET orderStatusId = 5 WHERE id IN (" + fillEntry + ")";
-        GeneralDAO.executeAllTypeUpdate(sql);
+        GeneralDAOImp.executeAllTypeUpdate(sql);
     }
 
     public static void updateStatusByOrderId(String orderId, int orderStatusId, int transactionStatusId){
         String sql = "UPDATE orders SET orderStatusId = ?, transactionStatusId = ? WHERE id = ?";
-        GeneralDAO.executeAllTypeUpdate(sql, orderStatusId, transactionStatusId, orderId);
+        GeneralDAOImp.executeAllTypeUpdate(sql, orderStatusId, transactionStatusId, orderId);
     }
 
     public Voucher getVoucherById(int id){
         String sql = "SELECT id, code, description, minimumPrice, discountPercent FROM vouchers WHERE id = ?";
-        return GeneralDAO.executeQueryWithSingleTable(sql, Voucher.class, id).get(0);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql, Voucher.class, id).get(0);
     }
 
 //    public static void main(String[] args) {
@@ -148,12 +148,12 @@ public class OrderDaoAdmin implements IOrderDAOAdmin {
     }
     public List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder){
         String querry = "SELECT id FROM orders WHERE userId = ? AND orderStatusId = ?";
-        return GeneralDAO.executeQueryWithSingleTable(querry,Order.class, userId,statusOrder);
+        return GeneralDAOImp.executeQueryWithSingleTable(querry,Order.class, userId,statusOrder);
     }
 
     public List<Order> getOrderByUserId(int userId){
         String querry = "SELECT id FROM orders WHERE userId = ? ";
-        return GeneralDAO.executeQueryWithSingleTable(querry,Order.class, userId);
+        return GeneralDAOImp.executeQueryWithSingleTable(querry,Order.class, userId);
     }
 
     public List<OrderDetail> getOrderDetailByOrderId(List<String> listId) {
@@ -166,7 +166,7 @@ public class OrderDaoAdmin implements IOrderDAOAdmin {
         String query = "SELECT id,  productId, quantityRequired, price " +
                 "FROM order_details " +
                 "WHERE orderId IN (" + condition + ")";
-        return GeneralDAO.executeQueryWithSingleTable(query, OrderDetail.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(query, OrderDetail.class);
     }
 
     public List<Product> getProductInOrderDetail(int id){
@@ -174,12 +174,12 @@ public class OrderDaoAdmin implements IOrderDAOAdmin {
                 "FROM products " +
                 "WHERE id =?";
 
-        return  GeneralDAO.executeQueryWithSingleTable(query, Product.class,id);
+        return  GeneralDAOImp.executeQueryWithSingleTable(query, Product.class,id);
     }
 
     public List<Image> getNameImageByProductId(int id) {
         String querry = "SELECT nameImage FROM images WHERE productId = ?";
-        return GeneralDAO.executeQueryWithSingleTable(querry, Image.class, id);
+        return GeneralDAOImp.executeQueryWithSingleTable(querry, Image.class, id);
     }
 
 
@@ -188,7 +188,7 @@ public class OrderDaoAdmin implements IOrderDAOAdmin {
                 "FROM orders JOIN order_details ON orders.id = order_details.orderId " +
                 "WHERE orders.userId = ? AND orders.orderStatusId = 4 " +
                 "AND order_details.id NOT IN (SELECT reviews.orderDetailId FROM reviews) ";
-        return GeneralDAO.executeQueryWithSingleTable(querry, OrderDetail.class,userId);
+        return GeneralDAOImp.executeQueryWithSingleTable(querry, OrderDetail.class,userId);
     }
 
     public List<OrderDetail> getOrderDetailHasReview(int userId) {
@@ -196,6 +196,6 @@ public class OrderDaoAdmin implements IOrderDAOAdmin {
                 "FROM orders JOIN order_details ON orders.id = order_details.orderId " +
                 "WHERE orders.userId = ? AND orders.orderStatusId = 4 " +
                 "AND order_details.id IN (SELECT reviews.orderDetailId FROM reviews) ";
-        return GeneralDAO.executeQueryWithSingleTable(querry, OrderDetail.class, userId);
+        return GeneralDAOImp.executeQueryWithSingleTable(querry, OrderDetail.class, userId);
     }
 }

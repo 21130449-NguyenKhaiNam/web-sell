@@ -1,16 +1,16 @@
 package services;
 
-import dao.HomeDAO;
+import dao.HomeDAOImp;
 import models.*;
 
 import java.util.List;
 
 public class HomeServices {
-    private HomeDAO homeDao;
+    private HomeDAOImp homeDao;
     private static HomeServices INSTANCE;
 
     public HomeServices() {
-        homeDao = new HomeDAO();
+        homeDao = new HomeDAOImp();
     }
 
     public static HomeServices getINSTANCE() {

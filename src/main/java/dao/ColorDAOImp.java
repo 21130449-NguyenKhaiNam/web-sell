@@ -4,11 +4,11 @@ import models.Color;
 
 import java.util.List;
 
-public class ColorDAO implements IColorDAO{
+public class ColorDAOImp implements IColorDAO{
     public List<Color> getAllColor() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT DISTINCT codeColor ").append("FROM colors");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Color.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Color.class);
     }
 
     public void addColors(Color[] colors) {
@@ -24,13 +24,13 @@ public class ColorDAO implements IColorDAO{
                     .append(", ")
                     .append(colors[i].getProductId()).append(") ");
         }
-        GeneralDAO.executeAllTypeUpdate(sql.toString());
+        GeneralDAOImp.executeAllTypeUpdate(sql.toString());
     }
 
     public List<Color> getIdColorByProductId(int productId) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id FROM colors WHERE productId = ?");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Color.class, productId);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Color.class, productId);
     }
 
     public void updateColor(Color color, int id) {
@@ -39,7 +39,7 @@ public class ColorDAO implements IColorDAO{
                 .append("SET ")
                 .append(" codeColor = ? ")
                 .append(" WHERE id = ? ");
-        GeneralDAO.executeAllTypeUpdate(sql.toString(), color.getCodeColor(), id);
+        GeneralDAOImp.executeAllTypeUpdate(sql.toString(), color.getCodeColor(), id);
     }
 
     public void deleteColorList(List<Integer> listIdDelete) {

@@ -8,7 +8,7 @@ import org.jdbi.v3.core.statement.Query;
 import java.util.List;
 import java.util.Map;
 
-public class GeneralDAO implements IGeneralDAO{
+public class GeneralDAOImp implements IGeneralDAO{
 
     //Use for select statement
     public static <T>List<T> executeQueryWithSingleTable(String sql, Class<T> type, Object... params) {

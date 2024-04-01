@@ -1,7 +1,7 @@
 package services;
 
 import dao.OrderDetailDAO;
-import dao.ReviewDAO;
+import dao.ReviewDAOImp;
 import models.OrderDetail;
 import models.Product;
 import models.Review;
@@ -10,11 +10,11 @@ import java.util.List;
 
 public class ReviewServices {
     private static ReviewServices INSTANCE;
-    private ReviewDAO reviewDAO;
+    private ReviewDAOImp reviewDAO;
 
     private OrderDetailDAO orderDetailDAO;
     private ReviewServices() {
-        reviewDAO = new ReviewDAO();
+        reviewDAO = new ReviewDAOImp();
         orderDetailDAO = new OrderDetailDAO();
     }
     public static ReviewServices getINSTANCE() {

@@ -1,6 +1,6 @@
 package services;
 
-import dao.OrderDaoUser;
+import dao.OrderUserDAOImp;
 import models.Image;
 import models.Order;
 import models.OrderDetail;
@@ -11,10 +11,10 @@ import java.util.List;
 
 public class HistoryService {
     private static HistoryService INSTANCE;
-    private OrderDaoUser orderDAO;
+    private OrderUserDAOImp orderDAO;
 
     private HistoryService() {
-        this.orderDAO= new OrderDaoUser();
+        this.orderDAO= new OrderUserDAOImp();
     }
 
     public static HistoryService getINSTANCE() {
