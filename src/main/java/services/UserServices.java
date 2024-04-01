@@ -1,20 +1,18 @@
 package services;
 
-import dao.UserDAO;
-import dao.UserDAOImplement;
+import dao.IUserDAO;
+import dao.UserDAOImp;
 import models.User;
 
 import java.sql.Date;
 import java.util.List;
 
-import java.util.List;
-
 public class UserServices {
     private static UserServices INSTANCE;
-    private UserDAO userDAO;
+    private IUserDAO userDAO;
 
     private UserServices() {
-        userDAO = new UserDAOImplement();
+        userDAO = LogService.createProxy(new UserDAOImp());
     }
 
     public static UserServices getINSTANCE() {

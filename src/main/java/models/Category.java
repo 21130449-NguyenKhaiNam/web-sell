@@ -1,7 +1,5 @@
 package models;
 
-import dao.IDao;
-
 public class Category {
     private int id;
     private String nameType;

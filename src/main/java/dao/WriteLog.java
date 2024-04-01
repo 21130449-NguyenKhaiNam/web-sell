@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD})
-@interface Log {
+public @interface WriteLog {
     String INSERT = "1";
     String UPDATE = "2";
     String SELECT = "3";

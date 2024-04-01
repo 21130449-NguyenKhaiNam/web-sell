@@ -6,7 +6,7 @@ import models.User;
 import java.sql.*;
 import java.util.List;
 
-public class UserDAOImplement implements UserDAO {
+public class UserDAOImp implements IUserDAO {
     @Override
     public User selectById(int id) {
         String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE id = ?";
@@ -119,30 +119,9 @@ public class UserDAOImplement implements UserDAO {
     }
 
     @Override
-    public int insertAll(List<User> list) {
-        int count = 0;
-        for (User item : list) {
-            insert(item);
-            count++;
-        }
-        return count;
-    }
-
-    @Override
-    public int delete(User o) {
-        return 0;
-    }
-
-    @Override
     public List<User> selectALl() {
         String querry ="Select id, username, email, fullname, gender, phone, address, birthDay, role from users ";
         return GeneralDao.executeQueryWithSingleTable(querry, User.class);
-    }
-
-    @Override
-    public void deleteUserById(int id){
-        String query = "DELETE FROM users WHERE id = ?";
-        GeneralDao.executeAllTypeUpdate(query, id);
     }
 
     @Override
@@ -175,40 +154,11 @@ public class UserDAOImplement implements UserDAO {
         GeneralDao.executeAllTypeUpdate(query, username, fullname, gender, email, phone, address, birthDay, role, id);
     }
 
-    @Override
-    public void deleteContactsFromUserByUserId(int userId) {
-        String query = "DELETE FROM contacts WHERE userId = ?";
-        GeneralDao.executeAllTypeUpdate(query,userId);
-    }
-
-    @Override
-    public void deleteReviewsFromUserByUserId(int userId) {
-        String query = "DELETE FROM reviews WHERE userId = ?";
-        GeneralDao.executeAllTypeUpdate(query,userId);
-    }
-
-    @Override
-    public void deleteOrderdetailsFromUserByUserId(int userId) {
-        String query = "DELETE FROM order_details WHERE orderId IN (SELECT id FROM orders WHERE userId = ?)";
-        GeneralDao.executeAllTypeUpdate(query,userId);
-    }
-
-    @Override
-    public void deleteOrderFromUserByUserId(int userId) {
-        String query = "DELETE FROM orders WHERE userId = ?";
-        GeneralDao.executeAllTypeUpdate(query,userId);
-    }
 
     @Override
     public void updateUserPassword(int userId, String password) {
         String querry = "UPDATE users SET passwordEncoding = ? WHERE id = ?";
         GeneralDao.executeAllTypeUpdate(querry,password,userId);
-    }
-
-
-    @Override
-    public int deleteAll(List<User> list) {
-        return 0;
     }
 
     @Override
@@ -236,13 +186,6 @@ public class UserDAOImplement implements UserDAO {
                 .bind("tokenResetPassword", user.getTokenResetPassword())
                 .execute());
         return count;
-    }
-
-    @Override
-    public List<User> getAvatar(int id) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT avatar FROM users WHERE id = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), User.class, id);
     }
 
     @Override

@@ -1,10 +1,11 @@
 package services.authentication;
 
-import dao.UserDAO;
-import dao.UserDAOImplement;
+import dao.IUserDAO;
+import dao.UserDAOImp;
 import models.User;
 import properties.MailProperties;
 import properties.RoleProperties;
+import services.LogService;
 import services.mail.IMailServices;
 import services.mail.MailResetPasswordServices;
 import services.mail.MailVerifyServices;
@@ -27,7 +28,7 @@ import java.util.regex.Pattern;
 public class ValidateFormServices {
     private static ValidateFormServices INSTANCE;
 
-    UserDAO userDAO = new UserDAOImplement();
+    IUserDAO userDAO = LogService.createProxy(new UserDAOImp());
 
     private ValidateFormServices() {
     }
