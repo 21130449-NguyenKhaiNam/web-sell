@@ -3,11 +3,10 @@ package dao;
 import models.*;
 
 import java.util.List;
-import java.util.Map;
 
-public class HomeDao {
+public class HomeDAO implements IHomeDAO {
     public List<Slider> getListSlideShow() {
-        return GeneralDao.executeQueryWithSingleTable("SELECT nameSlide, nameImage FROM sliders WHERE visibility = 1", Slider.class);
+        return GeneralDAO.executeQueryWithSingleTable("SELECT nameSlide, nameImage FROM sliders WHERE visibility = 1", Slider.class);
     }
 //    public List<Map<String, Object>> getListTrendingProducts(boolean isSeeMore) {
 //        StringBuilder sql = new StringBuilder("SELECT products.id, products.`name`, products.salePrice, products.originalPrice, images.nameImage FROM products");
@@ -38,7 +37,7 @@ public class HomeDao {
         if (!isSeeMore) {
             sql.append(" LIMIT 6");
         }
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     public List<Product> getListTrendProducts(boolean isSeeMore){
@@ -51,10 +50,6 @@ public class HomeDao {
         if(!isSeeMore){
             sql.append(" LIMIT 6");
         }
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, 10);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getListNewProducts(true));
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, 10);
     }
 }

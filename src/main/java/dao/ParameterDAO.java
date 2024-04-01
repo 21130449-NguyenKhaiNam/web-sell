@@ -10,7 +10,7 @@ public class ParameterDAO {
         sql.append("SELECT id, name, minValue, `maxValue`, unit, guideImg ")
                 .append("FROM parameters ")
                 .append("WHERE categoryId = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
     }
 
     public List<Parameter> getParameterByCategoryId(int id, boolean orderById) {
@@ -20,29 +20,29 @@ public class ParameterDAO {
                 .append("WHERE categoryId = ?");
         if (orderById) sql.append(" ORDER BY id ASC");
         else sql.append(" ORDER BY name DESC");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
     }
 
     public void updateParameter(Parameter parameter) {
         StringBuilder sql = new StringBuilder();
         if (parameter.getGuideImg() == null) {
             sql.append("UPDATE parameters SET name = ?, minValue = ?, `maxValue` = ?, unit = ? WHERE id = ?");
-            GeneralDao.executeAllTypeUpdate(sql.toString(), parameter.getName(), parameter.getMinValue(), parameter.getMaxValue(), parameter.getUnit(), parameter.getId());
+            GeneralDAO.executeAllTypeUpdate(sql.toString(), parameter.getName(), parameter.getMinValue(), parameter.getMaxValue(), parameter.getUnit(), parameter.getId());
         } else {
             sql.append("UPDATE parameters SET name = ?, minValue = ?, `maxValue` = ?, unit = ?, guideImg = ? WHERE id = ?");
-            GeneralDao.executeAllTypeUpdate(sql.toString(), parameter.getName(), parameter.getMinValue(), parameter.getMaxValue(), parameter.getUnit(), parameter.getGuideImg(), parameter.getId());
+            GeneralDAO.executeAllTypeUpdate(sql.toString(), parameter.getName(), parameter.getMinValue(), parameter.getMaxValue(), parameter.getUnit(), parameter.getGuideImg(), parameter.getId());
         }
     }
 
     public void addParameter(Parameter parameter) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO parameters (name, minValue, `maxValue`, unit, categoryId, guideImg) VALUES (?, ?, ?, ?, ?, ?) ");
-        GeneralDao.executeAllTypeUpdate(sql.toString(), parameter.getName(), parameter.getMinValue(), parameter.getMaxValue(), parameter.getUnit(), parameter.getCategoryId(), parameter.getGuideImg());
+        GeneralDAO.executeAllTypeUpdate(sql.toString(), parameter.getName(), parameter.getMinValue(), parameter.getMaxValue(), parameter.getUnit(), parameter.getCategoryId(), parameter.getGuideImg());
     }
 
     public void deleteParameter(int id) {
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM parameters WHERE id = ?");
-        GeneralDao.executeAllTypeUpdate(sql.toString(), id);
+        GeneralDAO.executeAllTypeUpdate(sql.toString(), id);
     }
 }

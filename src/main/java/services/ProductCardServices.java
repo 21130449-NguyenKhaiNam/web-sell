@@ -14,13 +14,13 @@ public class ProductCardServices {
     private ReviewDAO reviewDAO;
     private SizeDAO sizeDAO;
     private ColorDAO colorDAO;
-    private CategoryDAO categoryDAO;
+    private CategoryDAOImp categoryDAO;
     private ProductCardServices() {
         this.productDAO = new ProductDao();
         this.productCardDAO = new ProductCardDAO();
         this.sizeDAO = new SizeDAO();
         this.colorDAO = new ColorDAO();
-        this.categoryDAO = new CategoryDAO();
+        this.categoryDAO = new CategoryDAOImp();
         this.reviewDAO = new ReviewDAO();
 
     }
