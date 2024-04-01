@@ -7,16 +7,16 @@ import models.Product;
 
 import java.util.List;
 
-public class OrderDaoUser implements IOrderDAOUser {
+public class OrderUserDAOImp implements IOrderUserDAO {
 
     public List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder){
         String querry = "SELECT id FROM orders WHERE userId = ? AND orderStatusId = ?";
-        return GeneralDAO.executeQueryWithSingleTable(querry,Order.class, userId,statusOrder);
+        return GeneralDAOImp.executeQueryWithSingleTable(querry,Order.class, userId,statusOrder);
     }
 
     public List<Order> getOrderByUserId(int userId){
         String querry = "SELECT id FROM orders WHERE userId = ? ";
-        return GeneralDAO.executeQueryWithSingleTable(querry,Order.class, userId);
+        return GeneralDAOImp.executeQueryWithSingleTable(querry,Order.class, userId);
     }
 
     public List<OrderDetail> getOrderDetailByOrderId(List<String> listId) {
@@ -29,7 +29,7 @@ public class OrderDaoUser implements IOrderDAOUser {
         String query = "SELECT id,  productId, quantityRequired, price " +
                 "FROM order_details " +
                 "WHERE orderId IN (" + condition + ")";
-        return GeneralDAO.executeQueryWithSingleTable(query, OrderDetail.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(query, OrderDetail.class);
     }
 
     public List<Product> getProductInOrderDetail(int id){
@@ -37,12 +37,12 @@ public class OrderDaoUser implements IOrderDAOUser {
                 "FROM products " +
                 "WHERE id =?";
 
-        return  GeneralDAO.executeQueryWithSingleTable(query, Product.class,id);
+        return  GeneralDAOImp.executeQueryWithSingleTable(query, Product.class,id);
     }
 
     public List<Image> getNameImageByProductId(int id) {
         String querry = "SELECT nameImage FROM images WHERE productId = ?";
-         return GeneralDAO.executeQueryWithSingleTable(querry, Image.class, id);
+         return GeneralDAOImp.executeQueryWithSingleTable(querry, Image.class, id);
     }
 
 
@@ -51,7 +51,7 @@ public class OrderDaoUser implements IOrderDAOUser {
                 "FROM orders JOIN order_details ON orders.id = order_details.orderId " +
                 "WHERE orders.userId = ? AND orders.orderStatusId = 4 " +
                 "AND order_details.id NOT IN (SELECT reviews.orderDetailId FROM reviews) ";
-        return GeneralDAO.executeQueryWithSingleTable(querry, OrderDetail.class,userId);
+        return GeneralDAOImp.executeQueryWithSingleTable(querry, OrderDetail.class,userId);
     }
 
     public List<OrderDetail> getOrderDetailHasReview(int userId) {
@@ -59,6 +59,6 @@ public class OrderDaoUser implements IOrderDAOUser {
                 "FROM orders JOIN order_details ON orders.id = order_details.orderId " +
                 "WHERE orders.userId = ? AND orders.orderStatusId = 4 " +
                 "AND order_details.id IN (SELECT reviews.orderDetailId FROM reviews) ";
-        return GeneralDAO.executeQueryWithSingleTable(querry, OrderDetail.class, userId);
+        return GeneralDAOImp.executeQueryWithSingleTable(querry, OrderDetail.class, userId);
     }
 }

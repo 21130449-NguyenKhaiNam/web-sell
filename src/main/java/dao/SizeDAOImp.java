@@ -5,17 +5,17 @@ import models.Size;
 
 import java.util.List;
 
-public class SizeDAO {
+public class SizeDAOImp implements ISizeDAO {
     public List<Size> getAllSize() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT DISTINCT nameSize").append(" FROM sizes");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Size.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Size.class);
     }
 
     public List<Product> getIdProduct(String size) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT productId ").append(" FROM sizes ").append("WHERE nameSize = ?");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, size);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, size);
     }
 
     public void addSizes(Size[] sizes) {
@@ -33,13 +33,13 @@ public class SizeDAO {
                     .append(sizes[i].getSizePrice())
                     .append(") ");
         }
-        GeneralDAO.executeAllTypeUpdate(sql.toString());
+        GeneralDAOImp.executeAllTypeUpdate(sql.toString());
     }
 
     public List<Size> getIdSizeByProductId(int productId) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id FROM sizes WHERE productId = ?");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Size.class, productId);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Size.class, productId);
     }
 
     public void updateSize(Size size, int id) {
@@ -49,7 +49,7 @@ public class SizeDAO {
                 .append(" nameSize = ? ,")
                 .append(" sizePrice = ? ")
                 .append(" WHERE id = ? ");
-        GeneralDAO.executeAllTypeUpdate(sql.toString(), size.getNameSize(), size.getNameSize(), id);
+        GeneralDAOImp.executeAllTypeUpdate(sql.toString(), size.getNameSize(), size.getNameSize(), id);
     }
 
     public void deleteSizeList(List<Integer> listId) {
@@ -64,6 +64,6 @@ public class SizeDAO {
             }
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM sizes ").append("WHERE id IN (").append(idRange).append(")");
-        GeneralDAO.executeAllTypeUpdate(sql.toString());
+        GeneralDAOImp.executeAllTypeUpdate(sql.toString());
     }
 }

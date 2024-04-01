@@ -1,28 +1,26 @@
 package services;
 
-import dao.ColorDAO;
-import dao.ImageDAO;
-import dao.ProductDao;
-import dao.SizeDAO;
+import dao.ColorDAOImp;
+import dao.ImageDAOImp;
+import dao.ProductDAOImp;
+import dao.SizeDAOImp;
 import models.*;
 
-import javax.sound.sampled.Port;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServices {
 
-    private ProductDao productDao;
-    private ImageDAO imageDAO;
-    private ColorDAO colorDAO;
-    private SizeDAO sizeDAO;
+    private ProductDAOImp productDao;
+    private ImageDAOImp imageDAO;
+    private ColorDAOImp colorDAO;
+    private SizeDAOImp sizeDAO;
     private static ProductServices INSTANCE;
 
     public ProductServices() {
-        productDao = new ProductDao();
-        imageDAO = new ImageDAO();
-        colorDAO = new ColorDAO();
-        sizeDAO = new SizeDAO();
+        productDao = new ProductDAOImp();
+        imageDAO = new ImageDAOImp();
+        colorDAO = new ColorDAOImp();
+        sizeDAO = new SizeDAOImp();
     }
 
     public static ProductServices getINSTANCE() {

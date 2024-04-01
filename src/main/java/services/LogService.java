@@ -1,7 +1,7 @@
 package services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dao.LogDAO;
+import dao.LogDAOImp;
 import dao.LogParam;
 import dao.LogTable;
 import dao.WriteLog;
@@ -12,16 +12,15 @@ import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class LogService implements InvocationHandler {
     private static LogService logService;
     private Object target;
-    private LogDAO logDAO;
+    private LogDAOImp logDAO;
     private String ip = "128.0.0.1";
 
     private LogService() {
-        logDAO = new LogDAO();
+        logDAO = new LogDAOImp();
     }
 
     public static LogService getINSTANCE() {

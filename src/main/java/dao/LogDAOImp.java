@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
 import java.util.Map;
 
-public class LogDAO implements ILogDAO {
+public class LogDAOImp implements ILogDAO {
     @Override
     public void writeLog(String ip, int level, Map<String, String> params, LocalDate updateDate, int table) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -15,7 +15,7 @@ public class LogDAO implements ILogDAO {
             // Dang xu ly
         } else {
             String query = "INSERT INTO logs (ip, id_level, data_change, update_date, id_table) VALUES (?, ?, ?, ?, ?)";
-            GeneralDAO.executeQueryWithSingleTable(query, LogForOther.class, ip, level, changeDate, updateDate, table);
+            GeneralDAOImp.executeQueryWithSingleTable(query, LogForOther.class, ip, level, changeDate, updateDate, table);
         }
     }
 

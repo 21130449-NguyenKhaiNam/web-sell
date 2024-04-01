@@ -9,19 +9,19 @@ import java.util.*;
 public class ProductCardServices {
     private static final int LIMIT = 9;
     private static ProductCardServices INSTANCE;
-    private ProductDao productDAO;
-    private ProductCardDAO productCardDAO;
-    private ReviewDAO reviewDAO;
-    private SizeDAO sizeDAO;
-    private ColorDAO colorDAO;
+    private ProductDAOImp productDAO;
+    private ProductCardDAOImp productCardDAO;
+    private ReviewDAOImp reviewDAO;
+    private SizeDAOImp sizeDAO;
+    private ColorDAOImp colorDAO;
     private CategoryDAOImp categoryDAO;
     private ProductCardServices() {
-        this.productDAO = new ProductDao();
-        this.productCardDAO = new ProductCardDAO();
-        this.sizeDAO = new SizeDAO();
-        this.colorDAO = new ColorDAO();
+        this.productDAO = new ProductDAOImp();
+        this.productCardDAO = new ProductCardDAOImp();
+        this.sizeDAO = new SizeDAOImp();
+        this.colorDAO = new ColorDAOImp();
         this.categoryDAO = new CategoryDAOImp();
-        this.reviewDAO = new ReviewDAO();
+        this.reviewDAO = new ReviewDAOImp();
 
     }
 

@@ -5,7 +5,7 @@ import models.*;
 import java.util.List;
 import java.util.Map;
 
-public interface IOrderDAOAdmin {
+public interface IOrderAdminDAO {
     List<Order> getListAllOrders();
     List<PaymentMethod> getListAllPaymentMethodManage();
     List<DeliveryMethod> getListAllDeliveryMethodManage();

@@ -10,25 +10,25 @@ public class CategoryDAOImp {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id, nameType ")
                 .append("FROM categories");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Category.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Category.class);
     }
 
     public void add(Category category) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO categories (nameType, sizeTableImage) VALUES (?, ?) ");
-        GeneralDAO.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getSizeTableImage());
+        GeneralDAOImp.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getSizeTableImage());
     }
 
     public List<Category> getCategoryByNameType(String nameType) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id FROM categories WHERE nameType = ?");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Category.class, nameType);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Category.class, nameType);
     }
 
     public void addParameter(Parameter parameter) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO parameters (name, minValue, `maxValue`, unit, categoryId, guideImg) VALUES (?, ?, ?, ?, ?, ?) ");
-        GeneralDAO.executeAllTypeUpdate(sql.toString(), parameter.getName(), parameter.getMinValue(), parameter.getMaxValue(), parameter.getUnit(), parameter.getCategoryId(), parameter.getGuideImg());
+        GeneralDAOImp.executeAllTypeUpdate(sql.toString(), parameter.getName(), parameter.getMinValue(), parameter.getMaxValue(), parameter.getUnit(), parameter.getCategoryId(), parameter.getGuideImg());
     }
 
     public List<Category> getCategoryById(int id) {
@@ -36,7 +36,7 @@ public class CategoryDAOImp {
         sql.append("SELECT id, nameType, sizeTableImage ")
                 .append("FROM categories ")
                 .append("WHERE id = ?");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Category.class, id);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Category.class, id);
     }
 
 
@@ -44,10 +44,10 @@ public class CategoryDAOImp {
         StringBuilder sql = new StringBuilder();
         if (category.getSizeTableImage() == null) {
             sql.append("UPDATE categories SET nameType = ? WHERE id = ?");
-            GeneralDAO.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getId());
+            GeneralDAOImp.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getId());
         } else {
             sql.append("UPDATE categories SET nameType = ?, sizeTableImage = ? WHERE id = ?");
-            GeneralDAO.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getSizeTableImage(), category.getId());
+            GeneralDAOImp.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getSizeTableImage(), category.getId());
         }
     }
 }

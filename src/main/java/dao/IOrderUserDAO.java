@@ -7,7 +7,7 @@ import models.Product;
 
 import java.util.List;
 
-public interface IOrderDAOUser {
+public interface IOrderUserDAO {
     List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder);
 
     List<Order> getOrderByUserId(int userId);

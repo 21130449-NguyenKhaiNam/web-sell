@@ -9,18 +9,17 @@ import services.image.UploadImageServices;
 import utils.Comparison;
 
 import javax.servlet.http.Part;
-import java.io.IOException;
 import java.sql.Date;
 import java.util.*;
 
 public class AdminProductServices {
     private static final int LIMIT = 15;
     private static AdminProductServices INSTANCE;
-    ProductDao productDAO = new ProductDao();
-    ColorDAO colorDAO = new ColorDAO();
-    ImageDAO imageDAO = new ImageDAO();
-    SizeDAO sizeDAO = new SizeDAO();
-    ProductCardDAO productCardDAO = new ProductCardDAO();
+    ProductDAOImp productDAO = new ProductDAOImp();
+    ColorDAOImp colorDAO = new ColorDAOImp();
+    ImageDAOImp imageDAO = new ImageDAOImp();
+    SizeDAOImp sizeDAO = new SizeDAOImp();
+    ProductCardDAOImp productCardDAO = new ProductCardDAOImp();
 
     private AdminProductServices() {
     }
