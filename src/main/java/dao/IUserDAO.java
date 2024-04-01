@@ -10,15 +10,13 @@ public interface IUserDAO {
     User selectById(int id);
 
     @WriteLog(WriteLog.SELECT)
-    List<User> selectAccount(String username, String isVerify);
+    List<User> selectAccount(@LogParam("username") String username, @LogParam("isVerify") String isVerify);
 
     @WriteLog(WriteLog.SELECT)
     List<User> selectByEmail(String email, String isVerify);
 
-    @WriteLog(WriteLog.SELECT)
     List<User> findUsername(String username);
 
-    @WriteLog(WriteLog.SELECT)
     List<User> findEmail(String email);
 
     int updatePasswordEncoding(int id, String pass);
@@ -37,11 +35,9 @@ public interface IUserDAO {
 
     List<User> selectALl();
 
-    @WriteLog(WriteLog.SELECT)
     List<User> searchUsersByName(String search);
     void insertUser(String username, String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay, String role);
 
-    @WriteLog(WriteLog.SELECT)
     List<User> getUserByID(int id);
     void updateUserByID(int id, String username, String fullName, String gender, String email, String phone, String address, Date birthDay);
     void updateUserByIDWithRole(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay, String role);

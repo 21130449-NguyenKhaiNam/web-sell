@@ -1,6 +1,5 @@
 package services;
 
-import dao.GeneralDao;
 import dao.ShoppingCartDao;
 import models.Voucher;
 

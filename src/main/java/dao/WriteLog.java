@@ -8,8 +8,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD})
 public @interface WriteLog {
-    String INSERT = "1";
-    String UPDATE = "2";
-    String SELECT = "3";
-    String value();
+    int INSERT = 1;
+    int UPDATE = 2;
+    int SELECT = 3;
+    int value();
 }

@@ -20,7 +20,7 @@ public class ProductCardDAO {
                 .append(" OFFSET ")
                 .append(offset);
 
-        List<Product> list = GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, visibility);
+        List<Product> list = GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, visibility);
         return list;
     }
 
@@ -34,7 +34,7 @@ public class ProductCardDAO {
                 .append(" OFFSET ")
                 .append(offset);
 
-        List<Product> list = GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
+        List<Product> list = GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
         return list;
     }
 
@@ -42,13 +42,13 @@ public class ProductCardDAO {
     public int getQuantityProduct() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id FROM products ");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class).size();
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class).size();
     }
 
     public int getQuantityProduct(boolean visibility) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id FROM products where visibility = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
     }
 
     public int getQuantityProduct(List<Integer> listId, boolean visibility) {
@@ -68,7 +68,7 @@ public class ProductCardDAO {
                 .append("WHERE visibility = ?")
                 .append(listIdString);
 
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
     }
 
     public int getQuantityProduct(List<Integer> listId) {
@@ -86,7 +86,7 @@ public class ProductCardDAO {
         sql.append("SELECT id ")
                 .append("FROM products ")
                 .append(listIdString);
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class).size();
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class).size();
     }
 
     public List<Product> pagingAndFilter(List<Integer> listId, int pageNumber, int limit) {
@@ -109,7 +109,7 @@ public class ProductCardDAO {
                 .append(limit)
                 .append(" OFFSET ")
                 .append(offset);
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     public List<Product> pagingAndFilter(List<Integer> listId, int pageNumber, int limit, boolean visibility) {
@@ -133,7 +133,7 @@ public class ProductCardDAO {
                 .append(limit)
                 .append(" OFFSET ")
                 .append(offset);
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, visibility);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, visibility);
     }
 
     public List<Product> getIdProductByCategoryId(List<String> listIdCategory) {
@@ -153,7 +153,7 @@ public class ProductCardDAO {
                 .append("FROM products  ")
                 .append("WHERE ")
                 .append(categoryIdQuery);
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     public List<Product> getIdProductByColor(List<String> listCodeColor) {
@@ -175,7 +175,7 @@ public class ProductCardDAO {
                 .append("FROM products JOIN colors ON products.id = colors.productId ")
                 .append("WHERE ")
                 .append(colorQuery);
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     public List<Product> getIdProductBySize(List<String> listSize) {
@@ -197,7 +197,7 @@ public class ProductCardDAO {
                 .append("FROM products JOIN sizes ON products.id = sizes.productId ")
                 .append("WHERE ")
                 .append(sizeQuery);
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
 
@@ -217,7 +217,7 @@ public class ProductCardDAO {
                 .append("FROM products ")
                 .append("WHERE ")
                 .append(moneyRangeQuery);
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     public List<Product> getProductByCategoryId(int categoryId) {
@@ -225,26 +225,26 @@ public class ProductCardDAO {
         sql.append("SELECT id, `name`, originalPrice, salePrice ")
                 .append("FROM products  ")
                 .append("WHERE categoryId = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, categoryId);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, categoryId);
     }
 
     public List<Product> getIdProductByName(String name) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id ").append("FROM products ").append("WHERE name LIKE ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, "%" + name + "%");
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, "%" + name + "%");
     }
 
     public List<Product> getProductByTimeCreated(Date dateBegin, Date dateEnd) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id ").append("FROM products ").append("WHERE createAt BETWEEN ? AND ? ");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, dateBegin, dateEnd);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, dateBegin, dateEnd);
     }
 
     public List<Category> getNameCategoryById(int id) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT categories.nameType ").append("FROM products JOIN categories ON products.categoryId = categories.id ")
                 .append("WHERE products.id = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Category.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Category.class, id);
     }
 
     public List<Category> getCategoryByProductId(int id) {
@@ -252,7 +252,7 @@ public class ProductCardDAO {
         sql.append("SELECT nameType, sizeTableImage ")
                 .append("FROM categories JOIN products ON products.categoryId = categories.id ")
                 .append("WHERE products.id = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Category.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Category.class, id);
     }
 
     public List<Parameter> getParametersByProductId(int id) {
@@ -260,7 +260,7 @@ public class ProductCardDAO {
         sql.append("SELECT parameters.name, parameters.minValue, parameters.maxValue, parameters.unit, parameters.guideImg ")
                 .append("FROM products JOIN (parameters JOIN categories ON parameters.categoryId = categories.id) ON products.categoryId = categories.id ")
                 .append("WHERE products.id = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
     }
 
     public List<Product> getNameProductById(int id) {
@@ -268,18 +268,18 @@ public class ProductCardDAO {
         sql.append("SELECT name ")
                 .append("FROM products ")
                 .append("WHERE products.id = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, id);
     }
 
     public List<Product> isVisibility(int id) {
         StringBuilder sql = new StringBuilder("SELECT visibility FROM products WHERE id = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, id);
     }
 
     public void updateVisibility(int productId, boolean visibility) {
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE products ").append("SET visibility = ? ").append("WHERE id = ?");
-        GeneralDao.executeAllTypeUpdate(sql.toString(), visibility, productId);
+        GeneralDAO.executeAllTypeUpdate(sql.toString(), visibility, productId);
     }
 
     public List<Product> getNameProductByIdOrderDetail(int orderDetailId) {
@@ -287,6 +287,6 @@ public class ProductCardDAO {
         sql.append("SELECT productName AS name ")
                 .append("FROM order_details ")
                 .append("WHERE id = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
     }
 }

@@ -1,7 +1,6 @@
 package services;
 
-import dao.DashboadDAO;
-import dao.GeneralDao;
+import dao.DashboadDAOImp;
 
 import models.*;
 
@@ -9,10 +8,10 @@ import java.util.List;
 
 public class DashboardService {
     private static DashboardService INSTANCE;
-    private DashboadDAO dashboadDAO;
+    private DashboadDAOImp dashboadDAO;
 
     private DashboardService() {
-        this.dashboadDAO = new DashboadDAO();
+        this.dashboadDAO = new DashboadDAOImp();
     }
 
     public static DashboardService getINSTANCE() {
