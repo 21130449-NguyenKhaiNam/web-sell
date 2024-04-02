@@ -91,57 +91,19 @@
 
             <div class="col-9">
                 <div class="product__list">
-                    <%--                    <%for(Product item : (List<Product>)request.getAttribute("productCardList")){%>--%>
-                    <%--                        <div class="product__item hvr-grow-shadow">--%>
-
-                    <%--                            <%String image = productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage();%>--%>
-                    <%--                            <a href="/showProductDetail?id=<%=item.getId()%>">--%>
-                    <%--                                <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img/", image)%>"--%>
-                    <%--                                     class="product__img" alt="" loading="lazy"/>--%>
-                    <%--                            </a>--%>
-
-                    <%--                            <div class="product__info">--%>
-                    <%--                                <a class="product__name" target="_blank" href="/showProductDetail?id=<%=item.getId()%>"><%=item.getName()%></a>--%>
-                    <%--                                <div class="product__review">--%>
-                    <%--                                    <div class="product__review-stars">--%>
-                    <%--                                        <%for(int starA = 0; starA < productFactory.calculateStar(item.getId());starA++){%>--%>
-                    <%--                                        <i class="fa-solid fa-star"></i>--%>
-                    <%--                                        <%}%>--%>
-
-                    <%--                                        <%for(int starB = 0; starB < 5 - productFactory.calculateStar(item.getId());starB++){%>--%>
-                    <%--                                        <i class="fa-regular fa-star"></i>--%>
-                    <%--                                        <%}%>--%>
-
-                    <%--                                    </div>--%>
-                    <%--                                    <a class="product__review-num" target="_blank" href="/showProductDetail"><%=productFactory.getReviewCount(item.getId())%>--%>
-                    <%--                                        nhận xét--%>
-                    <%--                                    </a>--%>
-
-                    <%--                                </div>--%>
-                    <%--                                <span class="product__price">--%>
-                    <%--&lt;%&ndash;                                    <fmt:formatNumber value="<%=item.getOriginalPrice()%>" type="currency"&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;                                                              currencyCode="VND"&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;                                                              var="originalPrice"/>&ndash;%&gt;--%>
-
-                    <%--&lt;%&ndash;                                    <fmt:formatNumber value="<%=item.getSalePrice()%>" type="currency"&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;                                                              currencyCode="VND"&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;                                                              var="salePrice"/>&ndash;%&gt;--%>
-
-                    <%--                                    <strong class="product__price--original">${originalPrice}</strong>--%>
-                    <%--                                    <strong class="product__price--sale">${salePrice}</strong>--%>
-                    <%--                                </span>--%>
-                    <%--                            </div>--%>
-                    <%--                        </div>--%>
-                    <%--                    <%}%>--%>
+<%--                    sản phẩm được hiển thị ở đây--%>
                 </div>
             </div>
         </div>
 
-        <jsp:include page="/public/paging.jsp"/>
+        <ul class="paging"></ul>
     </section>
 </main>
 <c:import url="/public/footer.jsp"/>
 <% List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");%>
+<!--tippy tooltip-->
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@5/dist/tippy-bundle.iife.js"></script>
 <script src="/js/productBuying.js"></script>
 <script>
     function checkedInputTag(name) {
