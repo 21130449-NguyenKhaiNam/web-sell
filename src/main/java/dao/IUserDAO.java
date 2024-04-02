@@ -1,5 +1,7 @@
 package dao;
 
+import annotations.LogParam;
+import annotations.WriteLog;
 import models.User;
 
 import java.sql.Date;

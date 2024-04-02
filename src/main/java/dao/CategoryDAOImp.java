@@ -1,5 +1,6 @@
 package dao;
 
+import annotations.LogTable;
 import models.Category;
 import models.Parameter;
 

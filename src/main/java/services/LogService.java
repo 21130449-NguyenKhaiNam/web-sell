@@ -2,9 +2,9 @@ package services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.LogDAOImp;
-import dao.LogParam;
-import dao.LogTable;
-import dao.WriteLog;
+import annotations.LogParam;
+import annotations.LogTable;
+import annotations.WriteLog;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -15,12 +15,14 @@ import java.util.*;
 
 public class LogService implements InvocationHandler {
     private static LogService logService;
+    private Map<Class<?>, Object> managerTarget;
     private Object target;
     private LogDAOImp logDAO;
     private String ip = "128.0.0.1";
 
     private LogService() {
         logDAO = new LogDAOImp();
+        managerTarget = new HashMap<>();
     }
 
     public static LogService getINSTANCE() {
@@ -44,11 +46,15 @@ public class LogService implements InvocationHandler {
     }
 
     public void setTarget(Object obj) {
-        this.target = LogService.getINSTANCE().getTarget() == null ? obj : LogService.getINSTANCE().getTarget();
+        this.target = managerTarget.containsKey(obj.getClass()) ?
+                managerTarget.get(obj.getClass()) :
+                managerTarget.put(obj.getClass(), obj);
     }
 
     /**
-     * Không cho phép lấy tên thực tế của tham số
+     * Không cho phép lấy tên thực tế của tham số,
+     * do đó cần sử dụng @LogParam chỉ định tên
+     *
      * @param proxy the proxy instance that the method was invoked on
      *
      * @param method the {@code Method} instance corresponding to
@@ -79,7 +85,7 @@ public class LogService implements InvocationHandler {
                 String value = p.getDeclaredAnnotationsByType(LogParam.class)[0].value();
                 mapObjs.put(value, mapper.writeValueAsString(args[i]));
             }
-            logDAO.writeLog(ip, level, mapObjs, LocalDate.now(), table);
+            logDAO.writeLog(mapper, ip, level, mapObjs, LocalDate.now(), table);
         }
         return method.invoke(target, args);
     }

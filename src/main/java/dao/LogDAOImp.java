@@ -1,5 +1,6 @@
 package dao;
 
+import annotations.WriteLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -8,14 +9,13 @@ import java.util.Map;
 
 public class LogDAOImp implements ILogDAO {
     @Override
-    public void writeLog(String ip, int level, Map<String, String> params, LocalDate updateDate, int table) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        String changeDate = mapper.writeValueAsString(params);
+    public void writeLog(ObjectMapper mapper, String ip, int level, Map<String, String> params, LocalDate updateDate, int table) throws JsonProcessingException {
+        String changeData = mapper.writeValueAsString(params);
         if(level == WriteLog.UPDATE) {
             // Dang xu ly
         } else {
             String query = "INSERT INTO logs (ip, id_level, data_change, update_date, id_table) VALUES (?, ?, ?, ?, ?)";
-            GeneralDAOImp.executeQueryWithSingleTable(query, LogForOther.class, ip, level, changeDate, updateDate, table);
+            GeneralDAOImp.executeQueryWithSingleTable(query, LogForOther.class, ip, level, changeData, updateDate, table);
         }
     }
 

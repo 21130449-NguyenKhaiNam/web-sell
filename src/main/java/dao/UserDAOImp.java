@@ -1,5 +1,6 @@
 package dao;
 
+import annotations.LogTable;
 import database.JDBIConnector;
 import models.User;
 
