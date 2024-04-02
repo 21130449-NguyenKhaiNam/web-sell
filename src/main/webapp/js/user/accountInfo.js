@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var URL = "https://online-gateway.ghn.vn/shiip/public-api/master-data/"
-    let provinceId, districtId;
+    let provinceId, districtId, wardId;
     const inputProvince = $("#inputProvince");
     const inputDistrict = $("#inputDistrict");
     const inputWard = $("#inputWard");
@@ -54,6 +54,7 @@ $(document).ready(function () {
             },
         });
         getProvinces();
+        loadData();
         addEvent();
     }
 
@@ -78,6 +79,7 @@ $(document).ready(function () {
         if (provinceId && districtId) {
             getWards(districtId);
         }
+        console.log(provinceId)
     }
 
     function getProvinces() {
@@ -91,7 +93,7 @@ $(document).ready(function () {
             inputProvince.empty()
             inputProvince.select2({
                 placeholder: 'Chọn tỉnh/thành phố',
-                data: data,
+                data: provinceId ? data :["", ...data],
             });
         });
     }
@@ -107,7 +109,7 @@ $(document).ready(function () {
             inputDistrict.empty();
             inputDistrict.select2({
                 placeholder: 'Chọn quận/huyện',
-                data: data,
+                data: districtId ? data:["", ...data] ,
                 language: {
                     "noResults": function () {
                         return "Vui lòng chọn tỉnh/thành phố trước";
@@ -116,7 +118,6 @@ $(document).ready(function () {
             });
         });
     }
-
 
     function getWards(districtId) {
         callAjax(`ward?district_id=${districtId}`).then(res => {
@@ -211,7 +212,7 @@ $(document).ready(function () {
                 },
                 success: function (response) {
                     // Handle success response
-                    console.log("Upload successful:", response);
+
                 },
                 error: function (xhr, status, error) {
                     // Handle error response
@@ -221,4 +222,20 @@ $(document).ready(function () {
             return false; // Prevent form submission
         }
     })
+    $("#avatar").on("change", function () {
+        // Check if file input is valid
+        if ($("#avatar").valid()) {
+            // Read the selected file and display preview
+            const file = this.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                $("#preview-avatar").attr("src", e.target.result);
+                $("#preview-avatar").show();
+            };
+            reader.readAsDataURL(file);
+        } else {
+            // Hide preview if file input is not valid
+            $("#preview").hide();
+        }
+    });
 });

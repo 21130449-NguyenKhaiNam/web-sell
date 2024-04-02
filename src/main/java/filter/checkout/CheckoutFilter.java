@@ -4,6 +4,7 @@ import models.DeliveryInfo;
 import models.DeliveryInfoStorage;
 import models.User;
 import models.shoppingCart.ShoppingCart;
+import session.SessionManager;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -23,9 +24,9 @@ public class CheckoutFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+        HttpSession session = request.getSession();
 
-        HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
+        User userAuth = SessionManager.getInstance(request, response).getUser();
 
         String userIdCart = String.valueOf(userAuth.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
@@ -50,10 +51,6 @@ public class CheckoutFilter implements Filter {
             session.setAttribute(userIdCart, cart);
         }
 
-//        String url = request.getServletPath();
-//        if (url.contains("checkout.jsp") && !url.contains("error404.jsp")) {
-//            response.sendRedirect("Checkout");
-//        }
         filterChain.doFilter(request, response);
     }
 

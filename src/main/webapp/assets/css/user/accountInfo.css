@@ -87,3 +87,7 @@ body {
     line-height: 20px;
     color: white;
 }
+
+textarea{
+    resize: none;
+}

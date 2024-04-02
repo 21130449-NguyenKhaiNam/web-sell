@@ -33,7 +33,7 @@
                     <div class="card mb-4 mb-xl-0">
                         <div class="card-header">Ảnh đại diện</div>
                         <div class="card-body text-center">
-                            <img class="img-account-profile rounded-circle mb-2" src="/assets/img/user/userDefaultAvatar.jpg" alt>
+                            <img id="preview-avatar" class="img-account-profile rounded-circle mb-2" src="/assets/img/user/userDefaultAvatar.jpg" alt>
                             <div id="username" class="medium  text-muted mb-2">${user.username}</div>
                             <div id="email" class="small  text-muted mb-4">${user.email}</div>
                             <div id="open-form" class="btn btn-primary ">Thay đổi ảnh</div>
@@ -110,6 +110,12 @@
                                         <select id="inputWard" class="form-select" aria-label="Chọn">
                                             <option value=""></option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="row gx-3 mb-3 mt-2 ">
+                                    <div class="col-12">
+                                        <label  class="small py-1" for="inputAddress"> Số nhà, đường </label>
+                                        <textarea class="form-control" name="detailAddress" id="inputAddress"></textarea>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary" type="button">Thay đổi</button>
