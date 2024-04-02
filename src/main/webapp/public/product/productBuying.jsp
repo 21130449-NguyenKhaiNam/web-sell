@@ -91,61 +91,58 @@
 
             <div class="col-9">
                 <div class="product__list">
-                    <%for(Product item : (List<Product>)request.getAttribute("productCardList")){%>
-                    <div class="product__item hvr-grow-shadow">
+                    <%--                    <%for(Product item : (List<Product>)request.getAttribute("productCardList")){%>--%>
+                    <%--                        <div class="product__item hvr-grow-shadow">--%>
 
-                        <%String image = productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage();%>
-                        <a href="/showProductDetail?id=<%=item.getId()%>">
-                            <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img/", image)%>"
-                                 class="product__img" alt="" loading="lazy"/>
-                        </a>
+                    <%--                            <%String image = productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage();%>--%>
+                    <%--                            <a href="/showProductDetail?id=<%=item.getId()%>">--%>
+                    <%--                                <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img/", image)%>"--%>
+                    <%--                                     class="product__img" alt="" loading="lazy"/>--%>
+                    <%--                            </a>--%>
 
-                        <div class="product__info">
-                            <a class="product__name" target="_blank" href="/showProductDetail?id=<%=item.getId()%>"><%=item.getName()%></a>
-                            <div class="product__review">
-                                <div class="product__review-stars">
-                                    <%for(int starA = 0; starA < productFactory.calculateStar(item.getId());starA++){%>
-                                    <i class="fa-solid fa-star"></i>
-                                    <%}%>
+                    <%--                            <div class="product__info">--%>
+                    <%--                                <a class="product__name" target="_blank" href="/showProductDetail?id=<%=item.getId()%>"><%=item.getName()%></a>--%>
+                    <%--                                <div class="product__review">--%>
+                    <%--                                    <div class="product__review-stars">--%>
+                    <%--                                        <%for(int starA = 0; starA < productFactory.calculateStar(item.getId());starA++){%>--%>
+                    <%--                                        <i class="fa-solid fa-star"></i>--%>
+                    <%--                                        <%}%>--%>
 
-                                    <%for(int starB = 0; starB < 5 - productFactory.calculateStar(item.getId());starB++){%>
-                                    <i class="fa-regular fa-star"></i>
-                                    <%}%>
+                    <%--                                        <%for(int starB = 0; starB < 5 - productFactory.calculateStar(item.getId());starB++){%>--%>
+                    <%--                                        <i class="fa-regular fa-star"></i>--%>
+                    <%--                                        <%}%>--%>
 
-                                </div>
-                                <a class="product__review-num" target="_blank" href="/showProductDetail"><%=productFactory.getReviewCount(item.getId())%>
-                                    nhận xét
-                                </a>
+                    <%--                                    </div>--%>
+                    <%--                                    <a class="product__review-num" target="_blank" href="/showProductDetail"><%=productFactory.getReviewCount(item.getId())%>--%>
+                    <%--                                        nhận xét--%>
+                    <%--                                    </a>--%>
 
-                            </div>
-                            <span class="product__price">
-                                        <fmt:formatNumber value="<%=item.getOriginalPrice()%>" type="currency"
-                                                          currencyCode="VND"
-                                                          var="originalPrice"/>
+                    <%--                                </div>--%>
+                    <%--                                <span class="product__price">--%>
+                    <%--&lt;%&ndash;                                    <fmt:formatNumber value="<%=item.getOriginalPrice()%>" type="currency"&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;                                                              currencyCode="VND"&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;                                                              var="originalPrice"/>&ndash;%&gt;--%>
 
-                                        <fmt:formatNumber value="<%=item.getSalePrice()%>" type="currency"
-                                                          currencyCode="VND"
-                                                          var="salePrice"/>
+                    <%--&lt;%&ndash;                                    <fmt:formatNumber value="<%=item.getSalePrice()%>" type="currency"&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;                                                              currencyCode="VND"&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;                                                              var="salePrice"/>&ndash;%&gt;--%>
 
-                                        <strong class="product__price--original">${originalPrice}</strong>
-                                        <strong class="product__price--sale">${salePrice}</strong>
-                                    </span>
-                        </div>
-                    </div>
-                    <%}%>
+                    <%--                                    <strong class="product__price--original">${originalPrice}</strong>--%>
+                    <%--                                    <strong class="product__price--sale">${salePrice}</strong>--%>
+                    <%--                                </span>--%>
+                    <%--                            </div>--%>
+                    <%--                        </div>--%>
+                    <%--                    <%}%>--%>
                 </div>
-
-                <%--                    <c:if test="${empty list}">--%>
-                <%--                        <p class="product__list--empty">Không có sản phẩm nào ứng--%>
-                <%--                        với bộ lọc </p>--%>
-                <%--                    </c:if>--%>
             </div>
         </div>
+
         <jsp:include page="/public/paging.jsp"/>
     </section>
 </main>
 <c:import url="/public/footer.jsp"/>
 <% List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");%>
+<script src="/js/productBuying.js"></script>
 <script>
     function checkedInputTag(name) {
         let inputElements = document.querySelectorAll("input");
@@ -223,6 +220,8 @@
         }
     })
 
+
+
     let ulCom = $('.search__box')[0]
 
     function handelSearch() {
@@ -230,7 +229,6 @@
         $('.search__inp').keydown(function () {
 
             var formData = $(this).serialize();
-
             clearTimeout(debounceTimer);
 
             debounceTimer = setTimeout(() => {
@@ -260,7 +258,6 @@
     }
 
     handelSearch()
-
     $('.search__inp').on('focus', function () {
         $('.search__box').addClass('focused');
     });
@@ -268,6 +265,7 @@
     $('.search__inp').on('blur', function () {
         $('.search__box').removeClass('focused');
     });
+
 </script>
 </body>
 </html>
