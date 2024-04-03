@@ -289,9 +289,6 @@
     </article>
     <div class="modal__blur"></div>
 </div>
-<script>
-    const role = "<%=((User)session.getAttribute("auth")).getRole()%>";
-</script>
 <script src="<c:url value="/js/admin/adminProducts.js"/>"></script>
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");

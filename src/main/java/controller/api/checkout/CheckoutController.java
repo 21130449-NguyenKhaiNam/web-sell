@@ -6,6 +6,7 @@ import models.DeliveryMethod;
 import models.shoppingCart.ShoppingCart;
 import models.User;
 import services.CheckoutServices;
+import session.SessionManager;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -82,8 +83,8 @@ public class CheckoutController extends HttpServlet {
         List<PaymentMethod> listPaymentMethod = CheckoutServices.getINSTANCE().getAllPaymentMethod();
         HttpSession session = request.getSession();
 
-        User userAuth = (User) session.getAttribute("auth");
-        String userIdCart = String.valueOf(userAuth.getId());
+        User user = SessionManager.getInstance(request, response).getUser();
+        String userIdCart = String.valueOf(user.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
 

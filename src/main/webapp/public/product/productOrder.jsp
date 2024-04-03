@@ -86,7 +86,5 @@
         <c:import url="${initParam.contextPath}/public/footer.jsp" />
     </body>
     <script src="<c:url value="/js/validateForm.js"/>"></script>
-    <script> const isLogin = "<%=session.getAttribute("auth") != null%>";
-    </script>
     <script src="<c:url value="/js/productOrder.js"/>"></script>
 </html>

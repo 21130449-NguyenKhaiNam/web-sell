@@ -5,6 +5,7 @@ import models.Voucher;
 import models.shoppingCart.ShoppingCart;
 import org.json.JSONObject;
 import services.ShoppingCartServices;
+import session.SessionManager;
 import utils.FormatCurrency;
 
 import javax.servlet.ServletException;
@@ -25,12 +26,11 @@ public class ApplyVoucherController extends HttpServlet {
         double temporaryPrice = (double) request.getAttribute("temporaryPrice");
 
         HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
-        String userIdCart = String.valueOf(userAuth.getId());
+        User user = SessionManager.getInstance(request, response).getUser();
+        String userIdCart = String.valueOf(user.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
         JSONObject jsonObject = new JSONObject();
-        response.setContentType("application/json");
 
         if (listCodeOfVouchers.contains(code)) {
             //Check null voucher

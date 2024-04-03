@@ -30,6 +30,10 @@
                 </ul>
                 <c:set var="sessionId" value="${cookie['sessionId'].value}" />
                 <c:set var="auth" value="${sessionScope.sessionUser[sessionId]}" />
+
+                <script>
+                    console.log("${sessionScope.sessionUser}")
+                    console.log("${auth}")</script>
                 <c:choose>
                 <c:when test="${empty auth}"> <!--cta == call to action-->
                     <div class="nav__cta">

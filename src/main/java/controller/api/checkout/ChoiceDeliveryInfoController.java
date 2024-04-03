@@ -4,6 +4,7 @@ import models.DeliveryInfo;
 import models.DeliveryInfoStorage;
 import models.shoppingCart.ShoppingCart;
 import models.User;
+import session.SessionManager;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,8 +17,8 @@ public class ChoiceDeliveryInfoController extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String deliveryInfoKey = (String) request.getAttribute("deliveryInfoKey");
         HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
-        String userIdCart = String.valueOf(userAuth.getId());
+        User user = SessionManager.getInstance(request, response).getUser();
+        String userIdCart = String.valueOf(user.getId());
         DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
         DeliveryInfo deliveryInfo = deliveryInfoStorage.getDeliveryInfoByKey(deliveryInfoKey);
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);

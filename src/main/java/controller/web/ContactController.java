@@ -5,6 +5,7 @@ import models.SubjectContact;
 import models.User;
 import org.json.JSONObject;
 import services.ContactServices;
+import session.SessionManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -50,11 +51,11 @@ public class ContactController extends HttpServlet implements Serializable {
 
         if (isContactValid) {
             int subjectId = ContactServices.getINSTANCE().getIdContactSubjectByName(subject);
-            User userAuth = (User) request.getSession(true).getAttribute("auth");
+            User user = SessionManager.getInstance(request, response).getUser();
             Integer userAuthId;
 
-            if (userAuth != null) {
-                userAuthId = userAuth.getId();
+            if (user != null) {
+                userAuthId = user.getId();
             } else {
                 userAuthId = null;
             }

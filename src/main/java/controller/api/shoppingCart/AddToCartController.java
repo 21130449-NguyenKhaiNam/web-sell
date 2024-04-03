@@ -4,6 +4,7 @@ import models.Color;
 import models.Size;
 import models.User;
 import models.shoppingCart.ShoppingCart;
+import session.SessionManager;
 import utils.ProductFactory;
 
 import javax.servlet.ServletException;
@@ -18,9 +19,7 @@ import java.io.IOException;
 public class AddToCartController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
-
+        User user = SessionManager.getInstance(request, response).getUser();
         int productId = 0;
         int quantityRequired = 0;
         try {
@@ -30,8 +29,8 @@ public class AddToCartController extends HttpServlet {
             exception.printStackTrace();
         }
 
-        String userIdCart = String.valueOf(userAuth.getId());
-
+        String userIdCart = String.valueOf(user.getId());
+        HttpSession session = request.getSession(true);
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         int cartProductCount;
         if (cart == null) {

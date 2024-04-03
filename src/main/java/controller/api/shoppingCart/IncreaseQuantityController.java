@@ -7,6 +7,7 @@ import models.User;
 import models.Voucher;
 import org.json.JSONObject;
 import services.ShoppingCartServices;
+import session.SessionManager;
 import utils.FormatCurrency;
 
 import javax.servlet.*;
@@ -21,8 +22,8 @@ public class IncreaseQuantityController extends HttpServlet {
         int productId = 0;
         int cartProductIndex = 0;
         HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
-        String userIdCart = String.valueOf(userAuth.getId());
+        User user = SessionManager.getInstance(request, response).getUser();
+        String userIdCart = String.valueOf(user.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         try {
             productId = Integer.parseInt((String) request.getAttribute("productId"));

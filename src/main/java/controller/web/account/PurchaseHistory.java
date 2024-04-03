@@ -5,6 +5,7 @@ import models.Order;
 import models.OrderDetail;
 import models.User;
 import services.HistoryService;
+import session.SessionManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,12 +22,12 @@ public class PurchaseHistory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User auth = (User) session.getAttribute("auth");
+        User user = SessionManager.getInstance(request, response).getUser();
 
         String statusString = request.getParameter("status");
         List<Order> listOrder;
         if (statusString == null || statusString.equalsIgnoreCase("tất cả")) {
-            listOrder = HistoryService.getINSTANCE().getOrderByUserId(auth.getId());
+            listOrder = HistoryService.getINSTANCE().getOrderByUserId(user.getId());
         } else {
             int status;
             try {
@@ -35,9 +36,9 @@ public class PurchaseHistory extends HttpServlet {
                 response.sendError(404);
                 return;
             }
-            listOrder = HistoryService.getINSTANCE().getOrderByUserIdAndStatusOrder(auth.getId(), status);
+            listOrder = HistoryService.getINSTANCE().getOrderByUserIdAndStatusOrder(user.getId(), status);
             if (status == 4) {
-                List<OrderDetail> listOrderDetailNotReview = HistoryService.getINSTANCE().getOrderDetailNotReview(auth.getId());
+                List<OrderDetail> listOrderDetailNotReview = HistoryService.getINSTANCE().getOrderDetailNotReview(user.getId());
                 request.setAttribute("OrderDetailNotReview", listOrderDetailNotReview);
             }
         }

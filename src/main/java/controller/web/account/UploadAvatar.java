@@ -6,6 +6,7 @@ import models.User;
 import properties.PathProperties;
 import services.image.UploadImageServices;
 import services.UserServices;
+import session.SessionManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -25,8 +26,8 @@ public class UploadAvatar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User auth = (User) session.getAttribute("auth");
-        int id = auth.getId();
+        User user = SessionManager.getInstance(request, response).getUser();
+        int id = user.getId();
 
         Part avatar = request.getPart("userCoverPhoto");
         String root = request.getServletContext().getRealPath("/") + PathProperties.getINSTANCE().getPathAvatarUserWeb();

@@ -246,13 +246,13 @@
                                             <fmt:formatNumber value="${item.salePrice}" type="currency"
                                                               currencyCode="VND" var="salePrice" />
                                             <span class="product__price">
-                                                        <strong class="product__price--sale">
-                                                                ${salePrice}
-                                                        </strong>
-                                                        <strong class="product__price--original">
-                                                                ${originalPrice}
-                                                        </strong>
-                                                    </span>
+                                                <strong class="product__price--sale">
+                                                        ${salePrice}
+                                                </strong>
+                                                <strong class="product__price--original">
+                                                        ${originalPrice}
+                                                </strong>
+                                            </span>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -276,9 +276,6 @@
             </c:if>
         </script>
         <script src="<c:url value="/js/validateForm.js"/>"></script>
-        <script>
-            const isLogin = "<%=session.getAttribute("auth") != null%>";
-        </script>
         <script src="<c:url value="/js/productDetail.js"/>"></script>
     </body>
 

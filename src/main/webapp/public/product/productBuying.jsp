@@ -136,10 +136,10 @@
         </div>
     </section>
 </main>
-<c:import
-        url="/public/footer.jsp"/> <% List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
-    System.out.println("inputChecked (UI):" + inputChecked);%>
-<script>       function checkedInputTag(name) {
+<c:import url="/public/footer.jsp"/>
+    <% List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");;%>
+<script>
+    function checkedInputTag(name) {
     let inputElements = document.querySelectorAll("input");
     inputElements.forEach(function (element) {
         if (element.value === name) element.checked = true;

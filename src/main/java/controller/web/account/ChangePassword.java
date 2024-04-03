@@ -3,6 +3,7 @@ package controller.web.account;
 import config.ConfigPage;
 import models.User;
 import services.UserServices;
+import session.SessionManager;
 import utils.Encoding;
 
 import javax.servlet.*;
@@ -21,7 +22,7 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User auth = (User) session.getAttribute("auth");
+        User user = SessionManager.getInstance(request, response).getUser();
 
         String errorOlddPass = "Mật khẩu không chính xác";
 
@@ -40,7 +41,7 @@ public class ChangePassword extends HttpServlet {
         String newPass = request.getParameter("newPassword");
         String confirmPass = request.getParameter("confirmPassword");
 
-        if (!Encoding.getINSTANCE().toSHA1(oldPass).equals(auth.getPasswordEncoding())){
+        if (!Encoding.getINSTANCE().toSHA1(oldPass).equals(user.getPasswordEncoding())){
             request.setAttribute("errorOlddPass", errorOlddPass);
             countError++;
         }

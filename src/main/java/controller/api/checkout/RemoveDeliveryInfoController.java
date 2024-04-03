@@ -2,6 +2,7 @@ package controller.api.checkout;
 
 import models.*;
 import models.shoppingCart.ShoppingCart;
+import session.SessionManager;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -18,8 +19,8 @@ public class RemoveDeliveryInfoController extends HttpServlet {
         DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
         deliveryInfoStorage.remove(deliveryInfoKey);
 
-        User userAuth = (User) session.getAttribute("auth");
-        String userIdCart = String.valueOf(userAuth.getId());
+        User user = SessionManager.getInstance(request, response).getUser();
+        String userIdCart = String.valueOf(user.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         if(statusChoice.equals("Đã chọn")) {
             DeliveryInfo deliveryInfoAuth = deliveryInfoStorage.getDeliveryInfoByKey("defaultDeliveryInfo");
