@@ -12,7 +12,7 @@ public class UserServices {
     private IUserDAO userDAO;
 
     private UserServices() {
-        userDAO = LogService.createProxy(new UserDAOImp());
+        userDAO = LogService.getINSTANCE().createProxy(new UserDAOImp());
     }
 
     public static UserServices getINSTANCE() {

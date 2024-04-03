@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
-public interface IUserDAO {
+public interface IUserDAO extends IDAO {
     User selectById(int id);
 
     @WriteLog(WriteLog.SELECT)
@@ -38,13 +38,21 @@ public interface IUserDAO {
     List<User> selectALl();
 
     List<User> searchUsersByName(String search);
+
     void insertUser(String username, String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay, String role);
 
     List<User> getUserByID(int id);
+
     void updateUserByID(int id, String username, String fullName, String gender, String email, String phone, String address, Date birthDay);
+
     void updateUserByIDWithRole(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay, String role);
+
     void updateUserPassword(int userId, String password);
-    int update(Object o);
+
+    @WriteLog(WriteLog.UPDATE)
+    int update(User user);
+
     void updateInfoUser(int id, String avatar);
+
     List<User> getUserByIdProductDetail(int orderDetailId);
 }

@@ -1,10 +1,13 @@
 package services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dao.IDAO;
+import dao.ILogDAO;
 import dao.LogDAOImp;
 import annotations.LogParam;
 import annotations.LogTable;
 import annotations.WriteLog;
+import models.IModel;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -17,7 +20,7 @@ public class LogService implements InvocationHandler {
     private static LogService logService;
     private Map<Class<?>, Object> managerTarget;
     private Object target;
-    private LogDAOImp logDAO;
+    private ILogDAO logDAO;
     private String ip = "128.0.0.1";
 
     private LogService() {
@@ -29,7 +32,7 @@ public class LogService implements InvocationHandler {
         return logService == null ? (logService = new LogService()) : logService;
     }
 
-    public static <T> T createProxy(T obj) {
+    public <T> T createProxy(T obj) {
         LogService.getINSTANCE().setTarget(obj);
         return (T) Proxy.newProxyInstance(
                 obj.getClass().getClassLoader(),
@@ -45,10 +48,20 @@ public class LogService implements InvocationHandler {
         return this.target;
     }
 
+    public ILogDAO getLogDAO() {
+        return logDAO;
+    }
+
+    public void setLogDAO(ILogDAO logDAO) {
+        this.logDAO = logDAO;
+    }
+
     public void setTarget(Object obj) {
-        this.target = managerTarget.containsKey(obj.getClass()) ?
-                managerTarget.get(obj.getClass()) :
-                managerTarget.put(obj.getClass(), obj);
+        if(!managerTarget.containsKey(obj.getClass())) {
+            // Hàm put sẽ trả về giá trị trước đó, nếu không có sẽ là null
+            managerTarget.put(obj.getClass(), obj);
+        }
+        this.target = managerTarget.get(obj.getClass());
     }
 
     /**
@@ -85,7 +98,8 @@ public class LogService implements InvocationHandler {
                 String value = p.getDeclaredAnnotationsByType(LogParam.class)[0].value();
                 mapObjs.put(value, mapper.writeValueAsString(args[i]));
             }
-            logDAO.writeLog(mapper, ip, level, mapObjs, LocalDate.now(), table);
+            IDAO dao = (IDAO) proxy;
+            logDAO.writeLog(mapper, dao, args[0], ip, level, mapObjs, LocalDate.now(), table);
         }
         return method.invoke(target, args);
     }

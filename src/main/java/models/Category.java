@@ -1,6 +1,6 @@
 package models;
 
-public class Category {
+public class Category implements IModel {
     private int id;
     private String nameType;
 
@@ -37,5 +37,10 @@ public class Category {
                 "id=" + id +
                 ", nameType='" + nameType + '\'' +
                 '}';
+    }
+
+    @Override
+    public Object getMainId() {
+        return this.id;
     }
 }
