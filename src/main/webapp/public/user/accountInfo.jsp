@@ -33,7 +33,9 @@
                     <div class="card mb-4 mb-xl-0">
                         <div class="card-header">Ảnh đại diện</div>
                         <div class="card-body text-center">
-                            <img id="preview-avatar" class="img-account-profile rounded-circle mb-2" src="/assets/img/user/userDefaultAvatar.jpg" alt>
+                            <div class="w-50 h-50 rounded-circle overflow-hidden mx-auto">
+                                <img id="preview-avatar" class="img-account-profile object-fit-cover mb-2" src="/assets/img/user/userDefaultAvatar.jpg" alt>
+                            </div>
                             <div id="username" class="medium  text-muted mb-2">${user.username}</div>
                             <div id="email" class="small  text-muted mb-4">${user.email}</div>
                             <div id="open-form" class="btn btn-primary ">Thay đổi ảnh</div>
@@ -52,17 +54,21 @@
                     <div class="card mb-4">
                         <div class="card-header">Thông tin cá nhân</div>
                         <div class="card-body">
-                            <form>
-
-                                <div class="mb-3">
-                                    <label class="medium mb-1" for="inputUsername">Họ và tên</label>
-                                    <input class="form-control" id="inputUsername" type="text" placeholder="Vui lòng nhập tên của bạn" value="${user.fullName}">
-                                </div>
-
+                            <form id="form-info">
                                 <div class="row gx-3 mb-3">
                                     <div class="col-md-6">
+                                        <div class="">
+                                            <label class="medium mb-1" for="inputUsername">Họ và tên</label>
+                                            <input name="fullName" class="form-control" id="inputUsername" type="text" placeholder="Vui lòng nhập tên của bạn" value="${user.fullName}">
+                                            <div class="valid-feedback">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
                                         <label class="medium mb-1" for="inputGender">Giới tính</label>
-                                        <select id="inputGender" class="form-select" aria-label="Chọn">
+                                        <select id="inputGender" name="gender" class="form-select" aria-label="Chọn">
                                             <c:choose> <c:when test="${not empty user.gender}">
                                                 <option value="Nam" ${user.gender eq 'Nam'
                                                         ? 'selected' : '' }>Nam
@@ -77,48 +83,73 @@
                                                 <option value="Nữ">Nữ</option>
                                             </c:otherwise> </c:choose>
                                         </select>
-                                    </div>
+                                        <div class="valid-feedback">
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
                                         <fmt:formatDate var="date" type="DATE" value="${user.birthDay}" pattern="dd-MM-yyy" />
                                         <label class="medium mb-1" for="inputDate">Ngày sinh</label>
-                                        <input class="form-select" value="${date}" id="inputDate" type="text">
+                                        <input class="form-select" name="birthDay" value="${date}" id="inputDate" type="text">
+                                        <div class="valid-feedback">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="medium mb-1" for="inputPhone"> Số điện thoại</label>
+                                        <input class="form-select" name="phone" value="${user.phone}" id="inputPhone" type="text">
+                                        <div class="valid-feedback">
+
+                                        </div>
                                     </div>
                                 </div>
 
-
                                 <div class="row">
-                                    <div class="medium mb-1">Địa chỉ</div>
+                                    <div class="medium my-1">Địa chỉ</div>
                                 </div>
 
                                 <div class="row gx-3 mb-3 mt-2">
                                     <div class="col-md-4 col-sm-12">
                                         <label class="small  py-1" for="inputProvince">Tỉnh / Thành phố </label>
-                                        <select id="inputProvince" class="form-select" aria-label="Chọn">
+                                        <select name="province" id="inputProvince" class="form-select" aria-label="Chọn">
                                             <option value=""></option>
                                         </select>
+                                        <div class="valid-feedback">
+
+                                        </div>
                                     </div>
 
                                     <div class="col-md-4 col-sm-12">
                                         <label class="small py-1" for="inputDistrict"> Quận / Huyện </label>
-                                        <select id="inputDistrict" class="form-select" aria-label="Chọn">
+                                        <select name="district" id="inputDistrict" class="form-select" aria-label="Chọn">
                                             <option value=""></option>
                                         </select>
+                                        <div class="valid-feedback">
+
+                                        </div>
                                     </div>
                                     <div class="col-md-4 col-sm-12">
                                         <label class="small py-1" for="inputWard">Phường</label>
-                                        <select id="inputWard" class="form-select" aria-label="Chọn">
+                                        <select name="ward" id="inputWard" class="form-select" aria-label="Chọn">
                                             <option value=""></option>
                                         </select>
+                                        <div class="valid-feedback">
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row gx-3 mb-3 mt-2 ">
                                     <div class="col-12">
-                                        <label  class="small py-1" for="inputAddress"> Số nhà, đường </label>
-                                        <textarea class="form-control" name="detailAddress" id="inputAddress"></textarea>
+                                        <label class="small py-1" for="inputAddress"> Số nhà, đường </label>
+                                        <textarea class="form-control" name="detail" id="inputAddress"></textarea>
+                                        <div class="valid-feedback">
+
+                                        </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="button">Thay đổi</button>
+                                <button class="btn btn-primary" type="submit">Thay đổi</button>
                             </form>
                         </div>
                     </div>

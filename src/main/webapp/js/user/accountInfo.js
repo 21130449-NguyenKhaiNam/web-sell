@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // Add select 2 for address
     var URL = "https://online-gateway.ghn.vn/shiip/public-api/master-data/"
     let provinceId, districtId, wardId;
     const inputProvince = $("#inputProvince");
@@ -79,7 +80,6 @@ $(document).ready(function () {
         if (provinceId && districtId) {
             getWards(districtId);
         }
-        console.log(provinceId)
     }
 
     function getProvinces() {
@@ -93,7 +93,7 @@ $(document).ready(function () {
             inputProvince.empty()
             inputProvince.select2({
                 placeholder: 'Chọn tỉnh/thành phố',
-                data: provinceId ? data :["", ...data],
+                data: provinceId ? data : ["", ...data],
             });
         });
     }
@@ -109,7 +109,7 @@ $(document).ready(function () {
             inputDistrict.empty();
             inputDistrict.select2({
                 placeholder: 'Chọn quận/huyện',
-                data: districtId ? data:["", ...data] ,
+                data: districtId ? data : ["", ...data],
                 language: {
                     "noResults": function () {
                         return "Vui lòng chọn tỉnh/thành phố trước";
@@ -130,7 +130,7 @@ $(document).ready(function () {
             inputWard.empty();
             inputWard.select2({
                 placeholder: 'Chọn phường/xã',
-                data: data,
+                data: wardId ? data : ["", ...data],
                 language: {
                     "noResults": function () {
                         return "Vui lòng chọn quận/huyện trước";
@@ -147,6 +147,8 @@ $(document).ready(function () {
         }
     });
 
+    // ------------------------------------
+    // Validate form upload avatar
     $("#form-avatar").hide();
     $('#open-form').on("click", () => {
         $("#form-avatar").show();
@@ -238,4 +240,99 @@ $(document).ready(function () {
             $("#preview").hide();
         }
     });
+
+//     -------------------------------
+//     Validate form update info
+    $("#form-info").validate({
+        rules: {
+            fullName: {
+                required: true,
+                minlength: 5,
+                maxlength: 50,
+            },
+            gender: {
+                required: true,
+            },
+            birthDay: {
+                required: true,
+            },
+            phone: {
+                required: true,
+                minlength: 10,
+                maxlength: 11,
+                pattern:/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\\b/,
+            },
+            province: {
+                required: true,
+            },
+            district: {
+                required: true,
+            },
+            ward: {
+                required: true,
+            },
+            detail: {
+                required: true,
+            }
+        }, messages: {
+            fullName: {
+                required: "Vui lòng nhập họ tên",
+                minlength: "Họ tên phải có ít nhất 5 ký tự",
+                maxlength: "Họ tên không được quá 50 ký tự",
+                pattern:"Vui lòng nhập đúng số điên thoại"
+            }
+            , gender: {
+                required: "Vui lòng chọn giới tính",
+            },
+            birthDay: {
+                required: "Vui lòng chọn ngày sinh",
+            },
+            phone: {
+                required: "Vui lòng nhập số điện thoại",
+                minlength: "Số điện thoại phải có ít nhất 10 số",
+                maxlength: "Số điện thoại không được quá 11 số",
+                number: "Số điện thoại phải là số",
+            },
+            province: {
+                required: "Vui lòng chọn tỉnh/thành phố",
+            },
+            district: {
+                required: "Vui lòng chọn quận/huyện",
+            },
+            ward: {
+                required: "Vui lòng chọn phường/xã",
+            },
+            detail: {
+                required: "Vui lòng nhập địa chỉ chi tiết",
+            }
+        },
+        onkeyup: function (element) {
+            $(element).valid();
+        },
+        onfocusout: function (element) {
+            $(element).valid();
+        },
+        onblur: function (element) {
+            $(element).valid();
+        },
+        validClass: 'is-valid',
+        errorClass: 'is-invalid',
+        errorPlacement: function (error, element) {
+            $(element).parent().children().last().text(error.text());
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass(errorClass).removeClass(validClass).attr('required', 'required');
+            $(element).parent().children().last().addClass("invalid-feedback");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass(errorClass).addClass(validClass).removeAttr('required');
+            $(element).parent().children().last().text("");
+        },
+        submitHandler: function (form) {
+            const formData = $(form).serialize();
+            $.ajax({
+
+            });
+        }
+    })
 });
