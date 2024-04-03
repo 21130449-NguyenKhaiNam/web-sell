@@ -164,8 +164,7 @@ public class UserDAOImp implements IUserDAO {
     }
 
     @Override
-    public int update(Object o) {
-        User user = (User) o;
+    public int update(User user) {
         String statement = "UPDATE users " +
                 "SET username = :username, passwordEncoding = :passwordEncoding, fullName = :fullName, " +
                 "gender = :gender, email = :email, phone = :phone, address = :address, birthday = :birthday, " +
@@ -203,6 +202,11 @@ public class UserDAOImp implements IUserDAO {
                 .append("FROM users JOIN (orders JOIN order_details ON orders.id = order_details.orderId) ON users.id = orders.userId ")
                 .append("WHERE order_details.id = ?");
         return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), User.class, orderDetailId);
+    }
+
+    @Override
+    public Object getModelById(Object id) {
+        return selectById((int) id);
     }
 }
 

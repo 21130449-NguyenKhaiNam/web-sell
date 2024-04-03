@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 public class AuthenticateServices {
     private static AuthenticateServices INSTANCE;
 
-    IUserDAO userDAO = LogService.createProxy(new UserDAOImp());
+    IUserDAO userDAO = LogService.getINSTANCE().createProxy(new UserDAOImp());
 
     private AuthenticateServices() {
     }

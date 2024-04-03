@@ -1,4 +1,4 @@
 package dao;
 
-public class IGeneralDAO {
+public interface IGeneralDAO {
 }

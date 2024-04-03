@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 public class ValidateFormServices {
     private static ValidateFormServices INSTANCE;
 
-    IUserDAO userDAO = LogService.createProxy(new UserDAOImp());
+    IUserDAO userDAO = LogService.getINSTANCE().createProxy(new UserDAOImp());
 
     private ValidateFormServices() {
     }
