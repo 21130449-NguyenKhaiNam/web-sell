@@ -242,8 +242,8 @@ $(document).ready(function () {
     });
 
 //     -------------------------------
-//     Validate form update info
-    $("#form-info").validate({
+//     Validate form personal
+    $("#form-personal").validate({
         rules: {
             fullName: {
                 required: true,
@@ -260,8 +260,62 @@ $(document).ready(function () {
                 required: true,
                 minlength: 10,
                 maxlength: 11,
-                pattern:/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\\b/,
             },
+
+        }, messages: {
+            fullName: {
+                required: "Vui lòng nhập họ tên",
+                minlength: "Họ tên phải có ít nhất 5 ký tự",
+                maxlength: "Họ tên không được quá 50 ký tự",
+            }
+            , gender: {
+                required: "Vui lòng chọn giới tính",
+            },
+            birthDay: {
+                required: "Vui lòng chọn ngày sinh",
+            },
+            phone: {
+                required: "Vui lòng nhập số điện thoại",
+                minlength: "Số điện thoại phải có ít nhất 10 số",
+                maxlength: "Số điện thoại không được quá 11 số",
+            },
+
+        },
+        onkeyup: function (element) {
+            $(element).valid();
+        },
+        onfocusout: function (element) {
+            $(element).valid();
+        },
+        onblur: function (element) {
+            $(element).valid();
+        },
+        validClass: 'is-valid',
+        errorClass: 'is-invalid',
+        errorPlacement: function (error, element) {
+            $(element).parent().children().last().text(error.text());
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass(errorClass).removeClass(validClass).attr('required', 'required');
+            $(element).parent().children().last().addClass("invalid-feedback");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass(errorClass).addClass(validClass).removeAttr('required');
+            $(element).parent().children().last().text("");
+        },
+        submitHandler: function (form) {
+            const formData = $(form).serialize();
+            $.ajax({
+                url: "/api/user/personal",
+                type: 'POST',
+                data: formData,
+            });
+        }
+    })
+
+    // Validate address form
+    $("#form-address").validate({
+        rules: {
             province: {
                 required: true,
             },
@@ -274,25 +328,8 @@ $(document).ready(function () {
             detail: {
                 required: true,
             }
-        }, messages: {
-            fullName: {
-                required: "Vui lòng nhập họ tên",
-                minlength: "Họ tên phải có ít nhất 5 ký tự",
-                maxlength: "Họ tên không được quá 50 ký tự",
-                pattern:"Vui lòng nhập đúng số điên thoại"
-            }
-            , gender: {
-                required: "Vui lòng chọn giới tính",
-            },
-            birthDay: {
-                required: "Vui lòng chọn ngày sinh",
-            },
-            phone: {
-                required: "Vui lòng nhập số điện thoại",
-                minlength: "Số điện thoại phải có ít nhất 10 số",
-                maxlength: "Số điện thoại không được quá 11 số",
-                number: "Số điện thoại phải là số",
-            },
+        },
+        messages: {
             province: {
                 required: "Vui lòng chọn tỉnh/thành phố",
             },
@@ -329,10 +366,30 @@ $(document).ready(function () {
             $(element).parent().children().last().text("");
         },
         submitHandler: function (form) {
-            const formData = $(form).serialize();
-            $.ajax({
+            const formDataArray = $(form).serializeArray();
 
+            formDataArray.push(
+                {
+                    name: "provinceName",
+                    value: $("#inputProvince option:selected").text()
+                },
+                {
+                    name: "districtName",
+                    value: $("#inputDistrict option:selected").text()
+                },
+                {
+                    name: "wardName",
+                    value: $("#inputWard option:selected").text()
+                }
+            );
+
+            const formData = $.param(formDataArray);
+
+            $.ajax({
+                url: "/api/user/address",
+                type: 'POST',
+                data: formData
             });
         }
-    })
+    });
 });

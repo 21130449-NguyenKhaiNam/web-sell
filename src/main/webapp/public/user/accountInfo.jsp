@@ -50,11 +50,10 @@
                     </div>
                 </div>
                 <div class="col-xl-8">
-
                     <div class="card mb-4">
                         <div class="card-header">Thông tin cá nhân</div>
                         <div class="card-body">
-                            <form id="form-info">
+                            <form id="form-personal">
                                 <div class="row gx-3 mb-3">
                                     <div class="col-md-6">
                                         <div class="">
@@ -105,11 +104,18 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="medium my-1">Địa chỉ</div>
-                                </div>
-
+                                <button class="btn btn-primary mt-2" type="submit">Thay đổi</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header">Địa chỉ  </div>
+                        <div class="card-body">
+                            <form id="form-address">
                                 <div class="row gx-3 mb-3 mt-2">
                                     <div class="col-md-4 col-sm-12">
                                         <label class="small  py-1" for="inputProvince">Tỉnh / Thành phố </label>
@@ -149,7 +155,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="submit">Thay đổi</button>
+                                <button class="btn btn-primary mt-2" type="submit">Thay đổi</button>
                             </form>
                         </div>
                     </div>
