@@ -21,12 +21,11 @@ public class SearchProduct extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Check");
         String keyword = req.getParameter("keyword");
         if (keyword == null) keyword = "";
         List<Integer> products = AdminProductServices.getINSTANCE().getProductByName(keyword);
         if (products != null) {
-            products = products.subList(0, limit);
+            products = products.subList(0, Math.min(products.size(), limit));
             List<Product> nameProducts = new ArrayList<>();
             products.forEach(id -> {
                 nameProducts.add(ProductFactory.getProductById(id));

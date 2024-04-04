@@ -103,7 +103,7 @@
                                     </label> </c:forEach>
                             </div>
                         </div>
-                        <button class="filter__submit button--hover button" type="submit">Lọc</button>
+                        <button class="filter__submit button--hover button p-2" type="submit">Lọc</button>
                     </form>
                 </div>
 
