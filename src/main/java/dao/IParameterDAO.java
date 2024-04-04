@@ -6,7 +6,7 @@ import models.Parameter;
 
 import java.util.List;
 
-public interface IParameterDAO {
+public interface IParameterDAO extends IDAO {
     //    Lấy ra danh sách các tham số dựa theo id thể loại
     List<Parameter> getParameterByCategoryId(int id);
 

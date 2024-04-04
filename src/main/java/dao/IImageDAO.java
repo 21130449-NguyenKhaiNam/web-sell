@@ -6,7 +6,7 @@ import models.Image;
 
 import java.util.List;
 
-public interface IImageDAO {
+public interface IImageDAO extends IDAO {
     //    Thêm danh sách ảnh sản phẩm vào table images
     @WriteLog(WriteLog.INSERT)
     void addImages(@LogParam("images") List<Image> images);

@@ -6,7 +6,7 @@ import models.Parameter;
 
 import java.util.List;
 @LogTable(LogTable.PRODUCT)
-public class CategoryDAOImp {
+public class CategoryDAOImp implements ICategoryDAO {
     public List<Category> getAllCategory() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id, nameType ")
@@ -50,5 +50,10 @@ public class CategoryDAOImp {
             sql.append("UPDATE categories SET nameType = ?, sizeTableImage = ? WHERE id = ?");
             GeneralDAOImp.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getSizeTableImage(), category.getId());
         }
+    }
+
+    @Override
+    public Object getModelById(Object id) {
+        return null;
     }
 }

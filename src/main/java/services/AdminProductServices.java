@@ -15,11 +15,11 @@ import java.util.*;
 public class AdminProductServices {
     private static final int LIMIT = 15;
     private static AdminProductServices INSTANCE;
-    ProductDAOImp productDAO = new ProductDAOImp();
-    ColorDAOImp colorDAO = new ColorDAOImp();
-    ImageDAOImp imageDAO = new ImageDAOImp();
-    SizeDAOImp sizeDAO = new SizeDAOImp();
-    ProductCardDAOImp productCardDAO = new ProductCardDAOImp();
+    IProductDAO productDAO = LogService.getINSTANCE().createProxy(new ProductDAOImp());
+    IColorDAO colorDAO = LogService.getINSTANCE().createProxy(new ColorDAOImp());
+    IImageDAO imageDAO = LogService.getINSTANCE().createProxy(new ImageDAOImp());
+    ISizeDAO sizeDAO = LogService.getINSTANCE().createProxy(new SizeDAOImp());
+    IProductCardDAO productCardDAO = LogService.getINSTANCE().createProxy(new ProductCardDAOImp());
 
     private AdminProductServices() {
     }

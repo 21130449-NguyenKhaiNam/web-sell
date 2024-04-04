@@ -15,4 +15,9 @@ public class TransactionStatusDAOImp implements ITransactionStatusDAO {
         String sql = "SELECT id, typeStatus FROM transaction_statuses WHERE id = ?";
         return GeneralDAOImp.executeQueryWithSingleTable(sql, TransactionStatus.class, transactionStatusId).get(0);
     }
+
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

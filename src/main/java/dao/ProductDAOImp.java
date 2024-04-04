@@ -93,4 +93,8 @@ public class ProductDAOImp implements IProductDAO {
     }
 
 
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

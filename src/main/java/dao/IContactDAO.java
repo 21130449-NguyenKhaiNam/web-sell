@@ -7,7 +7,7 @@ import models.SubjectContact;
 
 import java.util.List;
 
-public interface IContactDAO {
+public interface IContactDAO extends IDAO {
     //    Lấy ra danh sách tất cả các liên hệ của người dùng
     List<Contact> getListUserContacts();
 

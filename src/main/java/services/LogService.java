@@ -7,7 +7,6 @@ import dao.LogDAOImp;
 import annotations.LogParam;
 import annotations.LogTable;
 import annotations.WriteLog;
-import models.IModel;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -16,10 +15,15 @@ import java.lang.reflect.Proxy;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * Sử dụng để ghi Log, lớp muốn ghi log thì sử dụng phương thức createProxy
+ * để tạo các phiên bản:
+ *  I?Dao dao = LogService.getINSTANCE().createProxy(new ?DaoImp());
+ */
 public class LogService implements InvocationHandler {
     private static LogService logService;
-    private Map<Class<?>, Object> managerTarget;
-    private Object target;
+    private final Map<Class<?>, IDAO> managerTarget;
+    private IDAO target;
     private ILogDAO logDAO;
     private String ip = "128.0.0.1";
 
@@ -32,8 +36,8 @@ public class LogService implements InvocationHandler {
         return logService == null ? (logService = new LogService()) : logService;
     }
 
-    public <T> T createProxy(T obj) {
-        LogService.getINSTANCE().setTarget(obj);
+    public synchronized <T> T createProxy(T obj) {
+        LogService.getINSTANCE().setTarget((IDAO) obj);
         return (T) Proxy.newProxyInstance(
                 obj.getClass().getClassLoader(),
                 obj.getClass().getInterfaces(),
@@ -56,12 +60,12 @@ public class LogService implements InvocationHandler {
         this.logDAO = logDAO;
     }
 
-    public void setTarget(Object obj) {
-        if(!managerTarget.containsKey(obj.getClass())) {
+    public void setTarget(IDAO model) {
+        if(!managerTarget.containsKey(model.getClass().getInterfaces()[0])) {
             // Hàm put sẽ trả về giá trị trước đó, nếu không có sẽ là null
-            managerTarget.put(obj.getClass(), obj);
+            managerTarget.put(model.getClass().getInterfaces()[0], model);
         }
-        this.target = managerTarget.get(obj.getClass());
+        target = managerTarget.get(model.getClass().getInterfaces()[0]);
     }
 
     /**
@@ -86,8 +90,12 @@ public class LogService implements InvocationHandler {
      * @return
      * @throws Throwable
      */
+
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        target = managerTarget.get(method.getDeclaringClass());
+        System.out.println("Class >> " + target);
         if (method.isAnnotationPresent(WriteLog.class)) {
             int level = method.getDeclaredAnnotationsByType(WriteLog.class)[0].value();
             int table = target.getClass().getDeclaredAnnotationsByType(LogTable.class)[0].value();
@@ -98,10 +106,8 @@ public class LogService implements InvocationHandler {
                 String value = p.getDeclaredAnnotationsByType(LogParam.class)[0].value();
                 mapObjs.put(value, mapper.writeValueAsString(args[i]));
             }
-            IDAO dao = (IDAO) proxy;
-            logDAO.writeLog(mapper, dao, args[0], ip, level, mapObjs, LocalDate.now(), table);
+            logDAO.writeLog(mapper, (IDAO) target, args[0], ip, level, mapObjs, LocalDate.now(), table);
         }
         return method.invoke(target, args);
     }
-
 }

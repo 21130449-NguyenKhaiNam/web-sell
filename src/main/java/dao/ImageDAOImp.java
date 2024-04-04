@@ -55,4 +55,9 @@ public class ImageDAOImp implements IImageDAO {
         sql.append("DELETE FROM images ").append("WHERE id IN (").append(idRange).append(")");
         GeneralDAOImp.executeAllTypeUpdate(sql.toString());
     }
+
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

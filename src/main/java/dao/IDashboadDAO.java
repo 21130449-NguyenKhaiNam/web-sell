@@ -6,7 +6,7 @@ import models.Product;
 
 import java.util.List;
 
-public interface IDashboadDAO {
+public interface IDashboadDAO extends IDAO {
     //   Lấy số lượng User có trong hệ thống (table Users)
     int countUser();
 

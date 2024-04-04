@@ -1,6 +1,7 @@
 package services;
 
 import dao.CheckoutDAOImp;
+import dao.ICheckoutDAO;
 import models.PaymentMethod;
 import models.DeliveryMethod;
 import models.PaymentOwner;
@@ -8,11 +9,11 @@ import models.PaymentOwner;
 import java.util.List;
 
 public class CheckoutServices {
-    private CheckoutDAOImp checkoutDao;
+    private ICheckoutDAO checkoutDao;
     private static CheckoutServices INSTANCE;
 
     public CheckoutServices() {
-        checkoutDao = new CheckoutDAOImp();
+        checkoutDao = LogService.getINSTANCE().createProxy(new CheckoutDAOImp());
     }
 
     public static CheckoutServices getINSTANCE() {
@@ -30,7 +31,7 @@ public class CheckoutServices {
     }
 
     public DeliveryMethod getDeliveryMethodById(int id){
-        return checkoutDao.getDeliveryMethodById(id);
+        return CheckoutDAOImp.getDeliveryMethodById(id);
     }
 
     public PaymentMethod getPaymentMethodById(int id){

@@ -47,4 +47,9 @@ public class ParameterDAOImp implements IParameterDAO {
         sql.append("DELETE FROM parameters WHERE id = ?");
         GeneralDAOImp.executeAllTypeUpdate(sql.toString(), id);
     }
+
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

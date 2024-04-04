@@ -1,6 +1,8 @@
 package services;
 
-import dao.OrderDetailDAO;
+import dao.IOrderDetailDAO;
+import dao.IReviewDAO;
+import dao.OrderDetailDAOImp;
 import dao.ReviewDAOImp;
 import models.OrderDetail;
 import models.Product;
@@ -10,13 +12,15 @@ import java.util.List;
 
 public class ReviewServices {
     private static ReviewServices INSTANCE;
-    private ReviewDAOImp reviewDAO;
+    private IReviewDAO reviewDAO;
 
-    private OrderDetailDAO orderDetailDAO;
+    private IOrderDetailDAO orderDetailDAO;
+
     private ReviewServices() {
-        reviewDAO = new ReviewDAOImp();
-        orderDetailDAO = new OrderDetailDAO();
+        reviewDAO = LogService.getINSTANCE().createProxy(new ReviewDAOImp());
+        orderDetailDAO = LogService.getINSTANCE().createProxy(new OrderDetailDAOImp());
     }
+
     public static ReviewServices getINSTANCE() {
         if (INSTANCE == null)
             INSTANCE = new ReviewServices();
@@ -25,7 +29,7 @@ public class ReviewServices {
 
     public boolean canReview(int userId, int orderProductIdRequest) {
         List<Review> listReview = reviewDAO.checkReview(userId, orderProductIdRequest);
-        return listReview.isEmpty() ;
+        return listReview.isEmpty();
     }
 
     public String getNameProduct(int orderProductId) {
@@ -45,7 +49,7 @@ public class ReviewServices {
         return orderDetailDAO.getOrderDetailById(orderDetailId).get(0);
     }
 
-    public void createReview(Review review){
+    public void createReview(Review review) {
         reviewDAO.createReview(review);
     }
 }

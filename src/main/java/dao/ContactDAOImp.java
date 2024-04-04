@@ -25,4 +25,9 @@ public class ContactDAOImp implements IContactDAO {
     public void addNewRecordUserContact(Integer userId, String fullName, String phone, String email, int subjectId, String message){
         GeneralDAOImp.executeAllTypeUpdate("INSERT INTO contact(userId, fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subjectId, message);
     }
+
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

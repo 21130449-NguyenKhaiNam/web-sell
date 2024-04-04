@@ -10,7 +10,7 @@ import utils.MoneyRange;
 import java.sql.Date;
 import java.util.List;
 
-public interface IProductCardDAO {
+public interface IProductCardDAO extends IDAO {
     //    Lấy ra danh sách sản phẩm theo trạng thái hiển thị
     //    Sử dụng để phân trang
     List<Product> getProducts(int pageNumber, int limit, boolean visibility);

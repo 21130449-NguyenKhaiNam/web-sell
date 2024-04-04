@@ -6,7 +6,7 @@ import models.Color;
 
 import java.util.List;
 
-public interface IColorDAO {
+public interface IColorDAO extends IDAO {
     //    Lấy ra danh sách tất cả các màu
     List<Color> getAllColor();
 

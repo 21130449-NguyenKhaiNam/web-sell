@@ -1,4 +1,4 @@
 package dao;
 
-public interface IGeneralDAO {
+public interface IGeneralDAO extends IDAO {
 }

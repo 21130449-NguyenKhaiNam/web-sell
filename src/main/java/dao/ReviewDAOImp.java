@@ -110,4 +110,8 @@ public class ReviewDAOImp implements IReviewDAO {
         return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Review.class, id);
     }
 
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

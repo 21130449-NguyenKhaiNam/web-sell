@@ -5,7 +5,7 @@ import models.Slider;
 
 import java.util.List;
 
-public interface IHomeDAO {
+public interface IHomeDAO extends IDAO {
     //    Lấy ra danh sách các slider
     List<Slider> getListSlideShow();
 

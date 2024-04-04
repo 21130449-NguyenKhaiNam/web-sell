@@ -8,7 +8,7 @@ import models.PaymentOwner;
 
 import java.util.List;
 
-public interface ICheckoutDAO {
+public interface ICheckoutDAO extends IDAO {
 
     //    Thêm đơn hàng mới
     @WriteLog(WriteLog.INSERT)

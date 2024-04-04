@@ -4,7 +4,7 @@ import models.Voucher;
 
 import java.util.List;
 
-public interface IShoppingCartDAO {
+public interface IShoppingCartDAO extends IDAO {
     //    Lấy ra danh sách tất cả các voucher còn thời hạn sử dụng và lựợt sử dụng
     List<Voucher> getListVouchers();
 

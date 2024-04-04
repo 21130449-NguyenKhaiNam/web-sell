@@ -7,7 +7,7 @@ import models.Size;
 
 import java.util.List;
 
-public interface ISizeDAO {
+public interface ISizeDAO extends IDAO {
     //    Lấy ra danh sách tất cả các size
     List<Size> getAllSize();
 

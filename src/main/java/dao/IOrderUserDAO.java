@@ -7,7 +7,7 @@ import models.Product;
 
 import java.util.List;
 
-public interface IOrderUserDAO {
+public interface IOrderUserDAO extends IDAO {
     //    Lấy ra danh sách tất cả các đơn hàng của người dùng dựa theo trạng thái đơn hàng
     List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder);
 

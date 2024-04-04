@@ -6,7 +6,7 @@ import models.OrderDetail;
 import java.util.List;
 
 @LogTable(LogTable.ORDER)
-public class OrderDetailDAO implements IOrderDetailDAO {
+public class OrderDetailDAOImp implements IOrderDetailDAO {
     public List<OrderDetail> getOrderDetailById(int id) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT productId, sizeRequired, colorRequired, quantityRequired, price ")
@@ -26,5 +26,10 @@ public class OrderDetailDAO implements IOrderDetailDAO {
         StringBuilder sql = new StringBuilder("DELETE FROM order_details");
         sql.append(" WHERE orderId IN(" + fillEntry + ")");
         GeneralDAOImp.executeAllTypeUpdate(sql.toString());
+    }
+
+    @Override
+    public Object getModelById(Object id) {
+        return null;
     }
 }

@@ -200,4 +200,9 @@ public class OrderAdminDAOImp implements IOrderAdminDAO {
                 "AND order_details.id IN (SELECT reviews.orderDetailId FROM reviews) ";
         return GeneralDAOImp.executeQueryWithSingleTable(querry, OrderDetail.class, userId);
     }
+
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

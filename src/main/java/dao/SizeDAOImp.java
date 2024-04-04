@@ -68,4 +68,9 @@ public class SizeDAOImp implements ISizeDAO {
         sql.append("DELETE FROM sizes ").append("WHERE id IN (").append(idRange).append(")");
         GeneralDAOImp.executeAllTypeUpdate(sql.toString());
     }
+
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

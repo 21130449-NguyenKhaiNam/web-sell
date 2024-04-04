@@ -7,7 +7,7 @@ import models.Review;
 
 import java.util.List;
 
-public interface IReviewDAO {
+public interface IReviewDAO extends IDAO {
     //    Lấy ra danh sách review dựa vào userId và orderProductId
     List<Review> checkReview(int userId, int orderProductIdRequest);
 
