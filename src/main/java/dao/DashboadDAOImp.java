@@ -1,9 +1,11 @@
 package dao;
 
+import annotations.LogTable;
 import models.*;
 
 import java.util.List;
 
+@LogTable(LogTable.DASHBOAD)
 public class DashboadDAOImp implements IDashboadDAO{
     public  int countUser(){
         String querry = "SELECT id FROM users";

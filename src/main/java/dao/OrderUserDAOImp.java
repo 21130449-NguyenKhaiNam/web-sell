@@ -1,5 +1,6 @@
 package dao;
 
+import annotations.LogTable;
 import models.Image;
 import models.Order;
 import models.OrderDetail;
@@ -7,6 +8,7 @@ import models.Product;
 
 import java.util.List;
 
+@LogTable(LogTable.ORDER)
 public class OrderUserDAOImp implements IOrderUserDAO {
 
     public List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder){

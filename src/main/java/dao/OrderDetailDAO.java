@@ -1,9 +1,11 @@
 package dao;
 
+import annotations.LogTable;
 import models.OrderDetail;
 
 import java.util.List;
 
+@LogTable(LogTable.ORDER)
 public class OrderDetailDAO implements IOrderDetailDAO {
     public List<OrderDetail> getOrderDetailById(int id) {
         StringBuilder sql = new StringBuilder();
