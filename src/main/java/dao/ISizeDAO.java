@@ -1,5 +1,7 @@
 package dao;
 
+import annotations.LogParam;
+import annotations.WriteLog;
 import models.Product;
 import models.Size;
 
@@ -10,17 +12,21 @@ public interface ISizeDAO {
     List<Size> getAllSize();
 
     //    Lấy ra id sản phẩm dựa vào size
-    List<Product> getIdProduct(String size);
+    @WriteLog(WriteLog.SELECT)
+    List<Product> getIdProduct(@LogParam("size") String size);
 
     //    Thêm mới 1 mảng size
-    void addSizes(Size[] sizes);
+    @WriteLog(WriteLog.UPDATE)
+    void addSizes(@LogParam("sizes") Size[] sizes);
 
     //    Lấy ra danh sách id size dựa vào id sản phẩm
     List<Size> getIdSizeByProductId(int productId);
 
     //    Cập nhập size dựa theo id size
-    void updateSize(Size size, int id);
+    @WriteLog(WriteLog.UPDATE)
+    void updateSize(@LogParam("size") Size size,@LogParam("id") int id);
 
     //    Xóa size dựa theo danh sách id size
-    void deleteSizeList(List<Integer> listId);
+    @WriteLog(WriteLog.UPDATE)
+    void deleteSizeList(@LogParam("id-list-delete") List<Integer> listId);
 }
