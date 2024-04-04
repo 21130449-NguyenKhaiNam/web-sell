@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface IOrderAdminDAO {
     //    Các ham dưới phục vụ việc lọc trong admin order page
-//    Lấy danh sách tất cả đơn hàng
+    //    Lấy danh sách tất cả đơn hàng
     List<Order> getListAllOrders();
 
     //    Lấy danh sách tất cả các phương thức thanh toán
@@ -52,12 +52,12 @@ public interface IOrderAdminDAO {
     //    Lấy ra danh sách tên ảnh dựa theo id sản phẩm
     List<Image> getNameImageByProductId(int id);
 
-//    2 method sau bị lặp lại với Interface OrderUserDAO
+    //    2 method sau bị lặp lại với Interface OrderUserDAO
     //    Lấy ra danh sách chi tiết đơn hàng chưa review
-//    Đơn hàng thuộc chi tiết đơn hàng đó đã giao thành công nhưng chưa xuất hiện trong bảng review
+    //    Đơn hàng thuộc chi tiết đơn hàng đó đã giao thành công nhưng chưa xuất hiện trong bảng review
     List<OrderDetail> getOrderDetailNotReview(int userId);
 
     //       Lấy ra danh sách chi tiết đơn hàng đã review
-//   Đơn hàng thuộc chi tiết đơn hàng đó đã giao thành công và xuất hiện trong bảng review
+    //   Đơn hàng thuộc chi tiết đơn hàng đó đã giao thành công và xuất hiện trong bảng review
     List<OrderDetail> getOrderDetailHasReview(int userId);
 }
