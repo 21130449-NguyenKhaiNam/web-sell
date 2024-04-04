@@ -1,9 +1,11 @@
 package dao;
 
+import annotations.LogTable;
 import models.Color;
 
 import java.util.List;
 
+@LogTable(LogTable.COLOR)
 public class ColorDAOImp implements IColorDAO{
     public List<Color> getAllColor() {
         StringBuilder sql = new StringBuilder();

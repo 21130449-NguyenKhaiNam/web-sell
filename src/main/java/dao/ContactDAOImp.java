@@ -1,10 +1,11 @@
 package dao;
 
+import annotations.LogTable;
 import models.Contact;
 import models.SubjectContact;
 
 import java.util.List;
-
+@LogTable(LogTable.CONTACT)
 public class ContactDAOImp implements IContactDAO {
 
     public List<Contact> getListUserContacts(){

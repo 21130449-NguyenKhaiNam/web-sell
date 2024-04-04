@@ -1,9 +1,11 @@
 package dao;
 
+import annotations.LogTable;
 import models.OrderStatus;
 
 import java.util.List;
 
+@LogTable(LogTable.ORDER)
 public class OrderStatusDao implements IOrderStatusDAO {
 
     public List<OrderStatus> getListAllOrderStatus(){

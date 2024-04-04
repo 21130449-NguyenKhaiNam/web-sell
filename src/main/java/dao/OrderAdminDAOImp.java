@@ -1,11 +1,13 @@
 package dao;
 
+import annotations.LogTable;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import models.*;
 
 import java.util.List;
 import java.util.Map;
 
+@LogTable(LogTable.ADMIN)
 public class OrderAdminDAOImp implements IOrderAdminDAO {
 
     public List<Order> getListAllOrders() {

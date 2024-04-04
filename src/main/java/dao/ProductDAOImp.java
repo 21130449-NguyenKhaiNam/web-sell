@@ -1,11 +1,13 @@
 package dao;
 
+import annotations.LogTable;
 import models.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@LogTable(LogTable.PRODUCT)
 public class ProductDAOImp implements IProductDAO {
 
     public List<Image> getListImagesByProductId(int productId) {

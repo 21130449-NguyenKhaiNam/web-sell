@@ -1,9 +1,11 @@
 package dao;
 
+import annotations.LogTable;
 import models.*;
 
 import java.util.List;
 
+@LogTable(LogTable.PRODUCT)
 public class HomeDAOImp implements IHomeDAO {
     public List<Slider> getListSlideShow() {
         return GeneralDAOImp.executeQueryWithSingleTable("SELECT nameSlide, nameImage FROM sliders WHERE visibility = 1", Slider.class);

@@ -1,10 +1,12 @@
 package dao;
 
+import annotations.LogTable;
 import models.Product;
 import models.Review;
 
 import java.util.List;
 
+@LogTable(LogTable.PRODUCT)
 public class ReviewDAOImp implements IReviewDAO {
     public List<Review> checkReview(int userId, int orderProductIdRequest) {
         StringBuilder sql = new StringBuilder();
