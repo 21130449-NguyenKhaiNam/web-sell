@@ -1,5 +1,6 @@
 package services;
 
+import dao.IShoppingCartDAO;
 import dao.ShoppingCartDAOImp;
 import models.Voucher;
 
@@ -7,12 +8,12 @@ import java.util.List;
 
 public class ShoppingCartServices {
 
-    private ShoppingCartDAOImp shoppingCartDao;
+    private IShoppingCartDAO shoppingCartDao;
 
     private static ShoppingCartServices INSTANCE;
 
     public ShoppingCartServices() {
-        shoppingCartDao = new ShoppingCartDAOImp();
+        shoppingCartDao = LogService.getINSTANCE().createProxy(new ShoppingCartDAOImp());
     }
 
     public static ShoppingCartServices getINSTANCE() {

@@ -4,7 +4,7 @@ import models.OrderDetail;
 
 import java.util.List;
 
-public interface IOrderDetailDAO {
+public interface IOrderDetailDAO extends IDAO {
     //    Lấy thông tin chi tiết đơn hàng trong đơn hàng theo id chi tiết đơn hàng
     List<OrderDetail> getOrderDetailById(int id);
 

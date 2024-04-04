@@ -43,6 +43,11 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
         return listCodeOfVouchers;
     }
 
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
+
 //    public double getMinPriceApplyVoucherByCode(String code){
 //        String sql = "SELECT minimumPrice FROM vouchers WHERE code = ?";
 //        return GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, code).get(0).getMinimumPrice();

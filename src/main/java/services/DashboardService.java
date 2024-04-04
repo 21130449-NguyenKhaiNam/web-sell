@@ -2,16 +2,17 @@ package services;
 
 import dao.DashboadDAOImp;
 
+import dao.IDashboadDAO;
 import models.*;
 
 import java.util.List;
 
 public class DashboardService {
     private static DashboardService INSTANCE;
-    private DashboadDAOImp dashboadDAO;
+    private IDashboadDAO dashboadDAO;
 
     private DashboardService() {
-        this.dashboadDAO = new DashboadDAOImp();
+        this.dashboadDAO = LogService.getINSTANCE().createProxy(new DashboadDAOImp());
     }
 
     public static DashboardService getINSTANCE() {

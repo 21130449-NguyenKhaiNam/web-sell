@@ -291,4 +291,9 @@ public class ProductCardDAOImp implements IProductCardDAO {
                 .append("WHERE id = ?");
         return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
     }
+
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

@@ -1,6 +1,8 @@
 package services;
 
 import dao.CategoryDAOImp;
+import dao.ICategoryDAO;
+import dao.IParameterDAO;
 import dao.ParameterDAOImp;
 import models.Category;
 import models.Parameter;
@@ -9,11 +11,11 @@ import java.util.List;
 
 public class AdminCategoryServices {
     private static AdminCategoryServices INSTANCE;
-    private CategoryDAOImp categoryDAO;
-    private ParameterDAOImp parameterDAO;
+    private ICategoryDAO categoryDAO;
+    private IParameterDAO parameterDAO;
     private AdminCategoryServices() {
-        categoryDAO = new CategoryDAOImp();
-        parameterDAO = new ParameterDAOImp();
+        categoryDAO = LogService.getINSTANCE().createProxy(new CategoryDAOImp());
+        parameterDAO = LogService.getINSTANCE().createProxy(new ParameterDAOImp());
     }
 
     public static AdminCategoryServices getINSTANCE() {

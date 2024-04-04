@@ -1,5 +1,6 @@
 package services;
 
+import dao.IOrderUserDAO;
 import dao.OrderUserDAOImp;
 import models.Image;
 import models.Order;
@@ -11,10 +12,10 @@ import java.util.List;
 
 public class HistoryService {
     private static HistoryService INSTANCE;
-    private OrderUserDAOImp orderDAO;
+    private IOrderUserDAO orderDAO;
 
     private HistoryService() {
-        this.orderDAO= new OrderUserDAOImp();
+        this.orderDAO= LogService.getINSTANCE().createProxy(new OrderUserDAOImp());
     }
 
     public static HistoryService getINSTANCE() {

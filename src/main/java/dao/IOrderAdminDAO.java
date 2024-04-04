@@ -5,7 +5,7 @@ import models.*;
 import java.util.List;
 import java.util.Map;
 
-public interface IOrderAdminDAO {
+public interface IOrderAdminDAO extends IDAO {
     //    Các ham dưới phục vụ việc lọc trong admin order page
     //    Lấy danh sách tất cả đơn hàng
     List<Order> getListAllOrders();

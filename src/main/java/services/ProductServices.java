@@ -1,26 +1,23 @@
 package services;
 
-import dao.ColorDAOImp;
-import dao.ImageDAOImp;
-import dao.ProductDAOImp;
-import dao.SizeDAOImp;
+import dao.*;
 import models.*;
 
 import java.util.List;
 
 public class ProductServices {
 
-    private ProductDAOImp productDao;
-    private ImageDAOImp imageDAO;
-    private ColorDAOImp colorDAO;
-    private SizeDAOImp sizeDAO;
+    private IProductDAO productDao;
+    private IImageDAO imageDAO;
+    private IColorDAO colorDAO;
+    private ISizeDAO sizeDAO;
     private static ProductServices INSTANCE;
 
     public ProductServices() {
-        productDao = new ProductDAOImp();
-        imageDAO = new ImageDAOImp();
-        colorDAO = new ColorDAOImp();
-        sizeDAO = new SizeDAOImp();
+        productDao = LogService.getINSTANCE().createProxy(new ProductDAOImp());
+        imageDAO = LogService.getINSTANCE().createProxy(new ImageDAOImp());
+        colorDAO = LogService.getINSTANCE().createProxy(new ColorDAOImp());
+        sizeDAO = LogService.getINSTANCE().createProxy(new SizeDAOImp());
     }
 
     public static ProductServices getINSTANCE() {

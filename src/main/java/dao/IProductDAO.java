@@ -9,7 +9,7 @@ import models.Size;
 
 import java.util.List;
 
-public interface IProductDAO {
+public interface IProductDAO extends IDAO {
     //    Các hàm dưới dùng để xác định sản phẩm với thông số đã chọn có thực sự tồn tại không
     //    Lấy ra danh sách ảnh theo id sản phẩm
     List<Image> getListImagesByProductId(int productId);

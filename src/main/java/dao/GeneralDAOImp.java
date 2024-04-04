@@ -79,4 +79,8 @@ public class GeneralDAOImp implements IGeneralDAO {
         }
     }
 
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

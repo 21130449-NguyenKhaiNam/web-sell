@@ -6,7 +6,7 @@ import models.*;
 import java.util.List;
 
 @LogTable(LogTable.DASHBOAD)
-public class DashboadDAOImp implements IDashboadDAO{
+public class DashboadDAOImp implements IDashboadDAO {
     public  int countUser(){
         String querry = "SELECT id FROM users";
         return  GeneralDAOImp.executeQueryWithSingleTable(querry, User.class).size();
@@ -55,4 +55,8 @@ public class DashboadDAOImp implements IDashboadDAO{
         return GeneralDAOImp.executeQueryWithSingleTable(querry, OrderDetail.class, orderId);
     }
 
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

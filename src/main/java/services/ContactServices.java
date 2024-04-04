@@ -1,6 +1,7 @@
 package services;
 
 import dao.ContactDAOImp;
+import dao.IContactDAO;
 import models.Contact;
 import models.SubjectContact;
 
@@ -8,12 +9,12 @@ import java.util.List;
 
 public class ContactServices {
 
-    private ContactDAOImp contactDao;
+    private IContactDAO contactDao;
 
     private static ContactServices INSTANCE;
 
     public ContactServices() {
-        contactDao = new ContactDAOImp();
+        contactDao = LogService.getINSTANCE().createProxy(new ContactDAOImp());
     }
 
     public static ContactServices getINSTANCE() {

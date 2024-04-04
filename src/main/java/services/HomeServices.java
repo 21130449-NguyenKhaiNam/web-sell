@@ -1,16 +1,17 @@
 package services;
 
 import dao.HomeDAOImp;
+import dao.IHomeDAO;
 import models.*;
 
 import java.util.List;
 
 public class HomeServices {
-    private HomeDAOImp homeDao;
+    private IHomeDAO homeDao;
     private static HomeServices INSTANCE;
 
     public HomeServices() {
-        homeDao = new HomeDAOImp();
+        homeDao = LogService.getINSTANCE().createProxy(new HomeDAOImp());
     }
 
     public static HomeServices getINSTANCE() {
@@ -28,7 +29,7 @@ public class HomeServices {
 //    }
 
     public List<Product> getListNewProducts(boolean isSeeMore){
-        return homeDao.getListNewProducts(isSeeMore);
+        return HomeDAOImp.getListNewProducts(isSeeMore);
     }
 
     public List<Slider> getListSlideShow(){

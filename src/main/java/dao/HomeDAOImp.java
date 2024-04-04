@@ -54,4 +54,9 @@ public class HomeDAOImp implements IHomeDAO {
         }
         return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, 10);
     }
+
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }

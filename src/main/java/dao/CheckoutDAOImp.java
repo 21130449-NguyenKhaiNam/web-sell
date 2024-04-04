@@ -43,4 +43,9 @@ public class CheckoutDAOImp implements ICheckoutDAO {
         sql.append(" VALUES (?, ?, ?, ?, ?, ?, ?)");
         GeneralDAOImp.executeAllTypeUpdate(sql.toString(), orderId, productId, productName, sizeRequired, colorRequired, quantityRequired, price);
     }
+
+    @Override
+    public Object getModelById(Object id) {
+        return null;
+    }
 }
