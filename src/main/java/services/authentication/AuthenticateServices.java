@@ -37,6 +37,22 @@ public class AuthenticateServices {
         return INSTANCE;
     }
 
+    public Validation checkSignIn(String email) {
+        Validation validation = new Validation();
+        if (email.isEmpty()) {
+            validation.setFieldEmail("Email không được để trống");
+        }
+        List<User> users = userDAO.selectAccountByEmail(email);
+        if (users.size() != 1) {
+            validation.setFieldEmail("Email không tồn tại");
+        } else {
+            User user = users.get(0);
+            User userValid = extractUser(user);
+            validation.setObjReturn(userValid);
+        }
+        return validation;
+    }
+
     public Validation checkSignIn(String username, String password) {
         Validation validation = new Validation();
 //        Check username empty
@@ -49,23 +65,40 @@ public class AuthenticateServices {
         }
 
 //        Check user in db
-        List<User> users = userDAO.selectAccount(username, "1");
-
+        List<User> users = userDAO.selectAccountByUsername(username);
 //        Check username
         if (users.size() != 1) {
             validation.setFieldUsername("Tên đăng nhập không tồn tại.");
             return validation;
         }
-
-//        Check password
         User user = users.get(0);
-        String encode = Encoding.getINSTANCE().toSHA1(password);
-        if (user.getPasswordEncoding().equals(encode)) {
-            validation.setObjReturn(user);
+//        Check password
+        boolean checkPassword = Encoding.getINSTANCE().toSHA1(password).equals(user.getPasswordEncoding());
+        boolean checkVerify = user.isVerify();
+
+        if (checkPassword && checkVerify) {
+            User userValid = extractUser(user);
+            validation.setObjReturn(userValid);
         } else {
             validation.setFieldPassword("Mật khẩu sai");
         }
         return validation;
+    }
+
+    private User extractUser(User user) {
+        User userValid = new User();
+        userValid.setId(user.getId());
+        userValid.setUsername(user.getUsername());
+        userValid.setRole(user.getRole());
+        userValid.setAvatar(user.getAvatar());
+        userValid.setFullName(user.getFullName());
+        userValid.setPhone(user.getPhone());
+        userValid.setGender(user.getGender());
+        userValid.setEmail(user.getEmail());
+        userValid.setPhone(user.getPhone());
+        userValid.setAddress(user.getAddress());
+        userValid.setBirthDay(user.getBirthDay());
+        return userValid;
     }
 
     public Validation checkSignUp(String username, String email, String password, String confirmPassword) {

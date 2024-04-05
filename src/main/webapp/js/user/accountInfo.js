@@ -1,6 +1,7 @@
 $(document).ready(function () {
     // Add select 2 for address
-    var URL = "https://online-gateway.ghn.vn/shiip/public-api/master-data/"
+    const URL = "https://online-gateway.ghn.vn/shiip/public-api/master-data/";
+    const token = '015940b9-e810-11ee-b290-0e922fc774da';
     let provinceId, districtId, wardId;
     const inputProvince = $("#inputProvince");
     const inputDistrict = $("#inputDistrict");
@@ -12,7 +13,7 @@ $(document).ready(function () {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'token': '015940b9-e810-11ee-b290-0e922fc774da'
+                    'token': token
                 }
             });
 
@@ -26,8 +27,6 @@ $(document).ready(function () {
             console.error('There was a problem with the fetch operation:', error);
         }
     }
-
-    setupSelect2();
 
     function setupSelect2() {
         inputProvince.select2({
@@ -140,6 +139,7 @@ $(document).ready(function () {
         });
     }
 
+    // Date picker jquery plug-in
     $("#inputDate").datepicker({
         dateFormat: 'dd-mm-yy', // Set the date format as needed
         onSelect: function (dateText) {
@@ -312,6 +312,31 @@ $(document).ready(function () {
             });
         }
     })
+
+    // Call api get address
+    $.ajax({
+        url: "/api/user/address",
+        type: 'GET',
+        dataType: 'json',
+        success: function (response, xhr) {
+            function findOptionMatched(select, value) {
+                let optionToSelect = null;
+                optionToSelect = $(select).find('option').filter(function () {
+                    return this.value === value;
+                })
+                return optionToSelect;
+            }
+
+            if (response.status ==200) {
+                const address = response;
+                provinceId = address.provinceId;
+                districtId = address.districtId;
+                wardId = address.wardId;
+                $('#inputAddress').val(address.detail);
+            }
+            setupSelect2();
+        }
+    });
 
     // Validate address form
     $("#form-address").validate({

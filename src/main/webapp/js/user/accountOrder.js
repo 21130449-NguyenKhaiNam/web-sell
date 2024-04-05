@@ -5,26 +5,50 @@ $(document).ready(function () {
         const statusId = $(this).data('status');
         getOrders(statusId);
     });
-    $('#orderList').DataTable({
-        language: {
-            "url": "https://cdn.datatables.net/plug-ins/2.0.3/i18n/vi.json"
-        },
-        "serverSide": true,
-        "processing": true,
-        "searching": true,
-        "paging": true,
-        data:orderList,
-        columns: [
-            { data: 'id' },
-            { data: 'dateOrder' },
-            { data: 'quantity' },
-        ],
-        "pageLength": 10, // Set default number of rows per page
-        "order": [[0, "asc"]], // Set default sorting column and direction
-        ajax: {
-            url: '/api/user/order',
-            dataType: 'json',
-            type: 'GET',
-        },
-    });
+    // $('#orderList').DataTable({
+    //     ajax: '/js/user/datatable.json',
+    //     columns: [
+    //         {
+    //             data: 'id'
+    //         },
+    //         {
+    //             data: 'dateOrder'
+    //         },
+    //         {
+    //             data: 'price'
+    //         },
+    //         {
+    //             data: 'status'
+    //         }
+    //         , {
+    //             "data": null,
+    //             "defaultContent": "<button class=\"btn btn-primary\">Chi tiết</button>", // Button content
+    //             "searchable": false,
+    //             "orderable": false
+    //         }
+    //     ],
+    //     columnDefs: [
+    //         {
+    //             targets: [0, 1, 2, 3, 4, 5], // Apply to all columns
+    //             render: function (data, type, full, meta) {
+    //                 if (type === 'filter') {
+    //                     var column = meta.col;
+    //                     var select = $('<select><option value="">All</option></select>')
+    //                         .appendTo($(column.header()))
+    //                         .on('change', function () {
+    //                             var val = $.fn.dataTable.util.escapeRegex(
+    //                                 $(this).val()
+    //                             );
+    //                             column.search(val ? '^' + val + '$' : '', true, false).draw();
+    //                         });
+    //
+    //                     column.data().unique().sort().each(function (d, j) {
+    //                         select.append('<option value="' + d + '">' + d + '</option>')
+    //                     });
+    //                 }
+    //                 return data;
+    //             }
+    //         }
+    //     ]
+    // });
 });

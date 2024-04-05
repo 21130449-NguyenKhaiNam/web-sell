@@ -6,9 +6,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Address {
-    private int province;
-    private int district;
-    private int ward;
+    private int id;
+    private int userId;
+    private String provinceId;
+    private String districtId;
+    private String wardId;
     private String detail;
     private String provinceName;
     private String districtName;

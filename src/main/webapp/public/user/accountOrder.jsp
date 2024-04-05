@@ -47,14 +47,14 @@
                         <thead>
                             <tr>
                                 <th> Mã đơn hàng</th>
-                                <%--                                <th > Tình trạng</th>--%>
                                 <th>Ngày đặt</th>
-                                <th>Số lượng sản phẩm</th>
-<%--                                <th>Xem chi tiết</th>--%>
+                                <th>Giá</th>
+                                <th>Tình trạng đơn hàng</th>
+                                <th>Xem chi tiết</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <%--                            <tr>--%> <%--                                <th ></th>--%> <%--                                <td>Mark</td>--%> <%--                                <td>Otto</td>--%> <%--                                <td>@mdo</td>--%> <%--                                <td>@mdo</td>--%> <%--                            </tr>--%> <%--                            <tr>--%> <%--                                <th ></th>--%> <%--                                <td>Mark</td>--%> <%--                                <td>Otto</td>--%> <%--                                <td>@mdo</td>--%> <%--                                <td>@mdo</td>--%> <%--                            </tr>--%> <%--                            <tr>--%> <%--                                <th ></th>--%> <%--                                <td>Mark</td>--%> <%--                                <td>Otto</td>--%> <%--                                <td>@mdo</td>--%> <%--                                <td>@mdo</td>--%> <%--                            </tr>--%>
+
                         </tbody>
                     </table>
                 </div>
@@ -72,10 +72,12 @@
     <!--JQuery validate-->
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
     <!--JQuery Datatable-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.0.3/datatables.min.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.0.3/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/2.0.3/i18n/vi.json"></script>
     <script src="/js/user/accountOrder.js"></script>
 </html>

@@ -14,7 +14,6 @@
     <body>
         <c:set var="user" value="${requestScope.accountInfo}" />
         <div class="container-xl px-4 mt-4">
-
             <nav class="nav nav-borders">
                 <a class="nav-link active ms-0" href="#">
                     Thông tin cá nhân

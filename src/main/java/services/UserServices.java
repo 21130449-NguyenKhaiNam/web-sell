@@ -1,5 +1,7 @@
 package services;
 
+import dao.AddressDAOImpDAO;
+import dao.IAddressDAO;
 import dao.UserDAO;
 import dao.UserDAOImplement;
 import models.Address;
@@ -18,9 +20,11 @@ import java.util.List;
 public class UserServices {
     private static UserServices INSTANCE;
     private UserDAO userDAO;
+    private IAddressDAO addressDAO;
 
     private UserServices() {
         userDAO = new UserDAOImplement();
+        addressDAO = new AddressDAOImpDAO();
     }
 
     public static UserServices getINSTANCE() {
@@ -85,9 +89,15 @@ public class UserServices {
         return statusCode == 200;
     }
 
-    public boolean updateAddress(int userId, Address address) throws URISyntaxException, IOException {
-        if (!validateAddress(address.exportAddressString()))
+    public boolean updateAddress( Address address) throws URISyntaxException, IOException {
+        if (!validateAddress(address.exportAddressString())){
             return false;
+        }
+        userDAO.updateAddress(address);
         return true;
+    }
+
+    public Address getAddress(int userId) {
+        return addressDAO.getAddress(userId);
     }
 }
