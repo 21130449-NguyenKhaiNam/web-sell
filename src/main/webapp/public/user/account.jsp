@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="models.User" %>
+<%@ page import="services.image.CloudinaryUploadServices" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +41,7 @@
                             <div class="user__maininfo block_info">
                                 <div class="user__img user">
                                     <p id="avatarInfo" style="display: none">${accountInfo.avatar}</p>
-                                    <img id="photo" src="<c:url value="/assets/img/user/userDefaultAvatar.jpg"/>">
+                                    <img id="photo" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("user", "userDefaultAvatar")%>">
 
                                     <form id="uploadForm" action="<c:url value="/UploadAvatar"/>" method="post" enctype="multipart/form-data">
                                         <input type="file" id="file" name="userCoverPhoto" accept="image/*" onchange="uploadImage()">
@@ -54,7 +55,7 @@
                                             <div class="lable__name lable-compo">
                                                 <label for="Username">Tên người dùng</label>
                                             </div>
-                                            <input type="text" id="Username" class=" input-compo" name="userName" value="${accountInfo.username}">
+                                            <p id="Username" class=" input-compo"> ${accountInfo.username} </p>
                                         </div>
                                         <div class="user__info--email info-compo">
                                             <div class="lable__email lable-compo">
@@ -188,6 +189,4 @@
             });
         </script>
     </body>
-
-
 </html>

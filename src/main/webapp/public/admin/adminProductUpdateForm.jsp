@@ -1,3 +1,4 @@
+<%@ page import="services.image.CloudinaryUploadServices" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <jsp:useBean id="productFactory" class="utils.ProductFactory" scope="session"/>
@@ -192,8 +193,10 @@
     var editorCK = CKEDITOR.replace('ck-editor',);
     CKFinder.setupCKEditor(editorCK, "ckfinder/");
 </script>
+
 <script src="<c:url value="/js/validateForm.js"/>"></script>
 <script src="<c:url value="/js/notify.js"/>"></script>
 <script src="<c:url value="/js/admin/adminUpdateProduct.js"/>"></script>
+
 </body>
 </html>

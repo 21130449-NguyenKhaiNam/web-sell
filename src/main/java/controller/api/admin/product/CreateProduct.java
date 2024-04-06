@@ -2,20 +2,16 @@ package controller.api.admin.product;
 
 import models.Product;
 import properties.PathProperties;
-import services.AdminProductServices;
-import services.UploadImageServices;
-import utils.Token;
+import services.admin.AdminProductServices;
+import services.image.UploadImageServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @WebServlet(name = "adminCreateProduct", value = "/admin-create-product")
 @MultipartConfig(
@@ -73,14 +69,18 @@ public class CreateProduct extends HttpServlet {
 
 //        Add Images
             Collection<Part> images = request.getParts();
-            uploadImg(images, productId);
+            try {
+                uploadImg(images, productId);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             objJson.append("{\"status\":").append("true}");
         }
         response.getWriter().write(objJson.toString());
     }
 
 
-    public void uploadImg(Collection<Part> parts, int productId) throws IOException {
+    public void uploadImg(Collection<Part> parts, int productId) throws Exception {
         ServletContext servletContext = getServletContext();
         String root = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathProductWeb();
 //       Add to local project tree

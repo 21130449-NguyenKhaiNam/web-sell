@@ -1,5 +1,6 @@
 package models;
 
+import services.image.CloudinaryUploadServices;
 import java.util.Date;
 import java.util.Objects;
 

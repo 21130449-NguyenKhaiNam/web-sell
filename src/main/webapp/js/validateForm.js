@@ -112,6 +112,75 @@ Validation.isRequired = function (selectorInput) {
         },
     }
 }
+
+Validation.isPhone = function (selectPhone) {
+    return {
+        element: selectPhone,
+        check: function (value) {
+            const regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+            return regex.test(value) ? undefined : "Số điện thoại không hợp lệ";
+        }
+    }
+}
+Validation.isExistsEmail = function (selectEmail) {
+    let mess;
+    let debounceTimer;
+
+    return {
+        element: selectEmail,
+        check: function (value) {
+            // Hủy bỏ bất kỳ debounceTimer nào đang chờ xử lý
+            clearTimeout(debounceTimer);
+
+            // Thiết lập một debounceTimer mới để gọi ajax sau một khoảng thời gian nhất định (ví dụ: 800ms)
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: '/emailExists',
+                    method: 'POST',
+                    data: {email: value},
+                    success: function (response) {
+                        mess = response;
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                })
+            }, 800);
+
+            return mess; // Trả về kết quả của cuộc gọi ajax (nếu có), hoặc "undefined" nếu vẫn chưa có kết quả
+        }
+    }
+}
+Validation.isExistsUsername = function (selectUsername) {
+    let mess;
+    let debounceTimer;
+
+    return {
+        element: selectUsername,
+        check: function (value) {
+            // Hủy bỏ bất kỳ debounceTimer nào đang chờ xử lý
+            clearTimeout(debounceTimer);
+
+            // Thiết lập một debounceTimer mới để gọi ajax sau một khoảng thời gian nhất định (ví dụ: 800ms)
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: '/usernameExists',
+                    method: 'POST',
+                    data: {username: value},
+                    success: function (response) {
+                        mess = response;
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                })
+            }, 800);
+
+            return mess; // Trả về kết quả của cuộc gọi ajax (nếu có), hoặc "undefined" nếu vẫn chưa có kết quả
+        }
+    }
+}
+
 Validation.isRequiredRadio = function (selectorInput) {
     return {
         element: selectorInput,
@@ -224,6 +293,7 @@ Validation.smallerThan = function (selectionInput, selectionMaxValue) {
         }
     }
 }
+
 function getParent(child, parent) {
     while (!child.classList.contains(parent)) {
         child = child.parentElement;

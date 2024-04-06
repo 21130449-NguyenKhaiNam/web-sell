@@ -132,6 +132,10 @@
     cursor: pointer;
 }
 
+.form__error {
+    color: red;
+}
+
 .select__box{
     width: 100%;
 }

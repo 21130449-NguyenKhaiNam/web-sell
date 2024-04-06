@@ -5,8 +5,8 @@ import models.User;
 import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.ShoppingCart;
 import services.CheckoutServices;
-import services.IMailServices;
-import services.MailPlaceOrderService;
+import services.mail.IMailServices;
+import services.mail.MailPlaceOrderService;
 
 import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;

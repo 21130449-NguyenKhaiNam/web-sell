@@ -116,24 +116,8 @@
                             </tbody>
                         </table>
                     </div>
+                    <c:import url="/public/paging.jsp"/>
 
-                    <ul class="paging">
-                        <c:if test="${requestScope.quantityPage != 0}">
-                            <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
-                                <c:url var="linkPaing" value="${requestScope.requestURL}">
-                                    <c:param name="page" value="${pageNumber}"/>
-                                </c:url>
-                                <c:choose>
-                                    <c:when test="${pageNumber == requestScope.currentPage}">
-                                        <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a class="page" href="${linkPaing}">${pageNumber}</a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </c:if>
-                    </ul>
                 </div>
             </div>
         </div>
