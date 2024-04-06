@@ -90,8 +90,7 @@ public class AdminProductServices {
         List<Product> listProduct = productCardDAO.getIdProductByName(name);
         if (listProduct.isEmpty()) return null;
         List<Integer> listId = new ArrayList<>();
-        for (Product p :
-                listProduct) {
+        for (Product p : listProduct) {
             listId.add(p.getId());
         }
         return listId;
