@@ -189,7 +189,7 @@
 
                             <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
 
-                            <span class="product__tag">Thịnh hành</span>
+                            <span class="product__tag" data-style="popular">Thịnh hành</span>
                             <form action="AddToCart"
                                   class="action__bar" method="post">
                                 <input type="hidden"
