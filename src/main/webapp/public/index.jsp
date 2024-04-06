@@ -305,12 +305,14 @@
 <script src="<c:url value="/js/base.js" />"></script>
 <script type="text/javascript">
     function addToCartAjax() {
+
         $(document).ready(function () {
             $('.action__bar').each(function (index, actionBar) {
                 $(actionBar).on('submit', function (event) {
                     event.preventDefault();
                     let userLoggedIn;
                     <c:choose>
+
                     <c:when test="${sessionScope.auth == null}">
                     userLoggedIn = false
                     </c:when>
@@ -330,6 +332,7 @@
                             data: {productId: productId},
                             success: function (response) {
                                 let addToCartSuccessHTML = `<div class="notification__cart">
+
                                                             <div class="status__success">
                                                                 <span>
                                                                     <i class="fa-solid fa-circle-check icon__success"></i>
