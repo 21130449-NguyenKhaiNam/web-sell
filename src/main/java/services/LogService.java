@@ -95,7 +95,6 @@ public class LogService implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         target = managerTarget.get(method.getDeclaringClass());
-        System.out.println("Class >> " + target);
         if (method.isAnnotationPresent(WriteLog.class)) {
             int level = method.getDeclaredAnnotationsByType(WriteLog.class)[0].value();
             int table = target.getClass().getDeclaredAnnotationsByType(LogTable.class)[0].value();

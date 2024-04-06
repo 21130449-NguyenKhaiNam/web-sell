@@ -14,7 +14,7 @@ public class LogDAOImp implements ILogDAO {
         String changeData = mapper.writeValueAsString(params);
         if(level == WriteLog.UPDATE) {
             IModel iModel = (IModel) model;
-            String query = "INSERT INTO logs (ip, id_level, data_prev, data_change, update_date, id_table) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO logs (ip, id_level, data, data_change, update_date, id_table) VALUES (?, ?, ?, ?, ?, ?)";
             System.out.println("Write Log >> id-dao: " + dao.getModelById(iModel.getMainId()));
             String jsonDataPrev = mapper.writeValueAsString(iModel);
             GeneralDAOImp.executeAllTypeUpdate(query, ip, level, jsonDataPrev, changeData, updateDate, table);
