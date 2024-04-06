@@ -1,10 +1,12 @@
 <%@ page import="services.CheckoutServices" %>
+<%@ page import="models.Image" %>
+<%@ page import="java.util.List" %>
+<%@ page import="services.image.CloudinaryUploadServices" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <jsp:include page="/public/commonLink.jsp" />
         <link rel="stylesheet" href="<c:url value="/assets/css/checkout.css" />">
@@ -113,288 +115,287 @@
                             <h2 class="checkout__subtitle">Phương thức vận chuyển</h2>
                             <form id="delivery__method--form" class="radio__section">
                                 <input type="hidden" name="action" value="choiceDeliveryMethod">
-                                <c:forEach items="${requestScope.listDeliveryMethod}" var="deliveryMethod">
+                                <c:forEach items="${applicationScope.listDeliveryMethod}" var="deliveryMethod">
                                     <div class="method__content">
                                         <div class="method__item section__info--selection">
                                             <input
-                                                    <c:if
-                                                            test="${deliveryMethod eq sessionScope[userIdCart].deliveryMethod}">checked</c:if> type="radio" name="delivery__method" class="radio__button" value="${deliveryMethod.id}" id="delivery__method${deliveryMethod.id}">
+                                                    <c:if test="${deliveryMethod eq sessionScope[userIdCart].deliveryMethod}">checked</c:if>
+                                                    type="radio" name="delivery__method" class="radio__button"
+                                                    value="${deliveryMethod.id}"
+                                                    id="delivery__method${deliveryMethod.id}">
                                             <label class="label__selection" for="delivery__method${deliveryMethod.id}">
-                                                <span>${deliveryMethod.typeShipping}</span> <span>
-                                                                    <fmt:setLocale value="vi_VN" />
-                                                                    <fmt:formatNumber type="currency" value="${deliveryMethod.shippingFee}" />
-                                                                </span> </label>
+                                                <span>${deliveryMethod.typeShipping}</span>
+                                                <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency"
+                                                                                                      value="${deliveryMethod.shippingFee}"/></span>
+                                            </label>
                                         </div>
-                                        <span class="description__method">
-                                                            <p>${deliveryMethod.description}</p>
-                                                        </span>
+                                        <span class="description__method"><p>${deliveryMethod.description}</p></span>
                                     </div>
                                 </c:forEach>
                             </form>
                         </div>
-                    </c:otherwise> </c:choose>
-                        <!-- New update template -->
-                        <div class="payment__method--container">
-                            <h2 class="checkout__subtitle">Phương thức thanh toán</h2>
-                            <form id="payment__method--form" class="radio__section">
-                                <input type="hidden" name="action" value="choicePaymentMethod">
-                                <c:forEach items="${requestScope.listPaymentMethod}" var="paymentMethod">
-                                    <div class="method__content">
-                                        <div class="method__item section__info--selection">
-                                            <input
-                                                    <c:if
-                                                            test="${paymentMethod eq sessionScope[userIdCart].paymentMethod}">checked</c:if> type="radio" name="payment__method" class="radio__button" value="${paymentMethod.id}" id="payment__method${paymentMethod.id}">
-                                            <label class="label__selection" for="payment__method${paymentMethod.id}">${paymentMethod.typePayment}</label>
-                                        </div>
-                                        <div class="description__method information__transaction">
-                                            <c:choose> <c:when test="${paymentMethod.id > 1}">
-                                                <c:set value="${CheckoutServices.getINSTANCE().getPaymentOwnerByPaymentMethodId(paymentMethod.id)}" var="paymentOwner" />
-                                                <table class="table__transaction">
-                                                    <tbody>
-                                                        <tr class="owner__name">
-                                                            <td>Chủ tài khoản</td>
-                                                            <td><span>${paymentOwner.ownerName}</span></td>
-                                                        </tr>
-                                                        <tr class="account__number">
-                                                            <td>Số tài khoản</td>
-                                                            <td>
-                                                                <div>
-                                                                    <span>${paymentOwner.accountNumber}</span>
-                                                                    <span class="copy__button"><i class="fa-solid fa-copy"></i>
-                                                                                    Sao chép</span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="payment__platform">
-                                                            <c:if test="${paymentMethod.id eq 2}">
-                                                                <c:set var="qrImage" value="bank.png" />
-                                                                <td>Ngân hàng</td>
-                                                            </c:if> <c:if test="${paymentMethod.id eq 3}">
-                                                            <c:set var="qrImage" value="e-wallet.png" />
-                                                            <td>Ví điện tử</td>
-                                                        </c:if>
-                                                            <td><span>${paymentOwner.paymentPlatform}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="amount__pay">
-                                                            <td>Số tiền</td>
-                                                            <td>
-                                                                <div>
-                                                                    <span class="amount">${sessionScope[userIdCart].totalPriceFormat(true)}</span>
-                                                                    <span class="copy__button"><i class="fa-solid fa-copy"></i>
-                                                                                    Sao chép</span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="transaction__content">
-                                                            <td>Nội dung giao dịch</td>
-                                                            <td>
-                                                                <div>
-                                                                    <span class="content">${sessionScope.contentForPay}</span>
-                                                                    <span class="copy__button"><i class="fa-solid fa-copy"></i>
-                                                                                    Sao chép</span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <div class="payment__qr">
-                                                    <img class="qr__code" src="assets/img/paymentQR/${qrImage}">
-                                                    <div>
-                                                        <span>Hoặc bạn có thể quét QR code bên cạnh để tiến
-                                                            hành thanh toán một cách nhanh chóng và chính
-                                                            xác hơn</span> <span><strong style="font-weight: 500">
-                                                            * Lưu ý:
-                                                    </strong> Trước khi thanh toán vui lòng
-                                                            kiểm tra thật kỹ số tiền cần thanh toán và nội
-                                                            dung chuyển khoản. Trong trường hợp chuyển khoản
-                                                            sai nội dung hoặc thanh toán với số tiền không
-                                                            đúng thì chúng tôi hoàn toàn không chịu trách
-                                                            nhiệm với số tiền bạn đã chuyển và đơn hàng
-                                                            không thể đóng gói đến bạn</span>
-                                                    </div>
+                    </c:otherwise>
+                </c:choose>
+                <!-- New update template -->
+                <div class="payment__method--container">
+                    <h2 class="checkout__subtitle">Phương thức thanh toán</h2>
+                    <form id="payment__method--form" class="radio__section">
+                        <input type="hidden" name="action" value="choicePaymentMethod">
+                        <c:forEach items="${applicationScope.listPaymentMethod}" var="paymentMethod">
+                            <div class="method__content">
+                                <div class="method__item section__info--selection">
+                                    <input
+                                            <c:if test="${paymentMethod eq sessionScope[userIdCart].paymentMethod}">checked</c:if>
+                                            type="radio" name="payment__method" class="radio__button"
+                                            value="${paymentMethod.id}"
+                                            id="payment__method${paymentMethod.id}">
+                                    <label class="label__selection"
+                                           for="payment__method${paymentMethod.id}">${paymentMethod.typePayment}</label>
+                                </div>
+                                <div class="description__method information__transaction">
+                                    <c:choose>
+                                        <c:when test="${paymentMethod.id > 1}">
+                                            <c:set value="${CheckoutServices.getINSTANCE().getPaymentOwnerByPaymentMethodId(paymentMethod.id)}"
+                                                   var="paymentOwner"/>
+                                            <table class="table__transaction">
+                                                <tbody>
+                                                <tr class="owner__name">
+                                                    <td>Chủ tài khoản</td>
+                                                    <td><span>${paymentOwner.ownerName}</span></td>
+                                                </tr>
+                                                <tr class="account__number">
+                                                    <td>Số tài khoản</td>
+                                                    <td>
+                                                        <div>
+                                                            <span>${paymentOwner.accountNumber}</span>
+                                                            <span class="copy__button"><i class="fa-solid fa-copy"></i> Sao chép</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="payment__platform">
+                                                    <c:if test="${paymentMethod.id eq 2}">
+                                                        <c:set var="qrImage" value="bank.png"/>
+                                                        <td>Ngân hàng</td>
+                                                    </c:if>
+                                                    <c:if test="${paymentMethod.id eq 3}">
+                                                        <c:set var="qrImage" value="e-wallet.png"/>
+                                                        <td>Ví điện tử</td>
+                                                    </c:if>
+                                                    <td><span>${paymentOwner.paymentPlatform}</span></td>
+                                                </tr>
+                                                <tr class="amount__pay">
+                                                    <td>Số tiền</td>
+                                                    <td>
+                                                        <div>
+                                                            <span class="amount">${sessionScope[userIdCart].totalPriceFormat(true)}</span>
+                                                            <span class="copy__button"><i class="fa-solid fa-copy"></i> Sao chép</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="transaction__content">
+                                                    <td>Nội dung giao dịch</td>
+                                                    <td>
+                                                        <div>
+                                                            <span class="content">${sessionScope.contentForPay}</span>
+                                                            <span class="copy__button"><i class="fa-solid fa-copy"></i> Sao chép</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="payment__qr">
+                                                <img class="qr__code" src="<c:url value="/assets/img/paymentQR/${qrImage}" />">
+                                                <div>
+                                                    <span>Hoặc bạn có thể quét QR code bên cạnh để tiến hành thanh toán một cách nhanh chóng và chính xác hơn</span>
+                                                    <span><strong style="font-weight: 500">* Lưu ý:</strong> Trước khi thanh toán vui lòng kiểm tra thật kỹ số tiền cần thanh toán và nội dung chuyển khoản. Trong trường hợp chuyển khoản sai nội dung hoặc thanh toán với số tiền không đúng thì chúng tôi hoàn toàn không chịu trách nhiệm với số tiền bạn đã chuyển và đơn hàng không thể đóng gói đến bạn</span>
                                                 </div>
-                                            </c:when> <c:otherwise>
-                                                            <span class="cod">
-                                                                Khi chọn phương thức trả tiền mặt khi nhận
-                                                                hàng (COD), vui lòng bạn chuẩn bị đầy đủ số tiền cần
-                                                                thanh toán cho nhà vận chuyển khi nhận hàng</span> </c:otherwise>
-                                            </c:choose>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="cod">Khi chọn phương thức trả tiền mặt khi nhận hàng (COD), vui lòng bạn chuẩn bị đầy đủ số tiền cần thanh toán cho nhà vận chuyển khi nhận hàng</span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </form>
+                </div>
+            </div>
+            <div class="checkout__info--right col">
+                <span class="summary__cart">Tóm tắt giỏ hàng</span>
+                <div class="order__detail--info">
+                    <table class="order__table">
+                        <thead>
+                        <tr class="row__header">
+                            <th class="thead__item">Sản phầm</th>
+                            <th class="thead__item">Số lượng</th>
+                            <th class="thead__item">Đơn giá</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.keySet()}" var="productId">
+                            <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.get(productId)}"
+                                       var="cartProduct">
+                                <tr class="row__content">
+                                    <td class="td__item">
+                                        <div class="product__item">
+                                            <c:set var="listImagesProduct"
+                                                   value="${productFactory.getListImagesByProductId(productId)}"/>
+                                            <%
+                                                String nameImage = ((List<Image>) pageContext.getAttribute("listImagesProduct")).get(0).getNameImage();
+                                            %>
+                                            <img src='<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", nameImage)%>'>
+                                            <div class="order__product--info">
+                                                <p class="product__name">${cartProduct.product.name}</p>
+                                                <p class="order__color">Màu sắc: ${cartProduct.color.codeColor}</p>
+                                                <p class="order__size">${cartProduct.makeSizeFormat()}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </c:forEach>
-                            </form>
+                                    </td>
+                                    <td class="td__item">${cartProduct.quantity}</td>
+                                    <td class="td__item">${cartProduct.sewingPriceFormat()}</td>
+                                </tr>
+                            </c:forEach>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="invoice--final">
+                    <div class="invoice__content">
+                        <div class="price__item--detail">
+                            <div class="temporary__container">
+                                <span>Tạm tính (${sessionScope[userIdCart].getTotalItems()} sản phẩm)</span>
+                                <span>${sessionScope[userIdCart].temporaryPriceFormat()}</span>
+                            </div>
+                            <c:if test="${sessionScope[userIdCart].voucherApplied != null}">
+                                <div class="discount__container">
+                                    <span>Giảm giá</span>
+                                    <span>${sessionScope[userIdCart].discountPriceFormat()}</span>
+                                </div>
+                            </c:if>
+                            <c:if test="${sessionScope[userIdCart].deliveryMethod != null}">
+                                <div class="shipping__container">
+                                    <span>Phí vận chuyển</span>
+                                    <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency"
+                                                                                          value="${sessionScope[userIdCart].deliveryMethod.shippingFee}"/></span>
+                                </div>
+                            </c:if>
+                        </div>
+                        <div class="total__price--final">
+                            <span class="total__label">Tổng tiền</span>
+                            <span class="total__value">${sessionScope[userIdCart].totalPriceFormat(true)}</span>
                         </div>
                     </div>
-                    <div class="checkout__info--right col">
-                        <span class="summary__cart">Tóm tắt giỏ hàng</span>
-                        <div class="order__detail--info">
-                            <table class="order__table">
-                                <thead>
-                                    <tr class="row__header">
-                                        <th class="thead__item">Sản phầm</th>
-                                        <th class="thead__item">Số lượng</th>
-                                        <th class="thead__item">Đơn giá</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.keySet()}" var="productId">
-                                        <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.get(productId)}" var="cartProduct">
-                                            <tr class="row__content">
-                                                <td class="td__item">
-                                                    <div class="product__item">
-                                                        <c:set var="listImagesProduct" value="${productFactory.getListImagesByProductId(productId)}" />
-                                                        <img src='assets/img/product_img/${listImagesProduct.get(0).nameImage}'>
-                                                        <div class="order__product--info">
-                                                            <p class="product__name">${cartProduct.product.name} </p>
-                                                            <p class="order__color">Màu
-                                                                                    sắc: ${cartProduct.color.codeColor}</p>
-                                                            <p class="order__size"> ${cartProduct.makeSizeFormat()}</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="td__item">${cartProduct.quantity}</td>
-                                                <td class="td__item">${cartProduct.sewingPriceFormat()}</td>
-                                            </tr>
-                                        </c:forEach> </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="invoice--final">
-                            <div class="invoice__content">
-                                <div class="price__item--detail">
-                                    <div class="temporary__container">
-                                                <span>Tạm tính (${sessionScope[userIdCart].getTotalItems()} sản
-                                                    phẩm)</span>
-                                        <span>${sessionScope[userIdCart].temporaryPriceFormat()}</span>
-                                    </div>
-                                    <c:if test="${sessionScope[userIdCart].voucherApplied != null}">
-                                        <div class="discount__container">
-                                            <span>Giảm giá</span>
-                                            <span>${sessionScope[userIdCart].discountPriceFormat()}</span>
-                                        </div>
-                                    </c:if> <c:if test="${sessionScope[userIdCart].deliveryMethod != null}">
-                                    <div class="shipping__container">
-                                        <span>Phí vận chuyển</span>
-                                        <span>
-                                            <fmt:setLocale value="vi_VN" />
-                                            <fmt:formatNumber type="currency" value="${sessionScope[userIdCart].deliveryMethod.shippingFee}" />
-                                        </span>
-                                    </div>
-                                </c:if>
-                                </div>
-                                <div class="total__price--final">
-                                    <span class="total__label">Tổng tiền</span>
-                                    <span class="total__value">${sessionScope[userIdCart].totalPriceFormat(true)}</span>
-                                </div>
-                            </div>
-                            <div class="ground__button--forward">
-                                <button class="place__order">Đặt hàng</button>
-                                <a href="${initParam.contextPath}/public/user/shoppingCart.jsp">
-                                    <button class="back--shopping__cart">Quay lại giỏ hàng</button>
-                                </a>
-                            </div>
-                        </div>
+                    <div class="ground__button--forward">
+                        <button class="place__order">Đặt hàng</button>
+                        <a href="<c:url value="/public/user/shoppingCart.jsp" />">
+                            <button class="back--shopping__cart">Quay lại giỏ hàng</button>
+                        </a>
                     </div>
                 </div>
             </div>
-        </main>
-        <div class="popup__deletion"></div>
-    </body>
-    <script src="<c:url value="/js/base.js" />"></script>
-    <script src="<c:url value="/js/checkout.js"/>"></script>
-    <script type="text/javascript">
-        function handleChoiceDeliveryMethod() {
-            $(document).ready(function () {
-                $('input[name="delivery__method"]').change(function () {
-                    let action = $('#delivery__method--form input[type=hidden][name="action"]').val();
-                    let deliveryMethodId = $(this).val();
-                    $.ajax({
-                        type: 'POST',
-                        url: 'Checkout',
-                        data: {
-                            action: action,
-                            deliveryMethodId: deliveryMethodId
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            $(this).prop('checked', true);
-                            $('.total__price--final .total__value').text(response.newTotalPrice);
-                            $('.shipping__container span:last-child').text(response.shippingFee);
-                            $('.amount__pay .amount').text(response.newTotalPrice);
-                        }
-                    })
-                })
-            })
-        }
-
-        handleChoiceDeliveryMethod();
-
-        function handleChoicePaymentMethod() {
-            $(document).ready(function () {
-                $('input[name="payment__method"]').change(function () {
-                    let action = $('#payment__method--form input[type=hidden][name="action"]').val();
-                    let paymentMethodId = $(this).val();
-                    $.ajax({
-                        type: 'POST',
-                        url: 'Checkout',
-                        data: {
-                            action: action,
-                            paymentMethodId: paymentMethodId
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            $('.transaction__content .content').text(response.contentForPay);
-                        }
-                    })
-                })
-            })
-        }
-
-        handleChoicePaymentMethod();
-
-        function handleChoiceDeliveryInfo() {
-            $(document).ready(function () {
-                $('#delivery__info--form').on('click', '.button__choice', function (event) {
-                    event.preventDefault();
-                    let buttonChoiceClicked = $(this);
-                    if (buttonChoiceClicked.text() === 'Chọn') {
-                        let deliveryInfo = buttonChoiceClicked.closest('.delivery__info');
-                        let deliveryInfoKey = deliveryInfo.find('input[type=hidden][name=deliveryInfoKey]').val();
-                        let typeEdit = buttonChoiceClicked.val();
-                        $.ajax({
-                            type: 'POST',
-                            url: 'Checkout',
-                            data: {
-                                typeEdit: typeEdit,
-                                deliveryInfoKey: deliveryInfoKey
-                            },
-                            success: function (response) {
-                                buttonChoiceClicked.text(response)
-                                $('.button__choice').not(buttonChoiceClicked).text("Chọn")
-                            }
-                        })
+        </div>
+    </div>
+</main>
+<div class="popup__deletion"></div>
+</body>
+<%--<script src="https://code.jquery.com/jquery-3.7.1.min.js"--%>
+<%--        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--%>
+<script src="<c:url value="/js/base.js"/>"></script>
+<script src="<c:url value="/js/checkout.js"/>"></script>
+<script type="text/javascript">
+    function handleChoiceDeliveryMethod() {
+        $(document).ready(function () {
+            $('input[name="delivery__method"]').change(function () {
+                let action = $('#delivery__method--form input[type=hidden][name="action"]').val();
+                let deliveryMethodId = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Checkout',
+                    data: {
+                        action: action,
+                        deliveryMethodId: deliveryMethodId
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        $(this).prop('checked', true);
+                        $('.total__price--final .total__value').text(response.newTotalPrice);
+                        $('.shipping__container span:last-child').text(response.shippingFee);
+                        $('.amount__pay .amount').text(response.newTotalPrice);
                     }
                 })
             })
-        }
+        })
+    }
 
-        handleChoiceDeliveryInfo();
+    handleChoiceDeliveryMethod();
 
-        function handleRemoveDeliveryInfo() {
-            $(document).ready(function () {
-                $('#delivery__info--form').on('click', '.button__remove', function (event) {
-                    event.preventDefault();
-                    let buttonRemoveClicked = $(this);
-                    let deliveryInfo = buttonRemoveClicked.closest('.delivery__info');
+    function handleChoicePaymentMethod() {
+        $(document).ready(function () {
+            $('input[name="payment__method"]').change(function () {
+                let action = $('#payment__method--form input[type=hidden][name="action"]').val();
+                let paymentMethodId = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Checkout',
+                    data: {
+                        action: action,
+                        paymentMethodId: paymentMethodId
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        $('.transaction__content .content').text(response.contentForPay);
+                    }
+                })
+            })
+        })
+    }
+
+    handleChoicePaymentMethod();
+
+    function handleChoiceDeliveryInfo() {
+        $(document).ready(function () {
+            $('#delivery__info--form').on('click', '.button__choice', function (event) {
+                event.preventDefault();
+                let buttonChoiceClicked = $(this);
+                if (buttonChoiceClicked.text() === 'Chọn') {
+                    let deliveryInfo = buttonChoiceClicked.closest('.delivery__info');
                     let deliveryInfoKey = deliveryInfo.find('input[type=hidden][name=deliveryInfoKey]').val();
-                    let typeEdit = buttonRemoveClicked.val();
+                    let typeEdit = buttonChoiceClicked.val();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Checkout',
+                        data: {
+                            typeEdit: typeEdit,
+                            deliveryInfoKey: deliveryInfoKey
+                        },
+                        success: function (response) {
+                            buttonChoiceClicked.text(response)
+                            $('.button__choice').not(buttonChoiceClicked).text("Chọn")
+                        }
+                    })
+                }
+            })
+        })
+    }
 
-                    let buttonChoice = deliveryInfo.find('.button__choice');
-                    let statusChoice = buttonChoice.text();
+    handleChoiceDeliveryInfo();
 
-                    const popupDeletion = $(document).find('.popup__deletion');
-                    popupDeletion.html(`<div class="popup__container">
+    function handleRemoveDeliveryInfo() {
+        $(document).ready(function () {
+            $('#delivery__info--form').on('click', '.button__remove', function (event) {
+                event.preventDefault();
+                let buttonRemoveClicked = $(this);
+                let deliveryInfo = buttonRemoveClicked.closest('.delivery__info');
+                let deliveryInfoKey = deliveryInfo.find('input[type=hidden][name=deliveryInfoKey]').val();
+                let typeEdit = buttonRemoveClicked.val();
+
+                let buttonChoice = deliveryInfo.find('.button__choice');
+                let statusChoice = buttonChoice.text();
+
+                const popupDeletion = $(document).find('.popup__deletion');
+                popupDeletion.html(`<div class="popup__container">
+
                                         <div class="popup__content">
                                             <div class="title__header">
                                                 <span class="title"><i class="fa-solid fa-triangle-exclamation"></i> Xóa thông tin giao hàng</span>
@@ -406,76 +407,72 @@
                                             </div>
                                         </div>
                                     </div>`);
-                    $(popupDeletion).find('.cancel__button').on('click', function () {
-                        $(popupDeletion).find('.popup__container').remove();
-                    })
 
-                    $(popupDeletion).find('.agree__button').on('click', function () {
-                        $.ajax({
-                            type: 'POST',
-                            url: 'Checkout',
-                            data: {
-                                typeEdit: typeEdit,
-                                deliveryInfoKey: deliveryInfoKey,
-                                statusChoice: statusChoice
-                            },
-                            success: function (response) {
-                                $(popupDeletion).find('.popup__container').remove();
-                                deliveryInfo.remove();
-                                if (statusChoice === "Đã chọn") {
-                                    $('#default__info').find('.button__choice').text("Đã chọn")
-                                }
+                $(popupDeletion).find('.cancel__button').on('click', function () {
+                    $(popupDeletion).find('.popup__container').remove();
+                })
+
+                $(popupDeletion).find('.agree__button').on('click', function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Checkout',
+                        data: {
+                            typeEdit: typeEdit,
+                            deliveryInfoKey: deliveryInfoKey,
+                            statusChoice: statusChoice
+                        },
+                        success: function (response) {
+                            $(popupDeletion).find('.popup__container').remove();
+                            deliveryInfo.remove();
+                            if (statusChoice === "Đã chọn") {
+                                $('#default__info').find('.button__choice').text("Đã chọn")
                             }
-                        })
+                        }
                     })
                 })
             })
-        }
+        })
+    }
 
-        handleRemoveDeliveryInfo();
+    handleRemoveDeliveryInfo();
 
-        function handlePlaceOrder() {
-            $('#delivery__method--form input[class=radio__button][name=delivery__method]').change(function () {
-                $('#payment__method--form input[class=radio__button][name=payment__method]').prop('disabled', false);
-            })
+    function handlePlaceOrder() {
+        $('#delivery__method--form input[class=radio__button][name=delivery__method]').change(function () {
+            $('#payment__method--form input[class=radio__button][name=payment__method]').prop('disabled', false);
+        })
 
-            $('.place__order').on('click', function () {
-                $.ajax({
-                    type: 'POST',
-                    url: 'PlaceOrder',
-                    data: {},
-                    dataType: 'json',
-                    success: function (response) {
-                        const popupOrder = `<div class="popup__order">
+        $('.place__order').on('click', function () {
+            $.ajax({
+                type: 'POST',
+                url: '/PlaceOrder',
+                data: {},
+                dataType: 'json',
+                success: function (response) {
+                    const popupOrder = `<div class="popup__order">
                                             <div class="bar__loading"></div>
                                             <p class="message__process">Hệ thống đang xử lý, vui lòng quý khách chờ trong vài giây và không đóng tab này. Trong trường hợp tab bị đóng thì quá trình hiện đang được xử lý sẽ thất bại</p>
                                         </div>`
-                        $('.place__order').parent().append(popupOrder)
-                        $(document).find('.ground__button--forward a').addClass('disabled-link')
-                        $(document).find('.place__order').css('cursor', 'not-allowed').prop('disabled', 'false')
-                        $(document).find('.radio__button').each(function (index) {
-                            $(this).css('cursor', 'not-allowed').prop('disabled', 'false')
-                        })
-                        $(document).find('.popup__order').css('display', 'block')
-                        setTimeout(function () {
-                            $(document).find('.popup__order').addClass('active');
-                        }, 100);
+                    $('.place__order').parent().append(popupOrder)
+                    $(document).find('.ground__button--forward a').addClass('disabled-link')
+                    $(document).find('.place__order').css('cursor', 'not-allowed').prop('disabled', 'false')
+                    $(document).find('.radio__button').each(function (index) {
+                        $(this).css('cursor', 'not-allowed').prop('disabled', 'false')
+                    })
+                    $(document).find('.popup__order').css('display', 'block')
+                    setTimeout(function () {
+                        $(document).find('.popup__order').addClass('active');
+                    }, 100);
 
-                        setTimeout(function () {
-                            let invoiceNo = response.invoiceNo;
-                            let dateOrder = response.dateOrder;
-                            window.location.href = "${initParam.contextPath}/SuccessOrder?invoiceNo=" + invoiceNo;
-
-                            // $(document).find('.message__process').html(response);
-                            // $(document).find('.loading__order').removeClass('loading__order').html(`<i class="fa-regular fa-circle-check"></i>`).css({'margin': '16px auto', 'fontSize': '80px'});
-                            // $(document).find('.popup__order').append(`<a href="" style="padding: 14px 16px; background-color: #5ee95e; font-weight: 600; display: inline-block; margin: 16px 0px; border-radius: 6px">Đến trang đánh giá</a>`)
-                        }, 3000);
-                    }
-                })
+                    setTimeout(function () {
+                        let invoiceNo = response.invoiceNo;
+                        let dateOrder = response.dateOrder;
+                        window.location.href = "/SuccessOrder?invoiceNo=" + invoiceNo;
+                    }, 3000);
+                }
             })
-        }
+        })
+    }
 
-        handlePlaceOrder();
-    </script>
-
+    handlePlaceOrder();
+</script>
 </html>

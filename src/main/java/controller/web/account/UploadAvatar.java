@@ -4,7 +4,7 @@ package controller.web.account;
 import config.ConfigPage;
 import models.User;
 import properties.PathProperties;
-import services.UploadImageServices;
+import services.image.UploadImageServices;
 import services.UserServices;
 
 import javax.servlet.ServletException;
@@ -32,7 +32,11 @@ public class UploadAvatar extends HttpServlet {
         String root = request.getServletContext().getRealPath("/") + PathProperties.getINSTANCE().getPathAvatarUserWeb();
         UploadImageServices uploadImageServices = new UploadImageServices(root);
 
-        uploadImageServices.addImage(avatar);
+        try {
+            uploadImageServices.addImage(avatar);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String nameAvatar = uploadImageServices.getNameImages().get(0);
 
         UserServices.getINSTANCE().updateInfoUser(id, nameAvatar);

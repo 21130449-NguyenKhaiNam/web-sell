@@ -3,6 +3,7 @@ package utils;
 import services.ProductCardServices;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -12,9 +13,19 @@ import java.util.StringTokenizer;
 
 public abstract class FilterStrategy {
     protected HttpServletRequest request;
+    protected HttpServletResponse response;
+
+    public FilterStrategy(HttpServletRequest request, HttpServletResponse response) {
+        this.request = request;
+        this.response = response;
+    }
 
     public FilterStrategy(HttpServletRequest request) {
         this.request = request;
+    }
+
+    public FilterStrategy(HttpServletResponse response) {
+        this.response = response;
     }
 
     public abstract void doFilter();

@@ -87,6 +87,7 @@ dataHideElement.forEach(function (element) {
         // Get name product
         const tableRow = this.parentNode.parentNode;
         console.log(tableRow.querySelector(".table__data-name .table__cell"))
+
         const nameProduct = tableRow.querySelector(".table__data-name .table__cell").textContent.trim();
         const idProduct = tableRow.querySelector(".table__data-id").textContent.trim();
         // Show alert

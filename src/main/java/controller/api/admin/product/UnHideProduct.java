@@ -1,6 +1,6 @@
 package controller.api.admin.product;
 
-import services.AdminProductServices;
+import services.admin.AdminProductServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

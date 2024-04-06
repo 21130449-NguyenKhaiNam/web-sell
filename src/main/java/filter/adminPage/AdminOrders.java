@@ -1,14 +1,12 @@
 package filter.adminPage;
 
-import config.ConfigPage;
 import models.*;
-import services.AdminOrderServices;
+import services.admin.AdminOrderServices;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -40,7 +38,6 @@ public class AdminOrders implements Filter {
             request.setAttribute("listAllPaymentMethodManage", listAllPaymentMethodManage);
         }
         filterChain.doFilter(request, response);
-
     }
 
     @Override

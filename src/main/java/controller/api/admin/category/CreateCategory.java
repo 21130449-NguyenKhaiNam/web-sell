@@ -3,8 +3,8 @@ package controller.api.admin.category;
 import models.Category;
 import models.Parameter;
 import properties.PathProperties;
-import services.AdminCategoryServices;
-import services.UploadImageServices;
+import services.admin.AdminCategoryServices;
+import services.image.UploadImageServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -64,11 +64,15 @@ public class CreateCategory extends HttpServlet {
             }
             parameterList.add(parameter);
         }
-        uploadImg(request.getParts());
+        try {
+            uploadImg(request.getParts());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         response.getWriter().write("{\"status\":true}");
     }
 
-    public void uploadImg(Collection<Part> parts) throws IOException {
+    public void uploadImg(Collection<Part> parts) throws Exception {
         List<Part> partAfterFilter = new ArrayList<>();
         ServletContext servletContext = getServletContext();
         String rootSizeGuideImg = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathCategoryWeb();
