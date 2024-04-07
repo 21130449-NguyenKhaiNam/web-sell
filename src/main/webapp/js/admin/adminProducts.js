@@ -177,6 +177,7 @@ function callAjaxToPage(pageNumber) {
 
 function showProduct(data) {
     const products = data["products"]
+
     products.forEach(function (value) {
         const product = value["product"]
         const id = product["id"]
@@ -184,9 +185,12 @@ function showProduct(data) {
         const originalPrice = product["originalPrice"]
         const salePrice = product["salePrice"]
 
+
         const images = value["images"]
 
         const nameImage = images[0]["nameImage"]
+        const visibility = product["visibility"]
+
         const vndFormat = Intl.NumberFormat("vi-VI", {
             style: "currency", currency: "VND",
         });
@@ -209,7 +213,7 @@ function showProduct(data) {
                 <p class="table__cell line-clamp line-1">${name}</p>
             </td>
             <td class="table__data">
-                <p class="table__cell">the thao</p>
+                <p class="table__cell">${value.nameCategory}</p>
             </td>
           
             <td class="table__data">
@@ -218,8 +222,16 @@ function showProduct(data) {
             <td class="table__data">
                 <p class="table__cell">${vndFormat.format(salePrice)}</p>
             </td>
+            
+            ${visibility ?
+            `<td class="table__data table__data-visibility table__data-hide">
+                <div class="button button--hover button__hide">Ẩn</div>
+            </td>` :
+            `<td class="table__data table__data-visibility table__data-un-hide">
+                <div class="button button--hover button__un-hide">Bỏ ẩn</div>
+            </td>`
+        }
         </tr>`
-
     })
 }
 
