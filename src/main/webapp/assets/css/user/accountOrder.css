@@ -66,3 +66,7 @@ body {
     margin-left: 1rem;
     margin-right: 1rem;
 }
+
+#modal{
+    z-index: 2000;
+}

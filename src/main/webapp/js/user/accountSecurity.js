@@ -65,28 +65,18 @@ $(document).ready(function () {
     function handleResponse(response) {
         if (response.status === 200) {
             console.log("Đổi mật khẩu thành công");
-            createToast("#toast-container", "Đổi mật khẩu thành công", "success");
-
+            Swal.fire({
+                title: "Chúc mừng!",
+                text: "Đổi mật khẩu thành công",
+                icon: "success"
+            });
         } else {
             console.log("Đổi mật khẩu ko thành công");
-            createToast("#toast-container", "Đổi mật khẩu ko thành công", "danger");
-
+            Swal.fire({
+                title: "Lỗi!",
+                text: "Đổi mật khẩu ko thành công",
+                icon: "error"
+            });
         }
-    }
-
-    function createToast(container, message, type) {
-        const toastHTML = `<div class="toast" role="alert">
-                                      <div class="toast-header">
-                                        <strong class="me-auto">${type}</strong>
-                                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                                      </div>
-                                      <div class="toast-body">
-                                        ${message}
-                                      </div>
-                                    </div>`
-        $(container).append(toastHTML);
-        $('.toast:first').addClass("show").delay(5000).fadeOut('slow', function () {
-            $(this).removeClass("show").delay(2000).remove();
-        });
     }
 });

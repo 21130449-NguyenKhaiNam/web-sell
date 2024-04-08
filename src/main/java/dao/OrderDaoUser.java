@@ -63,12 +63,12 @@ public class OrderDaoUser {
         return GeneralDao.executeQueryWithSingleTable(querry, OrderDetail.class, userId);
     }
 
-    public List<OrderDTO> getOrderByStatusId(String statusId) {
+    public List<OrderDTO> getOrderByStatusId(int statusId) {
         String sql = """
-                        SELECT orders.id, orders.dateOrder, COUNT(order_details.orderId) AS quantity
-                        FROM orders JOIN order_details ON orders.id = order_details.orderId
-                        WHERE orders.orderStatusId = ?
-                        GROUP BY order_details.orderId
+                    SELECT orders.id, orders.dateOrder, COUNT(order_details.orderId) AS quantity
+                    FROM orders JOIN order_details ON orders.id = order_details.orderId
+                    WHERE orders.orderStatusId = ?
+                    GROUP BY order_details.orderId
                 """;
         return GeneralDao.executeQueryWithSingleTable(sql, OrderDTO.class, statusId);
     }

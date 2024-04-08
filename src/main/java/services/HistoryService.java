@@ -26,7 +26,7 @@ public class HistoryService {
         return orderDAO.getOrderDetailByOrderId(listId);
     }
 
-    public List<OrderDTO> getOrderByStatusId(String statusId) {
+    public List<OrderDTO> getOrderByStatusId(int statusId) {
         return orderDAO.getOrderByStatusId(statusId);
     }
 
@@ -54,11 +54,4 @@ public class HistoryService {
         return orderDAO.getNameImageByProductId(id);
     }
 
-    public Paging<OrderDTO> getOrderByStatusId(int start, int length) {
-        Paging<OrderDTO> paging = new Paging<>();
-        paging.setStart(start);
-        paging.setLength(length);
-        paging.setList(orderDAO.getOrderList(start, length));
-        return paging;
-    }
 }

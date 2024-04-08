@@ -3,52 +3,34 @@ $(document).ready(function () {
         $('.list-group-item-action').removeClass('active');
         $(this).addClass('active');
         const statusId = $(this).data('status');
+        console.log(statusId)
         getOrders(statusId);
     });
-    // $('#orderList').DataTable({
-    //     ajax: '/js/user/datatable.json',
-    //     columns: [
-    //         {
-    //             data: 'id'
-    //         },
-    //         {
-    //             data: 'dateOrder'
-    //         },
-    //         {
-    //             data: 'price'
-    //         },
-    //         {
-    //             data: 'status'
-    //         }
-    //         , {
-    //             "data": null,
-    //             "defaultContent": "<button class=\"btn btn-primary\">Chi tiết</button>", // Button content
-    //             "searchable": false,
-    //             "orderable": false
-    //         }
-    //     ],
-    //     columnDefs: [
-    //         {
-    //             targets: [0, 1, 2, 3, 4, 5], // Apply to all columns
-    //             render: function (data, type, full, meta) {
-    //                 if (type === 'filter') {
-    //                     var column = meta.col;
-    //                     var select = $('<select><option value="">All</option></select>')
-    //                         .appendTo($(column.header()))
-    //                         .on('change', function () {
-    //                             var val = $.fn.dataTable.util.escapeRegex(
-    //                                 $(this).val()
-    //                             );
-    //                             column.search(val ? '^' + val + '$' : '', true, false).draw();
-    //                         });
-    //
-    //                     column.data().unique().sort().each(function (d, j) {
-    //                         select.append('<option value="' + d + '">' + d + '</option>')
-    //                     });
-    //                 }
-    //                 return data;
-    //             }
-    //         }
-    //     ]
-    // });
+
+    function getOrders(statusId) {
+        $.ajax({
+            url: '/api/user/order',
+            type: 'GET',
+            data: {
+                statusId: statusId,
+            },
+            success: function (response) {
+                loadDataToTable(response.data)
+            }
+        })
+    }
+
+    function loadDataToTable(data) {
+        const table = $('#orderList tbody');
+        table.empty();
+        const htmls = data.map(function (order) {
+            return `<tr>
+                        <td>${order.id}</td>
+                        <td>${order.dateOrder}</td>
+                        <td>${order.quantity}</td>
+                        <td><button class="btn btn-primary" data-id="${order.id}" data-bs-toggle="modal" data-bs-target="#modal">Xem chi tiet</button></td>
+                    </tr>`
+        })
+        table.html(htmls.join(''));
+    }
 });
