@@ -255,7 +255,10 @@
                                         <div class="product__item">
                                             <c:set var="listImagesProduct"
                                                    value="${productFactory.getListImagesByProductId(productId)}"/>
-                                            <img src='/assets/img/product_img/${listImagesProduct.get(0).nameImage}'>
+                                            <%
+                                                String nameImage = ((List<Image>) pageContext.getAttribute("listImagesProduct")).get(0).getNameImage();
+                                            %>
+                                            <img src='<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", nameImage)%>'>
                                             <div class="order__product--info">
                                                 <p class="product__name">${cartProduct.product.name}</p>
                                                 <p class="order__color">Màu sắc: ${cartProduct.color.codeColor}</p>
@@ -485,4 +488,3 @@
     handlePlaceOrder();
 </script>
 </html>
-

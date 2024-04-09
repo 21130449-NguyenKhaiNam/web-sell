@@ -9,7 +9,7 @@
 <%@ page import="org.json.JSONObject" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="utils.FormatCurrency" %>
-<%@ page import="session.SessionManager" %>
+<%@ page import="services.image.CloudinaryUploadServices" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -92,53 +92,55 @@
                                             int cartProductIndex = shoppingCartMap.get(productId).indexOf(cartProduct);
                                 %>
 
-                                <tr class="cart__item" data-product-id="<%=productId%>"
-                                    data-cart-product-index="<%=cartProductIndex%>">
-                                    <td class="product__item">
-                                        <div class="product__content">
-                                            <a class="product__image"
-                                               href="<c:url value="/showProductDetail"/>?id=<%=productId%>">
-                                                <img src='<c:url value="/assets/img/product_img/" /><%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
-                                            </a>
-                                            <div class="order__product--info">
-                                                <a href="#"
-                                                   class="product__name"><%=cartProduct.getProduct().getName()%>
+                                    <tr class="cart__item" data-product-id="<%=productId%>" data-cart-product-index="<%=cartProductIndex%>">
+                                        <td class="product__item">
+                                            <div class="product__content">
+                                                <a class="product__image" href="<c:url value="/showProductDetail" />?id=<%=productId%> ">
+<<<<<<< HEAD
+                                                    <img src='<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", ProductFactory.getListImagesByProductId(productId).get(0).getNameImage())%>'>
+=======
+                                                    <img src='<c:url value="/assets/img/product_img/" /><%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
+>>>>>>> 21130449
                                                 </a>
-                                                <p class="order__color">Màu
-                                                    sắc: <%=cartProduct.getColor().getCodeColor()%>
-                                                </p>
-                                                <ul class="order__size--specification">
-                                                    <%=cartProduct.makeSizeFormat()%>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="unit__price"><%=cartProduct.sewingPriceFormat()%>
-                                    </td>
-                                    <td>
-                                        <div class="quality__swapper">
-                                            <button type="submit" class="minus__quality change__quality" name="action"
-                                                    value="decreaseQuantity"><i class="fa-solid fa-minus"></i></button>
-                                            <input type="number" name="quality__required" class="quality__required"
-                                                   min="1" value="<%=cartProduct.getQuantity()%>">
-                                            <button type="submit" class="plus__quality change__quality" name="action"
-                                                    value="increaseQuantity"><i class="fa-solid fa-plus"></i></button>
-                                        </div>
-                                    </td>
-                                    <td class="subtotal__item"><%=FormatCurrency.vietNamCurrency(cartProduct.getSubtotal())%>
-                                    </td>
-                                    <td class="remove__action">
-                                        <button type="submit" name="action" value="removeCartProduct"
-                                                class="remove__item"><i class="fa-solid fa-trash-can"></i></button>
-                                    </td>
-                                </tr>
-                                <%
+                                                <div class="order__product--info">
+                                                    <a href="#" class="product__name">
+                                                        <%=cartProduct.getProduct().getName()%>
+                                                    </a>
+                                                    <p class="order__color">
+                                                        Màu sắc:<%=cartProduct.getColor().getCodeColor()%>
+                                                    </p>
+                                                    <ul class="order__size--specification">
 
-                                        }
-                                    }
-                                %>
+                                                        <%=cartProduct.makeSizeFormat()%>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="unit__price">
+                                            <%=cartProduct.sewingPriceFormat()%>
+                                        </td>
+                                        <td>
+                                            <div class="quality__swapper">
+                                                <button type="submit" class="minus__quality change__quality" name="action" value="decreaseQuantity">
+                                                    <i class="fa-solid fa-minus"></i></button>
+                                                <input type="number" name="quality__required" class="quality__required" min="1" value="<%=cartProduct.getQuantity()%>">
+                                                <button type="submit" class="plus__quality change__quality" name="action" value="increaseQuantity">
+                                                    <i class="fa-solid fa-plus"></i></button>
+                                            </div>
+                                        </td>
+                                        <td class="subtotal__item">
+                                            <%=FormatCurrency.vietNamCurrency(cartProduct.getSubtotal())%>
+                                        </td>
+                                        <td class="remove__action">
+                                            <button type="submit" name="action" value="removeCartProduct" class="remove__item">
+                                                <i class="fa-solid fa-trash-can"></i></button>
+                                        </td>
+                                    </tr>
+                                    <% }
+                                    }%>
                                 </tbody>
                             </table>
+
                         </form>
                     </div>
                     <div class="invoice__promotion col">
@@ -158,7 +160,6 @@
                                     <button type="submit" name="action" value="applyVoucher" id="apply">Áp dụng</button>
                                 </div>
                                 <div class="apply__status">
-                                        <%--                                    <fmt:setLocale value="vi_VN"/>--%>
                                     <c:if test="${sessionScope.successApplied != null}">
                                         <span class="apply__success"><i
                                                 class="fa-solid fa-circle-check"></i> <span>${sessionScope.successApplied}</span></span>

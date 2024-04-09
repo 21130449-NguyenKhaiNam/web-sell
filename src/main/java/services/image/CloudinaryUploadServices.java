@@ -7,6 +7,8 @@ import properties.CloudinaryProperties;
 
 import javax.servlet.http.Part;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -19,13 +21,15 @@ public class CloudinaryUploadServices implements IUpload {
     // Chiều cao và chiều dài cho ảnh lấy (bên cloud tự điều chỉnh kích thước width và height, nếu để null thì lấy kích thước gốc của ảnh)
     private Integer width;
     private Integer height;
-//    Obj dùng để thao tác trên ảnh
+    //    Obj dùng để thao tác trên ảnh
     private Transformation transformation;
 
     //Khởi tạo các giá trị cần thiết cho biến
     private void init() {
         cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", CloudinaryProperties.getCloudName(), "api_key", CloudinaryProperties.getApiKey(), "api_secret", CloudinaryProperties.getApiSecret(), "access_mode", "public", "secure", true));
-        transformation = new Transformation().width(width).height(height).crop("fill");
+        transformation = new Transformation().crop("scale").chain()
+                .quality("auto").chain()
+                .fetchFormat("auto");
     }
 
     private CloudinaryUploadServices() {
@@ -49,8 +53,13 @@ public class CloudinaryUploadServices implements IUpload {
 
     //    Lấy danh sách link ảnh từ cloudinary
     @Override
-    public List<String> getImages(String folderPath, String[] imageNameArray) {
-        return Arrays.stream(imageNameArray).map(imageName -> getImage(folderPath, imageName)).collect(Collectors.toList());
+    public List<String> getImages(String folderPath, List<String> imageNameArray) {
+        List<String> res = new ArrayList<>();
+
+        for(String imageName : imageNameArray){
+            res.add( getImage(folderPath, imageName));
+        }
+        return res;
     }
 
     //    Upload 1 ảnh lên cloudinary
@@ -61,7 +70,14 @@ public class CloudinaryUploadServices implements IUpload {
 
         File tempFile = File.createTempFile("temp", null);
         part.write(tempFile.getAbsolutePath());
-        cloudinary.uploader().upload(tempFile, ObjectUtils.asMap("folder", folderName, "public_id", imageName));
+        cloudinary.uploader().uploadLarge(tempFile, ObjectUtils.asMap("folder", folderName, "public_id", imageName));
+    }
+
+    public void upload(String folderName, String imageName, File file) throws Exception {
+        Map<String, Object> folderParams = ObjectUtils.asMap("folder", folderName);
+        cloudinary.api().createFolder(folderName, folderParams);
+
+        cloudinary.uploader().uploadLarge(file, ObjectUtils.asMap("folder", folderName, "public_id", imageName));
     }
 
     //    Upload nhiều ảnh lên cloudinary
@@ -69,6 +85,16 @@ public class CloudinaryUploadServices implements IUpload {
     public void uploadImages(String folderName, String imageName, Part[] parts) throws Exception {
         for (Part part : parts) {
             uploadImage(folderName, imageName, part);
+        }
+    }
+
+    public void deleteImage(String imageFolder) throws IOException {
+        cloudinary.uploader().destroy(imageFolder, ObjectUtils.emptyMap());
+    }
+
+    public void deleteImages(List<String> imagesFolder) throws IOException {
+        for (String imageFolder : imagesFolder){
+            cloudinary.uploader().destroy(imageFolder, ObjectUtils.emptyMap());
         }
     }
 

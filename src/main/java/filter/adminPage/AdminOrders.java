@@ -38,7 +38,6 @@ public class AdminOrders implements Filter {
             request.setAttribute("listAllPaymentMethodManage", listAllPaymentMethodManage);
         }
         filterChain.doFilter(request, response);
-
     }
 
     @Override

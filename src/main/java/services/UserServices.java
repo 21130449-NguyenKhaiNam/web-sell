@@ -3,7 +3,6 @@ package services;
 import dao.AddressDAOImpDAO;
 import dao.IAddressDAO;
 import dao.UserDAO;
-import dao.UserDAOImplement;
 import models.Address;
 import models.User;
 import org.apache.http.HttpResponse;
@@ -23,7 +22,7 @@ public class UserServices {
     private IAddressDAO addressDAO;
 
     private UserServices() {
-        userDAO = new UserDAOImplement();
+        userDAO = new UserDAO();
         addressDAO = new AddressDAOImpDAO();
     }
 

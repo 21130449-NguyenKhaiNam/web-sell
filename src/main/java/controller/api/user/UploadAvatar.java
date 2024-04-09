@@ -1,5 +1,6 @@
 package controller.api.user;
 
+import lombok.SneakyThrows;
 import models.User;
 import org.json.JSONObject;
 import properties.PathProperties;
@@ -25,6 +26,7 @@ public class UploadAvatar extends HttpServlet {
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
+    @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = SessionManager.getInstance(request, response).getUser();

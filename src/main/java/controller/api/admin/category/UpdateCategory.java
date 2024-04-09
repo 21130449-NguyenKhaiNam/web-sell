@@ -70,12 +70,14 @@ public class UpdateCategory extends HttpServlet {
             objJson.append("{\"status\":").append("true}");
         } catch (NumberFormatException e) {
             objJson.append("{\"status\":").append("false}");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         response.getWriter().write(objJson.toString());
     }
 
     //Update image size table;
-    private String uploadImageSizeTable(Part part) throws IOException {
+    private String uploadImageSizeTable(Part part) throws Exception {
         ServletContext servletContext = getServletContext();
         String root = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathCategoryWeb();
         UploadImageServices uploadImageServices = new UploadImageServices(root);
@@ -83,7 +85,7 @@ public class UpdateCategory extends HttpServlet {
         return uploadImageServices.getNameImages().get(0);
     }
 
-    private List<String> uploadGuideImages(Collection<Part> parts) throws IOException {
+    private List<String> uploadGuideImages(Collection<Part> parts) throws Exception {
         ServletContext servletContext = getServletContext();
         String root = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathParameterWeb();
         UploadImageServices uploadImageServices = new UploadImageServices(root);

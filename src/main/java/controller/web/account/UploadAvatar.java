@@ -33,7 +33,11 @@ public class UploadAvatar extends HttpServlet {
         String root = request.getServletContext().getRealPath("/") + PathProperties.getINSTANCE().getPathAvatarUserWeb();
         UploadImageServices uploadImageServices = new UploadImageServices(root);
 
-        uploadImageServices.addImage(avatar);
+        try {
+            uploadImageServices.addImage(avatar);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String nameAvatar = uploadImageServices.getNameImages().get(0);
 
         UserServices.getINSTANCE().updateInfoUser(id, nameAvatar);

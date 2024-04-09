@@ -1,7 +1,6 @@
 package services.mail;
 
 import properties.MailProperties;
-import services.mail.IMailServices;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

@@ -26,6 +26,8 @@ public class ProductBuying implements Filter {
         request.setAttribute("quantityPage", quantityPage);
         String requestURL = "/filterProductBuying?";
         request.setAttribute("requestURL", requestURL);
+        request.setAttribute("quantityPageMin", 1);
+        request.setAttribute("quantityPageMax", 5);
         chain.doFilter(request, response);
     }
 }

@@ -1,7 +1,7 @@
 package services.authentication;
 
+import dao.IUserDAO;
 import dao.UserDAO;
-import dao.UserDAOImplement;
 import models.User;
 import properties.MailProperties;
 import properties.RoleProperties;
@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 public class AuthenticateServices {
     private static AuthenticateServices INSTANCE;
 
-    UserDAO userDAO = new UserDAOImplement();
+    UserDAO userDAO = new UserDAO();
 
     private AuthenticateServices() {
     }
@@ -37,6 +37,31 @@ public class AuthenticateServices {
         return INSTANCE;
     }
 
+    public Validation checkEmailExists(String email) {
+        Validation validation = new Validation();
+        validation.setFieldEmail(email.isBlank() ?
+                "Email không được để trống" :
+                (
+                        !userDAO.selectByEmail(email, null).isEmpty() ?
+                                "Email đã tồn tại." :
+                                ""
+                )
+        );
+        return validation;
+    }
+
+    public Validation checkUsernameExists(String username) {
+        Validation validation = new Validation();
+        validation.setFieldUsername(username.isBlank() ?
+                "Tên đăng nhập không được để trống" :
+                (
+                        !userDAO.selectAccount(username, null).isEmpty() ?
+                                "Tên đăng nhập đã tồn tại." :
+                                ""
+                )
+        );
+        return validation;
+    }
     public Validation checkSignIn(String email) {
         Validation validation = new Validation();
         if (email.isEmpty()) {
@@ -52,7 +77,6 @@ public class AuthenticateServices {
         }
         return validation;
     }
-
     public Validation checkSignIn(String username, String password) {
         Validation validation = new Validation();
 //        Check username empty
@@ -65,40 +89,23 @@ public class AuthenticateServices {
         }
 
 //        Check user in db
-        List<User> users = userDAO.selectAccountByUsername(username);
+        List<User> users = userDAO.selectAccount(username, "1");
+
 //        Check username
         if (users.size() != 1) {
             validation.setFieldUsername("Tên đăng nhập không tồn tại.");
             return validation;
         }
-        User user = users.get(0);
-//        Check password
-        boolean checkPassword = Encoding.getINSTANCE().toSHA1(password).equals(user.getPasswordEncoding());
-        boolean checkVerify = user.isVerify();
 
-        if (checkPassword && checkVerify) {
-            User userValid = extractUser(user);
-            validation.setObjReturn(userValid);
+//        Check password
+        User user = users.get(0);
+        String encode = Encoding.getINSTANCE().toSHA1(password);
+        if (user.getPasswordEncoding().equals(encode)) {
+            validation.setObjReturn(user);
         } else {
             validation.setFieldPassword("Mật khẩu sai");
         }
         return validation;
-    }
-
-    private User extractUser(User user) {
-        User userValid = new User();
-        userValid.setId(user.getId());
-        userValid.setUsername(user.getUsername());
-        userValid.setRole(user.getRole());
-        userValid.setAvatar(user.getAvatar());
-        userValid.setFullName(user.getFullName());
-        userValid.setPhone(user.getPhone());
-        userValid.setGender(user.getGender());
-        userValid.setEmail(user.getEmail());
-        userValid.setPhone(user.getPhone());
-        userValid.setAddress(user.getAddress());
-        userValid.setBirthDay(user.getBirthDay());
-        return userValid;
     }
 
     public Validation checkSignUp(String username, String email, String password, String confirmPassword) {
@@ -109,6 +116,7 @@ public class AuthenticateServices {
         String errorUsername = "Tên đăng nhập đã tồn tại";
         String errorPassword = "Mật khẩu có không thỏa điều kiện";
         String errorPasswordConfirm = "Mật khẩu nhập lại không hợp lệ";
+
         String emptyField = "Không được để trống trường này";
 
 //        checkEmpty
@@ -296,4 +304,21 @@ public class AuthenticateServices {
         Timestamp result = Timestamp.valueOf(newDateTime);
         return result;
     }
+
+    private User extractUser(User user) {
+        User userValid = new User();
+        userValid.setId(user.getId());
+        userValid.setUsername(user.getUsername());
+        userValid.setRole(user.getRole());
+        userValid.setAvatar(user.getAvatar());
+        userValid.setFullName(user.getFullName());
+        userValid.setPhone(user.getPhone());
+        userValid.setGender(user.getGender());
+        userValid.setEmail(user.getEmail());
+        userValid.setPhone(user.getPhone());
+        userValid.setAddress(user.getAddress());
+        userValid.setBirthDay(user.getBirthDay());
+        return userValid;
+    }
+
 }

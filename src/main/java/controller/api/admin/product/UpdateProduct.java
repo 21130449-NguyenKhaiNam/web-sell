@@ -1,5 +1,6 @@
 package controller.api.admin.product;
 
+import lombok.SneakyThrows;
 import models.Product;
 import properties.PathProperties;
 import services.admin.AdminProductServices;
@@ -26,6 +27,7 @@ public class UpdateProduct extends HttpServlet {
         doPost(request, response);
     }
 
+    @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idString = request.getParameter("id");
@@ -81,7 +83,7 @@ public class UpdateProduct extends HttpServlet {
         response.getWriter().write(objJson.toString());
     }
 
-    public void updateImage(Collection<Part> images, int quantityImgDelete, int productId) {
+    public void updateImage(Collection<Part> images, int quantityImgDelete, int productId) throws Exception {
         ServletContext servletContext = getServletContext();
         String root = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathProductWeb();
         UploadImageServices uploadImageServices = new UploadImageServices(root);

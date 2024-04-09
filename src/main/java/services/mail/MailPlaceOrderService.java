@@ -4,7 +4,6 @@ import models.shoppingCart.AbstractCartProduct;
 import models.DeliveryInfo;
 import models.shoppingCart.ShoppingCart;
 import properties.MailProperties;
-import services.mail.IMailServices;
 import utils.FormatCurrency;
 
 import javax.mail.*;
@@ -17,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MailPlaceOrderService implements IMailServices {
+public class MailPlaceOrderService implements IMailServices{
 
     private ShoppingCart cart;
 
