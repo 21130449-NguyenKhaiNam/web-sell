@@ -126,7 +126,7 @@
                             <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
-                            <form action="AddToCart"
+                            <form action="/api/cart/add"
                                   class="action__bar" method="post">
                                 <input type="hidden"
                                        name="productId"
@@ -191,7 +191,7 @@
                             <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
-                            <form action="AddToCart"
+                            <form action="/api/cart/add"
                                   class="action__bar" method="post">
                                 <input type="hidden"
                                        name="productId"
@@ -263,7 +263,7 @@
         <div class="guide__content row">
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="/assets/img/step_guide/choose.png" />">
+                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("step_guide", "choose")%>">
                     <div class="description_step">
                         <span>Bước 1</span>
                         <p>Chọn một mẫu đồ mà bạn ưng ý</p>
@@ -272,7 +272,7 @@
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="/assets/img/step_guide/customize.png" />">
+                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("step_guide", "customize")%>">
                     <div class="description_step">
                         <span>Bước 2</span>
                         <p>Tùy chọn size và kiểu dáng phù hợp với nhu cầu của bạn</p>
@@ -281,7 +281,7 @@
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="/assets/img/step_guide/checkout.png" />">
+                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("step_guide", "checkout")%>">
                     <div class="description_step">
                         <span>Bước 3</span>
                         <p>Tiến hành đặt may và thanh toán</p>
@@ -290,7 +290,7 @@
             </div>
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
-                    <img src="<c:url value="/assets/img/step_guide/receive.png" />">
+                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("step_guide", "receive")%>">
                     <div class="description_step">
                         <span>Bước 4</span>
                         <p>Chờ nhận hàng sau khi bạn đã thanh toán thành công</p>

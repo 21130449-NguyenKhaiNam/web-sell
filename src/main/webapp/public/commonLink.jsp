@@ -1,4 +1,3 @@
-<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -33,5 +32,5 @@
 <!-- Tippy -->
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
-<link src="https://unpkg.com/tippy.js@6/animations/scale.css" />
-<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css">
+<link href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css"/>

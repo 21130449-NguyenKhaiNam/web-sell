@@ -1,8 +1,5 @@
 package filter.shoppingCart;
 
-//import cartShopping.ShoppingCart;
-
-import config.ConfigPage;
 import models.Voucher;
 import services.ShoppingCartServices;
 

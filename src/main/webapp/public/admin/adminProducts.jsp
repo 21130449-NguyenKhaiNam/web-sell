@@ -16,6 +16,8 @@
 </head>
 <body>
 <c:import url="/public/header.jsp"/>
+<c:set var="sessionId" value="${cookie['sessionId'].value}" />
+<c:set var="auth" value="${sessionScope.sessionUser[sessionId]}" />
 <main id="main">
     <nav class="navbar">
         <div class="container-xl">
@@ -163,7 +165,7 @@
                         <span class="reload__btn">
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
-                        <c:if test="${sessionScope.auth.role == 2}">
+                        <c:if test="${auth.role == 2}">
                             <span id="button-create-product" class="button button__add">
                                 <i class="fa-solid fa-plus"></i>
                                 Thêm sản phẩm
@@ -175,7 +177,7 @@
                             <thead>
                             <tr class="table__row">
                                 <th class="table__head">Xem</th>
-                                <c:if test="${sessionScope.auth.role == '2'}">
+                                <c:if test="${auth.role == '2'}">
                                     <th class="table__head">Chỉnh sửa</th>
                                 </c:if>
                                 <th class="table__head">Mã sản phẩm</th>
@@ -198,7 +200,7 @@
                                             <i class="fa-solid fa-eye"></i>
                                         </label>
                                     </td>
-                                    <c:if test="${sessionScope.auth.role == '2'}">
+                                    <c:if test="${auth.role == '2'}">
                                         <td class="table__data-edit">
                                             <label>
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -244,7 +246,6 @@
                     </div>
                     <!--Paging-->
                     <c:import url="/public/paging.jsp"/>
-
                 </div>
             </div>
         </div>
@@ -283,9 +284,6 @@
     </article>
     <div class="modal__blur"></div>
 </div>
-<script>
-    const role = "<%=((User)session.getAttribute("auth")).getRole()%>";
-</script>
 <script src="<c:url value="/js/admin/adminProducts.js"/>"></script>
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
@@ -374,7 +372,7 @@
                                             <i class="fa-solid fa-eye"></i>
                                         </label>
                                     </td>
-                                    <c:if test="${sessionScope.auth.role == '2'}">
+                                    <c:if test="${auth.role == '2'}">
                                         <td class="table__data-edit">
                                             <label>
                                                 <i class="fa-solid fa-pen-to-square"></i>

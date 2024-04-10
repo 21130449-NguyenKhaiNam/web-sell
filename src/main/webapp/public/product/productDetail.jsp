@@ -1,4 +1,3 @@
-
 <%@ page import="models.Product" %>
 <%@ page import="services.image.CloudinaryUploadServices" %>
 <%@ page import="models.Image" %>
@@ -14,14 +13,12 @@
 <fmt:setLocale value="vi_VN" />
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-        <%Product product = (Product)request.getAttribute("product");%>>
-        <jsp:include page="/public/commonLink.jsp" />
+        <%Product product = (Product)request.getAttribute("product");%>
+        <jsp:include page="/public/commonLink.jsp"/>
         <link rel="stylesheet" href="<c:url value="/assets/css/productDetail.css"/>">
         <title><%=product.getName()%></title>
     </head>
-
     <body>
         <c:import url="/public/header.jsp" />
         <main class="main">
