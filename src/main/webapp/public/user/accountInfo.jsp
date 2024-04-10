@@ -7,6 +7,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <jsp:include page="/public/commonLink.jsp" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
         <link rel="stylesheet" href="/assets/css/user/account.css">
         <link rel="stylesheet" href="/assets/css/user/accountInfo.css">
         <title>Thông tin cá nhân</title>
@@ -33,7 +34,7 @@
                         <div class="card-header">Ảnh đại diện</div>
                         <div class="card-body text-center">
                             <div class="w-50 h-50 rounded-circle overflow-hidden mx-auto">
-                                <img id="preview-avatar" class="img-account-profile object-fit-cover mb-2" src="/assets/img/user/userDefaultAvatar.jpg" alt>
+                                <img id="preview-avatar" class="img-account-profile object-fit-cover mb-2" src="/assets/img/userDefautAvatar.jpg" alt>
                             </div>
                             <div id="username" class="medium  text-muted mb-2">${user.username}</div>
                             <div id="email" class="small  text-muted mb-4">${user.email}</div>
@@ -160,6 +161,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <a href="/" class="btn btn-primary rounded-circle position-fixed" style="top: 10px; left: 10px; width: 50px; height: 50px;">
+            <i class="fa-solid fa-house position-absolute top-50 start-50 translate-middle"></i>
+        </a>
+        <div class='d-none loader__wrapper position-fixed top-0 start-0 end-0 bottom-0' style="background-color: rgba(0,0,0,0.5)" >
+            <span class='position-absolute top-50 start-50 translate-middle loader'></span>
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

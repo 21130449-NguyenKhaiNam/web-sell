@@ -6,7 +6,6 @@ import models.User;
 import services.authentication.AuthenticateServices;
 import services.authentication.GoogleLoginServices;
 import session.SessionManager;
-import utils.Validation;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,11 +27,10 @@ public class SignInGoogle extends HttpServlet {
             String accessToken = GoogleLoginServices.getINSTANCE().getToken(code);
             GoogleUser googleUserAccount = (GoogleUser) GoogleLoginServices.getINSTANCE().getUserInfo(accessToken);
             String emailGoogle = googleUserAccount.getEmail();
-            Validation validation = AuthenticateServices.getINSTANCE().checkSignIn(emailGoogle);
-            if (validation.getObjReturn() != null) {
-                User user = (User) validation.getObjReturn();
+            User userValid = AuthenticateServices.getINSTANCE().checkSignIn(emailGoogle);
+            if (userValid != null) {
 //                Tài khoản đã tồn tại
-                SessionManager.getInstance(request, response).addUser(user);
+                SessionManager.getInstance(request, response).addUser(userValid);
                 response.sendRedirect(ConfigPage.HOME);
             } else {
 //                Tài khoản chưas tồn tại

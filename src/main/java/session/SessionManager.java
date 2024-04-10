@@ -1,6 +1,7 @@
 package session;
 
 import models.User;
+import services.UserServices;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +35,6 @@ public class SessionManager {
         session.setAttribute(SESSION_TABLE, sessionTable);
     }
 
-
     public static SessionManager getInstance(HttpServletRequest request, HttpServletResponse response) {
         return new SessionManager(request, response);
     }
@@ -43,14 +43,13 @@ public class SessionManager {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (sessionTable.get(cookie.getValue()) != null) {
+                if (cookie.getName().equals(SESSION_ID)) {
                     return sessionTable.get(cookie.getValue());
                 }
             }
         }
         return null;
     }
-
 
     public void addUser(User user) {
         String sessionId = generateSessionId();
@@ -72,7 +71,7 @@ public class SessionManager {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (sessionTable.get(cookie.getValue()) != null){
+                if (sessionTable.get(cookie.getValue()) != null) {
                     sessionTable.remove(cookie.getValue());
                     session.setAttribute(SESSION_TABLE, sessionTable);
                     cookie.setMaxAge(0);
@@ -82,4 +81,11 @@ public class SessionManager {
             }
         }
     }
+
+    public void updateUser() {
+        int userId = getUser().getId();
+        User user = UserServices.getINSTANCE().getUser(userId);
+        addUser(user);
+    }
+
 }

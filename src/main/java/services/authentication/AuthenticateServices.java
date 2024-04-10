@@ -1,6 +1,5 @@
 package services.authentication;
 
-import dao.IUserDAO;
 import dao.UserDAO;
 import models.User;
 import properties.MailProperties;
@@ -26,7 +25,7 @@ import java.util.regex.Pattern;
 
 public class AuthenticateServices {
     private static AuthenticateServices INSTANCE;
-
+    private final static String STATE_VERIFY = "1";
     UserDAO userDAO = new UserDAO();
 
     private AuthenticateServices() {
@@ -55,28 +54,24 @@ public class AuthenticateServices {
         validation.setFieldUsername(username.isBlank() ?
                 "Tên đăng nhập không được để trống" :
                 (
-                        !userDAO.selectAccount(username, null).isEmpty() ?
+                        !userDAO.selectByUsername(username, null).isEmpty() ?
                                 "Tên đăng nhập đã tồn tại." :
                                 ""
                 )
         );
         return validation;
     }
-    public Validation checkSignIn(String email) {
-        Validation validation = new Validation();
-        if (email.isEmpty()) {
-            validation.setFieldEmail("Email không được để trống");
-        }
-        List<User> users = userDAO.selectAccountByEmail(email);
-        if (users.size() != 1) {
-            validation.setFieldEmail("Email không tồn tại");
-        } else {
-            User user = users.get(0);
-            User userValid = extractUser(user);
-            validation.setObjReturn(userValid);
-        }
-        return validation;
+
+    //    Kiểm tra đăng nhập bằng email (google, facebook)
+    public User checkSignIn(String email) {
+        List<User> users = userDAO.selectByEmail(email, STATE_VERIFY);
+        if (users.size() != 1) return null;
+        User user = users.get(0);
+        User userValid = extractUser(user);
+        return userValid;
     }
+
+    //    Kiểm tra đăng nhập bằng username + password
     public Validation checkSignIn(String username, String password) {
         Validation validation = new Validation();
 //        Check username empty
@@ -89,7 +84,7 @@ public class AuthenticateServices {
         }
 
 //        Check user in db
-        List<User> users = userDAO.selectAccount(username, "1");
+        List<User> users = userDAO.selectByUsername(username, STATE_VERIFY);
 
 //        Check username
         if (users.size() != 1) {
@@ -108,6 +103,7 @@ public class AuthenticateServices {
         return validation;
     }
 
+    //    Kiểm tra đăng ký
     public Validation checkSignUp(String username, String email, String password, String confirmPassword) {
         Validation validation = new Validation();
         final String REGEX_EMAIL_VALID = "^(.+)@(.+)$";
@@ -305,6 +301,8 @@ public class AuthenticateServices {
         return result;
     }
 
+    //    Trích xuất ra các giá trị cần thiết của user
+//    Ex: loại bỏ phần mật khẩu
     private User extractUser(User user) {
         User userValid = new User();
         userValid.setId(user.getId());

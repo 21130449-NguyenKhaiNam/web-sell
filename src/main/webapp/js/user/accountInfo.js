@@ -7,153 +7,15 @@ $(document).ready(function () {
     const inputDistrict = $("#inputDistrict");
     const inputWard = $("#inputWard");
 
-    async function callAjax(param) {
-        try {
-            const response = await fetch(`${URL}${param}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'token': token
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-        }
-    }
-
-    function setupSelect2() {
-        inputProvince.select2({
-            placeholder: 'Chọn tỉnh/thành phố',
-            data: [],
-        });
-
-        inputDistrict.select2({
-            placeholder: 'Chọn quận/huyện',
-            data: [],
-            language: {
-                "noResults": function () {
-                    return "Vui lòng chọn tỉnh/thành phố trước";
-                }
-            },
-        });
-
-        inputWard.select2({
-            placeholder: 'Chọn phường/xã',
-            data: [],
-            language: {
-                "noResults": function () {
-                    return "Vui lòng chọn quận/huyện trước";
-                }
-            },
-        });
-        getProvinces();
-        loadData();
-        addEvent();
-    }
-
-    function addEvent() {
-        inputProvince.on('select2:select', (e) => {
-            provinceId = e.params.data.id;
-            loadData();
-        });
-        inputDistrict.on('select2:select', (e) => {
-            districtId = e.params.data.id;
-            loadData()
-        })
-    }
-
-    function loadData() {
-        if (provinceId) {
-            getDistricts(provinceId);
-        }
-        if (districtId) {
-            getWards(districtId);
-        }
-        if (provinceId && districtId) {
-            getWards(districtId);
-        }
-    }
-
-    function getProvinces() {
-        callAjax("province").then(res => {
-            const data = res.data.map(item => {
-                return {
-                    id: item.ProvinceID,
-                    text: item.ProvinceName
-                }
-            });
-            inputProvince.empty()
-            inputProvince.select2({
-                placeholder: 'Chọn tỉnh/thành phố',
-                data: provinceId ? data : ["", ...data],
-            });
-        });
-    }
-
-    function getDistricts(provinceId) {
-        callAjax(`district?province_id=${provinceId}`).then(res => {
-            const data = res.data.map(item => {
-                return {
-                    id: item.DistrictID,
-                    text: item.DistrictName
-                }
-            });
-            inputDistrict.empty();
-            inputDistrict.select2({
-                placeholder: 'Chọn quận/huyện',
-                data: districtId ? data : ["", ...data],
-                language: {
-                    "noResults": function () {
-                        return "Vui lòng chọn tỉnh/thành phố trước";
-                    }
-                },
-            });
-        });
-    }
-
-    function getWards(districtId) {
-        callAjax(`ward?district_id=${districtId}`).then(res => {
-            const data = res.data.map(item => {
-                return {
-                    id: item.WardCode,
-                    text: item.WardName,
-                }
-            });
-            inputWard.empty();
-            inputWard.select2({
-                placeholder: 'Chọn phường/xã',
-                data: wardId ? data : ["", ...data],
-                language: {
-                    "noResults": function () {
-                        return "Vui lòng chọn quận/huyện trước";
-                    }
-                },
-            });
-        });
-    }
-
-    // Date picker jquery plug-in
-    $("#inputDate").datepicker({
-        dateFormat: 'dd-mm-yy', // Set the date format as needed
-        onSelect: function (dateText) {
-            // Optionally, you can perform some action when a date is selected
-        }
-    });
-
-    // ------------------------------------
-    // Validate form upload avatar
+// ------------------------------------
+// Cập nhập avatar
+// Validate form upload avatar
     $("#form-avatar").hide();
     $('#open-form').on("click", () => {
         $("#form-avatar").show();
         $("#open-form").hide();
     })
+
 
     $.validator.addMethod("singleFile", function (value, element) {
         return this.optional(element) || element.files.length === 1;
@@ -189,37 +51,35 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             // Submit form via AJAX
-            var formData = new FormData(form);
-            $.ajax({
-                url: "/upload-avatar",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                xhr: function () {
-                    const xhr = new window.XMLHttpRequest();
-                    // Upload progress
-                    xhr.upload.addEventListener("progress", function (evt) {
-                        if (evt.lengthComputable) {
-                            const percentComplete = (evt.loaded / evt.total) * 100;
-                            // Update progress bar
-                            $("#progress").css("width", percentComplete + "%");
-                            $("#progress").text(percentComplete.toFixed(2) + "%");
-                            $("#progress").delay(5000).fadeOut('slow', function () {
-                                $(this).remove();
-                            });
-                        }
-                    }, false);
-                    return xhr;
-                },
-                success: function (response) {
-                    // Handle success response
-
-                },
-                error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error("Upload error:", error);
-                }
+            alert(() => {
+                var formData = new FormData(form);
+                $.ajax({
+                    url: "/upload-avatar",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function () {
+                        addSpinner();
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            title: "Chúc mừng!",
+                            text: "Avatar đã được cập nhập",
+                            icon: "success"
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            title: "Lỗi!",
+                            text: "Avatar không cập nhập thành công",
+                            icon: "error"
+                        });
+                    },
+                    complete: function () {
+                        cancelSpinner();
+                    }
+                });
             });
             return false; // Prevent form submission
         }
@@ -242,7 +102,24 @@ $(document).ready(function () {
     });
 
 //     -------------------------------
+//     Cập nhập thông tin cá nhân
 //     Validate form personal
+    // Date picker jquery plug-in
+    $("#inputDate").datepicker({
+        dateFormat: 'dd-mm-yy', // Set the date format to "dd-mm-yyyy"
+        changeMonth: true, // Allow changing of months
+        changeYear: true, // Allow changing of years
+        yearRange: '-100:+0', // Allow selection of years from 100 years ago to the current year
+        strictInputParsing: true
+    });
+    $.validator.addMethod(
+        "customDate",
+        function(value, element) {
+            // Validate the date format using a regular expression
+            return value.match(/^\d{2}-\d{2}-\d{4}$/);
+        },
+        "Please enter a valid date in the format dd-mm-yyyy"
+    );
     $("#form-personal").validate({
         rules: {
             fullName: {
@@ -255,6 +132,7 @@ $(document).ready(function () {
             },
             birthDay: {
                 required: true,
+                customDate: true
             },
             phone: {
                 required: true,
@@ -273,14 +151,15 @@ $(document).ready(function () {
             },
             birthDay: {
                 required: "Vui lòng chọn ngày sinh",
+                customDate: "Ngày sinh không hợp lệ"
             },
             phone: {
                 required: "Vui lòng nhập số điện thoại",
                 minlength: "Số điện thoại phải có ít nhất 10 số",
                 maxlength: "Số điện thoại không được quá 11 số",
             },
-
         },
+        dateFormat: "dd-mm-yy",
         onkeyup: function (element) {
             $(element).valid();
         },
@@ -304,36 +183,56 @@ $(document).ready(function () {
             $(element).parent().children().last().text("");
         },
         submitHandler: function (form) {
-            const formData = $(form).serialize();
-            $.ajax({
-                url: "/api/user/personal",
-                type: 'POST',
-                data: formData,
+            alert(() => {
+                const formData = $(form).serialize();
+                $.ajax({
+                    url: "/api/user/info",
+                    type: 'POST',
+                    data: formData,
+                    beforeSend: function () {
+                        addSpinner();
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            title: "Chúc mừng!",
+                            text: "Thông tin cá nhân đã được cập nhập",
+                            icon: "success"
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            title: "Lỗi!",
+                            text: "Thông tin cá nhân không cập nhập thành công",
+                            icon: "error"
+                        });
+                    },
+                    complete: function () {
+                        cancelSpinner();
+                    }
+                });
             });
+            return false;
         }
     })
 
+//     -------------------------------
+//     Cập nhập Địa chỉ
     // Call api get address
     $.ajax({
         url: "/api/user/address",
         type: 'GET',
         dataType: 'json',
         success: function (response, xhr) {
-            function findOptionMatched(select, value) {
-                let optionToSelect = null;
-                optionToSelect = $(select).find('option').filter(function () {
-                    return this.value === value;
-                })
-                return optionToSelect;
-            }
-
-            if (response.status ==200) {
+            if (response.status == 200) {
                 const address = response;
                 provinceId = address.provinceId;
                 districtId = address.districtId;
                 wardId = address.wardId;
                 $('#inputAddress').val(address.detail);
             }
+            setupSelect2();
+        },
+        error: function (xhr, status, error) {
             setupSelect2();
         }
     });
@@ -392,7 +291,6 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             const formDataArray = $(form).serializeArray();
-
             formDataArray.push(
                 {
                     name: "provinceName",
@@ -407,14 +305,200 @@ $(document).ready(function () {
                     value: $("#inputWard option:selected").text()
                 }
             );
-
             const formData = $.param(formDataArray);
-
-            $.ajax({
-                url: "/api/user/address",
-                type: 'POST',
-                data: formData
-            });
+            alert(() => {
+                $.ajax({
+                    url: "/api/user/address",
+                    type: 'POST',
+                    data: formData,
+                    beforeSend: function () {
+                        addSpinner();
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            title: "Chúc mừng!",
+                            text: "Địa chỉ mới đã được cập nhập",
+                            icon: "success"
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            title: "Lỗi!",
+                            text: "Địa chỉ mới không cập nhập thành công",
+                            icon: "error"
+                        });
+                    },
+                    complete: function () {
+                        cancelSpinner();
+                    }
+                });
+            })
         }
     });
+
+    // Sử dụng để gọi api lấy dữ liệu các tỉnh thành
+    async function callAjax(param) {
+        try {
+            const response = await fetch(`${URL}${param}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': token
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+
+    // Cấu hình select 2
+    async function setupSelect2() {
+        inputProvince.select2({
+            theme: 'bootstrap-5',
+            placeholder: 'Chọn tỉnh/thành phố',
+            data: [],
+        });
+
+        inputDistrict.select2({
+            placeholder: 'Chọn quận/huyện',
+            theme: 'bootstrap-5',
+            data: [],
+            language: {
+                "noResults": function () {
+                    return "Vui lòng chọn tỉnh/thành phố trước";
+                }
+            },
+        });
+
+        inputWard.select2({
+            placeholder: 'Chọn phường/xã',
+            theme: 'bootstrap-5',
+            data: [],
+            language: {
+                "noResults": function () {
+                    return "Vui lòng chọn quận/huyện trước";
+                }
+            },
+        });
+        await getProvinces();
+        await loadData();
+        await addEvent();
+    }
+
+    async function addEvent() {
+        inputProvince.on('select2:select', async (e) => {
+            provinceId = e.params.data.id;
+            await loadData();
+        });
+        inputDistrict.on('select2:select', async (e) => {
+            districtId = e.params.data.id;
+            await loadData()
+        })
+    }
+
+    async function loadData() {
+        if (provinceId) {
+            await getDistricts(provinceId);
+        }
+        if (provinceId && districtId) {
+            await getWards(districtId);
+        }
+    }
+
+    async function getProvinces() {
+        const data = await callAjax("province").then(res => {
+            return res.data.map(item => {
+                return {
+                    id: item.ProvinceID,
+                    text: item.ProvinceName
+                }
+            });
+        });
+        inputProvince.empty()
+        inputProvince.select2({
+            theme: 'bootstrap-5',
+            placeholder: 'Chọn tỉnh/thành phố',
+            data: ["", ...data],
+        }).val(provinceId).trigger('change.select2');
+    }
+
+    async function getDistricts(provinceId) {
+        const data = await callAjax(`district?province_id=${provinceId}`).then(res => {
+            return res.data.map(item => {
+                return {
+                    id: item.DistrictID,
+                    text: item.DistrictName
+                }
+            });
+        });
+        inputDistrict.empty();
+        inputDistrict.select2({
+            theme: 'bootstrap-5',
+            placeholder: 'Chọn quận/huyện',
+            data: ["", ...data],
+            language: {
+                "noResults": function () {
+                    return "Vui lòng chọn tỉnh/thành phố trước";
+                }
+            },
+        }).val(districtId).trigger('change.select2');
+    }
+
+    async function getWards(districtId) {
+        const data = await callAjax(`ward?district_id=${districtId}`).then(res => {
+            return res.data.map(item => {
+                return {
+                    id: item.WardCode,
+                    text: item.WardName,
+                }
+            });
+        });
+        inputWard.empty();
+        inputWard.select2({
+            theme: 'bootstrap-5',
+            placeholder: 'Chọn phường/xã',
+            data: ["", ...data],
+            language: {
+                "noResults": function () {
+                    return "Vui lòng chọn quận/huyện trước";
+                }
+            },
+        }).val(wardId).trigger('change.select2');
+    }
+
+    function alert(onconfirm, oncancel) {
+        Swal.fire({
+            title: "Bạn có muốn lưu thay đổi không?",
+            showDenyButton: true,
+            confirmButtonText: "Lưu",
+            denyButtonText: "Không lưu",
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                onconfirm();
+            } else if (result.isDenied) {
+                if (oncancel) oncancel();
+                else Swal.fire({
+                    title: "Thay đổi của bạn đã sẽ không được lưu",
+                    icon: "info"
+                });
+            }
+        });
+    }
+
+    function addSpinner() {
+        $("body .loader__wrapper").removeClass('d-none').show().fadeIn();
+    }
+
+    function cancelSpinner() {
+        $("body .loader__wrapper").addClass('d-none').hide().fadeOut();
+    }
+
 });

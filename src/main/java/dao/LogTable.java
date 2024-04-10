@@ -1,2 +1,4 @@
-package dao;public @interface LogTable {
+package dao;
+
+public @interface LogTable {
 }

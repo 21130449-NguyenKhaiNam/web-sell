@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-@WebServlet(name = "UpdateInfo", value = "/api/user/address")
+@WebServlet(name = "UpdateAddress", value = "/api/user/address")
 public class AddressController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

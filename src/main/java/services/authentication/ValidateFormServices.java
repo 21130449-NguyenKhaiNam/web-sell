@@ -48,7 +48,7 @@ public class ValidateFormServices {
         }
 
 //        Check user in db
-        List<User> users = userDAO.selectAccount(username, "1");
+        List<User> users = userDAO.selectByUsername(username, "1");
 
 //        Check username
         if (users.size() != 1) {

@@ -137,7 +137,8 @@
                 </div>
             </div>
         </main>
-        <c:import url="${initParam.contextPath}/public/footer.jsp" />
+
+        <c:import url="/public/footer.jsp" />
         <script src="<c:url value="/js/validateForm.js"/>"></script>
         <script src="<c:url value="/js/data.js"/>"></script>
         <script src="<c:url value="/js/account.js"/>"></script>

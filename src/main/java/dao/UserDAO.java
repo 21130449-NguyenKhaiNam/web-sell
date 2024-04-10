@@ -11,37 +11,23 @@ import java.util.List;
 public class UserDAO {
 
     public User selectById(int id) {
-        String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE id = ?";
+        String query = "SELECT id, username, fullName, gender, phone, email, birthday, isVerify, role, avatar FROM users WHERE id = ?";
         return GeneralDao.executeQueryWithSingleTable(query, User.class, id).get(0);
     }
 
 
-    public List<User> selectAccount(String username, String isVerify) {
-        String query;
-        if (isVerify == null) {
-            query = "SELECT id, username, passwordEncoding, fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ?";
-            return GeneralDao.executeQueryWithSingleTable(query, User.class, username);
-        } else {
-            query = "SELECT id, username, passwordEncoding,  fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
-            return GeneralDao.executeQueryWithSingleTable(query, User.class, username, isVerify);
-        }
-    }
-
-    public List<User> selectAccountByEmail(String email) {
+    public List<User> selectByUsername(String username, String isVerify) {
         StringBuilder query = new StringBuilder();
-        query.append("SELECT id, username, passwordEncoding, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE email = ?");
-        return GeneralDao.executeQueryWithSingleTable(query.toString(), User.class, email);
+        query.append("SELECT id, username, fullName, passwordEncoding, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE username = ?")
+                .append(isVerify == null ? "" : " AND isVerify = ?");
+        return GeneralDao.executeQueryWithSingleTable(query.toString(), User.class, username, isVerify);
     }
 
     public List<User> selectByEmail(String email, String isVerify) {
-        String query;
-        if (isVerify == null) {
-            query = "SELECT id, username, email, passwordEncoding, tokenResetPassword FROM users WHERE email = ?";
-            return GeneralDao.executeQueryWithSingleTable(query, User.class, email);
-        } else {
-            query = "SELECT id, username, email, passwordEncoding, tokenResetPassword FROM users WHERE email = ? AND isVerify = ?";
-            return GeneralDao.executeQueryWithSingleTable(query, User.class, email, isVerify);
-        }
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT id, username, fullName, passwordEncoding, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE email = ?")
+                .append(isVerify == null ? "" : " AND isVerify = ?");
+        return GeneralDao.executeQueryWithSingleTable(query.toString(), User.class, email, isVerify);
     }
 
 
@@ -166,9 +152,9 @@ public class UserDAO {
     }
 
 
-    public void updateUserByID(int id, String username, String fullName, String gender, String email, String phone, String address, Date birthDay) {
-        String query = "UPDATE users SET username = ?, fullname = ?, gender = ?, email = ?, phone = ?, address = ?, birthDay = ? WHERE id = ?";
-        GeneralDao.executeAllTypeUpdate(query, username, fullName, gender, email, phone, address, birthDay, id);
+    public void updateUserByID(int id, String fullName, String gender, String phone, Date birthDay) {
+        String query = "UPDATE users SET fullname = ?, gender = ?, phone = ?, birthDay = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(query, fullName, gender, phone, birthDay, id);
     }
 
 

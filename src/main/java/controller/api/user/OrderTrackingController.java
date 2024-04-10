@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "OrderTracking", value = "/api/user/order")
-public class OrderTracking extends HttpServlet {
+public class OrderTrackingController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        int start = Integer.parseInt(request.getParameter("start"));

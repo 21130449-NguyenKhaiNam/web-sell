@@ -15,6 +15,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class UserServices {
     private static UserServices INSTANCE;
@@ -32,12 +33,8 @@ public class UserServices {
         return INSTANCE;
     }
 
-    public List<User> getUserById(String email) {
-        return userDAO.selectByEmail(email, "1");
-    }
-
     public User getUser(int userId) {
-        return userDAO.getUserByID(userId).get(0);
+        return userDAO.selectById(userId);
     }
 
     public List<User> getUserByID(int id) {
@@ -48,8 +45,8 @@ public class UserServices {
         userDAO.updateUserPassword(userId, password);
     }
 
-    public void updateUserByID(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay) {
-        userDAO.updateUserByID(id, username, fullname, gender, email, phone, address, birthDay);
+    public void updateUserByID(int id, String fullname, String gender, String phone, Date birthDay) {
+        userDAO.updateUserByID(id, fullname, gender, phone, birthDay);
     }
 
     public void updateInfoUser(int id, String avatar) {
@@ -67,7 +64,7 @@ public class UserServices {
         return userDAO.searchUsersByName(search);
     }
 
-    public List<User> selectALl() {
+    public List<User> selectAll() {
         return userDAO.selectALl();
     }
 
@@ -88,8 +85,8 @@ public class UserServices {
         return statusCode == 200;
     }
 
-    public boolean updateAddress( Address address) throws URISyntaxException, IOException {
-        if (!validateAddress(address.exportAddressString())){
+    public boolean updateAddress(Address address) throws URISyntaxException, IOException {
+        if (!validateAddress(address.exportAddressString())) {
             return false;
         }
         userDAO.updateAddress(address);
@@ -97,6 +94,7 @@ public class UserServices {
     }
 
     public Address getAddress(int userId) {
-        return addressDAO.getAddress(userId);
+        Optional<Address> optionalAddress = addressDAO.getAddress(userId);
+        return optionalAddress.orElse(null);
     }
 }

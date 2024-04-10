@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "ChangePassword", value = "/api/user/password")
-public class ChangePassword extends HttpServlet {
+public class UpdatePasswordController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.getWriter().println("Not found");
@@ -43,8 +43,6 @@ public class ChangePassword extends HttpServlet {
             response.getWriter().println(json.toString());
             return;
         }
-
-        int countError = 0;
 
         ValidatePassword validatePassword = new ValidatePassword(newPassword);
         boolean isValid = validatePassword.check();
