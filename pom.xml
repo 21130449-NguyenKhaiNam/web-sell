@@ -83,7 +83,6 @@
             <version>0.12.0</version>
         </dependency>
 
-
         <!--Ckfinder 2 lib local-->
         <dependency>
             <groupId>system.activation</groupId>

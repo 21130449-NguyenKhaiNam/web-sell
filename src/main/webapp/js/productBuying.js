@@ -152,7 +152,6 @@ function generationPage(currentPage, totalPage) {
 }
 
 function handleFilterProduct(pageNumber) {
-    console.log(pageNumber)
     // Bắt sự kiện gửi đi của form lọc
     $('#form__filter').on('submit', function (event) {
         // Ngăn chặn hành vi mặc định của form (chẳng hạn chuyển hướng trang)
@@ -163,7 +162,6 @@ function handleFilterProduct(pageNumber) {
             type: 'GET',
             data: formData,
             success: function (response) {
-                console.log(response['page'] + ' ' + response['quantity'])
                 generationPage(response['page'], response['quantity'])
                 updateProducts(response)
             },

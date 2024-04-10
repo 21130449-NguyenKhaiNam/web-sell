@@ -67,6 +67,8 @@
                 <div class="navigation__button nav__prev hvr-bounce-in">
                     <i class="fa-solid fa-chevron-left"></i>
                 </div>
+
+
                 <div class="navigation__button nav__next hvr-bounce-in">
                     <i class="fa-solid fa-chevron-right"></i>
                 </div>
