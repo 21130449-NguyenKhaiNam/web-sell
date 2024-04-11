@@ -71,7 +71,7 @@ public class SessionManager {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (sessionTable.get(cookie.getValue()) != null) {
+                if (cookie.getName().equals(SESSION_ID) && sessionTable.get(cookie.getValue()) != null) {
                     sessionTable.remove(cookie.getValue());
                     session.setAttribute(SESSION_TABLE, sessionTable);
                     cookie.setMaxAge(0);
@@ -85,7 +85,7 @@ public class SessionManager {
     public void updateUser() {
         int userId = getUser().getId();
         User user = UserServices.getINSTANCE().getUser(userId);
+        removeUser();
         addUser(user);
     }
-
 }

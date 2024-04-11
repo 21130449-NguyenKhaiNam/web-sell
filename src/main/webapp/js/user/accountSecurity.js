@@ -1,5 +1,9 @@
+import {alert} from "../notify.js";
+import {addSpinner, cancelSpinner} from "../spinner.js";
+
 $(document).ready(function () {
     var form = $('#form');
+    // Validate from đổi mật khẩu
     form.validate({
         rules: {
             currentPassword: {
@@ -43,19 +47,31 @@ $(document).ready(function () {
             $(element).next().text("");
         },
         submitHandler: function (form) {
-            const formData = $(form).serialize();
-            $.ajax({
-                url: "/api/user/password",
-                type: 'POST',
-                data: formData,
-                success: function (response) {
-                    handleResponse(response);
-                },
-                error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error(xhr.responseText);
-                }
+            // Hiển thi dialog xác nhận
+            alert(function () {
+                const formData = $(form).serialize();
+                $.ajax({
+                    url: "/api/user/password",
+                    type: 'POST',
+                    data: formData,
+                    beforeSend: function () {
+                        addSpinner();
+                    },
+                    success: function (response) {
+                        handleResponse(response);
+                        form.reset();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    },
+                    complete: function () {
+                        cancelSpinner();
+                    }
+                });
+            }, function () {
+                form.reset();
             });
+
         }
     });
     $.validator.addMethod("strongPassword", function (value, element) {
@@ -64,17 +80,15 @@ $(document).ready(function () {
 
     function handleResponse(response) {
         if (response.status === 200) {
-            console.log("Đổi mật khẩu thành công");
             Swal.fire({
                 title: "Chúc mừng!",
                 text: "Đổi mật khẩu thành công",
                 icon: "success"
             });
         } else {
-            console.log("Đổi mật khẩu ko thành công");
             Swal.fire({
                 title: "Lỗi!",
-                text: "Đổi mật khẩu ko thành công",
+                text: "Đổi mật khẩu ko thành công, vui lòng kiểm tra lại mật khẩu hiện tại",
                 icon: "error"
             });
         }

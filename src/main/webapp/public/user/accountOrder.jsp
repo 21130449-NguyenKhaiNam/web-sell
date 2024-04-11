@@ -31,22 +31,18 @@
                         <div class="py-3 list-group-item list-group-item-action active" aria-current="true" data-status="1">
                             <i class="fa-solid fa-hourglass-half me-4"></i>Chờ xác nhận
                         </div>
-<%--                        <div class="py-3 list-group-item list-group-item-action" data-status="2">--%>
-<%--                            <i class="fa-regular fa-circle-check me-3"></i>--%>
-<%--                            Đã xác nhận</div>--%>
-                        <div class="py-3 list-group-item list-group-item-action">
-                            <i class="fa-solid fa-spinner me-3"></i>
-                            Đang sản xuất</div>
-                        <div class="py-3 list-group-item list-group-item-action">
-                            <i class="fa-solid fa-truck me-3" data-status="3"></i>Đang vận chuyển
+                        <div class="py-3 list-group-item list-group-item-action" data-status="2">
+                            <i class="fa-solid fa-spinner me-3"></i> Đang sản xuất
+                        </div>
+                        <div class="py-3 list-group-item list-group-item-action" data-status="3">
+                            <i class="fa-solid fa-truck me-3"></i>Đang vận chuyển
                         </div>
                         <div class="py-3 list-group-item list-group-item-action" data-status="4">
-                            <i class="fa-regular fa-circle-check me-3"></i>
-                            Hoàn thành
+                            <i class="fa-regular fa-circle-check me-3"></i> Hoàn thành
                         </div>
                         <div class="py-3 list-group-item list-group-item-action" data-status="5">
-                            <i class="fa-regular fa-circle-xmark me-3"></i>
-                            Hủy</div>
+                            <i class="fa-regular fa-circle-xmark me-3"></i> Hủy
+                        </div>
                     </div>
                 </div>
                 <div class="col-9">
@@ -68,7 +64,7 @@
         </div>
 
         <!--Modal-->
-        <div class="modal fade text-black" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade text-black" id="modal"  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div id="model" class="modal-dialog modal-dialog-scrollable" style="max-width: 80%">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -180,5 +176,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--JQuery validate-->
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
-    <script src="/js/user/accountOrder.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.js" integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module" src="/js/user/accountOrder.js"></script>
 </html>

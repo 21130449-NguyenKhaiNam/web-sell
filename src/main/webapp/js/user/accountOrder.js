@@ -1,9 +1,11 @@
 $(document).ready(function () {
+    // Lấy ra trạng thái đơn hàng chưa xác nhận khi mới vào trang
+    let statusId = 1;
+    getOrders(statusId);
     $('.list-group-item-action').click(function () {
         $('.list-group-item-action').removeClass('active');
         $(this).addClass('active');
-        const statusId = $(this).data('status');
-        console.log(statusId)
+         statusId = $(this).data('status');
         getOrders(statusId);
     });
 

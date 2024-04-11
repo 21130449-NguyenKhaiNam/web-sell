@@ -31,7 +31,6 @@
                 </ul>
                 <c:set var="sessionId" value="${cookie['sessionId'].value}" />
                 <c:set var="auth" value="${sessionScope.sessionUser[sessionId]}" />
-                ${auth}
                 <c:choose>
                     <c:when test="${empty auth}"> <!--cta == call to action-->
                     <div class="nav__cta">

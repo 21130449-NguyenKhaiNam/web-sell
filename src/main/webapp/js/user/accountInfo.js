@@ -1,3 +1,6 @@
+import {alert} from "../notify.js";
+import {addSpinner, cancelSpinner} from "../spinner.js";
+
 $(document).ready(function () {
     // Add select 2 for address
     const URL = "https://online-gateway.ghn.vn/shiip/public-api/master-data/";
@@ -223,12 +226,14 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'json',
         success: function (response, xhr) {
+            console.log(response);
             if (response.status == 200) {
                 const address = response;
                 provinceId = address.provinceId;
                 districtId = address.districtId;
                 wardId = address.wardId;
                 $('#inputAddress').val(address.detail);
+
             }
             setupSelect2();
         },
@@ -472,33 +477,4 @@ $(document).ready(function () {
             },
         }).val(wardId).trigger('change.select2');
     }
-
-    function alert(onconfirm, oncancel) {
-        Swal.fire({
-            title: "Bạn có muốn lưu thay đổi không?",
-            showDenyButton: true,
-            confirmButtonText: "Lưu",
-            denyButtonText: "Không lưu",
-        }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-                onconfirm();
-            } else if (result.isDenied) {
-                if (oncancel) oncancel();
-                else Swal.fire({
-                    title: "Thay đổi của bạn đã sẽ không được lưu",
-                    icon: "info"
-                });
-            }
-        });
-    }
-
-    function addSpinner() {
-        $("body .loader__wrapper").removeClass('d-none').show().fadeIn();
-    }
-
-    function cancelSpinner() {
-        $("body .loader__wrapper").addClass('d-none').hide().fadeOut();
-    }
-
 });
