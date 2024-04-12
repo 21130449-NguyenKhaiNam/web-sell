@@ -5,7 +5,7 @@ import models.Address;
 import java.util.List;
 import java.util.Optional;
 
-public class AddressDAOImpDAO implements IAddressDAO {
+public class AddressDAO implements IAddressDAO {
     @Override
     public Optional<Address> getAddress(int userId) {
         StringBuilder sql = new StringBuilder();

@@ -19,7 +19,6 @@ $(document).ready(function () {
         $("#open-form").hide();
     })
 
-
     $.validator.addMethod("singleFile", function (value, element) {
         return this.optional(element) || element.files.length === 1;
     }, "Please select only one file.");

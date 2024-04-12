@@ -1,8 +1,10 @@
 package controller.api.user;
 
-import dto.OrderDTO;
+import dto.OrderResponseDTO;
+import models.User;
 import org.json.JSONObject;
 import services.HistoryService;
+import session.SessionManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,19 +18,11 @@ import java.util.List;
 public class OrderTrackingController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        int start = Integer.parseInt(request.getParameter("start"));
-//        int length = Integer.parseInt(request.getParameter("length"));
         int statusId = Integer.parseInt(request.getParameter("statusId"));
-
-        List<OrderDTO> orders = HistoryService.getINSTANCE().getOrderByStatusId(statusId);
-
+        User user = SessionManager.getInstance(request, response).getUser();
+        List<OrderResponseDTO> orders = HistoryService.getINSTANCE().getOrder(user.getId(), statusId);
         JSONObject json = new JSONObject();
         json.put("data", orders);
         response.getWriter().print(json);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 }

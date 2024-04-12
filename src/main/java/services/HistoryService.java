@@ -1,11 +1,16 @@
 package services;
 
 import dao.OrderDaoUser;
-import dto.OrderDTO;
-import models.*;
+import dto.OrderDetailResponseDTO;
+import dto.OrderItemResponseDTO;
+import dto.OrderResponseDTO;
+import models.Image;
+import models.OrderDetail;
+import models.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class HistoryService {
     private static HistoryService INSTANCE;
@@ -26,12 +31,8 @@ public class HistoryService {
         return orderDAO.getOrderDetailByOrderId(listId);
     }
 
-    public List<OrderDTO> getOrderByStatusId(int statusId) {
-        return orderDAO.getOrderByStatusId(statusId);
-    }
-
-    public List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder) {
-        return orderDAO.getOrderByUserIdAndStatusOrder(userId, statusOrder);
+    public List<OrderResponseDTO> getOrder(int userId, int statusOrder) {
+        return orderDAO.getOrder(userId, statusOrder);
     }
 
     public List<OrderDetail> getOrderDetailNotReview(int userId) {
@@ -42,10 +43,6 @@ public class HistoryService {
         return orderDAO.getOrderDetailHasReview(userId);
     }
 
-    public List<Order> getOrderByUserId(int userId) {
-        return orderDAO.getOrderByUserId(userId);
-    }
-
     public List<Product> getProductInOrderDetail(int id) {
         return orderDAO.getProductInOrderDetail(id);
     }
@@ -54,4 +51,19 @@ public class HistoryService {
         return orderDAO.getNameImageByProductId(id);
     }
 
+    public List<OrderItemResponseDTO> getOrderDetailByOrderId(String orderId) {
+        return orderDAO.getOrderDetailsByOrderId(orderId);
+    }
+
+    public OrderDetailResponseDTO getOrderByOrderId(String orderId, int userId) {
+        Optional<OrderDetailResponseDTO> orderDetailResponseDTO = orderDAO.getOrderByOrderDetailId(orderId);
+        if (orderDetailResponseDTO.isPresent()) {
+            OrderDetailResponseDTO order = orderDetailResponseDTO.get();
+            List<OrderItemResponseDTO> orderDetails = getOrderDetailByOrderId(orderId);
+            if (orderDetails == null) return null;
+            order.setOrderItems(orderDetails);
+            return order;
+        }
+        return null;
+    }
 }

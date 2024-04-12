@@ -1,10 +1,13 @@
 package dto;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.sql.Date;
 
-public class OrderDTO {
+public class OrderResponseDTO {
     private String id;
-    private String orderId;
     private int quantity;
     private Date dateOrder;
 
@@ -16,13 +19,6 @@ public class OrderDTO {
         this.id = id;
     }
 
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
 
     public int getQuantity() {
         return quantity;

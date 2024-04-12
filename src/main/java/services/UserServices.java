@@ -1,17 +1,12 @@
 package services;
 
-import dao.AddressDAOImpDAO;
+import dao.AddressDAO;
 import dao.IAddressDAO;
 import dao.UserDAO;
 import models.Address;
 import models.User;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.client.utils.URIBuilder;
-import properties.Map4dProperties;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Date;
 import java.util.List;
@@ -21,10 +16,9 @@ public class UserServices {
     private static UserServices INSTANCE;
     private UserDAO userDAO;
     private IAddressDAO addressDAO;
-
     private UserServices() {
         userDAO = new UserDAO();
-        addressDAO = new AddressDAOImpDAO();
+        addressDAO = new AddressDAO();
     }
 
     public static UserServices getINSTANCE() {
@@ -76,17 +70,8 @@ public class UserServices {
         userDAO.updateUserByIDWithRole(id, username, fullname, gender, email, phone, address, birthDay, role);
     }
 
-    private boolean validateAddress(String address) throws URISyntaxException, IOException {
-        URI uri = new URIBuilder(Map4dProperties.getINSTANCE().getUrl())
-                .addParameter("address", address)
-                .addParameter("key", Map4dProperties.getINSTANCE().getApiKey()).build();
-        HttpResponse response = Request.Get(uri).execute().returnResponse();
-        int statusCode = response.getStatusLine().getStatusCode();
-        return statusCode == 200;
-    }
-
     public boolean updateAddress(Address address) throws URISyntaxException, IOException {
-        if (!validateAddress(address.exportAddressString())) {
+        if (!AddressServices.getINSTANCE().validateAddress(address.exportAddressString())) {
             return false;
         }
         userDAO.updateAddress(address);
