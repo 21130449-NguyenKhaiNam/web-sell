@@ -16,7 +16,7 @@ public @interface LogTable {
     int PRODUCT = 2;
     int COLOR = 3;
     int CONTACT = 4;
-    int DASHBOAD = 5;
+    int DASHBOARD = 5;
     int ADMIN = 6;
     int ORDER = 7;
     int VOUCHER = 8;
