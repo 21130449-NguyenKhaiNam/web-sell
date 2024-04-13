@@ -2,8 +2,8 @@ package services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.IDAO;
-import dao.ILogDAO;
-import dao.LogDAOImp;
+import dao.log.ILogDAO;
+import dao.log.LogDAOImp;
 import annotations.LogParam;
 import annotations.LogTable;
 import annotations.WriteLog;

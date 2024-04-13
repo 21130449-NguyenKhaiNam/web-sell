@@ -1,7 +1,7 @@
 package services.admin;
 
-import dao.CategoryDAOImp;
-import dao.ParameterDAOImp;
+import dao.product.CategoryDAOImp;
+import dao.product.ParameterDAOImp;
 import models.Category;
 import models.Parameter;
 

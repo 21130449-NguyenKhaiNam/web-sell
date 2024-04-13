@@ -1,9 +1,9 @@
 package services;
 
-import dao.IOrderDetailDAO;
-import dao.IReviewDAO;
-import dao.OrderDetailDAOImp;
-import dao.ReviewDAOImp;
+import dao.order.IOrderDetailDAO;
+import dao.product.IReviewDAO;
+import dao.order.OrderDetailDAOImp;
+import dao.product.ReviewDAOImp;
 import models.OrderDetail;
 import models.Product;
 import models.Review;

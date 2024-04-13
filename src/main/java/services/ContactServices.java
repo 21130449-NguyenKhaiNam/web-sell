@@ -1,7 +1,7 @@
 package services;
 
-import dao.ContactDAOImp;
-import dao.IContactDAO;
+import dao.general.ContactDAOImp;
+import dao.general.IContactDAO;
 import models.Contact;
 import models.SubjectContact;
 

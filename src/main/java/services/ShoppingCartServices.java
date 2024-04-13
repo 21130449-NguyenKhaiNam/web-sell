@@ -1,7 +1,7 @@
 package services;
 
-import dao.IShoppingCartDAO;
-import dao.ShoppingCartDAOImp;
+import dao.voucher.IShoppingCartDAO;
+import dao.voucher.ShoppingCartDAOImp;
 import models.Voucher;
 
 import java.util.List;

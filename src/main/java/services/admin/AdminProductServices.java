@@ -1,6 +1,6 @@
 package services.admin;
 
-import dao.*;
+import dao.product.*;
 import models.Color;
 import models.Image;
 import models.Product;

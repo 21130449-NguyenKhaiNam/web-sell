@@ -1,7 +1,7 @@
 package services;
 
-import dao.IUserDAO;
-import dao.UserDAOImp;
+import dao.user.IUserDAO;
+import dao.user.UserDAOImp;
 import models.User;
 
 import java.sql.Date;

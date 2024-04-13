@@ -1,9 +1,9 @@
 package services;
 
-import dao.CategoryDAOImp;
-import dao.ICategoryDAO;
-import dao.IParameterDAO;
-import dao.ParameterDAOImp;
+import dao.product.CategoryDAOImp;
+import dao.product.ICategoryDAO;
+import dao.product.IParameterDAO;
+import dao.product.ParameterDAOImp;
 import models.Category;
 import models.Parameter;
 

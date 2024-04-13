@@ -1,7 +1,7 @@
 package services;
 
-import dao.CheckoutDAOImp;
-import dao.ICheckoutDAO;
+import dao.order.CheckoutDAOImp;
+import dao.order.ICheckoutDAO;
 import models.PaymentMethod;
 import models.DeliveryMethod;
 import models.PaymentOwner;

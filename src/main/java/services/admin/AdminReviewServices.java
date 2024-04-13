@@ -1,8 +1,8 @@
 package services.admin;
 
-import dao.IUserDAO;
-import dao.ReviewDAOImp;
-import dao.UserDAOImp;
+import dao.user.IUserDAO;
+import dao.product.ReviewDAOImp;
+import dao.user.UserDAOImp;
 import models.Review;
 import models.User;
 import services.LogService;

@@ -1,6 +1,6 @@
 package services;
 
-import dao.*;
+import dao.product.*;
 import models.*;
 
 import java.util.List;

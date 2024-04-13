@@ -1,7 +1,7 @@
 package services;
 
-import dao.IOrderUserDAO;
-import dao.OrderUserDAOImp;
+import dao.order.IOrderUserDAO;
+import dao.order.OrderUserDAOImp;
 import models.Image;
 import models.Order;
 import models.OrderDetail;

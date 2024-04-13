@@ -1,7 +1,7 @@
 package services;
 
-import dao.HomeDAOImp;
-import dao.IHomeDAO;
+import dao.general.HomeDAOImp;
+import dao.general.IHomeDAO;
 import models.*;
 
 import java.util.List;
