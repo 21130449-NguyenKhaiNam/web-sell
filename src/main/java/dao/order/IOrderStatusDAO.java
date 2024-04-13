@@ -11,5 +11,5 @@ public interface IOrderStatusDAO extends IDAO {
     List<OrderStatus> getListAllOrderStatus();
 
     //    Lấy ra trạng thái đơn hàng dựa theo id trạng thái đơn hàng
-    OrderStatus getOrderStatusById(int orderStatusId);
+    //    OrderStatus getOrderStatusById(int orderStatusId);
 }

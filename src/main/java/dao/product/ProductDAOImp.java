@@ -1,7 +1,7 @@
 package dao.product;
 
 import annotations.LogTable;
-import dao.general.GeneralDAOImp;
+import dao.general.GeneralDAO;
 import models.*;
 
 import java.util.HashMap;
@@ -10,54 +10,58 @@ import java.util.Map;
 
 @LogTable(LogTable.PRODUCT)
 public class ProductDAOImp implements IProductDAO {
+    @Override
+    public <T> int insert(T o) {
+        if(o instanceof Product) {
+            Product product = (Product) o;
+            String query = "INSERT INTO products (name, categoryId, description, originalPrice, salePrice, visibility, createAt) " +
+                    "VALUES (?,?,?,?,?,?,?) ";
+            GeneralDAO.executeAllTypeUpdate(query, product.getName(), product.getCategoryId(), product.getDescription(), product.getOriginalPrice(), product.getSalePrice(), product.isVisibility(), product.getCreateAt());
+            return 1;
+        } else {
+            throw new UnsupportedOperationException("ProductDAOImp >> Phương thức thêm không hỗ trợ tham số kiểu khác");
+        }
+    }
 
     public List<Image> getListImagesByProductId(int productId) {
         String sql = "SELECT id, nameImage, productId FROM Images WHERE productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Image.class, productId);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Image.class, productId);
     }
 
 
     public List<Color> getListColorsByProductId(int productId) {
         String sql = "SELECT id, codeColor, productId FROM colors WHERE productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Color.class, productId);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Color.class, productId);
     }
 
     public List<Size> getListSizesByProductId(int productId) {
         String sql = "SELECT id, nameSize, productId, sizePrice FROM sizes WHERE productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Size.class, productId);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Size.class, productId);
     }
 
     public double getPriceSizeByName(String nameSize, int productId) {
         String sql = "SELECT sizePrice FROM sizes WHERE nameSize = ? AND productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Size.class, nameSize, productId).get(0).getSizePrice();
+        return GeneralDAO.executeQueryWithSingleTable(sql, Size.class, nameSize, productId).get(0).getSizePrice();
     }
 
     public Product getProductByProductId(int productId) {
         String sql = "SELECT id, `name`, categoryId, `description`, salePrice, originalPrice FROM products WHERE id = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Product.class, productId).get(0);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Product.class, productId).get(0);
     }
 
     public Size getSizeByNameSizeWithProductId(String nameSize, int productId) {
         String sql = "SELECT id, sizePrice, nameSize FROM sizes WHERE nameSize = ? AND productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Size.class, nameSize, productId).get(0);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Size.class, nameSize, productId).get(0);
     }
 
     public Color getColorByCodeColorWithProductId(String codeColor, int productId) {
         String sql = "SELECT id, codeColor FROM colors WHERE codeColor = ? AND productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Color.class, codeColor, productId).get(0);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Color.class, codeColor, productId).get(0);
     }
 
     public List<Product> getIdProductByName(String name) {
         String sql = "SELECT id, name FROM products WHERE name = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Product.class, name);
-    }
-
-    //    Update
-    public void addProduct(Product product) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("INSERT INTO products (name, categoryId, description, originalPrice, salePrice, visibility, createAt) ")
-                .append("VALUES (?,?,?,?,?,?,?) ");
-        GeneralDAOImp.executeAllTypeUpdate(sql.toString(), product.getName(), product.getCategoryId(), product.getDescription(), product.getOriginalPrice(), product.getSalePrice(), product.isVisibility(), product.getCreateAt());
+        return GeneralDAO.executeQueryWithSingleTable(sql, Product.class, name);
     }
 
     //Update
@@ -66,7 +70,7 @@ public class ProductDAOImp implements IProductDAO {
         sql.append("UPDATE products ")
                 .append("SET ").append(updatedFieldProduct(product))
                 .append(" WHERE id = ?");
-        GeneralDAOImp.executeAllTypeUpdate(sql.toString(), id);
+        GeneralDAO.executeAllTypeUpdate(sql.toString(), id);
     }
 
     private String updatedFieldProduct(Product product) {
@@ -91,11 +95,5 @@ public class ProductDAOImp implements IProductDAO {
             updatedField.append(key).append(" = ").append(value).append(",");
         }
         return updatedField.toString().substring(0, updatedField.toString().length() - 1);
-    }
-
-
-    @Override
-    public Object getModelById(Object id) {
-        return null;
     }
 }

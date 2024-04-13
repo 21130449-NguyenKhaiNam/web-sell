@@ -36,11 +36,10 @@ public interface IProductDAO extends IDAO {
     //    Lấy ra id sản phẩm theo tên sản phẩm
     List<Product> getIdProductByName(String name);
 
-    //    Thêm mới sản phẩm
-    @WriteLog(WriteLog.INSERT)
-    void addProduct(@LogParam("product") Product product);
-
     //    Cập nhập sản phẩm
     @WriteLog(WriteLog.UPDATE)
     void updateProduct(@LogParam("product") Product product,@LogParam("id") int id);
+
+    //    Thêm mới sản phẩm
+    //    void addProduct(@LogParam("product") Product product);
 }

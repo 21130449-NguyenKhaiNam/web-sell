@@ -21,8 +21,4 @@ public interface IColorDAO extends IDAO {
     //    Cập nhập màu dựa theo id màu
     @WriteLog(WriteLog.UPDATE)
     void updateColor(@LogParam("color") Color color,@LogParam("id") int id);
-
-    //    Xóa màu dựa theo danh sách id màu
-    @WriteLog(WriteLog.UPDATE)
-    void deleteColorList(@LogParam("id-list-delete") List<Integer> listIdDelete);
 }

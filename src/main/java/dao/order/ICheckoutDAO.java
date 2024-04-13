@@ -10,11 +10,6 @@ import models.PaymentOwner;
 import java.util.List;
 
 public interface ICheckoutDAO extends IDAO {
-
-    //    Thêm đơn hàng mới
-    @WriteLog(WriteLog.INSERT)
-    void addNewOrder(@LogParam("id-order") int orderId,@LogParam("id-user")  int userId,@LogParam("date-order") String dateOrder,@LogParam("full-name") String fullName,@LogParam("email") String email,@LogParam("phone") String phone,@LogParam("address") String address,@LogParam("id-delivery-method") Integer deliveryMethodId,@LogParam("id-payment-method") int paymentMethodId,@LogParam("id-voucher") Integer voucherId);
-
     //    Thêm chi tiết đơn hàng mới dựa theo orderId
     @WriteLog(WriteLog.INSERT)
     void addEachOrderDetail(@LogParam("id-order") int orderId,@LogParam("id-product") int productId,@LogParam("product-name") String productName,@LogParam("size-required") String sizeRequired,@LogParam("color-required") String colorRequired,@LogParam("quantity") int quantityRequired,@LogParam("price") double price);

@@ -1,36 +1,35 @@
 package dao.order;
 
 import annotations.LogTable;
-import dao.general.GeneralDAOImp;
+import dao.general.GeneralDAO;
 import models.OrderDetail;
 
 import java.util.List;
 
 @LogTable(LogTable.ORDER)
 public class OrderDetailDAOImp implements IOrderDetailDAO {
-    public List<OrderDetail> getOrderDetailById(int id) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT productId, sizeRequired, colorRequired, quantityRequired, price ")
-                .append("FROM order_details ")
-                .append("WHERE id = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), OrderDetail.class, id);
-    }
-
-    public List<OrderDetail> getListOrderDetailByOrderId(String orderId){
-        StringBuilder sql = new StringBuilder("SELECT id, orderId, productId, productName, sizeRequired, colorRequired, quantityRequired, price ");
-        sql.append(" FROM order_details WHERE orderId = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), OrderDetail.class, orderId);
-    }
-
-    public void removeOrderDetailByMultipleOrderId(String[] multipleOrderId){
-        String fillEntry = String.format("'%s'", String.join("','", multipleOrderId));
-        StringBuilder sql = new StringBuilder("DELETE FROM order_details");
-        sql.append(" WHERE orderId IN(" + fillEntry + ")");
-        GeneralDAOImp.executeAllTypeUpdate(sql.toString());
-    }
-
     @Override
-    public Object getModelById(Object id) {
-        return null;
+    public OrderDetail selectById(Object id) {
+        if(id instanceof Integer) {
+            String sql = "SELECT orderId, productId, sizeRequired, colorRequired, quantityRequired, price " +
+                    "FROM order_details " +
+                    "WHERE id = ?";
+            return GeneralDAO.executeQueryWithSingleTable(sql, OrderDetail.class, id).get(0);
+        } else {
+            throw new UnsupportedOperationException("OrderDetailDAOImp >> Không hỗ trợ tham số SELECT kiểu khác");
+        }
     }
+
+//    public void removeOrderDetailByMultipleOrderId(String[] multipleOrderId){
+//        String fillEntry = String.format("'%s'", String.join("','", multipleOrderId));
+//        StringBuilder sql = new StringBuilder("DELETE FROM order_details");
+//        sql.append(" WHERE orderId IN(" + fillEntry + ")");
+//        GeneralDAO.executeAllTypeUpdate(sql.toString());
+//    }
+
+//    public List<OrderDetail> getListOrderDetailByOrderId(String orderId){
+//        StringBuilder sql = new StringBuilder("SELECT id, orderId, productId, productName, sizeRequired, colorRequired, quantityRequired, price ");
+//        sql.append(" FROM order_details WHERE orderId = ?");
+//        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), OrderDetail.class, orderId);
+//    }
 }

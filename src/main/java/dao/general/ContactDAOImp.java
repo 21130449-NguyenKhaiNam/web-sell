@@ -5,29 +5,35 @@ import models.Contact;
 import models.SubjectContact;
 
 import java.util.List;
+
 @LogTable(LogTable.CONTACT)
 public class ContactDAOImp implements IContactDAO {
 
-    public List<Contact> getListUserContacts(){
-        return GeneralDAOImp.executeQueryWithSingleTable("SELECT id, fullName, phone, email, `subject` FROM contacts", Contact.class);
+    public List<Contact> getListUserContacts() {
+        String query = "SELECT id, fullName, phone, email, `subject` FROM contacts";
+        return GeneralDAO.executeQueryWithSingleTable(query, Contact.class);
     }
 
-    public List<SubjectContact> getListContactSubjects(){
-        String sql = "SELECT id , subjectName FROM contact_subjects";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, SubjectContact.class);
+    public List<SubjectContact> getListContactSubjects() {
+        String sql = "SELECT id, subjectName FROM contact_subjects";
+        return GeneralDAO.executeQueryWithSingleTable(sql, SubjectContact.class);
     }
 
 
-    public int getIdContactSubjectByName(String subjectName){
-        return (int) GeneralDAOImp.executeQueryWithJoinTables("SELECT id FROM contact_subjects WHERE subjectName = ?", subjectName).get(0).get("id");
-    }
-
-    public void addNewRecordUserContact(Integer userId, String fullName, String phone, String email, int subjectId, String message){
-        GeneralDAOImp.executeAllTypeUpdate("INSERT INTO contact(userId, fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subjectId, message);
+    public int getIdContactSubjectByName(String subjectName) {
+        String query = "SELECT id FROM contact_subjects WHERE subjectName = ?";
+        return (int) GeneralDAO.executeQueryWithJoinTables(query, subjectName).get(0).get("id");
     }
 
     @Override
-    public Object getModelById(Object id) {
-        return null;
+    public <T> int insert(T o) {
+        if(o instanceof Contact) {
+            Contact c = (Contact) o;
+            String query = "INSERT INTO contact(userId, fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?,?)";
+            GeneralDAO.executeAllTypeUpdate(query, c.getUserId(), c.getFullName(), c.getPhone(), c.getEmail(), c.getSubject(), c.getMessage());
+            return 1;
+        } else {
+            throw  new UnsupportedOperationException("ContactDAOImp >> Phương thức insert không hỗ trợ kiểu tham số khác");
+        }
     }
 }

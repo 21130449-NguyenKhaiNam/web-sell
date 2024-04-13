@@ -14,15 +14,13 @@ public interface IParameterDAO extends IDAO {
     //    Lấy ra danh sách các tham số dựa theo id thể loại và sắp xếp theo id
     List<Parameter> getParameterByCategoryId(int id, boolean orderById);
 
-    //    Cập nhật thông tin tham số
-    @WriteLog(WriteLog.UPDATE)
-    void updateParameter(@LogParam("parameter") Parameter parameter);
-
-    //    Thêm mới tham số
-    @WriteLog(WriteLog.INSERT)
-    void addParameter(@LogParam("parameter") Parameter parameter);
-
     //    Xóa tham số
     @WriteLog(WriteLog.UPDATE)
     void deleteParameter(@LogParam("id-delete") int id);
+
+    //    Cập nhật thông tin tham số
+//    void updateParameter(@LogParam("parameter") Parameter parameter);
+//
+//    //    Thêm mới tham số
+//    void addParameter(@LogParam("parameter") Parameter parameter);
 }

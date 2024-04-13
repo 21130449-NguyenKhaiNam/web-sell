@@ -53,12 +53,15 @@ public interface IOrderAdminDAO extends IDAO {
     //    Lấy ra danh sách tên ảnh dựa theo id sản phẩm
     List<Image> getNameImageByProductId(int id);
 
-    //    2 method sau bị lặp lại với Interface OrderUserDAO
-    //    Lấy ra danh sách chi tiết đơn hàng chưa review
-    //    Đơn hàng thuộc chi tiết đơn hàng đó đã giao thành công nhưng chưa xuất hiện trong bảng review
-    List<OrderDetail> getOrderDetailNotReview(int userId);
+    // Lấy ra danh sách chi tiết đơn hàng có review hoặc không
+    List<OrderDetail> getOrderDetailWithReview(int userId, boolean hasReview);
 
-    //       Lấy ra danh sách chi tiết đơn hàng đã review
-    //   Đơn hàng thuộc chi tiết đơn hàng đó đã giao thành công và xuất hiện trong bảng review
-    List<OrderDetail> getOrderDetailHasReview(int userId);
+//    //    2 method sau bị lặp lại với Interface OrderUserDAO
+//    //    Lấy ra danh sách chi tiết đơn hàng chưa review
+//    //    Đơn hàng thuộc chi tiết đơn hàng đó đã giao thành công nhưng chưa xuất hiện trong bảng review
+//    List<OrderDetail> getOrderDetailNotReview(int userId);
+//
+//    //       Lấy ra danh sách chi tiết đơn hàng đã review
+//    //   Đơn hàng thuộc chi tiết đơn hàng đó đã giao thành công và xuất hiện trong bảng review
+//    List<OrderDetail> getOrderDetailHasReview(int userId);
 }

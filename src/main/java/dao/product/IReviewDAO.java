@@ -26,10 +26,6 @@ public interface IReviewDAO extends IDAO {
     //    Nếu chưa thì sản phẩm chưa được review
     List<Review> getReviewByOrderDetailId(int orderDetailId);
 
-    //    Thêm mới review
-    @WriteLog(WriteLog.INSERT)
-    void createReview(@LogParam("review") Review review);
-
     //    Lấy ra danh sách chi tiết review
     //    Sử dụng tham số để phân trang
     List<Review> getReviews(int pageNumber, int limit);
@@ -53,4 +49,7 @@ public interface IReviewDAO extends IDAO {
 
     //    Lấy ra danh sách trạng thái ẩn/hiện review dựa vào id review
     List<Review> isVisibility(int id);
+
+    //    Thêm mới review
+    //    void createReview(@LogParam("review") Review review);
 }

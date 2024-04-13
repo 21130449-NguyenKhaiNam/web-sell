@@ -10,8 +10,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface IUserDAO extends IDAO {
-    //    Lấy ra user (tất cả các thông tin) theo id user
-    User selectById(int id);
 
     //    Lấy ra user (tất cả các thông tin) theo username và trạng thái xác nhận tài khoản (isVerify)
     @WriteLog(WriteLog.SELECT)
@@ -81,4 +79,7 @@ public interface IUserDAO extends IDAO {
     //    Lấy ra id và fullName user dựa vào id user từ bảng orderDetail
     //    Cần rename lại tên hàm
     List<User> getUserByIdProductDetail(int orderDetailId);
+
+        //    Lấy ra user (tất cả các thông tin) theo id user
+//    User selectById(int id);
 }
