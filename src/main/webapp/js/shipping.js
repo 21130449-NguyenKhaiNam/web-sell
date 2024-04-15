@@ -5,6 +5,7 @@ const URL_WARD = URL_ROOT + "master-data/ward";
 const CALCULATE_LEAD_DAY = URL_ROOT + "v2/shipping-order/leadtime";
 const CALCULATE_SHIPPING = URL_ROOT + "v2/shipping-order/fee";
 const TOKEN = '015940b9-e810-11ee-b290-0e922fc774da';
+const SHOP_ID = '4969655';
 // Chuyển phát thương mại điện tử
 const SERVICE_ID = 53320;
 const SERVICE_TYPE_ID = 2;
@@ -66,6 +67,7 @@ async function callAPI(url, param) {
             headers: {
                 'Content-Type': 'application/json',
                 'token': TOKEN,
+                'shop_id': SHOP_ID,
             }
         });
 
