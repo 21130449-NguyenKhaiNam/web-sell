@@ -11,6 +11,16 @@ import java.util.List;
 @LogTable(LogTable.USER)
 public class UserDAOImp implements IUserDAO {
     @Override
+    public <T> int insert(T o) {
+        return IUserDAO.super.insert(o);
+    }
+
+    @Override
+    public int update(Object o) {
+        return IUserDAO.super.update(o);
+    }
+
+    @Override
     public User selectById(Object id) {
         if(id instanceof Integer) {
             String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE id = ?";
