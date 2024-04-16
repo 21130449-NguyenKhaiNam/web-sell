@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface IOrderAdminDAO extends IDAO {
+    void updateStatusByOrderId(String orderId, int orderStatusId, int transactionStatusId);
+
     //    Các ham dưới phục vụ việc lọc trong admin order page
     //    Lấy danh sách tất cả đơn hàng
     List<Order> getListAllOrders();

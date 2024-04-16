@@ -8,6 +8,8 @@ import models.Image;
 import java.util.List;
 
 public interface IImageDAO extends IDAO {
+    List<Image> getThumbnail(int productId);
+
     //    Thêm danh sách ảnh sản phẩm vào table images
     @WriteLog(WriteLog.INSERT)
     void addImages(@LogParam("images") List<Image> images);

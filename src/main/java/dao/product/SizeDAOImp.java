@@ -1,7 +1,7 @@
 package dao.product;
 
 import annotations.LogTable;
-import dao.general.GeneralDAO;
+import dao.general.GeneralDAOImp;
 import models.Product;
 import models.Size;
 
@@ -9,18 +9,21 @@ import java.util.List;
 
 @LogTable(LogTable.PRODUCT)
 public class SizeDAOImp implements ISizeDAO {
+    @Override
     public List<Size> getAllSize() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT DISTINCT nameSize").append(" FROM sizes");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Size.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Size.class);
     }
 
+    @Override
     public List<Product> getIdProduct(String size) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT productId ").append(" FROM sizes ").append("WHERE nameSize = ?");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, size);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, size);
     }
 
+    @Override
     public void addSizes(Size[] sizes) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO sizes (nameSize, productId, sizePrice) ")
@@ -36,15 +39,17 @@ public class SizeDAOImp implements ISizeDAO {
                     .append(sizes[i].getSizePrice())
                     .append(") ");
         }
-        GeneralDAO.executeAllTypeUpdate(sql.toString());
+        GeneralDAOImp.executeAllTypeUpdate(sql.toString());
     }
 
+    @Override
     public List<Size> getIdSizeByProductId(int productId) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id FROM sizes WHERE productId = ?");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Size.class, productId);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Size.class, productId);
     }
 
+    @Override
     public void updateSize(Size size, int id) {
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE sizes ")
@@ -52,9 +57,10 @@ public class SizeDAOImp implements ISizeDAO {
                 .append(" nameSize = ? ,")
                 .append(" sizePrice = ? ")
                 .append(" WHERE id = ? ");
-        GeneralDAO.executeAllTypeUpdate(sql.toString(), size.getNameSize(), size.getNameSize(), id);
+        GeneralDAOImp.executeAllTypeUpdate(sql.toString(), size.getNameSize(), size.getNameSize(), id);
     }
 
+    @Override
     public void deleteSizeList(List<Integer> listId) {
         StringBuilder idRange = new StringBuilder();
         if (listId.size() == 1) idRange.append(listId.get(0));
@@ -67,6 +73,6 @@ public class SizeDAOImp implements ISizeDAO {
             }
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM sizes ").append("WHERE id IN (").append(idRange).append(")");
-        GeneralDAO.executeAllTypeUpdate(sql.toString());
+        GeneralDAOImp.executeAllTypeUpdate(sql.toString());
     }
 }

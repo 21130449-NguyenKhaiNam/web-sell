@@ -8,21 +8,24 @@ import java.util.List;
 
 @LogTable(LogTable.PRODUCT)
 public class HomeDAOImp implements IHomeDAO {
+    @Override
     public List<Slider> getListSlideShow() {
         String query = "SELECT nameSlide, nameImage FROM sliders WHERE visibility = 1";
-        return GeneralDAO.executeQueryWithSingleTable(query, Slider.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(query, Slider.class);
     }
 
-    public static List<Product> getListNewProducts(boolean isSeeMore) {
+    @Override
+    public List<Product> getListNewProducts(boolean isSeeMore) {
         String now = LocalDate.now().toString();
         StringBuilder sql = new StringBuilder("SELECT id, `name`, `description`, salePrice, originalPrice FROM products");
         sql.append(" WHERE visibility = 1 AND createAt >= DATE_SUB('" + now + "', INTERVAL 1 MONTH)");
         if (!isSeeMore) {
             sql.append(" LIMIT 6");
         }
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
+    @Override
     public List<Product> getListTrendProducts(boolean isSeeMore){
         StringBuilder sql = new StringBuilder("SELECT products.id, products.`name`, products.`description`, products.salePrice, products.originalPrice FROM products");
         sql.append(" INNER JOIN order_details ON products.id = order_details.productId");
@@ -33,6 +36,6 @@ public class HomeDAOImp implements IHomeDAO {
         if(!isSeeMore){
             sql.append(" LIMIT 6");
         }
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, 10);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, 10);
     }
 }

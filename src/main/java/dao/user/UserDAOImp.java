@@ -1,9 +1,8 @@
 package dao.user;
 
 import annotations.LogTable;
-import dao.general.GeneralDAO;
+import dao.general.GeneralDAOImp;
 import database.JDBIConnector;
-import models.Category;
 import models.User;
 
 import java.sql.*;
@@ -15,7 +14,7 @@ public class UserDAOImp implements IUserDAO {
     public User selectById(Object id) {
         if(id instanceof Integer) {
             String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE id = ?";
-            return GeneralDAO.executeQueryWithSingleTable(query, User.class, id).get(0);
+            return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, id).get(0);
         } else {
             throw new UnsupportedOperationException("UserDAOImp >> Phương thức thêm không hỗ trợ tham số kiểu khác");
         }
@@ -26,10 +25,10 @@ public class UserDAOImp implements IUserDAO {
         String query;
         if (isVerify == null) {
             query = "SELECT id, username, passwordEncoding, fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ?";
-            return GeneralDAO.executeQueryWithSingleTable(query, User.class, username);
+            return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, username);
         } else {
             query = "SELECT id, username, passwordEncoding,  fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
-            return GeneralDAO.executeQueryWithSingleTable(query, User.class, username, isVerify);
+            return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, username, isVerify);
         }
     }
 
@@ -38,21 +37,21 @@ public class UserDAOImp implements IUserDAO {
         String query;
         if (isVerify == null) {
             query = "SELECT id, username, email, passwordEncoding, tokenResetPassword FROM users WHERE email = ?";
-            return GeneralDAO.executeQueryWithSingleTable(query, User.class, email);
+            return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, email);
         } else {
             query = "SELECT id, username, email, passwordEncoding, tokenResetPassword FROM users WHERE email = ? AND isVerify = ?";
-            return GeneralDAO.executeQueryWithSingleTable(query, User.class, email, isVerify);
+            return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, email, isVerify);
         }
     }
 
     @Override
     public List<User> findUsername(String username) {
-        return GeneralDAO.executeQueryWithSingleTable("SELECT id FROM users WHERE username = ?", User.class, username);
+        return GeneralDAOImp.executeQueryWithSingleTable("SELECT id FROM users WHERE username = ?", User.class, username);
     }
 
     @Override
     public List<User> findEmail(String email) {
-        return GeneralDAO.executeQueryWithSingleTable("SELECT id FROM users WHERE email = ?", User.class, email);
+        return GeneralDAOImp.executeQueryWithSingleTable("SELECT id FROM users WHERE email = ?", User.class, email);
     }
 
     @Override
@@ -70,7 +69,7 @@ public class UserDAOImp implements IUserDAO {
     @Override
     public List<User> selectTokenVerify(String username) {
         String query = "SELECT id, tokenVerifyTime, tokenVerify FROM users WHERE username = ? AND isVerify = 0";
-        return GeneralDAO.executeQueryWithSingleTable(query, User.class, username);
+        return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, username);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class UserDAOImp implements IUserDAO {
         String statement = "UPDATE users " +
                 "SET tokenVerify = ?, tokenVerifyTime = ? " +
                 "WHERE id = ?";
-        GeneralDAO.executeAllTypeUpdate(statement, token, timeTokenExpired, id);
+        GeneralDAOImp.executeAllTypeUpdate(statement, token, timeTokenExpired, id);
     }
 
     @Override
@@ -86,13 +85,13 @@ public class UserDAOImp implements IUserDAO {
         String query = "UPDATE users " +
                 "SET isVerify = ? " +
                 "WHERE id = ?";
-        GeneralDAO.executeAllTypeUpdate(query, status, id);
+        GeneralDAOImp.executeAllTypeUpdate(query, status, id);
     }
 
     @Override
     public List<User> selectTokenResetPassword(String email) {
         String query = "SELECT id, tokenResetPassword, tokenResetPasswordTime FROM users WHERE email = ?";
-        return GeneralDAO.executeQueryWithSingleTable(query, User.class, email);
+        return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, email);
     }
 
     @Override
@@ -100,7 +99,7 @@ public class UserDAOImp implements IUserDAO {
         String query = "UPDATE users " +
                 "SET tokenResetPassword = ?, tokenResetPasswordTime = ? " +
                 "WHERE id = ?";
-        GeneralDAO.executeAllTypeUpdate(query, token, timeTokenExpired, id);
+        GeneralDAOImp.executeAllTypeUpdate(query, token, timeTokenExpired, id);
     }
 
     @Override
@@ -129,44 +128,44 @@ public class UserDAOImp implements IUserDAO {
     @Override
     public List<User> selectALl() {
         String querry ="Select id, username, email, fullname, gender, phone, address, birthDay, role from users ";
-        return GeneralDAO.executeQueryWithSingleTable(querry, User.class);
+        return GeneralDAOImp.executeQueryWithSingleTable(querry, User.class);
     }
 
     @Override
     public List<User> searchUsersByName(String search) {
         String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ? ";
-        return GeneralDAO.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%");
+        return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%");
     }
 
     @Override
     public void insertUser(String username,String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay, String role) {
         String querry = "INSERT INTO users(username, passwordEncoding, fullname, gender, email, phone, address, birthDay, role) VALUES(?,?,?,?,?,?,?,?,?)";
-        GeneralDAO.executeAllTypeUpdate(querry, username, passwordEncoding, fullname, gender, email, phone, address, birthDay, role);
+        GeneralDAOImp.executeAllTypeUpdate(querry, username, passwordEncoding, fullname, gender, email, phone, address, birthDay, role);
     }
 
     @Override
     public List<User> getUserByID(int id) {
         String querry = "SELECT id, username, email, fullName, gender, phone, address, birthDay, avatar, role FROM users WHERE id = ?";
-        return GeneralDAO.executeQueryWithSingleTable(querry, User.class, id);
+        return GeneralDAOImp.executeQueryWithSingleTable(querry, User.class, id);
     }
 
     @Override
     public void updateUserByID(int id, String username, String fullName, String gender, String email, String phone, String address, Date birthDay) {
         String query = "UPDATE users SET username = ?, fullname = ?, gender = ?, email = ?, phone = ?, address = ?, birthDay = ? WHERE id = ?";
-        GeneralDAO.executeAllTypeUpdate(query, username, fullName, gender, email, phone, address, birthDay, id);
+        GeneralDAOImp.executeAllTypeUpdate(query, username, fullName, gender, email, phone, address, birthDay, id);
     }
 
     @Override
     public void updateUserByIDWithRole(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay, String role) {
         String query = "UPDATE users SET username = ?, fullname = ?, gender = ?, email = ?, phone = ?, address = ?, birthDay = ?, role = ? WHERE id = ?";
-        GeneralDAO.executeAllTypeUpdate(query, username, fullname, gender, email, phone, address, birthDay, role, id);
+        GeneralDAOImp.executeAllTypeUpdate(query, username, fullname, gender, email, phone, address, birthDay, role, id);
     }
 
 
     @Override
     public void updateUserPassword(int userId, String password) {
         String querry = "UPDATE users SET passwordEncoding = ? WHERE id = ?";
-        GeneralDAO.executeAllTypeUpdate(querry,password,userId);
+        GeneralDAOImp.executeAllTypeUpdate(querry,password,userId);
     }
 
     @Override
@@ -198,7 +197,7 @@ public class UserDAOImp implements IUserDAO {
     @Override
     public void updateInfoUser(int id, String avatar) {
         String query = "UPDATE users SET avatar = ? WHERE id = ?";
-        GeneralDAO.executeAllTypeUpdate(query, avatar, id);
+        GeneralDAOImp.executeAllTypeUpdate(query, avatar, id);
     }
 
     @Override
@@ -207,7 +206,7 @@ public class UserDAOImp implements IUserDAO {
         sql.append("SELECT DISTINCT users.id, users.fullName ")
                 .append("FROM users JOIN (orders JOIN order_details ON orders.id = order_details.orderId) ON users.id = orders.userId ")
                 .append("WHERE order_details.id = ?");
-        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), User.class, orderDetailId);
+        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), User.class, orderDetailId);
     }
 }
 

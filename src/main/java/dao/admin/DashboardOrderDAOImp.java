@@ -1,6 +1,6 @@
 package dao.admin;
 
-import dao.general.GeneralDAO;
+import dao.general.GeneralDAOImp;
 import models.Order;
 import models.OrderDetail;
 import models.Product;
@@ -14,7 +14,7 @@ public class DashboardOrderDAOImp implements IDashboardOrderDAO {
     public List<OrderDetail> selectById(Object orderId) {
         if (orderId instanceof String) {
             String query = "SELECT id, orderId, productId, productName, sizeRequired, colorRequired, quantityRequired, price FROM order_details WHERE orderId=?";
-            return GeneralDAO.executeQueryWithSingleTable(query, OrderDetail.class, orderId);
+            return GeneralDAOImp.executeQueryWithSingleTable(query, OrderDetail.class, orderId);
         } else {
             throw new UnsupportedOperationException("DashboardOrderDAOImp >> Không hỗ trợ tham số dữ liệu khác");
         }
@@ -30,46 +30,19 @@ public class DashboardOrderDAOImp implements IDashboardOrderDAO {
                 "(SELECT productId, SUM(quantityRequired) total\n" +
                 "FROM order_details\n" +
                 "GROUP BY productId ORDER BY SUM(quantityRequired) DESC LIMIT ?) AS temp)";
-        //        String querry = "SELECT products.id, products.name, SUM(quantityRequired)\n" +
-//                "FROM order_details INNER JOIN products ON products.id = order_details.productId\n" +
-//                "GROUP BY products.id, products.name\n" +
-//                "ORDER BY SUM(quantityRequired) DESC\n" +
-//                "LIMIT ?";
-        return GeneralDAO.executeQueryWithSingleTable(query, Product.class, n);
+        return GeneralDAOImp.executeQueryWithSingleTable(query, Product.class, n);
     }
 
     @Override
     public int countOrder() {
         String query = "SELECT id FROM orders";
-        return GeneralDAO.executeQueryWithSingleTable(query, Order.class).size();
+        return GeneralDAOImp.executeQueryWithSingleTable(query, Order.class).size();
     }
 
     @Override
     public List<Order> getOrderByDate(LocalDate date) {
         String query = "SELECT id, userId, dateOrder, paymentMethodId, fullName, email, phone, address, transactionStatusId, orderStatusId, voucherId, deliveryMethodId FROM orders WHERE MONTH(dateOrder) = ?";
-        return GeneralDAO.executeQueryWithSingleTable(query, Order.class, date);
+        return GeneralDAOImp.executeQueryWithSingleTable(query, Order.class, date);
     }
 
-    //    @Override
-//    public List<Product> getTop5ProductName(int productId) {
-//        String querry="SELECT name FROM products WHERE id=?";
-//        return GeneralDAOImp.executeQueryWithSingleTable(querry, Product.class, productId);
-//    }
-
-//    @Override
-//    public List<OrderDetail> getTop5Product() {
-//        // Có thể tối ưu bằng sub
-//        String querry = "SELECT products.id, products.name, SUM(quantityRequired)\n" +
-//                "FROM order_details INNER JOIN products ON products.id = order_details.productId\n" +
-//                "GROUP BY products.id, products.name\n" +
-//                "ORDER BY SUM(quantityRequired) DESC\n" +
-//                "LIMIT 5";
-//        return GeneralDAOImp.executeQueryWithSingleTable(querry, OrderDetail.class);
-//    }
-
-//    @Override
-//    public List<OrderDetail> getTop5ProductQuantity(int productId) {
-//        String querry="SELECT quantityRequired FROM order_details WHERE productId=?";
-//        return GeneralDAOImp.executeQueryWithSingleTable(querry, OrderDetail.class, productId);
-//    }
 }

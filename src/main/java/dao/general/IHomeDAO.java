@@ -33,4 +33,6 @@ public interface IHomeDAO extends IDAO {
     //    Lấy ra danh sách các sản phẩm bán chạy nhất (dựa theo số lượng bán được trong order_details > 10)
     //    theo thứ tự giảm dần của số lượng bán được.
     List<Product> getListTrendProducts(boolean isSeeMore);
+
+    List<Product> getListNewProducts(boolean isSeeMore);
 }

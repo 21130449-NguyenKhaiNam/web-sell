@@ -24,8 +24,6 @@ public interface IContactDAO extends IDAO {
         throw new UnsupportedOperationException("IContactDAO >> Phương thức UPDATE từng phần tử không được hỗ trợ");
     }
 
-
-
     //    Lấy ra danh sách tất cả các liên hệ của người dùng
     List<Contact> getListUserContacts();
 

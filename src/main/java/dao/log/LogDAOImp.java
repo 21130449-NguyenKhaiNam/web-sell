@@ -3,7 +3,7 @@ package dao.log;
 import annotations.WriteLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dao.general.GeneralDAO;
+import dao.general.GeneralDAOImp;
 import dao.IDAO;
 import models.IModel;
 
@@ -19,10 +19,10 @@ public class LogDAOImp implements ILogDAO {
             String query = "INSERT INTO logs (ip, id_level, data, data_change, update_date, id_table) VALUES (?, ?, ?, ?, ?, ?)";
             System.out.println("Write Log >> id-dao: " + dao.getModelById(iModel.getMainId()));
             String jsonDataPrev = mapper.writeValueAsString(iModel);
-            GeneralDAO.executeAllTypeUpdate(query, ip, level, jsonDataPrev, changeData, updateDate, table);
+            GeneralDAOImp.executeAllTypeUpdate(query, ip, level, jsonDataPrev, changeData, updateDate, table);
         } else {
             String query = "INSERT INTO logs (ip, id_level, data_change, update_date, id_table) VALUES (?, ?, ?, ?, ?)";
-            GeneralDAO.executeAllTypeUpdate(query, ip, level, changeData, updateDate, table);
+            GeneralDAOImp.executeAllTypeUpdate(query, ip, level, changeData, updateDate, table);
         }
     }
 
