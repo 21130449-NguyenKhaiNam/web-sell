@@ -164,6 +164,15 @@
             <systemPath>${basedir}/lib/mail-1.4.1.jar</systemPath>
             <scope>system</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.9</version>
+        </dependency>
+
+
+
         <dependency>
             <groupId>system.thumbnailator</groupId>
             <artifactId>thumbnailator</artifactId>
@@ -254,6 +263,11 @@
             <groupId>io.github.cdimascio</groupId>
             <artifactId>dotenv-java</artifactId>
             <version>2.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.5.1</version>
         </dependency>
     </dependencies>
 

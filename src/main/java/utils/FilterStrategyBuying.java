@@ -88,11 +88,6 @@ public class FilterStrategyBuying extends FilterStrategy {
         public DetailProduct(Product product, List<Image> imgs, int stars, int reviewCounts) {
             this.product = product;
             this.imgs = imgs;
-
-            for (Image img : this.imgs){
-                img.setNameImage(CloudinaryUploadServices.getINSTANCE().getImage("product_img", img.getNameImage()));
-
-            }
             this.stars = stars;
             this.reviewCounts = reviewCounts;
         }

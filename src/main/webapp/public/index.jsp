@@ -119,7 +119,7 @@
                             <div class="image--tag">
                                 <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(trendProduct.getId());%>
 
-                                <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
+                                <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
 
                                <span class="product__tag" data-style="popular">Thịnh hành</span>
                                 <form action="AddToCart"
@@ -183,7 +183,7 @@
                         <div class="image--tag">
                             <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(newProduct.getId());%>
 
-                            <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
+                            <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
 
                             <span class="product__tag">Thịnh hành</span>
                             <form action="AddToCart"
@@ -295,6 +295,7 @@
     </div>
 </main>
 <!--Footer-->
+
 <%@include file="footer.jsp" %>
 <script src="<c:url value="/js/home.js" />"></script>
 <script src="<c:url value="/js/base.js" />"></script>

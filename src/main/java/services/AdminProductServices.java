@@ -37,6 +37,7 @@ public class AdminProductServices {
         return productDAO.getIdProductByName(product.getName()).get(0).getId();
     }
 
+
     public void addColor(String[] codeColors, int productId) {
         Color[] colors = new Color[codeColors.length];
         for (int i = 0; i < codeColors.length; i++) {
