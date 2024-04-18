@@ -11,9 +11,6 @@ public interface IDashboardOrderDAO extends IDashboadDAO {
     // Lấy ra số lượng sản phẩm bán chạy (giá trị N)
     List<Product> getTopNProduct(int n);
 
-    // Lấy số đơn hàng đã đặt (tất cả các trạng thái của đơn hàng) (table Orders)
-    int countOrder();
-
     //    Lấy đơn hàng theo thời gian
     List<Order> getOrderByDate(LocalDate date);
 }

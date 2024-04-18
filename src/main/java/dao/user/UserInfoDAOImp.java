@@ -35,9 +35,4 @@ public class UserInfoDAOImp implements IUserInfoDAO {
     public int update(User user, int select) {
         return 0;
     }
-
-    @Override
-    public int updatePasswordEncoding(int id, String pass) {
-        return 0;
-    }
 }

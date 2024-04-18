@@ -1,18 +1,17 @@
 package dao.user;
 
-import dao.general.GeneralDAOImp;
+import dao.general.GeneralDAO;
 import database.JDBIConnector;
 import models.User;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 public class UserAuthDAOImp implements IUserAuthDAO {
     @Override
     public User selectById(Object id) {
         if(id instanceof Integer) {
-            String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE id = ?";
-            return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, id).get(0);
+            String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE id = ? AND isVerify = ?";
+            return GeneralDAO.executeQueryWithSingleTable(query, User.class, id, 1).get(0);
         } else {
             throw new UnsupportedOperationException("UserDAOImp >> Phương thức thêm không hỗ trợ tham số kiểu khác");
         }
@@ -43,9 +42,9 @@ public class UserAuthDAOImp implements IUserAuthDAO {
     }
 
     @Override
-    public List<User> selectTokenVerify(String username) {
+    public User selectTokenVerify(String username) {
         String query = "SELECT id, tokenVerifyTime, tokenVerify FROM users WHERE username = ? AND isVerify = 0";
-        return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, username);
+        return GeneralDAO.executeQueryWithSingleTable(query, User.class, username).get(0);
     }
 
     @Override
@@ -53,7 +52,7 @@ public class UserAuthDAOImp implements IUserAuthDAO {
         String statement = "UPDATE users " +
                 "SET tokenVerify = ?, tokenVerifyTime = ? " +
                 "WHERE id = ?";
-        GeneralDAOImp.executeAllTypeUpdate(statement, token, timeTokenExpired, id);
+        GeneralDAO.executeAllTypeUpdate(statement, token, timeTokenExpired, id);
     }
 
     @Override
@@ -61,13 +60,13 @@ public class UserAuthDAOImp implements IUserAuthDAO {
         String query = "UPDATE users " +
                 "SET isVerify = ? " +
                 "WHERE id = ?";
-        GeneralDAOImp.executeAllTypeUpdate(query, status, id);
+        GeneralDAO.executeAllTypeUpdate(query, status, id);
     }
 
     @Override
-    public List<User> selectTokenResetPassword(String email) {
+    public User selectTokenResetPassword(String email) {
         String query = "SELECT id, tokenResetPassword, tokenResetPasswordTime FROM users WHERE email = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, email);
+        return GeneralDAO.executeQueryWithSingleTable(query, User.class, email).get(0);
     }
 
     @Override
@@ -75,18 +74,25 @@ public class UserAuthDAOImp implements IUserAuthDAO {
         String query = "UPDATE users " +
                 "SET tokenResetPassword = ?, tokenResetPasswordTime = ? " +
                 "WHERE id = ?";
-        GeneralDAOImp.executeAllTypeUpdate(query, token, timeTokenExpired, id);
+        GeneralDAO.executeAllTypeUpdate(query, token, timeTokenExpired, id);
     }
 
     @Override
-    public List<User> selectAccount(String username, String isVerify) {
-        String query;
-        if (isVerify == null) {
-            query = "SELECT id, username, passwordEncoding, fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ?";
-            return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, username);
-        } else {
-            query = "SELECT id, username, passwordEncoding,  fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
-            return GeneralDAOImp.executeQueryWithSingleTable(query, User.class, username, isVerify);
-        }
+    public User findEmail(String email, boolean isVerify) {
+        String verify = isVerify ? "1" : "0";
+        String query = "SELECT id FROM users WHERE email = ?";
+        return GeneralDAO.executeQueryWithSingleTable(query, User.class, email).get(0);
     }
+    @Override
+    public int updatePasswordEncoding(int id, String pass) {
+        String statement = "UPDATE users " +
+                "SET passwordEncoding = :passwordEncoding "
+                + "WHERE id = :id";
+        int count = JDBIConnector.get().withHandle(handle -> handle.createUpdate(statement)
+                .bind("id", id)
+                .bind("passwordEncoding", pass)
+                .execute());
+        return count;
+    }
+
 }

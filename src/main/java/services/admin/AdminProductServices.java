@@ -141,12 +141,12 @@ public class AdminProductServices {
         for (int i = 0; i < index; i++) {
             colorDAO.updateColor(colors[i], listColorId.get(i).getId());
         }
-//       delete
-        if (listColorId.size() > index) {
-            List<Color> colorsDelete = listColorId.subList(index, listColorId.size());
-            List<Integer> listIdDelete = (List<Integer>) colorsDelete.stream().map(Color::getId);
-            colorDAO.deleteColorList(listIdDelete);
-        }
+////       delete
+//        if (listColorId.size() > index) {
+//            List<Color> colorsDelete = listColorId.subList(index, listColorId.size());
+//            List<Integer> listIdDelete = (List<Integer>) colorsDelete.stream().map(Color::getId);
+//            colorDAO.deleteColorList(listIdDelete);
+//        }
 //       create
         if (listColorId.size() < index) {
 //            int update = index - listSizeId.size();

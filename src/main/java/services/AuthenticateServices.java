@@ -1,6 +1,7 @@
 package services;
 
-import dao.user.IUserDAO;
+import dao.user.IUserAuthDAO;
+import dao.user.UserAuthDAOImp;
 import models.User;
 import properties.MailProperties;
 import properties.RoleProperties;
@@ -26,9 +27,10 @@ import java.util.regex.Pattern;
 public class AuthenticateServices {
     private static AuthenticateServices INSTANCE;
 
-    IUserDAO userDAO = LogService.getINSTANCE().createProxy(new UserDAOImp());
+    private IUserAuthDAO userDAO;
 
     private AuthenticateServices() {
+        userDAO = LogService.getINSTANCE().createProxy(new UserAuthDAOImp());
     }
 
     public static AuthenticateServices getINSTANCE() {
@@ -36,12 +38,27 @@ public class AuthenticateServices {
         return INSTANCE;
     }
 
+    private static Timestamp addTime(LocalDateTime dateTime, String duration) {
+        // Format duration to Time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime durationTime = LocalTime.parse(duration, formatter);
+
+        // CurrentTime + durationTime
+        LocalDateTime newDateTime = dateTime
+                .plusHours(durationTime.getHour())
+                .plusMinutes(durationTime.getMinute())
+                .plusSeconds(durationTime.getSecond());
+
+        Timestamp result = Timestamp.valueOf(newDateTime);
+        return result;
+    }
+
     public Validation checkEmailExists(String email) {
         Validation validation = new Validation();
         validation.setFieldEmail(email.isBlank() ?
                 "Email không được để trống" :
                 (
-                        !userDAO.selectByEmail(email, null).isEmpty() ?
+                        userDAO.findEmail(email, true) != null ?
                                 "Email đã tồn tại." :
                                 ""
                 )
@@ -54,7 +71,7 @@ public class AuthenticateServices {
         validation.setFieldUsername(username.isBlank() ?
                 "Tên đăng nhập không được để trống" :
                 (
-                        !userDAO.selectAccount(username, null).isEmpty() ?
+                        userDAO.selectById(username) != null ?
                                 "Tên đăng nhập đã tồn tại." :
                                 ""
                 )
@@ -74,16 +91,15 @@ public class AuthenticateServices {
         }
 
 //        Check user in db
-        List<User> users = userDAO.selectAccount(username, "1");
+        User user = userDAO.selectById(username);
 
 //        Check username
-        if (users.size() != 1) {
+        if (user == null) {
             validation.setFieldUsername("Tên đăng nhập không tồn tại.");
             return validation;
         }
 
 //        Check password
-        User user = users.get(0);
         String encode = Encoding.getINSTANCE().toSHA1(password);
         if (user.getPasswordEncoding().equals(encode)) {
             validation.setObjReturn(user);
@@ -130,7 +146,7 @@ public class AuthenticateServices {
         }
 
 //        Check Username Exist
-        if (!userDAO.findUsername(username).isEmpty()) {
+        if (userDAO.selectById(username) == null) {
             validation.setFieldUsername(errorUsername);
             countError++;
         }
@@ -144,7 +160,7 @@ public class AuthenticateServices {
         } else {
 
 //        Check Email Exist
-            if (!userDAO.findEmail(email).isEmpty()) {
+            if (userDAO.findEmail(email, true)==null) {
                 validation.setFieldEmail(errorEmail);
                 countError++;
             }
@@ -190,7 +206,7 @@ public class AuthenticateServices {
         Timestamp timestampExpiredToken = addTime(LocalDateTime.now(), MailProperties.getDurationTokenVerify());
 
 //        Check user exist in db: resend email verify for user
-        List<User> userList = userDAO.findUsername(user.getUsername());
+        List<User> userList = userDAO.selectById(user.getUsername());
         if (!userList.isEmpty()) {
             userDAO.updateTokenVerify(user.getId(), tokenVerify, timestampExpiredToken);
         } else {
@@ -209,9 +225,8 @@ public class AuthenticateServices {
     }
 
     public boolean verify(String username, String token) {
-        List<User> users = userDAO.selectTokenVerify(username);
-        if (users.size() != 1) return false;
-        User user = users.get(0);
+        User user = userDAO.selectTokenVerify(username);
+        if (user==null) return false;
         Timestamp userTokenExpired = user.getTokenVerifyTime();
         Timestamp timestampCurrent = Timestamp.valueOf(LocalDateTime.now());
         if (timestampCurrent.compareTo(userTokenExpired) <= 0) {
@@ -227,9 +242,8 @@ public class AuthenticateServices {
 
         String errorEmail = "Tài khoản ứng với email này chưa đăng ký hoặc chưa xác thực";
 
-        List<User> users = userDAO.selectByEmail(email, "1");
-        if (users.size() == 1) {
-            User user = users.get(0);
+        User user = userDAO.findEmail(email, true);
+        if (user != null) {
             validation.setObjReturn(user);
         } else {
             validation.setFieldEmail(errorEmail);
@@ -252,9 +266,8 @@ public class AuthenticateServices {
     }
 
     public boolean resetPassword(String email, String token) {
-        List<User> users = userDAO.selectTokenResetPassword(email);
-        if (users.size() != 1) return false;
-        User user = users.get(0);
+        User user = userDAO.selectTokenResetPassword(email);
+        if (user == null) return false;
         String userToken = user.getTokenResetPassword();
         Timestamp userTokenExpired = user.getTokenResetPasswordTime();
         if (userTokenExpired == null) return false;
@@ -264,29 +277,13 @@ public class AuthenticateServices {
 
     public boolean updatePassword(String email, String password) {
         String passwordEncoding = Encoding.getINSTANCE().toSHA1(password);
-        List<User> users = userDAO.selectByEmail(email, "1");
-        if (users.isEmpty()) return false;
-        User user = users.get(0);
+        User user = userDAO.findEmail(email, true);
+        if (user == null) return false;
         if (user.getTokenResetPassword() != null) {
             userDAO.updatePasswordEncoding(user.getId(), passwordEncoding);
             userDAO.updateTokenResetPassword(user.getId(), null, null);
             return true;
         }
         return false;
-    }
-
-    private static Timestamp addTime(LocalDateTime dateTime, String duration) {
-        // Format duration to Time
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalTime durationTime = LocalTime.parse(duration, formatter);
-
-        // CurrentTime + durationTime
-        LocalDateTime newDateTime = dateTime
-                .plusHours(durationTime.getHour())
-                .plusMinutes(durationTime.getMinute())
-                .plusSeconds(durationTime.getSecond());
-
-        Timestamp result = Timestamp.valueOf(newDateTime);
-        return result;
     }
 }

@@ -2,6 +2,7 @@ package services;
 
 import dao.order.CheckoutDAOImp;
 import dao.order.ICheckoutDAO;
+import models.Order;
 import models.PaymentMethod;
 import models.DeliveryMethod;
 import models.PaymentOwner;
@@ -31,7 +32,7 @@ public class CheckoutServices {
     }
 
     public DeliveryMethod getDeliveryMethodById(int id){
-        return CheckoutDAOImp.getDeliveryMethodById(id);
+        return checkoutDao.selectById(id);
     }
 
     public PaymentMethod getPaymentMethodById(int id){
@@ -42,7 +43,8 @@ public class CheckoutServices {
         return checkoutDao.getPaymentOwnerByPaymentMethodId(id);
     }
 
-    public void addNewOrder(int orderId, int userId, String dateOrder, String fullName, String email, String phone, String address, Integer deliveryMethodId, int paymentMethodId, Integer voucherId){
+    public void addNewOrder(String orderId, int userId, String dateOrder, String fullName, String email, String phone, String address, Integer deliveryMethodId, int paymentMethodId, Integer voucherId){
+        Order order = new Order(orderId, userId, dateOrder, fullName, email, phone, address, deliveryMethodId, paymentMethodId, voucherId);
         checkoutDao.addNewOrder(orderId, userId, dateOrder, fullName, email, phone, address, deliveryMethodId, paymentMethodId, voucherId);
     }
 

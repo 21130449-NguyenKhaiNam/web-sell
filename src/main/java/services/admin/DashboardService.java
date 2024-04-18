@@ -4,6 +4,7 @@ import dao.admin.*;
 import models.Order;
 import models.OrderDetail;
 import models.Product;
+import services.LogService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,11 +14,13 @@ public class DashboardService {
     private IDashboardUserDAO dashboardUserDAO;
     private IDashboardProductDAO dashboardProductDAO;
     private IDashboardOrderDAO dashboardOrderDAO;
+    private IDashboardReviewDAO dashboardReviewDAO;
 
     private DashboardService() {
-        dashboardUserDAO = new DashboardUserDAOImp();
-        dashboardProductDAO = new DashboardProductDAOImp();
-        dashboardOrderDAO = new DashboardOrderDAOImp();
+        dashboardUserDAO = LogService.getINSTANCE().createProxy(new DashboardUserDAOImp());
+        dashboardProductDAO = LogService.getINSTANCE().createProxy(new DashboardProductDAOImp());
+        dashboardOrderDAO = LogService.getINSTANCE().createProxy(new DashboardOrderDAOImp());
+        dashboardReviewDAO = LogService.getINSTANCE().createProxy(new DashboardReviewDAOImp());
     }
 
     public static DashboardService getINSTANCE() {
@@ -27,19 +30,19 @@ public class DashboardService {
     }
 
     public int countUser() {
-        return dashboardUserDAO.countUser();
+        return dashboardUserDAO.total();
     }
 
     public int countProduct() {
-        return dashboardProductDAO.countProduct();
+        return dashboardProductDAO.total();
     }
 
     public int countOrder() {
-        return dashboardOrderDAO.countOrder();
+        return dashboardOrderDAO.total();
     }
 
     public int countReview() {
-        return dashboardProductDAO.countReview();
+        return dashboardReviewDAO.total();
     }
 
     public List<Product> getTop5Product() {

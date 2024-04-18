@@ -4,6 +4,8 @@ import dao.order.*;
 import models.*;
 import utils.FormatCurrency;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -14,12 +16,16 @@ public class AdminOrderServices {
     private IOrderStatusDAO orderStatusDao;
     private ITransactionStatusDAO transactionStatusDao;
     private IOrderDetailDAO orderDetailDAO;
+    private IOrderUserDAO orderUserDAO;
+    private IOrderAdminDAO orderAdminDAO;
 
     public AdminOrderServices() {
         orderDao = LogService.getINSTANCE().createProxy(new OrderAdminDAOImp());
         orderStatusDao = LogService.getINSTANCE().createProxy(new OrderStatusDAOImp());
         transactionStatusDao = LogService.getINSTANCE().createProxy(new TransactionStatusDAOImp());
         orderDetailDAO = LogService.getINSTANCE().createProxy(new OrderDetailDAOImp());
+        orderUserDAO = LogService.getINSTANCE().createProxy(new OrderUserDAOImp());
+        orderAdminDAO = LogService.getINSTANCE().createProxy(new OrderAdminDAOImp());
     }
 
     public static AdminOrderServices getINSTANCE() {
@@ -37,11 +43,11 @@ public class AdminOrderServices {
     }
 
     public OrderStatus getOrderStatusById(int orderStatusId) {
-        return orderStatusDao.getOrderStatusById(orderStatusId);
+        return orderStatusDao.selectById(orderStatusId);
     }
 
     public TransactionStatus getTransactionStatusById(int transactionStatusId) {
-        return transactionStatusDao.getTransactionStatusById(transactionStatusId);
+        return transactionStatusDao.selectById(transactionStatusId);
     }
 
     public List<Order> getListAllOrders() {
@@ -68,29 +74,8 @@ public class AdminOrderServices {
         return orderDao.getDeliveryMethodManageById(id);
     }
 
-//    public List<Order> getListOrderById(String orderId){
-//        return orderDao.getListOrderByPartialId(orderId);
-//    }
-
-//    public List<Order> getListOrderByCustomerName(String customerName){
-//        return orderDao.getListOrderByCustomerName(customerName);
-//    }
-
     public Order getOrderById(String id) {
         return orderDao.getOrderById(id);
-    }
-
-//    public void updateOrderStatusIdByOrderId(int orderStatusId , String orderId){
-//        orderDao.updateOrderStatusIdByOrderId(orderStatusId, orderId);
-//    }
-//
-//    public void updateTransactionStatusIdByOrderId(int transactionStatusId , String orderId){
-//        orderDao.updateTransactionStatusIdByOrderId(transactionStatusId,orderId);
-//    }
-
-    public void removeOrderByMultipleOrderId(String[] multipleOrderId) {
-        orderDetailDAO.removeOrderDetailByMultipleOrderId(multipleOrderId);
-        orderDao.removeOrderByMultipleId(multipleOrderId);
     }
 
     public void cancelOrderByMultipleId(String[] multipleId) {
@@ -98,11 +83,11 @@ public class AdminOrderServices {
     }
 
     public List<OrderDetail> getListOrderDetailByOrderId(String orderId) {
-        return orderDetailDAO.getListOrderDetailByOrderId(orderId);
+        return orderUserDAO.getOrderDetailByOrderId(Collections.singletonList(orderId));
     }
 
     public void updateStatusByOrderId(String orderId, int orderStatusId, int transactionStatusId) {
-        OrderAdminDAOImp.updateStatusByOrderId(orderId, orderStatusId, transactionStatusId);
+        orderAdminDAO.updateStatusByOrderId(orderId, orderStatusId, transactionStatusId);
     }
 
     public Voucher getVoucherById(int id) {
@@ -111,7 +96,7 @@ public class AdminOrderServices {
 
     public String getTotalPriceFormatByOrderId(String orderId) {
         Order order = orderDao.getOrderById(orderId);
-        List<OrderDetail> listOrderDetail = orderDetailDAO.getListOrderDetailByOrderId(orderId);
+        List<OrderDetail> listOrderDetail = orderUserDAO.getOrderDetailByOrderId(Collections.singletonList(orderId));
         double totalPrice = 0;
         for (OrderDetail orderDetail : listOrderDetail) {
             totalPrice += orderDetail.getPrice();

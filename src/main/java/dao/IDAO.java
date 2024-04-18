@@ -14,6 +14,11 @@ public interface IDAO {
         throw new UnsupportedOperationException("DAO >> Phương thức SELECT không được hỗ trợ");
     }
 
+    @WriteLog(WriteLog.SELECT)
+    default <T> List<T> selectAll() {
+        throw new UnsupportedOperationException("DAO >> Phương thức SELECT ALL không được hỗ trợ");
+    }
+
     // Thêm một đối tượng vào cơ sở dữ liệu
     @WriteLog(WriteLog.INSERT)
     default <T> int insert(@LogParam("object-insert") T o) {

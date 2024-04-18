@@ -1,7 +1,7 @@
 package dao.product;
 
 import annotations.LogTable;
-import dao.general.GeneralDAOImp;
+import dao.general.GeneralDAO;
 import models.Category;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public class CategoryDAOImp implements ICategoryDAO {
         if(o instanceof Category) {
             Category category = (Category) o;
             String query = "INSERT INTO categories (nameType, sizeTableImage) VALUES (?, ?) ";
-            GeneralDAOImp.executeAllTypeUpdate(query, category.getNameType(), category.getSizeTableImage());
+            GeneralDAO.executeAllTypeUpdate(query, category.getNameType(), category.getSizeTableImage());
             return 1;
         } else {
             throw new UnsupportedOperationException("CategoryDAOImp >> Phương thức thêm không hỗ trợ tham số kiểu khác");
@@ -23,7 +23,7 @@ public class CategoryDAOImp implements ICategoryDAO {
     public Category selectById(Object id) {
         if(id instanceof Integer) {
             String sql = "SELECT id, nameType, sizeTableImage FROM categories WHERE id = ?";
-            return GeneralDAOImp.executeQueryWithSingleTable(sql, Category.class, id).get(0);
+            return GeneralDAO.executeQueryWithSingleTable(sql, Category.class, id).get(0);
         } else {
             throw new UnsupportedOperationException("CategoryDAOImp >> Phương thức thêm không hỗ trợ tham số kiểu khác");
         }
@@ -36,10 +36,10 @@ public class CategoryDAOImp implements ICategoryDAO {
             StringBuilder sql = new StringBuilder();
             if (category.getSizeTableImage() == null) {
                 sql.append("UPDATE categories SET nameType = ? WHERE id = ?");
-                GeneralDAOImp.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getId());
+                GeneralDAO.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getId());
             } else {
                 sql.append("UPDATE categories SET nameType = ?, sizeTableImage = ? WHERE id = ?");
-                GeneralDAOImp.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getSizeTableImage(), category.getId());
+                GeneralDAO.executeAllTypeUpdate(sql.toString(), category.getNameType(), category.getSizeTableImage(), category.getId());
             }
             return 1;
         } else {
@@ -50,12 +50,12 @@ public class CategoryDAOImp implements ICategoryDAO {
     @Override
     public List<Category> getAllCategory() {
         String sql = "SELECT id, nameType FROM categories";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Category.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Category.class);
     }
 
     @Override
     public List<Category> getCategoryByNameType(String nameType) {
         String query = "SELECT id FROM categories WHERE nameType = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(query, Category.class, nameType);
+        return GeneralDAO.executeQueryWithSingleTable(query, Category.class, nameType);
     }
 }

@@ -15,13 +15,16 @@ import java.util.*;
 public class AdminProductServices {
     private static final int LIMIT = 15;
     private static AdminProductServices INSTANCE;
-    IProductDAO productDAO = LogService.getINSTANCE().createProxy(new ProductDAOImp());
-    IColorDAO colorDAO = LogService.getINSTANCE().createProxy(new ColorDAOImp());
-    IImageDAO imageDAO = LogService.getINSTANCE().createProxy(new ImageDAOImp());
-    ISizeDAO sizeDAO = LogService.getINSTANCE().createProxy(new SizeDAOImp());
-    IProductCardDAO productCardDAO = LogService.getINSTANCE().createProxy(new ProductCardDAOImp());
+    private IProductDAO productDAO;
+    private IColorDAO colorDAO;
+    private IImageDAO imageDAO;
+    private ISizeDAO sizeDAO;
 
     private AdminProductServices() {
+        productDAO = LogService.getINSTANCE().createProxy(new ProductDAOImp());
+        colorDAO = LogService.getINSTANCE().createProxy(new ColorDAOImp());
+        imageDAO = LogService.getINSTANCE().createProxy(new ImageDAOImp());
+        sizeDAO = LogService.getINSTANCE().createProxy(new SizeDAOImp());
     }
 
     public static AdminProductServices getINSTANCE() {
@@ -33,7 +36,7 @@ public class AdminProductServices {
     public int addProduct(Product product) {
         List<Product> productList = productDAO.getIdProductByName(product.getName());
         if (!productList.isEmpty()) return 0;
-        productDAO.addProduct(product);
+        productDAO.insert(product);
         return productDAO.getIdProductByName(product.getName()).get(0).getId();
     }
 
@@ -72,22 +75,22 @@ public class AdminProductServices {
     }
 
     public List<Product> filter(List<Integer> listId, int pageNumber) {
-        List<Product> productList = productCardDAO.pagingAndFilter(listId, pageNumber, LIMIT);
+        List<Product> productList = productDAO.pagingAndFilter(listId, pageNumber, LIMIT);
         return productList;
     }
 
     public int getQuantityPage() {
-        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct() + "") / LIMIT);
+        double quantityPage = Math.ceil(Double.parseDouble(productDAO.getQuantityProduct() + "") / LIMIT);
         return (int) quantityPage;
     }
 
     public int getQuantityPage(List<Integer> listId) {
-        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct(listId) + "") / LIMIT);
+        double quantityPage = Math.ceil(Double.parseDouble(productDAO.getQuantityProduct(listId) + "") / LIMIT);
         return (int) quantityPage;
     }
 
     public List<Integer> getProductByName(String name) {
-        List<Product> listProduct = productCardDAO.getIdProductByName(name);
+        List<Product> listProduct = productDAO.getIdProductByName(name);
         if (listProduct.isEmpty()) return null;
         List<Integer> listId = new ArrayList<>();
         for (Product p :
@@ -98,7 +101,7 @@ public class AdminProductServices {
     }
 
     public List<Integer> getProductByTimeCreated(Date dateBegin, Date dateEnd) {
-        List<Product> listProduct = productCardDAO.getProductByTimeCreated(dateBegin, dateEnd);
+        List<Product> listProduct = productDAO.getProductByTimeCreated(dateBegin, dateEnd);
         if (listProduct.isEmpty()) return null;
         List<Integer> listId = new ArrayList<>();
         for (Product p :
@@ -108,7 +111,7 @@ public class AdminProductServices {
         return listId;
     }
     public List<Product> getProducts(int numberPage) {
-        List<Product> productList = productCardDAO.getProducts(numberPage, LIMIT);
+        List<Product> productList = productDAO.getProducts(numberPage, LIMIT);
         return productList;
     }
 
@@ -135,12 +138,12 @@ public class AdminProductServices {
         for (int i = 0; i < index; i++) {
             colorDAO.updateColor(colors[i], listColorId.get(i).getId());
         }
-//       delete
-        if (listColorId.size() > index) {
-            List<Color> colorsDelete = listColorId.subList(index, listColorId.size());
-            List<Integer> listIdDelete = (List<Integer>) colorsDelete.stream().map(Color::getId);
-            colorDAO.deleteColorList(listIdDelete);
-        }
+////       delete
+//        if (listColorId.size() > index) {
+//            List<Color> colorsDelete = listColorId.subList(index, listColorId.size());
+//            List<Integer> listIdDelete = (List<Integer>) colorsDelete.stream().map(Color::getId);
+//            colorDAO.deleteColorList(listIdDelete);
+//        }
 //       create
         if (listColorId.size() < index) {
 //            int update = index - listSizeId.size();
@@ -222,10 +225,10 @@ public class AdminProductServices {
     }
 
     public boolean updateVisibility(int productId, boolean visibility) {
-        if (productCardDAO.isVisibility(productId).isEmpty() || visibility == productCardDAO.isVisibility(productId).get(0).isVisibility()) {
+        if (productDAO.isVisibility(productId).isEmpty() || visibility == productDAO.isVisibility(productId).get(0).isVisibility()) {
             return false;
         }
-        productCardDAO.updateVisibility(productId, visibility);
+        productDAO.updateVisibility(productId, visibility);
         return true;
     }
 

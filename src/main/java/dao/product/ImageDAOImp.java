@@ -1,7 +1,7 @@
 package dao.product;
 
 import annotations.LogTable;
-import dao.general.GeneralDAOImp;
+import dao.general.GeneralDAO;
 import models.Image;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public class ImageDAOImp implements IImageDAO {
     @Override
     public List<Image> getThumbnail(int productId) {
         String sql = "SELECT nameImage FROM images WHERE productId = ? AND isThumbnail = 1";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Image.class, productId);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Image.class, productId);
     }
 
     @Override
@@ -29,21 +29,21 @@ public class ImageDAOImp implements IImageDAO {
                     .append(images.get(i).getProductId()).append(") ");
         }
         System.out.println(sql);
-        GeneralDAOImp.executeAllTypeUpdate(sql.toString());
+        GeneralDAO.executeAllTypeUpdate(sql.toString());
     }
 
     @Override
     public List<Image> getNameImages(int productId) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT nameImage FROM images WHERE productId = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Image.class, productId);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Image.class, productId);
     }
 
     @Override
     public List<Image> getIdImages(int productId) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id FROM images WHERE productId = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Image.class, productId);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Image.class, productId);
     }
 
     @Override
@@ -59,6 +59,6 @@ public class ImageDAOImp implements IImageDAO {
             }
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM images ").append("WHERE id IN (").append(idRange).append(")");
-        GeneralDAOImp.executeAllTypeUpdate(sql.toString());
+        GeneralDAO.executeAllTypeUpdate(sql.toString());
     }
 }

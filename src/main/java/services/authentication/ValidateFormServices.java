@@ -51,16 +51,15 @@ public class ValidateFormServices {
         }
 
 //        Check user in db
-        List<User> users = userDAO.selectAccount(username, "1");
+        User user = userDAO.selectById(username);
 
 //        Check username
-        if (users.size() != 1) {
+        if (user == null) {
             validation.setFieldUsername("Tên đăng nhập không tồn tại.");
             return validation;
         }
 
 //        Check password
-        User user = users.get(0);
         String encode = Encoding.getINSTANCE().toSHA1(password);
         if (user.getPasswordEncoding().equals(encode)) {
             validation.setObjReturn(user);
@@ -107,7 +106,7 @@ public class ValidateFormServices {
         }
 
 //        Check Username Exist
-        if (!userDAO.findUsername(username).isEmpty()) {
+        if (userDAO.selectById(username) == null) {
             validation.setFieldUsername(errorUsername);
             countError++;
         }
@@ -121,7 +120,7 @@ public class ValidateFormServices {
         } else {
 
 //        Check Email Exist
-            if (!userDAO.findEmail(email).isEmpty()) {
+            if (userDAO.findEmail(email, true) == null) {
                 validation.setFieldEmail(errorEmail);
                 countError++;
             }
@@ -167,8 +166,8 @@ public class ValidateFormServices {
         Timestamp timestampExpiredToken = addTime(LocalDateTime.now(), MailProperties.getDurationTokenVerify());
 
 //        Check user exist in db: resend email verify for user
-        List<User> userList = userDAO.findUsername(user.getUsername());
-        if (!userList.isEmpty()) {
+        User userList = userDAO.selectById(user.getUsername());
+        if (userList != null) {
             userDAO.updateTokenVerify(user.getId(), tokenVerify, timestampExpiredToken);
         } else {
 //        Insert user to db
@@ -186,9 +185,8 @@ public class ValidateFormServices {
     }
 
     public boolean verify(String username, String token) {
-        List<User> users = userDAO.selectTokenVerify(username);
-        if (users.size() != 1) return false;
-        User user = users.get(0);
+        User user = userDAO.selectTokenVerify(username);
+        if (user == null) return false;
         Timestamp userTokenExpired = user.getTokenVerifyTime();
         Timestamp timestampCurrent = Timestamp.valueOf(LocalDateTime.now());
         if (timestampCurrent.compareTo(userTokenExpired) <= 0) {
@@ -204,9 +202,8 @@ public class ValidateFormServices {
 
         String errorEmail = "Tài khoản ứng với email này chưa đăng ký hoặc chưa xác thực";
 
-        List<User> users = userDAO.selectByEmail(email, "1");
-        if (users.size() == 1) {
-            User user = users.get(0);
+        User user = userDAO.findEmail(email, true);
+        if (user != null) {
             validation.setObjReturn(user);
         } else {
             validation.setFieldEmail(errorEmail);
@@ -229,9 +226,8 @@ public class ValidateFormServices {
     }
 
     public boolean resetPassword(String email, String token) {
-        List<User> users = userDAO.selectTokenResetPassword(email);
-        if (users.size() != 1) return false;
-        User user = users.get(0);
+        User user = userDAO.selectTokenResetPassword(email);
+        if (user == null) return false;
         String userToken = user.getTokenResetPassword();
         Timestamp userTokenExpired = user.getTokenResetPasswordTime();
         if (userTokenExpired == null) return false;
@@ -241,9 +237,8 @@ public class ValidateFormServices {
 
     public boolean updatePassword(String email, String password) {
         String passwordEncoding = Encoding.getINSTANCE().toSHA1(password);
-        List<User> users = userDAO.selectByEmail(email, "1");
-        if (users.isEmpty()) return false;
-        User user = users.get(0);
+        User user = userDAO.findEmail(email, true);
+        if (user == null) return false;
         if (user.getTokenResetPassword() != null) {
             userDAO.updatePasswordEncoding(user.getId(), passwordEncoding);
             userDAO.updateTokenResetPassword(user.getId(), null, null);

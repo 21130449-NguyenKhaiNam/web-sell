@@ -11,7 +11,7 @@ public class HomeDAOImp implements IHomeDAO {
     @Override
     public List<Slider> getListSlideShow() {
         String query = "SELECT nameSlide, nameImage FROM sliders WHERE visibility = 1";
-        return GeneralDAOImp.executeQueryWithSingleTable(query, Slider.class);
+        return GeneralDAO.executeQueryWithSingleTable(query, Slider.class);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class HomeDAOImp implements IHomeDAO {
         if (!isSeeMore) {
             sql.append(" LIMIT 6");
         }
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     @Override
@@ -36,6 +36,6 @@ public class HomeDAOImp implements IHomeDAO {
         if(!isSeeMore){
             sql.append(" LIMIT 6");
         }
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, 10);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, 10);
     }
 }

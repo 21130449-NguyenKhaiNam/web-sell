@@ -10,10 +10,6 @@ public interface IUserInfoDAO extends IDAO {
     int ROLE = 4;
     int AVATAR = 5;
 
-
     // Cập nhật thông tin tài khoản
     int update(User user, int select);
-
-    //    Cập nhập mật khẩu dựa vào id user
-    int updatePasswordEncoding(int id, String pass);
 }

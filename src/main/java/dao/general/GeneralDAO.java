@@ -6,11 +6,11 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Query;
 
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
-public class GeneralDAOImp {
+public class GeneralDAO {
 
-    //Use for select statement
+    // Sử dụng cho câu select mà trả về một đối tượng có cấu trúc 'type' trước
     public static <T> List<T> executeQueryWithSingleTable(String sql, Class<T> type, Object... params) {
         Handle handle = ConnectionPool.getINSTANCE().getHandle();
         try {
@@ -26,20 +26,23 @@ public class GeneralDAOImp {
         }
     }
 
-    public static List<Map<String, Object>> executeQueryWithJoinTables(String sql, Object... params) {
-        return JDBIConnector.get().withHandle(handle -> {
+    // Sử dụng cho câu select mà trả về kiểu không xác định cấu trúc
+    public static <T> List<T> executeQueryWithSingleTable(String sql, Object... params) {
+        return (List<T>) JDBIConnector.get().withHandle(handle -> {
                     Query query = handle.createQuery(sql);
                     if(params != null){
                         for (int i = 0; i < params.length; i++) {
                             query.bind(i, params[i]);
                         }
                     }
-                    return query.mapToMap().list();
+                    return query.mapToMap().list().stream()
+                            .flatMap(item -> item.values().stream())
+                            .collect(Collectors.toList());
                 }
         );
     }
 
-    //Use for delete, insert and update statements
+    // Dùng cho các câu: Update, Insert
     public static void executeAllTypeUpdate(String sql, Object... params) {
         Handle handle = ConnectionPool.getINSTANCE().getHandle();
         try {

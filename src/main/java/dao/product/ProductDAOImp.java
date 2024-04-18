@@ -1,7 +1,7 @@
 package dao.product;
 
 import annotations.LogTable;
-import dao.general.GeneralDAOImp;
+import dao.general.GeneralDAO;
 import models.*;
 import utils.MoneyRange;
 
@@ -18,7 +18,7 @@ public class ProductDAOImp implements IProductDAO {
             Product product = (Product) o;
             String query = "INSERT INTO products (name, categoryId, description, originalPrice, salePrice, visibility, createAt) " +
                     "VALUES (?,?,?,?,?,?,?) ";
-            GeneralDAOImp.executeAllTypeUpdate(query, product.getName(), product.getCategoryId(), product.getDescription(), product.getOriginalPrice(), product.getSalePrice(), product.isVisibility(), product.getCreateAt());
+            GeneralDAO.executeAllTypeUpdate(query, product.getName(), product.getCategoryId(), product.getDescription(), product.getOriginalPrice(), product.getSalePrice(), product.isVisibility(), product.getCreateAt());
             return 1;
         } else {
             throw new UnsupportedOperationException("ProductDAOImp >> Phương thức thêm không hỗ trợ tham số kiểu khác");
@@ -28,43 +28,43 @@ public class ProductDAOImp implements IProductDAO {
     @Override
     public List<Image> getListImagesByProductId(int productId) {
         String sql = "SELECT id, nameImage, productId FROM Images WHERE productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Image.class, productId);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Image.class, productId);
     }
 
     @Override
     public List<Color> getListColorsByProductId(int productId) {
         String sql = "SELECT id, codeColor, productId FROM colors WHERE productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Color.class, productId);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Color.class, productId);
     }
 
     @Override
     public List<Size> getListSizesByProductId(int productId) {
         String sql = "SELECT id, nameSize, productId, sizePrice FROM sizes WHERE productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Size.class, productId);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Size.class, productId);
     }
 
     @Override
     public double getPriceSizeByName(String nameSize, int productId) {
         String sql = "SELECT sizePrice FROM sizes WHERE nameSize = ? AND productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Size.class, nameSize, productId).get(0).getSizePrice();
+        return GeneralDAO.executeQueryWithSingleTable(sql, Size.class, nameSize, productId).get(0).getSizePrice();
     }
 
     @Override
     public Product getProductByProductId(int productId) {
         String sql = "SELECT id, `name`, categoryId, `description`, salePrice, originalPrice FROM products WHERE id = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Product.class, productId).get(0);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Product.class, productId).get(0);
     }
 
     @Override
     public Size getSizeByNameSizeWithProductId(String nameSize, int productId) {
         String sql = "SELECT id, sizePrice, nameSize FROM sizes WHERE nameSize = ? AND productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Size.class, nameSize, productId).get(0);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Size.class, nameSize, productId).get(0);
     }
 
     @Override
     public Color getColorByCodeColorWithProductId(String codeColor, int productId) {
         String sql = "SELECT id, codeColor FROM colors WHERE codeColor = ? AND productId = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Color.class, codeColor, productId).get(0);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Color.class, codeColor, productId).get(0);
     }
 
     //Update
@@ -74,7 +74,7 @@ public class ProductDAOImp implements IProductDAO {
         sql.append("UPDATE products ")
                 .append("SET ").append(updatedFieldProduct(product))
                 .append(" WHERE id = ?");
-        GeneralDAOImp.executeAllTypeUpdate(sql.toString(), id);
+        GeneralDAO.executeAllTypeUpdate(sql.toString(), id);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class ProductDAOImp implements IProductDAO {
                 .append(" OFFSET ")
                 .append(offset);
 
-        List<Product> list = GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, visibility);
+        List<Product> list = GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, visibility);
         return list;
     }
 
@@ -129,7 +129,7 @@ public class ProductDAOImp implements IProductDAO {
                 .append(" OFFSET ")
                 .append(offset);
 
-        List<Product> list = GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class);
+        List<Product> list = GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
         return list;
     }
 
@@ -137,14 +137,14 @@ public class ProductDAOImp implements IProductDAO {
     public int getQuantityProduct() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id FROM products ");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class).size();
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class).size();
     }
 
     @Override
     public int getQuantityProduct(boolean visibility) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id FROM products where visibility = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
     }
 
     @Override
@@ -165,7 +165,7 @@ public class ProductDAOImp implements IProductDAO {
                 .append("WHERE visibility = ?")
                 .append(listIdString);
 
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
     }
 
     @Override
@@ -184,7 +184,7 @@ public class ProductDAOImp implements IProductDAO {
         sql.append("SELECT id ")
                 .append("FROM products ")
                 .append(listIdString);
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class).size();
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class).size();
     }
 
     @Override
@@ -208,7 +208,7 @@ public class ProductDAOImp implements IProductDAO {
                 .append(limit)
                 .append(" OFFSET ")
                 .append(offset);
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     @Override
@@ -233,7 +233,7 @@ public class ProductDAOImp implements IProductDAO {
                 .append(limit)
                 .append(" OFFSET ")
                 .append(offset);
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, visibility);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, visibility);
     }
 
     @Override
@@ -254,7 +254,7 @@ public class ProductDAOImp implements IProductDAO {
                 .append("FROM products  ")
                 .append("WHERE ")
                 .append(categoryIdQuery);
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     @Override
@@ -277,7 +277,7 @@ public class ProductDAOImp implements IProductDAO {
                 .append("FROM products JOIN colors ON products.id = colors.productId ")
                 .append("WHERE ")
                 .append(colorQuery);
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     @Override
@@ -300,7 +300,7 @@ public class ProductDAOImp implements IProductDAO {
                 .append("FROM products JOIN sizes ON products.id = sizes.productId ")
                 .append("WHERE ")
                 .append(sizeQuery);
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     @Override
@@ -320,7 +320,7 @@ public class ProductDAOImp implements IProductDAO {
                 .append("FROM products ")
                 .append("WHERE ")
                 .append(moneyRangeQuery);
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     @Override
@@ -329,21 +329,21 @@ public class ProductDAOImp implements IProductDAO {
         sql.append("SELECT id, `name`, originalPrice, salePrice ")
                 .append("FROM products  ")
                 .append("WHERE categoryId = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, categoryId);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, categoryId);
     }
 
     @Override
     public List<Product> getIdProductByName(String name) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id ").append("FROM products ").append("WHERE name LIKE ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, "%" + name + "%");
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, "%" + name + "%");
     }
 
     @Override
     public List<Product> getProductByTimeCreated(Date dateBegin, Date dateEnd) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id ").append("FROM products ").append("WHERE createAt BETWEEN ? AND ? ");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, dateBegin, dateEnd);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, dateBegin, dateEnd);
     }
 
     @Override
@@ -351,7 +351,7 @@ public class ProductDAOImp implements IProductDAO {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT categories.nameType ").append("FROM products JOIN categories ON products.categoryId = categories.id ")
                 .append("WHERE products.id = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Category.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Category.class, id);
     }
 
     @Override
@@ -360,7 +360,7 @@ public class ProductDAOImp implements IProductDAO {
         sql.append("SELECT nameType, sizeTableImage ")
                 .append("FROM categories JOIN products ON products.categoryId = categories.id ")
                 .append("WHERE products.id = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Category.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Category.class, id);
     }
 
     @Override
@@ -369,7 +369,7 @@ public class ProductDAOImp implements IProductDAO {
         sql.append("SELECT parameters.name, parameters.minValue, parameters.maxValue, parameters.unit, parameters.guideImg ")
                 .append("FROM products JOIN (parameters JOIN categories ON parameters.categoryId = categories.id) ON products.categoryId = categories.id ")
                 .append("WHERE products.id = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
     }
 
     @Override
@@ -378,20 +378,20 @@ public class ProductDAOImp implements IProductDAO {
         sql.append("SELECT name ")
                 .append("FROM products ")
                 .append("WHERE products.id = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, id);
     }
 
     @Override
     public List<Product> isVisibility(int id) {
         StringBuilder sql = new StringBuilder("SELECT visibility FROM products WHERE id = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, id);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, id);
     }
 
     @Override
     public void updateVisibility(int productId, boolean visibility) {
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE products ").append("SET visibility = ? ").append("WHERE id = ?");
-        GeneralDAOImp.executeAllTypeUpdate(sql.toString(), visibility, productId);
+        GeneralDAO.executeAllTypeUpdate(sql.toString(), visibility, productId);
     }
 
     @Override
@@ -400,6 +400,6 @@ public class ProductDAOImp implements IProductDAO {
         sql.append("SELECT productName AS name ")
                 .append("FROM order_details ")
                 .append("WHERE id = ?");
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
     }
 }

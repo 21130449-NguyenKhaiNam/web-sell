@@ -1,7 +1,7 @@
 package dao.order;
 
 import annotations.LogTable;
-import dao.general.GeneralDAOImp;
+import dao.general.GeneralDAO;
 import models.*;
 
 import java.util.List;
@@ -12,25 +12,25 @@ public class OrderAdminDAOImp implements IOrderAdminDAO {
     @Override
     public void updateStatusByOrderId(String orderId, int orderStatusId, int transactionStatusId) {
         String sql = "UPDATE orders SET orderStatusId = ?, transactionStatusId = ? WHERE id = ?";
-        GeneralDAOImp.executeAllTypeUpdate(sql, orderStatusId, transactionStatusId, orderId);
+        GeneralDAO.executeAllTypeUpdate(sql, orderStatusId, transactionStatusId, orderId);
     }
 
     @Override
     public List<Order> getListAllOrders() {
         String sql = "SELECT id, userId, dateOrder, deliveryMethodId, paymentMethodId, fullName, email, phone, address, orderStatusId, transactionStatusId, voucherId FROM orders";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Order.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Order.class);
     }
 
     @Override
     public List<PaymentMethod> getListAllPaymentMethodManage() {
         String sql = "SELECT id, typePayment FROM payment_methods";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, PaymentMethod.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql, PaymentMethod.class);
     }
 
     @Override
     public List<DeliveryMethod> getListAllDeliveryMethodManage() {
         String sql = "SELECT id, typeShipping, description, shippingFee FROM delivery_methods";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, DeliveryMethod.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql, DeliveryMethod.class);
     }
 
     @Override
@@ -68,37 +68,37 @@ public class OrderAdminDAOImp implements IOrderAdminDAO {
             sql.append(" AND dateOrder <= ").append(surrEndDateFmt);
         }
 
-        return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Order.class, "%" + contentSearch + "%");
+        return GeneralDAO.executeQueryWithSingleTable(sql.toString(), Order.class, "%" + contentSearch + "%");
     }
 
     @Override
     public PaymentMethod getPaymentMethodMangeById(int id) {
         String sql = "SELECT id, typePayment FROM payment_methods WHERE id = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, PaymentMethod.class, id).get(0);
+        return GeneralDAO.executeQueryWithSingleTable(sql, PaymentMethod.class, id).get(0);
     }
 
     @Override
     public DeliveryMethod getDeliveryMethodManageById(int id) {
         String sql = "SELECT id, typeShipping, description, shippingFee FROM delivery_methods WHERE id = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, DeliveryMethod.class, id).get(0);
+        return GeneralDAO.executeQueryWithSingleTable(sql, DeliveryMethod.class, id).get(0);
     }
 
     @Override
     public Order getOrderById(String id) {
         String query = "SELECT id, userId, dateOrder, deliveryMethodId, paymentMethodId, fullName, email, phone, address, orderStatusId, transactionStatusId, voucherId FROM orders WHERE id = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(query, Order.class, id).get(0);
+        return GeneralDAO.executeQueryWithSingleTable(query, Order.class, id).get(0);
     }
 
     @Override
     public void cancelOrderByArrayMultipleId(String[] multipleId) {
         String fillEntry = String.format("'%s'", String.join("','", multipleId));
         String sql = "UPDATE orders SET orderStatusId = 5 WHERE id IN (" + fillEntry + ")";
-        GeneralDAOImp.executeAllTypeUpdate(sql);
+        GeneralDAO.executeAllTypeUpdate(sql);
     }
 
     @Override
     public Voucher getVoucherById(int id) {
         String sql = "SELECT id, code, description, minimumPrice, discountPercent FROM vouchers WHERE id = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, Voucher.class, id).get(0);
+        return GeneralDAO.executeQueryWithSingleTable(sql, Voucher.class, id).get(0);
     }
 }

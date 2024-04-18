@@ -1,6 +1,5 @@
 package dao.general;
 
-import annotations.LogTable;
 import models.Contact;
 import models.SubjectContact;
 
@@ -12,26 +11,28 @@ public class ContactDAOImp implements IContactDAO {
         if(o instanceof Contact) {
             Contact c = (Contact) o;
             String query = "INSERT INTO contact(userId, fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?,?)";
-            GeneralDAOImp.executeAllTypeUpdate(query, c.getUserId(), c.getFullName(), c.getPhone(), c.getEmail(), c.getSubject(), c.getMessage());
+            GeneralDAO.executeAllTypeUpdate(query, c.getUserId(), c.getFullName(), c.getPhone(), c.getEmail(), c.getSubject(), c.getMessage());
             return 1;
         } else {
             throw  new UnsupportedOperationException("ContactDAOImp >> Phương thức insert không hỗ trợ kiểu tham số khác");
         }
     }
 
-    public List<Contact> getListUserContacts() {
+    @Override
+    public List<Contact> selectAll(){
         String query = "SELECT id, fullName, phone, email, `subject` FROM contacts";
-        return GeneralDAOImp.executeQueryWithSingleTable(query, Contact.class);
+        return GeneralDAO.executeQueryWithSingleTable(query, Contact.class);
     }
 
+    @Override
     public List<SubjectContact> getListContactSubjects() {
         String sql = "SELECT id, subjectName FROM contact_subjects";
-        return GeneralDAOImp.executeQueryWithSingleTable(sql, SubjectContact.class);
+        return GeneralDAO.executeQueryWithSingleTable(sql, SubjectContact.class);
     }
 
-
+    @Override
     public int getIdContactSubjectByName(String subjectName) {
         String query = "SELECT id FROM contact_subjects WHERE subjectName = ?";
-        return (int) GeneralDAOImp.executeQueryWithJoinTables(query, subjectName).get(0).get("id");
+        return (int) GeneralDAO.executeQueryWithSingleTable(query, subjectName).get(0);
     }
 }

@@ -13,18 +13,11 @@ public interface IUserAdminDAO extends IDAO {
     //    Phục vụ cho việc kiểm tra email tồn tại hay không?
     List<User> selectByEmail(String email, String isVerify);
 
-    //    Lấy ra danh sách id user dựa theo username
-    List<User> findUsername(String username);
-
-    //    Lấy ra danh sách id user dựa theo email
-    List<User> findEmail(String email);
-
     //    Lấy ra danh sách user
     List<User> selectALl();
 
     //    Tìm kiếm user dựa vào tên
     List<User> searchUsersByName(String search);
 
-//    //    Lấy ra id và fullName user dựa vào id user từ bảng orderDetail
-//    List<User> getInfoUserByOrderDetail(int orderDetailId);
+    List<User> getUserByIdProductDetail(int orderDetailId);
 }

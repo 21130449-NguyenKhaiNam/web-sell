@@ -1,20 +1,13 @@
 package dao.admin;
 
-import dao.general.GeneralDAOImp;
+import dao.general.GeneralDAO;
 import models.Product;
-import models.Review;
 
 public class DashboardProductDAOImp implements IDashboardProductDAO {
 
     @Override
-    public int countProduct() {
+    public long total() {
         String query = "SELECT id FROM products";
-        return  GeneralDAOImp.executeQueryWithSingleTable(query, Product.class).size();
-    }
-
-    @Override
-    public int countReview() {
-        String query = "SELECT id FROM reviews";
-        return  GeneralDAOImp.executeQueryWithSingleTable(query, Review.class).size();
+        return  GeneralDAO.executeQueryWithSingleTable(query, Product.class).size();
     }
 }

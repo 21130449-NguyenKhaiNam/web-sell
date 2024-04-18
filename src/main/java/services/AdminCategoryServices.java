@@ -30,13 +30,13 @@ public class AdminCategoryServices {
     }
 
     public List<Category> getCategoryById(int id){
-        return categoryDAO.getCategoryById(id);
+        return categoryDAO.selectById(id);
     }
 
     public int addCategory(Category category) {
         boolean isExist = !categoryDAO.getCategoryByNameType(category.getNameType()).isEmpty();
         if (!isExist) {
-            categoryDAO.add(category);
+            categoryDAO.insert(category);
             return categoryDAO.getCategoryByNameType(category.getNameType()).get(0).getId();
         } else {
             return -1;
@@ -46,7 +46,7 @@ public class AdminCategoryServices {
     public void addParameters(List<Parameter> parameterList, int categoryId) {
         for (Parameter parameter :parameterList) {
             parameter.setCategoryId(categoryId);
-            categoryDAO.addParameter(parameter);
+            categoryDAO.insert(parameter);
         }
     }
 
@@ -55,7 +55,7 @@ public class AdminCategoryServices {
     }
 
     public void updateCategory(Category category) {
-        categoryDAO.updateCategory(category);
+        categoryDAO.update(category);
     }
 
     public void updateParameters(List<Parameter> listParameter, int categoryId) {
@@ -67,7 +67,7 @@ public class AdminCategoryServices {
 //        Update: left - right
         for (int i = 0; i < quantityParameterUpdate; i++) {
             listParameter.get(i).setId(listParameterExist.get(i).getId());
-            parameterDAO.updateParameter(listParameter.get(i));
+            parameterDAO.update(listParameter.get(i));
         }
 //       Delete: right to left
         if (quantityParameterDeleted < 0) {
@@ -80,7 +80,7 @@ public class AdminCategoryServices {
 //       Add: right to left
         if (quantityParameterAdded > 0) {
             for (int i = quantityParameterUpdate; i < listParameter.size(); i++) {
-                parameterDAO.addParameter(listParameter.get(i));
+                parameterDAO.insert(listParameter.get(i));
             }
         }
     }

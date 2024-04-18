@@ -1,8 +1,10 @@
 package services.admin;
 
 import dao.product.IReviewDAO;
+import dao.user.IUserAdminDAO;
 import dao.user.IUserDAO;
 import dao.product.ReviewDAOImp;
+import dao.user.UserAdminDAOImp;
 import models.Review;
 import models.User;
 import services.LogService;
@@ -13,11 +15,11 @@ public class AdminReviewServices {
     public static AdminReviewServices INSTANCE;
     private static final int LIMIT = 10;
     private IReviewDAO reviewDAO;
-    private IUserDAO userDAO;
+    private IUserAdminDAO userDAO;
 
     private AdminReviewServices() {
         this.reviewDAO = new ReviewDAOImp();
-        this.userDAO = LogService.getINSTANCE().createProxy(new UserDAOImp());
+        this.userDAO = LogService.getINSTANCE().createProxy(new UserAdminDAOImp());
     }
 
     public static AdminReviewServices getINSTANCE() {

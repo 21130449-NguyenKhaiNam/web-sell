@@ -16,6 +16,11 @@ public class Order {
     private int transactionStatusId;
     private int voucherId;
 
+    public Order(int orderId, int userId, String dateOrder, String fullName, String email, String phone, String address, Integer deliveryMethodId, int paymentMethodId, Integer voucherId) {
+        this.id = orderId;
+        this.userId = userId;
+    }
+
     public String getId() {
         return id;
     }

@@ -1,6 +1,6 @@
 package dao.admin;
 
-import dao.general.GeneralDAOImp;
+import dao.general.GeneralDAO;
 import models.Order;
 import models.OrderDetail;
 import models.Product;
@@ -14,7 +14,7 @@ public class DashboardOrderDAOImp implements IDashboardOrderDAO {
     public List<OrderDetail> selectById(Object orderId) {
         if (orderId instanceof String) {
             String query = "SELECT id, orderId, productId, productName, sizeRequired, colorRequired, quantityRequired, price FROM order_details WHERE orderId=?";
-            return GeneralDAOImp.executeQueryWithSingleTable(query, OrderDetail.class, orderId);
+            return GeneralDAO.executeQueryWithSingleTable(query, OrderDetail.class, orderId);
         } else {
             throw new UnsupportedOperationException("DashboardOrderDAOImp >> Không hỗ trợ tham số dữ liệu khác");
         }
@@ -30,19 +30,19 @@ public class DashboardOrderDAOImp implements IDashboardOrderDAO {
                 "(SELECT productId, SUM(quantityRequired) total\n" +
                 "FROM order_details\n" +
                 "GROUP BY productId ORDER BY SUM(quantityRequired) DESC LIMIT ?) AS temp)";
-        return GeneralDAOImp.executeQueryWithSingleTable(query, Product.class, n);
+        return GeneralDAO.executeQueryWithSingleTable(query, Product.class, n);
     }
 
     @Override
-    public int countOrder() {
+    public long total() {
         String query = "SELECT id FROM orders";
-        return GeneralDAOImp.executeQueryWithSingleTable(query, Order.class).size();
+        return GeneralDAO.executeQueryWithSingleTable(query, Order.class).size();
     }
 
     @Override
     public List<Order> getOrderByDate(LocalDate date) {
         String query = "SELECT id, userId, dateOrder, paymentMethodId, fullName, email, phone, address, transactionStatusId, orderStatusId, voucherId, deliveryMethodId FROM orders WHERE MONTH(dateOrder) = ?";
-        return GeneralDAOImp.executeQueryWithSingleTable(query, Order.class, date);
+        return GeneralDAO.executeQueryWithSingleTable(query, Order.class, date);
     }
 
 }
