@@ -22,13 +22,9 @@ public interface IUserAdminDAO extends IDAO {
     //    Lấy ra danh sách user
     List<User> selectALl();
 
-    //    Lấy ra user (tất cả các thông tin) theo username và trạng thái xác nhận tài khoản (isVerify)
-    @WriteLog(WriteLog.SELECT)
-    List<User> selectAccount(@LogParam("username") String username, @LogParam("isVerify") String isVerify);
-
     //    Tìm kiếm user dựa vào tên
     List<User> searchUsersByName(String search);
 
-    //    Lấy ra id và fullName user dựa vào id user từ bảng orderDetail
-    List<User> getInfoUserByOrderDetail(int orderDetailId);
+//    //    Lấy ra id và fullName user dựa vào id user từ bảng orderDetail
+//    List<User> getInfoUserByOrderDetail(int orderDetailId);
 }

@@ -1,5 +1,7 @@
 package dao.order;
 
+import annotations.LogParam;
+import annotations.WriteLog;
 import dao.IDAO;
 import models.*;
 
@@ -7,9 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface IOrderAdminDAO extends IDAO {
-    void updateStatusByOrderId(String orderId, int orderStatusId, int transactionStatusId);
 
-    //    Các ham dưới phục vụ việc lọc trong admin order page
+    @WriteLog(WriteLog.UPDATE)
+    void updateStatusByOrderId(@LogParam("order-id") String orderId, @LogParam("order-status-id") int orderStatusId, @LogParam("transaction-status-id") int transactionStatusId);
+
+    //    Các hàm dưới phục vụ việc lọc trong admin order page
     //    Lấy danh sách tất cả đơn hàng
     List<Order> getListAllOrders();
 
@@ -31,39 +35,10 @@ public interface IOrderAdminDAO extends IDAO {
     //    Lấy chi tiết đơn hàng theo id đơn hàng
     Order getOrderById(String id);
 
-    //    Xóa các đơn hàng dựa theo id đơn hàng
-    void removeOrderByMultipleId(String[] multipleId);
-
     //    Hủy các đơn hàng dựa theo id đơn hàng
-    void cancelOrderByArrayMultipleId(String[] multipleId);
+    @WriteLog(WriteLog.UPDATE)
+    void cancelOrderByArrayMultipleId(@LogParam("cancel-order-id") String[] multipleId);
 
     //    Lấy ra voucher theo id voucher
     Voucher getVoucherById(int id);
-
-    //    Lấy ra danh sách các đơn hàng theo id user và trạng thái đơn hàng
-    List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder);
-
-    //    Lấy ra danh sách các đơn hàng theo id user
-    List<Order> getOrderByUserId(int userId);
-
-    //    Lấy ra danh sách các chi tiết đơn hàng theo id chi tiết đơn hàng
-    List<OrderDetail> getOrderDetailByOrderId(List<String> listId);
-
-    //    Lấy ra danh sách các sản phẩm đơn hàng theo id sản phẩm nằm trong bảng chi tiết đơn hàng
-    List<Product> getProductInOrderDetail(int id);
-
-    //    Lấy ra danh sách tên ảnh dựa theo id sản phẩm
-    List<Image> getNameImageByProductId(int id);
-
-    // Lấy ra danh sách chi tiết đơn hàng có review hoặc không
-    List<OrderDetail> getOrderDetailWithReview(int userId, boolean hasReview);
-
-//    //    2 method sau bị lặp lại với Interface OrderUserDAO
-//    //    Lấy ra danh sách chi tiết đơn hàng chưa review
-//    //    Đơn hàng thuộc chi tiết đơn hàng đó đã giao thành công nhưng chưa xuất hiện trong bảng review
-//    List<OrderDetail> getOrderDetailNotReview(int userId);
-//
-//    //       Lấy ra danh sách chi tiết đơn hàng đã review
-//    //   Đơn hàng thuộc chi tiết đơn hàng đó đã giao thành công và xuất hiện trong bảng review
-//    List<OrderDetail> getOrderDetailHasReview(int userId);
 }

@@ -1,8 +1,8 @@
 package services.admin;
 
+import dao.product.IReviewDAO;
 import dao.user.IUserDAO;
 import dao.product.ReviewDAOImp;
-import dao.user.UserDAOImp;
 import models.Review;
 import models.User;
 import services.LogService;
@@ -12,7 +12,7 @@ import java.util.List;
 public class AdminReviewServices {
     public static AdminReviewServices INSTANCE;
     private static final int LIMIT = 10;
-    private ReviewDAOImp reviewDAO;
+    private IReviewDAO reviewDAO;
     private IUserDAO userDAO;
 
     private AdminReviewServices() {
@@ -52,7 +52,7 @@ public class AdminReviewServices {
     }
 
     public User getUserByIdProductDetail(int orderDetailId) {
-        List<User> listUser = userDAO.getUserByIdProductDetail(orderDetailId);
+        List<User> listUser = userDAO.selectById(orderDetailId);
         if (listUser.isEmpty()) {
             return null;
         }

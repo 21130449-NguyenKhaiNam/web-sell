@@ -23,7 +23,6 @@ import java.util.*;
 public class LogService implements InvocationHandler {
     private static LogService logService;
     private final Map<Class<?>, IDAO> managerTarget;
-    private IDAO target;
     private ILogDAO logDAO;
     private String ip = "128.0.0.1";
 
@@ -37,7 +36,7 @@ public class LogService implements InvocationHandler {
     }
 
     public synchronized <T> T createProxy(T obj) {
-        LogService.getINSTANCE().setTarget((IDAO) obj);
+        LogService.getINSTANCE().addTarget((IDAO) obj);
         return (T) Proxy.newProxyInstance(
                 obj.getClass().getClassLoader(),
                 obj.getClass().getInterfaces(),
@@ -48,24 +47,11 @@ public class LogService implements InvocationHandler {
         this.ip = ip;
     }
 
-    public Object getTarget() {
-        return this.target;
-    }
-
-    public ILogDAO getLogDAO() {
-        return logDAO;
-    }
-
-    public void setLogDAO(ILogDAO logDAO) {
-        this.logDAO = logDAO;
-    }
-
-    public void setTarget(IDAO model) {
+    public void addTarget(IDAO model) {
         if(!managerTarget.containsKey(model.getClass().getInterfaces()[0])) {
             // Hàm put sẽ trả về giá trị trước đó, nếu không có sẽ là null
             managerTarget.put(model.getClass().getInterfaces()[0], model);
         }
-        target = managerTarget.get(model.getClass().getInterfaces()[0]);
     }
 
     /**
@@ -94,7 +80,7 @@ public class LogService implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        target = managerTarget.get(method.getDeclaringClass());
+        IDAO target = managerTarget.get(method.getDeclaringClass());
         if (method.isAnnotationPresent(WriteLog.class)) {
             int level = method.getDeclaredAnnotationsByType(WriteLog.class)[0].value();
             int table = target.getClass().getDeclaredAnnotationsByType(LogTable.class)[0].value();

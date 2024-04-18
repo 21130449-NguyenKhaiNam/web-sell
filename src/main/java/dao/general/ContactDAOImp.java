@@ -6,7 +6,6 @@ import models.SubjectContact;
 
 import java.util.List;
 
-@LogTable(LogTable.CONTACT)
 public class ContactDAOImp implements IContactDAO {
     @Override
     public <T> int insert(T o) {

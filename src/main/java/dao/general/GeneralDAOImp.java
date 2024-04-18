@@ -8,11 +8,10 @@ import org.jdbi.v3.core.statement.Query;
 import java.util.List;
 import java.util.Map;
 
-public class GeneralDAOImp implements IGeneralDao {
+public class GeneralDAOImp {
 
     //Use for select statement
-    @Override
-    public <T> List<T> executeQueryWithSingleTable(String sql, Class<T> type, Object... params) {
+    public static <T> List<T> executeQueryWithSingleTable(String sql, Class<T> type, Object... params) {
         Handle handle = ConnectionPool.getINSTANCE().getHandle();
         try {
             Query query = handle.createQuery(sql);
@@ -27,8 +26,7 @@ public class GeneralDAOImp implements IGeneralDao {
         }
     }
 
-    @Override
-    public List<Map<String, Object>> executeQueryWithJoinTables(String sql, Object... params) {
+    public static List<Map<String, Object>> executeQueryWithJoinTables(String sql, Object... params) {
         return JDBIConnector.get().withHandle(handle -> {
                     Query query = handle.createQuery(sql);
                     if(params != null){
@@ -42,8 +40,7 @@ public class GeneralDAOImp implements IGeneralDao {
     }
 
     //Use for delete, insert and update statements
-    @Override
-    public void executeAllTypeUpdate(String sql, Object... params) {
+    public static void executeAllTypeUpdate(String sql, Object... params) {
         Handle handle = ConnectionPool.getINSTANCE().getHandle();
         try {
             handle.useTransaction(handleInner -> {

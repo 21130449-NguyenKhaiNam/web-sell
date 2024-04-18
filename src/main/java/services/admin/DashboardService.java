@@ -1,15 +1,23 @@
 package services.admin;
 
-import models.*;
+import dao.admin.*;
+import models.Order;
+import models.OrderDetail;
+import models.Product;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class DashboardService {
     private static DashboardService INSTANCE;
-    private DashboadDAOImp dashboadDAO;
+    private IDashboardUserDAO dashboardUserDAO;
+    private IDashboardProductDAO dashboardProductDAO;
+    private IDashboardOrderDAO dashboardOrderDAO;
 
     private DashboardService() {
-        this.dashboadDAO = new DashboadDAOImp();
+        dashboardUserDAO = new DashboardUserDAOImp();
+        dashboardProductDAO = new DashboardProductDAOImp();
+        dashboardOrderDAO = new DashboardOrderDAOImp();
     }
 
     public static DashboardService getINSTANCE() {
@@ -17,37 +25,32 @@ public class DashboardService {
             INSTANCE = new DashboardService();
         return INSTANCE;
     }
-    public  int countUser(){
-        return dashboadDAO.countUser();
-    }
-    public  int countProduct(){
-        return dashboadDAO.countProduct();
-    }
-    public  int countOrder(){
-        return dashboadDAO.countOrder();
-    }
-    public  int countReview(){
-       return  dashboadDAO.countReview();
-    }
-    public List<OrderDetail> getTop5Product(){
-        return dashboadDAO.getTop5Product();
-    }
-    public List<Product> getTop5ProductName(int productId){
-        return dashboadDAO.getTop5ProductName(productId);
-    }
-    public List<OrderDetail> getTop5ProductQuantity(int productId){
-        return dashboadDAO.getTop5ProductQuantity(productId);
+
+    public int countUser() {
+        return dashboardUserDAO.countUser();
     }
 
-    public List<Order> getOrderByMonth(int month){
-        return dashboadDAO.getOrderByMonth(month);
+    public int countProduct() {
+        return dashboardProductDAO.countProduct();
     }
 
-    public List<OrderDetail> getOrderByOrderId(String orderId){
-       return dashboadDAO.getOrderByOrderId(orderId);
+    public int countOrder() {
+        return dashboardOrderDAO.countOrder();
     }
 
-    public List<OrderDetail> getOrderDetailByOrderId(String orderId){
-       return dashboadDAO.getOrderDetailByOrderId(orderId);
+    public int countReview() {
+        return dashboardProductDAO.countReview();
+    }
+
+    public List<Product> getTop5Product() {
+        return dashboardOrderDAO.getTopNProduct(5);
+    }
+
+    public List<Order> getOrderByDate(LocalDate date) {
+        return dashboardOrderDAO.getOrderByDate(date);
+    }
+
+    public List<OrderDetail> getOrderByOrderId(String orderId) {
+        return dashboardOrderDAO.selectById(orderId);
     }
 }

@@ -1,7 +1,7 @@
 package services.authentication;
 
-import dao.user.IUserDAO;
-import dao.user.UserDAOImp;
+import dao.user.IUserAuthDAO;
+import dao.user.UserAuthDAOImp;
 import models.User;
 import properties.MailProperties;
 import properties.RoleProperties;
@@ -28,9 +28,10 @@ import java.util.regex.Pattern;
 public class ValidateFormServices {
     private static ValidateFormServices INSTANCE;
 
-    IUserDAO userDAO = LogService.getINSTANCE().createProxy(new UserDAOImp());
+    private IUserAuthDAO userDAO;
 
     private ValidateFormServices() {
+        userDAO = LogService.getINSTANCE().createProxy(new UserAuthDAOImp());
     }
 
     public static ValidateFormServices getINSTANCE() {

@@ -34,7 +34,7 @@ public class CheckoutDAOImp implements ICheckoutDAO {
     }
 
     @Override
-    public static DeliveryMethod getDeliveryMethodById(int id){
+    public DeliveryMethod getDeliveryMethodById(int id){
         String sql = "SELECT id, typeShipping, description, shippingFee FROM delivery_methods WHERE id = ?";
         return GeneralDAOImp.executeQueryWithSingleTable(sql, DeliveryMethod.class, id).get(0);
     }

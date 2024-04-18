@@ -15,13 +15,18 @@ import java.util.*;
 public class AdminProductServices {
     private static final int LIMIT = 15;
     private static AdminProductServices INSTANCE;
-    ProductDAOImp productDAO = new ProductDAOImp();
-    ColorDAOImp colorDAO = new ColorDAOImp();
-    ImageDAOImp imageDAO = new ImageDAOImp();
-    SizeDAOImp sizeDAO = new SizeDAOImp();
-    ProductCardDAOImp productCardDAO = new ProductCardDAOImp();
+    private IProductDAO productDAO;
+    private IColorDAO colorDAO;
+    private IImageDAO imageDAO;
+    private ISizeDAO sizeDAO;
+    private IProductDAO productCardDAO;
 
     private AdminProductServices() {
+        productDAO = new ProductDAOImp();
+        colorDAO = new ColorDAOImp();
+        imageDAO = new ImageDAOImp();
+        sizeDAO = new SizeDAOImp();
+        productCardDAO = new ProductDAOImp();
     }
 
     public static AdminProductServices getINSTANCE() {
@@ -33,7 +38,7 @@ public class AdminProductServices {
     public int addProduct(Product product) {
         List<Product> productList = productDAO.getIdProductByName(product.getName());
         if (!productList.isEmpty()) return 0;
-        productDAO.addProduct(product);
+        productDAO.insert(product);
         return productDAO.getIdProductByName(product.getName()).get(0).getId();
     }
 
@@ -188,23 +193,23 @@ public class AdminProductServices {
 
         List<Image> imageDelete = imageList.subList(0, quantityFromRightToLeft);
         for (int i = 0; i < imageDelete.size(); i++) {
-            if(keepImageAvailable(imageList, imageDelete.get(i)) > 1){
+            if (keepImageAvailable(imageList, imageDelete.get(i)) > 1) {
                 imageDelete.remove(imageDelete.get(i));
             }
         }
 
         List<String> nameImageList = new ArrayList<>();
-        for(Image img : imageDelete){
+        for (Image img : imageDelete) {
             nameImageList.add("product_img/" + img.getNameImage());
         }
 
         return nameImageList;
     }
 
-    public int keepImageAvailable(List<Image> imageList, Image image){
+    public int keepImageAvailable(List<Image> imageList, Image image) {
         int count = 0;
-        for (Image img : imageList){
-            if(img.equals(image)){
+        for (Image img : imageList) {
+            if (img.equals(image)) {
                 count++;
             }
         }
@@ -230,8 +235,7 @@ public class AdminProductServices {
             List<Integer> imageId = getIdImages(quantityImgDelete, productId);
             uploadImageServices.deleteImages(nameImages);//delete in cloud
             deleteImages(imageId);//delete in db
-        }
-        else{
+        } else {
             uploadImageServices.addImages(images);//add in cloud
             List<String> nameImagesAdded = uploadImageServices.getNameImages();
             addImages(nameImagesAdded, productId);//add in db

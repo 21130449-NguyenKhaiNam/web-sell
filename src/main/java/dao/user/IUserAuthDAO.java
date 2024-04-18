@@ -1,5 +1,7 @@
 package dao.user;
 
+import annotations.LogParam;
+import annotations.WriteLog;
 import dao.IDAO;
 import models.User;
 
@@ -22,4 +24,8 @@ public interface IUserAuthDAO extends IDAO {
 
     //    Cập nhập token và hạn sử dụng token dựa vào id user (quên mật khẩu)
     void updateTokenResetPassword(int id, String token, Timestamp timeTokenExpired);
+
+    //    Lấy ra user (tất cả các thông tin) theo username và trạng thái xác nhận tài khoản (isVerify)
+    @WriteLog(WriteLog.SELECT)
+    List<User> selectAccount(@LogParam("username") String username, @LogParam("isVerify") String isVerify);
 }
