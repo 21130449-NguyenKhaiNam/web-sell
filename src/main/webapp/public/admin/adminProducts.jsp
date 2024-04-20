@@ -165,9 +165,12 @@
                         </span>
                         <c:if test="${sessionScope.auth.role == 2}">
                              <span id="button-import-product" class="button button__import">
-                                 <form action="/admin-import-product" method="POST" enctype="multipart/form-data">
+                                 <form action="/admin-import-product" method="POST" enctype="multipart/form-data" style="display: flex;justify-content: center;align-items: center">
                                      <input type="file" name="file">
-                                     <input type="submit" value="Upload" />
+                                     <span class="btn_uploadImg">
+                                         <i class="fa-solid fa-upload"></i>
+                                         <input type="submit" value="Upload" style="background-color: #4BAC4D; color: #fff"/>
+                                     </span>
                                  </form>
                             </span>
                             <span id="button-create-product" class="button button__add">

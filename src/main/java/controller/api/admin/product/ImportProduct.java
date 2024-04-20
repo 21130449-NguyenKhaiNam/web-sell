@@ -3,6 +3,7 @@ package controller.api.admin.product;
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
+import config.ConfigPage;
 import models.Product;
 import properties.PathProperties;
 import services.ProductServices;
@@ -131,39 +132,12 @@ public class ImportProduct extends HttpServlet {
                     }
                 }
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        request.getRequestDispatcher(ConfigPage.ADMIN_PRODUCT).forward(request, response);
     }
 
-    public static boolean isPartImage(Part part) {
-        if (part != null) {
-            String contentType = part.getContentType();
-            if (contentType != null && contentType.startsWith("image/")) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public void uploadImg(Collection<Part> parts, int productId) throws IOException {
-        ServletContext servletContext = getServletContext();
-        List<String> nameImages = new ArrayList<>();
-        File root = new File(servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathProductWeb());
-        if (!root.exists()) root.mkdirs();
-//        Move
-        for (Part part : parts) {
-            if (isPartImage(part)) {
-                String fileName = Token.generateToken();
-                String fileExtension = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf(".") + 1);
-                String pathImage = root.getAbsolutePath() + "/" + fileName + "." + fileExtension;
-                nameImages.add(fileName + "." + fileExtension);
-                part.write(pathImage);
-            }
-        }
-        AdminProductServices.getINSTANCE().addImages(nameImages, productId);
-        System.out.println("Done");
-    }
 }
