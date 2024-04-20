@@ -17,6 +17,21 @@
 <body>
 <c:import url="/public/header.jsp"/>
 <main class="main">
+
+    <div class="p-5">
+        <div class="p-5 search">
+            <form class="form-inline my-2 my-lg-0 d-flex">
+                <input class="search__inp form-control mr-sm-2 p-3 me-2" type="search" placeholder="Search"
+                       aria-label="Search" name="keyword">
+                <button class="search__btn btn btn-outline-success my-2 my-sm-0 ps-4 pe-4 hvr-rectangle-out"
+                        type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <ul class="search__box shadow"></ul>
+            </form>
+        </div>
+    </div>
+
     <section class="products">
         <div class="container-xl">
             <div class="row ">
@@ -30,6 +45,7 @@
                                         <input name="categoryId" type="checkbox" class="filter__input filter__radio"
                                                hidden="hidden" value="${category.id}">
                                         <span class="filter-radio__icon-wrapper">
+
                                             <i class="fa-solid fa-check filter-radio__icon"></i>
                                         </span> ${category.nameType}
                                     </label>
@@ -49,8 +65,12 @@
                                         <input name="moneyRange" type="checkbox" class="filter__input filter__radio"
                                                hidden="hidden" value="${moneyRange.getFrom()}-${moneyRange.getTo()}">
                                         <span class="filter-radio__icon-wrapper"><i
-                                                class="fa-solid fa-check filter-radio__icon"></i>                         </span> ${moneyFrom}
-                                        - ${moneyTo}
+
+                                                class="fa-solid fa-check filter-radio__icon"></i>
+                                        </span>
+                                        <span class="hvr-skew-forward">
+                                                ${moneyFrom} - ${moneyTo}
+                                        </span>
                                     </label> </c:forEach>
                             </div>
                         </div>
@@ -84,14 +104,14 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <button class="filter__submit button--hover button" type="submit">Lọc</button>
+                        <button class="filter__submit button--hover button p-2" type="submit">Lọc</button>
                     </form>
                 </div>
             </div>
 
             <div class="col-9">
                 <div class="product__list">
-                    <%--                    sản phẩm được hiển thị ở đây--%>
+                    <%--  sản phẩm được hiển thị ở đây--%>
                 </div>
             </div>
         </div>

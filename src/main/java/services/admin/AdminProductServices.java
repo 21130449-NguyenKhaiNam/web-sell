@@ -212,10 +212,10 @@ public class AdminProductServices {
         return nameImageList;
     }
 
-    public int keepImageAvailable(List<Image> imageList, Image image) {
+    public int keepImageAvailable(List<Image> imageList, Image image){
         int count = 0;
-        for (Image img : imageList) {
-            if (img.equals(image)) {
+        for (Image img : imageList){
+            if(img.equals(image)){
                 count++;
             }
         }
@@ -241,7 +241,8 @@ public class AdminProductServices {
             List<Integer> imageId = getIdImages(quantityImgDelete, productId);
             uploadImageServices.deleteImages(nameImages);//delete in cloud
             deleteImages(imageId);//delete in db
-        } else {
+        }
+        else{
             uploadImageServices.addImages(images);//add in cloud
             List<String> nameImagesAdded = uploadImageServices.getNameImages();
             addImages(nameImagesAdded, productId);//add in db

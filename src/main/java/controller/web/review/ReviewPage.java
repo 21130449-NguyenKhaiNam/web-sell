@@ -2,13 +2,11 @@ package controller.web.review;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import config.ConfigPage;
 import models.Review;
 import org.json.JSONObject;
 import services.admin.AdminReviewServices;
 import utils.ProductFactory;
 import utils.UserFactory;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -19,10 +17,6 @@ import java.util.List;
 
 @WebServlet(name = "ReviewPage", value = "/reviewPage")
 public class ReviewPage extends HttpServlet {
-//    private final int QUANTITY_PAGE_DEFAULT = 5;
-//    private int quantityPageMin;
-//    private int quantityPageMax;
-//    private int currentPage;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -156,19 +150,5 @@ public class ReviewPage extends HttpServlet {
             return listReivewResponse;
         }
 
-        public void setListReivewResponse(List<ReviewResponse> listReivewResponse) {
-            this.listReivewResponse = listReivewResponse;
-        }
-
-
     }
-
-//    public void generateQuantityPage() {
-//        quantityPageMin = currentPage - 2;
-//        quantityPageMax = currentPage + 2;
-//        if (quantityPageMin < 1) {
-//            quantityPageMin = 1;
-//            quantityPageMax = QUANTITY_PAGE_DEFAULT;
-//        }
-//    }
 }

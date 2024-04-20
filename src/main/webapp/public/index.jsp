@@ -55,14 +55,14 @@
             <ul class="search__box shadow"></ul>
         </div>
 
-                    <div id="slider__category--section">
-                        <div class="slider__container">
-                            <div class="slider__items">
-                                <%for (Slider slide : (List<Slider>) request.getAttribute("listSlideShow")) {%>
-                                <img class="slider__item"
-                                     src="<%=CloudinaryUploadServices.getINSTANCE().getImage("slider/", slide.getNameImage())%>"
-                                     alt=""/>
-                                <%}%>
+        <div id="slider__category--section">
+            <div class="slider__container">
+                <div class="slider__items">
+                    <%for (Slider slide : (List<Slider>) request.getAttribute("listSlideShow")) {%>
+                    <img class="slider__item"
+                         src="<%=CloudinaryUploadServices.getINSTANCE().getImage("slider/", slide.getNameImage())%>"
+                         alt=""/>
+                    <%}%>
                 </div>
                 <div class="navigation__button nav__prev hvr-bounce-in">
                     <i class="fa-solid fa-chevron-left"></i>
@@ -82,23 +82,31 @@
             <div class="category__container category__items">
                 <div class="category__item">
                     <p class="item__text">Áo thun / T-Shirt</p>
-                    <img class="item__image" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "T-shirt")%>">
+
+                    <img class="item__image"
+                         src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "T-shirt")%>">
                 </div>
                 <div class="category__item">
                     <p class="item__text">Áo hoodie / Hoodie</p>
-                    <img class="item__image" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "hoodie")%>">
+                    <img class="item__image"
+                         src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "hoodie")%>">
                 </div>
                 <div class="category__item">
                     <p class="item__text">Balo / Backpack</p>
-                    <img class="item__image" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "backpack")%>">
+                    <img class="item__image"
+                         src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "backpack")%>">
                 </div>
                 <div class="category__item">
                     <p class="item__text">Quần dài / Pants</p>
-                    <img class="item__image" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "pants")%>">
+                    <img class="item__image"
+                         src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "pants")%>">
                 </div>
                 <div class="category__item">
                     <p class="item__text">Nón / Cap</p>
-                    <img class="item__image" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "hat")%>">
+
+                    <img class="item__image"
+                         src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "hat")%>">
+
                 </div>
             </div>
         </div>
@@ -114,51 +122,52 @@
                     class="fa-solid fa-arrow-left"></i></button>
             <div class="product__items">
                 <%for (Product trendProduct : (List<Product>) request.getAttribute("list6TrendingProducts")) {%>
-                    <div class="product__item">
-                        <div class="product__content">
-                            <div class="image--tag">
-                                <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(trendProduct.getId());%>
+                <div class="product__item">
+                    <div class="product__content">
+                        <div class="image--tag">
+                            <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(trendProduct.getId());%>
+                            <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
 
-                                <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
+                            <span class="product__tag" data-style="popular">Thịnh hành</span>
+                            <form action="AddToCart"
+                                  class="action__bar" method="post">
+                                <input type="hidden"
+                                       name="productId"
+                                       value="<%=trendProduct.getId()%>">
+                                <button type="submit"
+                                        class="add__cart"><i
+                                        class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                                <a class="see__detail"
+                                   target="_blank"
+                                   href="/showProductDetail?id=<%=trendProduct.getId()%>">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </form>
+                        </div>
 
-                               <span class="product__tag" data-style="popular">Thịnh hành</span>
-                                <form action="AddToCart"
-                                      class="action__bar" method="post">
-                                    <input type="hidden"
-                                           name="productId"
-                                           value="<%=trendProduct.getId()%>">
-                                    <button type="submit"
-                                            class="add__cart"><i
-                                            class="fa-solid fa-cart-shopping"></i>
-                                    </button>
-                                    <a class="see__detail"
-                                       target="_blank"
-                                       href="/showProductDetail?id=<%=trendProduct.getId()%>">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </a>
-                                </form>
-                            </div>
 
-                            <div class="product__info">
-                                <a class="product__name" target="_blank"
-                                   href="/showProductDetail?id=<%=trendProduct.getId()%>"><%=trendProduct.getName()%></a>
-                                <div class="product__review">
-                                    <div class="review__icon">
-                                        <%for (int starA = 1; starA <= productFactory.calculateStar(trendProduct.getId()); starA++) {%>
-                                            <i class="fa-solid fa-star icon__item"></i>
-                                        <%}%>
+                        <div class="product__info">
+                            <a class="product__name" target="_blank"
+                               href="/showProductDetail?id=<%=trendProduct.getId()%>"><%=trendProduct.getName()%>
+                            </a>
+                            <div class="product__review">
+                                <div class="review__icon">
+                                    <%for (int starA = 1; starA <= productFactory.calculateStar(trendProduct.getId()); starA++) {%>
+                                    <i class="fa-solid fa-star icon__item"></i>
+                                    <%}%>
 
-                                        <%for (int starB = 1; starB <= 5 - productFactory.calculateStar(trendProduct.getId()); starB++) {%>
-                                            <i class="fa-regular fa-star icon__item"></i>
-                                        <%}%>
-                                    </div>
-                                    <a class="number__turns--ratting"
-                                       href="${showProductDetail}"><%=productFactory.getReviewCount(trendProduct.getId())%>
-                                        nhận xét</a>
+                                    <%for (int starB = 1; starB <= 5 - productFactory.calculateStar(trendProduct.getId()); starB++) {%>
+                                    <i class="fa-regular fa-star icon__item"></i>
+                                    <%}%>
                                 </div>
+                                <a class="number__turns--ratting"
+                                   href="${showProductDetail}"><%=productFactory.getReviewCount(trendProduct.getId())%>
+                                    nhận xét</a>
                             </div>
                         </div>
                     </div>
+                </div>
                 <%}%>
             </div>
             <button class="right__button">
@@ -185,7 +194,7 @@
 
                             <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
 
-                            <span class="product__tag">Thịnh hành</span>
+                            <span class="product__tag" data-style="popular">Thịnh hành</span>
                             <form action="AddToCart"
                                   class="action__bar" method="post">
                                 <input type="hidden"
@@ -205,7 +214,8 @@
 
                         <div class="product__info">
                             <a class="product__name" target="_blank"
-                               href="/showProductDetail?id=<%=newProduct.getId()%>"><%=newProduct.getName()%></a>
+                               href="/showProductDetail?id=<%=newProduct.getId()%>"><%=newProduct.getName()%>
+                            </a>
                             <div class="product__review">
                                 <div class="review__icon">
                                     <%for (int starA = 1; starA <= productFactory.calculateStar(newProduct.getId()); starA++) {%>
@@ -295,37 +305,40 @@
     </div>
 </main>
 <!--Footer-->
-
 <%@include file="footer.jsp" %>
 <script src="<c:url value="/js/home.js" />"></script>
 <script src="<c:url value="/js/base.js" />"></script>
 <script type="text/javascript">
     function addToCartAjax() {
-    $(document).ready(function () {
-        $('.action__bar').each(function (index, actionBar) {
-            $(actionBar).on('submit', function (event) {
-                event.preventDefault();
-                let userLoggedIn;
-                <c:choose>
+
+        $(document).ready(function () {
+            $('.action__bar').each(function (index, actionBar) {
+                $(actionBar).on('submit', function (event) {
+                    event.preventDefault();
+                    let userLoggedIn;
+                    <c:choose>
+
                     <c:when test="${sessionScope.auth == null}">
-                        userLoggedIn = false
+                    userLoggedIn = false
                     </c:when>
 
                     <c:otherwise>
-                        userLoggedIn = true
+                    userLoggedIn = true
                     </c:otherwise>
-                </c:choose>
-                if (userLoggedIn === false) {
-                    window.location.href = <%=ConfigPage.SIGN_IN%>
-                } else {
-                    const form = $(actionBar);
-                    let productId = form.find('input[name="productId"]').val();
-                    $.ajax({
-                        type: form.attr('method'),
-                        url: form.attr('action'),
-                        data: {productId: productId},
-                        success: function (response) {
-                            let addToCartSuccessHTML = `<div class="notification__cart">
+                    </c:choose>
+                    if (userLoggedIn === false) {
+                        window.location.href = "signIn.jsp"
+                    } else {
+                        const form = $(actionBar);
+                        let productId = form.find('input[name="productId"]').val();
+                        $.ajax({
+                            type: form.attr('method'),
+                            url: form.attr('action'),
+                            data: {productId: productId},
+                            success: function (response) {
+                                let addToCartSuccessHTML = `<div class="notification__cart">
+
+
                                                             <div class="status__success">
                                                                 <span>
                                                                     <i class="fa-solid fa-circle-check icon__success"></i>
@@ -337,66 +350,66 @@
                                                             </div>
                                                             <a class="view__cart" href="user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
                                                         </div>`;
-                            $('.cart__wrapper').append(addToCartSuccessHTML)
-                            $('.qlt__value').text(response);
-                        },
-                        error: function (error) {
-                            console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
-                        }
-                    })
-                }
+                                $('.cart__wrapper').append(addToCartSuccessHTML)
+                                $('.qlt__value').text(response);
+                            },
+                            error: function (error) {
+                                console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
+                            }
+                        })
+                    }
+                })
             })
         })
-    })
-}
+    }
 
-addToCartAjax();
+    let ulCom = $('.search__box')[0]
 
-let ulCom = $('.search__box')[0]
+    function handelSearch() {
+        let debounceTimer;
+        $('.search__inp').keydown(function () {
 
-function handelSearch() {
-    let debounceTimer;
-    $('.search__inp').keydown(function () {
+            var formData = $(this).serialize();
 
-        var formData = $(this).serialize();
+            clearTimeout(debounceTimer);
 
-        clearTimeout(debounceTimer);
-
-        debounceTimer = setTimeout(() => {
-            $.ajax({
-                url: '/searchProduct',
-                method: 'GET',
-                data: formData,
-                success: function (response) {
-                    ulCom.innerHTML = ""
-                    for (let i = 0; i < response.length; ++i) {
-                        const li = document.createElement("li")
-                        li.setAttribute("class", "mb-1")
-                        const a = document.createElement("a")
-                        a.setAttribute("class", "text-dark mb-2 search__box-item")
-                        a.setAttribute("href", "/")
-                        a.innerText = response[i].name
-                        li.appendChild(a)
-                        ulCom.appendChild(li)
+            debounceTimer = setTimeout(() => {
+                $.ajax({
+                    url: '/searchProduct',
+                    method: 'GET',
+                    data: formData,
+                    success: function (response) {
+                        console.log(response)
+                        ulCom.innerHTML = ""
+                        for (let i = 0; i < response.length; ++i) {
+                            const li = document.createElement("li")
+                            li.setAttribute("class", "mb-1")
+                            const a = document.createElement("a")
+                            a.setAttribute("class", "text-dark mb-2 search__box-item")
+                            a.setAttribute("href", "/")
+                            a.innerText = response[i].name
+                            li.appendChild(a)
+                            ulCom.appendChild(li)
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
                     }
-                },
-                error: function (xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            })
-        }, 800);
-    })
-}
+                })
+            }, 800);
+        })
+    }
 
-handelSearch()
+    $('.search__inp').on('focus', function () {
+        $('.search__box').addClass('focused');
+    });
 
-$('.search__inp').on('focus', function() {
-    $('.search__box').addClass('focused');
-});
+    $('.search__inp').on('blur', function () {
+        $('.search__box').removeClass('focused');
+    });
 
-$('.search__inp').on('blur', function() {
-    $('.search__box').removeClass('focused');
-});
+    handelSearch()
+    addToCartAjax()
 </script>
 </body>
 

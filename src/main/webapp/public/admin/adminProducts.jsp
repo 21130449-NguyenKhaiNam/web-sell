@@ -154,7 +154,7 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <button class="filter__submit button--hover button" type="submit">Lọc</button>
+                        <button class="filter__submit button--hover button p-2" type="submit">Lọc</button>
                     </form>
                 </div>
                 <div class="col-9">
@@ -195,6 +195,7 @@
                             </tr>
                             </thead>
                             <tbody class="product__list-admin">
+
                             </tbody>
                         </table>
                     </div>
@@ -321,6 +322,8 @@
                         });
                         content = products.map(function (product) {
                             const contentProduct = product.product
+                            let originPrice = contentProduct.salePrice
+                            let salePrice = contentProduct.originalPrice
                             return `
                                 <tr class="table__row">
                                     <td class="table__data-view">
@@ -346,10 +349,10 @@
                                         <p class="table__cell">Bo sung loai san pham</p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell">` + ${vndFormat.format(contentProduct.salePrice)} +`</p>
+                                        <p class="table__cell">` + originPrice +`đ</p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell">` + ${vndFormat.format(contentProduct.originalPrice)} +`</p>
+                                            <p class="table__cell">` + salePrice +`đ</p>
                                     </td>` +
                                 (contentProduct.visibility ? `
                                     <td class="table__data table__data-visibility table__data-hide">

@@ -72,53 +72,9 @@
                             </thead>
 
                             <tbody class="body_table">
-<%--                            <c:set var="list" value="${requestScope.listReview}"/>--%>
-<%--                            <c:forEach var="item" items="${list}">--%>
-<%--                                <c:set var="user" value="${userFactory.getUserByIdProductDetail(item.orderDetailId)}"/>--%>
-<%--                                <tr class="table__row">--%>
-<%--                                    <td class="table__data-view">--%>
-<%--                                        <label>--%>
-<%--                                            <i class="fa-solid fa-eye"></i>--%>
-<%--                                        </label>--%>
-<%--                                    </td>--%>
-<%--                                    <td class="table__data table__data-id">--%>
-<%--                                        <p class="table__cell">${item.id}</p>--%>
-<%--                                    </td>--%>
-<%--                                    <td class="table__data">--%>
-<%--                                        <p class="table__cell">${user.id}</p>--%>
-<%--                                    </td>--%>
-<%--                                    <td class="table__data">--%>
-<%--                                        <p class="table__cell ">${productFactory.getNameProductByIdOrderDetail(item.orderDetailId)}</p>--%>
-<%--                                    </td>--%>
-<%--                                    <td class="table__data">--%>
-<%--                                        <p class="table__cell">${item.orderDetailId}</p>--%>
-<%--                                    </td>--%>
-<%--                                    <td class="table__data">--%>
-<%--                                        <p class="table__cell">${item.ratingStar}</p>--%>
-<%--                                    </td>--%>
-<%--                                    <fmt:formatDate var="dateReview" pattern="dd-MM-yyyy" value="${item.reviewDate}"/>--%>
-<%--                                    <td class="table__data">--%>
-<%--                                        <p class="table__cell">${dateReview}</p>--%>
-<%--                                    </td>--%>
-<%--                                    <c:choose>--%>
-<%--                                        <c:when test="${item.visibility==true}">--%>
-<%--                                            <td class="table__data table__data-visibility table__data-hide">--%>
-<%--                                                <div class="button button--hover button__hide">Ẩn</div>--%>
-<%--                                            </td>--%>
-<%--                                        </c:when>--%>
-<%--                                        <c:otherwise>--%>
-<%--                                            <td class="table__data table__data-visibility table__data-un-hide">--%>
-<%--                                                <div class="button button--hover button__un-hide">Bỏ ẩn</div>--%>
-<%--                                            </td>--%>
-<%--                                        </c:otherwise>--%>
-<%--                                    </c:choose>--%>
-<%--                                </tr>--%>
-<%--                            </c:forEach>--%>
                             </tbody>
                         </table>
                     </div>
-
-<%--                    <c:import url="/public/paging.jsp"/>--%>
                     <ul class="paging"></ul>
                 </div>
             </div>
