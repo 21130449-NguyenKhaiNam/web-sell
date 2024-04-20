@@ -93,7 +93,7 @@ public class ImportProduct extends HttpServlet {
                     AdminProductServices.getINSTANCE().addImages(listImage, maxId);
 
                     //thêm lên cloud
-                    CloudinaryUploadServices.getINSTANCE().upload("product_img/" + maxId, nameImage.substring(0, nameImage.lastIndexOf(".")), new File(img));
+                    CloudinaryUploadServices.getINSTANCE().upload("product_img/" + maxId, nameImage.substring(0, nameImage.lastIndexOf(".")), img);
                 } else {
                     // nếu sản phẩm đã tồn tại
                     // thì lấy ra id với điều kiện tên
@@ -127,7 +127,7 @@ public class ImportProduct extends HttpServlet {
                         AdminProductServices.getINSTANCE().addImages(listImage, idAvailable);
 
                         //thêm lên cloud
-                        CloudinaryUploadServices.getINSTANCE().upload("product_img/" + idAvailable, nameImage.substring(0, nameImage.lastIndexOf(".")), new File(img));
+                        CloudinaryUploadServices.getINSTANCE().upload("product_img/" + idAvailable, nameImage.substring(0, nameImage.lastIndexOf(".")), img);
                     }
                 }
             }
