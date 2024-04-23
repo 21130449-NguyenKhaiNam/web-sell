@@ -37,13 +37,6 @@ public class UpdatePasswordController extends HttpServlet {
             return;
         }
 
-        if (!Encoding.getINSTANCE().toSHA1(currentPassword).equals(user.getPasswordEncoding())) {
-            json.put("error", "Current password is incorrect");
-            json.put("isValid", false);
-            response.getWriter().println(json.toString());
-            return;
-        }
-
         ValidatePassword validatePassword = new ValidatePassword(newPassword);
         boolean isValid = validatePassword.check();
         if (isValid) {

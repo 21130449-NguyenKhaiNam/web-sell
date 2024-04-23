@@ -2,6 +2,11 @@ import {alert} from "../notify.js";
 import {addSpinner, cancelSpinner} from "../spinner.js";
 
 $(document).ready(function () {
+    // Custom regex kiểm tra mật khẩu mạnh
+    $.validator.addMethod("strongPassword", function (value, element) {
+        return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{}|;':"\\<>?,./-]).{8,}$/.test(value);
+    }, "Mật khẩu phải chứa ít nhất 1 chữ cái viết thường, 1 chữ cái viết hoa, 1 số và 1 ký tự đặc biệt, tối thiểu 8 ký tự");
+
     var form = $('#form');
     // Validate from đổi mật khẩu
     form.validate({
@@ -74,12 +79,9 @@ $(document).ready(function () {
 
         }
     });
-    $.validator.addMethod("strongPassword", function (value, element) {
-        return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{}|;':"\\<>?,./-]).{8,}$/.test(value);
-    }, "Mật khẩu phải chứa ít nhất 1 chữ cái viết thường, 1 chữ cái viết hoa, 1 số và 1 ký tự đặc biệt, tối thiểu 8 ký tự");
 
     function handleResponse(response) {
-        if (response.status === 200) {
+        if (response.isValid) {
             Swal.fire({
                 title: "Chúc mừng!",
                 text: "Đổi mật khẩu thành công",
