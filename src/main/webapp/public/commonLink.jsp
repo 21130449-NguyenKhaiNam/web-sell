@@ -40,3 +40,4 @@
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 <link src="https://unpkg.com/tippy.js@6/animations/scale.css" />
 <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

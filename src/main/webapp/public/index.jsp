@@ -330,7 +330,7 @@
                                                                     <i class="fa-solid fa-xmark close__notification"></i>
                                                                 </span>
                                                             </div>
-                                                            <a class="view__cart" href="user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                            <a class="view__cart" href="/public/user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
                                                         </div>`;
                             $('.cart__wrapper').append(addToCartSuccessHTML)
                             $('.qlt__value').text(response);
