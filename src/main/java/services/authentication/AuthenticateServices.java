@@ -1,10 +1,12 @@
-package services;
+package services.authentication;
 
 import dao.UserDAO;
-import dao.UserDAOImplement;
 import models.User;
 import properties.MailProperties;
 import properties.RoleProperties;
+import services.mail.IMailServices;
+import services.mail.MailResetPasswordServices;
+import services.mail.MailVerifyServices;
 import utils.Encoding;
 import utils.Token;
 import utils.ValidatePassword;
@@ -23,8 +25,8 @@ import java.util.regex.Pattern;
 
 public class AuthenticateServices {
     private static AuthenticateServices INSTANCE;
-
-    UserDAO userDAO = new UserDAOImplement();
+    private static final String STATE_VERIFY = "1";
+    UserDAO userDAO = new UserDAO();
 
     private AuthenticateServices() {
     }
@@ -82,7 +84,7 @@ public class AuthenticateServices {
         }
 
 //        Check user in db
-        List<User> users = userDAO.selectAccount(username, "1");
+        List<User> users = userDAO.selectByEmail(username, STATE_VERIFY);
 
 //        Check username
         if (users.size() != 1) {

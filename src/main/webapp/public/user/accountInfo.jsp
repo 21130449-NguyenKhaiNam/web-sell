@@ -29,12 +29,12 @@
             <hr class="mt-0 mb-4">
             <div class="row">
                 <div class="col-xl-4">
-
                     <div class="card mb-4 mb-xl-0">
                         <div class="card-header">Ảnh đại diện</div>
                         <div class="card-body text-center">
                             <div class="w-50 h-50 rounded-circle overflow-hidden mx-auto">
-                                <img id="preview-avatar" class="img-account-profile object-fit-cover mb-2" src="/assets/img/userDefautAvatar.jpg" alt>
+                                <c:set var="avatar" value="${(not empty requestScope.avatarLink)? requestScope.avatarLink :'/assets/img/user/default-avatar.png'}" />
+                                <img id="preview-avatar" class="img-account-profile object-fit-cover mb-2" src="${avatar}" alt="">
                             </div>
                             <div id="username" class="medium  text-muted mb-2">${user.username}</div>
                             <div id="email" class="small  text-muted mb-4">${user.email}</div>

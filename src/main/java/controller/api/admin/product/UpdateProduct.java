@@ -1,10 +1,12 @@
 package controller.api.admin.product;
 
+import lombok.SneakyThrows;
 import models.Product;
 import properties.PathProperties;
 import services.admin.AdminProductServices;
 import services.ProductServices;
 import services.image.CloudinaryUploadServices;
+import services.image.UploadImageServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -92,5 +94,4 @@ public class UpdateProduct extends HttpServlet {
         UploadImageServices uploadImageServices = new UploadImageServices("product_img/" + productId);
         AdminProductServices.getINSTANCE().updateImages(uploadImageServices, images, quantityImgDelete, productId);
     }
-
 }

@@ -1,7 +1,7 @@
 package controller.api.admin.product;
 
 
-import properties.PathProperties;
+import services.image.CloudinaryUploadServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

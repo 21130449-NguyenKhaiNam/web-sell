@@ -125,7 +125,7 @@
                             <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
-                            <form action="AddToCart"
+                            <form action="/api/cart/add"
                                   class="action__bar" method="post">
                                 <input type="hidden"
                                        name="productId"
@@ -190,7 +190,7 @@
                             <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
-                            <form action="AddToCart"
+                            <form action="/api/cart/add"
                                   class="action__bar" method="post">
                                 <input type="hidden"
                                        name="productId"

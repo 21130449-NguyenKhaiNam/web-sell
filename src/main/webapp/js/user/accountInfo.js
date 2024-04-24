@@ -105,8 +105,8 @@ $(document).ready(function () {
 
 //     -------------------------------
 //     Cập nhập thông tin cá nhân
-//     Validate form personal
-    // Date picker jquery plug-in
+
+//     Date picker jquery plug-in
     $("#inputDate").datepicker({
         dateFormat: 'dd-mm-yy', // Set the date format to "dd-mm-yyyy"
         changeMonth: true, // Allow changing of months
@@ -122,6 +122,7 @@ $(document).ready(function () {
         },
         "Please enter a valid date in the format dd-mm-yyyy"
     );
+//     Validate form personal
     $("#form-personal").validate({
         rules: {
             fullName: {
@@ -219,7 +220,7 @@ $(document).ready(function () {
 
 //     -------------------------------
 //     Cập nhập Địa chỉ
-    // Call api get address
+//     Call api get address
     $.ajax({
         url: "/api/user/address",
         type: 'GET',

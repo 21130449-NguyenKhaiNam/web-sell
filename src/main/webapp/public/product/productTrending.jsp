@@ -25,7 +25,7 @@
                                     <img
                                             src="./assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
                                     <span class="product__tag">Thịnh hành</span>
-                                    <form class="action__bar" action="AddToCart" method="post">
+                                    <form class="action__bar" action="/api/cart/add" method="post">
                                         <input type="hidden" name="productId" value="${trendProduct.id}">
                                         <button type="submit" class="add__cart"><i
                                                 class="fa-solid fa-cart-shopping"></i></button>
@@ -124,7 +124,7 @@
                                                                     <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>
                                                                     <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>
                                                                 </div>
-                                                                <a class="view__cart" href="../user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                                <a class="view__cart" href="/public/user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
                                                             </div>`;
                                         $('.cart__wrapper').append(addToCartSuccessHTML)
                                         $('.qlt__value').text(response);

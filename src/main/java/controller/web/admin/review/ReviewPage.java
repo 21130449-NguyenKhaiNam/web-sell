@@ -1,4 +1,4 @@
-package controller.web.review;
+package controller.web.admin.review;
 
 import config.ConfigPage;
 import models.Review;
@@ -35,7 +35,6 @@ public class ReviewPage extends HttpServlet {
         if (quantityPageMax > quantityPageTotal) {
             quantityPageMax = quantityPageTotal;
         }
-
 
         request.setAttribute("requestURL", "/reviewPage");
         request.setAttribute("listReview", listReview);

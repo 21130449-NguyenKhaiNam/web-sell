@@ -73,7 +73,7 @@
                 </c:when>
                 <c:otherwise>
                     <div class="cart__content col">
-                        <form class="shopping__cart--form" action="ShoppingCart" method="post">
+                        <form class="shopping__cart--form" action="/api/cart" method="post">
                             <table id="cart__table">
                                 <thead class="cart__header">
                                 <tr>

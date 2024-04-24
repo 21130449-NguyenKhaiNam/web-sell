@@ -1,3 +1,9 @@
+<%@ page import="models.Product" %>
+<%@ page import="services.image.CloudinaryUploadServices" %>
+<%@ page import="models.Image" %>
+<%@ page import="models.Review" %>
+<%@ page import="models.User" %>
+<%@ page import="java.util.List" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -8,7 +14,7 @@
 <html lang="en">
 
     <head>
-        <%Product product = (Product)request.getAttribute("product");%>>
+        <%Product product = (Product)request.getAttribute("product");%>
         <jsp:include page="/public/commonLink.jsp" />
         <link rel="stylesheet" href="<c:url value="/assets/css/productDetail.css"/>">
         <title><%=product.getName()%></title>
@@ -52,7 +58,7 @@
                         </div>
                         <div class="offset-1 col-5">
                             <div class="product__info">
-                                <form action="AddToCart" method="post" id="form__product" class="product__form">
+                                <form action="/api/cart/add" method="post" id="form__product" class="product__form">
                                     <h1 class="product__name" id="product__name"><%=product.getName()%></h1>
                                     <input type="text" hidden="hidden" name="productId" value="<%=product.getId()%>">
 

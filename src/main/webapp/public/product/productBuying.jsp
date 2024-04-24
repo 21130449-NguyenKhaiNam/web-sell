@@ -155,7 +155,6 @@
                         </div>
                         <%}%>
                     </div>
-
                     <%--                    <c:if test="${empty list}">--%>
                     <%--                        <p class="product__list--empty">Không có sản phẩm nào ứng--%>
                     <%--                        với bộ lọc </p>--%>

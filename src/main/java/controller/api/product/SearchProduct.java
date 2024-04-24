@@ -2,7 +2,7 @@ package controller.api.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Product;
-import services.AdminProductServices;
+import services.admin.AdminProductServices;
 import utils.ProductFactory;
 
 import javax.servlet.ServletException;

@@ -2,6 +2,7 @@ package filter.user;
 
 import models.Address;
 import models.User;
+import services.image.CloudinaryUploadServices;
 import session.SessionManager;
 
 import javax.servlet.*;
@@ -28,6 +29,8 @@ public class AccountFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         User user = SessionManager.getInstance(req, resp).getUser();
         request.setAttribute("accountInfo", user);
+        String avatarLink = CloudinaryUploadServices.getINSTANCE().getImage("user/", user.getAvatar());
+        request.setAttribute("avatarLink", avatarLink);
         chain.doFilter(request, response);
     }
 }
