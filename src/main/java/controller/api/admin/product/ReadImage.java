@@ -10,13 +10,13 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-@WebServlet(name = "readImage", value = "/api/admin/product/read-image")
+@WebServlet(name = "readImage", value = "/read-image")
 public class ReadImage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         if (name != null) {
-            String urlImg = getPathServer(request) + PathProperties.getINSTANCE().getPathProductWeb() + name;
+            String urlImg = CloudinaryUploadServices.getINSTANCE().getImage("product_img", name);
 
             URL url = new URL(urlImg);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

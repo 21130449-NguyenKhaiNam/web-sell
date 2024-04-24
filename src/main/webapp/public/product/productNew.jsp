@@ -29,7 +29,7 @@
                                     <c:if
                                             test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
                                         <span class="product__tag">Thịnh hành</span> </c:if>
-                                    <form class="action__bar" action="/api/cart/add" method="post">
+                                    <form class="action__bar" action="AddToCart" method="post">
                                         <input type="hidden" name="productId" value="${newProduct.id}">
                                         <button type="submit" class="add__cart"><i
                                                 class="fa-solid fa-cart-shopping"></i>
@@ -101,27 +101,40 @@
                     $('.action__bar').each(function (index, actionBar) {
                         $(actionBar).on('submit', function (event) {
                             event.preventDefault();
-                            const form = $(actionBar);
-                            let productId = form.find('input[name="productId"]').val();
-                            $.ajax({
-                                type: form.attr('method'),
-                                url: form.attr('action'),
-                                data: {productId: productId},
-                                success: function (response) {
-                                    let addToCartSuccessHTML = `<div class="notification__cart">
-                                                            <div class="status__success">
-                                                                <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>
-                                                                <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>
-                                                            </div>
-                                                            <a class="view__cart" href="../user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
-                                                        </div>`;
-                                    $('.cart__wrapper').append(addToCartSuccessHTML)
-                                    $('.qlt__value').text(response);
-                                },
-                                error: function (error) {
-                                    console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
-                                }
-                            })
+                            let userLoggedIn;
+                            <c:choose>
+                            <c:when test="${sessionScope.auth == null}">
+                            userLoggedIn = false
+                            </c:when>
+                            <c:otherwise>
+                            userLoggedIn = true
+                            </c:otherwise>
+                            </c:choose>
+                            if (userLoggedIn === false) {
+                                window.location.href = "signIn.jsp"
+                            } else {
+                                const form = $(actionBar);
+                                let productId = form.find('input[name="productId"]').val();
+                                $.ajax({
+                                    type: form.attr('method'),
+                                    url: form.attr('action'),
+                                    data: {productId: productId},
+                                    success: function (response) {
+                                        let addToCartSuccessHTML = `<div class="notification__cart">
+                                                                <div class="status__success">
+                                                                    <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>
+                                                                    <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>
+                                                                </div>
+                                                                <a class="view__cart" href="../user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                            </div>`;
+                                        $('.cart__wrapper').append(addToCartSuccessHTML)
+                                        $('.qlt__value').text(response);
+                                    },
+                                    error: function (error) {
+                                        console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
+                                    }
+                                })
+                            }
                         })
                     })
                 })

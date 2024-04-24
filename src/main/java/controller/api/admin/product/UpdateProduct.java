@@ -1,11 +1,10 @@
 package controller.api.admin.product;
 
-import lombok.SneakyThrows;
 import models.Product;
 import properties.PathProperties;
 import services.admin.AdminProductServices;
 import services.ProductServices;
-import services.image.UploadImageServices;
+import services.image.CloudinaryUploadServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -13,7 +12,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 12024,
@@ -75,7 +76,11 @@ public class UpdateProduct extends HttpServlet {
             AdminProductServices.getINSTANCE().updateColors(colors, id);
 //        Update images
             if (!images.isEmpty()) {
-                updateImage(images, quantityImgDelete, id);
+                try {
+                    updateImage(images, quantityImgDelete, id);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         StringBuilder objJson = new StringBuilder();
@@ -84,9 +89,8 @@ public class UpdateProduct extends HttpServlet {
     }
 
     public void updateImage(Collection<Part> images, int quantityImgDelete, int productId) throws Exception {
-        ServletContext servletContext = getServletContext();
-        String root = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathProductWeb();
-        UploadImageServices uploadImageServices = new UploadImageServices(root);
+        UploadImageServices uploadImageServices = new UploadImageServices("product_img/" + productId);
         AdminProductServices.getINSTANCE().updateImages(uploadImageServices, images, quantityImgDelete, productId);
     }
+
 }

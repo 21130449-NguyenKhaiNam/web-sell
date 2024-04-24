@@ -31,8 +31,7 @@
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main"> <!--Hero-->
     <div class="hero">
-        <img src="<c:url value=" /assets/img/hero__img.png" />" alt=""
-             class="hero__img">
+        <img src="<c:url value="/assets/img/hero__img.png" />" alt="" class="hero__img">
         <div class="hero__slogan">
             <h1>Change Your Styles Now</h1>
             <p>Cùng chúng tôi tạo nên thiết kế khác biệt cho quần áo của
@@ -126,7 +125,7 @@
                             <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
-                            <form action="/api/cart/add"
+                            <form action="AddToCart"
                                   class="action__bar" method="post">
                                 <input type="hidden"
                                        name="productId"
@@ -191,7 +190,7 @@
                             <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
-                            <form action="/api/cart/add"
+                            <form action="AddToCart"
                                   class="action__bar" method="post">
                                 <input type="hidden"
                                        name="productId"
@@ -302,8 +301,8 @@
 </main>
 <!--Footer-->
 <%@include file="footer.jsp" %>
-<script src="<c:url value=" /js/home.js" />"></script>
-<script src="<c:url value=" /js/base.js" />"></script>
+<script src="<c:url value="/js/home.js" />"></script>
+<script src="<c:url value="/js/base.js" />"></script>
 <script type="text/javascript">
     function addToCartAjax() {
     $(document).ready(function () {

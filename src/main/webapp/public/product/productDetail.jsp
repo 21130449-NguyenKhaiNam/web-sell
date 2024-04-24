@@ -1,10 +1,3 @@
-<%@ page import="models.Product" %>
-<%@ page import="services.image.CloudinaryUploadServices" %>
-<%@ page import="models.Image" %>
-<%@ page import="models.Review" %>
-<%@ page import="java.util.List" %>
-<%@ page import="models.User" %>
-<%@ page import="config.ConfigPage" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -13,12 +6,14 @@
 <fmt:setLocale value="vi_VN" />
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
-        <%Product product = (Product)request.getAttribute("product");%>
-        <jsp:include page="/public/commonLink.jsp"/>
+        <%Product product = (Product)request.getAttribute("product");%>>
+        <jsp:include page="/public/commonLink.jsp" />
         <link rel="stylesheet" href="<c:url value="/assets/css/productDetail.css"/>">
         <title><%=product.getName()%></title>
     </head>
+
     <body>
         <c:import url="/public/header.jsp" />
         <main class="main">
@@ -57,9 +52,10 @@
                         </div>
                         <div class="offset-1 col-5">
                             <div class="product__info">
-                                <form action="/api/cart/add" method="post" id="form__product" class="product__form">
+                                <form action="AddToCart" method="post" id="form__product" class="product__form">
                                     <h1 class="product__name" id="product__name"><%=product.getName()%></h1>
                                     <input type="text" hidden="hidden" name="productId" value="<%=product.getId()%>">
+
                                     <%for(int starA = 1; starA <= productFactory.calculateStar(product.getId());starA++){%>
                                         <i class="product__star fa-solid fa-star"></i>
                                     <%}%>
@@ -142,6 +138,7 @@
                                                 <div class=" form___quantity-btn form___quantity--increase hvr-bounce-in">
                                                 </div>
                                             </div>
+
                                             <p class="form__error"></p>
                                         </div>
                                     </div>
@@ -228,7 +225,7 @@
                         <div class="col-12">
                             <div class="product__related">
                                 <h3 id="suggest__title">Các sản phẩm liên quan</h3>
-                                <a href="<%=ConfigPage.PRODUCT_BUYING%>"
+                                <a href="/public/product/productBuying.jsp"
                                    class="product__more hvr-forward">Xem thêm
                                     <i class="product__more-icon fa-solid fa-arrow-right"></i></a>
                             </div>

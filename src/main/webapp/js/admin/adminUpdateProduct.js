@@ -66,7 +66,7 @@ window.addEventListener('message', function (event) {
             return new Promise(async (resolve, reject) => {
                 const imageUrl = `/api/admin/product/read-image?name=${name}`;
                 try {
-                    const response = await fetch(imageUrl);
+                    const response = await fetch(imageUrl)
 
                     if (!response.ok) {
                         throw new Error('Network response was not ok.');

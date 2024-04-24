@@ -24,7 +24,8 @@
                         <div class="col-6">
                             <article class="product">
                                 <div class="product__img">
-                                    <img src="<c:url value="/assets/img/product_img/${productFactory.getListImagesByProductId(productId).get(0).nameImage}" />" alt="${productFactory.getListImagesByProductId(productId).get(0).nameImage}">
+                                    <img src="<c:url value="
+                                                /assets/img/product_img/${productFactory.getListImagesByProductId(productId).get(0).nameImage}" />" alt="${productFactory.getListImagesByProductId(productId).get(0).nameImage}">
                                 </div>
                                 <div class="product__info">
                                     <h2 class="product__name">${requestScope.nameProduct}</h2>
@@ -45,6 +46,19 @@
                                         Kích thước: <c:forEach var="size" items="${sizes}">
                                         <li>${size} </li>
                                     </c:forEach>
+                                        <!--                                <li>-->
+                                        <!--                                    Dài áo:-->
+                                        <!--                                </li>-->
+                                        <!--                                <li>-->
+                                        <!--                                    Ngang ngực:-->
+                                        <!--                                </li>-->
+                                        <!--                                <li>-->
+                                        <!--                                    Dài tay:-->
+                                        <!--                                </li>-->
+                                        <!--                                <li>-->
+                                        <!--                                    Rộng vai:-->
+                                        <!--                                </li>-->
+                                    </ul>
                                 </c:otherwise> </c:choose>
 
                                     <p class="product__quantity">

@@ -1,6 +1,10 @@
 package services.authentication;
 
 import dao.UserDAO;
+<<<<<<< HEAD
+=======
+import dao.UserDAOImplement;
+>>>>>>> Merge
 import models.User;
 import properties.MailProperties;
 import properties.RoleProperties;
@@ -26,7 +30,7 @@ import java.util.regex.Pattern;
 public class ValidateFormServices {
     private static ValidateFormServices INSTANCE;
 
-    UserDAO userDAO = new UserDAO();
+    UserDAO userDAO = new UserDAOImplement();
 
     private ValidateFormServices() {
     }
@@ -48,7 +52,7 @@ public class ValidateFormServices {
         }
 
 //        Check user in db
-        List<User> users = userDAO.selectByUsername(username, "1");
+        List<User> users = userDAO.selectAccount(username, "1");
 
 //        Check username
         if (users.size() != 1) {

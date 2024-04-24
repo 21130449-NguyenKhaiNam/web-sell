@@ -73,7 +73,7 @@
                 </c:when>
                 <c:otherwise>
                     <div class="cart__content col">
-                        <form class="shopping__cart--form" action="/api/cart" method="post">
+                        <form class="shopping__cart--form" action="ShoppingCart" method="post">
                             <table id="cart__table">
                                 <thead class="cart__header">
                                 <tr>
@@ -157,9 +157,8 @@
                                 </div>
                                 <div class="apply__status">
                                     <c:if test="${sessionScope.successApplied != null}">
-                                        <span class="apply__success"><i
-                                                class="fa-solid fa-circle-check"></i> <span>${sessionScope.successApplied}</span></span>
-                                    </c:if>
+                                                                                                                                                                                                                                                                                                                                        <span class="apply__success"><i class="fa-solid fa-circle-check"></i>
+                                                                                                                                                                                                                                                                                                                                            <span>${sessionScope.successApplied}</span></span> </c:if>
                                     <c:if test="${sessionScope.failedApply != null}">
                                         <span class="apply__failed"><i
                                                 class="fa-solid fa-circle-exclamation"></i> <span>${sessionScope.failedApply}</span></span>
