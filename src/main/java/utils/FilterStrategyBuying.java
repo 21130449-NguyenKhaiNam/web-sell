@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Image;
 import models.Product;
-import org.json.JSONObject;
 import services.ProductCardServices;
-import services.image.CloudinaryUploadServices;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,9 +51,11 @@ public class FilterStrategyBuying extends FilterStrategy {
         int quantityPage = productCardFiltered.isEmpty() ? 0 : ProductCardServices.getINSTANCE().getQuantityPage(listIDFiltered);
 
         StringBuffer requestURL = request.getRequestURL();
-        requestURL.append("?").append("page=" + page);
+        String queryString = request.getQueryString();
+        queryString = cutParameterInURL(queryString, "page");
+        requestURL.append("?").append(queryString);
 
-        List<String> listInputChecked = listValueChecked("page");
+        List<String> listInputChecked = listValueChecked(queryString);
 
         List<DetailProduct> detailProducts = new ArrayList<>();
         productCardFiltered.forEach(product -> {

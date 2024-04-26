@@ -179,32 +179,20 @@ h1 {
     font-size: 20px;
     font-weight: 600;
 }
-.button__add {
+.button__add, .button__delete {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    width: 180px;
-    height: 50px;
+    --width: 180px;
+    --height: 50px;
     border-radius: 10px;
     background-color: #4BAC4D;
     color: #fff;
     margin-left: auto;
-}
-.btn_uploadImg{
-    gap: 10px;
-    width: 180px;
-    height: 50px;
-    border-radius: 10px;
-    background-color: #4BAC4D;
-    color: #fff;
-    margin-left: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.button__add:hover, .btn_uploadImg:hover {
+.button__add:hover {
     cursor: pointer;
     opacity: 0.9;
 }

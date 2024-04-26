@@ -19,6 +19,7 @@ public class FilterProductBuying extends HttpServlet {
         if (!filterStrategy.isAllParameterEmpty()) {
             filterStrategy.doFilter();
         }
+//        request.getRequestDispatcher(ConfigPage.PRODUCT_BUYING).forward(request, response);
     }
 
     @Override

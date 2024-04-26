@@ -67,8 +67,6 @@
                 <div class="navigation__button nav__prev hvr-bounce-in">
                     <i class="fa-solid fa-chevron-left"></i>
                 </div>
-
-
                 <div class="navigation__button nav__next hvr-bounce-in">
                     <i class="fa-solid fa-chevron-right"></i>
                 </div>
@@ -82,7 +80,6 @@
             <div class="category__container category__items">
                 <div class="category__item">
                     <p class="item__text">Áo thun / T-Shirt</p>
-
                     <img class="item__image"
                          src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "T-shirt")%>">
                 </div>
@@ -103,10 +100,8 @@
                 </div>
                 <div class="category__item">
                     <p class="item__text">Nón / Cap</p>
-
                     <img class="item__image"
                          src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "hat")%>">
-
                 </div>
             </div>
         </div>
@@ -126,7 +121,8 @@
                     <div class="product__content">
                         <div class="image--tag">
                             <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(trendProduct.getId());%>
-                            <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
+
+                            <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
                             <form action="AddToCart"
@@ -145,7 +141,6 @@
                                 </a>
                             </form>
                         </div>
-
 
                         <div class="product__info">
                             <a class="product__name" target="_blank"
@@ -192,7 +187,7 @@
                         <div class="image--tag">
                             <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(newProduct.getId());%>
 
-                            <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
+                            <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
                             <form action="AddToCart"
@@ -337,7 +332,6 @@
                             data: {productId: productId},
                             success: function (response) {
                                 let addToCartSuccessHTML = `<div class="notification__cart">
-
 
                                                             <div class="status__success">
                                                                 <span>
