@@ -1,7 +1,5 @@
 package dao;
 
-import annotations.LogParam;
-import annotations.WriteLog;
 import models.Color;
 import models.Image;
 import models.Product;
@@ -36,10 +34,8 @@ public interface IProductDAO extends IDAO {
     List<Product> getIdProductByName(String name);
 
     //    Thêm mới sản phẩm
-    @WriteLog(WriteLog.INSERT)
-    void addProduct(@LogParam("product") Product product);
+    void addProduct( Product product);
 
     //    Cập nhập sản phẩm
-    @WriteLog(WriteLog.UPDATE)
-    void updateProduct(@LogParam("product") Product product,@LogParam("id") int id);
+    void updateProduct( Product product, int id);
 }

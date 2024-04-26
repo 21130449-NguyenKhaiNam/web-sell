@@ -15,7 +15,7 @@ public class HistoryService {
     private IOrderUserDAO orderDAO;
 
     private HistoryService() {
-        this.orderDAO= LogService.getINSTANCE().createProxy(new OrderUserDAOImp());
+        this.orderDAO= new OrderUserDAOImp();
     }
 
     public static HistoryService getINSTANCE() {

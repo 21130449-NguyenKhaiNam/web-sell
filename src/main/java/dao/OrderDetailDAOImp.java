@@ -1,11 +1,9 @@
 package dao;
 
-import annotations.LogTable;
 import models.OrderDetail;
 
 import java.util.List;
 
-@LogTable(LogTable.ORDER)
 public class OrderDetailDAOImp implements IOrderDetailDAO {
     public List<OrderDetail> getOrderDetailById(int id) {
         StringBuilder sql = new StringBuilder();
@@ -28,8 +26,4 @@ public class OrderDetailDAOImp implements IOrderDetailDAO {
         GeneralDAOImp.executeAllTypeUpdate(sql.toString());
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

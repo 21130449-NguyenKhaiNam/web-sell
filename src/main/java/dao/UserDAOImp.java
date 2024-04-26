@@ -1,13 +1,11 @@
 package dao;
 
-import annotations.LogTable;
 import database.JDBIConnector;
 import models.User;
 
 import java.sql.*;
 import java.util.List;
 
-@LogTable(LogTable.USER)
 public class UserDAOImp implements IUserDAO {
     @Override
     public User selectById(int id) {
@@ -204,9 +202,5 @@ public class UserDAOImp implements IUserDAO {
         return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), User.class, orderDetailId);
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return selectById((int) id);
-    }
 }
 

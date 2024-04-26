@@ -14,8 +14,8 @@ public class AdminCategoryServices {
     private ICategoryDAO categoryDAO;
     private IParameterDAO parameterDAO;
     private AdminCategoryServices() {
-        categoryDAO = LogService.getINSTANCE().createProxy(new CategoryDAOImp());
-        parameterDAO = LogService.getINSTANCE().createProxy(new ParameterDAOImp());
+        categoryDAO = new CategoryDAOImp();
+        parameterDAO = new ParameterDAOImp();
     }
 
     public static AdminCategoryServices getINSTANCE() {

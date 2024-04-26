@@ -13,7 +13,7 @@ public class CheckoutServices {
     private static CheckoutServices INSTANCE;
 
     public CheckoutServices() {
-        checkoutDao = LogService.getINSTANCE().createProxy(new CheckoutDAOImp());
+        checkoutDao = new CheckoutDAOImp();
     }
 
     public static CheckoutServices getINSTANCE() {

@@ -1,11 +1,9 @@
 package dao;
 
-import annotations.LogTable;
 import models.OrderStatus;
 
 import java.util.List;
 
-@LogTable(LogTable.ORDER)
 public class OrderStatusDAOImp implements IOrderStatusDAO {
 
     public List<OrderStatus> getListAllOrderStatus(){
@@ -18,8 +16,4 @@ public class OrderStatusDAOImp implements IOrderStatusDAO {
         return GeneralDAOImp.executeQueryWithSingleTable(sql, OrderStatus.class, orderStatusId).get(0);
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

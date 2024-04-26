@@ -16,10 +16,10 @@ public class AdminOrderServices {
     private IOrderDetailDAO orderDetailDAO;
 
     public AdminOrderServices() {
-        orderDao = LogService.getINSTANCE().createProxy(new OrderAdminDAOImp());
-        orderStatusDao = LogService.getINSTANCE().createProxy(new OrderStatusDAOImp());
-        transactionStatusDao = LogService.getINSTANCE().createProxy(new TransactionStatusDAOImp());
-        orderDetailDAO = LogService.getINSTANCE().createProxy(new OrderDetailDAOImp());
+        orderDao = new OrderAdminDAOImp();
+        orderStatusDao = new OrderStatusDAOImp();
+        transactionStatusDao = new TransactionStatusDAOImp();
+        orderDetailDAO = new OrderDetailDAOImp();
     }
 
     public static AdminOrderServices getINSTANCE() {

@@ -12,7 +12,7 @@ public class DashboardService {
     private IDashboadDAO dashboadDAO;
 
     private DashboardService() {
-        this.dashboadDAO = LogService.getINSTANCE().createProxy(new DashboadDAOImp());
+        this.dashboadDAO = new DashboadDAOImp();
     }
 
     public static DashboardService getINSTANCE() {

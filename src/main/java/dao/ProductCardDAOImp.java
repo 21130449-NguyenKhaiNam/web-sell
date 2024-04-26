@@ -1,6 +1,5 @@
 package dao;
 
-import annotations.LogTable;
 import models.Category;
 import models.Parameter;
 import models.Product;
@@ -9,7 +8,6 @@ import utils.MoneyRange;
 import java.sql.Date;
 import java.util.List;
 
-@LogTable(LogTable.PRODUCT)
 public class ProductCardDAOImp implements IProductCardDAO {
     public List<Product> getProducts(int pageNumber, int limit, boolean visibility) {
         int offset = (pageNumber - 1) * limit;
@@ -292,8 +290,4 @@ public class ProductCardDAOImp implements IProductCardDAO {
         return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

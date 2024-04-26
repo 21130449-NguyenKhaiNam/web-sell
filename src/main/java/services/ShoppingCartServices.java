@@ -13,7 +13,7 @@ public class ShoppingCartServices {
     private static ShoppingCartServices INSTANCE;
 
     public ShoppingCartServices() {
-        shoppingCartDao = LogService.getINSTANCE().createProxy(new ShoppingCartDAOImp());
+        shoppingCartDao = new ShoppingCartDAOImp();
     }
 
     public static ShoppingCartServices getINSTANCE() {

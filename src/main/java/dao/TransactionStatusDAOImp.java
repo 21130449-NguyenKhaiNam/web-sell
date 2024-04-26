@@ -16,8 +16,4 @@ public class TransactionStatusDAOImp implements ITransactionStatusDAO {
         return GeneralDAOImp.executeQueryWithSingleTable(sql, TransactionStatus.class, transactionStatusId).get(0);
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

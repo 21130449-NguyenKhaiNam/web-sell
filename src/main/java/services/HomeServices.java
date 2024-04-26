@@ -11,7 +11,7 @@ public class HomeServices {
     private static HomeServices INSTANCE;
 
     public HomeServices() {
-        homeDao = LogService.getINSTANCE().createProxy(new HomeDAOImp());
+        homeDao = new HomeDAOImp();
     }
 
     public static HomeServices getINSTANCE() {
