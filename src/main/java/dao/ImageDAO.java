@@ -18,8 +18,10 @@ public class ImageDAO  {
             if (i != 0) {
                 sql.append(" , ");
             }
+            String nameImage = images.get(i).getNameImage();
+            nameImage = nameImage.substring(nameImage.indexOf("product_img")+12);
             sql.append(" (\"")
-                    .append(images.get(i).getNameImage())
+                    .append(nameImage)
                     .append("\", ")
                     .append(images.get(i).getProductId()).append(") ");
         }

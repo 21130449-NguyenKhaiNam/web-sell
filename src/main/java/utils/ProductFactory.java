@@ -55,4 +55,8 @@ public class ProductFactory {
         return ProductCardServices.getINSTANCE().getNameProductByIdOrderDetail(orderDetailId);
     }
 
+    public static Product getMaxId(){
+        return ProductServices.getINSTANCE().getMaxId();
+    }
+
 }
