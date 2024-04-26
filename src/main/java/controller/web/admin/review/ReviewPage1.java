@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "ReviewPage", value = "/reviewPage")
-public class ReviewPage extends HttpServlet {
+public class ReviewPage1 extends HttpServlet {
     private final int QUANTITY_PAGE_DEFAULT = 5;
     private int quantityPageMin;
     private int quantityPageMax;
@@ -42,7 +42,6 @@ public class ReviewPage extends HttpServlet {
         request.setAttribute("quantityPageMin", quantityPageMin);
         request.setAttribute("quantityPageMax", quantityPageMax);
         request.setAttribute("quantityPage", quantityPageTotal);
-
         request.getRequestDispatcher(ConfigPage.ADMIN_REVIEW).forward(request, response);
     }
 
