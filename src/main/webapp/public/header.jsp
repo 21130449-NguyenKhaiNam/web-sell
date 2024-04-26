@@ -1,7 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="models.User" %>
-<%@ page import="models.UserSessionAccess" %>
 <!--Header-->
 <header id="header">
     <nav class="nav">
@@ -14,7 +12,7 @@
                     </li>
                     <li class="nav__item">
                         <a href="<c:url value="/public/product/productBuying.jsp" />"
-                           class="nav__link           hvr-grow-shadow">
+                           class="nav__link hvr-grow-shadow">
                             Gian hàng
                         </a>
                     </li>
@@ -64,7 +62,7 @@
                         <div class="account">
                             <i class="account__icon fa-regular fa-user"></i>
                             <div class="setting__list">
-                                <a href="/public/user/accountInfo.jsp" class="setting__item">
+                                <a href="<c:url value="/public/user/accountInfo.jsp"/>" class="setting__item">
                                     <div class="setting__link">
                                         <div class="account__info">
                                             <i class="account__icon fa-regular fa-user"></i>

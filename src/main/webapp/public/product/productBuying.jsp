@@ -1,8 +1,3 @@
-<%@ page import="java.util.List" %>
-<%@ page import="java.net.URLEncoder" %>
-<%@ page import="services.image.CloudinaryUploadServices" %>
-<%@ page import="models.Product" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -105,11 +100,10 @@
                         <button class="filter__submit button--hover button p-2" type="submit">Lọc</button>
                     </form>
                 </div>
-            </div>
-
-            <div class="col-9">
-                <div class="product__list">
-                    <%--  sản phẩm được hiển thị ở đây--%>
+                <div class="col-9">
+                    <div class="product__list">
+                        <%--  sản phẩm được hiển thị ở đây--%>
+                    </div>
                 </div>
             </div>
         </div>
@@ -123,5 +117,5 @@
 <!--tippy tooltip-->
 <script src="https://unpkg.com/popper.js@1"></script>
 <script src="https://unpkg.com/tippy.js@5/dist/tippy-bundle.iife.js"></script>
-<script src="/js/productBuying.js"></script>
+<script src="<c:url value="/js/productBuying.js"/>"></script>
 </html>

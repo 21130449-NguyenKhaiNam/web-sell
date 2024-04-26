@@ -15,6 +15,8 @@
 
     <head>
         <%Product product = (Product)request.getAttribute("product");%>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <jsp:include page="/public/commonLink.jsp" />
         <link rel="stylesheet" href="<c:url value="/assets/css/productDetail.css"/>">
         <title><%=product.getName()%></title>
@@ -29,8 +31,7 @@
                         <div class="col-6 ">
                             <div class="product__media">
                                 <%String firstImage = productFactory.getListImagesByProductId(product.getId()).get(0).getNameImage();%>
-
-                                <img class="product__img" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", firstImage)%>"
+                                <img class="product__img" src="<%=firstImage%>"
                                      alt="" loading="lazy">
 
                                 <ul class="product__img-list">
@@ -39,26 +40,23 @@
                                         <c:choose>
                                             <c:when test="<%=i == 0%>">
                                                 <li class="product__img-item product__img-item--clicked">
-                                                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", image.getNameImage())%>"
-                                                         alt="" loading="lazy">
+                                                    <img src="<%=image.getNameImage()%>" loading="lazy" alt="">
                                                 </li>
                                             </c:when>
                                             <c:otherwise>
                                                 <li class="product__img-item">
-                                                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", image.getNameImage())%>"
-                                                         alt="" loading="lazy">
+                                                    <img src="<%=image.getNameImage()%>" loading="lazy" alt="">
                                                 </li>
                                             </c:otherwise>
                                         </c:choose>
                                         <%i++;%>
                                     <%}%>
-
                                 </ul>
                             </div>
                         </div>
                         <div class="offset-1 col-5">
                             <div class="product__info">
-                                <form action="/api/cart/add" method="post" id="form__product" class="product__form">
+                                <form action="<c:url value="/api/cart/add"/>" method="post" id="form__product" class="product__form">
                                     <h1 class="product__name" id="product__name"><%=product.getName()%></h1>
                                     <input type="text" hidden="hidden" name="productId" value="<%=product.getId()%>">
 
@@ -149,7 +147,7 @@
                                         </div>
                                     </div>
 
-                                    <a href="/showProductOrder?id=<%=product.getId()%>"
+                                    <a href="<c:url value="/showProductOrder?id=<%=product.getId()%>"/>"
                                        type="submit"
                                        class="form__submit form__submit--order button text-secondary"
                                        data="Đặt may theo số đo">
@@ -231,7 +229,7 @@
                         <div class="col-12">
                             <div class="product__related">
                                 <h3 id="suggest__title">Các sản phẩm liên quan</h3>
-                                <a href="/public/product/productBuying.jsp"
+                                <a href="<c:url value="/public/product/productBuying.jsp"/>"
                                    class="product__more hvr-forward">Xem thêm
                                     <i class="product__more-icon fa-solid fa-arrow-right"></i></a>
                             </div>
@@ -242,13 +240,13 @@
 
                                         <c:set value="<%=productFactory.getListImagesByProductId(item.getId())%>" var="listProductImage" />
 
-                                        <a href="/showProductDetail?id=<%=item.getId()%>">
-                                            <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage())%>"
+                                        <a href="${pageContext.request.contextPath}/showProductDetail?id=<%=item.getId()%>">
+                                            <img src="<%=productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage()%>"
                                                  class="product__img" alt="" loading="lazy" />
                                         </a>
                                         <div class="product__info">
                                             <a class="product__name" target="_self"
-                                               href="/showProductDetail?id=<%=item.getId()%>"><%=item.getName()%>
+                                               href="${pageContext.request.contextPath}/showProductDetail?id=<%=item.getId()%>"><%=item.getName()%>
                                             </a>
 
                                             <div class="product__review">
@@ -280,13 +278,11 @@
                                                     ${originalPrice}
                                                 </strong>
                                             </span>
-
                                         </div>
                                     </div>
                                 <%}%>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </section>
@@ -295,16 +291,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/typeit/5.0.2/typeit.min.js"
                 integrity="sha512-izh01C0sD66AuIVp4kRaEsvCSEC5bgs3n8Bm8Db/GhqJWei47La76LGf8Lbm8UHdIOsn+I7SxbeVLKb1k2ExMA=="
                 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"
+                integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <article class="dialog__size-guide"></article>
         <script src="<c:url value="/js/base.js"/>"></script>
-        <script>
-            let useLoggedIn = false;
-            <c:if test="${sessionScope.auth != null}">
-            useLoggedIn = true;
-            </c:if>
-        </script>
         <script src="<c:url value="/js/validateForm.js"/>"></script>
         <script src="<c:url value="/js/productDetail.js"/>"></script>
     </body>
-
 </html>
