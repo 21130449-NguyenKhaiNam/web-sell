@@ -59,15 +59,5 @@ public class Review {
         isVisibility = visibility;
     }
 
-    @Override
-    public String toString() {
-        return "Review{" +
-                "id=" + id +
-                ", orderDetailId=" + orderDetailId +
-                ", ratingStar=" + ratingStar +
-                ", feedback='" + feedback + '\'' +
-                ", reviewDate=" + reviewDate +
-                ", isVisibility=" + isVisibility +
-                '}';
-    }
+
 }

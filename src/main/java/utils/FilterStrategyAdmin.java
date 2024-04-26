@@ -82,14 +82,18 @@ public class FilterStrategyAdmin extends FilterStrategy {
         requestURL.append("?").append(queryString);
 
         List<String> listInputChecked = listValueChecked(queryString);
+//        request.setAttribute("requestURL", requestURL);
+//        request.setAttribute("productCardList", productCardFiltered);
+//        request.setAttribute("quantityPage", quantityPage);
+//        request.setAttribute("currentPage", page);
+//        request.setAttribute("listInputChecked", listInputChecked);
 
         List<DetailProduct> detailProducts = new ArrayList<>();
         productCardFiltered.forEach(product -> {
             DetailProduct dp = new DetailProduct(product,
                     ProductFactory.getListImagesByProductId(product.getId()),
                     ProductFactory.calculateStar(product.getId()),
-                    ProductFactory.getReviewCount(product.getId()),
-                    ProductFactory.getNameCategoryById(product.getId()));
+                    ProductFactory.getReviewCount(product.getId()));
             detailProducts.add(dp);
         });
         FilteredProductResponse responseData = new FilteredProductResponse(requestURL.toString(), detailProducts, quantityPage, page, listInputChecked);
@@ -142,23 +146,14 @@ public class FilterStrategyAdmin extends FilterStrategy {
         private List<Image> imgs;
         private int stars;
         private int reviewCounts;
-        private String nameCategory;
 
-        public DetailProduct(Product product, List<Image> imgs, int stars, int reviewCounts, String nameCategory) {
+        public DetailProduct(Product product, List<Image> imgs, int stars, int reviewCounts) {
             this.product = product;
             this.imgs = imgs;
             this.stars = stars;
             this.reviewCounts = reviewCounts;
-            this.nameCategory = nameCategory;
         }
 
-        public String getNameCategory(){
-            return nameCategory;
-        }
-
-        public void setNameCategory(String nameCategory){
-            this.nameCategory = nameCategory;
-        }
         public int getStars() {
             return stars;
         }

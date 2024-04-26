@@ -48,7 +48,6 @@
                             <c:param name="response_type" value="code" />
                             <c:param name="client_id" value="336186921669-k0vb5vt05phajcah47psl3v0t4h3eah0.apps.googleusercontent.com" />
                             <c:param name="approval_prompt" value="force" /> </c:url>
-
                         <div class="d-flex justify-content-around mt-4">
                             <a class="btn btn-primary" data-btn-style="google" href="${google}">Đăng nhập với Google</a>
                             <c:url var="facebook" value="https://www.facebook.com/v19.0/dialog/oauth">
@@ -57,7 +56,6 @@
                                 <c:param name="client_id" value="2825100177629702" /> </c:url>
                             <a class="btn btn-primary" data-btn-style="facebook" href="${facebook}">Đăng nhập với Facebook</a>
                         </div>
-
                     </form>
                     <a href="<c:url value="/public/auth/signUp.jsp"/>" id="form__link--signUp" class="form__link
                         hvr-float-shadow p-2">Đăng ký

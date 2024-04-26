@@ -73,7 +73,7 @@ public class CloudinaryUploadServices implements IUpload {
         cloudinary.uploader().uploadLarge(tempFile, ObjectUtils.asMap("folder", folderName, "public_id", imageName));
     }
 
-    public void upload(String folderName, String imageName, String file) throws Exception {
+    public void upload(String folderName, String imageName, File file) throws Exception {
         Map<String, Object> folderParams = ObjectUtils.asMap("folder", folderName);
         cloudinary.api().createFolder(folderName, folderParams);
 

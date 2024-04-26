@@ -37,7 +37,6 @@ public class AdminProductServices {
         return productDAO.getIdProductByName(product.getName()).get(0).getId();
     }
 
-
     public void addColor(String[] codeColors, int productId) {
         Color[] colors = new Color[codeColors.length];
         for (int i = 0; i < codeColors.length; i++) {
@@ -91,7 +90,8 @@ public class AdminProductServices {
         List<Product> listProduct = productCardDAO.getIdProductByName(name);
         if (listProduct.isEmpty()) return null;
         List<Integer> listId = new ArrayList<>();
-        for (Product p : listProduct) {
+        for (Product p :
+                listProduct) {
             listId.add(p.getId());
         }
         return listId;
