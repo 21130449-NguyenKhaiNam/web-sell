@@ -53,6 +53,7 @@ public class UpdateProduct extends HttpServlet {
             quantityImgDelete = 0;
         }
 
+        Collection<Part> images = request.getParts();
         int id;
         try {
             id = Integer.parseInt(idString);
@@ -78,7 +79,6 @@ public class UpdateProduct extends HttpServlet {
 //        Update color
             AdminProductServices.getINSTANCE().updateColors(colors, id);
 //        Update images
-            Collection<Part> images = request.getParts();
             if (!images.isEmpty()) {
                 try {
                     updateImage(images, quantityImgDelete, id);

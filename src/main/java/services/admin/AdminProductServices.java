@@ -9,6 +9,7 @@ import services.image.UploadImageServices;
 import utils.Comparison;
 
 import javax.servlet.http.Part;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.*;
 
@@ -32,10 +33,7 @@ public class AdminProductServices {
 
     public int addProduct(Product product) {
         List<Product> productList = productDAO.getIdProductByName(product.getName());
-        if (!productList.isEmpty()) {
-            System.out.println("Không thể thêm sản phẩm cùng tên");
-            return 0;
-        }
+        if (!productList.isEmpty()) return 0;
         productDAO.addProduct(product);
         return productDAO.getIdProductByName(product.getName()).get(0).getId();
     }
@@ -66,12 +64,10 @@ public class AdminProductServices {
     public void addSize(String[] nameSizes, double[] sizePrices, int productId) {
         Size[] sizes = new Size[nameSizes.length];
         for (int i = 0; i < sizes.length; i++) {
-            Size size = new Size();
-            size.setNameSize(nameSizes[i]);
-            size.setSizePrice(sizePrices[i]);
-            size.setProductId(productId);
-
-            sizes[i] = size;
+            sizes[i] = new Size();
+            sizes[i].setNameSize(nameSizes[i]);
+            sizes[i].setSizePrice(sizePrices[i]);
+            sizes[i].setProductId(productId);
         }
         sizeDAO.addSizes(sizes);
     }
@@ -95,12 +91,12 @@ public class AdminProductServices {
         List<Product> listProduct = productCardDAO.getIdProductByName(name);
         if (listProduct.isEmpty()) return null;
         List<Integer> listId = new ArrayList<>();
-        for (Product p : listProduct) {
+        for (Product p :
+                listProduct) {
             listId.add(p.getId());
         }
         return listId;
     }
-
 
     public List<Integer> getProductByTimeCreated(Date dateBegin, Date dateEnd) {
         List<Product> listProduct = productCardDAO.getProductByTimeCreated(dateBegin, dateEnd);
@@ -116,12 +112,6 @@ public class AdminProductServices {
     public List<Product> getProducts(int numberPage) {
         List<Product> productList = productCardDAO.getProducts(numberPage, LIMIT);
         return productList;
-    }
-
-
-    public boolean isContain(Product product) {
-        List<Product> productList = productDAO.getIdProductByName(product.getName());
-        return !productList.isEmpty();
     }
 
     //Sản phẩm không có hiệu chỉnh -> Không cập nhập
@@ -199,13 +189,13 @@ public class AdminProductServices {
 
         List<Image> imageDelete = imageList.subList(0, quantityFromRightToLeft);
         for (int i = 0; i < imageDelete.size(); i++) {
-            if (keepImageAvailable(imageList, imageDelete.get(i)) > 1) {
+            if(keepImageAvailable(imageList, imageDelete.get(i)) > 1){
                 imageDelete.remove(imageDelete.get(i));
             }
         }
 
         List<String> nameImageList = new ArrayList<>();
-        for (Image img : imageDelete) {
+        for(Image img : imageDelete){
             nameImageList.add("product_img/" + img.getNameImage());
         }
 

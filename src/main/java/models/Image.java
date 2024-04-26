@@ -1,6 +1,6 @@
 package models;
 
-import services.image.CloudinaryUploadServices;
+import com.restfb.types.VideoList;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -29,7 +29,7 @@ public class Image {
     }
 
     public String getNameImage() {
-        return CloudinaryUploadServices.getINSTANCE().getImage("product_img", this.nameImage);
+        return nameImage;
     }
 
     public void setNameImage(String nameImage) {

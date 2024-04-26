@@ -19,6 +19,7 @@ public class FilterProductAdmin extends HttpServlet {
         if (!filterStrategy.isAllParameterEmpty()) {
             filterStrategy.doFilter();
         }
+//        request.getRequestDispatcher(ConfigPage.ADMIN_PRODUCT).forward(request, response);
     }
 
     @Override
