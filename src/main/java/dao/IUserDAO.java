@@ -1,7 +1,5 @@
 package dao;
 
-import annotations.LogParam;
-import annotations.WriteLog;
 import models.User;
 
 import java.sql.Date;
@@ -13,8 +11,7 @@ public interface IUserDAO extends IDAO {
     User selectById(int id);
 
     //    Lấy ra user (tất cả các thông tin) theo username và trạng thái xác nhận tài khoản (isVerify)
-    @WriteLog(WriteLog.SELECT)
-    List<User> selectAccount(@LogParam("username") String username, @LogParam("isVerify") String isVerify);
+    List<User> selectAccount(String username, String isVerify);
 
     //    Lấy ra user (id, username, email, passwordEncoding, tokenResetPassword)
     //    theo email và trạng thái xác nhận tài khoản (isVerify)
@@ -47,8 +44,7 @@ public interface IUserDAO extends IDAO {
     void updateTokenResetPassword(int id, String token, Timestamp timeTokenExpired);
 
     //    Thêm mới user
-    @WriteLog(WriteLog.INSERT)
-    int insert(@LogParam("user") User user);
+    int insert(User user);
 
     //    Lấy ra danh sách user
     List<User> selectALl();
@@ -65,13 +61,11 @@ public interface IUserDAO extends IDAO {
     void updateUserByID(int id, String username, String fullName, String gender, String email, String phone, String address, Date birthDay);
 
     //    Cập nhập thông tin user + role dựa vào id user
-    @WriteLog(WriteLog.UPDATE)
-    void updateUserByIDWithRole(@LogParam("id") int id,@LogParam("username") String username,@LogParam("full-name") String fullname, String gender,@LogParam("email") String email,@LogParam("phone") String phone, String address, Date birthDay,@LogParam("role") String role);
+    void updateUserByIDWithRole(int id,String username,String fullname, String gender,String email,String phone, String address, Date birthDay,String role);
 
     //    Cập nhập mật khẩu dựa vào id user
     void updateUserPassword(int userId, String password);
 
-    @WriteLog(WriteLog.UPDATE)
     int update(User user);
 
     //    Cập nhập avatar dựa vào id user

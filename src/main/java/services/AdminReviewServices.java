@@ -16,8 +16,8 @@ public class AdminReviewServices {
     private IUserDAO userDAO;
 
     private AdminReviewServices() {
-        this.reviewDAO = LogService.getINSTANCE().createProxy(new ReviewDAOImp());
-        this.userDAO = LogService.getINSTANCE().createProxy(new UserDAOImp());
+        this.reviewDAO = new ReviewDAOImp();
+        this.userDAO = new UserDAOImp();
     }
 
     public static AdminReviewServices getINSTANCE() {

@@ -1,7 +1,5 @@
 package dao;
 
-import annotations.LogParam;
-import annotations.WriteLog;
 import models.Parameter;
 
 import java.util.List;
@@ -14,14 +12,11 @@ public interface IParameterDAO extends IDAO {
     List<Parameter> getParameterByCategoryId(int id, boolean orderById);
 
     //    Cập nhật thông tin tham số
-    @WriteLog(WriteLog.UPDATE)
-    void updateParameter(@LogParam("parameter") Parameter parameter);
+    void updateParameter(Parameter parameter);
 
     //    Thêm mới tham số
-    @WriteLog(WriteLog.INSERT)
-    void addParameter(@LogParam("parameter") Parameter parameter);
+    void addParameter(Parameter parameter);
 
     //    Xóa tham số
-    @WriteLog(WriteLog.UPDATE)
-    void deleteParameter(@LogParam("id-delete") int id);
+    void deleteParameter(int id);
 }

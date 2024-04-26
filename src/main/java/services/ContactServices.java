@@ -14,7 +14,7 @@ public class ContactServices {
     private static ContactServices INSTANCE;
 
     public ContactServices() {
-        contactDao = LogService.getINSTANCE().createProxy(new ContactDAOImp());
+        contactDao = new ContactDAOImp();
     }
 
     public static ContactServices getINSTANCE() {

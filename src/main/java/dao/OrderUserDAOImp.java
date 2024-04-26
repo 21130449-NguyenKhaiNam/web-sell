@@ -1,6 +1,5 @@
 package dao;
 
-import annotations.LogTable;
 import models.Image;
 import models.Order;
 import models.OrderDetail;
@@ -8,7 +7,6 @@ import models.Product;
 
 import java.util.List;
 
-@LogTable(LogTable.ORDER)
 public class OrderUserDAOImp implements IOrderUserDAO {
 
     public List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder){
@@ -64,8 +62,4 @@ public class OrderUserDAOImp implements IOrderUserDAO {
         return GeneralDAOImp.executeQueryWithSingleTable(querry, OrderDetail.class, userId);
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

@@ -1,12 +1,10 @@
 package dao;
 
-import annotations.LogTable;
 import models.Voucher;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@LogTable(LogTable.VOUCHER)
 public class ShoppingCartDAOImp implements IShoppingCartDAO {
     public List<Voucher> getListVouchers(){
         String sql = "SELECT id, `code`, `description`, minimumPrice, discountPercent, expiryDate FROM vouchers WHERE expiryDate >= CURDATE() AND availableTurns > 0";
@@ -43,10 +41,6 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
         return listCodeOfVouchers;
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 
 //    public double getMinPriceApplyVoucherByCode(String code){
 //        String sql = "SELECT minimumPrice FROM vouchers WHERE code = ?";

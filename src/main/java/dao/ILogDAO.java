@@ -3,10 +3,18 @@ package dao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.IModel;
+import org.jdbi.v3.core.statement.Query;
 
 import java.time.LocalDate;
 import java.util.Map;
 
 public interface ILogDAO extends IDAO {
-    <T> void writeLog(ObjectMapper mapper, IDAO dao, Object model, String ip, int level, Map<String, String> params, LocalDate updateDate, int table) throws JsonProcessingException;
+    // Giúp bắt ip tác động
+    void setIp(String ip);
+
+    // Phiên bản sử dụng câu query
+    void insertLog(Query query);
+
+    // Phiên bản câu
+    void insertLog(String sql, Object... params);
 }

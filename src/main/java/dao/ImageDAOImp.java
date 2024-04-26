@@ -1,11 +1,9 @@
 package dao;
 
-import annotations.LogTable;
 import models.Image;
 
 import java.util.List;
 
-@LogTable(LogTable.PRODUCT)
 public class ImageDAOImp implements IImageDAO {
     public List<Image> getThumbnail(int productId) {
         String sql = "SELECT nameImage FROM images WHERE productId = ? AND isThumbnail = 1";
@@ -56,8 +54,4 @@ public class ImageDAOImp implements IImageDAO {
         GeneralDAOImp.executeAllTypeUpdate(sql.toString());
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

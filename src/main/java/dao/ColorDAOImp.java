@@ -1,11 +1,9 @@
 package dao;
 
-import annotations.LogTable;
 import models.Color;
 
 import java.util.List;
 
-@LogTable(LogTable.COLOR)
 public class ColorDAOImp implements IColorDAO {
     public List<Color> getAllColor() {
         StringBuilder sql = new StringBuilder();
@@ -47,8 +45,4 @@ public class ColorDAOImp implements IColorDAO {
     public void deleteColorList(List<Integer> listIdDelete) {
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

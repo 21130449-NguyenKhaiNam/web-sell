@@ -1,12 +1,10 @@
 package dao;
 
-import annotations.LogTable;
 import models.Product;
 import models.Size;
 
 import java.util.List;
 
-@LogTable(LogTable.PRODUCT)
 public class SizeDAOImp implements ISizeDAO {
     public List<Size> getAllSize() {
         StringBuilder sql = new StringBuilder();
@@ -69,8 +67,4 @@ public class SizeDAOImp implements ISizeDAO {
         GeneralDAOImp.executeAllTypeUpdate(sql.toString());
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

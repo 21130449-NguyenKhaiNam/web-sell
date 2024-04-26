@@ -14,10 +14,10 @@ public class ProductServices {
     private static ProductServices INSTANCE;
 
     public ProductServices() {
-        productDao = LogService.getINSTANCE().createProxy(new ProductDAOImp());
-        imageDAO = LogService.getINSTANCE().createProxy(new ImageDAOImp());
-        colorDAO = LogService.getINSTANCE().createProxy(new ColorDAOImp());
-        sizeDAO = LogService.getINSTANCE().createProxy(new SizeDAOImp());
+        productDao = new ProductDAOImp();
+        imageDAO = new ImageDAOImp();
+        colorDAO = new ColorDAOImp();
+        sizeDAO = new SizeDAOImp();
     }
 
     public static ProductServices getINSTANCE() {

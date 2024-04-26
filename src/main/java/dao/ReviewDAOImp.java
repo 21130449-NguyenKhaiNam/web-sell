@@ -1,12 +1,10 @@
 package dao;
 
-import annotations.LogTable;
 import models.Product;
 import models.Review;
 
 import java.util.List;
 
-@LogTable(LogTable.PRODUCT)
 public class ReviewDAOImp implements IReviewDAO {
     public List<Review> checkReview(int userId, int orderProductIdRequest) {
         StringBuilder sql = new StringBuilder();
@@ -108,10 +106,5 @@ public class ReviewDAOImp implements IReviewDAO {
     public List<Review> isVisibility(int id) {
         StringBuilder sql = new StringBuilder("SELECT visibility FROM reviews WHERE id = ?");
         return GeneralDAOImp.executeQueryWithSingleTable(sql.toString(), Review.class, id);
-    }
-
-    @Override
-    public Object getModelById(Object id) {
-        return null;
     }
 }

@@ -1,11 +1,9 @@
 package dao;
 
-import annotations.LogTable;
 import models.Parameter;
 
 import java.util.List;
 
-@LogTable(LogTable.PRODUCT)
 public class ParameterDAOImp implements IParameterDAO {
     public List<Parameter> getParameterByCategoryId(int id) {
         StringBuilder sql = new StringBuilder();
@@ -48,8 +46,4 @@ public class ParameterDAOImp implements IParameterDAO {
         GeneralDAOImp.executeAllTypeUpdate(sql.toString(), id);
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

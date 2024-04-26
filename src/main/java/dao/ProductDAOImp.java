@@ -1,13 +1,11 @@
 package dao;
 
-import annotations.LogTable;
 import models.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@LogTable(LogTable.PRODUCT)
 public class ProductDAOImp implements IProductDAO {
 
     public List<Image> getListImagesByProductId(int productId) {
@@ -92,9 +90,4 @@ public class ProductDAOImp implements IProductDAO {
         return updatedField.toString().substring(0, updatedField.toString().length() - 1);
     }
 
-
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

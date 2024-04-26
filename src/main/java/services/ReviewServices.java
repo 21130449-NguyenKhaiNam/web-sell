@@ -17,8 +17,8 @@ public class ReviewServices {
     private IOrderDetailDAO orderDetailDAO;
 
     private ReviewServices() {
-        reviewDAO = LogService.getINSTANCE().createProxy(new ReviewDAOImp());
-        orderDetailDAO = LogService.getINSTANCE().createProxy(new OrderDetailDAOImp());
+        reviewDAO = new ReviewDAOImp();
+        orderDetailDAO = new OrderDetailDAOImp();
     }
 
     public static ReviewServices getINSTANCE() {

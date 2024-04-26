@@ -1,11 +1,10 @@
 package dao;
 
-import annotations.LogTable;
 import models.Category;
 import models.Parameter;
 
 import java.util.List;
-@LogTable(LogTable.PRODUCT)
+
 public class CategoryDAOImp implements ICategoryDAO {
     public List<Category> getAllCategory() {
         StringBuilder sql = new StringBuilder();
@@ -52,8 +51,4 @@ public class CategoryDAOImp implements ICategoryDAO {
         }
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

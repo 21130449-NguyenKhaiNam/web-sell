@@ -1,7 +1,5 @@
 package dao;
 
-import annotations.LogParam;
-import annotations.WriteLog;
 import models.Product;
 import models.Review;
 
@@ -26,8 +24,7 @@ public interface IReviewDAO extends IDAO {
     List<Review> getReviewByOrderDetailId(int orderDetailId);
 
     //    Thêm mới review
-    @WriteLog(WriteLog.INSERT)
-    void createReview(@LogParam("review") Review review);
+    void createReview(Review review);
 
     //    Lấy ra danh sách chi tiết review
     //    Sử dụng tham số để phân trang
@@ -47,8 +44,7 @@ public interface IReviewDAO extends IDAO {
     Review getReviewById(int reviewId);
 
     //    Cập nhập trạng thái ẩn/hiện review dựa vào id review
-    @WriteLog(WriteLog.UPDATE)
-    void updateVisibility(@LogParam("id-review") int reviewId,@LogParam("hide-state") boolean hideState);
+    void updateVisibility(int reviewId,boolean hideState);
 
     //    Lấy ra danh sách trạng thái ẩn/hiện review dựa vào id review
     List<Review> isVisibility(int id);

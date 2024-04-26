@@ -1,11 +1,9 @@
 package dao;
 
-import annotations.LogTable;
 import models.Contact;
 import models.SubjectContact;
 
 import java.util.List;
-@LogTable(LogTable.CONTACT)
 public class ContactDAOImp implements IContactDAO {
 
     public List<Contact> getListUserContacts(){
@@ -26,8 +24,4 @@ public class ContactDAOImp implements IContactDAO {
         GeneralDAOImp.executeAllTypeUpdate("INSERT INTO contact(userId, fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subjectId, message);
     }
 
-    @Override
-    public Object getModelById(Object id) {
-        return null;
-    }
 }

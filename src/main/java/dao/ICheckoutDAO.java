@@ -1,7 +1,5 @@
 package dao;
 
-import annotations.LogParam;
-import annotations.WriteLog;
 import models.DeliveryMethod;
 import models.PaymentMethod;
 import models.PaymentOwner;
@@ -11,12 +9,10 @@ import java.util.List;
 public interface ICheckoutDAO extends IDAO {
 
     //    Thêm đơn hàng mới
-    @WriteLog(WriteLog.INSERT)
-    void addNewOrder(@LogParam("id-order") int orderId,@LogParam("id-user")  int userId,@LogParam("date-order") String dateOrder,@LogParam("full-name") String fullName,@LogParam("email") String email,@LogParam("phone") String phone,@LogParam("address") String address,@LogParam("id-delivery-method") Integer deliveryMethodId,@LogParam("id-payment-method") int paymentMethodId,@LogParam("id-voucher") Integer voucherId);
+    void addNewOrder(int orderId,int userId, String dateOrder, String fullName, String email,String phone, String address, Integer deliveryMethodId, int paymentMethodId, Integer voucherId);
 
     //    Thêm chi tiết đơn hàng mới dựa theo orderId
-    @WriteLog(WriteLog.INSERT)
-    void addEachOrderDetail(@LogParam("id-order") int orderId,@LogParam("id-product") int productId,@LogParam("product-name") String productName,@LogParam("size-required") String sizeRequired,@LogParam("color-required") String colorRequired,@LogParam("quantity") int quantityRequired,@LogParam("price") double price);
+    void addEachOrderDetail(int orderId, int productId, String productName,String sizeRequired,String colorRequired, int quantityRequired, double price);
 
     //    Lấy ra danh sách tất cả các phương thức giao hàng có trong bảng delivery_method
     List<DeliveryMethod> getAllInformationDeliveryMethod();

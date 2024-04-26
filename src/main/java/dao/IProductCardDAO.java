@@ -1,7 +1,5 @@
 package dao;
 
-import annotations.LogParam;
-import annotations.WriteLog;
 import models.Category;
 import models.Parameter;
 import models.Product;
@@ -63,8 +61,7 @@ public interface IProductCardDAO extends IDAO {
     List<Product> getProductByCategoryId(int categoryId);
 
     //    Lấy ra danh sách id sản phẩm dựa theo tên sản phẩm
-    @WriteLog(WriteLog.SELECT)
-    List<Product> getIdProductByName(@LogParam("name") String name);
+    List<Product> getIdProductByName(String name);
 
     //    Lấy ra danh sách id sản phẩm dựa theo thời gian tạo
     List<Product> getProductByTimeCreated(Date dateBegin, Date dateEnd);
@@ -85,8 +82,7 @@ public interface IProductCardDAO extends IDAO {
     List<Product> isVisibility(int id);
 
     //    Cập nhập trạng thái ẩn/hiện sản phẩm dựa vào id sản phẩm
-    @WriteLog(WriteLog.UPDATE)
-    void updateVisibility(@LogParam("id-product") int productId,@LogParam("visibility") boolean visibility);
+    void updateVisibility(int productId, boolean visibility);
 
     //    Lấy ra danh sách tên sản phẩm dựa theo id chi tiết đơn hàng
     List<Product> getNameProductByIdOrderDetail(int orderDetailId);
