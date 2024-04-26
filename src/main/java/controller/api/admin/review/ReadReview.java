@@ -41,6 +41,7 @@ public class ReadReview extends HttpServlet {
         String image = ProductFactory.getListImagesByProductId(productId).get(0).getNameImage();
         String nameProduct = ProductCardServices.getINSTANCE().getNameProductById(productId);
         String nameCategory = ProductCardServices.getINSTANCE().getNameCategoryById(productId);
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", nameProduct);
         jsonObject.put("image", image);
