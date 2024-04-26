@@ -4,6 +4,8 @@ import dao.ILogDAO;
 import dao.LogDAOImp;
 import org.jdbi.v3.core.statement.Query;
 
+import java.util.List;
+
 /**
  * Sử dụng để ghi Log, lớp muốn ghi log thì sử dụng phương thức createProxy
  * để tạo các phiên bản:
@@ -27,19 +29,15 @@ public class LogService {
     }
 
     /**
-     * Dùng cho các câu có sẵn query
-     * @param query
-     */
-    public void insertLog(Query query) {
-        logDAO.insertLog(query);
-    }
-
-    /**
      * Dùng cho các câu chỉ có lệnh
      * @param sql
      * @param params
      */
     public void insertLog(String sql, Object... params) {
         logDAO.insertLog(sql, params);
+    }
+
+    public void insertLogForSelect(String sql, List<?> list) {
+        logDAO.insertLogForSelect(sql, list);
     }
 }

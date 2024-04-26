@@ -6,15 +6,15 @@ import models.IModel;
 import org.jdbi.v3.core.statement.Query;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 public interface ILogDAO extends IDAO {
     // Giúp bắt ip tác động
     void setIp(String ip);
 
-    // Phiên bản sử dụng câu query
-    void insertLog(Query query);
-
     // Phiên bản câu
     void insertLog(String sql, Object... params);
+
+    void insertLogForSelect(String sql, List<?> list);
 }
