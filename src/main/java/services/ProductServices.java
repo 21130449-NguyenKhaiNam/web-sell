@@ -45,12 +45,16 @@ public class ProductServices {
 
     public double getPriceSizeByName(String nameSize, int productId) {
         return productDao.getPriceSizeByName(nameSize, productId);
-
     }
 
     public Size getSizeByNameSizeWithProductId(String nameSize, int productId) {
         return productDao.getSizeByNameSizeWithProductId(nameSize, productId);
     }
+
+    public Image getImageByNameImageWithProductId(String nameImage, int productId) {
+        return productDao.getImageByNameImageWithProductId(nameImage, productId);
+    }
+
 
     public Product getProductByProductId(int productId){
         return productDao.getProductByProductId(productId);
@@ -59,5 +63,14 @@ public class ProductServices {
     public Color getColorByCodeColorWithProductId(String codeColor, int productId) {
         return productDao.getColorByCodeColorWithProductId(codeColor, productId);
     }
+
+    public Product getMaxId(){
+        return productDao.getMaxId();
+    }
+
+    public Product getProductByMultipleParam(String name, int categoryId, String des, double originalPrice, double salePrice){
+        return productDao.getProductByMultipleParam(name, categoryId, des, originalPrice, salePrice);
+    }
+
 }
 

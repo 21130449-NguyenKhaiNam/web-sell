@@ -1,27 +1,28 @@
 package controller.web.review;
 
-import config.ConfigPage;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Review;
+import org.json.JSONObject;
 import services.admin.AdminReviewServices;
-
+import utils.ProductFactory;
+import utils.UserFactory;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ReviewPage", value = "/reviewPage")
 public class ReviewPage extends HttpServlet {
-    private final int QUANTITY_PAGE_DEFAULT = 5;
-    private int quantityPageMin;
-    private int quantityPageMax;
-    private int currentPage;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String pageOnUrl = request.getParameter("page");
-
+        int currentPage;
         try {
             currentPage = Integer.parseInt(pageOnUrl);
         } catch (NumberFormatException e) {
@@ -29,22 +30,42 @@ public class ReviewPage extends HttpServlet {
         }
 
         List<Review> listReview = AdminReviewServices.getINSTANCE().getReviews(currentPage);
-        int quantityPageTotal = AdminReviewServices.getINSTANCE().getQuantityPage();
 
-        generateQuantityPage();
-        if (quantityPageMax > quantityPageTotal) {
-            quantityPageMax = quantityPageTotal;
+        List<ReviewResponse> reviewResponses = new ArrayList<>();
+        for (Review review : listReview){
+            int userId = -1;
+            if(UserFactory.getUserByIdProductDetail(review.getOrderDetailId()) != null){
+                userId= UserFactory.getUserByIdProductDetail(review.getOrderDetailId()).getId();
+            }
+            ReviewResponse reviewResponse = new ReviewResponse(review.getId(),
+                    userId,
+                    ProductFactory.getNameProductByIdOrderDetail(review.getOrderDetailId()),
+                    review.getOrderDetailId(),
+                    review.getRatingStar(),
+                    review.getFeedback(),
+                    review.getReviewDate(),
+                    review.isVisibility());
+            reviewResponses.add(reviewResponse);
         }
 
+        int quantityPageTotal = AdminReviewServices.getINSTANCE().getQuantityPage();
+        ListReviewResponse listReviewResponse = new ListReviewResponse(quantityPageTotal, reviewResponses);
 
-        request.setAttribute("requestURL", "/reviewPage");
-        request.setAttribute("listReview", listReview);
-        request.setAttribute("currentPage", currentPage);
-        request.setAttribute("quantityPageMin", quantityPageMin);
-        request.setAttribute("quantityPageMax", quantityPageMax);
-        request.setAttribute("quantityPage", quantityPageTotal);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("quantity", quantityPageTotal);
+        jsonObject.put("reviews", listReviewResponse);
 
-        request.getRequestDispatcher(ConfigPage.ADMIN_REVIEW).forward(request, response);
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonResponse = null;
+        try {
+            jsonResponse = mapper.writeValueAsString(listReviewResponse);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonResponse);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
@@ -52,12 +73,82 @@ public class ReviewPage extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    public void generateQuantityPage() {
-        quantityPageMin = currentPage - 2;
-        quantityPageMax = currentPage + 2;
-        if (quantityPageMin < 1) {
-            quantityPageMin = 1;
-            quantityPageMax = QUANTITY_PAGE_DEFAULT;
+    private class ReviewResponse{
+        private int id;
+        private int userId;
+        private String productName;
+        private int orderDetailId;
+        private int ratingStar;
+        private String feedback;
+        private Date reviewDate;
+        private boolean visibility;
+
+        public ReviewResponse(int id, int userId, String productName, int orderDetailId, int ratingStar, String feedback, Date reviewDate, boolean visibility) {
+            this.id = id;
+            this.userId = userId;
+            this.productName = productName;
+            this.orderDetailId = orderDetailId;
+            this.ratingStar = ratingStar;
+            this.feedback = feedback;
+            this.reviewDate = reviewDate;
+            this.visibility = visibility;
         }
+
+        @JsonGetter("userId")
+        public int getUserId() {
+            return userId;
+        }
+        @JsonGetter("orderDetailId")
+        public int getOrderDetailId() {
+            return orderDetailId;
+        }
+
+        @JsonGetter("id")
+        public int getId() {
+            return id;
+        }
+
+        @JsonGetter("productName")
+        public String getProductName() {
+            return productName;
+        }
+        @JsonGetter("ratingStar")
+        public int getRatingStar() {
+            return ratingStar;
+        }
+
+        @JsonGetter("feedBack")
+        public String getFeedback() {
+            return feedback;
+        }
+
+        @JsonGetter("reviewDate")
+        public Date getReviewDate() {
+            return reviewDate;
+        }
+        @JsonGetter("visibility")
+        public boolean isVisibility() {
+            return visibility;
+        }
+    }
+
+    private class ListReviewResponse{
+        private int quantity;
+        private List<ReviewResponse> listReivewResponse;
+
+        public ListReviewResponse(int quantity, List<ReviewResponse> listReivewResponse) {
+            this.quantity = quantity;
+            this.listReivewResponse = listReivewResponse;
+        }
+        @JsonGetter("quantity")
+        public int getQuantity() {
+            return quantity;
+        }
+
+        @JsonGetter("reviews")
+        public List<ReviewResponse> getListReivewResponse() {
+            return listReivewResponse;
+        }
+
     }
 }
