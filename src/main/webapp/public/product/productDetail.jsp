@@ -14,12 +14,13 @@
 <html lang="en">
 
     <head>
-        <%Product product = (Product)request.getAttribute("product");%>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <%Product product = (Product) request.getAttribute("product");%>
+        <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="<c:url value="/assets/css/splide/index.css" />">
         <jsp:include page="/public/commonLink.jsp" />
         <link rel="stylesheet" href="<c:url value="/assets/css/productDetail.css"/>">
-        <title><%=product.getName()%></title>
+        <title><%=product.getName()%>
+        </title>
     </head>
 
     <body>
@@ -29,63 +30,60 @@
                 <div class="container-xl">
                     <div class="row">
                         <div class="col-6 ">
-                            <div class="product__media">
-                                <%String firstImage = productFactory.getListImagesByProductId(product.getId()).get(0).getNameImage();%>
-                                <img class="product__img" src="<%=firstImage%>"
-                                     alt="" loading="lazy">
-
-                                <ul class="product__img-list">
-                                    <%int i = 0;%>
-                                    <%for(Image image : productFactory.getListImagesByProductId(product.getId())){%>
-                                        <c:choose>
-                                            <c:when test="<%=i == 0%>">
-                                                <li class="product__img-item product__img-item--clicked">
-                                                    <img src="<%=image.getNameImage()%>" loading="lazy" alt="">
-                                                </li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li class="product__img-item">
-                                                    <img src="<%=image.getNameImage()%>" loading="lazy" alt="">
-                                                </li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <%i++;%>
-                                    <%}%>
-                                </ul>
+                            <div id="main-slider" class="splide custom-splide">
+                                <div class="splide__track">
+                                    <ul class="splide__list">
+                                        <%for (Image image : productFactory.getListImagesByProductId(product.getId())) {%>
+                                        <li class="splide__slide">
+                                            <img src="<%=image.getNameImage()%>" loading="lazy" alt="">
+                                        </li>
+                                        <%}%>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="thumbnail-slider" class="splide custom-thumbnail-slider">
+                                <div class="splide__track">
+                                    <ul class="splide__list">
+                                        <%for (Image image : productFactory.getListImagesByProductId(product.getId())) {%>
+                                        <li class="splide__slide">
+                                            <img src="<%=image.getNameImage()%>" loading="lazy" alt="">
+                                        </li>
+                                        <%}%>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="offset-1 col-5">
                             <div class="product__info">
                                 <form action="<c:url value="/api/cart/add"/>" method="post" id="form__product" class="product__form">
-                                    <h1 class="product__name" id="product__name"><%=product.getName()%></h1>
+                                    <h1 class="product__name" id="product__name"><%=product.getName()%>
+                                    </h1>
                                     <input type="text" hidden="hidden" name="productId" value="<%=product.getId()%>">
 
-                                    <%for(int starA = 1; starA <= productFactory.calculateStar(product.getId());starA++){%>
-                                        <i class="product__star fa-solid fa-star"></i>
+                                    <%for (int starA = 1; starA <= productFactory.calculateStar(product.getId()); starA++) {%>
+                                    <i class="product__star fa-solid fa-star"></i>
                                     <%}%>
 
-                                    <%for(int starB = 1; starB <= 5 - productFactory.calculateStar(product.getId());starB++){%>
-                                        <i class="product__star fa-regular fa-star"></i>
+                                    <%for (int starB = 1; starB <= 5 - productFactory.calculateStar(product.getId()); starB++) {%>
+                                    <i class="product__star fa-regular fa-star"></i>
                                     <%}%>
 
                                     <div class="product__price-wrapper">
                                         <fmt:formatNumber value="<%=product.getOriginalPrice()%>" type="currency"
                                                           currencyCode="VND" var="originalPrice" />
                                         <fmt:formatNumber value="<%=product.getSalePrice()%>" type="currency"
-                                                          currencyCode="VND" var="salePrice" />
-                                        <c:choose>
-                                            <c:when test="<%=product.getSalePrice() == 0%>">
-                                                <p class="product__price product__price--sale hvr-grow">
-                                                        ${originalPrice}</p>
-                                            </c:when>
+                                                          currencyCode="VND" var="salePrice" /> <c:choose>
+                                        <c:when test="<%=product.getSalePrice() == 0%>">
+                                            <p class="product__price product__price--sale hvr-grow">
+                                                    ${originalPrice}</p>
+                                        </c:when>
 
-                                            <c:otherwise>
-                                                <p class="product__price product__price--sale hvr-grow">
-                                                        ${originalPrice}</p>
-                                                <p class="product__price product__price--base hvr-bubble-left">
-                                                        ${salePrice}</p>
-                                            </c:otherwise>
-                                        </c:choose>
+                                        <c:otherwise>
+                                            <p class="product__price product__price--sale hvr-grow">
+                                                    ${originalPrice}</p>
+                                            <p class="product__price product__price--base hvr-bubble-left">
+                                                    ${salePrice}</p>
+                                        </c:otherwise> </c:choose>
 
                                     </div>
 
@@ -100,9 +98,7 @@
                                                 <label class="form__color-check shadow rounded"
                                                        style="background-color: ${color.codeColor}">
                                                     <input type="radio" name="color" hidden="hidden"
-                                                           value="${color.codeColor}">
-                                                </label>
-                                            </c:forEach>
+                                                           value="${color.codeColor}"> </label> </c:forEach>
                                         </div>
                                         <p class="form__error"></p>
                                     </div>
@@ -124,8 +120,7 @@
                                             </c:forEach>
                                         </div>
 
-                                        <span class="size__price"></span>
-                                        <span class="form__error"></span>
+                                        <span class="size__price"></span> <span class="form__error"></span>
                                     </div>
 
                                     <div class="separate"></div>
@@ -177,51 +172,49 @@
                             <!--Reviews-->
                             <div class="product__review">
 
-                                <c:choose>
-                                    <c:when test="${not empty requestScope.listReview}">
-                                        <div class="review__list">
-                                            <%for(Review review : (List<Review>)request.getAttribute("listReview")){%>
-                                                <%User user = userFatory.getUserByIdProductDetail(review.getOrderDetailId());%>
-                                                <article class="review">
-                                                    <div class="review__avatar">
-                                                        <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("user", user.getAvatar())%>"
-                                                             alt="<%=user.getAvatar()%>"
-                                                             loading="lazy">
-                                                    </div>
-                                                    <div class="review__account">
-                                                        <h4 class="review__name"><%=user.getFullName()%></h4>
-                                                        <ul class="review__stars">
-                                                            <%for(int starA  = 1; starA <= review.getRatingStar();starA++){%>
-                                                                <li class="review__star review__start--archive">
-                                                            <%}%>
-
-                                                            <c:if test="<%=review.getRatingStar() < 5%>">
-                                                                <%for(int starB  = 1; starB <= 5- review.getRatingStar();starB++){%>
-                                                                    <li class="review__star "></li>
+                                <c:choose> <c:when test="${not empty requestScope.listReview}">
+                                    <div class="review__list">
+                                        <%for (Review review : (List<Review>) request.getAttribute("listReview")) {%><%
+                                        User user = userFatory.getUserByIdProductDetail(review.getOrderDetailId());%>
+                                        <article class="review">
+                                            <div class="review__avatar">
+                                                <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("user", user.getAvatar())%>"
+                                                     alt="<%=user.getAvatar()%>"
+                                                     loading="lazy">
+                                            </div>
+                                            <div class="review__account">
+                                                <h4 class="review__name"><%=user.getFullName()%>
+                                                </h4>
+                                                <ul class="review__stars">
+                                                    <%for (int starA = 1; starA <= review.getRatingStar(); starA++) {%>
+                                                    <li class="review__star review__start--archive">
                                                                 <%}%>
-                                                            </c:if>
-                                                            <fmt:formatDate var="reviewDate" value="<%=review.getReviewDate()%>" type="date"
-                                                                                                 pattern="dd/MM/yyyy" />
 
-                                                            <span class="review__date"><%=review.getReviewDate()%></span>
-                                                        </ul>
-                                                        <p class="review__para line-clamp"><%=review.getFeedback()%>
-                                                        </p>
-                                                    </div>
-                                                </article>
-                                            <%}%>
-                                        </div>
+                                                        <c:if test="<%=review.getRatingStar() < 5%>"> <%for(int starB  = 1; starB <= 5- review.getRatingStar();starB++){%>
+                                                    <li class="review__star "></li>
+                                                    <%}%>
+                                                    </c:if>
+                                                    <fmt:formatDate var="reviewDate" value="<%=review.getReviewDate()%>" type="date"
+                                                                    pattern="dd/MM/yyyy" />
 
-                                        <ul class="paging">
-                                        </ul>
-                                    </c:when>
+                                                    <span class="review__date"><%=review.getReviewDate()%></span>
+                                                </ul>
+                                                <p class="review__para line-clamp"><%=review.getFeedback()%>
+                                                </p>
+                                            </div>
+                                        </article>
+                                        <%}%>
+                                    </div>
+
+                                    <ul class="paging">
+                                    </ul>
+                                </c:when>
 
                                     <c:otherwise>
                                         <p class="review__empty">
                                             Hãy trở thành người đầu tiên đánh giá sản phẩm.
                                         </p>
-                                    </c:otherwise>
-                                </c:choose>
+                                    </c:otherwise> </c:choose>
 
                             </div>
                         </div>
@@ -235,42 +228,42 @@
                             </div>
 
                             <div class="product__list">
-                                <%for(Product item : (List<Product>)request.getAttribute("listProductRelated")){%>
-                                    <div class="product__item hvr-grow-shadow">
+                                <%for (Product item : (List<Product>) request.getAttribute("listProductRelated")) {%>
+                                <div class="product__item hvr-grow-shadow">
 
-                                        <c:set value="<%=productFactory.getListImagesByProductId(item.getId())%>" var="listProductImage" />
+                                    <c:set value="<%=productFactory.getListImagesByProductId(item.getId())%>" var="listProductImage" />
 
-                                        <a href="${pageContext.request.contextPath}/showProductDetail?id=<%=item.getId()%>">
-                                            <img src="<%=productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage()%>"
-                                                 class="product__img" alt="" loading="lazy" />
+                                    <a href="${pageContext.request.contextPath}/showProductDetail?id=<%=item.getId()%>">
+                                        <img src="<%=productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage()%>"
+                                             class="product__img" alt="" loading="lazy" />
+                                    </a>
+                                    <div class="product__info">
+                                        <a class="product__name" target="_self"
+                                           href="${pageContext.request.contextPath}/showProductDetail?id=<%=item.getId()%>"><%=item.getName()%>
                                         </a>
-                                        <div class="product__info">
-                                            <a class="product__name" target="_self"
-                                               href="${pageContext.request.contextPath}/showProductDetail?id=<%=item.getId()%>"><%=item.getName()%>
-                                            </a>
 
-                                            <div class="product__review">
-                                                <div class="product__review-stars">
-                                                    <%for(int starA = 1; starA <= productFactory.calculateStar(item.getId());starA++){%>
-                                                        <i class="fa-solid fa-star"></i>
-                                                    <%}%>
+                                        <div class="product__review">
+                                            <div class="product__review-stars">
+                                                <%for (int starA = 1; starA <= productFactory.calculateStar(item.getId()); starA++) {%>
+                                                <i class="fa-solid fa-star"></i>
+                                                <%}%>
 
-                                                    <%for(int starB = 1; starB <= 5 - productFactory.calculateStar(item.getId());starB++){%>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <%}%>
-                                                </div>
-                                                <a class="product__review-num" target="_blank"
-                                                   href="${linkProductDetail}"><%=productFactory.getReviewCount(item.getId())%>
-                                                    nhận xét
-                                                </a>
+                                                <%for (int starB = 1; starB <= 5 - productFactory.calculateStar(item.getId()); starB++) {%>
+                                                <i class="fa-regular fa-star"></i>
+                                                <%}%>
                                             </div>
+                                            <a class="product__review-num" target="_blank"
+                                               href="${linkProductDetail}"><%=productFactory.getReviewCount(item.getId())%>
+                                                nhận xét
+                                            </a>
+                                        </div>
 
-                                            <fmt:formatNumber value="<%=item.getOriginalPrice()%>" type="currency"
-                                                              currencyCode="VND" var="originalPrice" />
-                                            <fmt:formatNumber value="<%=item.getSalePrice()%>" type="currency"
-                                                              currencyCode="VND" var="salePrice" />
+                                        <fmt:formatNumber value="<%=item.getOriginalPrice()%>" type="currency"
+                                                          currencyCode="VND" var="originalPrice" />
+                                        <fmt:formatNumber value="<%=item.getSalePrice()%>" type="currency"
+                                                          currencyCode="VND" var="salePrice" />
 
-                                            <span class="product__price">
+                                        <span class="product__price">
                                                 <strong class="product__price--sale">
                                                     ${salePrice}
                                                 </strong>
@@ -278,8 +271,8 @@
                                                     ${originalPrice}
                                                 </strong>
                                             </span>
-                                        </div>
                                     </div>
+                                </div>
                                 <%}%>
                             </div>
                         </div>
@@ -298,5 +291,8 @@
         <script src="<c:url value="/js/base.js"/>"></script>
         <script src="<c:url value="/js/validateForm.js"/>"></script>
         <script src="<c:url value="/js/productDetail.js"/>"></script>
+        <script>
+        </script>
+        <script type="module" src="<c:url value="/js/slick.js" />"></script>
     </body>
 </html>

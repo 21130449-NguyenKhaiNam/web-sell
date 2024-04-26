@@ -1,4 +1,3 @@
-
 const toastList = document.querySelector(".toast__list");
 const bodyElement = document.querySelector("body");
 if (bodyElement.style.position === undefined) {

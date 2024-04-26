@@ -190,17 +190,17 @@ window.addEventListener('message', function (event) {
                 cache: false,
                 data: product,
                 success: function (data) {
-                    if (data.status === true) {
-                        notifySuccess({
-                            title: "Thêm sản phẩm thành công",
-                            body: "Sản phẩm đã được thêm vào gian hàng.",
-                        });
-                    } else {
-                        notifyFailed({
-                            title: "Thêm sản phẩm không thành công",
-                            body: "Sản phẩm đã có tên trên đã tồn tại vào gian hàng.",
-                        });
-                    }
+                    // if (data.status === true) {
+                    //     notifySuccess({
+                    //         title: "Thêm sản phẩm thành công",
+                    //         body: "Sản phẩm đã được thêm vào gian hàng.",
+                    //     });
+                    // } else {
+                    //     notifyFailed({
+                    //         title: "Thêm sản phẩm không thành công",
+                    //         body: "Sản phẩm đã có tên trên đã tồn tại vào gian hàng.",
+                    //     });
+                    // }
                 },
                 error: function (error) {
                     console.log(error)

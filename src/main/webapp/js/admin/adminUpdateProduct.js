@@ -1,3 +1,5 @@
+// import {alert} from "../notify";
+
 window.addEventListener('message', function (event) {
     const form = document.querySelector(".product__form");
     const receivedData = event.data;
