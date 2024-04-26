@@ -164,6 +164,15 @@
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
                         <c:if test="${sessionScope.auth.role == 2}">
+                             <span id="button-import-product" class="button button__import">
+                                 <form action="/admin-import-product" method="POST" enctype="multipart/form-data" style="display: flex;justify-content: center;align-items: center">
+                                     <input type="file" name="file">
+                                     <span class="btn_uploadImg">
+                                         <i class="fa-solid fa-upload"></i>
+                                         <input type="submit" value="Upload" style="background-color: #4BAC4D; color: #fff"/>
+                                     </span>
+                                 </form>
+                            </span>
                             <span id="button-create-product" class="button button__add">
                                 <i class="fa-solid fa-plus"></i>
                                 Thêm sản phẩm
@@ -189,62 +198,12 @@
                             </tr>
                             </thead>
                             <tbody class="product__list-admin">
-                            <c:set var="list" value="${requestScope.productCardList}"/>
 
-                            <c:forEach var="item" items="${list}">
-                                <tr class="table__row">
-                                    <td class="table__data-view">
-                                        <label>
-                                            <i class="fa-solid fa-eye"></i>
-                                        </label>
-                                    </td>
-                                    <c:if test="${sessionScope.auth.role == '2'}">
-                                        <td class="table__data-edit">
-                                            <label>
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </label>
-                                        </td>
-                                    </c:if>
-
-                                    <td class="table__data table__data-id">
-                                        <p class="table__cell">${item.id}</p>
-                                    </td>
-                                    <td class="table__data table__data-name">
-                                        <p class="table__cell line-clamp line-1">${item.name}</p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell">${productFactory.getNameCategoryById(item.id)}</p>
-                                    </td>
-                                    <fmt:formatNumber value="${item.originalPrice}" type="currency" currencyCode="VND"
-                                                      var="originalPrice"/>
-                                    <fmt:formatNumber value="${item.salePrice}" type="currency" currencyCode="VND"
-                                                      var="salePrice"/>
-                                    <td class="table__data">
-                                        <p class="table__cell">${salePrice}</p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell">${originalPrice}</p>
-                                    </td>
-                                    <c:choose>
-                                        <c:when test="${item.visibility==true}">
-                                            <td class="table__data table__data-visibility table__data-hide">
-                                                <div class="button button--hover button__hide">Ẩn</div>
-                                            </td>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <td class="table__data table__data-visibility table__data-un-hide">
-                                                <div class="button button--hover button__un-hide">Bỏ ẩn</div>
-                                            </td>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </tr>
-                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
                     <!--Paging-->
-                    <c:import url="/public/paging.jsp"/>
-
+                    <ul class="paging"></ul>
                 </div>
             </div>
         </div>
@@ -287,6 +246,7 @@
     const role = "<%=((User)session.getAttribute("auth")).getRole()%>";
 </script>
 <script src="<c:url value="/js/admin/adminProducts.js"/>"></script>
+
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
     Object keyword = request.getAttribute("keyword");
@@ -458,5 +418,6 @@
         $('.search__box').removeClass('focused');
     });
 </script>
+
 </body>
 </html>

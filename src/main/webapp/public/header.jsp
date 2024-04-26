@@ -14,8 +14,8 @@
                     </li>
                     <li class="nav__item">
                         <a href="<c:url value="/public/product/productBuying.jsp" />"
-                           class="nav__link           hvr-grow-shadow">
-                            Gian hàng
+                           class="nav__link hvr-grow-shadow">
+                            Sản phẩm
                         </a>
                     </li>
                     <li class="nav__item">
@@ -41,51 +41,55 @@
                             Đăng ký
                         </a>
                     </div>
-                </c:when> <c:otherwise> <!--Account show (After log in success)-->
-                <div class="account__wrapper">
-                    <!--Giỏ hàng-->
-                    <div class="cart__wrapper">
-                        <a href="<c:url value="/public/user/shoppingCart.jsp" />" class="cart">
-                            <span class="cart__content">
-                                <i class="cart__icon fa-solid fa-cart-shopping"></i>Giỏ hàng</span>
-                            <span class="qlt__swapper">
-                                <span class="qlt__value">
-                                    <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
-                                    <c:choose>
-                                        <c:when test="${sessionScope[userIdCart] == null}">0
-                                        </c:when>
-                                        <c:otherwise>${sessionScope[userIdCart].getTotalItems()}
-                                        </c:otherwise>
-                                    </c:choose>
+                </c:when>
+                <c:otherwise> <!--Account show (After log in success)-->
+                    <div class="account__wrapper">
+                        <!--Giỏ hàng-->
+                        <div class="cart__wrapper">
+                            <a href="<c:url value="/public/user/shoppingCart.jsp" />" class="cart">
+                                <span class="cart__content">
+                                    <i class="cart__icon fa-solid fa-cart-shopping"></i>Giỏ hàng</span>
+                                <span class="qlt__swapper">
+                                    <span class="qlt__value">
+                                        <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
+                                        <c:choose>
+                                            <c:when test="${sessionScope[userIdCart] == null}">0
+                                            </c:when>
+                                            <c:otherwise>${sessionScope[userIdCart].getTotalItems()}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
                                 </span>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="account">
-                        <i class="account__icon fa-regular fa-user"></i>
-                        <div class="setting__list">
-                            <a href="<c:url value="/Account" />" class="setting__item">
-                                <div class="setting__link">
-                                    <div class="account__info">
-                                        <i class="account__icon fa-regular fa-user"></i>
-                                        <p class="account__name"> ${auth.getUsername()} </p></div>
-                                </div>
-                            </a>
-                            <a href="<c:url value="/Account" />" class="setting__item">
-                                <div class="setting__link">Tài khoản của tôi</div>
-                            </a>
-                            <c:if test="${auth.role == 2 || auth.role == 1}">
-                                <a href="<c:url value="/public/admin/adminProducts.jsp" />" class="setting__item">
-                                    <div class="setting__link">Quản lý</div>
-                                </a>
-                            </c:if>
-                            <a href="<c:url value="/signOut" />" class="setting__item">
-                                <div class="setting__link setting__logOut">Đăng xuất</div>
                             </a>
                         </div>
+                        <div class="account">
+                            <i class="account__icon fa-regular fa-user"></i>
+                            <div class="setting__list">
+                                <a href="<c:url value="/Account" />" class="setting__item">
+                                    <div class="setting__link">
+                                        <div class="account__info">
+                                            <i class="account__icon fa-regular fa-user"></i>
+                                            <p class="account__name"> ${auth.getUsername()} </p></div>
+                                    </div>
+                                </a>
+                                <a href="<c:url value="/Account" />" class="setting__item">
+                                    <div class="setting__link">Tài khoản của tôi</div>
+                                </a>
+                                <c:if test="${auth.role == 2 || auth.role == 1}">
+                                    <a href="<c:url value="/public/admin/adminProducts.jsp" />" class="setting__item">
+                                        <div class="setting__link">Quản lý</div>
+                                    </a>
+                                </c:if>
+                                <a href="<c:url value="/signOut" />" class="setting__item">
+                                    <div class="setting__link setting__logOut">Đăng xuất</div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </c:otherwise> </c:choose></div>
+                </c:otherwise> </c:choose>
+            </div>
+
         </div>
     </nav>
 </header>
+
