@@ -121,8 +121,7 @@
                     <div class="product__content">
                         <div class="image--tag">
                             <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(trendProduct.getId());%>
-
-                            <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
+                            <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
                             <form action="/api/cart/add"
@@ -187,7 +186,7 @@
                         <div class="image--tag">
                             <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(newProduct.getId());%>
 
-                            <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", listTrendProductImages.get(0).getNameImage())%>">
+                            <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
                             <form action="/api/cart/add"

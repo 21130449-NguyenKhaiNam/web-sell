@@ -34,10 +34,10 @@
 
             <c:choose>
                 <c:when test="${pageNumber == requestScope.currentPage}">
-                    <a class="page page--current" href="${linkPaging}">${pageNumber}</a>
+                    <a class="page page--current">${pageNumber}</a>
                 </c:when>
                 <c:otherwise>
-                    <a class="page" href="${linkPaging}">${pageNumber}</a>
+                    <a class="page">${pageNumber}</a>
                 </c:otherwise>
             </c:choose>
         </c:forEach>

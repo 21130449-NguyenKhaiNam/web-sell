@@ -1,8 +1,7 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="models.User" %>
-<%@ page import="java.util.Arrays" %>
-<%@ page import="session.SessionManager" %>
+<%@ page import="models.UserSessionAccess" %>
 <!--Header-->
 <header id="header">
     <nav class="nav">
@@ -25,7 +24,8 @@
                         </a>
                     </li>
                     <li class="nav__item">
-                        <a href="<c:url value="/public/about.jsp" />" class="nav__link hvr-grow-shadow"> Về chúng tôi
+                        <a href="<c:url value="/public/about.jsp" />" class="nav__link hvr-grow-shadow"> Về
+                            chúng tôi
                         </a>
                     </li>
                 </ul>

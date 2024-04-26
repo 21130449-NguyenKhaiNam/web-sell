@@ -1,6 +1,7 @@
 package dao;
 
 import models.*;
+import utils.ProductFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,11 +37,22 @@ public class ProductDao {
 
     public Size getSizeByNameSizeWithProductId(String nameSize, int productId) {
         String sql = "SELECT id, sizePrice, nameSize FROM sizes WHERE nameSize = ? AND productId = ?";
+        if(GeneralDao.executeQueryWithSingleTable(sql, Size.class, nameSize, productId).isEmpty()) return null;
+
         return GeneralDao.executeQueryWithSingleTable(sql, Size.class, nameSize, productId).get(0);
+    }
+
+    public Image getImageByNameImageWithProductId(String nameImage, int productId) {
+        String sql = "SELECT id, nameImage, productId FROM images WHERE nameImage = ? AND productId = ?";
+        if(GeneralDao.executeQueryWithSingleTable(sql, Image.class, nameImage, productId).isEmpty()) return null;
+
+        return GeneralDao.executeQueryWithSingleTable(sql, Image.class, nameImage, productId).get(0);
     }
 
     public Color getColorByCodeColorWithProductId(String codeColor, int productId) {
         String sql = "SELECT id, codeColor FROM colors WHERE codeColor = ? AND productId = ?";
+        if(GeneralDao.executeQueryWithSingleTable(sql, Color.class, codeColor, productId).isEmpty()) return null;
+
         return GeneralDao.executeQueryWithSingleTable(sql, Color.class, codeColor, productId).get(0);
     }
 
@@ -90,5 +102,20 @@ public class ProductDao {
         return updatedField.toString().substring(0, updatedField.toString().length() - 1);
     }
 
+    public Product getMaxId(){
+        StringBuilder sql = new StringBuilder();
+        sql.append("select id from products order by id DESC LIMIT 1");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class).get(0);
+    }
 
+    public Product getProductByMultipleParam(String name, int categoryId, String des, double originalPrice, double salePrice){
+        StringBuilder sql = new StringBuilder();
+        sql.append("select id from products").append(" where name = ? and categoryId = ? and description = ? and originalPrice = ? and salePrice = ?");
+        if(GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, name, categoryId, des, originalPrice, salePrice).isEmpty()) return null;
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, name, categoryId, des, originalPrice, salePrice).get(0);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(ProductFactory.getMaxId());
+    }
 }

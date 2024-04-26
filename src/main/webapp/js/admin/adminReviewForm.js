@@ -25,7 +25,7 @@ window.addEventListener('message', function (event) {
             const feedback = document.querySelector("#feedback");
 
             name.innerText = data.name;
-            image.src = `/assets/img/product_img/${data.image}`;
+            image.src = `${data.image}`;
             category.innerText = data.category;
             color.style.backgroundColor = data.colorRequired;
             quantity.innerText = data.quantityRequired;
