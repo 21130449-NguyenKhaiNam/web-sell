@@ -21,8 +21,9 @@ public class GeneralDAOImp implements IGeneralDAO {
                     query.bind(i, params[i]);
                 }
             }
-            LogService.getINSTANCE().insertLog(query);
-            return query.mapToBean(type).list();
+            List<T> list = query.mapToBean(type).list();
+            LogService.getINSTANCE().insertLogForSelect(sql, list);
+            return list;
         } finally {
             ConnectionPool.getINSTANCE().releaseHandle(handle);
         }
@@ -30,28 +31,28 @@ public class GeneralDAOImp implements IGeneralDAO {
 
     public static List<Map<String, Object>> executeQueryWithJoinTables(String sql, Object... params) {
         return JDBIConnector.get().withHandle(handle -> {
-                    Query query = handle.createQuery(sql);
-                    if (params != null) {
-                        for (int i = 0; i < params.length; i++) {
-                            query.bind(i, params[i]);
-                        }
-                    }
-                    LogService.getINSTANCE().insertLog(query);
-                    return query.mapToMap().list();
+            Query query = handle.createQuery(sql);
+            if (params != null) {
+                for (int i = 0; i < params.length; i++) {
+                    query.bind(i, params[i]);
                 }
-        );
+            }
+            List<Map<String, Object>> list = query.mapToMap().list();
+            LogService.getINSTANCE().insertLogForSelect(sql, list);
+            return list;
+        });
     }
 
     //Use for delete, insert and update statements
     public static void executeAllTypeUpdate(String sql, Object... params) {
         Handle handle = ConnectionPool.getINSTANCE().getHandle();
         try {
+            LogService.getINSTANCE().insertLog(sql, params);
             handle.useTransaction(handleInner -> {
                 try {
                     handleInner.getConnection().setAutoCommit(false);
                     handleInner.execute(sql, params);
                     handleInner.getConnection().commit();
-                    LogService.getINSTANCE().insertLog(sql, params);
                 } catch (Exception exception) {
                     handle.rollback();
                 }
