@@ -30,6 +30,10 @@ public class AdminCategoryServices {
         return categoryDAO.getCategoryById(id);
     }
 
+    public int getIdByNameType(String nameType){
+        return categoryDAO.getCategoryByNameType(nameType).get(0).getId();
+    }
+
     public int addCategory(Category category) {
         boolean isExist = !categoryDAO.getCategoryByNameType(category.getNameType()).isEmpty();
         if (!isExist) {

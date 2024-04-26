@@ -25,6 +25,7 @@ public class ReadProduct extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
+
         String idParameter = request.getParameter("id");
 
         int id;
