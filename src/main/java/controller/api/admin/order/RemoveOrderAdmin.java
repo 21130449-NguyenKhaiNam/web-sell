@@ -8,14 +8,10 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "RemoveOrderAdmin", value = "/RemoveOrderAdmin")
+@WebServlet(name = "RemoveOrderAdmin", value = "/api/admin/order/remove")
 public class RemoveOrderAdmin extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
-
         String actionTarget = (String) request.getAttribute("action");
         String[] multipleOrderId = (String[]) request.getAttribute("multipleOrderId");
 

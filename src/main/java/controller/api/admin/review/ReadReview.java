@@ -13,13 +13,10 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "adminReadReview", value = "/admin-read-review")
+@WebServlet(name = "adminReadReview", value = "/api/admin/review/read")
 public class ReadReview extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
         String idParameter = request.getParameter("id");
         int reviewId;
         try {
@@ -51,6 +48,7 @@ public class ReadReview extends HttpServlet {
         jsonObject.put("quantityRequired", quantity);
         jsonObject.put("feedback", review.getFeedback());
         jsonObject.put("stars", review.getRatingStar());
+        jsonObject.put("date", review.getReviewDate());
         response.getWriter().write(jsonObject.toString());
     }
 

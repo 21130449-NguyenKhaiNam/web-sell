@@ -1,8 +1,3 @@
-<%@ page import="java.util.List" %>
-<%@ page import="java.net.URLEncoder" %>
-<%@ page import="services.image.CloudinaryUploadServices" %>
-<%@ page import="models.Product" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -17,7 +12,6 @@
 <body>
 <c:import url="/public/header.jsp"/>
 <main class="main">
-
     <div class="p-5">
         <div class="p-5 search">
             <form class="form-inline my-2 my-lg-0 d-flex">
@@ -50,7 +44,7 @@
                                         </span> ${category.nameType}
                                     </label>
                                 </c:forEach>
-                            </div
+                            </div>
                         </div>
                         <span class="filter__separate"></span>
                         <div class="filter__group"><span class="filter__title">Mức giá</span>
@@ -65,7 +59,6 @@
                                         <input name="moneyRange" type="checkbox" class="filter__input filter__radio"
                                                hidden="hidden" value="${moneyRange.getFrom()}-${moneyRange.getTo()}">
                                         <span class="filter-radio__icon-wrapper"><i
-
                                                 class="fa-solid fa-check filter-radio__icon"></i>
                                         </span>
                                         <span class="hvr-skew-forward">
@@ -107,11 +100,10 @@
                         <button class="filter__submit button--hover button p-2" type="submit">Lọc</button>
                     </form>
                 </div>
-            </div>
-
-            <div class="col-9">
-                <div class="product__list">
-                    <%--  sản phẩm được hiển thị ở đây--%>
+                <div class="col-9">
+                    <div class="product__list">
+                        <%--  sản phẩm được hiển thị ở đây--%>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,5 +117,5 @@
 <!--tippy tooltip-->
 <script src="https://unpkg.com/popper.js@1"></script>
 <script src="https://unpkg.com/tippy.js@5/dist/tippy-bundle.iife.js"></script>
-<script src="/js/productBuying.js"></script>
+<script src="<c:url value="/js/productBuying.js"/>"></script>
 </html>

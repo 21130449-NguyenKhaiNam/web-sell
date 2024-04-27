@@ -5,6 +5,7 @@ import models.shoppingCart.ShoppingCart;
 import models.User;
 import org.json.JSONObject;
 import services.CheckoutServices;
+import session.SessionManager;
 import utils.FormatCurrency;
 
 import javax.servlet.*;
@@ -13,12 +14,10 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "ChoiceDeliveryMethodController", value = "/ChoiceDeliveryMethod")
+@WebServlet(name = "ChoiceDeliveryMethodController", value = "/api/checkout/delivery/method")
 public class ChoiceDeliveryMethodController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         int deliveryMethodId = 0;
         try {
             deliveryMethodId = Integer.parseInt((String) request.getAttribute("deliveryMethodId"));
@@ -28,8 +27,8 @@ public class ChoiceDeliveryMethodController extends HttpServlet {
         DeliveryMethod deliveryMethod = CheckoutServices.getINSTANCE().getDeliveryMethodById(deliveryMethodId);
         System.out.println(deliveryMethod);
         HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
-        String userIdCart = String.valueOf(userAuth.getId());
+        User user = SessionManager.getInstance(request, response).getUser();
+        String userIdCart = String.valueOf(user.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         cart.setDeliveryMethod(deliveryMethod);
         session.setAttribute(userIdCart, cart);

@@ -24,7 +24,7 @@ public class LoadDataUser extends HttpServlet {
             List<User> searchResult = UserServices.getINSTANCE().searchUsersByName(search);
             request.setAttribute("lists", searchResult);
         } else {
-            List<User> allUsers = UserServices.getINSTANCE().selectALl();
+            List<User> allUsers = UserServices.getINSTANCE().selectAll();
             int page, itemsPerPage = 8;
             int size = allUsers.size();
             int totalPage = (size % itemsPerPage == 0 ? (size / itemsPerPage) : ((size / itemsPerPage)) + 1);

@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "adminReadProduct", value = "/admin-read-product")
+@WebServlet(name = "adminReadProduct", value = "/api/admin/product/read")
 public class ReadProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,10 +22,6 @@ public class ReadProduct extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
-
         String idParameter = request.getParameter("id");
 
         int id;

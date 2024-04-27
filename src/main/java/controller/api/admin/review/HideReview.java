@@ -7,20 +7,16 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "adminHideReview", value = "/admin-hide-review")
+@WebServlet(name = "adminHideReview", value = "/api/admin/review/hide")
 public class HideReview extends HttpServlet {
     private final boolean HIDE_STATE = false;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-doPost(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
         String idParameter = request.getParameter("id");
         int reviewId;
         try {
