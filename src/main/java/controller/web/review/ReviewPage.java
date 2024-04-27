@@ -18,7 +18,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "ReviewPage", value = "/api/admin/review/page")
+@WebServlet(name = "ReviewPage", value = "/reviewPage")
 public class ReviewPage extends HttpServlet {
 
     @Override

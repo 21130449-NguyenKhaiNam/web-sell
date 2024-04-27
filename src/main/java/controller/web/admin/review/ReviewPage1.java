@@ -10,7 +10,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ReviewPage", value = "/reviewPage")
+@WebServlet(name = "ReviewPage", value = "/reviewPage1")
 public class ReviewPage1 extends HttpServlet {
     private final int QUANTITY_PAGE_DEFAULT = 5;
     private int quantityPageMin;

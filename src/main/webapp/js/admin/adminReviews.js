@@ -99,12 +99,8 @@ $(document).ready(() => {
 // sẽ trả về sản phẩm của trang đó
     function callAjaxToPage(pageNumber) {
         $.ajax({
-            url: "/api/admin/review/page",
+            url: "/reviewPage?page=" + pageNumber,
             type: "GET",
-            data:{
-                page: pageNumber
-            },
-            dataType: "json",
             success: function (data) {
                 generationPage(parseInt(pageNumber), data["quantity"])
                 showProduct(data)
