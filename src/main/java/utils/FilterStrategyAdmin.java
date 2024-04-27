@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Image;
 import models.Product;
-import services.AdminProductServices;
+import services.admin.AdminProductServices;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

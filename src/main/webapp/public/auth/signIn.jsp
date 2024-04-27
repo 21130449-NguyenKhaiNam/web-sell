@@ -62,6 +62,7 @@
                     <a href="<c:url value="/public/auth/signUp.jsp"/>" id="form__link--signUp" class="form__link
                         hvr-float-shadow p-2">Đăng ký
                     </a>
+
                 </article>
             </div>
         </main>

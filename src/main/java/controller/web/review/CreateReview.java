@@ -1,8 +1,10 @@
 package controller.web.review;
 
+import config.ConfigPage;
 import models.Review;
 import models.User;
 import services.ReviewServices;
+import session.SessionManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +30,7 @@ public class CreateReview extends HttpServlet {
         String orderProductIdRequest = request.getParameter("orderProductId");
         String ratingStarRequest = request.getParameter("ratingStar");
         String desc = request.getParameter("desc");
-        User user = (User) request.getSession().getAttribute("auth");
+        User user = SessionManager.getInstance(request, response).getUser();
         int userId = user.getId();
         int orderProductId;
 
@@ -62,6 +64,6 @@ public class CreateReview extends HttpServlet {
             return;
         }
         request.setAttribute("nameProduct", nameProduct);
-        request.getRequestDispatcher("reviewSuccess.jsp").forward(request, response);
+        request.getRequestDispatcher(ConfigPage.USER_REVIEW_SUCCESS).forward(request, response);
     }
 }

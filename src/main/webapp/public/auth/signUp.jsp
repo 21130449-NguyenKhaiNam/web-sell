@@ -4,7 +4,6 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <jsp:include page="/public/commonLink.jsp" />
         <link rel="stylesheet" href="<c:url value="/assets/css/logIn.css"/>">
@@ -18,7 +17,7 @@
 
                 <article>
                     <span class="text-cetner mb-3 d-flex justify-content-center hvr-bob">
-                        <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
+                        <a href="/public/index.jsp" class="logo"></a>
                     </span>
                     <form action="<c:url value="/signUp"/>" method="post" class="form form--signUp">
                         <div class="form__block">
@@ -31,7 +30,7 @@
                         </div>
                         <div class="form__block">
                             <label for="email" class="form__label">Email</label>
-                            <input id="email" name="email" type="email" class="form__input">
+                            <input id="email" name="email" type="email" class="form__input" value="${requestScope.email}">
                             <c:set value="${requestScope.emailError}" var="emailError" />
                             <p class="form__error">
                                 <c:if test="${emailError != null}">${emailError}</c:if>
@@ -141,10 +140,8 @@
                 errorSelector: ".form__error",
                 rules: [
                     Validation.isRequired("#username"),
-                    Validation.isExistsUsername("#username"),
                     Validation.isRequired("#email"),
                     Validation.isEmail("#email"),
-                    Validation.isExistsEmail("#email"),
                     Validation.isRequired("#password"),
                     Validation.isUnique("#password"),
                     Validation.isRequired("#confirm-password"),
@@ -153,6 +150,7 @@
                     })
                 ],
                 submitSelector: "#form__submit",
+
             })
         </script>
     </body>

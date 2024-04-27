@@ -1,3 +1,5 @@
+// import {alert} from "../notify";
+
 window.addEventListener('message', function (event) {
     const form = document.querySelector(".product__form");
     const receivedData = event.data;
@@ -10,10 +12,11 @@ window.addEventListener('message', function (event) {
 
         function callAjaxRead() {
             $.ajax({
-                url: "/admin-read-product?id=" + receivedData.productId,
-                type: "POST",
-                contentType: false,
-                processData: false,
+                url: "/api/admin/product/read",
+                type: "GET",
+                data: {
+                    id: receivedData.productId
+                },
                 dataType: "json",
                 cache: false,
                 success: function (data) {
@@ -63,7 +66,7 @@ window.addEventListener('message', function (event) {
 
         function fetchImage(name) {
             return new Promise(async (resolve, reject) => {
-                const imageUrl = `/read-image?name=${name}`;
+                const imageUrl = `/api/admin/product/read-image?name=${name}`;
                 try {
                     const response = await fetch(imageUrl)
 
@@ -384,15 +387,15 @@ window.addEventListener('message', function (event) {
 
         //Update------------------------------------------------------------------------------------------
         function callAjaxUpdate() {
-            console.log(1)
+            console.log(getDataForm(form))
             $.ajax({
-                url: "/admin-update-product",
+                url: "/api/admin/product/update",
                 type: "POST",
+                data: getDataForm(form),
                 contentType: false,
                 processData: false,
                 dataType: "json",
                 cache: false,
-                data: getDataForm(form),
                 success: function (data) {
                     if (data.status === true) {
                         notifySuccess({
