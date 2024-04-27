@@ -18,7 +18,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "ReviewPage", value = "/reviewPage")
+@WebServlet(name = "ReviewPage", value = "/api/admin/review/page")
 public class ReviewPage extends HttpServlet {
 
     @Override
@@ -62,8 +62,6 @@ public class ReviewPage extends HttpServlet {
         String jsonResponse = null;
         try {
             jsonResponse = mapper.writeValueAsString(listReviewResponse);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
             response.getWriter().write(jsonResponse);
         } catch (IOException e) {
             throw new RuntimeException(e);

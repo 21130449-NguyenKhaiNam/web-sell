@@ -22,10 +22,9 @@
                                 <div class="image--tag">
                                     <c:set value="${productFactory.getListImagesByProductId(trendProduct.id)}"
                                            var="listTrendProductImages" />
-                                    <img
-                                            src="./assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
+                                    <img src="${listTrendProductImages.get(0).nameImage}" alt="">
                                     <span class="product__tag">Thịnh hành</span>
-                                    <form class="action__bar" action="/api/cart/add" method="post">
+                                    <form class="action__bar" action="<c:url value="/api/cart/add"/>" method="post">
                                         <input type="hidden" name="productId" value="${trendProduct.id}">
                                         <button type="submit" class="add__cart"><i
                                                 class="fa-solid fa-cart-shopping"></i></button>
@@ -51,20 +50,20 @@
                                         </a>
                                     </div>
                                     <span class="product__price">
-                                                <fmt:setLocale value="vi_VN" />
-                                                <c:choose> <c:when test="${trendProduct.salePrice== null}">
-                                                        <strong class="priority__price">
-                                                            <fmt:formatNumber value="${trendProduct.originalPrice}"
-                                                                              type="currency" />
-                                                        </strong> </c:when> <c:otherwise>
-                                                        <strong class="sale__price">
-                                                            <fmt:formatNumber value="${trendProduct.salePrice}"
-                                                                              type="currency" />
-                                                        </strong> <s class="original__price">
-                                                            <fmt:formatNumber value="${trendProduct.originalPrice}"
-                                                                              type="currency" />
-                                                        </s> </c:otherwise> </c:choose>
-                                            </span>
+                                        <fmt:setLocale value="vi_VN" />
+                                        <c:choose> <c:when test="${trendProduct.salePrice== null}">
+                                                <strong class="priority__price">
+                                                    <fmt:formatNumber value="${trendProduct.originalPrice}"
+                                                                      type="currency" />
+                                                </strong> </c:when> <c:otherwise>
+                                                <strong class="sale__price">
+                                                    <fmt:formatNumber value="${trendProduct.salePrice}"
+                                                                      type="currency" />
+                                                </strong> <s class="original__price">
+                                                    <fmt:formatNumber value="${trendProduct.originalPrice}"
+                                                                      type="currency" />
+                                                </s> </c:otherwise> </c:choose>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -89,8 +88,8 @@
                 </div>
             </div>
         </main>
-        <%@ include file="../footer.jsp" %>
-        <script src="../../js/base.js"></script>
+        <c:import url="/public/footer.jsp" />
+        <script src="<c:url value="/js/base.js"/>"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
                 integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
                 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -100,45 +99,31 @@
                     $('.action__bar').each(function (index, actionBar) {
                         $(actionBar).on('submit', function (event) {
                             event.preventDefault();
-                            let userLoggedIn;
-                            <c:choose>
-                            <c:when test="${sessionScope.auth == null}">
-                            userLoggedIn = false
-                            </c:when>
-                            <c:otherwise>
-                            userLoggedIn = true
-                            </c:otherwise>
-                            </c:choose>
-                            if (userLoggedIn === false) {
-                                window.location.href = "signIn.jsp"
-                            } else {
-                                const form = $(actionBar);
-                                let productId = form.find('input[name="productId"]').val();
-                                $.ajax({
-                                    type: form.attr('method'),
-                                    url: form.attr('action'),
-                                    data: {productId: productId},
-                                    success: function (response) {
-                                        let addToCartSuccessHTML = `<div class="notification__cart">
+                            const form = $(actionBar);
+                            let productId = form.find('input[name="productId"]').val();
+                            $.ajax({
+                                type: form.attr('method'),
+                                url: form.attr('action'),
+                                data: {productId: productId},
+                                success: function (response) {
+                                    let addToCartSuccessHTML = `<div class="notification__cart">
                                                                 <div class="status__success">
                                                                     <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>
                                                                     <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>
                                                                 </div>
                                                                 <a class="view__cart" href="/public/user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
                                                             </div>`;
-                                        $('.cart__wrapper').append(addToCartSuccessHTML)
-                                        $('.qlt__value').text(response);
-                                    },
-                                    error: function (error) {
-                                        console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
-                                    }
-                                })
-                            }
+                                    $('.cart__wrapper').append(addToCartSuccessHTML)
+                                    $('.qlt__value').text(response);
+                                },
+                                error: function (error) {
+                                    console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
+                                }
+                            })
                         })
                     })
                 })
             }
-
             addToCartAjax();
         </script>
     </body>

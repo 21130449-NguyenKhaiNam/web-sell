@@ -1,4 +1,3 @@
-// Form quantity
 var quantityCurrent = 1;
 var quantityInput = document.querySelector("#quantity");
 var quantityDecrease = document.querySelector(".form___quantity--decrease");

@@ -99,7 +99,7 @@ $(document).ready(() => {
 // sẽ trả về sản phẩm của trang đó
     function callAjaxToPage(pageNumber) {
         $.ajax({
-            url: "/reviewPage?page=" + pageNumber,
+            url: "/api/admin/review/page?page=" + pageNumber,
             type: "GET",
             success: function (data) {
                 generationPage(parseInt(pageNumber), data["quantity"])
@@ -271,7 +271,6 @@ $(document).ready(() => {
             dataType: "json",
             cache: true,
             success: function (data) {
-                console.log(data)
                 applyDataDialog(data);
             },
             error: function (error) {
