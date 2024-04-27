@@ -94,4 +94,5 @@ public class UpdateProduct extends HttpServlet {
         UploadImageServices uploadImageServices = new UploadImageServices("product_img/" + productId);
         AdminProductServices.getINSTANCE().updateImages(uploadImageServices, images, quantityImgDelete, productId);
     }
+
 }
