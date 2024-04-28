@@ -2,6 +2,7 @@ package services;
 
 import dao.ILogDAO;
 import dao.LogDAOImp;
+import models.Log;
 import org.jdbi.v3.core.statement.Query;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class LogService {
 
     private LogService() {
         logDAO = new LogDAOImp();
+        logDAO.setIp(ip);
     }
 
     public static LogService getINSTANCE() {
@@ -40,4 +42,9 @@ public class LogService {
     public void insertLogForSelect(String sql, List<?> list) {
         logDAO.insertLogForSelect(sql, list);
     }
+
+    public List<Log> getLog(int num) {
+        return logDAO.getLog(num);
+    }
+
 }

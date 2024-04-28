@@ -2,8 +2,11 @@ package dao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import models.Log;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.sql.Date;
 import java.util.List;
 
 public class LogDAOImp implements ILogDAO {
@@ -150,11 +153,11 @@ public class LogDAOImp implements ILogDAO {
                         List<?> list = GeneralDAOImp.executeQueryWithJoinTables(sqlPrevious, splitParam);
                         // Sau dòng này do bảng test không tồn tại nên báo lỗi
 
-                        sqlLog = "INSERT INTO logs (ip, level, resource, previous, current) VALUES (?, ?, ?, ?, ?)";
-                        GeneralDAOImp.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, mapper.writeValueAsString(list.toArray()), mapper.writeValueAsString(changes));
+                        sqlLog = "INSERT INTO logs (ip, level, resource, dateCreated, previous, current) VALUES (?, ?, ?, ?, ?, ?)";
+                        GeneralDAOImp.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, Date.valueOf(LocalDate.now()), mapper.writeValueAsString(list.toArray()), mapper.writeValueAsString(changes));
                     }
                     case "insert" -> {
-                        sqlLog = "INSERT INTO logs (ip, level, resource, current) VALUES (?, ?, ?, ?)";
+                        sqlLog = "INSERT INTO logs (ip, level, resource, dateCreated, current) VALUES (?, ?, ?, ?, ?)";
 
                         // Lấy ra các tham số sẽ insert của câu lệnh
                         String paramaters = builder.substring(builder.indexOf(nameTable) + nameTable.length(), builder.indexOf("VALUES"));
@@ -173,7 +176,7 @@ public class LogDAOImp implements ILogDAO {
                                 paras[i] = paras[i].trim() + ":" + params[i];
                             }
 //                        System.out.println("Log INSERT >> Tham số hiện tại: " + Arrays.toString(paras));
-                            GeneralDAOImp.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, mapper.writeValueAsString(paras));
+                            GeneralDAOImp.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, Date.valueOf(LocalDate.now()), mapper.writeValueAsString(paras));
                         }
                         System.out.println("Log >> Phương thức insert không được chỉ định rõ ràng tham số sẽ nhận");
                     }
@@ -193,23 +196,29 @@ public class LogDAOImp implements ILogDAO {
     @Override
     public void insertLogForSelect(String sql, List<?> list) {
         // Nếu trong câu select không trả về kết quả thì cũng không thêm vào log
-       if(!list.isEmpty()) {
-           StringBuilder builder = new StringBuilder(sql);
-           String nameTable = getNameTable(builder, "select");
-           String nameQuery = builder.substring(0, builder.indexOf(" "));
-           String nameState = mapStateTypeQuery(nameQuery);
+        if (!list.isEmpty()) {
+            StringBuilder builder = new StringBuilder(sql);
+            String nameTable = getNameTable(builder, "select");
+            String nameQuery = builder.substring(0, builder.indexOf(" "));
+            String nameState = mapStateTypeQuery(nameQuery);
 
-           String sqlLog = "INSERT INTO logs (ip, level, resource, current) VALUES (?, ?, ?, ?)";
-           ObjectMapper mapper = new ObjectMapper();
-           try {
-               GeneralDAOImp.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, mapper.writeValueAsString(list.toArray()));
-           } catch (JsonProcessingException e) {
-               throw new RuntimeException(e);
-           }
-       }
+            String sqlLog = "INSERT INTO logs (ip, level, resource, dateCreated, current) VALUES (?, ?, ?, ?, ?)";
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                GeneralDAOImp.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, Date.valueOf(LocalDate.now()), mapper.writeValueAsString(list.toArray()));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
-    // Chuyển đổi tương ứng với tác động của câu query
+    @Override
+    public List<Log> getLog(int limit) {
+        String sql = "SELECT id, ip, level, resource, dateCreated, previous, current FROM logs LIMIT " + limit;
+        return GeneralDAOImp.executeQueryWithSingleTable(sql, Log.class);
+    }
+
+    // Chuyển đổi tương ứng với tác động của câu query, sau này tách ra
     private String mapStateTypeQuery(String query) {
         String state = query.toLowerCase();
         if (state.equals("select"))
