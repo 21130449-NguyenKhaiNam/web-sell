@@ -64,7 +64,7 @@
                 </li>
 
                 <li>
-                    <a href="dashboard.jsp" class="sidebar_item">
+                    <a href="adminLogs.jsp" class="sidebar_item">
                         <i class="fa-solid fa-book"></i>
                         <span>Nhật ký hệ thống</span></a>
                 </li>

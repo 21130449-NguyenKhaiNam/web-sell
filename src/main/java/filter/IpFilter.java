@@ -11,7 +11,9 @@ public class IpFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        LogService.getINSTANCE().setIp(request.getRemoteAddr());
+        String ip = request.getRemoteHost();
+        if (!ip.equals("0:0:0:0:0:0:0:1"))
+            LogService.getINSTANCE().setIp(ip);
         chain.doFilter(request, response);
     }
 }

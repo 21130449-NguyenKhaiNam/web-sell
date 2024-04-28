@@ -14,7 +14,7 @@
                     </li>
                     <li class="nav__item">
                         <a href="<c:url value="/public/product/productBuying.jsp" />"
-                           class="nav__link           hvr-grow-shadow">
+                           class="nav__link hvr-grow-shadow">
                             Gian hàng
                         </a>
                     </li>

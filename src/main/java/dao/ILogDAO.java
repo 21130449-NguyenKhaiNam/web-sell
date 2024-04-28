@@ -3,6 +3,7 @@ package dao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.IModel;
+import models.Log;
 import org.jdbi.v3.core.statement.Query;
 
 import java.time.LocalDate;
@@ -17,4 +18,6 @@ public interface ILogDAO extends IDAO {
     void insertLog(String sql, Object... params);
 
     void insertLogForSelect(String sql, List<?> list);
+
+    List<Log> getLog(int limit);
 }

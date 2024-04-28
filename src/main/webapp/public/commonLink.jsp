@@ -41,3 +41,6 @@
 <link src="https://unpkg.com/tippy.js@6/animations/scale.css" />
 <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Datatable -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>

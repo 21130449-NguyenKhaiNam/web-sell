@@ -17,7 +17,7 @@ public class ConfigPage implements ServletContextListener {
     //    Product
     public static String HOME, PRODUCT_BUYING, PRODUCT_DETAIL, PRODUCT_ORDER, PRODUCT_NEW, PRODUCT_TRENDING;
     //    Admin/Product
-    public static String ADMIN_PRODUCT, ADMIN_CATEGORY, ADMIN_CATEGORY_FORM, ADMIN_ORDER, ADMIN_PRODUCT_FORM, ADMIN_PRODUCT_UPDATE_FORM, ADMIN_REVIEW_FORM, ADMIN_REVIEW, ADMIN_USER, DASHBOARD;
+    public static String ADMIN_PRODUCT, ADMIN_CATEGORY, ADMIN_CATEGORY_FORM, ADMIN_ORDER, ADMIN_PRODUCT_FORM, ADMIN_PRODUCT_UPDATE_FORM, ADMIN_REVIEW_FORM, ADMIN_REVIEW, ADMIN_USER, ADMIN_LOG, DASHBOARD;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -67,6 +67,7 @@ public class ConfigPage implements ServletContextListener {
         ADMIN_REVIEW = folderAdminProduct + "adminReviews.jsp";
         ADMIN_REVIEW_FORM = folderAdminProduct + "adminReviewForm.jsp";
         ADMIN_USER = folderAdminProduct + "adminUsers.jsp";
+        ADMIN_LOG = folderAdminProduct + "adminLogs.jsp";
         DASHBOARD = folderAdminProduct + "dashboard.jsp";
     }
 }
