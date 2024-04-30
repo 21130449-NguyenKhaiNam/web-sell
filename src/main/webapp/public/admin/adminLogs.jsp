@@ -106,10 +106,19 @@
         ],
         createdRow: (row, data, index) => {
             row.querySelector(':nth-child(3)').dataset.level = data['level'];
-            row.querySelector(':nth-child(6)').dataset.text = 'break';
-            row.querySelector(':nth-child(7)').dataset.text = 'break';
-            row.querySelector(':nth-child(6)').style.width = '200px';
-            row.querySelector(':nth-child(7)').style.width = '200px';
+            row.querySelector(':nth-child(6)').classList.add('data');
+            row.querySelector(':nth-child(7)').classList.add('data');
+        }
+    })
+    $('td.data').each(function (index) {
+        let text = $(this)[0].innerHTML
+        if(text.length > 30) {
+            tippy(this, {
+                theme: 'light',
+                content: text,
+                interactive: true,
+            })
+            $(this)[0].innerHTML = text.substring(0, 29) + "..."
         }
     })
 </script>
