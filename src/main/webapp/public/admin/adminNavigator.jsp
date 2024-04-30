@@ -26,19 +26,19 @@
                         <span>Sản phẩm</span></a>
                     <ul id="collapse_product">
                         <li class="sidebar_active">
-                            <a href="adminProducts.jsp" class="mb-2 pb-3 sidebar_item">
+                            <a href="#products" data-link="adminProducts.jsp" class="mb-2 pb-3 sidebar_item">
                                 <i class="fa-solid fa-list-check"></i>
                                 <span>Quản lý</span></a>
                         </li>
 
                         <li>
-                            <a href="adminReviews.jsp" class="mb-2 pb-3 sidebar_item">
+                            <a href="#reviews" data-link="adminReviews.jsp" class="mb-2 pb-3 sidebar_item">
                                 <i class="fa-solid fa-square-poll-vertical"></i>
                                 <span>Nhận xét</span></a>
                         </li>
 
                         <li>
-                            <a href="adminCategories.jsp" class="pb-3 sidebar_item">
+                            <a href="#categories" data-link="adminCategories.jsp" class="pb-3 sidebar_item">
                                 <i class="fa-solid fa-table-list"></i>
                                 <span>Loại sản phẩm</span></a>
                         </li>
@@ -46,25 +46,25 @@
                 </li>
 
                 <li>
-                    <a href="adminOrders.jsp" class="sidebar_item">
+                    <a href="#orders" data-link="adminOrders.jsp" class="sidebar_item">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span>Đơn hàng</span></a>
                 </li>
 
                 <li>
-                    <a href="adminUsers.jsp" class="sidebar_item">
+                    <a href="#user" data-link="adminUsers.jsp" class="sidebar_item">
                         <i class="fa-solid fa-user"></i>
                         <span>Người dùng</span></a>
                 </li>
 
                 <li>
-                    <a href="dashboard.jsp" class="sidebar_item">
+                    <a href="#dashboard" data-link="dashboard.jsp" class="sidebar_item">
                         <i class="fa-solid fa-chart-simple"></i>
                         <span>Thống kê</span></a>
                 </li>
 
                 <li>
-                    <a href="adminLogs.jsp" class="sidebar_item">
+                    <a href="#logs" data-link="adminLogs.jsp" class="sidebar_item">
                         <i class="fa-solid fa-book"></i>
                         <span>Nhật ký hệ thống</span></a>
                 </li>
@@ -88,15 +88,32 @@
 </main>
 
 <script>
-    const defaultReload = $('.sidebar_active > .sidebar_item')[0]
+    localStorage.setItem("link", window.location.href);
+
+    let link = localStorage.getItem("link") || window.location.href
+    let ind = link.indexOf("#")
+    if (ind > 0) {
+        const sub = link.substring(ind, link.length)
+        console.log(sub)
+        $('li > .sidebar_item').each(function () {
+            let linkHref = this.href
+            linkHref = linkHref.substring(linkHref.indexOf("#"), linkHref.length)
+            if (linkHref == sub) {
+                link = this
+                $('.sidebar_active').removeClass('sidebar_active')
+                this.classList.add('sidebar_active')
+                return;
+            }
+        })
+    }
+    const defaultReload = link || $('.sidebar_active > .sidebar_item')[0]
     // Gọi tới đường dẫn
-    const path = defaultReload.href
-    window.history.pushState(null, null, path);
+    const path = defaultReload.dataset.link
+    window.history.pushState(null, null, defaultReload.href);
     $.ajax(
         {
             url: path,
             success: function (res) {
-                console.log(res)
                 $('#contain').html(res)
             },
             error: function (error) {
@@ -104,6 +121,7 @@
             }
         }
     )
+
 
     $('.sidebar_item').on('click', function (event) {
         // Ngăn sự kiện chuyển trang
@@ -114,8 +132,9 @@
         this.classList.add('sidebar_active')
 
         // Gọi tới đường dẫn
-        const path = this.href
-        window.history.pushState(null, null, path);
+        const path = this.dataset.link
+        window.history.pushState(null, null, this.href);
+        localStorage.setItem("link", window.location.href);
         $.ajax(
             {
                 url: path,
