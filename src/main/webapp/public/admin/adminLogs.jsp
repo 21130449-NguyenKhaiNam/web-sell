@@ -73,6 +73,15 @@
     List<Log> logs = LogService.getINSTANCE().getLog(10);
     for(int i = 0; i < logs.size(); i++) {
         Log log = logs.get(i);
+        String previous = log.getPrevious();
+        String current = log.getCurrent();
+        if(previous != null) {
+
+        }
+
+        if(current != null) {
+
+        }
     %>
         json.push({
             "id": '<%= log.getId() %>',
@@ -80,8 +89,8 @@
             "level": '<%= log.getLevel() %>',
             "resource": '<%= log.getResource() %>',
             "date create": '<%= log.getDateCreated().toString() %>',
-            "previous": '<%= log.getPrevious() %>',
-            "current": '<%= log.getCurrent() %>'
+            "previous": '<%= previous %>',
+            "current": '<%= current %>'
         })
     <%}%>
     $('#table').DataTable({
@@ -94,7 +103,14 @@
             {data: 'date created'},
             {data: 'previous'},
             {data: 'current'},
-        ]
+        ],
+        createdRow: (row, data, index) => {
+            row.querySelector(':nth-child(3)').dataset.level = data['level'];
+            row.querySelector(':nth-child(6)').dataset.text = 'break';
+            row.querySelector(':nth-child(7)').dataset.text = 'break';
+            row.querySelector(':nth-child(6)').style.width = '200px';
+            row.querySelector(':nth-child(7)').style.width = '200px';
+        }
     })
 </script>
 </body>
