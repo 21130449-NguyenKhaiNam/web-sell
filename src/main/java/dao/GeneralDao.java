@@ -2,6 +2,7 @@ package dao;
 
 import database.ConnectionPool;
 import database.JDBIConnector;
+import models.Product;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Query;
 
@@ -74,6 +75,7 @@ public class GeneralDao {
             });
         } catch (Exception exception) {
             handle.rollback();
+            exception.printStackTrace();
         } finally {
             ConnectionPool.getINSTANCE().releaseHandle(handle);
         }

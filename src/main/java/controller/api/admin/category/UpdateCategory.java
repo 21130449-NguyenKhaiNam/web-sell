@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@WebServlet(name = "adminUpdateCategory", value = "/admin-update-category")
+@WebServlet(name = "adminUpdateCategory", value = "/api/admin/category/update")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 12024,
         maxFileSize = 1024 * 1024 * 10,
@@ -28,11 +28,7 @@ public class UpdateCategory extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
         StringBuilder objJson = new StringBuilder();
-
         String idString = request.getParameter("categoryId");
         int categoryId;
         try {

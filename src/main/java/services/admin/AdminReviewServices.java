@@ -2,7 +2,6 @@ package services.admin;
 
 import dao.ReviewDAO;
 import dao.UserDAO;
-import dao.UserDAOImplement;
 import models.Review;
 import models.User;
 
@@ -16,7 +15,7 @@ public class AdminReviewServices {
 
     private AdminReviewServices() {
         this.reviewDAO = new ReviewDAO();
-        this.userDAO = new UserDAOImplement();
+        this.userDAO = new UserDAO();
     }
 
     public static AdminReviewServices getINSTANCE() {

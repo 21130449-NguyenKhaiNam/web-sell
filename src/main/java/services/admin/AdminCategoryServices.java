@@ -23,11 +23,16 @@ public class AdminCategoryServices {
     }
 
     public List<Category> getCategories() {
-        return categoryDAO.getAllCategory();
+        List<Category> categories = categoryDAO.getAllCategory();
+        return categories;
     }
 
     public List<Category> getCategoryById(int id){
         return categoryDAO.getCategoryById(id);
+    }
+
+    public int getIdByNameType(String nameType){
+        return categoryDAO.getCategoryByNameType(nameType).get(0).getId();
     }
 
     public int addCategory(Category category) {
