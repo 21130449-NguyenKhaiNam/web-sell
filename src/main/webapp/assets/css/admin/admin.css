@@ -513,11 +513,10 @@ td[data-level='DANGEROUS'] {
     background-color: #fd6a6a;
 }
 
-td[data-text='break'] {
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    background-color: yellow;
+.tippy-box {
+    width: 500px;
+    height: 300px;
+    overflow-y: scroll;
+    font-size: 20px;
 }
 
