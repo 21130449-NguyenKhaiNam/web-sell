@@ -9,11 +9,10 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "EditDeliveryInfoController", value = "/EditDeliveryInfo")
+@WebServlet(name = "EditDeliveryInfoController", value = "/api/checkout/delivery/edit")
 public class EditDeliveryInfoController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-
         String deliveryInfoKey = (String) request.getAttribute("deliveryInfoKey");
         String fullName = (String) request.getAttribute("fullName");
         String email = (String) request.getAttribute("email");

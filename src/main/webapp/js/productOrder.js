@@ -1,4 +1,3 @@
-// Form quantity
 var quantityCurrent = 1;
 var quantityInput = document.querySelector("#quantity");
 var quantityDecrease = document.querySelector(".form___quantity--decrease");
@@ -54,7 +53,7 @@ function getObjForm() {
 function addToCart() {
     const obj = getObjForm();
     $.ajax({
-        url: "AddToCartCustom",
+        url: "/api/cart/add-custom",
         type: "POST",
         dataType: "json",
         data: obj,

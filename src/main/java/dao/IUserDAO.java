@@ -1,2 +1,4 @@
-package dao;public interface IUserDAO {
+package dao;
+
+public interface IUserDAO {
 }

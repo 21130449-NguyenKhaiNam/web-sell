@@ -20,3 +20,16 @@
     background-color: var(--blue-color-medium);
     color: #fff;
 }
+
+.modal{
+    z-index: 1055 !important;
+}
+
+.star{
+    font-size: 15px;
+    color: #f1c40f;
+}
+
+#staticColor{
+    color: transparent;
+}

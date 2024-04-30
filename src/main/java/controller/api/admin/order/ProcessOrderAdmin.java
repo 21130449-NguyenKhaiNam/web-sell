@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "ProcessOrderAdmin", value = "/ProcessOrderAdmin")
+@WebServlet(name = "ProcessOrderAdmin", value = "/api/admin/order")
 public class ProcessOrderAdmin extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -17,13 +17,13 @@ public class ProcessOrderAdmin extends HttpServlet {
             case "seeDetail" -> {
                 String orderId = request.getParameter("orderId");
                 request.setAttribute("orderId", orderId);
-                requestDispatcher = request.getRequestDispatcher("SeeDetailOrderAdmin");
+                requestDispatcher = request.getRequestDispatcher("/api/admin/order/detail");
             }
 
             case "showDialogUpdate" -> {
                 String orderId = request.getParameter("orderId");
                 request.setAttribute("orderId", orderId);
-                requestDispatcher = request.getRequestDispatcher("ShowDialogUpdate");
+                requestDispatcher = request.getRequestDispatcher("/api/admin/order/update-dialog");
             }
 
             case "saveUpdateStatus" -> {
@@ -33,19 +33,19 @@ public class ProcessOrderAdmin extends HttpServlet {
                 String transactionStatusId = request.getParameter("transactionStatusId");
                 request.setAttribute("orderStatusId", orderStatusId);
                 request.setAttribute("transactionStatusId", transactionStatusId);
-                requestDispatcher = request.getRequestDispatcher("UpdateStatusOrderTran");
+                requestDispatcher = request.getRequestDispatcher("/api/admin/order/update-status");
             }
 
             case "removeOrder" -> {
                 String[] multipleOrderId = request.getParameterValues("multipleOrderId");
                 request.setAttribute("multipleOrderId", multipleOrderId);
-                requestDispatcher = request.getRequestDispatcher("RemoveOrderAdmin");
+                requestDispatcher = request.getRequestDispatcher("/api/admin/order/remove");
             }
 
             case "cancelOrder" -> {
                 String[] multipleOrderId = request.getParameterValues("multipleOrderId");
                 request.setAttribute("multipleOrderId", multipleOrderId);
-                requestDispatcher = request.getRequestDispatcher("CancelOrderAdmin");
+                requestDispatcher = request.getRequestDispatcher("/api/admin/order/cancel");
             }
         }
 

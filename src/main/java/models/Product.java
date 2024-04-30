@@ -1,7 +1,8 @@
 package models;
 
-import services.image.CloudinaryUploadServices;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Product {
@@ -13,8 +14,18 @@ public class Product {
     private double salePrice;
     private boolean visibility;
     private Date createAt;
+    private List<Image> images;
 
     public Product() {
+        this.images = new ArrayList<>();
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     public int getId() {
@@ -107,4 +118,5 @@ public class Product {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

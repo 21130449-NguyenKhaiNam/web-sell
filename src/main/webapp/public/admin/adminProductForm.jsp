@@ -175,10 +175,10 @@
 </div>
 <script>
     var editorCK = CKEDITOR.replace('ck-editor',);
-    CKFinder.setupCKEditor(editorCK, "ckfinder/");
+    CKFinder.setupCKEditor(editorCK, "/ckfinder/");
 </script>
 <script src="<c:url value="/js/validateForm.js" />"></script>
-<script src="<c:url value="/js/notify.js"/>"></script>
-<script src="<c:url value="/js/admin/adminProductDetail.js"/>"></script>
+<%--<script src="<c:url value="/js/notify.js"/>"></script>--%>
+<script type="module" src="<c:url value="/js/admin/adminProductDetail.js"/>"></script>
 </body>
 </html>

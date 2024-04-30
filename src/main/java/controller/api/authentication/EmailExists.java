@@ -1,6 +1,6 @@
 package controller.api.authentication;
 
-import services.AuthenticateServices;
+import services.authentication.AuthenticateServices;
 import utils.Validation;
 
 import javax.servlet.ServletException;
