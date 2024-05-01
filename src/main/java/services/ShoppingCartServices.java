@@ -3,6 +3,7 @@ package services;
 import dao.IShoppingCartDAO;
 import dao.ShoppingCartDAOImp;
 import models.Voucher;
+import models.shoppingCart.ShoppingCart;
 
 import java.util.List;
 
@@ -41,4 +42,12 @@ public class ShoppingCartServices {
 //    public double getMinPriceApplyVoucherByCode(String code){
 //        return shoppingCartDao.getMinPriceApplyVoucherByCode(code);
 //    }
+
+    public void insertCart(int cartId, int userId, ShoppingCart cart) {
+        shoppingCartDao.insertCart(cartId, userId, cart);
+    }
+
+    public int findCartByUserId(int id) {
+        return shoppingCartDao.findCartByUserId(id);
+    }
 }
