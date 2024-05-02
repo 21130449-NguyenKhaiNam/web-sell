@@ -1,14 +1,23 @@
 package dao;
 
+import models.Color;
+import models.Product;
 import models.Voucher;
 import models.shoppingCart.AbstractCartProduct;
+import models.shoppingCart.CartProduct;
+import models.shoppingCart.CartProductCustom;
 import models.shoppingCart.ShoppingCart;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toMap;
 
 public class ShoppingCartDAOImp implements IShoppingCartDAO {
+
     public List<Voucher> getListVouchers() {
         String sql = "SELECT id, `code`, `description`, minimumPrice, discountPercent, expiryDate FROM vouchers WHERE expiryDate >= CURDATE() AND availableTurns > 0";
         return GeneralDAOImp.executeQueryWithSingleTable(sql, Voucher.class);
@@ -50,28 +59,102 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
         GeneralDAOImp.executeAllTypeUpdate(sql, cartId, userId);
 
         // Chưa có kích thước
-        String sqlCart = "INSERT INTO cart_item (cart_id, product_id, color_id, quantity) VALUES (?, ?, ?, ?)";
+        String sqlCart = "INSERT INTO cart_items (cart_id, product_id, color_id, quantity, size) VALUES (?, ?, ?, ?, ?)";
         HashMap<Integer, List<AbstractCartProduct>> mapCart = cart.getShoppingCartMap();
         List<Integer> productIds = new ArrayList<>(mapCart.keySet());
         for (int i = 0; i < mapCart.size(); i++) {
             Integer productId = productIds.get(i);
-            List<AbstractCartProduct> products = mapCart.get(i);
+            List<AbstractCartProduct> products = mapCart.get(productId);
             for (int j = 0; j < products.size(); j++) {
                 AbstractCartProduct cartProduct = products.get(j);
-                GeneralDAOImp.executeAllTypeUpdate(sqlCart, cartId, productId, cartProduct.getColor().getId(), cartProduct.getQuantity());
+                GeneralDAOImp.executeAllTypeUpdate(sqlCart, cartId, productId,
+                        cartProduct.getColor().getId(), cartProduct.getQuantity(), cartProduct.getSize());
             }
         }
     }
 
     @Override
     public int findCartByUserId(int userId) {
-        String sql = "SELECT cart_id FROM cart WHERE user_id = ?";
-        List<Integer> cartIds = GeneralDAOImp.executeQueryWithSingleTable(sql, Integer.class, userId);
+        String sql = "SELECT id FROM cart WHERE user_id = ?";
+        List<Integer> cartIds = GeneralDAOImp.executeQueryWithSingleTable(sql, models.shoppingCart.Cart.class, userId).stream()
+                .map(cart -> cart.getId()).collect(Collectors.toList());
         if (cartIds.size() != 1) {
             // Lỗi
             return -1;
         } else {
             return cartIds.get(0);
+        }
+    }
+
+    @Override
+    public ShoppingCart findById(int cartId) {
+        String sql = "SELECT product_id, color_id, quantity, size FROM cart_items WHERE cart_id =?";
+        ProductDAOImp productDAOImp = new ProductDAOImp();
+        ColorDAOImp colorDao = new ColorDAOImp();
+        List<Cart> carts = GeneralDAOImp.executeQueryWithSingleTable(sql, Cart.class, cartId);
+        HashMap<Integer, List<AbstractCartProduct>> map  = new HashMap<>();
+        for (int i = 0; i < carts.size(); i++) {
+            int productId = carts.get(i).getProductId();
+            int colorId = carts.get(i).getColorId();
+            int quantity = carts.get(i).getQuantity();
+            String size = carts.get(i).getSize();
+            if(!map.containsKey(productId))
+                map.put(productId, new ArrayList<>());
+            Product product = productDAOImp.getProductByProductId(productId);
+            Color color = colorDao.findById(colorId);
+            CartProductCustom cartProduct = new CartProductCustom(product, quantity, color, size);
+            map.get(productId).add(cartProduct);
+        }
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setShoppingCartMap(map);
+        return shoppingCart;
+    }
+
+    public static class Cart {
+        private int productId;
+        private int colorId;
+        private int quantity;
+        private String size;
+
+        public Cart() {}
+
+        public Cart(int productId, int colorId, int quantity, String size) {
+            this.productId = productId;
+            this.colorId = colorId;
+            this.quantity = quantity;
+            this.size = size;
+        }
+
+        public int getProductId() {
+            return productId;
+        }
+
+        public void setProductId(int productId) {
+            this.productId = productId;
+        }
+
+        public int getColorId() {
+            return colorId;
+        }
+
+        public void setColorId(int colorId) {
+            this.colorId = colorId;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+        public String getSize() {
+            return size;
+        }
+
+        public void setSize(String size) {
+            this.size = size;
         }
     }
 

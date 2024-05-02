@@ -24,8 +24,8 @@ public class CartProductCustom extends AbstractCartProduct {
         return super.hashCode();
     }
 
-
-    public String getJsonSize() {
+    @Override
+    public String getSize() {
         return jsonSize;
     }
 

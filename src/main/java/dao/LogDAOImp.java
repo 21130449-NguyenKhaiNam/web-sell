@@ -161,24 +161,25 @@ public class LogDAOImp implements ILogDAO {
 
                         // Lấy ra các tham số sẽ insert của câu lệnh
                         String paramaters = builder.substring(builder.indexOf(nameTable) + nameTable.length(), builder.indexOf("VALUES"));
-                        StringBuilder paramater = new StringBuilder(paramaters);
+                        StringBuilder parameter = new StringBuilder(paramaters);
 
                         // Nếu câu lệnh được chỉ định có tham số mới được phép ghi log
-                        if (paramater.length() > 2) {
+                        if (parameter.length() > 2) {
                             // Loại bỏ dấu (
-                            paramater.deleteCharAt(0);
+                            parameter.deleteCharAt(0);
                             // Loại bỏ dấu )
-                            paramater.deleteCharAt(paramater.length() - 1);
+                            parameter.deleteCharAt(parameter.length() - 1);
 
                             // Phân tách riêng biệt các đối số
-                            String[] paras = paramater.toString().split(",");
+                            String[] paras = parameter.toString().split(",");
                             for (int i = 0; i < paras.length; i++) {
                                 paras[i] = paras[i].trim() + ":" + params[i];
                             }
 //                        System.out.println("Log INSERT >> Tham số hiện tại: " + Arrays.toString(paras));
                             GeneralDAOImp.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, Date.valueOf(LocalDate.now()), mapper.writeValueAsString(paras));
+                            break;
                         }
-                        System.out.println("Log >> Phương thức insert không được chỉ định rõ ràng tham số sẽ nhận");
+                        System.out.println("Log >> Phương thức insert của " + nameTable + " không được chỉ định rõ ràng tham số sẽ nhận hoặc có sai sót trong câu lệnh");
                     }
                     case "select" -> System.out.println("Log >> Hàm không hỗ trợ select");
                     default -> {

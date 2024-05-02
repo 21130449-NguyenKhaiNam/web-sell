@@ -44,12 +44,12 @@ public class CheckoutFilter implements Filter {
                 session.setAttribute("deliveryInfoStorage", deliveryInfoStorage);
             }
 
-            if(cart.getDeliveryInfo() == null){
-                deliveryInfoStorage.add("defaultDeliveryInfo", deliveryInfoAuth);
-                cart.setDeliveryInfo(deliveryInfoAuth);
-                session.setAttribute("deliveryInfoStorage", deliveryInfoStorage);
-                session.setAttribute(userIdCart, cart);
-            }
+//            if(cart.getDeliveryInfo() == null){
+//                deliveryInfoStorage.add("defaultDeliveryInfo", deliveryInfoAuth);
+//                cart.setDeliveryInfo(deliveryInfoAuth);
+//                session.setAttribute("deliveryInfoStorage", deliveryInfoStorage);
+//                session.setAttribute(userIdCart, cart);
+//            }
 
             String url = request.getServletPath();
             if(url.contains("checkout.jsp") && !url.contains("error404.jsp")){

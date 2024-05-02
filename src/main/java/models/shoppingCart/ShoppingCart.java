@@ -10,10 +10,10 @@ import java.util.List;
 
 public class ShoppingCart {
     private HashMap<Integer, List<AbstractCartProduct>> shoppingCartMap = new HashMap<>();
-    private Voucher voucherApplied;
-    private DeliveryMethod deliveryMethod;
-    private PaymentMethod paymentMethod;
-    private DeliveryInfo deliveryInfo;
+//    private Voucher voucherApplied;
+//    private DeliveryMethod deliveryMethod;
+//    private PaymentMethod paymentMethod;
+//    private DeliveryInfo deliveryInfo;
 
     public ShoppingCart() {
     }
@@ -26,37 +26,37 @@ public class ShoppingCart {
         this.shoppingCartMap = shoppingCartMap;
     }
 
-    public Voucher getVoucherApplied() {
-        return voucherApplied;
-    }
-
-    public void setVoucherApplied(Voucher voucherApplied) {
-        this.voucherApplied = voucherApplied;
-    }
-
-    public DeliveryMethod getDeliveryMethod() {
-        return deliveryMethod;
-    }
-
-    public void setDeliveryMethod(DeliveryMethod deliveryMethod) {
-        this.deliveryMethod = deliveryMethod;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public DeliveryInfo getDeliveryInfo() {
-        return deliveryInfo;
-    }
-
-    public void setDeliveryInfo(DeliveryInfo deliveryInfo) {
-        this.deliveryInfo = deliveryInfo;
-    }
+//    public Voucher getVoucherApplied() {
+//        return voucherApplied;
+//    }
+//
+//    public void setVoucherApplied(Voucher voucherApplied) {
+//        this.voucherApplied = voucherApplied;
+//    }
+//
+//    public DeliveryMethod getDeliveryMethod() {
+//        return deliveryMethod;
+//    }
+//
+//    public void setDeliveryMethod(DeliveryMethod deliveryMethod) {
+//        this.deliveryMethod = deliveryMethod;
+//    }
+//
+//    public PaymentMethod getPaymentMethod() {
+//        return paymentMethod;
+//    }
+//
+//    public void setPaymentMethod(PaymentMethod paymentMethod) {
+//        this.paymentMethod = paymentMethod;
+//    }
+//
+//    public DeliveryInfo getDeliveryInfo() {
+//        return deliveryInfo;
+//    }
+//
+//    public void setDeliveryInfo(DeliveryInfo deliveryInfo) {
+//        this.deliveryInfo = deliveryInfo;
+//    }
 
 
     // Dùng cho trang productDetail khi người dùng chọn số lượng và nhấn nút "thêm vào giỏ hàng"
@@ -159,32 +159,32 @@ public class ShoppingCart {
         return temporaryPrice;
     }
 
-    public double getDiscountPrice() {
-        if (voucherApplied != null) {
-            return getTemporaryPrice() * voucherApplied.getDiscountPercent();
-        }
-        return 0;
-    }
+//    public double getDiscountPrice() {
+//        if (voucherApplied != null) {
+//            return getTemporaryPrice() * voucherApplied.getDiscountPercent();
+//        }
+//        return 0;
+//    }
 
-    public double getTotalPrice(boolean isPlusShipping) {
-        double totalPrice = getTemporaryPrice() - getDiscountPrice();
-        if (deliveryMethod != null && isPlusShipping) {
-            totalPrice += deliveryMethod.getShippingFee();
-        }
-        return totalPrice;
-    }
+//    public double getTotalPrice(boolean isPlusShipping) {
+//        double totalPrice = getTemporaryPrice() - getDiscountPrice();
+//        if (deliveryMethod != null && isPlusShipping) {
+//            totalPrice += deliveryMethod.getShippingFee();
+//        }
+//        return totalPrice;
+//    }
 
     public String temporaryPriceFormat() {
         return FormatCurrency.vietNamCurrency(getTemporaryPrice());
     }
 
-    public String discountPriceFormat() {
-        return FormatCurrency.vietNamCurrency(getDiscountPrice());
-    }
+//    public String discountPriceFormat() {
+//        return FormatCurrency.vietNamCurrency(getDiscountPrice());
+//    }
 
-    public String totalPriceFormat(boolean isPlusShipping) {
-        return FormatCurrency.vietNamCurrency(getTotalPrice(isPlusShipping));
-    }
+//    public String totalPriceFormat(boolean isPlusShipping) {
+//        return FormatCurrency.vietNamCurrency(getTotalPrice(isPlusShipping));
+//    }
 
     public int getTotalItems() {
         int totalItems = 0;

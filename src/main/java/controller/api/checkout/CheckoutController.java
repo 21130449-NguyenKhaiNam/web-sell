@@ -90,22 +90,22 @@ public class CheckoutController extends HttpServlet {
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
 
-        if(cart.getTotalPrice(false) < 5000000){
-            if(cart.getDeliveryMethod() == null){
-                DeliveryMethod deliveryMethodDefault = CheckoutServices.getINSTANCE().getDeliveryMethodById(1);
-                cart.setDeliveryMethod(deliveryMethodDefault);
-                session.setAttribute(userIdCart, cart);
-            }
-        }else {
-            cart.setDeliveryMethod(null);
-            session.setAttribute(userIdCart, cart);
-        }
-
-        if(cart.getPaymentMethod() == null){
-            PaymentMethod paymentMethodDefault = CheckoutServices.getINSTANCE().getPaymentMethodById(1);
-            cart.setPaymentMethod(paymentMethodDefault);
-            session.setAttribute(userIdCart, cart);
-        }
+//        if(cart.getTotalPrice(false) < 5000000){
+//            if(cart.getDeliveryMethod() == null){
+//                DeliveryMethod deliveryMethodDefault = CheckoutServices.getINSTANCE().getDeliveryMethodById(1);
+//                cart.setDeliveryMethod(deliveryMethodDefault);
+//                session.setAttribute(userIdCart, cart);
+//            }
+//        }else {
+//            cart.setDeliveryMethod(null);
+//            session.setAttribute(userIdCart, cart);
+//        }
+//
+//        if(cart.getPaymentMethod() == null){
+//            PaymentMethod paymentMethodDefault = CheckoutServices.getINSTANCE().getPaymentMethodById(1);
+//            cart.setPaymentMethod(paymentMethodDefault);
+//            session.setAttribute(userIdCart, cart);
+//        }
 
         request.setAttribute("listDeliveryMethod",listDeliveryMethod);
         request.setAttribute("listPaymentMethod", listPaymentMethod);
