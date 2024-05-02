@@ -5,12 +5,9 @@ import models.shoppingCart.ShoppingCart;
 import services.ShoppingCartServices;
 
 import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Method;
-import java.util.List;
 
 @WebListener
 public class HandelCart implements HttpSessionAttributeListener {
@@ -25,21 +22,42 @@ public class HandelCart implements HttpSessionAttributeListener {
         if (name.equals("auth")) {
             user = (User) event.getValue();
         } else {
-            try {
+            if(event.getValue() instanceof  ShoppingCart) {
                 // Nếu có thể ép thành giỏ hàng thì xử lý
                 ShoppingCart newCart = (ShoppingCart) event.getValue();
+                HttpSession session = event.getSession();
                 // Lần đầu hoặc khởi tạo lại giỏ hàng
-                if(cart == null) {
+                if (cart == null) {
                     int cartId = services.findCartByUserId(user.getId());
-                    if(cartId > 0) {
+                    if (cartId > 0) {
                         // Xử lý nếu có cart trong db
+                        if (cart == null) {
+                            // Chỉ thực hiện lấy nếu chưa có
+                            cart = services.findCartByCartId(cartId);
+                            // id được tạo ra cho giỏ hàng chưa chắc là id đúng nên cần thiết lập lại
+                            session.removeAttribute(name); // id hệ thống tạo
+                            session.setAttribute(cartId + "", null);
+                        }
+
+                        handelChangeCart(session, cartId, newCart);
                     } else {
                         // Xử lý nếu không có
+                        cartId = Integer.parseInt(name);
+                        handelChangeCart(session, cartId, newCart);
                     }
+                } else {
+                    handelChangeCart(session, Integer.parseInt(name), newCart);
                 }
-            } catch (Exception e) {
-                System.out.println("Handel Cart >> Không bắt sự kiện đối với session khác ngoài cart");
             }
         }
+    }
+
+    private void handelChangeCart(HttpSession session, int cartId, ShoppingCart newCart) {
+        if (cart == null || !cart.getShoppingCartMap().equals(newCart.getShoppingCartMap())) {
+            // Không tìm thấy giỏ hàng trong db hoặc Có sự thay đổi trong giỏ hàng
+            cart = newCart;
+            services.insertCart(cartId, user.getId(), cart);
+        }
+        session.setAttribute(cartId + "", cart);
     }
 }

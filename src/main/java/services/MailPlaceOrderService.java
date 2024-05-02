@@ -40,33 +40,33 @@ public class MailPlaceOrderService implements IMailServices{
             }
         };
 
-        DeliveryInfo deliveryInfoBuyer = cart.getDeliveryInfo();
-        String fullNameBuyer = deliveryInfoBuyer.getFullName();
-        String emailBuyer = deliveryInfoBuyer.getEmail();
-        String phoneBuyer = deliveryInfoBuyer.getPhone();
-        String addressBuyer = deliveryInfoBuyer.getAddress();
-        String temporaryPriceFormat = cart.temporaryPriceFormat();
-        String discountPriceFormat = cart.discountPriceFormat();
+//        DeliveryInfo deliveryInfoBuyer = cart.getDeliveryInfo();
+//        String fullNameBuyer = deliveryInfoBuyer.getFullName();
+//        String emailBuyer = deliveryInfoBuyer.getEmail();
+//        String phoneBuyer = deliveryInfoBuyer.getPhone();
+//        String addressBuyer = deliveryInfoBuyer.getAddress();
+//        String temporaryPriceFormat = cart.temporaryPriceFormat();
+//        String discountPriceFormat = cart.discountPriceFormat();
         double shippingFee = 0;
         String deliveryMethod = "";
-        if(cart.getDeliveryMethod() != null){
-            shippingFee = cart.getDeliveryMethod().getShippingFee();
-            deliveryMethod = cart.getDeliveryMethod().getTypeShipping();
-        }
-
-        String paymentMethod = cart.getPaymentMethod().getTypePayment();
+//        if(cart.getDeliveryMethod() != null){
+//            shippingFee = cart.getDeliveryMethod().getShippingFee();
+//            deliveryMethod = cart.getDeliveryMethod().getTypeShipping();
+//        }
+//
+//        String paymentMethod = cart.getPaymentMethod().getTypePayment();
         String totalPriceFormat;
-        if(cart.getDeliveryMethod() != null){
-            totalPriceFormat = cart.totalPriceFormat(true);
-        }else{
-            totalPriceFormat = cart.totalPriceFormat(false);
-        }
+//        if(cart.getDeliveryMethod() != null){
+//            totalPriceFormat = cart.totalPriceFormat(true);
+//        }else{
+//            totalPriceFormat = cart.totalPriceFormat(false);
+//        }
         int totalItems = cart.getTotalItems();
 
         Session session = Session.getInstance(MailProperties.getProperties(), auth);
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(MailProperties.getEmail()));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailBuyer, true));
+//        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailBuyer, true));
         String subjectMess = "ĐƠN HÀNG CỦA BẠN";
         message.setSubject(subjectMess);
         message.setReplyTo(null);
@@ -110,17 +110,17 @@ public class MailPlaceOrderService implements IMailServices{
         htmlContent = htmlContent.replace("%%ITEMSBOUGHT%%", itemsBoughtBuilder.toString());
         htmlContent = htmlContent.replaceAll("%%INVOICENO%%", String.valueOf(invoiceNo));
         htmlContent = htmlContent.replaceAll("%%INVOICEDATE%%", dateOrder);
-        htmlContent = htmlContent.replaceAll("%%FULLNAME%%", fullNameBuyer);
-        htmlContent = htmlContent.replace("%%EMAIL%%", emailBuyer);
-        htmlContent = htmlContent.replace("%%PHONE%%", phoneBuyer);
-        htmlContent = htmlContent.replace("%%ADDRESS%%", addressBuyer);
+//        htmlContent = htmlContent.replaceAll("%%FULLNAME%%", fullNameBuyer);
+//        htmlContent = htmlContent.replace("%%EMAIL%%", emailBuyer);
+//        htmlContent = htmlContent.replace("%%PHONE%%", phoneBuyer);
+//        htmlContent = htmlContent.replace("%%ADDRESS%%", addressBuyer);
         htmlContent = htmlContent.replace("%%TOTALITEM%%", String.valueOf(totalItems));
-        htmlContent = htmlContent.replace("%%TOTALPRICE%%", totalPriceFormat);
-        htmlContent = htmlContent.replace("%%TEMPPRICE%%", temporaryPriceFormat);
-        htmlContent = htmlContent.replace("%%DISCOUNTPRICE%%", discountPriceFormat);
+//        htmlContent = htmlContent.replace("%%TOTALPRICE%%", totalPriceFormat);
+//        htmlContent = htmlContent.replace("%%TEMPPRICE%%", temporaryPriceFormat);
+//        htmlContent = htmlContent.replace("%%DISCOUNTPRICE%%", discountPriceFormat);
         htmlContent = htmlContent.replace("%%SHIPPINGFEE%%", FormatCurrency.vietNamCurrency(shippingFee));
         htmlContent = htmlContent.replace("%%DELIVERYMETHOD%%", deliveryMethod);
-        htmlContent = htmlContent.replace("%%PAYMENTMETHOD%%", paymentMethod);
+//        htmlContent = htmlContent.replace("%%PAYMENTMETHOD%%", paymentMethod);
 
         message.setContent(htmlContent, "text/html; charset = UTF-8");
         Transport.send(message);

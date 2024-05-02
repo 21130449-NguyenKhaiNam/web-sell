@@ -1,11 +1,15 @@
 package dao;
 
+import controller.shoppingCart.HandelCart;
 import models.Category;
 import models.Parameter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CategoryDAOImp implements ICategoryDAO {
+
     public List<Category> getAllCategory() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id, nameType ")

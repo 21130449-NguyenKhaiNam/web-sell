@@ -23,7 +23,7 @@ public class RemoveDeliveryInfoController extends HttpServlet {
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         if(statusChoice.equals("Đã chọn")) {
             DeliveryInfo deliveryInfoAuth = deliveryInfoStorage.getDeliveryInfoByKey("defaultDeliveryInfo");
-            cart.setDeliveryInfo(deliveryInfoAuth);
+//            cart.setDeliveryInfo(deliveryInfoAuth);
             session.setAttribute(userIdCart, cart);
         }
 

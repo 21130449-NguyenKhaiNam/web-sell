@@ -29,27 +29,27 @@ public class SuccessOrderController extends HttpServlet {
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         int invoiceNo = Integer.parseInt(request.getParameter("invoiceNo"));
         String dateOrder = LocalDate.now().toString();
-        String fullNameBuyer = cart.getDeliveryInfo().getFullName();
-        String emailBuyer = cart.getDeliveryInfo().getEmail();
-        String phoneBuyer = cart.getDeliveryInfo().getPhone();
-        String addressBuyer = cart.getDeliveryInfo().getAddress();
-        int paymentMethodId = cart.getPaymentMethod().getId();
+//        String fullNameBuyer = cart.getDeliveryInfo().getFullName();
+//        String emailBuyer = cart.getDeliveryInfo().getEmail();
+//        String phoneBuyer = cart.getDeliveryInfo().getPhone();
+//        String addressBuyer = cart.getDeliveryInfo().getAddress();
+//        int paymentMethodId = cart.getPaymentMethod().getId();
         Integer voucherId = null;
         Integer deliveryMethodId = null;
 
         try {
-            if (cart.getVoucherApplied() != null) {
-                voucherId = cart.getVoucherApplied().getId();
-            }
+//            if (cart.getVoucherApplied() != null) {
+//                voucherId = cart.getVoucherApplied().getId();
+//            }
 
-            if (cart.getDeliveryMethod() != null) {
-                deliveryMethodId = cart.getDeliveryMethod().getId();
-            }
+//            if (cart.getDeliveryMethod() != null) {
+//                deliveryMethodId = cart.getDeliveryMethod().getId();
+//            }
 
-            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
+//            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
         } catch (NullPointerException exception) {
             exception.printStackTrace();
-            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
+//            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
         }
 
         for (int productId : cart.getShoppingCartMap().keySet()) {

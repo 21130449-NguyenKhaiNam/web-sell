@@ -50,4 +50,8 @@ public class ShoppingCartServices {
     public int findCartByUserId(int id) {
         return shoppingCartDao.findCartByUserId(id);
     }
+
+    public ShoppingCart findCartByCartId(int cartId) {
+        return shoppingCartDao.findById(cartId);
+    }
 }

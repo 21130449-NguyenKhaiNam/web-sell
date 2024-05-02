@@ -5,6 +5,11 @@ import models.Color;
 import java.util.List;
 
 public class ColorDAOImp implements IColorDAO {
+    public Color findById(int id) {
+        String sql = "SELECT id, codeColor, productId FROM colors WHERE id = ?";
+        return  GeneralDAOImp.executeQueryWithSingleTable(sql, Color.class, id).get(0);
+    }
+
     public List<Color> getAllColor() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT DISTINCT codeColor ").append("FROM colors");

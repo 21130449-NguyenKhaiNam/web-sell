@@ -22,7 +22,7 @@ public class ChoiceDeliveryInfoController extends HttpServlet {
         DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
         DeliveryInfo deliveryInfo = deliveryInfoStorage.getDeliveryInfoByKey(deliveryInfoKey);
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
-        cart.setDeliveryInfo(deliveryInfo);
+//        cart.setDeliveryInfo(deliveryInfo);
         session.setAttribute(userIdCart, cart);
 
         response.getWriter().write("Đã chọn");

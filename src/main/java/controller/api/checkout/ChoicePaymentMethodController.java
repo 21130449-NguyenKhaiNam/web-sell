@@ -31,7 +31,7 @@ public class ChoicePaymentMethodController extends HttpServlet {
         User userAuth = (User) session.getAttribute("auth");
         String userIdCart = String.valueOf(userAuth.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
-        cart.setPaymentMethod(paymentMethod);
+//        cart.setPaymentMethod(paymentMethod);
         session.setAttribute(userIdCart, cart);
 
         String contentForPay = (String) session.getAttribute("contentForPay");
