@@ -4,17 +4,13 @@ import models.Color;
 import models.Product;
 import models.Voucher;
 import models.shoppingCart.AbstractCartProduct;
-import models.shoppingCart.CartProduct;
 import models.shoppingCart.CartProductCustom;
 import models.shoppingCart.ShoppingCart;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toMap;
 
 public class ShoppingCartDAOImp implements IShoppingCartDAO {
 
@@ -92,13 +88,13 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
         ProductDAOImp productDAOImp = new ProductDAOImp();
         ColorDAOImp colorDao = new ColorDAOImp();
         List<Cart> carts = GeneralDAOImp.executeQueryWithSingleTable(sql, Cart.class, cartId);
-        HashMap<Integer, List<AbstractCartProduct>> map  = new HashMap<>();
+        HashMap<Integer, List<AbstractCartProduct>> map = new HashMap<>();
         for (int i = 0; i < carts.size(); i++) {
             int productId = carts.get(i).getProductId();
             int colorId = carts.get(i).getColorId();
             int quantity = carts.get(i).getQuantity();
             String size = carts.get(i).getSize();
-            if(!map.containsKey(productId))
+            if (!map.containsKey(productId))
                 map.put(productId, new ArrayList<>());
             Product product = productDAOImp.getProductByProductId(productId);
             Color color = colorDao.findById(colorId);
@@ -110,13 +106,25 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
         return shoppingCart;
     }
 
+    @Override
+    public void deleteByCartIdAndIdProduct(int cartId, Integer[] productIds) {
+        String sql = "DELETE FROM cart_items WHERE cart_id = ? AND product_id IN (";
+        for (int i = 0; i < productIds.length; i++) {
+            sql += (i == 0 ? "?" : ", ?");
+        }
+        sql += ")";
+
+        GeneralDAOImp.executeAllTypeUpdate(sql, cartId, productIds);
+    }
+
     public static class Cart {
         private int productId;
         private int colorId;
         private int quantity;
         private String size;
 
-        public Cart() {}
+        public Cart() {
+        }
 
         public Cart(int productId, int colorId, int quantity, String size) {
             this.productId = productId;

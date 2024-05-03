@@ -54,4 +54,8 @@ public class ShoppingCartServices {
     public ShoppingCart findCartByCartId(int cartId) {
         return shoppingCartDao.findById(cartId);
     }
+
+    public void deleteByCartIdAndIdProduct(int cartId, Integer[] productIds) {
+        shoppingCartDao.deleteByCartIdAndIdProduct(cartId, productIds);
+    }
 }
