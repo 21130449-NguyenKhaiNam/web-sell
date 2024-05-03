@@ -21,4 +21,6 @@ public interface IShoppingCartDAO extends IDAO {
     int findCartByUserId(int userId);
 
     ShoppingCart findById(int cartId);
+
+    void deleteByCartIdAndIdProduct(int cartId, Integer[] productIds);
 }

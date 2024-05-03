@@ -6,13 +6,14 @@ import models.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.annotation.WebListener;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebFilter(filterName = "shoppingCartFilter", urlPatterns = {"/shoppingCart.jsp", "/ShoppingCart"})
 public class ShoppingCartFilter implements Filter {
+
+
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

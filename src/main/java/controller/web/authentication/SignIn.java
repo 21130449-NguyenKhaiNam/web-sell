@@ -1,8 +1,11 @@
 package controller.web.authentication;
 
 import config.ConfigPage;
+import dao.ShoppingCartDAOImp;
+import filter.shoppingCart.ShoppingCartFilter;
 import models.User;
 import models.UserSessionAccess;
+import models.shoppingCart.ShoppingCart;
 import services.AuthenticateServices;
 import utils.Validation;
 
@@ -31,8 +34,8 @@ public class SignIn extends HttpServlet {
             User userAuth = (User) validation.getObjReturn();
             HttpSession session = request.getSession(true);
             session.setAttribute("auth", userAuth);
+            session.setAttribute(userAuth.getId() + "", new ShoppingCart());
             response.sendRedirect(ConfigPage.HOME);
-            return;
         } else {
             request.setAttribute("usernameError", validation.getFieldUsername());
             request.setAttribute("passwordError", validation.getFieldPassword());

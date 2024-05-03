@@ -52,7 +52,8 @@
                                 <span class="qlt__value">
                                     <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
                                     <c:choose>
-                                        <c:when test="${sessionScope[userIdCart] == null}">0
+                                        <c:when test="${sessionScope[userIdCart] == null}">
+                                            0
                                         </c:when>
                                         <c:otherwise>${sessionScope[userIdCart].getTotalItems()}
                                         </c:otherwise>
