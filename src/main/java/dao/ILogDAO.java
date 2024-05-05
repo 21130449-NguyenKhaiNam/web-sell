@@ -19,5 +19,9 @@ public interface ILogDAO extends IDAO {
 
     void insertLogForSelect(String sql, List<?> list);
 
-    List<Log> getLog(int limit);
+    List<Log> findAll();
+
+    List<Log> getLog(int start, int limit);
+
+    long getSize();
 }

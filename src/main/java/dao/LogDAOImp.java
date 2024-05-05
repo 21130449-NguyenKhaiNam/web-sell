@@ -214,9 +214,20 @@ public class LogDAOImp implements ILogDAO {
     }
 
     @Override
-    public List<Log> getLog(int limit) {
+    public List<Log> findAll() {
+        String sql = "SELECT id, ip, level, resource, dateCreated, previous, current FROM logs";
+        return GeneralDAOImp.executeQueryWithSingleTable(sql, Log.class);
+    }
+
+    @Override
+    public List<Log> getLog(int start, int limit) {
         String sql = "SELECT id, ip, level, resource, dateCreated, previous, current FROM logs LIMIT ?";
         return GeneralDAOImp.executeQueryWithSingleTable(sql, Log.class, limit);
+    }
+
+    @Override
+    public long getSize() {
+        return findAll().size();
     }
 
     // Chuyển đổi tương ứng với tác động của câu query, sau này tách ra

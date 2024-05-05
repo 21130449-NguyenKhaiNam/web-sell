@@ -43,8 +43,11 @@ public class LogService {
         logDAO.insertLogForSelect(sql, list);
     }
 
-    public List<Log> getLog(int num) {
-        return logDAO.getLog(num);
+    public List<Log> getLog(int start, int length) {
+        return logDAO.getLog(start, length);
     }
 
+    public long getTotal() {
+        return logDAO.getSize();
+    }
 }

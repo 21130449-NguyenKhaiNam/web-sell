@@ -217,11 +217,11 @@
                                 <p class="price__value"> 0 đ </p>
                             </li>
                             <li class="price__item">
-                                <c:if test="${sessionScope[userIdCart].getDiscountPrice() != 0}">
-                                    <p class="price__text">
-                                        Giảm giá </p>
-                                    <p class="price__value"> ${sessionScope[userIdCart].discountPriceFormat()} </p>
-                                </c:if>
+<%--                                <c:if test="${sessionScope[userIdCart].getDiscountPrice() != 0}">--%>
+<%--                                    <p class="price__text">--%>
+<%--                                        Giảm giá </p>--%>
+<%--                                    <p class="price__value"> ${sessionScope[userIdCart].discountPriceFormat()} </p>--%>
+<%--                                </c:if>--%>
                             </li>
 
                         </ul>
