@@ -61,17 +61,19 @@ public class HandelCart implements HttpSessionAttributeListener {
                 cart = newCart;
                 services.insertCart(cartId, user.getId(), cart);
             } else {
-                // Trường hợp ban đầu trống thì lấy theo cart
-                if (!newCart.getShoppingCartMap().isEmpty()) {
+                Map<Integer, List<AbstractCartProduct>> source = cart.getShoppingCartMap();
+                Map<Integer, List<AbstractCartProduct>> target = newCart.getShoppingCartMap();
+                MapDifference<Integer, List<AbstractCartProduct>> diff = Maps.difference(source, target);
+                if (cart.getTotalItems() > newCart.getTotalItems()) {
                     // Trường hợp có sản phẩm bị loại bỏ
-                    Map<Integer, List<AbstractCartProduct>> source = cart.getShoppingCartMap();
-                    Map<Integer, List<AbstractCartProduct>> target = newCart.getShoppingCartMap();
-                    MapDifference<Integer, List<AbstractCartProduct>> diff = Maps.difference(source, target);
                     // Những khóa bị loại bỏ
                     Set<Integer> keysOnlyInSource = diff.entriesOnlyOnLeft().keySet();
                     Integer[] productIds = new Integer[keysOnlyInSource.size()];
                     services.deleteByCartIdAndIdProduct(cartId,
                             keysOnlyInSource.toArray(productIds));
+                } else {
+                    // Trường hợp có sự thay đổi thông tin
+
                 }
             }
         }

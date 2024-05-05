@@ -68,58 +68,37 @@
     </section>
 </main>
 <script>
-    var json = []
-    <%
-    List<Log> logs = LogService.getINSTANCE().getLog(10);
-    for(int i = 0; i < logs.size(); i++) {
-        Log log = logs.get(i);
-        String previous = log.getPrevious();
-        String current = log.getCurrent();
-        if(previous != null) {
-
-        }
-
-        if(current != null) {
-
-        }
-    %>
-        json.push({
-            "id": '<%= log.getId() %>',
-            "ip": '<%= log.getIp() %>',
-            "level": '<%= log.getLevel() %>',
-            "resource": '<%= log.getResource() %>',
-            "date create": '<%= log.getDateCreated().toString() %>',
-            "previous": '<%= previous %>',
-            "current": '<%= current %>'
+    $(document).ready(function () {
+        const table = new DataTable('#table', {
+            processing: true,
+            serverSide: true,
+            ajax: '/LogAdmin',
+            columns: [
+                {data: 'id'},
+                {data: 'ip'},
+                {data: 'level'},
+                {data: 'resource'},
+                {data: 'dateCreated'},
+                {data: 'previous'},
+                {data: 'current'},
+            ],
+            createdRow: (row, data, index) => {
+                row.querySelector(':nth-child(3)').dataset.level = data['level'];
+                row.querySelector(':nth-child(6)').classList.add('data');
+                row.querySelector(':nth-child(7)').classList.add('data');
+            }
         })
-    <%}%>
-    $('#table').DataTable({
-        data: json,
-        columns: [
-            {data: 'id'},
-            {data: 'ip'},
-            {data: 'level'},
-            {data: 'resource'},
-            {data: 'date created'},
-            {data: 'previous'},
-            {data: 'current'},
-        ],
-        createdRow: (row, data, index) => {
-            row.querySelector(':nth-child(3)').dataset.level = data['level'];
-            row.querySelector(':nth-child(6)').classList.add('data');
-            row.querySelector(':nth-child(7)').classList.add('data');
-        }
-    })
-    $('td.data').each(function (index) {
-        let text = $(this)[0].innerHTML
-        if(text.length > 30) {
-            tippy(this, {
-                theme: 'light',
-                content: text,
-                interactive: true,
-            })
-            $(this)[0].innerHTML = text.substring(0, 29) + "..."
-        }
+        $('td.data').each(function (index) {
+            let text = $(this)[0].innerHTML
+            if(text.length > 30) {
+                tippy(this, {
+                    theme: 'light',
+                    content: text,
+                    interactive: true,
+                })
+                $(this)[0].innerHTML = text.substring(0, 29) + "..."
+            }
+        })
     })
 </script>
 </body>
