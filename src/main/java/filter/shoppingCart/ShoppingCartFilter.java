@@ -13,8 +13,6 @@ import java.io.IOException;
 @WebFilter(filterName = "shoppingCartFilter", urlPatterns = {"/shoppingCart.jsp", "/ShoppingCart"})
 public class ShoppingCartFilter implements Filter {
 
-
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
