@@ -52,7 +52,6 @@ public class CartProductCustom extends AbstractCartProduct {
                 listEntrySize.add(entrySize.getKey() + ": " + entrySize.getValue() + " cm");
             }
             parametersSizeFormat = String.join(", ", listEntrySize);
-
         }catch (IOException exception){
             exception.printStackTrace();
         }
