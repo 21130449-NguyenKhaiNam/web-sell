@@ -84,7 +84,7 @@ public class AuthenticateServices {
         }
 
 //        Check user in db
-        List<User> users = userDAO.selectByEmail(username, STATE_VERIFY);
+        List<User> users = userDAO.selectByUsername(username, STATE_VERIFY);
 
 //        Check username
         if (users.size() != 1) {
