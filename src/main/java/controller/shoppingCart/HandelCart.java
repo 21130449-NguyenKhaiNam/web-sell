@@ -2,7 +2,6 @@ package controller.shoppingCart;
 
 import com.google.common.collect.MapDifference;
 import com.google.common.collect.Maps;
-import models.Product;
 import models.User;
 import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.ShoppingCart;
@@ -20,100 +19,80 @@ public class HandelCart implements HttpSessionAttributeListener {
     private ShoppingCartServices services = ShoppingCartServices.getINSTANCE();
     private User user;
     private ShoppingCart cart;
+    private boolean isReplaceReal = true;
 
+    /**
+     * Xử lý sự kiện khi session bị thay đổi
+     *
+     * @param event the HttpSessionBindingEvent containing the session
+     *              and the name and (old) value of the attribute that was replaced
+     */
     @Override
     public void attributeReplaced(HttpSessionBindingEvent event) {
-        // Xử lý khi một thuộc tính được thêm vào session
-        String name = event.getName();
-        if (name.equals("auth")) {
-            user = (User) event.getValue();
-        } else {
-            if (event.getValue() instanceof ShoppingCart && user != null) {
-                System.out.println("Handel cart success");
-                // Nếu có thể ép thành giỏ hàng thì xử lý
-                ShoppingCart newCart = (ShoppingCart) event.getValue();
-                HttpSession session = event.getSession();
-                // Nếu không tồn tại trong db mặc định lấy mã số đã được hệ thống tạo
-                int cartId = Integer.parseInt(name);
-                if (cart == null) {
-                    // Lần đầu hoặc khởi tạo lại giỏ hàng
-                    int cartIdDb = services.findCartByUserId(user.getId()); // Số âm là không có
-                    if (cartIdDb > 0) {
-                        // Xử lý nếu có cart trong db
-                        cartId = cartIdDb;
-                        cart = services.findCartByCartId(cartId);
-                        // id được tạo ra cho giỏ hàng chưa chắc là id đúng nên cần thiết lập lại
-                    }
-                }
-                handelChangeCart(session, cartId, newCart);
-            }
-        }
-    }
-
-    @Override
-    public void attributeAdded(HttpSessionBindingEvent event) {
-        // Xử lý khi một thuộc tính được thêm vào session
-        String name = event.getName();
-        if (name.equals("auth")) {
-            user = (User) event.getValue();
-        } else {
-            if (event.getValue() instanceof ShoppingCart && user != null) {
-                System.out.println("Handel cart success");
-                // Nếu có thể ép thành giỏ hàng thì xử lý
-                ShoppingCart newCart = (ShoppingCart) event.getValue();
-                HttpSession session = event.getSession();
-                // Nếu không tồn tại trong db mặc định lấy mã số đã được hệ thống tạo
-                int cartId = Integer.parseInt(name);
-                if (cart == null) {
-                    // Lần đầu hoặc khởi tạo lại giỏ hàng
-                    int cartIdDb = services.findCartByUserId(user.getId()); // Số âm là không có
-                    if (cartIdDb > 0) {
-                        // Xử lý nếu có cart trong db
-                        cartId = cartIdDb;
-                        cart = services.findCartByCartId(cartId);
-                        // id được tạo ra cho giỏ hàng chưa chắc là id đúng nên cần thiết lập lại
-                    }
-                }
-                handelChangeCart(session, cartId, newCart);
-            }
-        }
-    }
-
-    private void handelChangeCart(HttpSession session, int cartId, ShoppingCart newCart) {
-        System.out.println("Cart Db >> " + cart.getShoppingCartMap());
-        System.out.println("Default cart >> " + newCart.getShoppingCartMap());
-        if (cart == null) {
-            cart = newCart;
-            session.setAttribute(cartId + "", newCart);
-        } else {
+        if (isReplaceReal && (event.getValue() instanceof ShoppingCart && user != null)) {
+            Integer cartId = Integer.parseInt(event.getName());
+            ShoppingCart newCart = (ShoppingCart) event.getValue();
             Map<Integer, List<AbstractCartProduct>> source = cart.getShoppingCartMap();
             Map<Integer, List<AbstractCartProduct>> target = newCart.getShoppingCartMap();
             // Tìm sự khác biệt
             MapDifference<Integer, List<AbstractCartProduct>> diff = Maps.difference(source, target);
+            HttpSession session = event.getSession();
             if (!diff.entriesOnlyOnLeft().isEmpty()) {
-                // Tìm thấy sản phẩm chỉ tồn tại trong db
-                if(target.isEmpty()) {
-                    // Chỉ là lần khởi tạo đầu nên chưa có sản phẩm
-                    session.setAttribute(cartId + "", cart);
-                } else {
-                    // Có sản phẩm bị loại bỏ
-                    Map<Integer, List<AbstractCartProduct>> onlyLeft = diff.entriesOnlyOnRight();
-                    System.out.println("Remove >> " + onlyLeft);
-                    Integer[] productIds = new Integer[onlyLeft.size()];
-                    services.deleteByCartIdAndIdProduct(cartId, onlyLeft.keySet().toArray(productIds));
-                    cart = newCart;
-                    session.setAttribute(cartId + "", newCart);
-                }
+                // Có sản phẩm bị loại bỏ
+                Map<Integer, List<AbstractCartProduct>> onlyLeft = diff.entriesOnlyOnRight();
+                Integer[] productIds = new Integer[onlyLeft.size()];
+                services.deleteByCartIdAndIdProduct(cartId, onlyLeft.keySet().toArray(productIds));
+                source.clear();
+                source.putAll(newCart.getShoppingCartMap());
             } else if (!diff.entriesOnlyOnRight().isEmpty()) {
                 // Có sản phẩm thêm vào
                 Map<Integer, List<AbstractCartProduct>> onlyRight = diff.entriesOnlyOnRight();
-                System.out.println("Add >> " + onlyRight);
                 services.insertCart(cartId, user.getId(), onlyRight);
                 source.putAll(onlyRight);
-                session.setAttribute(cartId + "", cart);
             } else {
                 // Có nội dung thay đổi trong cart
                 System.out.println("Change >> ");
+            }
+            isReplaceReal = false;
+            session.setAttribute(cartId + "", newCart);
+        } else {
+            isReplaceReal = true;
+        }
+    }
+
+    /**
+     * Xử lý khi session được thêm mới
+     *
+     * @param event the HttpSessionBindingEvent containing the session
+     *              and the name and value of the attribute that was added
+     */
+    @Override
+    public void attributeAdded(HttpSessionBindingEvent event) {
+        String name = event.getName();
+        if (name.equals("auth")) {
+            // Ghi lại người dùng đăng nhập
+            user = (User) event.getValue();
+        } else if (event.getValue() instanceof ShoppingCart && user != null) {
+            ShoppingCart newCart = (ShoppingCart) event.getValue();
+            HttpSession session = event.getSession();
+            // Mã được hệ thống khởi tạo
+            int cartId = Integer.parseInt(name);
+            // Nếu lần đầu hệ thống chạy
+            if (cart == null) {
+                // Tìm kiếm giỏ hàng trong DB
+                int cartIdDb = services.findCartByUserId(user.getId()); // Số âm là không có
+                // Xử lý nếu có
+                if (cartIdDb > 0) {
+                    cartId = cartIdDb;
+                    cart = services.findCartByCartId(cartId);
+                    newCart.getShoppingCartMap().putAll(cart.getShoppingCartMap());
+                } else {
+                    cart = new ShoppingCart();
+                    cart.getShoppingCartMap().putAll(newCart.getShoppingCartMap());
+                    services.insertCart(cartId, user.getId(), cart.getShoppingCartMap());
+                }
+                isReplaceReal = true;
+                session.setAttribute(name, newCart);
             }
         }
     }
