@@ -124,7 +124,7 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
 
     @Override
     public void update(Map<Integer, List<AbstractCartProduct>> change) {
-        System.out.println(change);
+        System.out.println("Hiện thực thay đổi");
     }
 
     public static class Cart {
