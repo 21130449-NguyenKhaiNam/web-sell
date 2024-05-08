@@ -22,6 +22,35 @@ public class HandelCart implements HttpSessionAttributeListener {
     private ShoppingCart cart;
 
     @Override
+    public void attributeReplaced(HttpSessionBindingEvent event) {
+        // Xử lý khi một thuộc tính được thêm vào session
+        String name = event.getName();
+        if (name.equals("auth")) {
+            user = (User) event.getValue();
+        } else {
+            if (event.getValue() instanceof ShoppingCart && user != null) {
+                System.out.println("Handel cart success");
+                // Nếu có thể ép thành giỏ hàng thì xử lý
+                ShoppingCart newCart = (ShoppingCart) event.getValue();
+                HttpSession session = event.getSession();
+                // Nếu không tồn tại trong db mặc định lấy mã số đã được hệ thống tạo
+                int cartId = Integer.parseInt(name);
+                if (cart == null) {
+                    // Lần đầu hoặc khởi tạo lại giỏ hàng
+                    int cartIdDb = services.findCartByUserId(user.getId()); // Số âm là không có
+                    if (cartIdDb > 0) {
+                        // Xử lý nếu có cart trong db
+                        cartId = cartIdDb;
+                        cart = services.findCartByCartId(cartId);
+                        // id được tạo ra cho giỏ hàng chưa chắc là id đúng nên cần thiết lập lại
+                    }
+                }
+                handelChangeCart(session, cartId, newCart);
+            }
+        }
+    }
+
+    @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
         // Xử lý khi một thuộc tính được thêm vào session
         String name = event.getName();
@@ -29,6 +58,7 @@ public class HandelCart implements HttpSessionAttributeListener {
             user = (User) event.getValue();
         } else {
             if (event.getValue() instanceof ShoppingCart && user != null) {
+                System.out.println("Handel cart success");
                 // Nếu có thể ép thành giỏ hàng thì xử lý
                 ShoppingCart newCart = (ShoppingCart) event.getValue();
                 HttpSession session = event.getSession();
