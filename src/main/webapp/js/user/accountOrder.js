@@ -1,5 +1,6 @@
 import {getImageProduct} from "../images.js";
-import {getFeeAndLeadTime}  from "../shipping.js";
+import {getFeeAndLeadTime} from "../shipping.js";
+
 $(document).ready(function () {
     // Lấy ra trạng thái đơn hàng chưa xác nhận khi mới vào trang
     let statusId = 1;
@@ -92,7 +93,7 @@ $(document).ready(function () {
         loadAddress(order.address)
         loadPrice(order);
         loadContact(order);
-        getFeeAndLeadTime(order.address).then(data=>{
+        getFeeAndLeadTime(order.address).then(data => {
             console.log(data.feeShipping, data.leadDate);
             modal.find("#order__shipping-fee").text(formatCurrency(data.feeShipping));
             modal.find("#order__lead-date").text(convertUnixToDate(data.leadDate));
@@ -133,7 +134,7 @@ $(document).ready(function () {
         }).format(value);
     }
 
-    function convertUnixToDate(timestamp ){
+    function convertUnixToDate(timestamp) {
         const milliseconds = timestamp * 1000;
         const date = new Date();
         date.setTime(milliseconds);

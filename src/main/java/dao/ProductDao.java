@@ -10,7 +10,7 @@ import java.util.Map;
 public class ProductDao {
 
     public List<Image> getListImagesByProductId(int productId) {
-        String sql = "SELECT id, nameImage, productId FROM Images WHERE productId = ?";
+        String sql = "SELECT id, nameImage, productId FROM images WHERE productId = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Image.class, productId);
     }
 

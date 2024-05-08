@@ -1,9 +1,7 @@
 body {
     position: relative;
 }
-#header {
-    background-color: var(--blue-color-medium);
-}
+
 .account__wrapper {
     display: flex;
     gap: 5px;
@@ -39,10 +37,6 @@ body {
 
 .navbar__link.navbar__link--clicked {
     background-color: var(--blue-color-low);
-}
-
-#main {
-    background-color: #e7e9ec;
 }
 
 .content {
@@ -143,9 +137,11 @@ body {
     display: flex;
     align-items: center;
 }
-.form__search-block.filler__block{
+
+.form__search-block.filler__block {
     margin-left: auto;
 }
+
 .form__search-block {
     position: relative;
     display: flex;
@@ -179,6 +175,7 @@ h1 {
     font-size: 20px;
     font-weight: 600;
 }
+
 .button__add {
     display: flex;
     justify-content: center;
@@ -191,7 +188,8 @@ h1 {
     color: #fff;
     margin-left: auto;
 }
-.btn_uploadImg{
+
+.btn_uploadImg {
     gap: 10px;
     width: 180px;
     height: 50px;
@@ -268,6 +266,7 @@ tbody tr:nth-child(even) {
 tbody .table__row:has(input:checked), tbody .table__row:hover {
     background-color: #e6f8e6;
 }
+
 .table__data-edit, .table__data-view {
     text-align: center;
 }
@@ -275,9 +274,11 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
 .table__data-edit:hover, .table__data-view:hover {
     cursor: pointer;
 }
-.table__data-id{
+
+.table__data-id {
     text-align: center;
 }
+
 .table__cell {
     font-size: 15px;
     font-weight: 400;
@@ -423,3 +424,12 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
     font-weight: 500;
     /*margin-bottom: 34px;*/
 }
+
+/*Extend base.css*/
+.button {
+    min-width: var(--width);
+    width: unset;
+    padding: 0 10px;
+}
+
+/*Extend bootstrap*/
