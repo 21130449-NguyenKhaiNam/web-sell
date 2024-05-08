@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +20,7 @@ public class HandelCart implements HttpSessionAttributeListener {
     private User user;
     private ShoppingCart cart;
     private boolean isReplaceReal = true;
+    private Debouncing debouncing;
 
     /**
      * Xử lý sự kiện khi session bị thay đổi
@@ -55,10 +55,25 @@ public class HandelCart implements HttpSessionAttributeListener {
                 services.insertCart(cartId, user.getId(), onlyRight);
                 source.putAll(onlyRight);
             } else {
-                // Có nội dung thay đổi trong cart
-                services.update(target);
-                source.clear();
-                source.putAll(target);
+                // 1000 = 1s
+                long delay = 1000 * 60 * 3; // 3 minutes
+                if (debouncing == null) {
+                    debouncing = new Debouncing(delay);
+                }
+                debouncing.debounce(() -> {
+                    // Có nội dung thay đổi trong cart
+                    services.update(target);
+                    source.clear();
+                    source.putAll(target);
+                });
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                // Sau thời gian chờ không có gì thay đổi thì thực hiện rồi xóa biến chờ
+                debouncing.cancel();
+                debouncing = null;
             }
             isReplaceReal = false;
             session.setAttribute(cartId + "", newCart);
