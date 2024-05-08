@@ -2,14 +2,17 @@ package dao;
 
 import models.Color;
 import models.Product;
+import models.Size;
 import models.Voucher;
 import models.shoppingCart.AbstractCartProduct;
+import models.shoppingCart.CartProduct;
 import models.shoppingCart.CartProductCustom;
 import models.shoppingCart.ShoppingCart;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ShoppingCartDAOImp implements IShoppingCartDAO {
@@ -50,13 +53,12 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
     }
 
     @Override
-    public void insertCart(int cartId, int userId, ShoppingCart cart) {
+    public void insertCart(int cartId, int userId, Map<Integer, List<AbstractCartProduct>> mapCart) {
         String sql = "INSERT INTO cart (id, user_id) VALUES (?, ?)";
         GeneralDAOImp.executeAllTypeUpdate(sql, cartId, userId);
 
         // Chưa có kích thước
         String sqlCart = "INSERT INTO cart_items (cart_id, product_id, color_id, quantity, size) VALUES (?, ?, ?, ?, ?)";
-        HashMap<Integer, List<AbstractCartProduct>> mapCart = cart.getShoppingCartMap();
         List<Integer> productIds = new ArrayList<>(mapCart.keySet());
         for (int i = 0; i < mapCart.size(); i++) {
             Integer productId = productIds.get(i);
@@ -93,12 +95,21 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
             int productId = carts.get(i).getProductId();
             int colorId = carts.get(i).getColorId();
             int quantity = carts.get(i).getQuantity();
-            String size = carts.get(i).getSize();
+
             if (!map.containsKey(productId))
                 map.put(productId, new ArrayList<>());
             Product product = productDAOImp.getProductByProductId(productId);
             Color color = colorDao.findById(colorId);
-            CartProductCustom cartProduct = new CartProductCustom(product, quantity, color, size);
+            AbstractCartProduct cartProduct = null;
+            try {
+                // Nó là của sản phẩm custom
+                String size = String.valueOf(carts.get(i).getSize());
+                cartProduct = new CartProductCustom(product, quantity, color, size);
+            } catch (Exception e) {
+                // Nó là của sản phẩm có sẵn
+                Size size = (Size) carts.get(i).getSize();
+                cartProduct = new CartProduct(product, quantity, color, size);
+            }
             map.get(productId).add(cartProduct);
         }
         ShoppingCart shoppingCart = new ShoppingCart();
@@ -121,12 +132,12 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
         private int productId;
         private int colorId;
         private int quantity;
-        private String size;
+        private Object size;
 
         public Cart() {
         }
 
-        public Cart(int productId, int colorId, int quantity, String size) {
+        public Cart(int productId, int colorId, int quantity, Object size) {
             this.productId = productId;
             this.colorId = colorId;
             this.quantity = quantity;
@@ -157,7 +168,7 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
             this.quantity = quantity;
         }
 
-        public String getSize() {
+        public Object getSize() {
             return size;
         }
 

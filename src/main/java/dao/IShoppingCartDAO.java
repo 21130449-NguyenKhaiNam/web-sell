@@ -1,9 +1,11 @@
 package dao;
 
 import models.Voucher;
+import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.ShoppingCart;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IShoppingCartDAO extends IDAO {
     //    Lấy ra danh sách tất cả các voucher còn thời hạn sử dụng và lựợt sử dụng
@@ -16,7 +18,7 @@ public interface IShoppingCartDAO extends IDAO {
     //    Lấy ra danh sách mã code của các voucher
     List<String> getListCodeOfVouchers();
 
-    void insertCart(int cartId, int userId, ShoppingCart cart);
+    void insertCart(int cartId, int userId, Map<Integer, List<AbstractCartProduct>> products);
 
     int findCartByUserId(int userId);
 

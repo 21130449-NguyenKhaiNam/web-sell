@@ -3,9 +3,11 @@ package services;
 import dao.IShoppingCartDAO;
 import dao.ShoppingCartDAOImp;
 import models.Voucher;
+import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.ShoppingCart;
 
 import java.util.List;
+import java.util.Map;
 
 public class ShoppingCartServices {
 
@@ -43,8 +45,8 @@ public class ShoppingCartServices {
 //        return shoppingCartDao.getMinPriceApplyVoucherByCode(code);
 //    }
 
-    public void insertCart(int cartId, int userId, ShoppingCart cart) {
-        shoppingCartDao.insertCart(cartId, userId, cart);
+    public void insertCart(int cartId, int userId, Map<Integer, List<AbstractCartProduct>> products) {
+        shoppingCartDao.insertCart(cartId, userId, products);
     }
 
     public int findCartByUserId(int id) {
