@@ -124,7 +124,16 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
 
     @Override
     public void update(Map<Integer, List<AbstractCartProduct>> change) {
-        System.out.println("Hiện thực thay đổi");
+        String sql = "UPDATE cart_items SET quantity=?, size=? WHERE product_id=? AND color_id=?";
+        for(Map.Entry<Integer, List<AbstractCartProduct>> entry : change.entrySet()) {
+            int productId = entry.getKey();
+            List<AbstractCartProduct> list = entry.getValue();
+            for (int i = 0; i < list.size(); i++) {
+                AbstractCartProduct product = list.get(i);
+                int colorId = product.getColor().getId();
+                GeneralDAOImp.executeAllTypeUpdate(sql, productId, colorId);
+            }
+        }
     }
 
     public static class Cart {
