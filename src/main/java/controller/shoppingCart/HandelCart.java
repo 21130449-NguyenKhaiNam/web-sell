@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class HandelCart implements HttpSessionAttributeListener {
      */
     @Override
     public void attributeReplaced(HttpSessionBindingEvent event) {
-        if (isReplaceReal && (event.getValue() instanceof ShoppingCart && user != null)) {
+        if (isReplaceReal && event.getValue() instanceof ShoppingCart && user != null) {
             Integer cartId = Integer.parseInt(event.getName());
             ShoppingCart newCart = (ShoppingCart) event.getValue();
             Map<Integer, List<AbstractCartProduct>> source = cart.getShoppingCartMap();
@@ -39,8 +40,12 @@ public class HandelCart implements HttpSessionAttributeListener {
             HttpSession session = event.getSession();
             if (!diff.entriesOnlyOnLeft().isEmpty()) {
                 // Có sản phẩm bị loại bỏ
-                Map<Integer, List<AbstractCartProduct>> onlyLeft = diff.entriesOnlyOnRight();
+                Map<Integer, List<AbstractCartProduct>> onlyLeft = diff.entriesOnlyOnLeft();
                 Integer[] productIds = new Integer[onlyLeft.size()];
+                int ind = 0;
+                for (Map.Entry<Integer, List<AbstractCartProduct>> entry : onlyLeft.entrySet()) {
+                    productIds[ind++] = entry.getKey();
+                }
                 services.deleteByCartIdAndIdProduct(cartId, onlyLeft.keySet().toArray(productIds));
                 source.clear();
                 source.putAll(newCart.getShoppingCartMap());
@@ -51,7 +56,9 @@ public class HandelCart implements HttpSessionAttributeListener {
                 source.putAll(onlyRight);
             } else {
                 // Có nội dung thay đổi trong cart
-                System.out.println("Change >> ");
+                services.update(target);
+                source.clear();
+                source.putAll(target);
             }
             isReplaceReal = false;
             session.setAttribute(cartId + "", newCart);
@@ -86,12 +93,13 @@ public class HandelCart implements HttpSessionAttributeListener {
                     cartId = cartIdDb;
                     cart = services.findCartByCartId(cartId);
                     newCart.getShoppingCartMap().putAll(cart.getShoppingCartMap());
+                    isReplaceReal = false;
                 } else {
                     cart = new ShoppingCart();
                     cart.getShoppingCartMap().putAll(newCart.getShoppingCartMap());
                     services.insertCart(cartId, user.getId(), cart.getShoppingCartMap());
+                    isReplaceReal = true;
                 }
-                isReplaceReal = true;
                 session.setAttribute(name, newCart);
             }
         }

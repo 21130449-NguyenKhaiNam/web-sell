@@ -60,4 +60,8 @@ public class ShoppingCartServices {
     public void deleteByCartIdAndIdProduct(int cartId, Integer[] productIds) {
         shoppingCartDao.deleteByCartIdAndIdProduct(cartId, productIds);
     }
+
+    public void update(Map<Integer, List<AbstractCartProduct>> change) {
+        shoppingCartDao.update(change);
+    }
 }

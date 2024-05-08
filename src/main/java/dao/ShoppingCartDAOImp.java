@@ -9,10 +9,7 @@ import models.shoppingCart.CartProduct;
 import models.shoppingCart.CartProductCustom;
 import models.shoppingCart.ShoppingCart;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ShoppingCartDAOImp implements IShoppingCartDAO {
@@ -119,13 +116,15 @@ public class ShoppingCartDAOImp implements IShoppingCartDAO {
 
     @Override
     public void deleteByCartIdAndIdProduct(int cartId, Integer[] productIds) {
-        String sql = "DELETE FROM cart_items WHERE cart_id = ? AND product_id IN (";
+        String sql = "DELETE FROM cart_items WHERE cart_id = ? AND product_id = ?";
         for (int i = 0; i < productIds.length; i++) {
-            sql += (i == 0 ? "?" : ", ?");
+            GeneralDAOImp.executeAllTypeUpdate(sql, cartId, productIds[i]);
         }
-        sql += ")";
+    }
 
-        GeneralDAOImp.executeAllTypeUpdate(sql, cartId, productIds);
+    @Override
+    public void update(Map<Integer, List<AbstractCartProduct>> change) {
+        System.out.println(change);
     }
 
     public static class Cart {
