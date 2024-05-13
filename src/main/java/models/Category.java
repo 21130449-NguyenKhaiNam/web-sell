@@ -1,6 +1,8 @@
 package models;
 
-public class Category implements IModel {
+import dao.IDao;
+
+public class Category {
     private int id;
     private String nameType;
 
@@ -37,10 +39,5 @@ public class Category implements IModel {
                 "id=" + id +
                 ", nameType='" + nameType + '\'' +
                 '}';
-    }
-
-    @Override
-    public Object getMainId() {
-        return this.id;
     }
 }

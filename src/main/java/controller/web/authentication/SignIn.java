@@ -1,21 +1,18 @@
 package controller.web.authentication;
 
 import config.ConfigPage;
-import dao.ShoppingCartDAOImp;
-import filter.shoppingCart.ShoppingCartFilter;
 import models.User;
-import models.UserSessionAccess;
-import models.shoppingCart.ShoppingCart;
-import services.AuthenticateServices;
+import services.authentication.AuthenticateServices;
+import session.SessionManager;
 import utils.Validation;
 
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.UUID;
 
 @WebServlet(name = "signIn", value = "/signIn")
 public class SignIn extends HttpServlet {
@@ -31,10 +28,9 @@ public class SignIn extends HttpServlet {
         Validation validation = AuthenticateServices.getINSTANCE().checkSignIn(username, password);
 
         if (validation.getObjReturn() != null) {
+//            Cookie ko co user, ko sessionId
             User userAuth = (User) validation.getObjReturn();
-            HttpSession session = request.getSession(true);
-            session.setAttribute("auth", userAuth);
-            session.setAttribute(userAuth.getId() + "", new ShoppingCart());
+            SessionManager.getInstance(request, response).addUser(userAuth);
             response.sendRedirect(ConfigPage.HOME);
         } else {
             request.setAttribute("usernameError", validation.getFieldUsername());

@@ -1,7 +1,6 @@
 package services;
 
-import dao.CheckoutDAOImp;
-import dao.ICheckoutDAO;
+import dao.CheckoutDao;
 import models.PaymentMethod;
 import models.DeliveryMethod;
 import models.PaymentOwner;
@@ -9,11 +8,11 @@ import models.PaymentOwner;
 import java.util.List;
 
 public class CheckoutServices {
-    private ICheckoutDAO checkoutDao;
+    private CheckoutDao checkoutDao;
     private static CheckoutServices INSTANCE;
 
     public CheckoutServices() {
-        checkoutDao = new CheckoutDAOImp();
+        checkoutDao = new CheckoutDao();
     }
 
     public static CheckoutServices getINSTANCE() {
@@ -31,7 +30,7 @@ public class CheckoutServices {
     }
 
     public DeliveryMethod getDeliveryMethodById(int id){
-        return CheckoutDAOImp.getDeliveryMethodById(id);
+        return checkoutDao.getDeliveryMethodById(id);
     }
 
     public PaymentMethod getPaymentMethodById(int id){

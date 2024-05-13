@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@WebServlet(name = "adminCreateCategory", value = "/admin-create-category")
+@WebServlet(name = "adminCreateCategory", value = "/api/admin/category/create")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 12024,
         maxFileSize = 1024 * 1024 * 10,
@@ -33,10 +33,6 @@ public class CreateCategory extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
         String nameCategory = request.getParameter("nameCategory");
         if (nameCategory == null) {
             response.getWriter().write("{\"status\":true}");

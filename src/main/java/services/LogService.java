@@ -3,7 +3,6 @@ package services;
 import dao.ILogDAO;
 import dao.LogDAOImp;
 import models.Log;
-import org.jdbi.v3.core.statement.Query;
 
 import java.util.List;
 

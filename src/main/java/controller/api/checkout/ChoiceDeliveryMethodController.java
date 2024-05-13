@@ -1,17 +1,7 @@
 package controller.api.checkout;
 
-import models.DeliveryMethod;
-import models.shoppingCart.ShoppingCart;
-import models.User;
-import org.json.JSONObject;
-import services.CheckoutServices;
-import utils.FormatCurrency;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
-import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 
 @WebServlet(name = "ChoiceDeliveryMethodController", value = "/ChoiceDeliveryMethod")
 public class ChoiceDeliveryMethodController extends HttpServlet {

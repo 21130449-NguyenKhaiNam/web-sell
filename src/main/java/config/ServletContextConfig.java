@@ -26,7 +26,7 @@ public class ServletContextConfig implements ServletContextListener {
         moneyRangeList.add(new MoneyRange(100000, 300000));
         moneyRangeList.add(new MoneyRange(300000, 600000));
         context.setAttribute("moneyRangeList", moneyRangeList);
-        // Category
+//Category
         List<Category> categoryList = ProductCardServices.getINSTANCE().getAllCategory();
         context.setAttribute("categoryList", categoryList);
     }

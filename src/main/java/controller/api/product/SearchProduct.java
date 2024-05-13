@@ -2,7 +2,7 @@ package controller.api.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Product;
-import services.AdminProductServices;
+import services.admin.AdminProductServices;
 import utils.ProductFactory;
 
 import javax.servlet.ServletException;
@@ -25,7 +25,7 @@ public class SearchProduct extends HttpServlet {
         if (keyword == null) keyword = "";
         List<Integer> products = AdminProductServices.getINSTANCE().getProductByName(keyword);
         if (products != null) {
-            products = products.subList(0, limit);
+            products = products.subList(0, Math.min(products.size(), limit));
             List<Product> nameProducts = new ArrayList<>();
             products.forEach(id -> {
                 nameProducts.add(ProductFactory.getProductById(id));

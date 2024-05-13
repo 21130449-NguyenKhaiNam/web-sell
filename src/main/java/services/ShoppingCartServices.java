@@ -1,7 +1,6 @@
 package services;
 
-import dao.IShoppingCartDAO;
-import dao.ShoppingCartDAOImp;
+import dao.ShoppingCartDao;
 import models.Voucher;
 import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.ShoppingCart;
@@ -11,12 +10,12 @@ import java.util.Map;
 
 public class ShoppingCartServices {
 
-    private IShoppingCartDAO shoppingCartDao;
+    private ShoppingCartDao shoppingCartDao;
 
     private static ShoppingCartServices INSTANCE;
 
     public ShoppingCartServices() {
-        shoppingCartDao = new ShoppingCartDAOImp();
+        shoppingCartDao = new ShoppingCartDao();
     }
 
     public static ShoppingCartServices getINSTANCE() {

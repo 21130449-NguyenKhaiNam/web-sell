@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "UnHideProduct", value = "/admin-un-hide-product")
+@WebServlet(name = "UnHideProduct", value = "/api/admin/product/un-hide")
 public class UnHideProduct extends HttpServlet {
     private final boolean UN_HIDE_STATE = true;
 
@@ -18,9 +18,6 @@ public class UnHideProduct extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
         String idParameter = request.getParameter("id");
         int productId;
         try {

@@ -11,13 +11,10 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "adminReadCategory", value = "/admin-read-category")
+@WebServlet(name = "adminReadCategory", value = "/api/admin/category/read")
 public class ReadCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         String idParameter = request.getParameter("categoryId");
         JSONObject jsonObject = new JSONObject();
         int id;
@@ -35,7 +32,7 @@ public class ReadCategory extends HttpServlet {
             jsonObject.put("parameters", listParameter);
             response.getWriter().println(jsonObject);
         } catch (IndexOutOfBoundsException e) {
-            response.sendError(404);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 

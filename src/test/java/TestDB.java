@@ -1,5 +1,5 @@
 
-import dao.DashboadDAOImp;
+import dao.DashboadDAO;
 
 import models.Order;
 import models.OrderDetail;
@@ -36,7 +36,7 @@ public class TestDB {
 //
 //        UserDAO testUpdateUser = new UserDAOImplement();
 //        testUpdateUser.updateUserByID(1,"HieuNguyen","Nguyễn Chí Hai","Nam","HieuNguyen@gmail.com","0703637448","164 Ngô Tất Tố, Bình Định", Date.valueOf("1990-01-01"));
-        DashboadDAOImp dshb = new DashboadDAOImp();
+        DashboadDAO dshb = new DashboadDAO();
         List<Order> listOrderByMonth;
         List<String> listOrderId = new ArrayList<>();
         List<Double> listTotalRevenueByMonth = new ArrayList<>();

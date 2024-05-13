@@ -1,11 +1,9 @@
 package services.authentication;
 
-import dao.IUserDAO;
-import dao.UserDAOImp;
+import dao.UserDAO;
 import models.User;
 import properties.MailProperties;
 import properties.RoleProperties;
-import services.LogService;
 import services.mail.IMailServices;
 import services.mail.MailResetPasswordServices;
 import services.mail.MailVerifyServices;
@@ -24,11 +22,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class ValidateFormServices {
     private static ValidateFormServices INSTANCE;
 
-    IUserDAO userDAO = new UserDAOImp();
+    UserDAO userDAO = new UserDAO();
 
     private ValidateFormServices() {
     }
@@ -50,7 +47,7 @@ public class ValidateFormServices {
         }
 
 //        Check user in db
-        List<User> users = userDAO.selectAccount(username, "1");
+        List<User> users = userDAO.selectByUsername(username, "1");
 
 //        Check username
         if (users.size() != 1) {
