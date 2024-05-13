@@ -562,16 +562,14 @@ body {
 .paging {
     display: flex;
     justify-content: center;
-    gap: 10px;
     margin-top: 30px;
 }
 
 .page {
-    width: 30px;
-    height: 30px;
     font-size: 15px;
-    line-height: 30px;
     text-align: center;
+    padding: 7px 10px;
+    margin: 0px 3px;
     border-radius: 5px;
     border: 1px solid #ccc;
     color: #fff;
@@ -591,4 +589,60 @@ body {
 .page--next {
     width: auto;
     padding: 0 10px;
+}
+
+/*Loading / spinner*/
+.loader__wrapper{
+    z-index: 9999;
+}
+.loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite;
+}
+
+.loader::before, .loader::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid var(--mint-color);
+    animation: prixClipFix 2s linear infinite;
+
+}
+
+.loader::after {
+    border-color: var(--blue-color-high);
+    animation: prixClipFix 2s linear infinite, rotate 0.5s linear infinite reverse;
+    inset: 6px;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes prixClipFix {
+    0% {
+        clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+    }
+    25% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+    }
+    50% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+    }
+    75% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%)
+    }
+    100% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0)
+    }
 }

@@ -15,7 +15,43 @@
     <title>Quản lý sản phẩm</title>
 </head>
 <body>
-<main id="main" class="d-flex">
+<c:import url="/public/header.jsp"/>
+<main id="main">
+    <nav class="navbar">
+        <div class="container-xl">
+            <ul class="navbar__list">
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminProducts.jsp" />"
+                       class="navbar__link button button button--hover navbar__link--clicked hvr-grow-shadow">Sản
+                        phẩm</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminOrders.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Đơn hàng</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminUsers.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Người dùng</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminReviews.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Nhận xét</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminCategories.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Phân loại</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/dashboard.jsp" />"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Thống kê</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/log.jsp" />"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Thay đổi</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <section class="content">
         <div class="container-xl">
             <div class="row">
@@ -31,7 +67,7 @@
                         <ul class="search__box shadow"></ul>
                     </div>
 
-                    <form action="/filterProductAdmin" class="form__filter" id="form__filter">
+                    <form action="<c:url value="/filterProductAdmin"/>" class="form__filter" id="form__filter">
                         <div class="filter__group">
                             <span class="filter__title">Thời gian cập nhập</span>
                             <div class="filter__date-block">
@@ -118,7 +154,7 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <button class="filter__submit button--hover button" type="submit">Lọc</button>
+                        <button class="filter__submit button--hover button p-2" type="submit">Lọc</button>
                     </form>
                 </div>
                 <div class="col-9">
@@ -127,21 +163,26 @@
                         <span class="reload__btn">
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
-                        <c:if test="${sessionScope.auth.role == 2}">
-                            <span id="button-create-product" class="button button__add">
-                                <i class="fa-solid fa-plus"></i>
-                                Thêm sản phẩm
-                            </span>
-                        </c:if>
+                         <span id="button-import-product" class="button button__import">
+                             <form action="/admin-import-product" method="POST" enctype="multipart/form-data" style="display: flex;justify-content: center;align-items: center">
+                                 <input type="file" name="file">
+                                 <span class="btn_uploadImg">
+                                     <i class="fa-solid fa-upload"></i>
+                                     <input type="submit" value="Upload" style="background-color: #4BAC4D; color: #fff"/>
+                                 </span>
+                             </form>
+                        </span>
+                        <span id="button-create-product" class="button button__add">
+                            <i class="fa-solid fa-plus"></i>
+                            Thêm sản phẩm
+                        </span>
                     </div>
                     <div class="table__wrapper">
                         <table class="table">
                             <thead>
                             <tr class="table__row">
                                 <th class="table__head">Xem</th>
-                                <c:if test="${sessionScope.auth.role == '2'}">
-                                    <th class="table__head">Chỉnh sửa</th>
-                                </c:if>
+                                <th class="table__head">Chỉnh sửa</th>
                                 <th class="table__head">Mã sản phẩm</th>
                                 <th class="table__head">Tên sản phẩm</th>
                                 <th class="table__head">
@@ -153,62 +194,12 @@
                             </tr>
                             </thead>
                             <tbody class="product__list-admin">
-                            <c:set var="list" value="${requestScope.productCardList}"/>
 
-                            <c:forEach var="item" items="${list}">
-                                <tr class="table__row">
-                                    <td class="table__data-view">
-                                        <label>
-                                            <i class="fa-solid fa-eye"></i>
-                                        </label>
-                                    </td>
-                                    <c:if test="${sessionScope.auth.role == '2'}">
-                                        <td class="table__data-edit">
-                                            <label>
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </label>
-                                        </td>
-                                    </c:if>
-
-                                    <td class="table__data table__data-id">
-                                        <p class="table__cell">${item.id}</p>
-                                    </td>
-                                    <td class="table__data table__data-name">
-                                        <p class="table__cell line-clamp line-1">${item.name}</p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell">${productFactory.getNameCategoryById(item.id)}</p>
-                                    </td>
-                                    <fmt:formatNumber value="${item.originalPrice}" type="currency" currencyCode="VND"
-                                                      var="originalPrice"/>
-                                    <fmt:formatNumber value="${item.salePrice}" type="currency" currencyCode="VND"
-                                                      var="salePrice"/>
-                                    <td class="table__data">
-                                        <p class="table__cell">${salePrice}</p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell">${originalPrice}</p>
-                                    </td>
-                                    <c:choose>
-                                        <c:when test="${item.visibility==true}">
-                                            <td class="table__data table__data-visibility table__data-hide">
-                                                <div class="button button--hover button__hide">Ẩn</div>
-                                            </td>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <td class="table__data table__data-visibility table__data-un-hide">
-                                                <div class="button button--hover button__un-hide">Bỏ ẩn</div>
-                                            </td>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </tr>
-                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
                     <!--Paging-->
-                    <c:import url="/public/paging.jsp"/>
-
+                    <ul class="paging"></ul>
                 </div>
             </div>
         </div>
@@ -247,10 +238,8 @@
     </article>
     <div class="modal__blur"></div>
 </div>
-<script>
-    const role = "<%=((User)session.getAttribute("auth")).getRole()%>";
-</script>
 <script src="<c:url value="/js/admin/adminProducts.js"/>"></script>
+
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
     Object keyword = request.getAttribute("keyword");
@@ -329,6 +318,8 @@
                         });
                         content = products.map(function (product) {
                             const contentProduct = product.product
+                            let originPrice = contentProduct.salePrice
+                            let salePrice = contentProduct.originalPrice
                             return `
                                 <tr class="table__row">
                                     <td class="table__data-view">
@@ -336,14 +327,11 @@
                                             <i class="fa-solid fa-eye"></i>
                                         </label>
                                     </td>
-                                    <c:if test="${sessionScope.auth.role == '2'}">
-                                        <td class="table__data-edit">
-                                            <label>
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </label>
-                                        </td>
-                                    </c:if>
-
+                                    <td class="table__data-edit">
+                                        <label>
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </label>
+                                    </td>
                                     <td class="table__data table__data-id">
                                         <p class="table__cell">` + contentProduct.id + `</p>
                                     </td>
@@ -354,10 +342,10 @@
                                         <p class="table__cell">Bo sung loai san pham</p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell">` + ${vndFormat.format(contentProduct.salePrice)} +`</p>
+                                        <p class="table__cell">` + originPrice +`đ</p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell">` + ${vndFormat.format(contentProduct.originalPrice)} +`</p>
+                                            <p class="table__cell">` + salePrice +`đ</p>
                                     </td>` +
                                 (contentProduct.visibility ? `
                                     <td class="table__data table__data-visibility table__data-hide">
@@ -420,5 +408,6 @@
         $('.search__box').removeClass('focused');
     });
 </script>
+
 </body>
 </html>

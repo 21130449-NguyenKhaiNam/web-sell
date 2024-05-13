@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class User implements Serializable, IModel {
+public class User implements Serializable {
     private int id;
     private String username;
     private String passwordEncoding;
@@ -173,10 +173,5 @@ public class User implements Serializable, IModel {
                 ", tokenResetPassword='" + tokenResetPassword + '\'' +
                 ", tokenResetPasswordTime=" + tokenResetPasswordTime +
                 '}';
-    }
-
-    @Override
-    public Object getMainId() {
-        return this.id;
     }
 }

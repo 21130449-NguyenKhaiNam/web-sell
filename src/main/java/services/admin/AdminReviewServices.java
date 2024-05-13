@@ -1,23 +1,21 @@
 package services.admin;
 
-import dao.IUserDAO;
-import dao.ReviewDAOImp;
-import dao.UserDAOImp;
+import dao.ReviewDAO;
+import dao.UserDAO;
 import models.Review;
 import models.User;
-import services.LogService;
 
 import java.util.List;
 
 public class AdminReviewServices {
     public static AdminReviewServices INSTANCE;
     private static final int LIMIT = 10;
-    private ReviewDAOImp reviewDAO;
-    private IUserDAO userDAO;
+    private ReviewDAO reviewDAO;
+    private UserDAO userDAO;
 
     private AdminReviewServices() {
-        this.reviewDAO = new ReviewDAOImp();
-        this.userDAO = new UserDAOImp();
+        this.reviewDAO = new ReviewDAO();
+        this.userDAO = new UserDAO();
     }
 
     public static AdminReviewServices getINSTANCE() {

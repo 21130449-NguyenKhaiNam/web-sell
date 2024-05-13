@@ -12,7 +12,39 @@
     <title>Dashboard</title>
 </head>
 <body>
+<c:import url="/public/header.jsp"/>
 <main id="main">
+    <nav class="navbar">
+        <div class="container-xl">
+            <ul class="navbar__list">
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminProducts.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Sản
+                        phẩm</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminOrders.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Đơn hàng</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminUsers.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Người dùng</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminReviews.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Nhận xét</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminCategories.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Phân loại</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/dashboard.jsp" />"
+                       class="navbar__link button button button--hover navbar__link--clicked hvr-grow-shadow">Thống kê</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <section class="content">
         <div class="container-xl">
             <div class="row">

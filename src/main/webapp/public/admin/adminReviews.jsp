@@ -14,7 +14,40 @@
     <title>Quản lý nhận xét</title>
 </head>
 <body>
+<c:import url="/public/header.jsp"/>
 <main id="main">
+    <nav class="navbar">
+        <div class="container-xl">
+            <ul class="navbar__list">
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminProducts.jsp" />"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Sản
+                        phẩm</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminOrders.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Đơn hàng</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminUsers.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Người
+                        dùng</a>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminReviews.jsp"/>"
+                       class="navbar__link button button button--hover  navbar__link--clicked hvr-grow-shadow">Nhận
+                        xét</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/adminCategories.jsp"/>"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Phân loại</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="<c:url value="/public/admin/dashboard.jsp" />"
+                       class="navbar__link button button button--hover hvr-grow-shadow">Thống kê</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <section class="content">
         <div class="container-xl">
             <div class="row">
@@ -22,69 +55,27 @@
                     <div>
                         <h1>Danh sách nhận xét</h1>
                     </div>
+
                     <div class="table__wrapper">
                         <table class="table">
                             <thead>
-                            <tr class="table__row">
-                                <th class="table__head">Xem</th>
-                                <th class="table__head table__head-id">Id</th>
-                                <th class="table__head">Mã khách hàng</th>
-                                <th class="table__head">Tên sản phẩm
-                                </th>
-                                <th class="table__head">Mã đơn hàng</th>
-                                <th class="table__head">Số sao</th>
-                                <th class="table__head">Ngày tạo</th>
-                                <th class="table__head">Hiển thị</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:set var="list" value="${requestScope.listReview}"/>
-                            <c:forEach var="item" items="${list}">
-                                <c:set var="user" value="${userFactory.getUserByIdProductDetail(item.orderDetailId)}"/>
                                 <tr class="table__row">
-                                    <td class="table__data-view">
-                                        <label>
-                                            <i class="fa-solid fa-eye"></i>
-                                        </label>
-                                    </td>
-                                    <td class="table__data table__data-id">
-                                        <p class="table__cell">${item.id}</p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell">${user.id}</p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell ">${productFactory.getNameProductByIdOrderDetail(item.orderDetailId)}</p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell">${item.orderDetailId}</p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell">${item.ratingStar}</p>
-                                    </td>
-                                    <fmt:formatDate var="dateReview" pattern="dd-MM-yyyy" value="${item.reviewDate}"/>
-                                    <td class="table__data">
-                                        <p class="table__cell">${dateReview}</p>
-                                    </td>
-                                    <c:choose>
-                                        <c:when test="${item.visibility==true}">
-                                            <td class="table__data table__data-visibility table__data-hide">
-                                                <div class="button button--hover button__hide">Ẩn</div>
-                                            </td>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <td class="table__data table__data-visibility table__data-un-hide">
-                                                <div class="button button--hover button__un-hide">Bỏ ẩn</div>
-                                            </td>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <th class="table__head">Xem</th>
+                                    <th class="table__head table__head-id">ID</th>
+                                    <th class="table__head">Mã khách hàng</th>
+                                    <th class="table__head">Tên sản phẩm</th>
+                                    <th class="table__head">Mã đơn hàng</th>
+                                    <th class="table__head">Số sao</th>
+                                    <th class="table__head">Ngày tạo</th>
+                                    <th class="table__head">Hiển thị</th>
                                 </tr>
-                            </c:forEach>
+                            </thead>
+
+                            <tbody class="body_table">
                             </tbody>
                         </table>
                     </div>
-                    <c:import url="/public/paging.jsp"/>
-
+                    <ul class="paging"></ul>
                 </div>
             </div>
         </div>
@@ -100,6 +91,7 @@
     </article>
     <div class="modal__blur"></div>
 </div>
+
 <script src="<c:url value="/js/admin/adminReviews.js" />"></script>
 </body>
 </html>

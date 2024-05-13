@@ -104,65 +104,32 @@ var formObj = new Validation({
     onSubmit: addToCartAjax
 })
 
-// function getFormData(form) {
-//     const productId = encodeURIComponent(form.querySelector('input[name="productId"]').value);
-//     const color = encodeURIComponent(form.querySelector('input[name="color"]').value);
-//     const size = encodeURIComponent(form.querySelector('input[name="size"]').value);
-//     const quantity = encodeURIComponent(form.querySelector('input[name="quantity"]').value);
-//
-//     const formData = `productId=${productId}&color=${color}&size=${size}&quantity=${quantity}`;
-//
-//     return formData;
-// }
-
-// function addToCart() {
-//     const form = document.getElementById("form__product");
-//     const formData = getFormData(form);
-//     $.ajax({
-//         url: "AddToCart",
-//         type: "POST",
-//         data: formData,
-//         contentType: "application/x-www-form-urlencoded",
-//         processData: false,
-//         success: function (data) {
-//             document.querySelector(".qlt__value").innerText = data
-//         },
-//         error: function (error) {
-//         },
-//     });
-// }
-
 function addToCartAjax() {
     const form = $('#form__product');
-    console.log(useLoggedIn)
-    if (useLoggedIn === false) {
-        window.location.href = "signIn.jsp"
-    } else {
-        let productId = $(form).find('input[name=productId]').val();
-        let quantity = $(form).find('input[name=quantity]').val();
-        let size = $(form).find('input[name=size]:checked').val();
-        let color = $(form).find('input[name=color]:checked').val();
+    let productId = $(form).find('input[name=productId]').val();
+    let quantity = $(form).find('input[name=quantity]').val();
+    let size = $(form).find('input[name=size]:checked').val();
+    let color = $(form).find('input[name=color]:checked').val();
 
-        $.ajax({
-            type: form.attr('method'),
-            url: form.attr('action'),
-            data: {
-                productId: productId,
-                size: size,
-                color: color,
-                quantity: quantity
-            },
-            success: function (response) {
-                let addToCartSuccessHTML = `<div class="notification__cart">
+    $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: {
+            productId: productId,
+            size: size,
+            color: color,
+            quantity: quantity
+        },
+        success: function (response) {
+            let addToCartSuccessHTML = `<div class="notification__cart">
                                                                 <div class="status__success">
                                                                     <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>
                                                                     <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>
                                                                 </div>
-                                                                <a class="view__cart" href="/public/user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                                <a class="view__cart" href="shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
                                                             </div>`;
-                $('.cart__wrapper').append(addToCartSuccessHTML)
-                $('.qlt__value').text(response);
-            }
-        })
-    }
+            $('.cart__wrapper').append(addToCartSuccessHTML)
+            $('.qlt__value').text(response);
+        }
+    })
 }

@@ -1,23 +1,28 @@
 package services;
 
-import dao.*;
+import dao.ColorDAO;
+import dao.ImageDAO;
+import dao.ProductDao;
+import dao.SizeDAO;
 import models.*;
 
+import javax.sound.sampled.Port;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServices {
 
-    private IProductDAO productDao;
-    private IImageDAO imageDAO;
-    private IColorDAO colorDAO;
-    private ISizeDAO sizeDAO;
+    private ProductDao productDao;
+    private ImageDAO imageDAO;
+    private ColorDAO colorDAO;
+    private SizeDAO sizeDAO;
     private static ProductServices INSTANCE;
 
     public ProductServices() {
-        productDao = new ProductDAOImp();
-        imageDAO = new ImageDAOImp();
-        colorDAO = new ColorDAOImp();
-        sizeDAO = new SizeDAOImp();
+        productDao = new ProductDao();
+        imageDAO = new ImageDAO();
+        colorDAO = new ColorDAO();
+        sizeDAO = new SizeDAO();
     }
 
     public static ProductServices getINSTANCE() {
@@ -40,12 +45,16 @@ public class ProductServices {
 
     public double getPriceSizeByName(String nameSize, int productId) {
         return productDao.getPriceSizeByName(nameSize, productId);
-
     }
 
     public Size getSizeByNameSizeWithProductId(String nameSize, int productId) {
         return productDao.getSizeByNameSizeWithProductId(nameSize, productId);
     }
+
+    public Image getImageByNameImageWithProductId(String nameImage, int productId) {
+        return productDao.getImageByNameImageWithProductId(nameImage, productId);
+    }
+
 
     public Product getProductByProductId(int productId){
         return productDao.getProductByProductId(productId);
@@ -54,5 +63,14 @@ public class ProductServices {
     public Color getColorByCodeColorWithProductId(String codeColor, int productId) {
         return productDao.getColorByCodeColorWithProductId(codeColor, productId);
     }
+
+    public Product getMaxId(){
+        return productDao.getMaxId();
+    }
+
+    public Product getProductByMultipleParam(String name, int categoryId, String des, double originalPrice, double salePrice){
+        return productDao.getProductByMultipleParam(name, categoryId, des, originalPrice, salePrice);
+    }
+
 }
 

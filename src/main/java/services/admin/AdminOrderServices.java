@@ -1,9 +1,9 @@
 package services.admin;
 
-import dao.OrderDetailDAOImp;
-import dao.OrderAdminDAOImp;
-import dao.OrderStatusDAOImp;
-import dao.TransactionStatusDAOImp;
+import dao.OrderDetailDAO;
+import dao.OrderDaoAdmin;
+import dao.OrderStatusDao;
+import dao.TransactionStatusDao;
 import models.*;
 import utils.FormatCurrency;
 
@@ -12,19 +12,19 @@ import java.util.Map;
 
 public class AdminOrderServices {
 
-    private OrderAdminDAOImp orderDao;
-    private OrderStatusDAOImp orderStatusDao;
-    private TransactionStatusDAOImp transactionStatusDao;
+    private OrderDaoAdmin orderDao;
+    private OrderStatusDao orderStatusDao;
+    private TransactionStatusDao transactionStatusDao;
 
-    private OrderDetailDAOImp orderDetailDAO;
+    private OrderDetailDAO orderDetailDAO;
 
     private static AdminOrderServices INSTANCE;
 
     public AdminOrderServices() {
-        orderDao = new OrderAdminDAOImp();
-        orderStatusDao = new OrderStatusDAOImp();
-        transactionStatusDao = new TransactionStatusDAOImp();
-        orderDetailDAO = new OrderDetailDAOImp();
+        orderDao = new OrderDaoAdmin();
+        orderStatusDao = new OrderStatusDao();
+        transactionStatusDao = new TransactionStatusDao();
+        orderDetailDAO = new OrderDetailDAO();
     }
 
     public static AdminOrderServices getINSTANCE() {

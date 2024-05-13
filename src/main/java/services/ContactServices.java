@@ -1,20 +1,20 @@
 package services;
 
-import dao.ContactDAOImp;
-import dao.IContactDAO;
+import dao.ContactDao;
 import models.Contact;
 import models.SubjectContact;
 
 import java.util.List;
+import java.util.Map;
 
 public class ContactServices {
 
-    private IContactDAO contactDao;
+    private ContactDao contactDao;
 
     private static ContactServices INSTANCE;
 
     public ContactServices() {
-        contactDao = new ContactDAOImp();
+        contactDao = new ContactDao();
     }
 
     public static ContactServices getINSTANCE() {

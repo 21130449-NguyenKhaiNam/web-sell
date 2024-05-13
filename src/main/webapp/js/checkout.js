@@ -110,35 +110,6 @@ function ValidatorCustomizeDeliveryForm(options) {
     }
 }
 
-// ValidatorCustomizeDeliveryForm.isRequired = (selector) => {
-//     return {
-//         selector: selector,
-//         test: (value) => {
-//             return value.trim() ? undefined : 'Vui lòng bạn nhập trường này'
-//         }
-//     }
-// }
-//
-// ValidatorCustomizeDeliveryForm.isEmail = (selector) => {
-//     return {
-//         selector: selector,
-//         test: (value) => {
-//             const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-//             return regex.test(value.trim()) ? undefined : 'Thông tin bạn nhập không phải là email'
-//         }
-//     }
-// }
-
-// ValidatorCustomizeDeliveryForm.isPhone = (selector) => {
-//     return {
-//         selector: selector,
-//         test: (value) => {
-//             const regex = /(84|0[0-9])+([0-9]{8})\b/g;
-//             return regex.test(value.trim()) ? undefined : 'Vui lòng nhập số điện thoại hợp lệ (10 số bắt đầu từ 0)'
-//         }
-//     }
-// }
-
 function handleDisplayDescriptionMethodOptionChecked(typeMethodRadioButtons){
     let previousSelectedButton = null;
     typeMethodRadioButtons.forEach((typeMethodRadioButton) =>{
@@ -213,7 +184,7 @@ function handleCustomizeDeliveryInfo(){
 
             $.ajax({
                 type: "POST",
-                url: "Checkout",
+                url: "/api/checkout",
                 data: objectData,
                 dataType: 'json',
                 success: function (response){

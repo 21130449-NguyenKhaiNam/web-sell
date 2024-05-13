@@ -1,16 +1,16 @@
 package filter.shoppingCart;
 
-//import cartShopping.ShoppingCart;
-import models.shoppingCart.ShoppingCart;
-import models.User;
+import models.Voucher;
+import services.ShoppingCartServices;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebListener;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-@WebFilter(filterName = "shoppingCartFilter", urlPatterns = {"/shoppingCart.jsp", "/ShoppingCart"})
+@WebFilter(filterName = "shoppingCartFilter", urlPatterns = {"/public/user/shoppingCart.jsp", "/ShoppingCart"})
 public class ShoppingCartFilter implements Filter {
 
     @Override
@@ -23,21 +23,10 @@ public class ShoppingCartFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        HttpSession session = request.getSession(true);
-//        session.setAttribute("listVouchers", listVouchers);
-//        List<Voucher> listVouchers = ShoppingCartServices.getINSTANCE().getListVouchers();
+        List<Voucher> listVouchers = ShoppingCartServices.getINSTANCE().getListVouchers();
+        request.setAttribute("listVouchers", listVouchers);
+        filterChain.doFilter(request, response);
 
-        User userAuth = (User) session.getAttribute("auth");
-        if(userAuth == null){
-            response.sendRedirect("signIn.jsp");
-        }else {
-            String userIdCart = String.valueOf(userAuth.getId());
-            String url = request.getServletPath();
-            if(url.contains("shoppingCart.jsp") && !url.contains("error404.jsp")){
-                response.sendRedirect("ShoppingCart");
-            }
-            filterChain.doFilter(request, response);
-        }
     }
 
     @Override
