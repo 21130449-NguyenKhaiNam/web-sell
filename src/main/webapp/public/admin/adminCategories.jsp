@@ -15,7 +15,6 @@
 </head>
 <body>
 <c:set var="listCategory" value="${requestScope.listCategory}"/>
-<c:import url="/public/header.jsp"/>
 <main class="main">
     <nav class="navbar">
         <div class="container-xl">
