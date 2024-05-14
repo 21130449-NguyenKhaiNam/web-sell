@@ -126,7 +126,7 @@ function addToCartAjax() {
                                                                     <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>
                                                                     <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>
                                                                 </div>
-                                                                <a class="view__cart" href="shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                                <a class="view__cart" href="public/user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
                                                             </div>`;
             $('.cart__wrapper').append(addToCartSuccessHTML)
             $('.qlt__value').text(response);
