@@ -24,10 +24,11 @@ public class UserRole implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         User user = SessionManager.getInstance(httpServletRequest, httpServletResponse).getUser();
 //        Chưa đăng nhập
-        if (user == null)
+        if (user == null) {
             httpServletResponse.sendRedirect(ConfigPage.SIGN_IN);
-        else
+        } else {
             chain.doFilter(request, response);
+        }
     }
 }
  

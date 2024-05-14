@@ -5,6 +5,7 @@ import models.Color;
 import models.Size;
 import models.User;
 import models.shoppingCart.ShoppingCart;
+import session.SessionManager;
 import utils.ProductFactory;
 
 import javax.servlet.ServletException;
@@ -24,9 +25,10 @@ public class AddToCartController extends HttpServlet {
         response.setContentType("application/json");
 
         HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
+        User userAuth = SessionManager.getInstance(request, response).getUser();
 
         if(userAuth == null){
+            System.out.println("Giỏ hàng báo tài khoản bị trống");
             response.sendRedirect(ConfigPage.SIGN_IN);
         }else{
             int productId = 0;
