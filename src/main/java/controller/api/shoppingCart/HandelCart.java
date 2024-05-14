@@ -119,4 +119,11 @@ public class HandelCart implements HttpSessionAttributeListener {
             }
         }
     }
+
+    @Override
+    public void attributeRemoved(HttpSessionBindingEvent event) {
+        if (event.getValue() instanceof ShoppingCart && user != null) {
+            cart = null;
+        }
+    }
 }

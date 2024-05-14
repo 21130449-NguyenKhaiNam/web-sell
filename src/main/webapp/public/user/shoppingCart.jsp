@@ -58,8 +58,8 @@
     <div class="container-xl">
         <h1 class="cart__title">Giỏ hàng</h1>
         <div class="cart__container row">
-            <c:set var="sessionId" value="${cookie['sessionId'].value}" />
-            <c:set var="auth" value="${sessionScope.sessionUser[sessionId]}" />
+            <c:set var="sessionId" value="${cookie['sessionId'].value}"/>
+            <c:set var="auth" value="${sessionScope.sessionUser[sessionId]}"/>
             <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
             <c:choose>
                 <c:when test="${sessionScope[userIdCart].getTotalItems() == 0 || sessionScope[userIdCart] == null}">
@@ -93,47 +93,53 @@
                                             int cartProductIndex = shoppingCartMap.get(productId).indexOf(cartProduct);
                                 %>
 
-                                    <tr class="cart__item" data-product-id="<%=productId%>" data-cart-product-index="<%=cartProductIndex%>">
-                                        <td class="product__item">
-                                            <div class="product__content">
-                                                <a class="product__image" href="<c:url value="/showProductDetail" />?id=<%=productId%> ">
-                                                    <img src='<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", ProductFactory.getListImagesByProductId(productId).get(0).getNameImage())%>'>
+                                <tr class="cart__item" data-product-id="<%=productId%>"
+                                    data-cart-product-index="<%=cartProductIndex%>">
+                                    <td class="product__item">
+                                        <div class="product__content">
+                                            <a class="product__image"
+                                               href="<c:url value="/showProductDetail" />?id=<%=productId%> ">
+                                                <img src='<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", ProductFactory.getListImagesByProductId(productId).get(0).getNameImage())%>'>
+                                            </a>
+                                            <div class="order__product--info">
+                                                <a href="#" class="product__name">
+                                                    <%=cartProduct.getProduct().getName()%>
                                                 </a>
-                                                <div class="order__product--info">
-                                                    <a href="#" class="product__name">
-                                                        <%=cartProduct.getProduct().getName()%>
-                                                    </a>
-                                                    <p class="order__color">
-                                                        Màu sắc:<%=cartProduct.getColor().getCodeColor()%>
-                                                    </p>
-                                                    <ul class="order__size--specification">
-                                                        <%=cartProduct.makeSizeFormat()%>
-                                                    </ul>
-                                                </div>
+                                                <p class="order__color">
+                                                    Màu sắc:<%=cartProduct.getColor().getCodeColor()%>
+                                                </p>
+                                                <ul class="order__size--specification">
+                                                    <%=cartProduct.makeSizeFormat()%>
+                                                </ul>
                                             </div>
-                                        </td>
-                                        <td class="unit__price">
-                                            <%=cartProduct.sewingPriceFormat()%>
-                                        </td>
-                                        <td>
-                                            <div class="quality__swapper">
-                                                <button type="submit" class="minus__quality change__quality" name="action" value="decreaseQuantity">
-                                                    <i class="fa-solid fa-minus"></i></button>
-                                                <input type="number" name="quality__required" class="quality__required" min="1" value="<%=cartProduct.getQuantity()%>">
-                                                <button type="submit" class="plus__quality change__quality" name="action" value="increaseQuantity">
-                                                    <i class="fa-solid fa-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="subtotal__item">
-                                            <%=FormatCurrency.vietNamCurrency(cartProduct.getSubtotal())%>
-                                        </td>
-                                        <td class="remove__action">
-                                            <button type="submit" name="action" value="removeCartProduct" class="remove__item">
-                                                <i class="fa-solid fa-trash-can"></i></button>
-                                        </td>
-                                    </tr>
-                                    <% }
-                                    }%>
+                                        </div>
+                                    </td>
+                                    <td class="unit__price">
+                                        <%=cartProduct.sewingPriceFormat()%>
+                                    </td>
+                                    <td>
+                                        <div class="quality__swapper">
+                                            <button type="submit" class="minus__quality change__quality" name="action"
+                                                    value="decreaseQuantity">
+                                                <i class="fa-solid fa-minus"></i></button>
+                                            <input type="number" name="quality__required" class="quality__required"
+                                                   min="1" value="<%=cartProduct.getQuantity()%>">
+                                            <button type="submit" class="plus__quality change__quality" name="action"
+                                                    value="increaseQuantity">
+                                                <i class="fa-solid fa-plus"></i></button>
+                                        </div>
+                                    </td>
+                                    <td class="subtotal__item">
+                                        <%=FormatCurrency.vietNamCurrency(cartProduct.getSubtotal())%>
+                                    </td>
+                                    <td class="remove__action">
+                                        <button type="submit" name="action" value="removeCartProduct"
+                                                class="remove__item">
+                                            <i class="fa-solid fa-trash-can"></i></button>
+                                    </td>
+                                </tr>
+                                <% }
+                                }%>
                                 </tbody>
                             </table>
 
@@ -157,7 +163,8 @@
                                 </div>
                                 <div class="apply__status">
                                     <c:if test="${sessionScope.successApplied != null}">
-                                                                                                                                                                                                                                                                                                                                        <span class="apply__success"><i class="fa-solid fa-circle-check"></i>
+                                                                                                                                                                                                                                                                                                                                        <span class="apply__success"><i
+                                                                                                                                                                                                                                                                                                                                                class="fa-solid fa-circle-check"></i>
                                                                                                                                                                                                                                                                                                                                             <span>${sessionScope.successApplied}</span></span> </c:if>
                                     <c:if test="${sessionScope.failedApply != null}">
                                         <span class="apply__failed"><i

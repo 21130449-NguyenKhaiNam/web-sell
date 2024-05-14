@@ -27,36 +27,40 @@
                         </a>
                     </li>
                 </ul>
-                <c:set var="sessionId" value="${cookie['sessionId'].value}" />
-                <c:set var="auth" value="${sessionScope.sessionUser[sessionId]}" />
+                <c:set var="sessionId" value="${cookie['sessionId'].value}"/>
+                <c:set var="auth" value="${sessionScope.sessionUser[sessionId]}"/>
                 <c:choose>
                     <c:when test="${empty auth}"> <!--cta == call to action-->
-                    <div class="nav__cta">
-                        <a href="<c:url value="/public/auth/signIn.jsp" />"
-                           class="me-3 nav__button nav__button--signIn hvr-ripple-in">
-                            Đăng nhập
-                        </a>
-                        <a href="<c:url value="/public/auth/signUp.jsp" />"
-                           class="nav__button nav__button--signUp button button button--hover hvr-round-corners hvr-radial-out">
-                            Đăng ký
-                        </a>
-                    </div>
-                </c:when> <c:otherwise> <!--Account show (After log in success)-->
+                        <div class="nav__cta">
+                            <a href="<c:url value="/public/auth/signIn.jsp" />"
+                               class="me-3 nav__button nav__button--signIn hvr-ripple-in">
+                                Đăng nhập
+                            </a>
+                            <a href="<c:url value="/public/auth/signUp.jsp" />"
+                               class="nav__button nav__button--signUp button button button--hover hvr-round-corners hvr-radial-out">
+                                Đăng ký
+                            </a>
+                        </div>
+                    </c:when> <c:otherwise> <!--Account show (After log in success)-->
                     <div class="account__wrapper">
                         <!--Giỏ hàng-->
                         <div class="cart__wrapper">
                             <a href="<c:url value="/public/user/shoppingCart.jsp" />" class="cart">
                                 <span class="cart__content">
-                                    <i class="cart__icon fa-solid fa-cart-shopping"></i>Giỏ hàng</span>
-                                <span class="qlt__swapper">
-                                <span class="qlt__value">
-                                    <c:set var="userIdCart" value="${String.valueOf(auth.id)}" />
-                                    <c:choose> <c:when test="${sessionScope[userIdCart] == null}"> 0 </c:when>
-                                        <c:otherwise>
-                                            ${sessionScope[userIdCart].getTotalItems()}
-                                        </c:otherwise> </c:choose>
+                                    <i class="cart__icon fa-solid fa-cart-shopping"></i>
+                                    Giỏ hàng
                                 </span>
-                            </span>
+                                <span class="qlt__swapper">
+                                    <span class="qlt__value">
+                                        <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
+                                        <c:choose>
+                                            <c:when test="${sessionScope[userIdCart] == null}"> 0 </c:when>
+                                            <c:otherwise>
+                                                ${sessionScope[userIdCart].getTotalItems()}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </span>
+                                </span>
                             </a>
                         </div>
                         <div class="account">
