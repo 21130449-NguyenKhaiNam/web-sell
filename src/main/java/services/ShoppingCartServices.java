@@ -1,6 +1,7 @@
 package services;
 
 import dao.ShoppingCartDao;
+import models.User;
 import models.Voucher;
 import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.ShoppingCart;
@@ -11,6 +12,7 @@ import java.util.Map;
 public class ShoppingCartServices {
 
     private ShoppingCartDao shoppingCartDao;
+    private User user;
 
     private static ShoppingCartServices INSTANCE;
 
@@ -62,5 +64,13 @@ public class ShoppingCartServices {
 
     public void update(Map<Integer, List<AbstractCartProduct>> change) {
         shoppingCartDao.update(change);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return this.user;
     }
 }

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @WebListener
 public class HandelCart implements HttpSessionAttributeListener {
@@ -21,6 +23,42 @@ public class HandelCart implements HttpSessionAttributeListener {
     private ShoppingCart cart;
     private boolean isReplaceReal = true;
     private Debouncing debouncing;
+
+    /**
+     * Xử lý khi session được thêm mới
+     *
+     * @param event the HttpSessionBindingEvent containing the session
+     *              and the name and value of the attribute that was added
+     */
+    @Override
+    public void attributeAdded(HttpSessionBindingEvent event) {
+        String name = event.getName();
+        user = services.getUser();
+        if (event.getValue() instanceof ShoppingCart && user != null) {
+            ShoppingCart newCart = (ShoppingCart) event.getValue();
+            HttpSession session = event.getSession();
+            // Mã được hệ thống khởi tạo
+            int cartId = Integer.parseInt(name);
+            // Nếu lần đầu hệ thống chạy
+            if (cart == null) {
+                // Tìm kiếm giỏ hàng trong DB
+                int cartIdDb = services.findCartByUserId(user.getId()); // Số âm là không có
+                // Xử lý nếu có
+                if (cartIdDb > 0) {
+                    cartId = cartIdDb;
+                    cart = services.findCartByCartId(cartId);
+                    newCart.getShoppingCartMap().putAll(cart.getShoppingCartMap());
+                    isReplaceReal = false;
+                } else {
+                    cart = new ShoppingCart();
+                    cart.getShoppingCartMap().putAll(newCart.getShoppingCartMap());
+                    services.insertCart(cartId, user.getId(), cart.getShoppingCartMap());
+                    isReplaceReal = true;
+                }
+                session.setAttribute(name, newCart);
+            }
+        }
+    }
 
     /**
      * Xử lý sự kiện khi session bị thay đổi
@@ -82,48 +120,40 @@ public class HandelCart implements HttpSessionAttributeListener {
         }
     }
 
-    /**
-     * Xử lý khi session được thêm mới
-     *
-     * @param event the HttpSessionBindingEvent containing the session
-     *              and the name and value of the attribute that was added
-     */
-    @Override
-    public void attributeAdded(HttpSessionBindingEvent event) {
-        String name = event.getName();
-        if (name.equals("auth")) {
-            // Ghi lại người dùng đăng nhập
-            user = (User) event.getValue();
-        } else if (event.getValue() instanceof ShoppingCart && user != null) {
-            ShoppingCart newCart = (ShoppingCart) event.getValue();
-            HttpSession session = event.getSession();
-            // Mã được hệ thống khởi tạo
-            int cartId = Integer.parseInt(name);
-            // Nếu lần đầu hệ thống chạy
-            if (cart == null) {
-                // Tìm kiếm giỏ hàng trong DB
-                int cartIdDb = services.findCartByUserId(user.getId()); // Số âm là không có
-                // Xử lý nếu có
-                if (cartIdDb > 0) {
-                    cartId = cartIdDb;
-                    cart = services.findCartByCartId(cartId);
-                    newCart.getShoppingCartMap().putAll(cart.getShoppingCartMap());
-                    isReplaceReal = false;
-                } else {
-                    cart = new ShoppingCart();
-                    cart.getShoppingCartMap().putAll(newCart.getShoppingCartMap());
-                    services.insertCart(cartId, user.getId(), cart.getShoppingCartMap());
-                    isReplaceReal = true;
-                }
-                session.setAttribute(name, newCart);
-            }
-        }
-    }
-
     @Override
     public void attributeRemoved(HttpSessionBindingEvent event) {
         if (event.getValue() instanceof ShoppingCart && user != null) {
             cart = null;
+        }
+    }
+
+    class Debouncing {
+        private final long delay;
+        private Timer timer;
+
+        public Debouncing(long delay) {
+            this.delay = delay;
+        }
+
+        public synchronized void debounce(final Runnable action) {
+            if (timer != null) {
+                timer.cancel();
+            }
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    action.run();
+                }
+            }, delay);
+        }
+
+        // Hàm dừng hoạt động
+        public synchronized void cancel() {
+            if (timer != null) {
+                timer.cancel();
+                timer = null;
+            }
         }
     }
 }
