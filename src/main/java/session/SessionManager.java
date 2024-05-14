@@ -45,7 +45,9 @@ public class SessionManager {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(SESSION_ID)) {
-                    return sessionTable.get(cookie.getValue());
+                    User user = sessionTable.get(cookie.getValue());
+                    ShoppingCartServices.getINSTANCE().setUser(user);
+                    return user;
                 }
             }
         }
@@ -78,6 +80,7 @@ public class SessionManager {
                     session.setAttribute(SESSION_TABLE, sessionTable);
                     cookie.setMaxAge(0);
                     response.addCookie(cookie);
+                    ShoppingCartServices.getINSTANCE().setUser(null);
                     break;
                 }
             }
@@ -88,6 +91,7 @@ public class SessionManager {
         int userId = getUser().getId();
         User user = UserServices.getINSTANCE().getUser(userId);
         removeUser();
+        ShoppingCartServices.getINSTANCE().setUser(user);
         addUser(user);
     }
 }
