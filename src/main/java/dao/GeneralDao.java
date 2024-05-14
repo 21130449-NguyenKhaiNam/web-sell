@@ -25,16 +25,6 @@ public class GeneralDao {
         } finally {
             ConnectionPool.getINSTANCE().releaseHandle(handle);
         }
-//        return JDBIConnector.get().withHandle(handle -> {
-//                    Query query = handle.createQuery(sql);
-//                    if(params != null){
-//                        for (int i = 0; i < params.length; i++) {
-//                            query.bind(i, params[i]);
-//                        }
-//                    }
-//                    return query.mapToBean(type).list();
-//                }
-//        );
     }
 
     public static List<Map<String, Object>> executeQueryWithJoinTables(String sql, Object... params) {
