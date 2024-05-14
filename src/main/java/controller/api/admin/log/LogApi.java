@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/LogAdmin")
+@WebServlet("/api/admin/logAdmin")
 public class LogApi extends HttpServlet {
     private LogService service;
 
