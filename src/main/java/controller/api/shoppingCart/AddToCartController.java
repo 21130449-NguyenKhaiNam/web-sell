@@ -28,7 +28,6 @@ public class AddToCartController extends HttpServlet {
         User userAuth = SessionManager.getInstance(request, response).getUser();
 
         if(userAuth == null){
-            System.out.println("Giỏ hàng báo tài khoản bị trống");
             response.sendRedirect(ConfigPage.SIGN_IN);
         }else{
             int productId = 0;
