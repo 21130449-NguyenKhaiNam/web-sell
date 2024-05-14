@@ -88,13 +88,33 @@
 </main>
 
 <script>
+    function isFirstVisit() {
+        // Check LocalStorage for a specific item
+        return localStorage.getItem('hasVisited') === null;
+    }
+
+    // Function to set the visit status
+    function setVisited() {
+        localStorage.setItem('hasVisited', 'true');
+    }
+
+    // Event handler for when the page is fully loaded
+    window.addEventListener('load', function() {
+        if (isFirstVisit()) {
+            const defaultReload = $('.sidebar_active > .sidebar_item')[0]
+            const path = defaultReload.dataset.link
+            window.history.pushState(null, null, defaultReload.href);
+        }
+        // Set the visit status regardless of whether it's the first visit or not
+        setVisited();
+    });
+
     localStorage.setItem("link", window.location.href);
 
     let link = localStorage.getItem("link") || window.location.href
     let ind = link.indexOf("#")
     if (ind > 0) {
         const sub = link.substring(ind, link.length)
-        console.log(sub)
         $('li > .sidebar_item').each(function () {
             let linkHref = this.href
             linkHref = linkHref.substring(linkHref.indexOf("#"), linkHref.length)
@@ -107,6 +127,7 @@
         })
     }
     const defaultReload = link || $('.sidebar_active > .sidebar_item')[0]
+    console.log(defaultReload)
     // Gọi tới đường dẫn
     const path = defaultReload.dataset.link
     window.history.pushState(null, null, defaultReload.href);
