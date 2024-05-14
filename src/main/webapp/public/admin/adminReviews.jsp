@@ -14,7 +14,6 @@
     <title>Quản lý nhận xét</title>
 </head>
 <body>
-<c:import url="/public/header.jsp"/>
 <main id="main">
     <nav class="navbar">
         <div class="container-xl">

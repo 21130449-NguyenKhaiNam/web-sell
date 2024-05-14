@@ -15,7 +15,6 @@
     <title>Quản lý sản phẩm</title>
 </head>
 <body>
-<c:import url="/public/header.jsp"/>
 <main id="main">
     <nav class="navbar">
         <div class="container-xl">
