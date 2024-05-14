@@ -90,7 +90,11 @@
 <script>
     function isFirstVisit() {
         // Check LocalStorage for a specific item
-        return localStorage.getItem('hasVisited') === null;
+        const isVisited = localStorage.getItem('hasVisited')
+        if(isVisited) {
+            localStorage.setItem('hasVisited', null);
+        }
+        return localStorage.getItem('hasVisited');
     }
 
     // Function to set the visit status
@@ -109,65 +113,69 @@
         setVisited();
     });
 
-    localStorage.setItem("link", window.location.href);
+   $(document).ready(function() {
+       localStorage.setItem("link", window.location.href);
 
-    let link = localStorage.getItem("link") || window.location.href
-    let ind = link.indexOf("#")
-    if (ind > 0) {
-        const sub = link.substring(ind, link.length)
-        $('li > .sidebar_item').each(function () {
-            let linkHref = this.href
-            linkHref = linkHref.substring(linkHref.indexOf("#"), linkHref.length)
-            if (linkHref == sub) {
-                link = this
-                $('.sidebar_active').removeClass('sidebar_active')
-                this.classList.add('sidebar_active')
-                return;
-            }
-        })
-    }
-    const defaultReload = link || $('.sidebar_active > .sidebar_item')[0]
-    console.log(defaultReload)
-    // Gọi tới đường dẫn
-    const path = defaultReload.dataset.link
-    window.history.pushState(null, null, defaultReload.href);
-    $.ajax(
-        {
-            url: path,
-            success: function (res) {
-                $('#contain').html(res)
-            },
-            error: function (error) {
-                console.error('Lỗi ', error);
-            }
-        }
-    )
+       let link = localStorage.getItem("link") || window.location.href
+       let ind = link.indexOf("#")
+       if (ind < 0) {
+           const defaultReload = $('.sidebar_active > .sidebar_item')[0]
+           const path = defaultReload.href
+           link += path.substring(path.indexOf("#"), path.length)
+       }
+       const sub = link.substring(link.indexOf("#"), link.length)
+       $('li > .sidebar_item').each(function () {
+           let linkHref = this.href
+           linkHref = linkHref.substring(linkHref.indexOf("#"), linkHref.length)
+           if (linkHref == sub) {
+               link = this
+               $('.sidebar_active').removeClass('sidebar_active')
+               this.parentElement.classList.add('sidebar_active')
+               return;
+           }
+       })
+       const defaultReload = link || $('.sidebar_active > .sidebar_item')[0]
+       // Gọi tới đường dẫn
+       const path = defaultReload.dataset.link
+       window.history.pushState(null, null, defaultReload.href);
+       $.ajax(
+           {
+               url: path,
+               success: function (res) {
+                   $('#contain').html(res)
+               },
+               error: function (error) {
+                   console.error('Lỗi ', error);
+               }
+           }
+       )
 
 
-    $('.sidebar_item').on('click', function (event) {
-        // Ngăn sự kiện chuyển trang
-        event.preventDefault();
+       $('.sidebar_item').on('click', function (event) {
+           // Ngăn sự kiện chuyển trang
+           event.preventDefault();
 
-        // Thay đổi trạng thái active cho tag được nhấn
-        $('.sidebar_active').removeClass('sidebar_active')
-        this.classList.add('sidebar_active')
+           // Thay đổi trạng thái active cho tag được nhấn
+           $('.sidebar_active').removeClass('sidebar_active')
+           this.classList.add('sidebar_active')
 
-        // Gọi tới đường dẫn
-        const path = this.dataset.link
-        window.history.pushState(null, null, this.href);
-        localStorage.setItem("link", window.location.href);
-        $.ajax(
-            {
-                url: path,
-                success: function (res) {
-                    $('#contain').html(res)
-                },
-                error: function (error) {
-                    console.error('Lỗi ', error);
-                }
-            }
-        )
-    })
+           // Gọi tới đường dẫn
+           const path = this.dataset.link
+           window.history.pushState(null, null, this.href);
+           localStorage.setItem("link", window.location.href);
+           $.ajax(
+               {
+                   url: path,
+                   success: function (res) {
+                       $('#contain').html(res)
+                   },
+                   error: function (error) {
+                       console.error('Lỗi ', error);
+                   }
+               }
+           )
+       })
+   })
 </script>
 </body>
 </html>
