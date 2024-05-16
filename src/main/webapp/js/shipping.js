@@ -39,7 +39,7 @@ async function getAddressCustomerAPI(address) {
     };
 }
 
-export async function getFeeAndLeadTime(addressCustomer) {
+async function getFeeAndLeadTime(addressCustomer) {
     try {
         const addressShopAPI = await getAddressShopAPI();
         const addressCustomerAPI = await getAddressCustomerAPI(addressCustomer);
@@ -84,7 +84,7 @@ async function callAPI(url, param) {
 
 function getProvinceId(provinceName) {
     return callAPI(URL_PROVINCE).then(data => {
-        return data.data.find(province => province.NameExtension.includes(provinceName) ).ProvinceID;
+        return data.data.find(province => province.NameExtension.includes(provinceName)).ProvinceID;
     });
 }
 
@@ -131,4 +131,51 @@ function getLeadDate(province, district, ward, detail) {
     }).then(data => {
         return data.data.leadtime;
     });
+}
+
+async function getProvince() {
+    return callAPI(URL_PROVINCE,).then(res => {
+        return res.data.map(item => {
+            return {
+                id: item.ProvinceID,
+                text: item.ProvinceName
+            }
+        });
+    });
+}
+
+async function getDistrict(provinceId) {
+    return callAPI(URL_DISTRICT, {
+        province_id: provinceId
+    }).then(res => {
+        return res.data.map(item => {
+            return {
+                id: item.DistrictID,
+                text: item.DistrictName
+            }
+        });
+    });
+}
+
+async function getWard(districtId) {
+    return callAPI(URL_WARD, {
+        district_id: districtId
+    }).then(res => {
+        return res.data.map(item => {
+            return {
+                id: item.WardCode,
+                text: item.WardName
+            }
+        });
+    });
+}
+
+export {
+    getProvinceId,
+    getDistrictId,
+    getWardCode,
+    getFeeAndLeadTime,
+    getProvince,
+    getDistrict,
+    getWard,
 }

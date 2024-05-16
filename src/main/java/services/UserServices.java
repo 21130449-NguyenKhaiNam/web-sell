@@ -16,6 +16,7 @@ public class UserServices {
     private static UserServices INSTANCE;
     private UserDAO userDAO;
     private IAddressDAO addressDAO;
+
     private UserServices() {
         userDAO = new UserDAO();
         addressDAO = new AddressDAO();
@@ -70,16 +71,4 @@ public class UserServices {
         userDAO.updateUserByIDWithRole(id, username, fullname, gender, email, phone, address, birthDay, role);
     }
 
-    public boolean updateAddress(Address address) throws URISyntaxException, IOException {
-        if (!AddressServices.getINSTANCE().validateAddress(address.exportAddressString())) {
-            return false;
-        }
-        userDAO.updateAddress(address);
-        return true;
-    }
-
-    public Address getAddress(int userId) {
-        Optional<Address> optionalAddress = addressDAO.getAddress(userId);
-        return optionalAddress.orElse(null);
-    }
 }

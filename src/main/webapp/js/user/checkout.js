@@ -162,7 +162,6 @@ $(document).ready(() => {
     }
 
     const form = $('#form-checkout');
-    console.log(form)
     form.validate({
         rules: {
             fullName: {

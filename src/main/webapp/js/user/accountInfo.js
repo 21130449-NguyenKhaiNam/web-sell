@@ -1,14 +1,16 @@
 import {alert} from "../notify.js";
 import {addSpinner, cancelSpinner} from "../spinner.js";
+import {getProvince, getWard, getDistrict, getProvinceId, getDistrictId, getWardCode} from "../shipping.js";
 
 $(document).ready(function () {
+    $.fn.select2.defaults.set("theme", "bootstrap-5");
+    $.fn.select2.defaults.set("width", "resolve");
     // Add select 2 for address
-    const URL = "https://online-gateway.ghn.vn/shiip/public-api/master-data/";
-    const token = '015940b9-e810-11ee-b290-0e922fc774da';
     let provinceId, districtId, wardId;
     const inputProvince = $("#inputProvince");
     const inputDistrict = $("#inputDistrict");
     const inputWard = $("#inputWard");
+    let addressCustomer = {}
 
 // ------------------------------------
 // Cập nhập avatar
@@ -116,7 +118,7 @@ $(document).ready(function () {
     });
     $.validator.addMethod(
         "customDate",
-        function(value, element) {
+        function (value, element) {
             // Validate the date format using a regular expression
             return value.match(/^\d{2}-\d{2}-\d{4}$/);
         },
@@ -218,29 +220,111 @@ $(document).ready(function () {
         }
     })
 
-//     -------------------------------
-//     Cập nhập Địa chỉ
-//     Call api get address
+//    -------------------------------
+// Hiển thị danh sách địa chỉ
+//  Lấy danh sách địa chỉ
     $.ajax({
         url: "/api/user/address",
         type: 'GET',
         dataType: 'json',
         success: function (response, xhr) {
-            console.log(response);
             if (response.status == 200) {
-                const address = response;
-                provinceId = address.provinceId;
-                districtId = address.districtId;
-                wardId = address.wardId;
-                $('#inputAddress').val(address.detail);
-
+                const addressList = response.address;
+                if (addressList.length > 0) {
+                    addressCustomer = addressList;
+                    loadDataToTable();
+                }
             }
-            setupSelect2();
         },
         error: function (xhr, status, error) {
-            setupSelect2();
+            // setupSelect2();
         }
     });
+
+    function loadDataToTable() {
+        const table = $('#addressList tbody');
+        table.empty();
+        const htmls = addressCustomer.map(function (address) {
+            return `<tr>
+                        <td>${address.id}</td>
+                        <td>${address.province}</td>
+                        <td>${address.district}</td>
+                        <td>${address.ward}</td>
+                        <td>${address.detail}</td>
+                        <td>
+                            <button class="btn btn-primary btn__address-update" data-id="${address.id}" data-bs-toggle="modal" data-bs-target="#modal">
+                                 <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                           <button class="btn btn-danger btn__address-delete" data-id="${address.id}" >
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>`
+        })
+        table.html(htmls.join(''));
+        viewModal();
+    }
+
+//    -------------------------------
+//     Xem địa chỉ chi tiết để cập nhập
+    function viewModal() {
+        $(".btn__address-update").on("click", async function () {
+            const id = $(this).data("id");
+            if (id) {
+                const address = addressCustomer.find(address => {
+                    return address.id == id
+                });
+                if (address) {
+                    provinceId = await getProvinceId(address.province);
+                    districtId = await getDistrictId(provinceId, address.district);
+                    wardId = await getWardCode(districtId, address.ward);
+                    $('#inputAddress').val(address.detail);
+                }
+            } else {
+                provinceId = null;
+                districtId = null;
+                wardId = null;
+                $('#inputAddress').val("");
+            }
+            setupSelect2();
+        });
+
+        $(".btn__address-delete").on("click", function () {
+            const id = $(this).data("id");
+            if (id) {
+                alert(() => {
+                    $.ajax({
+                        url: "/api/user/address/delete",
+                        type: 'POST',
+                        data: {
+                            id: id,
+                        },
+                        beforeSend: function () {
+                            addSpinner();
+                        },
+                        success: function (response) {
+                            Swal.fire({
+                                title: "Chúc mừng!",
+                                text: "Địa chỉ đã được xóa",
+                                icon: "success"
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                title: "Lỗi!",
+                                text: "Địa chỉ không xóa thành công",
+                                icon: "error"
+                            });
+                        },
+                        complete: function () {
+                            cancelSpinner();
+                        }
+                    });
+                });
+            }
+
+        })
+    }
 
     // Validate address form
     $("#form-address").validate({
@@ -312,6 +396,7 @@ $(document).ready(function () {
             );
             const formData = $.param(formDataArray);
             alert(() => {
+                // Cập nhập địa chỉ
                 $.ajax({
                     url: "/api/user/address",
                     type: 'POST',
@@ -340,28 +425,6 @@ $(document).ready(function () {
             })
         }
     });
-
-    // Sử dụng để gọi api lấy dữ liệu các tỉnh thành
-    async function callAjax(param) {
-        try {
-            const response = await fetch(`${URL}${param}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'token': token
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-        }
-    }
 
     // Cấu hình select 2
     async function setupSelect2() {
@@ -418,34 +481,18 @@ $(document).ready(function () {
     }
 
     async function getProvinces() {
-        const data = await callAjax("province").then(res => {
-            return res.data.map(item => {
-                return {
-                    id: item.ProvinceID,
-                    text: item.ProvinceName
-                }
-            });
-        });
+        const data = await getProvince();
         inputProvince.empty()
         inputProvince.select2({
-            theme: 'bootstrap-5',
             placeholder: 'Chọn tỉnh/thành phố',
             data: ["", ...data],
         }).val(provinceId).trigger('change.select2');
     }
 
     async function getDistricts(provinceId) {
-        const data = await callAjax(`district?province_id=${provinceId}`).then(res => {
-            return res.data.map(item => {
-                return {
-                    id: item.DistrictID,
-                    text: item.DistrictName
-                }
-            });
-        });
+        const data = await getDistrict(provinceId);
         inputDistrict.empty();
         inputDistrict.select2({
-            theme: 'bootstrap-5',
             placeholder: 'Chọn quận/huyện',
             data: ["", ...data],
             language: {
@@ -457,17 +504,9 @@ $(document).ready(function () {
     }
 
     async function getWards(districtId) {
-        const data = await callAjax(`ward?district_id=${districtId}`).then(res => {
-            return res.data.map(item => {
-                return {
-                    id: item.WardCode,
-                    text: item.WardName,
-                }
-            });
-        });
+        const data = await getWard(districtId);
         inputWard.empty();
         inputWard.select2({
-            theme: 'bootstrap-5',
             placeholder: 'Chọn phường/xã',
             data: ["", ...data],
             language: {

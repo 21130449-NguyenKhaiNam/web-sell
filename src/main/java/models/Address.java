@@ -6,17 +6,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Address {
-    private int id;
-    private int userId;
-    private String provinceId;
-    private String districtId;
-    private String wardId;
+    private Integer id;
+    private Integer userId;
     private String detail;
-    private String provinceName;
-    private String districtName;
-    private String wardName;
+    private String province;
+    private String district;
+    private String ward;
 
-    public String exportAddressString(){
-        return String.format("%s, %s, %s, %s", detail, wardName, districtName, provinceName);
+    public String exportAddressString() {
+        return String.format("%s, %s, %s, %s", detail, ward, district, province);
     }
 }
