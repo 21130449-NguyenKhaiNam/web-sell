@@ -1,10 +1,12 @@
 package controller.api.checkout;
 
+import config.ConfigPage;
 import models.DeliveryMethod;
 import models.PaymentMethod;
 import models.User;
 import models.shoppingCart.ShoppingCart;
 import services.CheckoutServices;
+import session.SessionManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,26 +18,23 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "CheckoutController", value = "/Checkout")
+@WebServlet(name = "CheckoutController", value = "/api/checkout")
 public class CheckoutController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-
         String action = request.getParameter("action");
         if(action != null){
             switch (action) {
                 case "choiceDeliveryMethod" -> {
                     String deliveryMethodId = request.getParameter("deliveryMethodId");
                     request.setAttribute("deliveryMethodId", deliveryMethodId);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("ChoiceDeliveryMethod");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/api/checkout/delivery/method");
                     requestDispatcher.forward(request, response);
                 }
                 case "choicePaymentMethod" -> {
                     String paymentMethodId = request.getParameter("paymentMethodId");
                     request.setAttribute("paymentMethodId", paymentMethodId);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("ChoicePaymentMethod");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/api/checkout/payment/method");
                     requestDispatcher.forward(request, response);
                 }
             }
@@ -51,14 +50,14 @@ public class CheckoutController extends HttpServlet {
                 request.setAttribute("address", address);
 
                 if(action.equals("addDeliveryInfo")){
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("AddDeliveryInfo");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/api/checkout/delivery/add");
                     requestDispatcher.forward(request, response);
                 }
 
                 if(action.equals("editDeliveryInfo")){
                     String deliveryInfoKey = request.getParameter("deliveryInfoKey");
                     request.setAttribute("deliveryInfoKey", deliveryInfoKey);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("EditDeliveryInfo");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/api/checkout/delivery/edit");
                     requestDispatcher.forward(request, response);
                 }
             }
@@ -71,17 +70,16 @@ public class CheckoutController extends HttpServlet {
                     case "removeDeliveryInfo" -> {
                         String statusChoice = request.getParameter("statusChoice");
                         request.setAttribute("statusChoice", statusChoice);
-                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("RemoveDeliveryInfo");
+                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/api/checkout/delivery/remove");
                         requestDispatcher.forward(request, response);
                     }
                     case "choiceDeliveryInfo" -> {
-                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("ChoiceDeliveryInfo");
+                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/api/checkout/delivery/choice");
                         requestDispatcher.forward(request, response);
                     }
                 }
             }
         }
-
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -89,8 +87,8 @@ public class CheckoutController extends HttpServlet {
         List<PaymentMethod> listPaymentMethod = CheckoutServices.getINSTANCE().getAllPaymentMethod();
         HttpSession session = request.getSession();
 
-        User userAuth = (User) session.getAttribute("auth");
-        String userIdCart = String.valueOf(userAuth.getId());
+        User user = SessionManager.getInstance(request, response).getUser();
+        String userIdCart = String.valueOf(user.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
 
@@ -113,7 +111,7 @@ public class CheckoutController extends HttpServlet {
 
         request.setAttribute("listDeliveryMethod",listDeliveryMethod);
         request.setAttribute("listPaymentMethod", listPaymentMethod);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("checkout.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_CHECKOUT);
         requestDispatcher.forward(request, response);
     }
 

@@ -7,6 +7,7 @@ import models.shoppingCart.ShoppingCart;
 import services.CheckoutServices;
 import services.mail.IMailServices;
 import services.mail.MailPlaceOrderService;
+import session.SessionManager;
 
 import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
@@ -24,8 +25,8 @@ public class SuccessOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
-        String userIdCart = String.valueOf(userAuth.getId());
+        User user = SessionManager.getInstance(request, response).getUser();
+        String userIdCart = String.valueOf(user.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         int invoiceNo = Integer.parseInt(request.getParameter("invoiceNo"));
         String dateOrder = LocalDate.now().toString();
@@ -46,10 +47,17 @@ public class SuccessOrderController extends HttpServlet {
 //                deliveryMethodId = cart.getDeliveryMethod().getId();
 //            }
 
+<<<<<<< HEAD
 //            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
         } catch (NullPointerException exception) {
             exception.printStackTrace();
 //            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
+=======
+            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, user.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
+        } catch (NullPointerException exception) {
+            exception.printStackTrace();
+            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, user.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
+>>>>>>> origin/Merge
         }
 
         for (int productId : cart.getShoppingCartMap().keySet()) {

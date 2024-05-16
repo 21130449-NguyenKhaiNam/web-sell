@@ -61,6 +61,7 @@ public class GeneralDao {
             });
         } catch (Exception exception) {
             handle.rollback();
+            exception.printStackTrace();
         } finally {
             ConnectionPool.getINSTANCE().releaseHandle(handle);
         }

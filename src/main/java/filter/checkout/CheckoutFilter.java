@@ -1,7 +1,10 @@
 package filter.checkout;
 
-import models.*;
+import models.DeliveryInfo;
+import models.DeliveryInfoStorage;
+import models.User;
 import models.shoppingCart.ShoppingCart;
+import session.SessionManager;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "checkoutFilter", urlPatterns = {"/checkout.jsp", "/Checkout"})
+@WebFilter(filterName = "checkoutFilter", urlPatterns = {"/public/user/checkout.jsp", "/api/checkout/*"})
 public class CheckoutFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -21,22 +24,19 @@ public class CheckoutFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+        HttpSession session = request.getSession();
 
-        HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
+        User userAuth = SessionManager.getInstance(request, response).getUser();
 
-        if(userAuth == null){
-            response.sendRedirect("signIn.jsp");
-        }else {
-            String userIdCart = String.valueOf(userAuth.getId());
-            ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
+        String userIdCart = String.valueOf(userAuth.getId());
+        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
-            String fullName = userAuth.getFullName();
-            String email = userAuth.getEmail();
-            String phone = userAuth.getPhone();
-            String address = userAuth.getAddress();
+        String fullName = userAuth.getFullName();
+        String email = userAuth.getEmail();
+        String phone = userAuth.getPhone();
+        String address = userAuth.getAddress();
 
-            DeliveryInfo deliveryInfoAuth = new DeliveryInfo(fullName, email, phone, address);
+        DeliveryInfo deliveryInfoAuth = new DeliveryInfo(fullName, email, phone, address);
 
             DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
             if(deliveryInfoStorage == null){
@@ -57,6 +57,15 @@ public class CheckoutFilter implements Filter {
             }
             filterChain.doFilter(request, response);
         }
+
+        if (cart.getDeliveryInfo() == null) {
+            deliveryInfoStorage.add("defaultDeliveryInfo", deliveryInfoAuth);
+            cart.setDeliveryInfo(deliveryInfoAuth);
+            session.setAttribute("deliveryInfoStorage", deliveryInfoStorage);
+            session.setAttribute(userIdCart, cart);
+        }
+
+        filterChain.doFilter(request, response);
     }
 
     @Override

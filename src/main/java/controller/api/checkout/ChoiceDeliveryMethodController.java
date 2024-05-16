@@ -2,8 +2,21 @@ package controller.api.checkout;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import models.DeliveryMethod;
+import models.shoppingCart.ShoppingCart;
+import models.User;
+import org.json.JSONObject;
+import services.CheckoutServices;
+import session.SessionManager;
+import utils.FormatCurrency;
 
-@WebServlet(name = "ChoiceDeliveryMethodController", value = "/ChoiceDeliveryMethod")
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+@WebServlet(name = "ChoiceDeliveryMethodController", value = "/api/checkout/delivery/method")
 public class ChoiceDeliveryMethodController extends HttpServlet {
 
 //    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
