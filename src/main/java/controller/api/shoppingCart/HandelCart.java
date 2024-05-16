@@ -33,6 +33,8 @@ public class HandelCart implements HttpSessionAttributeListener {
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
         String name = event.getName();
+        // Bất cứ session nào được tạo ra đều bắt qua hàm này
+        System.out.println("Thực hiện add: " + name);
         user = services.getUser();
         if (event.getValue() instanceof ShoppingCart && user != null) {
             ShoppingCart newCart = (ShoppingCart) event.getValue();
@@ -93,8 +95,7 @@ public class HandelCart implements HttpSessionAttributeListener {
                 services.insertCart(cartId, user.getId(), onlyRight);
                 source.putAll(onlyRight);
             } else {
-                // 1000 = 1s
-                long delay = 1000 * 60 * 3; // 3 minutes
+                long delay = 1000 * 30; // 30 seconds
                 if (debouncing == null) {
                     debouncing = new Debouncing(delay);
                 }

@@ -2,6 +2,7 @@ package filter.authorization;
 
 import config.ConfigPage;
 import models.User;
+import models.shoppingCart.ShoppingCart;
 import session.SessionManager;
 
 import javax.servlet.*;
