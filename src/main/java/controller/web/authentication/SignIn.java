@@ -34,8 +34,6 @@ public class SignIn extends HttpServlet {
             SessionManager.getInstance(request, response).addUser(userAuth);
             request.getSession().setAttribute(userAuth.getId() + "", new ShoppingCart());
             response.sendRedirect(ConfigPage.HOME);
-        } else {
-            request.setAttribute("usernameError", validation.getFieldUsername());
             request.setAttribute("passwordError", validation.getFieldPassword());
             request.getRequestDispatcher(ConfigPage.SIGN_IN).forward(request, response);
         }

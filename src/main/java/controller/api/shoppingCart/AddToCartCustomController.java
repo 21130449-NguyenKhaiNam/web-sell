@@ -1,11 +1,10 @@
 package controller.api.shoppingCart;
 
-//import cartShopping.ShoppingCart;
-
 import config.ConfigPage;
 import models.Color;
 import models.User;
 import models.shoppingCart.ShoppingCart;
+import session.SessionManager;
 import utils.ProductFactory;
 
 import javax.servlet.ServletException;

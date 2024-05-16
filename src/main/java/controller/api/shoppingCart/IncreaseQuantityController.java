@@ -4,6 +4,9 @@ import models.User;
 import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.ShoppingCart;
 import org.json.JSONObject;
+import services.ShoppingCartServices;
+import session.SessionManager;
+import utils.FormatCurrency;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,17 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "IncreaseQuantityController", value = "/IncreaseQuantity")
+@WebServlet(name = "IncreaseQuantityController", value = "/api/cart/increase")
 public class IncreaseQuantityController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         int productId = 0;
         int cartProductIndex = 0;
         HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
-        String userIdCart = String.valueOf(userAuth.getId());
+        User user = SessionManager.getInstance(request, response).getUser();
+        String userIdCart = String.valueOf(user.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         try {
             productId = Integer.parseInt((String) request.getAttribute("productId"));
