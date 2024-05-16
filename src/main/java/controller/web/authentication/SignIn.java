@@ -2,6 +2,7 @@ package controller.web.authentication;
 
 import config.ConfigPage;
 import models.User;
+import models.shoppingCart.ShoppingCart;
 import services.authentication.AuthenticateServices;
 import session.SessionManager;
 import utils.Validation;
@@ -31,6 +32,7 @@ public class SignIn extends HttpServlet {
 //            Cookie ko co user, ko sessionId
             User userAuth = (User) validation.getObjReturn();
             SessionManager.getInstance(request, response).addUser(userAuth);
+            request.getSession().setAttribute(userAuth.getId() + "", new ShoppingCart());
             response.sendRedirect(ConfigPage.HOME);
         } else {
             request.setAttribute("usernameError", validation.getFieldUsername());
