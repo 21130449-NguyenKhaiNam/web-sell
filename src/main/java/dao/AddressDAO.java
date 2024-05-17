@@ -12,8 +12,9 @@ public class AddressDAO implements IAddressDAO {
         sql.append("SELECT id, province, ward, district, detail FROM address WHERE userId = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Address.class, userId);
     }
+
     public void insertAddress(Address address) {
-        String sql = "INSERT INTO address (userId, province, district, ward, detail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO address (userId, province, district, ward, detail) VALUES (?, ?,?,?,?)";
         GeneralDao.executeAllTypeUpdate(sql, address.getUserId(), address.getProvince(), address.getDistrict(), address.getWard(), address.getDetail());
     }
 

@@ -139,7 +139,7 @@
                     <div class="card-header">Sổ địa chỉ</div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end mb-2">
-                            <button class="btn btn-primary btn__address-update" data-bs-toggle="modal"
+                            <button class="btn btn-primary btn__address-create" data-bs-toggle="modal"
                                     data-bs-target="#modal">
                                 Thêm địa chỉ
                             </button>
@@ -203,13 +203,11 @@
 
                         </div>
                     </div>
-                    <div class="row gx-3 mb-3 mt-2 ">
-                        <div class="col-12">
-                            <label class="small py-1" for="inputAddress"> Số nhà, đường </label>
-                            <textarea class="form-control" name="detail" id="inputAddress"></textarea>
-                            <div class="valid-feedback">
+                    <div class="col-12">
+                        <label class="small py-1" for="inputAddress"> Số nhà, đường </label>
+                        <textarea class="form-control" name="detail" id="inputAddress"></textarea>
+                        <div class="valid-feedback">
 
-                            </div>
                         </div>
                     </div>
                 </div>

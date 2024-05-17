@@ -24,7 +24,7 @@ import java.util.List;
 @WebServlet(name = "UpdateAddress", value = "/api/user/address")
 public class AddressController extends HttpServlet {
     Gson gson = new GsonBuilder().create();
-    final String ADDRESS_ADD = "add";
+    final String ADDRESS_ADD = "create";
     final String ADDRESS_DELETE = "delete";
     final String ADDRESS_UPDATE = "update";
     private final AddressServices addressServices = AddressServices.getINSTANCE();
@@ -52,8 +52,11 @@ public class AddressController extends HttpServlet {
         String ward = request.getParameter("wardName");
         String detail = request.getParameter("detail");
         String action = request.getParameter("action");
+        JsonObject jsonObject = new JsonObject();
         if (province == null || district == null || ward == null || detail == null) {
+            jsonObject.addProperty("status", false);
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().println(gson.toJson(jsonObject));
             return;
         }
 
@@ -65,21 +68,28 @@ public class AddressController extends HttpServlet {
             address.setWard(ward);
             address.setDetail(detail);
             address.setUserId(user.getId());
-            address.setId(Integer.parseInt(id));
             switch (action) {
                 case ADDRESS_ADD:
                     addressServices.insertAddress(address);
                     break;
                 case ADDRESS_UPDATE:
+                    address.setId(Integer.parseInt(id));
                     addressServices.updateAddress(address);
                     break;
             }
         } catch (NumberFormatException e) {
+            jsonObject.addProperty("status", false);
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().println(gson.toJson(jsonObject));
             return;
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            jsonObject.addProperty("status", false);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().println(gson.toJson(jsonObject));
+            return;
         }
+        jsonObject.addProperty("status", true);
         response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().println(gson.toJson(jsonObject));
     }
 }

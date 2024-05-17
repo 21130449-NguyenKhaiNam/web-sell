@@ -5,12 +5,6 @@ import {getProvince, getWard, getDistrict, getProvinceId, getDistrictId, getWard
 $(document).ready(function () {
     $.fn.select2.defaults.set("theme", "bootstrap-5");
     $.fn.select2.defaults.set("width", "resolve");
-    // Add select 2 for address
-    let provinceId, districtId, wardId;
-    const inputProvince = $("#inputProvince");
-    const inputDistrict = $("#inputDistrict");
-    const inputWard = $("#inputWard");
-    let addressCustomer = {}
 
 // ------------------------------------
 // Cập nhập avatar
@@ -221,113 +215,14 @@ $(document).ready(function () {
     })
 
 //    -------------------------------
-// Hiển thị danh sách địa chỉ
-//  Lấy danh sách địa chỉ
-    $.ajax({
-        url: "/api/user/address",
-        type: 'GET',
-        dataType: 'json',
-        success: function (response, xhr) {
-            if (response.status == 200) {
-                const addressList = response.address;
-                if (addressList.length > 0) {
-                    addressCustomer = addressList;
-                    loadDataToTable();
-                }
-            }
-        },
-        error: function (xhr, status, error) {
-            // setupSelect2();
-        }
-    });
-
-    function loadDataToTable() {
-        const table = $('#addressList tbody');
-        table.empty();
-        const htmls = addressCustomer.map(function (address) {
-            return `<tr>
-                        <td>${address.id}</td>
-                        <td>${address.province}</td>
-                        <td>${address.district}</td>
-                        <td>${address.ward}</td>
-                        <td>${address.detail}</td>
-                        <td>
-                            <button class="btn btn-primary btn__address-update" data-id="${address.id}" data-bs-toggle="modal" data-bs-target="#modal">
-                                 <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                           <button class="btn btn-danger btn__address-delete" data-id="${address.id}" >
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>`
-        })
-        table.html(htmls.join(''));
-        viewModal();
-    }
-
-//    -------------------------------
-//     Xem địa chỉ chi tiết để cập nhập
-    function viewModal() {
-        $(".btn__address-update").on("click", async function () {
-            const id = $(this).data("id");
-            if (id) {
-                const address = addressCustomer.find(address => {
-                    return address.id == id
-                });
-                if (address) {
-                    provinceId = await getProvinceId(address.province);
-                    districtId = await getDistrictId(provinceId, address.district);
-                    wardId = await getWardCode(districtId, address.ward);
-                    $('#inputAddress').val(address.detail);
-                }
-            } else {
-                provinceId = null;
-                districtId = null;
-                wardId = null;
-                $('#inputAddress').val("");
-            }
-            setupSelect2();
-        });
-
-        $(".btn__address-delete").on("click", function () {
-            const id = $(this).data("id");
-            if (id) {
-                alert(() => {
-                    $.ajax({
-                        url: "/api/user/address/delete",
-                        type: 'POST',
-                        data: {
-                            id: id,
-                        },
-                        beforeSend: function () {
-                            addSpinner();
-                        },
-                        success: function (response) {
-                            Swal.fire({
-                                title: "Chúc mừng!",
-                                text: "Địa chỉ đã được xóa",
-                                icon: "success"
-                            });
-                        },
-                        error: function (xhr, status, error) {
-                            Swal.fire({
-                                title: "Lỗi!",
-                                text: "Địa chỉ không xóa thành công",
-                                icon: "error"
-                            });
-                        },
-                        complete: function () {
-                            cancelSpinner();
-                        }
-                    });
-                });
-            }
-
-        })
-    }
-
-    // Validate address form
-    $("#form-address").validate({
+    let provinceId, districtId, wardId;
+    const inputProvince = $("#inputProvince");
+    const inputDistrict = $("#inputDistrict");
+    const inputWard = $("#inputWard");
+    let addressCustomer = {}
+    let currentAction = "";
+    // Cấu hình validate form địa chỉ
+    const addressValidator = {
         rules: {
             province: {
                 required: true,
@@ -392,6 +287,10 @@ $(document).ready(function () {
                 {
                     name: "wardName",
                     value: $("#inputWard option:selected").text()
+                },
+                {
+                    name: "action",
+                    value: currentAction
                 }
             );
             const formData = $.param(formDataArray);
@@ -405,11 +304,20 @@ $(document).ready(function () {
                         addSpinner();
                     },
                     success: function (response) {
-                        Swal.fire({
-                            title: "Chúc mừng!",
-                            text: "Địa chỉ mới đã được cập nhập",
-                            icon: "success"
-                        });
+                        if (response.status){
+                            Swal.fire({
+                                title: "Chúc mừng!",
+                                text: "Địa chỉ mới đã được cập nhập",
+                                icon: "success"
+                            });
+                        }else{
+                            Swal.fire({
+                                title: "Lỗi!",
+                                text: "Địa chỉ mới không cập nhập thành công",
+                                icon: "error"
+                            });
+                        }
+
                     },
                     error: function (xhr, status, error) {
                         Swal.fire({
@@ -424,7 +332,136 @@ $(document).ready(function () {
                 });
             })
         }
+    }
+    const addressForm = $("#form-address").validate(addressValidator);
+    // Gán sự kiện tạo mới địa chỉ
+    $(".btn__address-create").on("click", () => {
+        provinceId = undefined;
+        districtId = undefined;
+        wardId = undefined;
+        setupSelect2().then(() => {
+            addressForm.resetForm();
+        });
+        currentAction = "create";
+    })
+    // Lấy danh sách địa chỉ
+    $.ajax({
+        url: "/api/user/address",
+        type: 'GET',
+        dataType: 'json',
+        success: function (response, xhr) {
+            if (response.status == 200) {
+                const addressList = response.address;
+                if (addressList.length > 0) {
+                    addressCustomer = addressList;
+                    loadDataToTable();
+                }
+            }
+        },
+        error: function (xhr, status, error) {
+            // setupSelect2();
+        }
     });
+
+    // Load danh sách địa chỉ vào UI
+    function loadDataToTable() {
+        const table = $('#addressList tbody');
+        table.empty();
+        const htmls = addressCustomer.map(function (address) {
+            return `<tr>
+                        <td>${address.id}</td>
+                        <td>${address.province}</td>
+                        <td>${address.district}</td>
+                        <td>${address.ward}</td>
+                        <td>${address.detail}</td>
+                        <td>
+                            <button class="btn btn-primary btn__address-update" data-id="${address.id}" data-bs-toggle="modal" data-bs-target="#modal">
+                                 <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                           <button class="btn btn-danger btn__address-delete" data-id="${address.id}" >
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>`
+        })
+        table.html(htmls.join(''));
+        viewModal();
+    }
+
+//    -------------------------------
+//     Xem địa chỉ chi tiết để cập nhập
+    function viewModal() {
+        $(".btn__address-update").on("click", async function () {
+            addressForm.resetForm();
+            currentAction = "update";
+            const id = $(this).data("id");
+            if (id) {
+                const address = addressCustomer.find(address => {
+                    return address.id == id
+                });
+                if (address) {
+                    provinceId = await getProvinceId(address.province);
+                    districtId = await getDistrictId(provinceId, address.district);
+                    wardId = await getWardCode(districtId, address.ward);
+                    $('#inputAddress').val(address.detail);
+                }
+            } else {
+                provinceId = undefined;
+                districtId = undefined;
+                wardId = undefined;
+                $('#inputAddress').val("");
+            }
+            setupSelect2();
+        });
+
+        $(".btn__address-delete").on("click", function () {
+            addressForm.resetForm();
+            const id = $(this).data("id");
+            const element = $(this).closest("tr");
+            if (id) {
+                alert(() => {
+                        $.ajax({
+                            url: "/api/user/address/delete",
+                            type: 'POST',
+                            data: {
+                                id: id,
+                            },
+                            beforeSend: function () {
+                                addSpinner();
+                            },
+                            success: function (response) {
+                                Swal.fire({
+                                    title: "Chúc mừng!",
+                                    text: "Địa chỉ đã được xóa",
+                                    icon: "success"
+                                });
+                                element.remove();
+                                addressCustomer = addressCustomer.filter(address => {
+                                    return address.id != id;
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                Swal.fire({
+                                    title: "Lỗi!",
+                                    text: "Địa chỉ không xóa thành công",
+                                    icon: "error"
+                                });
+                            },
+                            complete: function () {
+                                cancelSpinner();
+                            }
+                        });
+                    }, () => {
+                        addressForm.resetForm();
+                    }
+                    , {
+                        notify: "Bạn có muốn xóa địa chỉ này không?",
+                        cancel: "Hủy",
+                    });
+            }
+
+        })
+    }
 
     // Cấu hình select 2
     async function setupSelect2() {
