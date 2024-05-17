@@ -1,6 +1,9 @@
 body {
     position: relative;
 }
+.tippy-box {
+    z-index: 9999; /* hoặc một giá trị cao hơn nếu cần */
+}
 #header {
     background-color: var(--blue-color-medium);
 }

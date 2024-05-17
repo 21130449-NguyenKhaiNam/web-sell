@@ -9,10 +9,10 @@ import utils.Validation;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "signIn", value = "/signIn")
@@ -27,7 +27,6 @@ public class SignIn extends HttpServlet {
         String password = request.getParameter("password").trim();
 
         Validation validation = AuthenticateServices.getINSTANCE().checkSignIn(username, password);
-
         if (validation.getObjReturn() != null) {
 //            Cookie ko co user, ko sessionId
             User userAuth = (User) validation.getObjReturn();
