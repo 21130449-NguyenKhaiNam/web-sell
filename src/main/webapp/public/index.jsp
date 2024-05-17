@@ -15,19 +15,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:useBean id="productFactory" class="utils.ProductFactory"
-             scope="session" />
+             scope="session"/>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <jsp:include page="commonLink.jsp" />
+    <jsp:include page="commonLink.jsp"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/home.css" />">
     <title>Trang chủ</title>
 </head>
 
 <body>
 <!--Header-->
-<c:import url="header.jsp" charEncoding="UTF-8" />
+<c:import url="header.jsp" charEncoding="UTF-8"/>
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main"> <!--Hero-->
     <div class="hero">
@@ -60,7 +60,7 @@
                     <%for (Slider slide : (List<Slider>) request.getAttribute("listSlideShow")) {%>
                     <img class="slider__item"
                          src="<%=CloudinaryUploadServices.getINSTANCE().getImage("slider/", slide.getNameImage())%>"
-                         alt="" />
+                         alt=""/>
                     <%}%>
                 </div>
                 <div class="navigation__button nav__prev hvr-bounce-in">
@@ -170,7 +170,6 @@
                 <i class="fa-solid fa-arrow-right"></i>
             </button>
         </div>
-    </div>
     </div>
 
     <div class="new__section container-xl">
