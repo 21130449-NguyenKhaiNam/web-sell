@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 @WebListener
 public class HandelCart implements HttpSessionAttributeListener {
@@ -104,15 +108,8 @@ public class HandelCart implements HttpSessionAttributeListener {
                     services.update(target);
                     source.clear();
                     source.putAll(target);
+                    debouncing.cancel();
                 });
-                try {
-                    Thread.sleep(delay);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                // Sau thời gian chờ không có gì thay đổi thì thực hiện rồi xóa biến chờ
-                debouncing.cancel();
-                debouncing = null;
             }
             isReplaceReal = false;
             session.setAttribute(cartId + "", newCart);
@@ -130,31 +127,30 @@ public class HandelCart implements HttpSessionAttributeListener {
 
     class Debouncing {
         private final long delay;
-        private Timer timer;
+        private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        private ScheduledFuture<?> future;
 
         public Debouncing(long delay) {
             this.delay = delay;
         }
 
         public synchronized void debounce(final Runnable action) {
-            if (timer != null) {
-                timer.cancel();
+            if (future != null && !future.isDone()) {
+                future.cancel(false);
             }
-            timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    action.run();
-                }
-            }, delay);
+            future = scheduler.schedule(action, delay, TimeUnit.MILLISECONDS);
         }
 
-        // Hàm dừng hoạt động
+        // Method to stop the debounce action
         public synchronized void cancel() {
-            if (timer != null) {
-                timer.cancel();
-                timer = null;
+            if (future != null && !future.isDone()) {
+                future.cancel(false);
             }
+        }
+
+        // Method to shut down the scheduler when it's no longer needed
+        public void shutdown() {
+            scheduler.shutdown();
         }
     }
 }
