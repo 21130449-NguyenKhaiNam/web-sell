@@ -38,11 +38,11 @@ public class CheckoutFilter implements Filter {
 
         DeliveryInfo deliveryInfoAuth = new DeliveryInfo(fullName, email, phone, address);
 
-            DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
-            if(deliveryInfoStorage == null){
-                deliveryInfoStorage = new DeliveryInfoStorage();
-                session.setAttribute("deliveryInfoStorage", deliveryInfoStorage);
-            }
+        DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
+        if (deliveryInfoStorage == null) {
+            deliveryInfoStorage = new DeliveryInfoStorage();
+            session.setAttribute("deliveryInfoStorage", deliveryInfoStorage);
+        }
 
 //            if(cart.getDeliveryInfo() == null){
 //                deliveryInfoStorage.add("defaultDeliveryInfo", deliveryInfoAuth);
@@ -51,20 +51,10 @@ public class CheckoutFilter implements Filter {
 //                session.setAttribute(userIdCart, cart);
 //            }
 
-            String url = request.getServletPath();
-            if(url.contains("checkout.jsp") && !url.contains("error404.jsp")){
-                response.sendRedirect("Checkout");
-            }
-            filterChain.doFilter(request, response);
+        String url = request.getServletPath();
+        if (url.contains("checkout.jsp") && !url.contains("error404.jsp")) {
+            response.sendRedirect("Checkout");
         }
-
-        if (cart.getDeliveryInfo() == null) {
-            deliveryInfoStorage.add("defaultDeliveryInfo", deliveryInfoAuth);
-            cart.setDeliveryInfo(deliveryInfoAuth);
-            session.setAttribute("deliveryInfoStorage", deliveryInfoStorage);
-            session.setAttribute(userIdCart, cart);
-        }
-
         filterChain.doFilter(request, response);
     }
 

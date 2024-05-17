@@ -31,7 +31,7 @@ public class LogApi extends HttpServlet {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("draw", draw);
         jsonObject.put("recordsTotal", size);
-        jsonObject.put("recordFiltered", size);
+        jsonObject.put("recordsFiltered", size);
         jsonObject.put("data", logs);
         PrintWriter writer = resp.getWriter();
         writer.write(mapper.writeValueAsString(jsonObject.toMap()));

@@ -82,12 +82,8 @@
                                         <div class="setting__link">Tài khoản của tôi</div>
                                     </a>
                                     <c:if test="${auth.role == 2 || auth.role == 1}">
-                                    <<<<<<< HEAD <a href="<c:url value="
+                                        <a href="<c:url value="
                                                     /public/admin/adminNavigator.jsp" />" class="setting__item">
-                                    =======
-                                    <a href="<c:url value=" /public/admin/adminProducts.jsp" />"
-                                       class="setting__item">
-                                        >>>>>>> origin/Merge
                                         <div class="setting__link">Quản lý</div>
                                     </a>
                                     </c:if>
