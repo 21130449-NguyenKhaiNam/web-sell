@@ -37,8 +37,6 @@ public class HandelCart implements HttpSessionAttributeListener {
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
         String name = event.getName();
-        // Bất cứ session nào được tạo ra đều bắt qua hàm này
-        System.out.println("Thực hiện add: " + name);
         user = services.getUser();
         if (event.getValue() instanceof ShoppingCart && user != null) {
             ShoppingCart newCart = (ShoppingCart) event.getValue();
