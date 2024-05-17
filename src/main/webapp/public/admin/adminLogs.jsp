@@ -32,9 +32,7 @@
                             <thead>
                             <tr class="table__row">
                                 <th class="table__head">Mã số</th>
-                                <c:if test="${sessionScope.auth.role == '2'}">
-                                    <th class="table__head">IP</th>
-                                </c:if>
+                                <th class="table__head">IP</th>
                                 <th class="table__head">Mức độ</th>
                                 <th class="table__head">Tác động</th>
                                 <th class="table__head">Ngày tạo</th>
@@ -61,7 +59,10 @@
                 {data: 'level'},
                 {data: 'resource'},
                 {data: 'dateCreated'},
-                {data: 'previous'},
+                {
+                    data: 'previous',
+                    defaultContent: "", // Thêm defaultContent để xử lý trường hợp không có dữ liệu
+                },
                 {data: 'current'},
             ],
             createdRow: (row, data, index) => {
@@ -70,18 +71,26 @@
                 row.querySelector(':nth-child(7)').classList.add('data');
             }
         })
-        $('td.data').each(function (index) {
-            let text = $(this)[0].innerHTML
-            if(text.length > 30) {
-                tippy(this, {
-                    theme: 'light',
-                    content: text,
-                    interactive: true,
-                })
-                $(this)[0].innerHTML = text.substring(0, 29) + "..."
-            }
+
+        table.on('draw', function() {
+            handelTextTippy()
         })
+
+        function handelTextTippy() {
+            $('td.data').each(function (index) {
+                let text = $(this)[0].innerHTML
+                if (text.length > 30) {
+                    tippy(this, {
+                        theme: 'light',
+                        content: text,
+                        interactive: true,
+                    })
+                    $(this)[0].innerHTML = text.substring(0, 29) + "..."
+                }
+            })
+        }
     })
+
 </script>
 </body>
 </html>

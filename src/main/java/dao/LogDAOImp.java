@@ -2,6 +2,9 @@ package dao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import models.Log;
 
 import java.sql.Date;
@@ -10,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LogDAOImp implements ILogDAO {
-
     private String ip;
 
     public LogDAOImp() {
@@ -51,6 +53,7 @@ public class LogDAOImp implements ILogDAO {
 //        String queryInsert = "INSERT INTO test(a, b, c) VALUES (?, ?, ?)";
 //        dao.insertLog(queryUpdate, 1, 2);
 //        dao.insertLog(queryInsert, 1, 2, 3);
+
     }
 
     @Override
@@ -214,12 +217,6 @@ public class LogDAOImp implements ILogDAO {
     }
 
     @Override
-    public List<Log> findAll() {
-        String sql = "SELECT id, ip, level, resource, dateCreated, previous, current FROM logs";
-        return GeneralDao.executeQueryWithSingleTable(sql, Log.class);
-    }
-
-    @Override
     public List<Log> getLog(int start, int limit) {
         String sql = "SELECT id, ip, level, resource, dateCreated, previous, current FROM logs LIMIT ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Log.class, limit);
@@ -227,7 +224,8 @@ public class LogDAOImp implements ILogDAO {
 
     @Override
     public long getSize() {
-        return findAll().size();
+        String sql = "SELECT COUNT(*) as count FROM logs";
+        return GeneralDao.executeQueryWithSingleTable(sql, CountResult.class).get(0).getCount();
     }
 
     // Chuyển đổi tương ứng với tác động của câu query, sau này tách ra
@@ -242,4 +240,22 @@ public class LogDAOImp implements ILogDAO {
         return "ERROR";
     }
 
+    public static class CountResult {
+        private long count;
+
+        public CountResult() {
+        }
+
+        public CountResult(int count) {
+            this.count = count;
+        }
+
+        public long getCount() {
+            return count;
+        }
+
+        public void setCount(long count) {
+            this.count = count;
+        }
+    }
 }

@@ -13,8 +13,6 @@ public interface ILogDAO {
 
     void insertLogForSelect(String sql, List<?> list);
 
-    List<Log> findAll();
-
     List<Log> getLog(int start, int limit);
 
     long getSize();
