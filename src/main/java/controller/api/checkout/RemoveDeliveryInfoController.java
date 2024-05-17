@@ -1,12 +1,17 @@
 package controller.api.checkout;
 
-import models.*;
+import models.DeliveryInfo;
+import models.DeliveryInfoStorage;
+import models.User;
 import models.shoppingCart.ShoppingCart;
 import session.SessionManager;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "RemoveDeliveryInfoController", value = "/api/checkout/delivery/remove")
@@ -24,7 +29,7 @@ public class RemoveDeliveryInfoController extends HttpServlet {
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         if(statusChoice.equals("Đã chọn")) {
             DeliveryInfo deliveryInfoAuth = deliveryInfoStorage.getDeliveryInfoByKey("defaultDeliveryInfo");
-            cart.setDeliveryInfo(deliveryInfoAuth);
+//            cart.setDeliveryInfo(deliveryInfoAuth);
             session.setAttribute(userIdCart, cart);
         }
 

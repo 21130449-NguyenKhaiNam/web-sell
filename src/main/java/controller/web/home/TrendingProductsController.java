@@ -1,4 +1,4 @@
-package controller.home;
+package controller.web.home;
 
 import config.ConfigPage;
 import models.Product;
