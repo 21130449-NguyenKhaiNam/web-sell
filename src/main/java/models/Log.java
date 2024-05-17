@@ -2,6 +2,7 @@ package models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.sql.Date;
 
 @Data
 @NoArgsConstructor
@@ -9,8 +10,8 @@ public class Log {
     private int id;
     private String ip;
     private String level;
-    private String location;
     private String resource;
-    private String previousValue;//JSON
-    private String currentValue;//JSON
+    private Date dateCreated;
+    private String previous; // json
+    private String current; // json
 }
