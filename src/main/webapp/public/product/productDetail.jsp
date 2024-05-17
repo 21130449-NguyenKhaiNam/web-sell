@@ -32,7 +32,7 @@
                             <div class="product__media">
                                 <%String firstImage = productFactory.getListImagesByProductId(product.getId()).get(0).getNameImage();%>
 
-                                <img class="product__img" src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", firstImage)%>"
+                                <img class="product__img" src="<%=firstImage%>"
                                      alt="" loading="lazy">
 
                                 <ul class="product__img-list">
@@ -41,7 +41,7 @@
                                         <c:choose>
                                             <c:when test="<%=i == 0%>">
                                                 <li class="product__img-item product__img-item--clicked">
-                                                    <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", image.getNameImage())%>"
+                                                    <img src="<%=image.getNameImage()%>"
                                                          alt="" loading="lazy">
                                                 </li>
                                             </c:when>
