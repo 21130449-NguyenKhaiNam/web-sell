@@ -14,14 +14,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-@WebServlet(name = "SeeDetailOrderAdmin", value = "/SeeDetailOrderAdmin")
+@WebServlet(name = "SeeDetailOrderAdmin", value = "/api/admin/order/detail")
 public class SeeDetailOrderAdmin extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
-
         String orderId = (String) request.getAttribute("orderId");
         List<OrderDetail> listOrderDetailByOrderId = AdminOrderServices.getINSTANCE().getListOrderDetailByOrderId(orderId);
         Order orderTarget = AdminOrderServices.getINSTANCE().getOrderById(orderId);

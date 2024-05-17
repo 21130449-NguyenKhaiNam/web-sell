@@ -7,15 +7,18 @@ import org.json.JSONObject;
 import services.admin.AdminReviewServices;
 import utils.ProductFactory;
 import utils.UserFactory;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "ReviewPage", value = "/reviewPage")
+@WebServlet(name = "ReviewPage", value = "/api/admin/review/page")
 public class ReviewPage extends HttpServlet {
 
     @Override
@@ -32,10 +35,10 @@ public class ReviewPage extends HttpServlet {
         List<Review> listReview = AdminReviewServices.getINSTANCE().getReviews(currentPage);
 
         List<ReviewResponse> reviewResponses = new ArrayList<>();
-        for (Review review : listReview){
+        for (Review review : listReview) {
             int userId = -1;
-            if(UserFactory.getUserByIdProductDetail(review.getOrderDetailId()) != null){
-                userId= UserFactory.getUserByIdProductDetail(review.getOrderDetailId()).getId();
+            if (UserFactory.getUserByIdProductDetail(review.getOrderDetailId()) != null) {
+                userId = UserFactory.getUserByIdProductDetail(review.getOrderDetailId()).getId();
             }
             ReviewResponse reviewResponse = new ReviewResponse(review.getId(),
                     userId,
@@ -59,13 +62,10 @@ public class ReviewPage extends HttpServlet {
         String jsonResponse = null;
         try {
             jsonResponse = mapper.writeValueAsString(listReviewResponse);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
             response.getWriter().write(jsonResponse);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ReviewPage extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    private class ReviewResponse{
+    private class ReviewResponse {
         private int id;
         private int userId;
         private String productName;
@@ -98,6 +98,7 @@ public class ReviewPage extends HttpServlet {
         public int getUserId() {
             return userId;
         }
+
         @JsonGetter("orderDetailId")
         public int getOrderDetailId() {
             return orderDetailId;
@@ -112,6 +113,7 @@ public class ReviewPage extends HttpServlet {
         public String getProductName() {
             return productName;
         }
+
         @JsonGetter("ratingStar")
         public int getRatingStar() {
             return ratingStar;
@@ -126,13 +128,14 @@ public class ReviewPage extends HttpServlet {
         public Date getReviewDate() {
             return reviewDate;
         }
+
         @JsonGetter("visibility")
         public boolean isVisibility() {
             return visibility;
         }
     }
 
-    private class ListReviewResponse{
+    private class ListReviewResponse {
         private int quantity;
         private List<ReviewResponse> listReivewResponse;
 
@@ -140,15 +143,15 @@ public class ReviewPage extends HttpServlet {
             this.quantity = quantity;
             this.listReivewResponse = listReivewResponse;
         }
+
         @JsonGetter("quantity")
         public int getQuantity() {
             return quantity;
         }
 
         @JsonGetter("reviews")
-        public List<ReviewResponse> getListReivewResponse() {
+        public List<ReviewResponse> getListReviewResponse() {
             return listReivewResponse;
         }
-
     }
 }

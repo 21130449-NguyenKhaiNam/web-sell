@@ -15,27 +15,26 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:useBean id="productFactory" class="utils.ProductFactory"
-             scope="session"/>
+             scope="session" />
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <jsp:include page="commonLink.jsp"/>
+    <jsp:include page="commonLink.jsp" />
     <link rel="stylesheet" href="<c:url value="/assets/css/home.css" />">
     <title>Trang chủ</title>
 </head>
 
 <body>
 <!--Header-->
-<c:import url="header.jsp" charEncoding="UTF-8"/>
+<c:import url="header.jsp" charEncoding="UTF-8" />
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main"> <!--Hero-->
     <div class="hero">
         <img src="<c:url value="/assets/img/hero__img.png" />" alt="" class="hero__img">
         <div class="hero__slogan">
             <h1>Change Your Styles Now</h1>
-            <p>Cùng chúng tôi tạo nên thiết kế khác biệt cho quần áo của
-                bạn</p>
+            <p>Cùng chúng tôi tạo nên thiết kế khác biệt cho quần áo của bạn</p>
             <a href="<c:url value="/public/product/productBuying.jsp" />"
                class="hero__button button button--hover hvr-radial-out">
                 Bắt đầu đặt may
@@ -61,14 +60,12 @@
                     <%for (Slider slide : (List<Slider>) request.getAttribute("listSlideShow")) {%>
                     <img class="slider__item"
                          src="<%=CloudinaryUploadServices.getINSTANCE().getImage("slider/", slide.getNameImage())%>"
-                         alt=""/>
+                         alt="" />
                     <%}%>
                 </div>
                 <div class="navigation__button nav__prev hvr-bounce-in">
                     <i class="fa-solid fa-chevron-left"></i>
                 </div>
-
-
                 <div class="navigation__button nav__next hvr-bounce-in">
                     <i class="fa-solid fa-chevron-right"></i>
                 </div>
@@ -82,7 +79,6 @@
             <div class="category__container category__items">
                 <div class="category__item">
                     <p class="item__text">Áo thun / T-Shirt</p>
-
                     <img class="item__image"
                          src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "T-shirt")%>">
                 </div>
@@ -103,10 +99,8 @@
                 </div>
                 <div class="category__item">
                     <p class="item__text">Nón / Cap</p>
-
                     <img class="item__image"
                          src="<%=CloudinaryUploadServices.getINSTANCE().getImage("category", "hat")%>">
-
                 </div>
             </div>
         </div>
@@ -115,7 +109,9 @@
     <div class="popular__section container-xl">
         <div class="popular__title">
             <h2 class="section__title">Sản phẩm thịnh hành</h2>
-            <a class="see__more hvr-forward" href="<c:url value="/public/product/productTrending.jsp" />">Xem thêm</a>
+            <a class="see__more hvr-forward" href="<c:url value="/public/product/productTrending.jsp" />">Xem
+                thêm
+            </a>
         </div>
         <div class="product__wrapper">
             <button class="left__button"><i
@@ -129,7 +125,7 @@
                             <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
-                            <form action="AddToCart"
+                            <form action="/api/cart/add"
                                   class="action__bar" method="post">
                                 <input type="hidden"
                                        name="productId"
@@ -145,7 +141,6 @@
                                 </a>
                             </form>
                         </div>
-
 
                         <div class="product__info">
                             <a class="product__name" target="_blank"
@@ -163,7 +158,8 @@
                                 </div>
                                 <a class="number__turns--ratting"
                                    href="${showProductDetail}"><%=productFactory.getReviewCount(trendProduct.getId())%>
-                                    nhận xét</a>
+                                    nhận xét
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -180,7 +176,8 @@
     <div class="new__section container-xl">
         <div class="new__title">
             <h2 class="section__title">Sản phẩm mới</h2>
-            <a class="see__more hvr-forward" href="<c:url value="/public/product/productNew.jsp" />">Xem thêm</a>
+            <a class="see__more hvr-forward" href="<c:url value="/public/product/productNew.jsp" />">Xem thêm
+            </a>
         </div>
         <div class="product__wrapper">
             <button class="left__button"><i
@@ -195,7 +192,7 @@
                             <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
 
                             <span class="product__tag" data-style="popular">Thịnh hành</span>
-                            <form action="AddToCart"
+                            <form action="/api/cart/add"
                                   class="action__bar" method="post">
                                 <input type="hidden"
                                        name="productId"
@@ -228,7 +225,8 @@
                                 </div>
                                 <a class="number__turns--ratting"
                                    href="${showProductDetail}"><%=productFactory.getReviewCount(newProduct.getId())%>
-                                    nhận xét</a>
+                                    nhận xét
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -242,9 +240,7 @@
     </div>
     <div id="discovery__us--section" class="container-xl">
         <div class="discovery__container">
-            <h2 class="section__title">Bạn có thể khám phá được điều gì
-                ở chúng
-                tôi?</h2>
+            <h2 class="section__title">Bạn có thể khám phá được điều gì ở chúng tôi?</h2>
             <div class="discovery__content">
                 <div class="disco_thing hvr-underline-from-left">
                     <p>50+</p>
@@ -262,8 +258,7 @@
         </div>
     </div>
     <div class="step__guide--section container-xl">
-        <h2 class="section__title">Cách bước để bạn có thể đặt may
-            một mẫu đồ</h2>
+        <h2 class="section__title">Cách bước để bạn có thể đặt may một mẫu đồ</h2>
         <div class="guide__content row">
             <div class="col hvr-grow-shadow">
                 <div class="step__item">
@@ -310,54 +305,36 @@
 <script src="<c:url value="/js/base.js" />"></script>
 <script type="text/javascript">
     function addToCartAjax() {
-
         $(document).ready(function () {
             $('.action__bar').each(function (index, actionBar) {
                 $(actionBar).on('submit', function (event) {
                     event.preventDefault();
-                    let userLoggedIn;
-                    <c:choose>
-
-                    <c:when test="${sessionScope.auth == null}">
-                    userLoggedIn = false
-                    </c:when>
-
-                    <c:otherwise>
-                    userLoggedIn = true
-                    </c:otherwise>
-                    </c:choose>
-                    if (userLoggedIn === false) {
-                        window.location.href = "signIn.jsp"
-                    } else {
-                        const form = $(actionBar);
-                        let productId = form.find('input[name="productId"]').val();
-                        $.ajax({
-                            type: form.attr('method'),
-                            url: form.attr('action'),
-                            data: {productId: productId},
-                            success: function (response) {
-                                let addToCartSuccessHTML = `<div class="notification__cart">
-
-
-                                                            <div class="status__success">
-                                                                <span>
-                                                                    <i class="fa-solid fa-circle-check icon__success"></i>
-                                                                Đã thêm vào giỏ hàng thành công
-                                                                </span>
-                                                                <span onclick="handleCloseNotificationCart()">
-                                                                    <i class="fa-solid fa-xmark close__notification"></i>
-                                                                </span>
-                                                            </div>
-                                                            <a class="view__cart" href="user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
-                                                        </div>`;
-                                $('.cart__wrapper').append(addToCartSuccessHTML)
-                                $('.qlt__value').text(response);
-                            },
-                            error: function (error) {
-                                console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
-                            }
-                        })
-                    }
+                    const form = $(actionBar);
+                    let productId = form.find('input[name="productId"]').val();
+                    $.ajax({
+                        type: form.attr('method'),
+                        url: form.attr('action'),
+                        data: {productId: productId},
+                        success: function (response) {
+                            let addToCartSuccessHTML = `<div class="notification__cart">
+                                                        <div class="status__success">
+                                                            <span>
+                                                            <i class="fa-solid fa-circle-check icon__success"></i>
+                                                            Đã thêm vào giỏ hàng thành công
+                                                            </span>
+                                                            <span onclick="handleCloseNotificationCart()">
+                                                            <i class="fa-solid fa-xmark close__notification"></i>
+                                                            </span>
+                                                        </div>
+                                                        <a class="view__cart" href="/public/user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                    </div>`;
+                            $('.cart__wrapper').append(addToCartSuccessHTML)
+                            $('.qlt__value').text(response);
+                        },
+                        error: function (error) {
+                            console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
+                        }
+                    })
                 })
             })
         })

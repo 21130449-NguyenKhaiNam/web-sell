@@ -2,6 +2,7 @@ package filter.shoppingCart;
 
 import models.shoppingCart.ShoppingCart;
 import models.User;
+import session.SessionManager;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +24,9 @@ public class VoucherValidityFilter implements Filter {
         String requestURI = request.getServletPath();
 
         HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
-        if (userAuth != null){
-            String userIdCart = String.valueOf(userAuth.getId());
+        User user = SessionManager.getInstance(request, response).getUser();
+        if (user != null){
+            String userIdCart = String.valueOf(user.getId());
             ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
             if (!requestURI.contains("shoppingCart.jsp") && !requestURI.contains("ShoppingCart") && !requestURI.contains("IncreaseQuantity")

@@ -1,7 +1,7 @@
 package controller.web.authentication;
 
 import config.ConfigPage;
-import services.AuthenticateServices;
+import services.authentication.AuthenticateServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

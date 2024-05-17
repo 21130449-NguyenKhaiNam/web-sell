@@ -2,7 +2,7 @@ package controller.web.authentication;
 
 import config.ConfigPage;
 import models.User;
-import services.AuthenticateServices;
+import services.authentication.AuthenticateServices;
 import utils.Validation;
 
 

@@ -235,4 +235,15 @@ public class ShoppingCart {
 
         System.out.println(cartProduct1.equals(cartProduct2));
     }
+
+    @Override
+    public String toString() {
+        return "ShoppingCart{" +
+                "shoppingCartMap=" + shoppingCartMap +
+                ", voucherApplied=" + voucherApplied +
+                ", deliveryMethod=" + deliveryMethod +
+                ", paymentMethod=" + paymentMethod +
+                ", deliveryInfo=" + deliveryInfo +
+                '}';
+    }
 }

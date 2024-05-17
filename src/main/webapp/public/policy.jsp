@@ -147,7 +147,6 @@
         </div>
     </div>
 </main
-        <!--Header-->
 <c:import url="footer.jsp" charEncoding="UTF-8"/>
 </body>
 <script>

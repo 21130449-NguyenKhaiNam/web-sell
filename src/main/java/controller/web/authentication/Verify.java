@@ -1,13 +1,12 @@
 package controller.web.authentication;
 
 import config.ConfigPage;
-import services.AuthenticateServices;
+import services.authentication.AuthenticateServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.sql.Timestamp;
 
 @WebServlet(name = "verify", value = "/verify")
 public class Verify extends HttpServlet {

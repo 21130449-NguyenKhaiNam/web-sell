@@ -1,5 +1,6 @@
 package controller.api.admin.product;
 
+import lombok.SneakyThrows;
 import models.Product;
 import properties.PathProperties;
 import services.admin.AdminProductServices;
@@ -22,19 +23,16 @@ import java.util.List;
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 100
 )
-@WebServlet(name = "adminUpdateProduct", value = "/admin-update-product")
+@WebServlet(name = "adminUpdateProduct", value = "/api/admin/product/update")
 public class UpdateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
 
+    @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
-
         String idString = request.getParameter("id");
         String name = request.getParameter("name");
         String idCategory = request.getParameter("idCategory");

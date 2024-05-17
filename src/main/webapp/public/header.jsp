@@ -1,7 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="models.User" %>
-<%@ page import="models.UserSessionAccess" %>
 <!--Header-->
 <header id="header">
     <nav class="nav">
@@ -15,7 +13,7 @@
                     <li class="nav__item">
                         <a href="<c:url value="/public/product/productBuying.jsp" />"
                            class="nav__link hvr-grow-shadow">
-                            Sản phẩm
+                            Gian hàng
                         </a>
                     </li>
                     <li class="nav__item">
@@ -29,8 +27,10 @@
                         </a>
                     </li>
                 </ul>
-                <c:set var="auth" value="${sessionScope.auth}"/> <%-- log: ${auth}--%> <c:choose>
-                <c:when test="${auth == null}"> <!--cta == call to action-->
+                <c:set var="sessionId" value="${cookie['sessionId'].value}" />
+                <c:set var="auth" value="${sessionScope.sessionUser[sessionId]}" />
+                <c:choose>
+                    <c:when test="${empty auth}"> <!--cta == call to action-->
                     <div class="nav__cta">
                         <a href="<c:url value="/public/auth/signIn.jsp" />"
                            class="me-3 nav__button nav__button--signIn hvr-ripple-in">
@@ -41,8 +41,8 @@
                             Đăng ký
                         </a>
                     </div>
-                </c:when>
-                <c:otherwise> <!--Account show (After log in success)-->
+
+                </c:when> <c:otherwise> <!--Account show (After log in success)-->
                     <div class="account__wrapper">
                         <!--Giỏ hàng-->
                         <div class="cart__wrapper">
@@ -50,29 +50,31 @@
                                 <span class="cart__content">
                                     <i class="cart__icon fa-solid fa-cart-shopping"></i>Giỏ hàng</span>
                                 <span class="qlt__swapper">
-                                    <span class="qlt__value">
-                                        <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
-                                        <c:choose>
-                                            <c:when test="${sessionScope[userIdCart] == null}">0
-                                            </c:when>
-                                            <c:otherwise>${sessionScope[userIdCart].getTotalItems()}
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </span>
+
+                                <span class="qlt__value">
+                                    <c:set var="userIdCart" value="${String.valueOf(auth.id)}" />
+                                    <c:choose> <c:when test="${sessionScope[userIdCart] == null}"> 0 </c:when>
+                                        <c:otherwise>
+                                            ${sessionScope[userIdCart].getTotalItems()}
+                                        </c:otherwise> </c:choose>
                                 </span>
+                            </span>
                             </a>
                         </div>
                         <div class="account">
                             <i class="account__icon fa-regular fa-user"></i>
                             <div class="setting__list">
-                                <a href="<c:url value="/Account" />" class="setting__item">
+
+                                <a href="<c:url value="/public/user/accountInfo.jsp"/>" class="setting__item">
+
                                     <div class="setting__link">
                                         <div class="account__info">
                                             <i class="account__icon fa-regular fa-user"></i>
                                             <p class="account__name"> ${auth.getUsername()} </p></div>
                                     </div>
                                 </a>
-                                <a href="<c:url value="/Account" />" class="setting__item">
+
+                                <a href="<c:url value="/public/user/accountInfo.jsp" />" class="setting__item">
                                     <div class="setting__link">Tài khoản của tôi</div>
                                 </a>
                                 <c:if test="${auth.role == 2 || auth.role == 1}">
@@ -88,7 +90,6 @@
                     </div>
                 </c:otherwise> </c:choose>
             </div>
-
         </div>
     </nav>
 </header>

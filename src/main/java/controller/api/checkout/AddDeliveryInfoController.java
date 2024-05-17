@@ -15,12 +15,10 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@WebServlet(name = "AddDeliveryInfoController", value = "/AddDeliveryInfo")
+@WebServlet(name = "AddDeliveryInfoController", value = "/api/checkout/delivery/add")
 public class AddDeliveryInfoController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         String fullName = (String) request.getAttribute("fullName");
         String email = (String) request.getAttribute("email");
         String phone = (String) request.getAttribute("phone");
@@ -64,16 +62,4 @@ public class AddDeliveryInfoController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
-
-//    private boolean isValidEmail(String email) {
-//        Pattern patternEmail = Pattern.compile("^\\w+@\\w+\\.[A-Za-z]+$");
-//        Matcher matcherEmail = patternEmail.matcher(email);
-//        return matcherEmail.matches();
-//    }
-//
-//    private boolean isValidPhone(String phone) {
-//        Pattern patternPhone = Pattern.compile("^\\+?(?:\\d\\s?){9,13}$");
-//        Matcher matcherPhone = patternPhone.matcher(phone);
-//        return matcherPhone.matches();
-//    }
 }

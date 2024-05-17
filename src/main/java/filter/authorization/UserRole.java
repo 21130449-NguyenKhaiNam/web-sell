@@ -1,28 +1,16 @@
 package filter.authorization;
 
+import config.ConfigPage;
 import models.User;
+import session.SessionManager;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-//
-//@WebFilter(filterName = "user",
-//        urlPatterns = {
-//                "/adminProductForm.jsp",
-//                "/adminProducts.jsp",
-//                "/adminUsers.jsp",
-//                "/adminOrders.jsp",
-//                "/account.jsp",
-//                "/checkout.jsp"
-//        })
-//User:
-//- Chưa đăng nhập:
-//+ Các trang admin (/admin*) -> trả về signIn
-//+ Thêm sản phẩm (/checkout) -> trả về signIn
-//- Đã đăng nhập:
-//+ Các trang admin (/admin*) -> 403 page
+
+@WebFilter(filterName = "user", urlPatterns = {"/public/user/*", "/api/cart/*", "/api/checkout/*", "/api/user/*"})
 public class UserRole implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
@@ -34,12 +22,10 @@ public class UserRole implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        HttpSession session = httpServletRequest.getSession();
-        User user = (User) session.getAttribute("auth");
-        String url = ((HttpServletRequest) request).getServletPath();
+        User user = SessionManager.getInstance(httpServletRequest, httpServletResponse).getUser();
 //        Chưa đăng nhập
         if (user == null)
-            httpServletResponse.sendRedirect("signIn.jsp");
+            httpServletResponse.sendRedirect(ConfigPage.SIGN_IN);
         else
             chain.doFilter(request, response);
     }
