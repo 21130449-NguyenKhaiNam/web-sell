@@ -148,7 +148,7 @@ function handleDisplayDescriptionMethodOptionChecked(typeMethodRadioButtons){
     })
 }
 handleDisplayDescriptionMethodOptionChecked(deliveryMethodRadioButtons);
-handleDisplayDescriptionMethodOptionChecked(paymentMethodRadioButtons);
+// handleDisplayDescriptionMethodOptionChecked(paymentMethodRadioButtons);
 
 function handleCustomizeDeliveryInfo(){
     const form = $('#customize__info--form');

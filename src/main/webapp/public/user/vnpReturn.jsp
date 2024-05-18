@@ -1,15 +1,15 @@
-<%@page import="java.net.URLEncoder"%>
-<%@page import="java.nio.charset.StandardCharsets"%>
+<%@page import="java.net.URLEncoder" %>
+<%@page import="java.nio.charset.StandardCharsets" %>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.Collections"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.Enumeration"%>
-<%@page import="java.util.Map"%>
-<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Iterator" %>
+<%@page import="java.util.Collections" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.Enumeration" %>
+<%@page import="java.util.Map" %>
+<%@page import="java.util.HashMap" %>
 <%@ page import="controller.api.checkout.vnpay.Config" %>
 
 <!DOCTYPE html>
@@ -32,7 +32,7 @@
 <%
     //Begin process return from VNPAY
     Map fields = new HashMap();
-    for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
+    for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {
         String fieldName = URLEncoder.encode((String) params.nextElement(), StandardCharsets.US_ASCII.toString());
         String fieldValue = URLEncoder.encode(request.getParameter(fieldName), StandardCharsets.US_ASCII.toString());
         if ((fieldValue != null) && (fieldValue.length() > 0)) {
@@ -48,7 +48,6 @@
         fields.remove("vnp_SecureHash");
     }
     String signValue = Config.hashAllFields(fields);
-
 %>
 <!--Begin display -->
 <div class="container">
@@ -57,35 +56,42 @@
     </div>
     <div class="table-responsive">
         <div class="form-group">
-            <label >Mã giao dịch thanh toán:</label>
-            <label><%=request.getParameter("vnp_TxnRef")%></label>
+            <label>Mã giao dịch thanh toán:</label>
+            <label><%=request.getParameter("vnp_TxnRef")%>
+            </label>
         </div>
         <div class="form-group">
-            <label >Số tiền:</label>
-            <label><%=request.getParameter("vnp_Amount")%></label>
+            <label>Số tiền:</label>
+            <label><%=request.getParameter("vnp_Amount")%>
+            </label>
         </div>
         <div class="form-group">
-            <label >Mô tả giao dịch:</label>
-            <label><%=request.getParameter("vnp_OrderInfo")%></label>
+            <label>Mô tả giao dịch:</label>
+            <label><%=request.getParameter("vnp_OrderInfo")%>
+            </label>
         </div>
         <div class="form-group">
-            <label >Mã lỗi thanh toán:</label>
-            <label><%=request.getParameter("vnp_ResponseCode")%></label>
+            <label>Mã lỗi thanh toán:</label>
+            <label><%=request.getParameter("vnp_ResponseCode")%>
+            </label>
         </div>
         <div class="form-group">
-            <label >Mã giao dịch tại CTT VNPAY-QR:</label>
-            <label><%=request.getParameter("vnp_TransactionNo")%></label>
+            <label>Mã giao dịch tại CTT VNPAY-QR:</label>
+            <label><%=request.getParameter("vnp_TransactionNo")%>
+            </label>
         </div>
         <div class="form-group">
-            <label >Mã ngân hàng thanh toán:</label>
-            <label><%=request.getParameter("vnp_BankCode")%></label>
+            <label>Mã ngân hàng thanh toán:</label>
+            <label><%=request.getParameter("vnp_BankCode")%>
+            </label>
         </div>
         <div class="form-group">
-            <label >Thời gian thanh toán:</label>
-            <label><%=request.getParameter("vnp_PayDate")%></label>
+            <label>Thời gian thanh toán:</label>
+            <label><%=request.getParameter("vnp_PayDate")%>
+            </label>
         </div>
         <div class="form-group">
-            <label >Tình trạng giao dịch:</label>
+            <label>Tình trạng giao dịch:</label>
             <label>
                 <%
                     if (signValue.equals(vnp_SecureHash)) {
@@ -104,6 +110,11 @@
     <p>
         &nbsp;
     </p>
+
+    <form action="/ProcessAfterPaymentOnline?vnp_TransactionStatus=<%=request.getParameter("vnp_TransactionStatus")%>&invoiceNo=<%=session.getAttribute("invoiceNo")%>" method="POST">
+        <button>Hoàn tất</button>
+    </form>
+
     <footer class="footer">
         <p>&copy; VNPAY 2020</p>
     </footer>

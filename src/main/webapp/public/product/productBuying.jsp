@@ -19,10 +19,6 @@
 <body>
 <c:import url="/public/header.jsp"/>
 <main class="main">
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     <div class="p-5">
         <div class="p-5 search">
             <form class="form-inline my-2 my-lg-0 d-flex">

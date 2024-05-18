@@ -68,7 +68,7 @@
         <div class="order__info">
             <div class="order__media">
                 <%String firstImage = productFactory.getListImagesByProductId(product.getId()).get(0).getNameImage();%>
-                <img src="<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", firstImage)%>" alt="<%=firstImage%>" />
+                <img src="<%=firstImage%>" alt="<%=firstImage%>" />
             </div>
             <div class="order__content"><h1 class="order__name"><%=product.getName()%></h1>
                 <input type="text" value="<%=product.getId()%>" hidden="hidden" name="productId">

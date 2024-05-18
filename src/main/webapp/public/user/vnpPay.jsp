@@ -26,12 +26,12 @@
     </div>
     <h3>Tạo mới đơn hàng</h3>
     <div class="table-responsive">
-        <form action="/ajax_servlet" id="frmCreateOrder" method="post">
+        <form action="/ajax_servlet" id="frmCreateOrder" method="POST">
             <div class="form-group">
                 <label for="amount">Số tiền</label>
-                <input class="form-control" data-val="true" data-val-number="The field Amount must be a number."
+                <input readonly class="form-control" data-val="true" data-val-number="The field Amount must be a number."
                        data-val-required="The Amount field is required." id="amount" max="100000000" min="1"
-                       name="amount" type="number" value="10000"/>
+                       name="amount" type="number" value="<%=session.getAttribute("totalPrice")%>"/>
             </div>
             <h4>Chọn phương thức thanh toán</h4>
             <div class="form-group">
@@ -62,10 +62,12 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://pay.vnpay.vn/lib/vnpay/vnpay.min.js"></script>
+
 <script type="text/javascript">
     $("#frmCreateOrder").submit(function () {
         var postData = $("#frmCreateOrder").serialize();
         var submitUrl = $("#frmCreateOrder").attr("action");
+        console.log(submitUrl)
         $.ajax({
             type: "POST",
             url: submitUrl,
