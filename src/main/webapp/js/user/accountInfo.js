@@ -304,13 +304,28 @@ $(document).ready(function () {
                         addSpinner();
                     },
                     success: function (response) {
-                        if (response.status){
+                        if (response.status) {
                             Swal.fire({
                                 title: "Chúc mừng!",
                                 text: "Địa chỉ mới đã được cập nhập",
                                 icon: "success"
                             });
-                        }else{
+                            if (currentAction == "create") {
+                                addressCustomer.push(response.address);
+                                loadDataToTable();
+                            } else {
+                                const address = addressCustomer.find(address => {
+                                    return address.id == response.address.id;
+                                });
+                                if (address) {
+                                    address.province = response.address.province;
+                                    address.district = response.address.district;
+                                    address.ward = response.address.ward;
+                                    address.detail = response.address.detail;
+                                }
+                                loadDataToTable();
+                            }
+                        } else {
                             Swal.fire({
                                 title: "Lỗi!",
                                 text: "Địa chỉ mới không cập nhập thành công",
@@ -391,6 +406,11 @@ $(document).ready(function () {
 //    -------------------------------
 //     Xem địa chỉ chi tiết để cập nhập
     function viewModal() {
+        $(".btn__address-create").on("click", function () {
+            addressForm.resetForm();
+            currentAction = "create";
+            setupSelect2();
+        })
         $(".btn__address-update").on("click", async function () {
             addressForm.resetForm();
             currentAction = "update";

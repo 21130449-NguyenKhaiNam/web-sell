@@ -168,7 +168,6 @@
 <div class="modal fade text-black" id="modal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div id="model" class="modal-dialog modal-dialog-scrollable modal-dialog-centered" style="max-width: 80%">
         <form id="form-address" class="modal-content">
-            <input type="text" hidden="hidden" name="addressId" value="">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Sổ địa chỉ</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
