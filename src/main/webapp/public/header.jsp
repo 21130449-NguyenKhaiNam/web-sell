@@ -51,10 +51,14 @@
                                 <span class="qlt__swapper">
                                 <span class="qlt__value">
                                     <c:set var="userIdCart" value="${String.valueOf(auth.id)}" />
-                                    <c:choose> <c:when test="${sessionScope[userIdCart] == null}"> 0 </c:when>
+                                    <c:choose>
+                                        <c:when test="${sessionScope[userIdCart] == null}">
+                                            0
+                                        </c:when>
                                         <c:otherwise>
                                             ${sessionScope[userIdCart].getTotalItems()}
-                                        </c:otherwise> </c:choose>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </span>
                             </span>
                             </a>

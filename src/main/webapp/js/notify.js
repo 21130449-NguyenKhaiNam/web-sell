@@ -55,9 +55,10 @@ function notifyFailed(obj) {
         x.remove();
     }, 3000);
 }
-export function alert(onconfirm, oncancel) {
+
+export function alert(onconfirm, oncancel, message) {
     Swal.fire({
-        title: "Bạn có muốn lưu thay đổi không?",
+        title: message ? message.notify : "Bạn có muốn lưu thay đổi không?",
         showDenyButton: true,
         confirmButtonText: "Lưu",
         denyButtonText: "Không lưu",
@@ -68,9 +69,10 @@ export function alert(onconfirm, oncancel) {
         } else if (result.isDenied) {
             if (oncancel) oncancel();
             else Swal.fire({
-                title: "Thay đổi của bạn đã sẽ không được lưu",
+                title: message ? " message.success" : "Thay đổi của bạn đã sẽ không được lưu",
                 icon: "info"
             });
         }
     });
 }
+

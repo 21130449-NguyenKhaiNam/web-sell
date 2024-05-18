@@ -54,6 +54,7 @@ public class SessionManager {
     public void addUser(User user) {
         String sessionId = generateSessionId();
         sessionTable.put(sessionId, user);
+//
         session.setAttribute(SESSION_TABLE, sessionTable);
         Cookie cookie = new Cookie(SESSION_ID, sessionId);
         response.addCookie(cookie);

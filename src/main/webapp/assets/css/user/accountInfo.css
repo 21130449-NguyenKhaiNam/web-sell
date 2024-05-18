@@ -17,10 +17,7 @@ body {
     border-bottom-width: 0.125rem;
     border-bottom-style: solid;
     border-bottom-color: transparent;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0.5rem 0;
     margin-left: 1rem;
     margin-right: 1rem;
 }
@@ -50,3 +47,6 @@ textarea{
     resize: none;
 }
 
+.modal{
+    z-index: 1055;
+}

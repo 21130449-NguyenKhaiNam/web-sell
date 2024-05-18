@@ -136,54 +136,86 @@
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card mb-4">
-                    <div class="card-header">Địa chỉ</div>
+                    <div class="card-header">Sổ địa chỉ</div>
                     <div class="card-body">
-                        <form id="form-address">
-                            <div class="row gx-3 mb-3 mt-2">
-                                <div class="col-md-4 col-sm-12">
-                                    <label class="small  py-1" for="inputProvince">Tỉnh / Thành phố </label>
-                                    <select name="province" id="inputProvince" class="form-select" aria-label="Chọn">
-                                        <option value=""></option>
-                                    </select>
-                                    <div class="valid-feedback">
+                        <div class="d-flex justify-content-end mb-2">
+                            <button class="btn btn-primary btn__address-create" data-bs-toggle="modal"
+                                    data-bs-target="#modal">
+                                Thêm địa chỉ
+                            </button>
+                        </div>
+                        <table id="addressList" class="table table-bordered table-hover table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tỉnh/Thành phố</th>
+                                <th>Quận/Huyện</th>
+                                <th>Xã/Phường</th>
+                                <th>Địa chỉ chi tiết</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-12">
-                                    <label class="small py-1" for="inputDistrict"> Quận / Huyện </label>
-                                    <select name="district" id="inputDistrict" class="form-select" aria-label="Chọn">
-                                        <option value=""></option>
-                                    </select>
-                                    <div class="valid-feedback">
-
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-12">
-                                    <label class="small py-1" for="inputWard">Phường</label>
-                                    <select name="ward" id="inputWard" class="form-select" aria-label="Chọn">
-                                        <option value=""></option>
-                                    </select>
-                                    <div class="valid-feedback">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row gx-3 mb-3 mt-2 ">
-                                <div class="col-12">
-                                    <label class="small py-1" for="inputAddress"> Số nhà, đường </label>
-                                    <textarea class="form-control" name="detail" id="inputAddress"></textarea>
-                                    <div class="valid-feedback">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary mt-2" type="submit">Thay đổi</button>
-                        </form>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="modal fade text-black" id="modal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div id="model" class="modal-dialog modal-dialog-scrollable modal-dialog-centered" style="max-width: 80%">
+        <form id="form-address" class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Sổ địa chỉ</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row gx-3 mb-3 mt-2">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="small  py-1" for="inputProvince">Tỉnh / Thành phố </label>
+                        <select name="province" id="inputProvince" class="form-select " aria-label="Chọn">
+                            <option value=""></option>
+                        </select>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12">
+                        <label class="small py-1" for="inputDistrict"> Quận / Huyện </label>
+                        <select name="district" id="inputDistrict" class="form-select " aria-label="Chọn">
+                            <option value=""></option>
+                        </select>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="small py-1" for="inputWard">Phường</label>
+                        <select name="ward" id="inputWard" class="form-select " aria-label="Chọn">
+                            <option value=""></option>
+                        </select>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label class="small py-1" for="inputAddress"> Số nhà, đường </label>
+                        <textarea class="form-control" name="detail" id="inputAddress"></textarea>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </form>
     </div>
 </div>
 <div class='d-none loader__wrapper position-fixed top-0 start-0 end-0 bottom-0'

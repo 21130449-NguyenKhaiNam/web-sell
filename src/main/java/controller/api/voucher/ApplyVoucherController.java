@@ -28,7 +28,7 @@ public class ApplyVoucherController extends HttpServlet {
             Type cartListType = new TypeToken<List<Integer>>() {
             }.getType();
             cartItems = gson.fromJson(req.getParameter("cartItems"), cartListType);
-            voucherServices.canApply(code, cartItems);
+//            voucherServices.canApply(code, cartItems);
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
