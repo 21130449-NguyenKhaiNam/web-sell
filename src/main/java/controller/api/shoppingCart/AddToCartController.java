@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "AddToCartController", value = "/AddToCart")
+@WebServlet(name = "AddToCartController", value = "/api/cart/add")
 public class AddToCartController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
