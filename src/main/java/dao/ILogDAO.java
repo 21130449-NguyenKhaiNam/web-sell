@@ -13,7 +13,9 @@ public interface ILogDAO {
 
     void insertLogForSelect(String sql, List<?> list);
 
-    List<Log> getLog(int start, int limit);
+    List<Log> getLog(int start, int limit, String search, String orderBy, String orderDir);
 
     long getSize();
+
+    long getSizeWithCondition(String search);
 }

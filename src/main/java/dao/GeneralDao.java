@@ -2,15 +2,24 @@ package dao;
 
 import database.ConnectionPool;
 import database.JDBIConnector;
-import models.Product;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Query;
 import services.LogService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class GeneralDao {
+
+    public static void customExecute(Consumer<Handle> function) {
+        Handle handle = ConnectionPool.getINSTANCE().getHandle();
+        try {
+            function.accept(handle);
+        } finally {
+            ConnectionPool.getINSTANCE().releaseHandle(handle);
+        }
+    }
 
     //Use for select statement
     public static <T> List<T> executeQueryWithSingleTable(String sql, Class<T> type, Object... params) {
