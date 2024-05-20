@@ -2,13 +2,16 @@ package controller.api.checkout;
 
 import models.DeliveryInfo;
 import models.DeliveryInfoStorage;
-import models.shoppingCart.ShoppingCart;
 import models.User;
+import models.shoppingCart.ShoppingCart;
 import session.SessionManager;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "ChoiceDeliveryInfoController", value = "/api/checkout/delivery/choice")
@@ -22,7 +25,7 @@ public class ChoiceDeliveryInfoController extends HttpServlet {
         DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
         DeliveryInfo deliveryInfo = deliveryInfoStorage.getDeliveryInfoByKey(deliveryInfoKey);
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
-        cart.setDeliveryInfo(deliveryInfo);
+//        cart.setDeliveryInfo(deliveryInfo);
         session.setAttribute(userIdCart, cart);
 
         response.getWriter().write("Đã chọn");

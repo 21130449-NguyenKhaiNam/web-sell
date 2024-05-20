@@ -56,7 +56,7 @@ public abstract class AbstractCartProduct {
         String sizeFormat = "Kích thước: ";
         sizeFormat += sizeRequired();
         if(this instanceof CartProduct){
-            sizeFormat += " (giá kích thước: " + ((CartProduct)(this)).getSize().getSizePrice() + ")";
+            sizeFormat += " (giá kích thước: " + ((CartProduct)(this)).getInstanceSize().getSizePrice() + ")";
         }
         return sizeFormat;
     }
@@ -86,4 +86,6 @@ public abstract class AbstractCartProduct {
     public String subtotalFormat() {
         return FormatCurrency.vietNamCurrency(getSubtotal());
     }
+
+    public abstract String getSize();
 }
