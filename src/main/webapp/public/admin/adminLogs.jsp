@@ -53,6 +53,8 @@
         const table = new DataTable('#table', {
             processing: true,
             serverSide: true,
+            scrollX: false,
+            scrollY: false,
             ajax: '/api/admin/logAdmin',
             columns: [
                 {data: 'id'},
@@ -79,6 +81,18 @@
         table.on('draw', function () {
             handelTextTippy()
         })
+
+        table.on('preDraw', function () {
+            // Lưu vị trí của trang
+            var scrollPos = $(document).scrollTop();
+            sessionStorage.setItem('scrollPos', scrollPos);
+        });
+
+        table.on('draw.dt', function () {
+            // Khôi phục vị trí của trang
+            var scrollPos = sessionStorage.getItem('scrollPos');
+            $(document).scrollTop(scrollPos);
+        });
 
         function handelTextTippy() {
             $('td.data').each(function (index) {
