@@ -47,6 +47,7 @@
         </div>
     </section>
 </main>
+<script src="https://cdn.datatables.net/plug-ins/1.11.5/i18n/vi.json"></script>
 <script>
     $(document).ready(function () {
         const table = new DataTable('#table', {
@@ -69,10 +70,13 @@
                 row.querySelector(':nth-child(3)').dataset.level = data['level'];
                 row.querySelector(':nth-child(6)').classList.add('data');
                 row.querySelector(':nth-child(7)').classList.add('data');
+            },
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/vi.json'
             }
-        })
+        });
 
-        table.on('draw', function() {
+        table.on('draw', function () {
             handelTextTippy()
         })
 
