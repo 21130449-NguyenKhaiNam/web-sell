@@ -23,16 +23,28 @@ public class LogApi extends HttpServlet {
         Integer draw = Integer.parseInt(req.getParameter("draw"));
         Integer start = Integer.parseInt(req.getParameter("start"));
         Integer length = Integer.parseInt(req.getParameter("length"));
+        String searchValue = req.getParameter("search[value]");
+        String orderColumn = req.getParameter("order[0][column]");
+        String orderDir = req.getParameter("order[0][dir]");
+        orderDir = orderDir == null ? "asc" : orderDir;
 
-        List<Log> logs = service.getINSTANCE().getLog(start, length);
-        long size = service.getINSTANCE().getTotal();
+        // Mapping order column index to database column name
+        String[] columnNames = {"id", "ip", "level", "resource", "dateCreated"};
+        int ind = orderColumn == null ? 0 : Integer.parseInt(orderColumn);
+        String orderBy = orderColumn == null ? "id" : (ind < columnNames.length ? columnNames[ind] : columnNames[0]);
+        // Fetch filtered and sorted logs
+        List<Log> logs = service.getINSTANCE().getLog(start, length, searchValue, orderBy, orderDir);
+        long size = service.getINSTANCE().getTotalWithCondition(searchValue);
 
+        // Prepare JSON response
         ObjectMapper mapper = new ObjectMapper();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("draw", draw);
         jsonObject.put("recordsTotal", size);
         jsonObject.put("recordsFiltered", size);
         jsonObject.put("data", logs);
+
+        // Send response
         PrintWriter writer = resp.getWriter();
         writer.write(mapper.writeValueAsString(jsonObject.toMap()));
         writer.flush();

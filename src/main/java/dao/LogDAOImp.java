@@ -2,14 +2,13 @@ package dao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import models.Log;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class LogDAOImp implements ILogDAO {
@@ -217,15 +216,44 @@ public class LogDAOImp implements ILogDAO {
     }
 
     @Override
-    public List<Log> getLog(int start, int limit) {
-        String sql = "SELECT id, ip, level, resource, dateCreated, previous, current FROM logs LIMIT ?";
-        return GeneralDao.executeQueryWithSingleTable(sql, Log.class, limit);
+    public List<Log> getLog(int start, int limit, String search, String orderBy, String orderDir) {
+        String sql = "SELECT id, ip, level, resource, dateCreated, previous, current FROM logs " +
+                "WHERE ip LIKE :search OR level LIKE :search OR resource LIKE :search " +
+                "ORDER BY :orderBy :orderDir LIMIT :limit OFFSET :start";
+        List<Log> logs = new ArrayList<>();
+        GeneralDao.customExecute(handle -> {
+            logs.addAll(handle.createQuery(sql)
+                    .bind("search", "%" + search + "%")
+                    .bind("limit", limit)
+                    .bind("start", start)
+                    .bind("orderBy", orderBy)
+                    .bind("orderDir", orderDir)
+                    .mapToBean(Log.class)
+                    .list());
+        });
+        if(orderDir.equals("desc")) {
+            Collections.reverse(logs);
+        }
+        return logs;
     }
 
     @Override
     public long getSize() {
-        String sql = "SELECT COUNT(*) as count FROM logs";
+        String sql = "SELECT COUNT(*) count FROM logs";
         return GeneralDao.executeQueryWithSingleTable(sql, CountResult.class).get(0).getCount();
+    }
+
+    @Override
+    public long getSizeWithCondition(String search) {
+        String sql = "SELECT COUNT(*) count FROM logs WHERE ip LIKE :search OR level LIKE :search OR resource LIKE :search";
+        CountResult result = new CountResult();
+        GeneralDao.customExecute(handle -> {
+           result.setCount(handle.createQuery(sql)
+                   .bind("search", "%" + search + "%")
+                   .mapToBean(CountResult.class)
+                   .list().get(0).getCount());
+        });
+        return result.getCount();
     }
 
     // Chuyển đổi tương ứng với tác động của câu query, sau này tách ra

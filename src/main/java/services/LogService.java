@@ -42,11 +42,15 @@ public class LogService {
         logDAO.insertLogForSelect(sql, list);
     }
 
-    public List<Log> getLog(int start, int length) {
-        return logDAO.getLog(start, length);
+    public List<Log> getLog(int start, int length, String search, String orderBy, String orderDir) {
+        return logDAO.getLog(start, length, search, orderBy, orderDir);
     }
 
     public long getTotal() {
         return logDAO.getSize();
+    }
+
+    public long getTotalWithCondition(String search) {
+        return logDAO.getSizeWithCondition(search);
     }
 }
