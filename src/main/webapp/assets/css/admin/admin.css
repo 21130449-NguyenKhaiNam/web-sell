@@ -1,6 +1,9 @@
 body {
     position: relative;
 }
+.tippy-box {
+    z-index: 9999; /* hoặc một giá trị cao hơn nếu cần */
+}
 #header {
     background-color: var(--blue-color-medium);
 }
@@ -17,8 +20,8 @@ body {
 }
 
 /*Nav bar*/
-.navbar {
-    background-color: var(--blue-color-high);
+.navbar, #sidebar {
+    background-image: linear-gradient(var(--blue-color-low)  ,var(--blue-color-high));
 }
 
 .navbar__list {
@@ -30,8 +33,8 @@ body {
 
 .navbar__link {
     color: #fff;
-    --width: 150px;
     --height: 50px;
+    --width: 150px;
     --background-color: var(--blue-color-medium);
     --background-color-hover: var(--blue-color-low);
     border-radius: 10px;
@@ -43,6 +46,7 @@ body {
 
 #main {
     background-color: #e7e9ec;
+    height: 100%;
 }
 
 .content {
@@ -423,3 +427,111 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
     font-weight: 500;
     /*margin-bottom: 34px;*/
 }
+
+#sidebar {
+    min-width: 280px;
+    max-width: 280px;
+    color: #fff;
+    transition: all 0.3s;
+    box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.4);
+    float: left;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.sidebar_active {
+    background-image: linear-gradient(to top right,var(--blue-color-high), var(--blue-color-low));
+}
+
+.sidebar_blog_1,
+.sidebar_blog_2,
+.sidebar_blog_3 {
+    float: left;
+    width: 100%;
+}
+
+#sidebar ul li a {
+    text-align: left;
+    padding: 10px;
+    padding-bottom: 20px;
+}
+
+#sidebar .sidebar-header strong {
+    display: none;
+    font-size: 1.8em;
+}
+
+#sidebar ul.components {
+    padding: 15px 0;
+    margin: 0;
+    float: left;
+    width: 100%;
+}
+
+#sidebar ul li a {
+    padding: 15px 25px;
+    display: block;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+}
+
+#sidebar ul li a:hover,
+#sidebar ul li a:focus {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+#sidebar ul.components li {
+    position: relative;
+}
+
+#sidebar ul.components ul {
+    background: #214162;
+    padding: 20px 0;
+}
+
+#sidebar ul.components ul li a {
+    font-size: 13px;
+    color: rgba(255, 255, 255, .7);
+    padding: 7px 35px;
+}
+
+#sidebar ul.components ul li a:hover {
+    color: #fff;
+    background: transparent;
+    padding-left: 45px;
+}
+
+#sidebar ul li a i {
+    margin-right: 20px;
+    width: 15px;
+    font-size: 20px;
+    float: left;
+}
+
+.bottom_sidebar ul li {
+    float: left;
+    width: 50%;
+    list-style: none;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+td[data-level='WARNING'] {
+    background-color: yellow;
+}
+
+td[data-level='DANGEROUS'] {
+    background-color: #fd6a6a;
+}
+
+.tippy-box {
+    width: 500px;
+    height: 300px;
+    overflow-y: scroll;
+    font-size: 20px;
+}
+

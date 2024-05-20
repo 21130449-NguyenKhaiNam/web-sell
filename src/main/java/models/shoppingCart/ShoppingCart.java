@@ -1,6 +1,8 @@
 package models.shoppingCart;
 
-import models.*;
+import models.Color;
+import models.Product;
+import models.Size;
 import utils.FormatCurrency;
 import utils.ProductFactory;
 
@@ -9,55 +11,99 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ShoppingCart {
-    private HashMap<Integer, List<AbstractCartProduct>> shoppingCartMap = new HashMap<>();
-    private Voucher voucherApplied;
-    private DeliveryMethod deliveryMethod;
-    private PaymentMethod paymentMethod;
-    private DeliveryInfo deliveryInfo;
+    private HashMap<Integer, List<AbstractCartProduct>> shoppingCartMap;
+//    private Voucher voucherApplied;
+//    private DeliveryMethod deliveryMethod;
+//    private PaymentMethod paymentMethod;
+//    private DeliveryInfo deliveryInfo;
 
     public ShoppingCart() {
+        shoppingCartMap = new HashMap<>();
+    }
+
+    public static void main(String[] args) {
+        ShoppingCart cart = new ShoppingCart();
+
+//        Size size = new Size();
+//        size.setNameSize("x");
+//        size.setSizePrice(100000);
+//        size.setId(1);
+//        size.setProductId(1);
+//
+//        cart.add(1, 1, color, size);
+//        cart.add(1, 1, color, size);
+//
+//        Product product1 = ProductFactory.getProductById(1);
+//        Product product2 = ProductFactory.getProductById(1);
+
+//        System.out.println(shoppingCartMap);
+
+        Color color1 = new Color();
+        color1.setCodeColor("aaa");
+        color1.setId(1);
+        color1.setProductId(1);
+
+        Color color2 = new Color();
+        color2.setCodeColor("bbb");
+        color2.setId(2);
+        color2.setProductId(1);
+//
+//        Size size = new Size();
+//        size.setNameSize("x");
+//        size.setSizePrice(100000);
+//        size.setId(1);
+//        size.setProductId(1);
+//
+//        cart.add(1, 1, color, size);
+//        cart.add(1, 1, color, size);
+        AbstractCartProduct cartProduct1 = new CartProduct(new Product(), 1, color1, new Size());
+        AbstractCartProduct cartProduct2 = new CartProductCustom(new Product(), 2, color1, "");
+
+        System.out.println(cartProduct1.equals(cartProduct2));
     }
 
     public HashMap<Integer, List<AbstractCartProduct>> getShoppingCartMap() {
         return shoppingCartMap;
     }
 
+//    public Voucher getVoucherApplied() {
+//        return voucherApplied;
+//    }
+//
+//    public void setVoucherApplied(Voucher voucherApplied) {
+//        this.voucherApplied = voucherApplied;
+//    }
+//
+//    public DeliveryMethod getDeliveryMethod() {
+//        return deliveryMethod;
+//    }
+//
+//    public void setDeliveryMethod(DeliveryMethod deliveryMethod) {
+//        this.deliveryMethod = deliveryMethod;
+//    }
+//
+//    public PaymentMethod getPaymentMethod() {
+//        return paymentMethod;
+//    }
+//
+//    public void setPaymentMethod(PaymentMethod paymentMethod) {
+//        this.paymentMethod = paymentMethod;
+//    }
+//
+//    public DeliveryInfo getDeliveryInfo() {
+//        return deliveryInfo;
+//    }
+//
+//    public void setDeliveryInfo(DeliveryInfo deliveryInfo) {
+//        this.deliveryInfo = deliveryInfo;
+//    }
+
     public void setShoppingCartMap(HashMap<Integer, List<AbstractCartProduct>> shoppingCartMap) {
         this.shoppingCartMap = shoppingCartMap;
     }
 
-    public Voucher getVoucherApplied() {
-        return voucherApplied;
-    }
-
-    public void setVoucherApplied(Voucher voucherApplied) {
-        this.voucherApplied = voucherApplied;
-    }
-
-    public DeliveryMethod getDeliveryMethod() {
-        return deliveryMethod;
-    }
-
-    public void setDeliveryMethod(DeliveryMethod deliveryMethod) {
-        this.deliveryMethod = deliveryMethod;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public DeliveryInfo getDeliveryInfo() {
-        return deliveryInfo;
-    }
-
-    public void setDeliveryInfo(DeliveryInfo deliveryInfo) {
-        this.deliveryInfo = deliveryInfo;
-    }
-
+    // Xử lý cập nhật số lượng của sản phẩm còn lại trong kho
+    //  public void update(int productId, int quantity) {}
 
     // Dùng cho trang productDetail khi người dùng chọn số lượng và nhấn nút "thêm vào giỏ hàng"
     public void add(int productId, int quantity, Color color, Object size) {
@@ -65,9 +111,9 @@ public class ShoppingCart {
             List<AbstractCartProduct> listCartProducts = shoppingCartMap.get(productId);
             Product product = ProductFactory.getProductById(productId);
             AbstractCartProduct cartProduct;
-            if(size instanceof Size){
+            if (size instanceof Size) {
                 cartProduct = new CartProduct(product, quantity, color, (Size) size);
-            }else {
+            } else {
                 cartProduct = new CartProductCustom(product, quantity, color, (String) size);
             }
 
@@ -96,9 +142,6 @@ public class ShoppingCart {
             }
         }
     }
-
-    // Xử lý cập nhật số lượng của sản phẩm còn lại trong kho
-    //  public void update(int productId, int quantity) {}
 
     // Dùng cho trang shoppingCart khi người dùng nhấn nút "+" để tăng số lượng
     public void increase(int productId, int cartProductIndex) {
@@ -149,6 +192,21 @@ public class ShoppingCart {
         }
     }
 
+//    public double getDiscountPrice() {
+//        if (voucherApplied != null) {
+//            return getTemporaryPrice() * voucherApplied.getDiscountPercent();
+//        }
+//        return 0;
+//    }
+
+//    public double getTotalPrice(boolean isPlusShipping) {
+//        double totalPrice = getTemporaryPrice() - getDiscountPrice();
+//        if (deliveryMethod != null && isPlusShipping) {
+//            totalPrice += deliveryMethod.getShippingFee();
+//        }
+//        return totalPrice;
+//    }
+
     public double getTemporaryPrice() {
         double temporaryPrice = 0;
         for (int productId : shoppingCartMap.keySet()) {
@@ -159,91 +217,25 @@ public class ShoppingCart {
         return temporaryPrice;
     }
 
-    public double getDiscountPrice() {
-        if (voucherApplied != null) {
-            return getTemporaryPrice() * voucherApplied.getDiscountPercent();
-        }
-        return 0;
-    }
+//    public String discountPriceFormat() {
+//        return FormatCurrency.vietNamCurrency(getDiscountPrice());
+//    }
 
-    public double getTotalPrice(boolean isPlusShipping) {
-        double totalPrice = getTemporaryPrice() - getDiscountPrice();
-        if (deliveryMethod != null && isPlusShipping) {
-            totalPrice += deliveryMethod.getShippingFee();
-        }
-        return totalPrice;
-    }
+//    public String totalPriceFormat(boolean isPlusShipping) {
+//        return FormatCurrency.vietNamCurrency(getTotalPrice(isPlusShipping));
+//    }
 
     public String temporaryPriceFormat() {
         return FormatCurrency.vietNamCurrency(getTemporaryPrice());
     }
 
-    public String discountPriceFormat() {
-        return FormatCurrency.vietNamCurrency(getDiscountPrice());
-    }
-
-    public String totalPriceFormat(boolean isPlusShipping) {
-        return FormatCurrency.vietNamCurrency(getTotalPrice(isPlusShipping));
-    }
-
     public int getTotalItems() {
         int totalItems = 0;
-        for (int productId : shoppingCartMap.keySet()) {
-            List<AbstractCartProduct> listCartProducts = shoppingCartMap.get(productId);
-            totalItems += listCartProducts.size();
-        }
+        if (shoppingCartMap != null)
+            for (int productId : shoppingCartMap.keySet()) {
+                List<AbstractCartProduct> listCartProducts = shoppingCartMap.get(productId);
+                totalItems += listCartProducts.size();
+            }
         return totalItems;
-    }
-
-    public static void main(String[] args) {
-        ShoppingCart cart = new ShoppingCart();
-
-//        Size size = new Size();
-//        size.setNameSize("x");
-//        size.setSizePrice(100000);
-//        size.setId(1);
-//        size.setProductId(1);
-//
-//        cart.add(1, 1, color, size);
-//        cart.add(1, 1, color, size);
-//
-//        Product product1 = ProductFactory.getProductById(1);
-//        Product product2 = ProductFactory.getProductById(1);
-
-//        System.out.println(shoppingCartMap);
-
-        Color color1 = new Color();
-        color1.setCodeColor("aaa");
-        color1.setId(1);
-        color1.setProductId(1);
-
-        Color color2 = new Color();
-        color2.setCodeColor("bbb");
-        color2.setId(2);
-        color2.setProductId(1);
-//
-//        Size size = new Size();
-//        size.setNameSize("x");
-//        size.setSizePrice(100000);
-//        size.setId(1);
-//        size.setProductId(1);
-//
-//        cart.add(1, 1, color, size);
-//        cart.add(1, 1, color, size);
-        AbstractCartProduct cartProduct1 = new CartProduct(new Product(), 1, color1, new Size());
-        AbstractCartProduct cartProduct2 = new CartProductCustom(new Product(), 2, color1, "");
-
-        System.out.println(cartProduct1.equals(cartProduct2));
-    }
-
-    @Override
-    public String toString() {
-        return "ShoppingCart{" +
-                "shoppingCartMap=" + shoppingCartMap +
-                ", voucherApplied=" + voucherApplied +
-                ", deliveryMethod=" + deliveryMethod +
-                ", paymentMethod=" + paymentMethod +
-                ", deliveryInfo=" + deliveryInfo +
-                '}';
     }
 }
