@@ -35,10 +35,10 @@ public class VoucherValidityFilter implements Filter {
                 session.removeAttribute("failedApply");
                 session.removeAttribute("promotionCode");
 
-                if (cart != null && cart.getVoucherApplied() != null) {
-                    cart.setVoucherApplied(null);
-                    session.setAttribute(userIdCart, cart);
-                }
+//                if (cart != null && cart.getVoucherApplied() != null) {
+//                    cart.setVoucherApplied(null);
+//                    session.setAttribute(userIdCart, cart);
+//                }
             }
         }
         filterChain.doFilter(request, response);

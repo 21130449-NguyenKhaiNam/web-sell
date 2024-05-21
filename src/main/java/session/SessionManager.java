@@ -1,6 +1,7 @@
 package session;
 
 import models.User;
+import services.ShoppingCartServices;
 import services.UserServices;
 
 import javax.servlet.http.Cookie;
@@ -44,7 +45,9 @@ public class SessionManager {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(SESSION_ID)) {
-                    return sessionTable.get(cookie.getValue());
+                    User user = sessionTable.get(cookie.getValue());
+                    ShoppingCartServices.getINSTANCE().setUser(user);
+                    return user;
                 }
             }
         }
@@ -54,7 +57,7 @@ public class SessionManager {
     public void addUser(User user) {
         String sessionId = generateSessionId();
         sessionTable.put(sessionId, user);
-//
+        ShoppingCartServices.getINSTANCE().setUser(user);
         session.setAttribute(SESSION_TABLE, sessionTable);
         Cookie cookie = new Cookie(SESSION_ID, sessionId);
         response.addCookie(cookie);

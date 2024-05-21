@@ -1,14 +1,18 @@
 package services;
 
-import dao.GeneralDao;
 import dao.ShoppingCartDao;
+import models.User;
 import models.Voucher;
+import models.shoppingCart.AbstractCartProduct;
+import models.shoppingCart.ShoppingCart;
 
 import java.util.List;
+import java.util.Map;
 
 public class ShoppingCartServices {
 
     private ShoppingCartDao shoppingCartDao;
+    private User user;
 
     private static ShoppingCartServices INSTANCE;
 
@@ -41,4 +45,32 @@ public class ShoppingCartServices {
 //    public double getMinPriceApplyVoucherByCode(String code){
 //        return shoppingCartDao.getMinPriceApplyVoucherByCode(code);
 //    }
+
+    public void insertCart(int cartId, int userId, Map<Integer, List<AbstractCartProduct>> products) {
+        shoppingCartDao.insertCart(cartId, userId, products);
+    }
+
+    public int findCartByUserId(int id) {
+        return shoppingCartDao.findCartByUserId(id);
+    }
+
+    public ShoppingCart findCartByCartId(int cartId) {
+        return shoppingCartDao.findById(cartId);
+    }
+
+    public void deleteByCartIdAndIdProduct(int cartId, Integer[] productIds) {
+        shoppingCartDao.deleteByCartIdAndIdProduct(cartId, productIds);
+    }
+
+    public void update(Map<Integer, List<AbstractCartProduct>> change) {
+        shoppingCartDao.update(change);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
 }

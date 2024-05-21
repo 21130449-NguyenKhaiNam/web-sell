@@ -1,16 +1,20 @@
 package controller.api.checkout;
 
 import config.ConfigPage;
-import models.PaymentMethod;
 import models.DeliveryMethod;
-import models.shoppingCart.ShoppingCart;
+import models.PaymentMethod;
 import models.User;
+import models.shoppingCart.ShoppingCart;
 import services.CheckoutServices;
 import session.SessionManager;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -88,22 +92,22 @@ public class CheckoutController extends HttpServlet {
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
 
-        if(cart.getTotalPrice(false) < 5000000){
-            if(cart.getDeliveryMethod() == null){
-                DeliveryMethod deliveryMethodDefault = CheckoutServices.getINSTANCE().getDeliveryMethodById(1);
-                cart.setDeliveryMethod(deliveryMethodDefault);
-                session.setAttribute(userIdCart, cart);
-            }
-        }else {
-            cart.setDeliveryMethod(null);
-            session.setAttribute(userIdCart, cart);
-        }
-
-        if(cart.getPaymentMethod() == null){
-            PaymentMethod paymentMethodDefault = CheckoutServices.getINSTANCE().getPaymentMethodById(1);
-            cart.setPaymentMethod(paymentMethodDefault);
-            session.setAttribute(userIdCart, cart);
-        }
+//        if(cart.getTotalPrice(false) < 5000000){
+//            if(cart.getDeliveryMethod() == null){
+//                DeliveryMethod deliveryMethodDefault = CheckoutServices.getINSTANCE().getDeliveryMethodById(1);
+//                cart.setDeliveryMethod(deliveryMethodDefault);
+//                session.setAttribute(userIdCart, cart);
+//            }
+//        }else {
+//            cart.setDeliveryMethod(null);
+//            session.setAttribute(userIdCart, cart);
+//        }
+//
+//        if(cart.getPaymentMethod() == null){
+//            PaymentMethod paymentMethodDefault = CheckoutServices.getINSTANCE().getPaymentMethodById(1);
+//            cart.setPaymentMethod(paymentMethodDefault);
+//            session.setAttribute(userIdCart, cart);
+//        }
 
         request.setAttribute("listDeliveryMethod",listDeliveryMethod);
         request.setAttribute("listPaymentMethod", listPaymentMethod);

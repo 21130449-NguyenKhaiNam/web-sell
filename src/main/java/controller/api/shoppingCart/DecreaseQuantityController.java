@@ -1,6 +1,9 @@
 package controller.api.shoppingCart;
 
 import models.User;
+import models.shoppingCart.AbstractCartProduct;
+import models.shoppingCart.ShoppingCart;
+import org.json.JSONObject;
 import models.Voucher;
 import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.ShoppingCart;
@@ -39,21 +42,21 @@ public class DecreaseQuantityController extends HttpServlet {
         response.setContentType("application/json");
 
         if (code != null) {
-            Voucher voucher = cart.getVoucherApplied();
-            if (voucher == null) {
-                voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
-            }
+//            Voucher voucher = cart.getVoucherApplied();
+//            if (voucher == null) {
+//                voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
+//            }
 
-            if (cart.getTemporaryPrice() < voucher.getMinimumPrice()) {
-                double minPriceToApply = voucher.getMinimumPrice();
-                double currentTempPrice = cart.getTemporaryPrice();
-
-                double priceBuyMore = minPriceToApply - currentTempPrice;
-                String priceBuyMoreFormat = FormatCurrency.vietNamCurrency(priceBuyMore);
-                session.removeAttribute("successApplied");
-                cart.setVoucherApplied(null);
-                session.setAttribute("failedApply", "Bạn chưa đủ điều kiện để áp dụng mã " + code + ". Hãy mua thêm " + priceBuyMoreFormat);
-            }
+//            if (cart.getTemporaryPrice() < voucher.getMinimumPrice()) {
+//                double minPriceToApply = voucher.getMinimumPrice();
+//                double currentTempPrice = cart.getTemporaryPrice();
+//
+//                double priceBuyMore = minPriceToApply - currentTempPrice;
+//                String priceBuyMoreFormat = FormatCurrency.vietNamCurrency(priceBuyMore);
+//                session.removeAttribute("successApplied");
+//                cart.setVoucherApplied(null);
+//                session.setAttribute("failedApply", "Bạn chưa đủ điều kiện để áp dụng mã " + code + ". Hãy mua thêm " + priceBuyMoreFormat);
+//            }
         }
 
         session.setAttribute(userIdCart, cart);
@@ -62,20 +65,20 @@ public class DecreaseQuantityController extends HttpServlet {
         int newQuantity = cartProduct.getQuantity();
         String newSubtotalFormat = cartProduct.subtotalFormat();
         String newTemporaryPriceFormat = cart.temporaryPriceFormat();
-        String discountPriceFormat = cart.discountPriceFormat();
-        String newTotalPriceFormat = cart.totalPriceFormat(false);
+//        String discountPriceFormat = cart.discountPriceFormat();
+//        String newTotalPriceFormat = cart.totalPriceFormat(false);
 
         jsonObject.put("newQuantity", newQuantity);
         jsonObject.put("newSubtotalFormat", newSubtotalFormat);
         jsonObject.put("newTemporaryPriceFormat", newTemporaryPriceFormat);
-        jsonObject.put("newTotalPriceFormat", newTotalPriceFormat);
-        jsonObject.put("discountPrice", cart.getDiscountPrice());
+//        jsonObject.put("newTotalPriceFormat", newTotalPriceFormat);
+//        jsonObject.put("discountPrice", cart.getDiscountPrice());
 
         if (session.getAttribute("failedApply") != null) {
             jsonObject.put("failedApply", session.getAttribute("failedApply"));
         } else {
             jsonObject.remove("failedApply");
-            jsonObject.put("discountPriceFormat", discountPriceFormat);
+//            jsonObject.put("discountPriceFormat", discountPriceFormat);
         }
         response.getWriter().print(jsonObject);
     }

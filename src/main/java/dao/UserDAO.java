@@ -58,7 +58,6 @@ public class UserDAO {
         return GeneralDao.executeQueryWithSingleTable(query, User.class, username);
     }
 
-
     public void updateTokenVerify(int id, String token, Timestamp timeTokenExpired) {
         String statement = "UPDATE users " +
                 "SET tokenVerify = ?, tokenVerifyTime = ? " +

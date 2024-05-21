@@ -15,7 +15,6 @@ import java.util.List;
 
 @WebServlet(name = "ShoppingCartController", value = "/api/cart")
 public class ShoppingCartController extends HttpServlet {
-
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         RequestDispatcher requestDispatcher;

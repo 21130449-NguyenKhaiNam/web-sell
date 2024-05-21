@@ -15,6 +15,10 @@ import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 
 public class Encoding {
+    public static void main(String[] args) {
+        System.out.println(Encoding.getINSTANCE().toSHA1("Name@12102003"));
+    }
+
     private static Encoding INSTANCE;
     private static final String SALT = "agsdddasdasdagsddasdwww";
 
