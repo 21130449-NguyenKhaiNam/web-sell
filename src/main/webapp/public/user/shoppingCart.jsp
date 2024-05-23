@@ -204,7 +204,7 @@
                                                 class="product__content">
                                             <a class="product__image"
                                                href="<c:url value="/showProductDetail" />?id=<%=productId%>">
-                                                <img src='<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", ProductFactory.getListImagesByProductId(productId).get(0).getNameImage())%>'>
+                                                <img src='<%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
                                             </a>
                                             <div
                                                     class="order__product--info">
