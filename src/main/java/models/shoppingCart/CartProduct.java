@@ -15,8 +15,8 @@ public class CartProduct extends AbstractCartProduct{
         this.size = size;
     }
 
-    public Size getSize() {
-        return size;
+    public String getSize() {
+        return size.toString();
     }
 
     public void setSize(Size size) {
@@ -66,5 +66,9 @@ public class CartProduct extends AbstractCartProduct{
                 ", color=" + color +
                 ", priorityPrice=" + priorityPrice +
                 '}';
+    }
+
+    public Size getInstanceSize() {
+        return size;
     }
 }

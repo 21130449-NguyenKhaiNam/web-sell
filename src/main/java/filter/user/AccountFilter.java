@@ -2,6 +2,7 @@ package filter.user;
 
 import models.Address;
 import models.User;
+import models.shoppingCart.ShoppingCart;
 import services.image.CloudinaryUploadServices;
 import session.SessionManager;
 

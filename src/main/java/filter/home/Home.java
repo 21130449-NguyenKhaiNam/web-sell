@@ -2,7 +2,9 @@ package filter.home;
 
 import models.Product;
 import models.Slider;
+import models.shoppingCart.ShoppingCart;
 import services.HomeServices;
+import session.SessionManager;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

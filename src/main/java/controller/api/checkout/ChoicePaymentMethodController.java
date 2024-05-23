@@ -1,15 +1,18 @@
 package controller.api.checkout;
 
 import models.PaymentMethod;
-import models.shoppingCart.ShoppingCart;
 import models.User;
+import models.shoppingCart.ShoppingCart;
 import org.json.JSONObject;
 import services.CheckoutServices;
 import session.SessionManager;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -31,7 +34,7 @@ public class ChoicePaymentMethodController extends HttpServlet {
         User user = SessionManager.getInstance(request, response).getUser();
         String userIdCart = String.valueOf(user.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
-        cart.setPaymentMethod(paymentMethod);
+//        cart.setPaymentMethod(paymentMethod);
         session.setAttribute(userIdCart, cart);
 
         String contentForPay = (String) session.getAttribute("contentForPay");

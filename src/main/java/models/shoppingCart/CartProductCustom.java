@@ -24,8 +24,8 @@ public class CartProductCustom extends AbstractCartProduct {
         return super.hashCode();
     }
 
-
-    public String getJsonSize() {
+    @Override
+    public String getSize() {
         return jsonSize;
     }
 
@@ -43,20 +43,20 @@ public class CartProductCustom extends AbstractCartProduct {
 
     @Override
     public String sizeRequired() {
-        String parametersSizeFormat = null;
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, String> mapParametersSize = objectMapper.readValue(jsonSize, new TypeReference<Map<String, String>>() {});
-            List<String> listEntrySize = new ArrayList<>();
-            for (Map.Entry<String, String> entrySize : mapParametersSize.entrySet()) {
-                listEntrySize.add(entrySize.getKey() + ": " + entrySize.getValue() + " cm");
-            }
-            parametersSizeFormat = String.join(", ", listEntrySize);
-
-        }catch (IOException exception){
-            exception.printStackTrace();
-        }
-        return parametersSizeFormat;
+//        String parametersSizeFormat = null;
+//        try {
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            Map<String, String> mapParametersSize = objectMapper.readValue(jsonSize, new TypeReference<Map<String, String>>() {});
+//            List<String> listEntrySize = new ArrayList<>();
+//            for (Map.Entry<String, String> entrySize : mapParametersSize.entrySet()) {
+//                listEntrySize.add(entrySize.getKey() + ": " + entrySize.getValue() + " cm");
+//            }
+//            parametersSizeFormat = String.join(", ", listEntrySize);
+//        }catch (IOException exception){
+//            exception.printStackTrace();
+//        }
+//        return parametersSizeFormat;
+        return getSize();
     }
 
     @Override

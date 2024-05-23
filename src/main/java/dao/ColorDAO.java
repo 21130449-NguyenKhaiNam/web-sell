@@ -13,6 +13,12 @@ public class ColorDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Color.class);
     }
 
+    public Color findById(int id) {
+        String sql = "SELECT id, codeColor, productId FROM colors WHERE id = ?";
+        return  GeneralDao.executeQueryWithSingleTable(sql, Color.class, id).get(0);
+    }
+
+
     public void addColors(Color[] colors) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO colors (codeColor, productId) ")
