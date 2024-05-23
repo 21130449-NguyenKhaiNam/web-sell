@@ -97,6 +97,7 @@ public class HandelCart implements HttpSessionAttributeListener {
                 services.insertCart(cartId, user.getId(), onlyRight);
                 source.putAll(onlyRight);
             } else {
+                System.out.println("Handel cart >> Remove");
                 long delay = 1000 * 30; // 30 seconds
                 if (debouncing == null) {
                     debouncing = new Debouncing(delay);

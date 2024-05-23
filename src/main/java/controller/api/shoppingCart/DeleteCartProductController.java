@@ -78,6 +78,7 @@ public class DeleteCartProductController extends HttpServlet {
 //            jsonObject.put("discountPriceFormat", discountPriceFormat);
         }
         response.getWriter().print(jsonObject);
+        response.getWriter().flush();
     }
 
     @Override
