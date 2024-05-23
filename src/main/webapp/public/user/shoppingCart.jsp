@@ -22,8 +22,7 @@
 
 <head>
     <jsp:include page="/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="<c:url value="
-                                                                            /assets/css/shoppingCart.css" />">
+    <link rel="stylesheet" href="<c:url value="/assets/css/shoppingCart.css" />">
     <title>Giỏ hàng</title>
 </head>
 
@@ -42,32 +41,25 @@
                 <c:forEach
                         items="${requestScope.listVouchers}"
                         var="voucher">
-                    <div
-                            class="promotion__item">
-                        <div
-                                class="discount__percent">
-                            <i
-                                    class="fa-solid fa-fire"></i>
+                    <div class="promotion__item">
+                        <div class="discount__percent">
+                            <i class="fa-solid fa-fire"></i>
                             <span>
-                                                                                                        <fmt:formatNumber
-                                                                                                                type="percent"
-                                                                                                                value="${voucher.discountPercent}"/>
-                                                                                                    </span>
+                                <fmt:formatNumber
+                                type="percent"
+                                value="${voucher.discountPercent}"/>
+                            </span>
                         </div>
-                        <div
-                                class="item__content">
-                            <h1
-                                    class="promotion__text">
-                                NHẬP MÃ:
-                                    ${voucher.code}
+                        <div class="item__content">
+                            <h1 class="promotion__text">
+                                NHẬP MÃ: ${voucher.code}
                             </h1>
                             <p>HSD:
                                 <fmt:formatDate
                                         pattern="dd-MM-yyyy"
                                         value="${voucher.expiryDate}"/>
                             </p>
-                            <p
-                                    class="promotion__description">
+                            <p class="promotion__description">
                                     ${voucher.description}
                                 <fmt:setLocale
                                         value="vi_VN"/>
@@ -79,8 +71,7 @@
                                     class="button__copy"
                                     data-code="${voucher.code}">Sao
                                 chép
-                                <i
-                                        class="fa-solid fa-copy"></i></button>
+                                <i class="fa-solid fa-copy"></i></button>
                         </div>
                     </div>
                 </c:forEach>
@@ -106,27 +97,23 @@
             <c:choose>
                 <c:when
                         test="${sessionScope[userIdCart].getTotalItems() == 0 || sessionScope[userIdCart] == null}">
-                    <div
-                            class="cart__container--empty">
+                    <div class="cart__container--empty">
                         <p>Không có sản phẩm nào
                             trong giỏ hàng của
                             bạn</p>
-                        <a href="<c:url value="
-                                                                                                    /public/product/productBuying.jsp" />">
-                            <button>Tiếp tục mua
-                                sắm
+                        <a href="<c:url value="/public/product/productBuying.jsp" />">
+                            <button>
+                                Tiếp tục mua sắm
                             </button>
                         </a>
-                        <img src="<c:url value="
-                                                                                                    /assets/img/continueShopping.svg" />">
+                        <img src="<c:url value="/assets/img/continueShopping.svg" />">
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <div
-                            class="cart__content col">
+                    <div class="cart__content col">
                         <form
                                 class="shopping__cart--form"
-                                action="/ShoppingCart"
+                                action="<c:url value="/api/cart"/>"
                                 method="post">
                             <div
                                     class="d-flex w-100 check__header">
@@ -624,6 +611,7 @@
                                     </div>`);
                     $(popupDeletion).find('.cancel__button').on('click', function () {
                         $(popupDeletion).find('.popup__container').remove();
+                        console.log("Remove")
                     })
 
                     $(popupDeletion).find('.agree__button').on('click', function () {
@@ -664,6 +652,9 @@
                                         $(document).find('.price__items .price__item:last-child').html("");
                                     }
                                 }
+                            },
+                            error: function (err) {
+                                console.log(err)
                             }
                         })
                     })

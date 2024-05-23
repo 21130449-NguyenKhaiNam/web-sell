@@ -6,6 +6,5 @@ public class CloudinaryTest {
 //    Lấy ảnh
       String linkImg=  CloudinaryUploadServices.getINSTANCE().getImage("product_img/1", "product1.jpg.jpg");
         System.out.println(linkImg);
-
     }
 }
