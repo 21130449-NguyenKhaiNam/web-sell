@@ -24,25 +24,25 @@ import java.time.LocalDate;
 public class SuccessOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
+//        HttpSession session = request.getSession(true);
+//
+//        User user = SessionManager.getInstance(request, response).getUser();
+//        String userIdCart = String.valueOf(user.getId());
+//
+//        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
+//        int totalPrice = (int)cart.getTotalPrice(true);
+//
+//        int invoiceNo = Integer.parseInt(request.getParameter("invoiceNo"));
+//        String dateOrder = LocalDate.now().toString();
+////        String fullNameBuyer = cart.getDeliveryInfo().getFullName();
+////        String emailBuyer = cart.getDeliveryInfo().getEmail();
+////        String phoneBuyer = cart.getDeliveryInfo().getPhone();
+////        String addressBuyer = cart.getDeliveryInfo().getAddress();
+////        int paymentMethodId = cart.getPaymentMethod().getId();
+//        Integer voucherId = null;
+//        Integer deliveryMethodId = null;
 
-        User user = SessionManager.getInstance(request, response).getUser();
-        String userIdCart = String.valueOf(user.getId());
-
-        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
-        int totalPrice = (int)cart.getTotalPrice(true);
-
-        int invoiceNo = Integer.parseInt(request.getParameter("invoiceNo"));
-        String dateOrder = LocalDate.now().toString();
-//        String fullNameBuyer = cart.getDeliveryInfo().getFullName();
-//        String emailBuyer = cart.getDeliveryInfo().getEmail();
-//        String phoneBuyer = cart.getDeliveryInfo().getPhone();
-//        String addressBuyer = cart.getDeliveryInfo().getAddress();
-//        int paymentMethodId = cart.getPaymentMethod().getId();
-        Integer voucherId = null;
-        Integer deliveryMethodId = null;
-
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //        IMailServices mailPlaceOrderService = new MailPlaceOrderService(cart, dateOrder, invoiceNo);
 //        try {
 //            mailPlaceOrderService.send();
@@ -50,41 +50,41 @@ public class SuccessOrderController extends HttpServlet {
 //            throw new RuntimeException(e);
 //        }
 
-        if(paymentMethodId == 2 || paymentMethodId == 3){
-            session.setAttribute("totalPrice", totalPrice);
-            request.getRequestDispatcher("/public/user/vnpPay.jsp").forward(request,response);
-        }
-        else{
-
-            try {
-                if (cart.getVoucherApplied() != null) {
-                    voucherId = cart.getVoucherApplied().getId();
-                }
-
-                if (cart.getDeliveryMethod() != null) {
-                    deliveryMethodId = cart.getDeliveryMethod().getId();
-                }
-
-                CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, user.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
-            } catch (NullPointerException exception) {
-                exception.printStackTrace();
-                CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, user.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
-            }
-
-            for (int productId : cart.getShoppingCartMap().keySet()) {
-                for (AbstractCartProduct cartProduct : cart.getShoppingCartMap().get(productId)) {
-                    CheckoutServices.getINSTANCE().addEachOrderDetail(invoiceNo, productId, cartProduct.getProduct().getName(), cartProduct.sizeRequired(), cartProduct.getColor().getCodeColor(), cartProduct.getQuantity(), cartProduct.getPriorityPrice());
-                }
-            }
-
-            session.removeAttribute(userIdCart);
-            session.removeAttribute("promotionCode");
-            session.removeAttribute("failedApply");
-            session.removeAttribute("successApplied");
-            request.setAttribute("invoiceNo", invoiceNo);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_SUCCESS_ORDER);
-            requestDispatcher.forward(request, response);
-=======
+//        if(paymentMethodId == 2 || paymentMethodId == 3){
+//            session.setAttribute("totalPrice", totalPrice);
+//            request.getRequestDispatcher("/public/user/vnpPay.jsp").forward(request,response);
+//        }
+//        else{
+//
+//            try {
+//                if (cart.getVoucherApplied() != null) {
+//                    voucherId = cart.getVoucherApplied().getId();
+//                }
+//
+//                if (cart.getDeliveryMethod() != null) {
+//                    deliveryMethodId = cart.getDeliveryMethod().getId();
+//                }
+//
+//                CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, user.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
+//            } catch (NullPointerException exception) {
+//                exception.printStackTrace();
+//                CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, user.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
+//            }
+//
+//            for (int productId : cart.getShoppingCartMap().keySet()) {
+//                for (AbstractCartProduct cartProduct : cart.getShoppingCartMap().get(productId)) {
+//                    CheckoutServices.getINSTANCE().addEachOrderDetail(invoiceNo, productId, cartProduct.getProduct().getName(), cartProduct.sizeRequired(), cartProduct.getColor().getCodeColor(), cartProduct.getQuantity(), cartProduct.getPriorityPrice());
+//                }
+//            }
+//
+//            session.removeAttribute(userIdCart);
+//            session.removeAttribute("promotionCode");
+//            session.removeAttribute("failedApply");
+//            session.removeAttribute("successApplied");
+//            request.setAttribute("invoiceNo", invoiceNo);
+//            RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_SUCCESS_ORDER);
+//            requestDispatcher.forward(request, response);
+//=======
         try {
 //            if (cart.getVoucherApplied() != null) {
 //                voucherId = cart.getVoucherApplied().getId();
@@ -98,7 +98,7 @@ public class SuccessOrderController extends HttpServlet {
         } catch (NullPointerException exception) {
             exception.printStackTrace();
 //            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
->>>>>>> main
+//>>>>>>> main
         }
     }
 

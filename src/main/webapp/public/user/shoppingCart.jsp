@@ -123,7 +123,7 @@
                             class="cart__content col">
                         <form
                                 class="shopping__cart--form"
-                                action="/ShoppingCart"
+                                action="/api/cart"
                                 method="post">
                             <div
                                     class="d-flex w-100 check__header">
@@ -192,7 +192,7 @@
                                                 class="product__content">
                                             <a class="product__image"
                                                href="<c:url value="/showProductDetail" />?id=<%=productId%>">
-                                                <img src='<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", ProductFactory.getListImagesByProductId(productId).get(0).getNameImage())%>'>
+                                                <img src='<%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
                                             </a>
                                             <div
                                                     class="order__product--info">
@@ -200,11 +200,10 @@
                                                    class="product__name">
                                                     <%=cartProduct.getProduct().getName()%>
                                                 </a>
-                                                <p
-                                                        class="order__color">
+                                                <p class="order__color">
                                                     Màu
                                                     sắc:
-                                                    <%=cartProduct.getColor().getCodeColor()%>
+                                                    <div style="width: 15px;height: 15px; background-color: <%=cartProduct.getColor().getCodeColor()%>; border: 1px solid gray"></div>
                                                 </p>
                                                 <ul
                                                         class="order__size--specification">
@@ -358,8 +357,7 @@
                         </div>
                         <span>Phí vận toán</span>
                         <div class="group__button--forward">
-                            <a id="continue--directional"
-                               href="<c:url value="/public/user/checkout.jsp" />">
+                            <a id="continue--directional" href="<c:url value="/public/user/checkout.jsp" />">
                                 <button id="continue--checkout">
                                     Tiến hành thanh toán
                                 </button>
