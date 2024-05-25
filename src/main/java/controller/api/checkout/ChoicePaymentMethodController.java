@@ -29,6 +29,7 @@ public class ChoicePaymentMethodController extends HttpServlet {
 
         PaymentMethod paymentMethod = CheckoutServices.getINSTANCE().getPaymentMethodById(paymentMethodId);
         System.out.println(paymentMethod);
+
         HttpSession session = request.getSession(true);
         User user = SessionManager.getInstance(request, response).getUser();
         String userIdCart = String.valueOf(user.getId());

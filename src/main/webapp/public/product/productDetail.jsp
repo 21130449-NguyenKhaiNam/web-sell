@@ -18,12 +18,14 @@
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value="/assets/css/splide/index.css" />">
     <jsp:include page="/public/commonLink.jsp"/>
+
     <link rel="stylesheet" href="<c:url value="/assets/css/productDetail.css"/>">
     <title><%=product.getName()%>
     </title>
 </head>
 
 <body>
+
 <c:import url="/public/header.jsp"/>
 <main class="main">
     <section class="product__detail">
@@ -55,8 +57,7 @@
                 </div>
                 <div class="offset-1 col-5">
                     <div class="product__info">
-                        <form action="<c:url value="/api/cart/add"/>" method="post" id="form__product"
-                              class="product__form">
+                        <form action="/api/cart/add" method="post" id="form__product" class="product__form">
                             <h1 class="product__name" id="product__name"><%=product.getName()%>
                             </h1>
                             <input type="text" hidden="hidden" name="productId" value="<%=product.getId()%>">
@@ -92,8 +93,7 @@
 
                             <div class="form__block">
                                 <p class="form__title">Màu sắc</p>
-                                <c:set var="colors"
-                                       value="<%=productFactory.getListColorsByProductId(product.getId())%>"/>
+                                <c:set var="colors" value="<%=productFactory.getListColorsByProductId(product.getId())%>" />
                                 <div class="form__choose-color">
                                     <c:forEach var="color" items="${colors}">
                                         <label class="form__color-check shadow rounded"
@@ -108,8 +108,7 @@
 
                             <p class="form__title">Kích thước</p>
                             <div class="form__block">
-                                <c:set var="sizes"
-                                       value="<%=productFactory.getListSizesByProductId(product.getId())%>"/>
+                                <c:set var="sizes" value="<%=productFactory.getListSizesByProductId(product.getId())%>"/>
                                 <div class="form__size-list">
                                     <c:forEach var="size" items="${sizes}">
                                         <div class="form__size-item hvr-skew-forward">
@@ -143,8 +142,7 @@
                                     <p class="form__error"></p>
                                 </div>
                             </div>
-
-                            <a href="<c:url value="/showProductOrder?id=<%=product.getId()%>"/>"
+                            <a href="/showProductOrder?id=<%=product.getId()%>"
                                type="submit"
                                class="form__submit form__submit--order button text-secondary"
                                data="Đặt may theo số đo">
@@ -158,7 +156,6 @@
                 </div>
                 <div class="col-12 mb-5">
                     <hr/>
-
                     <div class="product__desc-review">
                         <div class="product__page product__page--clicked hvr-float-shadow">Mô tả</div>
                         <div class="product__page hvr-float-shadow">Đánh giá</div>
@@ -196,9 +193,8 @@
                                             <li class="review__star "></li>
                                             <%}%>
                                             </c:if>
-                                            <fmt:formatDate var="reviewDate" value="<%=review.getReviewDate()%>"
-                                                            type="date"
-                                                            pattern="dd/MM/yyyy"/>
+                                            <fmt:formatDate var="reviewDate" value="<%=review.getReviewDate()%>" type="date"
+                                                            pattern="dd/MM/yyyy" />
 
                                             <span class="review__date"><%=review.getReviewDate()%></span>
                                         </ul>
@@ -233,13 +229,11 @@
                     <div class="product__list">
                         <%for (Product item : (List<Product>) request.getAttribute("listProductRelated")) {%>
                         <div class="product__item hvr-grow-shadow">
-
-                            <c:set value="<%=productFactory.getListImagesByProductId(item.getId())%>"
-                                   var="listProductImage"/>
+                            <c:set value="<%=productFactory.getListImagesByProductId(item.getId())%>" var="listProductImage" />
 
                             <a href="${pageContext.request.contextPath}/showProductDetail?id=<%=item.getId()%>">
                                 <img src="<%=productFactory.getListImagesByProductId(item.getId()).get(0).getNameImage()%>"
-                                     class="product__img" alt="" loading="lazy"/>
+                                     class="product__img" alt="" loading="lazy" />
                             </a>
                             <div class="product__info">
                                 <a class="product__name" target="_self"
@@ -263,9 +257,9 @@
                                 </div>
 
                                 <fmt:formatNumber value="<%=item.getOriginalPrice()%>" type="currency"
-                                                  currencyCode="VND" var="originalPrice"/>
+                                                  currencyCode="VND" var="originalPrice" />
                                 <fmt:formatNumber value="<%=item.getSalePrice()%>" type="currency"
-                                                  currencyCode="VND" var="salePrice"/>
+                                                  currencyCode="VND" var="salePrice" />
 
                                 <span class="product__price">
                                                 <strong class="product__price--sale">

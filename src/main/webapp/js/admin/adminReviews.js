@@ -312,4 +312,3 @@ $(document).ready(() => {
         model.find("#staticDate").text(review.date);
     }
 })
-
