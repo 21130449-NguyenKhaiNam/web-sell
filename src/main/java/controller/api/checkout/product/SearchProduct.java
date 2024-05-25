@@ -1,4 +1,4 @@
-package controller.api.product;
+package controller.api.checkout.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Product;

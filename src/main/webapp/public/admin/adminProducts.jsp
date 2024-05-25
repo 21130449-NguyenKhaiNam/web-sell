@@ -31,6 +31,7 @@
                         <ul class="search__box shadow"></ul>
                     </div>
 
+
                     <form action="<c:url value="/filterProductAdmin"/>" class="form__filter" id="form__filter">
                         <div class="filter__group">
                             <span class="filter__title">Thời gian cập nhập</span>
@@ -140,6 +141,7 @@
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
                         </span>
+
                     </div>
                     <div class="table__wrapper">
                         <table class="table">
@@ -291,11 +293,22 @@
                                             <i class="fa-solid fa-eye"></i>
                                         </label>
                                     </td>
+<<<<<<< HEAD
+                                    <c:if test="${sessionScope.auth.role == '2'}">
+                                        <td class="table__data-edit">
+                                            <label>
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </label>
+                                        </td>
+                                    </c:if>
+
+=======
                                     <td class="table__data-edit">
                                         <label>
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </label>
                                     </td>
+>>>>>>> main
                                     <td class="table__data table__data-id">
                                         <p class="table__cell">` + contentProduct.id + `</p>
                                     </td>

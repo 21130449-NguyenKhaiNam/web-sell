@@ -23,7 +23,8 @@
                             <h1 class="checkout__title">Thanh toán</h1>
                             <h2 class="checkout__subtitle">Thông tin giao hàng</h2>
                             <form id="delivery__info--form">
-                                <c:set var="userIdCart" value="${String.valueOf(sessionScope.auth.id)}" />
+<%--                                ${String.valueOf(sessionScope.auth.id)}--%>
+                                <c:set var="userIdCart" value="23" />
                                 <c:if test="${sessionScope.deliveryInfoStorage != null}">
                                     <c:forEach items="${sessionScope.deliveryInfoStorage.deliveryInfoMap.keySet()}" var="deliveryInfoKey">
                                         <div
@@ -244,7 +245,7 @@
                                             <%
                                                 String nameImage = ((List<Image>) pageContext.getAttribute("listImagesProduct")).get(0).getNameImage();
                                             %>
-                                            <img src='<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", nameImage)%>'>
+                                            <img src='<%=nameImage%>'>
                                             <div class="order__product--info">
                                                 <p class="product__name">${cartProduct.product.name}</p>
                                                 <p class="order__color">Màu sắc: ${cartProduct.color.codeColor}</p>
