@@ -171,7 +171,6 @@
             </button>
         </div>
     </div>
-    </div>
 
     <div class="new__section container-xl">
         <div class="new__title">

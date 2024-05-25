@@ -22,8 +22,7 @@
 
 <head>
     <jsp:include page="/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="<c:url value="
-                                                                            /assets/css/shoppingCart.css" />">
+    <link rel="stylesheet" href="<c:url value="/assets/css/shoppingCart.css" />">
     <title>Giỏ hàng</title>
 </head>
 
@@ -111,14 +110,12 @@
                         <p>Không có sản phẩm nào
                             trong giỏ hàng của
                             bạn</p>
-                        <a href="<c:url value="
-                                                                                                    /public/product/productBuying.jsp" />">
+                        <a href="<c:url value="/public/product/productBuying.jsp" />">
                             <button>Tiếp tục mua
                                 sắm
                             </button>
                         </a>
-                        <img src="<c:url value="
-                                                                                                    /assets/img/continueShopping.svg" />">
+                        <img src="<c:url value="/assets/img/continueShopping.svg" />">
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -126,7 +123,7 @@
                             class="cart__content col">
                         <form
                                 class="shopping__cart--form"
-                                action="/ShoppingCart"
+                                action="/api/cart"
                                 method="post">
                             <div
                                     class="d-flex w-100 check__header">
@@ -140,41 +137,19 @@
                                         class="check__title">Lựa
                                     chọn toàn
                                     bộ</label>
-                                <input
-                                        type="radio"
-                                        id="remove__pay-all"
-                                        name="check-high"
-                                        class="check-high"
-                                        checked/>
-                                <label
-                                        for="remove__pay-all"
-                                        class="check__title">Hủy
-                                    chọn tất
-                                    cả</label>
+                                <input type="radio" id="remove__pay-all" name="check-high" class="check-high" checked/>
+                                <label for="remove__pay-all" class="check__title">Hủy chọn tất cả</label>
                             </div>
-                            <table
-                                    id="cart__table">
-                                <thead
-                                        class="cart__header">
-                                <tr>
-                                    <th>Lựa
-                                        chọn
-                                    </th>
-                                    <th>Sản
-                                        phẩm
-                                    </th>
-                                    <th>Giá
-                                        may
-                                    </th>
-                                    <th>Số
-                                        lượng
-                                    </th>
-                                    <th>Thành
-                                        tiền
-                                    </th>
-                                    <th>Xóa
-                                    </th>
-                                </tr>
+                            <table id="cart__table">
+                                <thead class="cart__header">
+                                    <tr>
+                                        <th>Lựa chọn</th>
+                                        <th>Sản phẩm</th>
+                                        <th>Giá may</th>
+                                        <th>Số lượng</th>
+                                        <th>Thành tiền</th>
+                                        <th>Xóa</th>
+                                    </tr>
                                 </thead>
                                 <tbody class="cart__items">
                                 <% String
@@ -217,7 +192,7 @@
                                                 class="product__content">
                                             <a class="product__image"
                                                href="<c:url value="/showProductDetail" />?id=<%=productId%>">
-                                                <img src='<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", ProductFactory.getListImagesByProductId(productId).get(0).getNameImage())%>'>
+                                                <img src='<%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
                                             </a>
                                             <div
                                                     class="order__product--info">
@@ -225,11 +200,10 @@
                                                    class="product__name">
                                                     <%=cartProduct.getProduct().getName()%>
                                                 </a>
-                                                <p
-                                                        class="order__color">
+                                                <p class="order__color">
                                                     Màu
                                                     sắc:
-                                                    <%=cartProduct.getColor().getCodeColor()%>
+                                                    <div style="width: 15px;height: 15px; background-color: <%=cartProduct.getColor().getCodeColor()%>; border: 1px solid gray"></div>
                                                 </p>
                                                 <ul
                                                         class="order__size--specification">
@@ -383,8 +357,7 @@
                         </div>
                         <span>Phí vận toán</span>
                         <div class="group__button--forward">
-                            <a id="continue--directional"
-                               href="<c:url value="/public/user/checkout.jsp" />">
+                            <a id="continue--directional" href="<c:url value="/public/user/checkout.jsp" />">
                                 <button id="continue--checkout">
                                     Tiến hành thanh toán
                                 </button>
@@ -402,11 +375,12 @@
     </div>
 </main>
 <div class="popup__deletion"></div>
-<%@include file="../footer.jsp" %>
+
+<%@include file="../footer.jsp"%>
 </body>
-<script src="<c:url value=" /js/base.js" />">
-</script>
-<script src="<c:url value="/js/validateContactForm.js" />">
+
+<script src="<c:url value="/js/base.js"/>"></script>
+<script src="<c:url value="/js/validateContactForm.js"/>">
     ValidatorContactForm({
         form: '#contact_us-form',
         formBlockSelector: '.form__block',

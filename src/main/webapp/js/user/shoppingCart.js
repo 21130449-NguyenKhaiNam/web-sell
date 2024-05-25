@@ -122,9 +122,10 @@ function deleteCartProduct() {
                 $(popupDeletion).find('.popup__container').remove();
             })
 
+            console.log(cartForm.attr('action'))
             $(popupDeletion).find('.agree__button').on('click', function () {
                 $.ajax({
-                    url: cartForm.attr('action'),
+                    url: cartForm.attr('action')+"/delete?productId="+productId +"&cartProductIndex=" + cartProductIndex,
                     type: cartForm.attr('method'),
                     data: {
                         action: action,

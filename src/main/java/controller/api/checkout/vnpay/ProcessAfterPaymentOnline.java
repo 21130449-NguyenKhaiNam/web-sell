@@ -1,15 +1,14 @@
-package controller.web.checkout;
+package controller.api.checkout.vnpay;
 
 import config.ConfigPage;
+import models.DeliveryMethod;
+import models.PaymentMethod;
 import models.User;
 import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.ShoppingCart;
 import services.CheckoutServices;
-import services.mail.IMailServices;
-import services.mail.MailPlaceOrderService;
 import session.SessionManager;
 
-import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,41 +18,38 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
-@WebServlet(name = "SuccessOrderController", value = "/SuccessOrder")
-public class SuccessOrderController extends HttpServlet {
+@WebServlet(name = "ProcessAfterPaymentOnline", value = "/ProcessAfterPaymentOnline")
+public class ProcessAfterPaymentOnline extends HttpServlet {
+
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        HttpSession session = request.getSession(true);
-//
-//        User user = SessionManager.getInstance(request, response).getUser();
-//        String userIdCart = String.valueOf(user.getId());
-//
-//        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
-//        int totalPrice = (int)cart.getTotalPrice(true);
 
-//        int invoiceNo = Integer.parseInt(request.getParameter("invoiceNo"));
-//        String dateOrder = LocalDate.now().toString();
-//        String fullNameBuyer = cart.getDeliveryInfo().getFullName();
-//        String emailBuyer = cart.getDeliveryInfo().getEmail();
-//        String phoneBuyer = cart.getDeliveryInfo().getPhone();
-//        String addressBuyer = cart.getDeliveryInfo().getAddress();
-//        int paymentMethodId = cart.getPaymentMethod().getId();
-//        Integer voucherId = null;
-//        Integer deliveryMethodId = null;
+    }
 
-//        IMailServices mailPlaceOrderService = new MailPlaceOrderService(cart, dateOrder, invoiceNo);
-//        try {
-//            mailPlaceOrderService.send();
-//        } catch (MessagingException e) {
-//            throw new RuntimeException(e);
-//        }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        int vnp_TransactionStatus = Integer.parseInt(request.getParameter("vnp_TransactionStatus"));
 //
-//        if(paymentMethodId == 2 || paymentMethodId == 3){
-//            session.setAttribute("totalPrice", totalPrice);
-//            request.getRequestDispatcher("/public/user/vnpPay.jsp").forward(request,response);
-//        }
-//        else{
+//        if(vnp_TransactionStatus == 00){
+//            HttpSession session = request.getSession();
+//            User user = SessionManager.getInstance(request, response).getUser();
+//            String userIdCart = String.valueOf(user.getId());
+//
+//            ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
+//            int totalPrice = (int)cart.getTotalPrice(true);
+//
+//            int invoiceNo = Integer.parseInt(request.getParameter("invoiceNo"));
+//            String dateOrder = LocalDate.now().toString();
+//            String fullNameBuyer = cart.getDeliveryInfo().getFullName();
+//            String emailBuyer = cart.getDeliveryInfo().getEmail();
+//            String phoneBuyer = cart.getDeliveryInfo().getPhone();
+//            String addressBuyer = cart.getDeliveryInfo().getAddress();
+//            int paymentMethodId = cart.getPaymentMethod().getId();
+//            Integer voucherId = null;
+//            Integer deliveryMethodId = null;
 //
 //            try {
 //                if (cart.getVoucherApplied() != null) {
@@ -63,7 +59,7 @@ public class SuccessOrderController extends HttpServlet {
 //                if (cart.getDeliveryMethod() != null) {
 //                    deliveryMethodId = cart.getDeliveryMethod().getId();
 //                }
-
+//
 //                CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, user.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
 //            } catch (NullPointerException exception) {
 //                exception.printStackTrace();
@@ -75,19 +71,14 @@ public class SuccessOrderController extends HttpServlet {
 //                    CheckoutServices.getINSTANCE().addEachOrderDetail(invoiceNo, productId, cartProduct.getProduct().getName(), cartProduct.sizeRequired(), cartProduct.getColor().getCodeColor(), cartProduct.getQuantity(), cartProduct.getPriorityPrice());
 //                }
 //            }
-
+//
+//
 //            session.removeAttribute(userIdCart);
 //            session.removeAttribute("promotionCode");
 //            session.removeAttribute("failedApply");
 //            session.removeAttribute("successApplied");
-//            request.setAttribute("invoiceNo", invoiceNo);
-//            RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_SUCCESS_ORDER);
-//            requestDispatcher.forward(request, response);
 //        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+//
+//        request.getRequestDispatcher(ConfigPage.PRODUCT_BUYING).forward(request, response);
     }
 }

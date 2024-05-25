@@ -195,8 +195,8 @@
 </script>
 
 <script src="<c:url value="/js/validateForm.js"/>"></script>
+
 <%--<script src="<c:url value="/js/notify.js"/>"></script>--%>
 <script type="module" src="<c:url value="/js/admin/adminUpdateProduct.js"/>"></script>
-
 </body>
 </html>
