@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "CheckoutController", value = "/api/checkout")
+@WebServlet(name = "CheckoutController", value = "/Checkout")
 public class CheckoutController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

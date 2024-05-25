@@ -17,6 +17,7 @@
 
                 <article>
                     <span class="text-cetner mb-3 d-flex justify-content-center hvr-bob">
+
                         <a href="/public/index.jsp" class="logo"></a>
                     </span>
                     <form action="<c:url value="/signUp"/>" method="post" class="form form--signUp">
@@ -140,8 +141,10 @@
                 errorSelector: ".form__error",
                 rules: [
                     Validation.isRequired("#username"),
+                    Validation.isExistsUsername("#username"),
                     Validation.isRequired("#email"),
                     Validation.isEmail("#email"),
+                    Validation.isExistsEmail("#email"),
                     Validation.isRequired("#password"),
                     Validation.isUnique("#password"),
                     Validation.isRequired("#confirm-password"),
@@ -150,7 +153,6 @@
                     })
                 ],
                 submitSelector: "#form__submit",
-
             })
         </script>
     </body>

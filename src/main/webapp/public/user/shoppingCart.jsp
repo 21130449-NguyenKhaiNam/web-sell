@@ -102,8 +102,8 @@
                             trong giỏ hàng của
                             bạn</p>
                         <a href="<c:url value="/public/product/productBuying.jsp" />">
-                            <button>
-                                Tiếp tục mua sắm
+                            <button>Tiếp tục mua
+                                sắm
                             </button>
                         </a>
                         <img src="<c:url value="/assets/img/continueShopping.svg" />">
@@ -135,9 +135,7 @@
                                         checked/>
                                 <label
                                         for="remove__pay-all"
-                                        class="check__title">Hủy
-                                    chọn tất
-                                    cả</label>
+                                        class="check__title">Hủy chọn tất cả</label>
                             </div>
                             <table
                                     id="cart__table">
@@ -370,8 +368,7 @@
                         </div>
                         <span>Phí vận toán</span>
                         <div class="group__button--forward">
-                            <a id="continue--directional"
-                               href="<c:url value="/public/user/checkout.jsp" />">
+                            <a id="continue--directional" href="<c:url value="/public/user/checkout.jsp" />">
                                 <button id="continue--checkout">
                                     Tiến hành thanh toán
                                 </button>
@@ -389,11 +386,10 @@
     </div>
 </main>
 <div class="popup__deletion"></div>
-<%@include file="../footer.jsp" %>
+<%@include file="../footer.jsp"%>
 </body>
-<script src="<c:url value=" /js/base.js" />">
-</script>
-<script src="<c:url value="/js/validateContactForm.js" />">
+<script src="<c:url value="/js/base.js"/>"></script>
+<script src="<c:url value="/js/validateContactForm.js"/>">
     ValidatorContactForm({
         form: '#contact_us-form',
         formBlockSelector: '.form__block',
@@ -611,7 +607,6 @@
                                     </div>`);
                     $(popupDeletion).find('.cancel__button').on('click', function () {
                         $(popupDeletion).find('.popup__container').remove();
-                        console.log("Remove")
                     })
 
                     $(popupDeletion).find('.agree__button').on('click', function () {
