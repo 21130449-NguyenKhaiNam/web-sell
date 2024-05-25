@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     // các sản phẩm khi vừa vào trang sản phẩm
     callAjaxToPage(1);
-    //handleFilterProduct(1)
+    handleFilterProduct(1)
     handleSearch()
 });
 
