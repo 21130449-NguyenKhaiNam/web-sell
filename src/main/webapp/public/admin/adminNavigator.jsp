@@ -62,7 +62,11 @@
                         <i class="fa-solid fa-chart-simple"></i>
                         <span>Thống kê</span></a>
                 </li>
-
+                <li>
+                    <a href="#voucher" data-link="adminVoucher.jsp" class="sidebar_item">
+                        <i class="fa-solid fa-ticket-simple"></i>
+                        <span>Mã giảm giá</span></a>
+                </li>
                 <li>
                     <a href="#logs" data-link="adminLogs.jsp" class="sidebar_item">
                         <i class="fa-solid fa-book"></i>

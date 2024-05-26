@@ -19,4 +19,5 @@ public class Voucher {
     private double discountPercent;
     private Date expiryDate;
     private int availableTurns;
+    private boolean state;
 }

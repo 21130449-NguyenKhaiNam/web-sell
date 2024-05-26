@@ -1,9 +1,12 @@
 package controller.api.voucher;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import services.VoucherServices;
+import com.google.gson.JsonObject;
+import services.voucher.VoucherState;
+import models.User;
+import services.voucher.VoucherServices;
+import session.SessionManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,26 +14,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@SuppressWarnings("ALL")
+
 @WebServlet(value = "/api/voucher/apply")
 public class ApplyVoucherController extends HttpServlet {
-    Gson gson = new GsonBuilder().create();
+    Gson gson = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd") // Customize date format here
+            .create();
     VoucherServices voucherServices = new VoucherServices();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        JsonObject jsonObject = new JsonObject();
         try {
-            String code = req.getParameter("voucherId");
-            List<Integer> cartItems;
-            Type cartListType = new TypeToken<List<Integer>>() {
-            }.getType();
-            cartItems = gson.fromJson(req.getParameter("cartItems"), cartListType);
-//            voucherServices.canApply(code, cartItems);
+            String code = req.getParameter("code");
+            String[] idsParam = req.getParameterValues("id[]");
+            User user = SessionManager.getInstance(req, resp).getUser();
+            if (idsParam != null) {
+                List<Integer> ids = List.of(idsParam).stream().map(Integer::parseInt).collect(Collectors.toList());
+                VoucherState state = voucherServices.canApply(user, code, ids);
+                jsonObject.addProperty("canApply", state.getValue());
+            }
+            jsonObject.addProperty("success", true);
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            jsonObject.addProperty("success", false);
         }
+        resp.getWriter().write(gson.toJson(jsonObject));
     }
 }

@@ -93,6 +93,7 @@ $(document).ready(function () {
         loadAddress(order.address)
         loadPrice(order);
         loadContact(order);
+        console.log(order.address)
         getFeeAndLeadTime(order.address).then(data => {
             console.log(data.feeShipping, data.leadDate);
             modal.find("#order__shipping-fee").text(formatCurrency(data.feeShipping));

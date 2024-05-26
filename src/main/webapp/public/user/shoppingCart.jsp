@@ -22,8 +22,7 @@
 
 <head>
     <jsp:include page="/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="<c:url value="
-                                                                            /assets/css/shoppingCart.css" />">
+    <link rel="stylesheet" href="<c:url value="/assets/css/shoppingCart.css" />">
     <title>Giỏ hàng</title>
 </head>
 
@@ -34,56 +33,11 @@
     <div class="promotion__modal">
         <div class="promotion__sidebar">
             <div class="promotion__header">
-                <i
-                        class="fa-solid fa-arrow-left"></i>
+                <i class="fa-solid fa-arrow-right"></i>
                 <span>Mã giảm giá</span>
             </div>
             <div class="promotion__content">
-                <c:forEach
-                        items="${requestScope.listVouchers}"
-                        var="voucher">
-                    <div
-                            class="promotion__item">
-                        <div
-                                class="discount__percent">
-                            <i
-                                    class="fa-solid fa-fire"></i>
-                            <span>
-                                                                                                        <fmt:formatNumber
-                                                                                                                type="percent"
-                                                                                                                value="${voucher.discountPercent}"/>
-                                                                                                    </span>
-                        </div>
-                        <div
-                                class="item__content">
-                            <h1
-                                    class="promotion__text">
-                                NHẬP MÃ:
-                                    ${voucher.code}
-                            </h1>
-                            <p>HSD:
-                                <fmt:formatDate
-                                        pattern="dd-MM-yyyy"
-                                        value="${voucher.expiryDate}"/>
-                            </p>
-                            <p
-                                    class="promotion__description">
-                                    ${voucher.description}
-                                <fmt:setLocale
-                                        value="vi_VN"/>
-                                <fmt:formatNumber
-                                        type="currency"
-                                        value="${voucher.minimumPrice}"/>
-                            </p>
-                            <button
-                                    class="button__copy"
-                                    data-code="${voucher.code}">Sao
-                                chép
-                                <i
-                                        class="fa-solid fa-copy"></i></button>
-                        </div>
-                    </div>
-                </c:forEach>
+
             </div>
             <div class="promotion__footer">
                 <button>Quay lại giỏ
@@ -111,14 +65,12 @@
                         <p>Không có sản phẩm nào
                             trong giỏ hàng của
                             bạn</p>
-                        <a href="<c:url value="
-                                                                                                    /public/product/productBuying.jsp" />">
+                        <a href="<c:url value="/public/product/productBuying.jsp" />">
                             <button>Tiếp tục mua
                                 sắm
                             </button>
                         </a>
-                        <img src="<c:url value="
-                                                                                                    /assets/img/continueShopping.svg" />">
+                        <img src="<c:url value="/assets/img/continueShopping.svg" />">
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -217,7 +169,7 @@
                                                 class="product__content">
                                             <a class="product__image"
                                                href="<c:url value="/showProductDetail" />?id=<%=productId%>">
-                                                <img src='<%=CloudinaryUploadServices.getINSTANCE().getImage("product_img", ProductFactory.getListImagesByProductId(productId).get(0).getNameImage())%>'>
+                                                <img src='<%= ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
                                             </a>
                                             <div
                                                     class="order__product--info">
@@ -292,7 +244,6 @@
                             <h2>Khuyến mãi </h2>
                             <form
                                     id="promotion__form"
-                                    action="ShoppingCart"
                                     method="post">
                                 <!-- New update template -->
                                 <div class="promotion__all">
@@ -306,15 +257,15 @@
                                 </div>
                                 <!-- New update template -->
                                 <div>
-                                    <input
-                                            type="hidden"
-                                            name="temporaryPrice"
-                                            value="${temporaryPrice}">
+<%--                                    <input--%>
+<%--                                            type="hidden"--%>
+<%--                                            name="temporaryPrice"--%>
+<%--                                            value="${temporaryPrice}">--%>
                                     <input
                                             type="text"
                                             name="promotionCode"
                                             id="promotion__code"
-                                            value="${sessionScope.promotionCode != null ? sessionScope.promotionCode : ""}">
+                                            value="">
                                     <button
                                             type="submit"
                                             name="action"
@@ -323,16 +274,11 @@
                                         Áp dụng
                                     </button>
                                 </div>
-                                <div
-                                        class="apply__status">
-                                    <c:if
-                                            test="${sessionScope.successApplied != null}">
-                                        <span>${sessionScope.successApplied}</span></span>
-                                    </c:if>
-                                    <c:if
-                                            test="${sessionScope.failedApply != null}">
-                                        <span>${sessionScope.failedApply}</span></span>
-                                    </c:if>
+                                <div class="apply__status">
+
+                                </div>
+                                <div id="voucher_state" class="alert alert-primary" role="alert">
+                                    Vui lòng chọn mã giảm giá
                                 </div>
                             </form>
                         </div>
@@ -353,15 +299,15 @@
                                         </p>
                                     </li>
                                     <li class="price__item">
-<%--                                        Của voucher--%>
-<%--                                        <c:if test="${sessionScope[userIdCart].getDiscountPrice() != 0}">--%>
-<%--                                            <p class="price__text">--%>
-<%--                                                Giảm giá--%>
-<%--                                            </p>--%>
-<%--                                            <p class="price__value">--%>
-<%--                                                    ${sessionScope[userIdCart].discountPriceFormat()}--%>
-<%--                                            </p>--%>
-<%--                                        </c:if>--%>
+                                            <%--                                        Của voucher--%>
+                                            <%--                                        <c:if test="${sessionScope[userIdCart].getDiscountPrice() != 0}">--%>
+                                            <%--                                            <p class="price__text">--%>
+                                            <%--                                                Giảm giá--%>
+                                            <%--                                            </p>--%>
+                                            <%--                                            <p class="price__value">--%>
+                                            <%--                                                    ${sessionScope[userIdCart].discountPriceFormat()}--%>
+                                            <%--                                            </p>--%>
+                                            <%--                                        </c:if>--%>
                                     </li>
 
                                 </ul>
@@ -381,7 +327,7 @@
                                 </div>
                             </div>
                         </div>
-                        <span>Phí vận toán</span>
+                            <%--                        <span>Phí vận toán</span>--%>
                         <div class="group__button--forward">
                             <a id="continue--directional"
                                href="<c:url value="/public/user/checkout.jsp" />">
@@ -404,7 +350,7 @@
 <div class="popup__deletion"></div>
 <%@include file="../footer.jsp" %>
 </body>
-<script src="<c:url value=" /js/base.js" />">
+<script src="<c:url value="/js/base.js" />">
 </script>
 <script src="<c:url value="/js/validateContactForm.js" />">
     ValidatorContactForm({
@@ -423,7 +369,7 @@
 </script>
 <script src="<c:url value="/js/shoppingCart.js" />"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#continue--directional').on('click', function (event) {
             event.preventDefault()
 
@@ -479,7 +425,7 @@
                 let checkPay = myCom.prop('checked')
                 let comTotalItem = $('.total__items')[0]
                 let totalItem = parseInt(comTotalItem.innerText) || 0
-                if(checkPay) {
+                if (checkPay) {
                     // Thêm sản phẩm
                     comTotalItem.innerText = totalItem + 1
 
@@ -672,43 +618,6 @@
         }
 
         deleteCartProduct()
-
-        function applyCodeVoucher() {
-            $(document).ready(function () {
-                $('#promotion__form').on('submit', function (event) {
-                    const promotionForm = $(this);
-                    const buttonApply = $(promotionForm).find('#apply');
-                    const promotionCodeInput = $(promotionForm).find('#promotion__code')
-                    const temporaryPriceInputHidden = $(promotionForm).find('input[type=hidden][name=temporaryPrice]')
-                    const action = buttonApply.val();
-                    let promotionCode = promotionCodeInput.val();
-                    let temporaryPrice = temporaryPriceInputHidden.val();
-                    event.preventDefault();
-                    $.ajax({
-                        url: promotionForm.attr('action'),
-                        type: promotionForm.attr('method'),
-                        data: {
-                            action: action,
-                            promotionCode: promotionCode,
-                            temporaryPrice: temporaryPrice
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            const applyStatus = $(document).find('.apply__status')
-                            if (response.successApplied) {
-                                $(applyStatus).html(`<span class="apply__success"><i class="fa-solid fa-circle-check"></i><span>` + response.successApplied + `</span></span>`)
-                                $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
-                                $(document).find('.price__value--final').text(response.newTotalPriceFormat)
-                            } else if (response.failedApply) {
-                                $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
-                            }
-                        }
-                    });
-                })
-            })
-        }
-
-        applyCodeVoucher();
     })
 </script>
 

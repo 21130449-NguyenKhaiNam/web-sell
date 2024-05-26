@@ -2,6 +2,7 @@ package dao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import models.Log;
 
 import java.sql.Date;
@@ -124,6 +125,8 @@ public class LogDAOImp implements ILogDAO {
             String nameTable = getNameTable(builder, nameQuery);
 
             ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+
             try {
                 String sqlLog;
                 switch (nameQuery) {

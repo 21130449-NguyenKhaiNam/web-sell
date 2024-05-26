@@ -970,6 +970,6 @@ th, td{
     cursor: pointer;
 }
 
-
-
-
+.modal{
+    z-index: 1055;
+}
