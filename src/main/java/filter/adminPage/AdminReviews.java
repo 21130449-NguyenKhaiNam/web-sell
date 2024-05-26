@@ -24,6 +24,7 @@ public class AdminReviews implements Filter {
 
         int quantityPage = AdminReviewServices.getINSTANCE().getQuantityPage();
         request.setAttribute("quantityPage", quantityPage);
+
         String requestURL = "/api/admin/review/page?";
 
         int quantityPageMin = 1;
