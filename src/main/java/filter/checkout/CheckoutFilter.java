@@ -53,7 +53,7 @@ public class CheckoutFilter implements Filter {
 
         String url = request.getServletPath();
         if (url.contains("checkout.jsp") && !url.contains("error404.jsp")) {
-            response.sendRedirect("Checkout");
+            response.sendRedirect("checkout");
         }
         filterChain.doFilter(request, response);
     }

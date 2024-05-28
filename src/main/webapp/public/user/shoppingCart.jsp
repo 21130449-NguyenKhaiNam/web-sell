@@ -422,6 +422,7 @@
 
             if (checked) {
                 // Đã lựa chọn hàng
+                window.location.href = this.href
             } else {
                 Swal.fire({
                     icon: "error",
