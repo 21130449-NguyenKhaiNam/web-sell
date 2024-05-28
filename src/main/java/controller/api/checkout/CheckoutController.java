@@ -16,9 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
-@WebServlet(name = "CheckoutController", value = "/public/user/checkout")
+@WebServlet(name = "CheckoutController", value = "/api/checkout")
 public class CheckoutController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -91,7 +93,6 @@ public class CheckoutController extends HttpServlet {
         String userIdCart = String.valueOf(user.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
-
 //        if(cart.getTotalPrice(false) < 5000000){
 //            if(cart.getDeliveryMethod() == null){
 //                DeliveryMethod deliveryMethodDefault = CheckoutServices.getINSTANCE().getDeliveryMethodById(1);
@@ -108,11 +109,17 @@ public class CheckoutController extends HttpServlet {
 //            cart.setPaymentMethod(paymentMethodDefault);
 //            session.setAttribute(userIdCart, cart);
 //        }
+        HashMap<String, String[]> parameter = new HashMap<>(request.getParameterMap());
+        // id - count - price
+        String[] models = parameter.get("product");
 
-        request.setAttribute("listDeliveryMethod",listDeliveryMethod);
+        request.setAttribute("listDeliveryMethod", listDeliveryMethod);
         request.setAttribute("listPaymentMethod", listPaymentMethod);
+        request.setAttribute("models", models);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_CHECKOUT);
         requestDispatcher.forward(request, response);
+//        response.getWriter().write(re);
+//        response.sendRedirect(ConfigPage.USER_CHECKOUT);
     }
 
     @Override

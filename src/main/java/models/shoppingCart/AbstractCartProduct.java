@@ -53,7 +53,7 @@ public abstract class AbstractCartProduct {
     }
 
     public String makeSizeFormat(){
-        String sizeFormat = "Kích thước: ";
+        String sizeFormat = "";
         sizeFormat += sizeRequired();
         if(this instanceof CartProduct){
             sizeFormat += " (giá kích thước: " + ((CartProduct)(this)).getInstanceSize().getSizePrice() + ")";
