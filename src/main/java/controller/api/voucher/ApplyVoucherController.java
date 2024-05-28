@@ -3,6 +3,8 @@ package controller.api.voucher;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import dao.VoucherDAO;
+import models.Voucher;
 import services.voucher.VoucherState;
 import models.User;
 import services.voucher.VoucherServices;
@@ -24,6 +26,7 @@ public class ApplyVoucherController extends HttpServlet {
             .setDateFormat("yyyy-MM-dd") // Customize date format here
             .create();
     VoucherServices voucherServices = new VoucherServices();
+    VoucherDAO voucherDAO = new VoucherDAO();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,6 +39,8 @@ public class ApplyVoucherController extends HttpServlet {
                 List<Integer> ids = List.of(idsParam).stream().map(Integer::parseInt).collect(Collectors.toList());
                 VoucherState state = voucherServices.canApply(user, code, ids);
                 jsonObject.addProperty("canApply", state.getValue());
+                Voucher voucher = voucherDAO.selectByCode(code);
+                jsonObject.add("voucher", gson.toJsonTree(voucher));
             }
             jsonObject.addProperty("success", true);
         } catch (Exception e) {

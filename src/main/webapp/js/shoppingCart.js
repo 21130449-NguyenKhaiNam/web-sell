@@ -1,13 +1,10 @@
 $(document).ready(() => {
     const promotionContent = $(".promotion__content");
-    const selectorCartItems = "[data-product-id]:has(input.check__pay:checked) "
+    const selectorCartItems = "[data-product-id]:has(input.check__pay:checked)"
     const formVoucher = $('#promotion__form');
-    const stateApply={
-
-    }
+    const stateApply = {}
 
     function handleEventShoppingCart() {
-        const promotionCodeElement = document.getElementById("promotion_code");
         const promotionSidebar = document.querySelector(".promotion__sidebar")
         const promotionDisplayAll = document.querySelector(".promotion__all span:last-child");
         const iconBackShoppingCart = document.querySelector(".promotion__header i");
@@ -32,6 +29,7 @@ $(document).ready(() => {
     }
 
     function getProductListId() {
+        console.log(document.querySelectorAll(selectorCartItems))
         return Array.from(document.querySelectorAll(selectorCartItems)).map(productItem => productItem.getAttribute("data-product-id"));
     }
 
@@ -136,15 +134,9 @@ $(document).ready(() => {
 
     function setupFormVoucher() {
         formVoucher.on('submit', function (event) {
-            // const promotionForm = $(this);
-            // const buttonApply = $(promotionForm).find('#apply');
-            // const promotionCodeInput = $(promotionForm).find('#promotion__code')
-            // const temporaryPriceInputHidden = $(promotionForm).find('input[type=hidden][name=temporaryPrice]')
-            // const action = buttonApply.val();
-            let promotionCode = formVoucher.find("#promotion__code").val();
-            // let temporaryPrice = temporaryPriceInputHidden.val();
-
             event.preventDefault();
+            const promotionCodeInput = $(formVoucher).find('#promotion__code')
+            let promotionCode = promotionCodeInput.val();
             $.ajax({
                 url: "/api/voucher/apply",
                 type: "POST",
@@ -153,32 +145,46 @@ $(document).ready(() => {
                     id: getProductListId(),
                 },
                 success: function (response) {
-                    console.log(response);
                     const applyStatus = $(document).find('.apply__status')
                     if (response.success) {
-                        let message;
+                        let message, state;
                         switch (response.canApply) {
                             case CAN_APPLY:
                                 message = "Áp dụng mã giảm giá thành công";
+                                status = "success";
                                 break;
                             case NOT_FOUND:
                                 message = "Mã giảm giá không tồn tại";
+                                status = "warning";
                                 break;
                             case EMPTY_AVAILABLE_TURN:
                                 message = "Hết lượt sử dụng mã giảm giá";
+                                status = "error";
                                 break;
                         }
                     }
+                    applyStatus.html(`<p class="btn btn=${state}">${message}</p>`)
                     if (response.canApply == CAN_APPLY) {
-                        $(applyStatus).html(`<span class="apply__success"><i class="fa-solid fa-circle-check"></i><span>` + response.successApplied + `</span></span>`)
-                        $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
-                        $(document).find('.price__value--final').text(response.newTotalPriceFormat)
-                    } else if (response.failedApply) {
-                        $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
+                        const voucher = response.voucher;
+                        $(document).find('.price__voucher').val(voucher.discountPercent);
+                        updatePrice();
                     }
                 }
             });
         })
+    }
+
+    function updatePrice() {
+        const totalItem = $(".cart__item:has(input.check__pay:checked)").length;
+        const totalPrice = $(".cart__item:has(input.check__pay:checked)").each((index, item) => {
+            const quantityProduct = $(item).find(".quantity__input").val();
+            const priceUnit = $(item).find(".price__unit").val();
+            return quantityProduct * priceUnit;
+        }).reduce((acc, cur) => acc + cur, 0);
+        const finalPrice = totalPrice - $(".price__voucher").val();
+        $(".total__item").html(totalItem);
+        $(".price__total").html(totalPrice);
+        $(".price__final").html(finalPrice);
     }
 
     setupFormVoucher();

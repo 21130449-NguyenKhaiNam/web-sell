@@ -266,7 +266,6 @@
                             <h2>Khuyến mãi </h2>
                             <form
                                     id="promotion__form"
-                                    action="ShoppingCart"
                                     method="post">
                                 <!-- New update template -->
                                 <div class="promotion__all">
@@ -288,7 +287,7 @@
                                             type="text"
                                             name="promotionCode"
                                             id="promotion__code"
-                                            value="${sessionScope.promotionCode != null ? sessionScope.promotionCode : ""}">
+                                            value="">
                                     <button
                                             type="submit"
                                             name="action"
@@ -297,16 +296,15 @@
                                         Áp dụng
                                     </button>
                                 </div>
-                                <div
-                                        class="apply__status">
-                                    <c:if
-                                            test="${sessionScope.successApplied != null}">
-                                        <span>${sessionScope.successApplied}</span></span>
-                                    </c:if>
-                                    <c:if
-                                            test="${sessionScope.failedApply != null}">
-                                        <span>${sessionScope.failedApply}</span></span>
-                                    </c:if>
+                                <div class="apply__status">
+<%--                                    <c:if--%>
+<%--                                            test="${sessionScope.successApplied != null}">--%>
+<%--                                        <span>${sessionScope.successApplied}</span></span>--%>
+<%--                                    </c:if>--%>
+<%--                                    <c:if--%>
+<%--                                            test="${sessionScope.failedApply != null}">--%>
+<%--                                        <span>${sessionScope.failedApply}</span></span>--%>
+<%--                                    </c:if>--%>
                                 </div>
                             </form>
                         </div>
@@ -322,20 +320,18 @@
                                             (<span class="total__items">0</span>
                                             sp)
                                         </p>
-                                        <p class="price__value">
+                                        <p class="price__value price__total">
                                             0 ₫
                                         </p>
                                     </li>
-                                    <li class="price__item">
-<%--                                        Của voucher--%>
-<%--                                        <c:if test="${sessionScope[userIdCart].getDiscountPrice() != 0}">--%>
-<%--                                            <p class="price__text">--%>
-<%--                                                Giảm giá--%>
-<%--                                            </p>--%>
-<%--                                            <p class="price__value">--%>
-<%--                                                    ${sessionScope[userIdCart].discountPriceFormat()}--%>
-<%--                                            </p>--%>
-<%--                                        </c:if>--%>
+                                    <li class="price__item price_voucher">
+                                        Của voucher
+                                        <p class="price__text">
+                                            Giảm giá
+                                        </p>
+                                        <p class="price__value price_voucher">
+
+                                        </p>
                                     </li>
 
                                 </ul>
@@ -344,7 +340,7 @@
                                         Tổng cộng:
                                     </p>
                                     <div class="price__content">
-                                        <p class="price__value--final">
+                                        <p class="price__value--final price__final">
                                             0
                                         </p>
                                         <span>.000₫</span>
@@ -682,7 +678,7 @@
             })
         }
 
-        applyCodeVoucher();
+        // applyCodeVoucher();
     })
 </script>
 

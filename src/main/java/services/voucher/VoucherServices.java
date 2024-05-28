@@ -6,6 +6,7 @@ import dao.VoucherDAO;
 import models.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VoucherServices {
     VoucherDAO voucherDAO = new VoucherDAO();
@@ -24,9 +25,9 @@ public class VoucherServices {
         if (listIdCardItem == null || listIdCardItem.isEmpty()) return VoucherState.NOT_FOUND;
 //        Kiểm tra danh sách sản phẩm gửi lên có nằm trong giỏ hàng của user không ?
         List<CartItem> listCartItem = voucherDAO.getCartItem(user.getId());
-        boolean isExist = listCartItem.stream().allMatch(item -> listIdCardItem.contains(item.getCartId()));
-        if (!isExist) return VoucherState.NOT_FOUND;
 //        Kiểm tra xem mã giảm giá có tồn tại không
+        boolean isExist = listCartItem.stream().map(CartItem::getProductId).collect(Collectors.toList()).containsAll(listIdCardItem);
+        if (!isExist) return VoucherState.NOT_FOUND;
         Voucher voucher = voucherDAO.selectByCode(code);
         if (voucher == null) return VoucherState.NOT_FOUND;
 
@@ -38,8 +39,7 @@ public class VoucherServices {
             return VoucherState.EXPIRED;
         }
 
-        AbstractVoucherStrategy strategy = AbstractVoucherStrategy.create(listIdCardItem, voucher);
-        if (strategy == null) return VoucherState.NOT_FOUND;
+        VoucherProductStrategy strategy = new VoucherProductStrategy(listIdCardItem, voucher);
         if (!strategy.apply()) return VoucherState.CAN_NOT_APPLY;
         return VoucherState.CAN_APPLY;
     }
