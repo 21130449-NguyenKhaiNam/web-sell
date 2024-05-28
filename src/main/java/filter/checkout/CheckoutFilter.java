@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 
 @WebFilter(filterName = "checkoutFilter", urlPatterns = {"/public/user/checkout.jsp", "/api/checkout/*"})
 public class CheckoutFilter implements Filter {
@@ -29,7 +31,6 @@ public class CheckoutFilter implements Filter {
         User userAuth = SessionManager.getInstance(request, response).getUser();
 
         String userIdCart = String.valueOf(userAuth.getId());
-        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
         String fullName = userAuth.getFullName();
         String email = userAuth.getEmail();
@@ -53,9 +54,11 @@ public class CheckoutFilter implements Filter {
 
         String url = request.getServletPath();
         if (url.contains("checkout.jsp") && !url.contains("error404.jsp")) {
-            response.sendRedirect("checkout");
+            request.getRequestDispatcher("/api/checkout").forward(request, response);
         }
-        filterChain.doFilter(request, response);
+        else {
+            filterChain.doFilter(request, response);
+        }
     }
 
     @Override

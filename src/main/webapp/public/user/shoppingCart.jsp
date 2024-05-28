@@ -46,8 +46,8 @@
                             <i class="fa-solid fa-fire"></i>
                             <span>
                                 <fmt:formatNumber
-                                type="percent"
-                                value="${voucher.discountPercent}"/>
+                                        type="percent"
+                                        value="${voucher.discountPercent}"/>
                             </span>
                         </div>
                         <div class="item__content">
@@ -190,36 +190,37 @@
                                 <tr class="cart__item"
                                     data-product-id="<%=productId%>"
                                     data-cart-product-index="<%=cartProductIndex%>">
-                                    <td
-                                            class="container__check__pay">
+                                    <td class="container__check__pay">
                                         <input
+                                                name="product"
+                                                value="<%=productId%>"
                                                 type="checkbox"
                                                 class="check__pay"/>
                                     </td>
-                                    <td
-                                            class="product__item">
-                                        <div
-                                                class="product__content">
+                                    <td class="product__item">
+                                        <div class="product__content">
                                             <a class="product__image"
                                                href="<c:url value="/showProductDetail" />?id=<%=productId%>">
                                                 <img src='<%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
                                             </a>
-                                            <div
-                                                    class="order__product--info">
+                                            <div class="order__product--info">
                                                 <a href="#"
                                                    class="product__name">
                                                     <%=cartProduct.getProduct().getName()%>
                                                 </a>
-                                                <p
-                                                        class="order__color">
-                                                    Màu
-                                                    sắc:
-                                                    <%=cartProduct.getColor().getCodeColor()%>
-                                                </p>
-                                                <ul
-                                                        class="order__size--specification">
-
-                                                    <%=cartProduct.makeSizeFormat()%>
+                                                <span>
+                                                    Màu sắc:
+                                                    <p class="order__color d-inline">
+                                                        <%=cartProduct.getColor().getCodeColor()%>
+                                                    </p>
+                                                </span>
+                                                <ul class="d-block">
+                                                    <span>
+                                                        Kích thước:
+                                                        <p class="order__size--specification d-inline">
+                                                            <%=cartProduct.makeSizeFormat()%>
+                                                        </p>
+                                                    </span>
                                                 </ul>
                                             </div>
                                         </div>
@@ -338,15 +339,15 @@
                                         </p>
                                     </li>
                                     <li class="price__item">
-<%--                                        Của voucher--%>
-<%--                                        <c:if test="${sessionScope[userIdCart].getDiscountPrice() != 0}">--%>
-<%--                                            <p class="price__text">--%>
-<%--                                                Giảm giá--%>
-<%--                                            </p>--%>
-<%--                                            <p class="price__value">--%>
-<%--                                                    ${sessionScope[userIdCart].discountPriceFormat()}--%>
-<%--                                            </p>--%>
-<%--                                        </c:if>--%>
+                                            <%--                                        Của voucher--%>
+                                            <%--                                        <c:if test="${sessionScope[userIdCart].getDiscountPrice() != 0}">--%>
+                                            <%--                                            <p class="price__text">--%>
+                                            <%--                                                Giảm giá--%>
+                                            <%--                                            </p>--%>
+                                            <%--                                            <p class="price__value">--%>
+                                            <%--                                                    ${sessionScope[userIdCart].discountPriceFormat()}--%>
+                                            <%--                                            </p>--%>
+                                            <%--                                        </c:if>--%>
                                     </li>
 
                                 </ul>
@@ -368,7 +369,7 @@
                         </div>
                         <span>Phí vận toán</span>
                         <div class="group__button--forward">
-                            <a id="continue--directional" href="<c:url value="/public/user/checkout.jsp" />">
+                            <a id="continue--directional" href="<c:url value="/api/checkout" />">
                                 <button id="continue--checkout">
                                     Tiến hành thanh toán
                                 </button>
@@ -386,7 +387,7 @@
     </div>
 </main>
 <div class="popup__deletion"></div>
-<%@include file="../footer.jsp"%>
+<%@include file="../footer.jsp" %>
 </body>
 <script src="<c:url value="/js/base.js"/>"></script>
 <script src="<c:url value="/js/validateContactForm.js"/>">
@@ -406,23 +407,53 @@
 </script>
 <script src="<c:url value="/js/shoppingCart.js" />"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#continue--directional').on('click', function (event) {
             event.preventDefault()
 
             let checked = false
+            let data = []
             const checks = $('.check__pay')
             checks.each(function () {
                 const check = $(this)
+                const parent = $(this).parents("tr")
                 if (check.prop('checked')) {
-                    checked = true
-                    return;
+                    if (!checked)
+                        checked = true
+                    let obj = {
+                        id: check.val(),
+                        name: parent.find("a.product__name").text().trim(),
+                        color: parent.find("p.order__color").text().trim(),
+                        size: parent.find("p.order__size--specification").text().trim(),
+                        count: parent.find("input.quality__required").val(),
+                        price: parent.find("td.subtotal__item").text().trim()
+                    }
+                    data.push({
+                        name: check.attr('name'),
+                        value: JSON.stringify(obj),
+                    });
                 }
             })
 
             if (checked) {
                 // Đã lựa chọn hàng
-                window.location.href = this.href
+                let formData = $.param(data);
+                $.ajax({
+                    url: this.href,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: (data) => {
+                        // Ghi lại toàn bộ nội dung của document
+                        document.open();
+                        document.write(data);
+                        history.pushState(null, null, this.href);
+                        document.close();
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
             } else {
                 Swal.fire({
                     icon: "error",
@@ -463,7 +494,7 @@
                 let checkPay = myCom.prop('checked')
                 let comTotalItem = $('.total__items')[0]
                 let totalItem = parseInt(comTotalItem.innerText) || 0
-                if(checkPay) {
+                if (checkPay) {
                     // Thêm sản phẩm
                     comTotalItem.innerText = totalItem + 1
 
