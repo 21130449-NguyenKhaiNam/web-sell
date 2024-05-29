@@ -1,6 +1,10 @@
 package controller.api.checkout;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import config.ConfigPage;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import models.DeliveryMethod;
 import models.PaymentMethod;
 import models.User;
@@ -23,9 +27,9 @@ import java.util.List;
 @WebServlet(name = "CheckoutController", value = "/api/checkout")
 public class CheckoutController extends HttpServlet {
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action != null){
+        if (action != null) {
             switch (action) {
                 case "choiceDeliveryMethod" -> {
                     String deliveryMethodId = request.getParameter("deliveryMethodId");
@@ -41,7 +45,7 @@ public class CheckoutController extends HttpServlet {
                 }
             }
 
-            if(action.equals("addDeliveryInfo") || action.equals("editDeliveryInfo")){
+            if (action.equals("addDeliveryInfo") || action.equals("editDeliveryInfo")) {
                 String fullName = request.getParameter("fullName");
                 String email = request.getParameter("email");
                 String phone = request.getParameter("phone");
@@ -51,21 +55,21 @@ public class CheckoutController extends HttpServlet {
                 request.setAttribute("phone", phone);
                 request.setAttribute("address", address);
 
-                if(action.equals("addDeliveryInfo")){
+                if (action.equals("addDeliveryInfo")) {
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/api/checkout/delivery/add");
                     requestDispatcher.forward(request, response);
                 }
 
-                if(action.equals("editDeliveryInfo")){
+                if (action.equals("editDeliveryInfo")) {
                     String deliveryInfoKey = request.getParameter("deliveryInfoKey");
                     request.setAttribute("deliveryInfoKey", deliveryInfoKey);
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/api/checkout/delivery/edit");
                     requestDispatcher.forward(request, response);
                 }
             }
-        }else{
+        } else {
             String typeEdit = request.getParameter("typeEdit");
-            if(typeEdit != null) {
+            if (typeEdit != null) {
                 String deliveryInfoKey = request.getParameter("deliveryInfoKey");
                 request.setAttribute("deliveryInfoKey", deliveryInfoKey);
                 switch (typeEdit) {
@@ -83,6 +87,7 @@ public class CheckoutController extends HttpServlet {
             }
         }
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<DeliveryMethod> listDeliveryMethod = CheckoutServices.getINSTANCE().getAllInformationDeliveryMethod();
@@ -110,20 +115,39 @@ public class CheckoutController extends HttpServlet {
 //            session.setAttribute(userIdCart, cart);
 //        }
         HashMap<String, String[]> parameter = new HashMap<>(request.getParameterMap());
-        // id - count - price
         String[] models = parameter.get("product");
+        if (models == null || models.length == 0) {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_CART);
+            requestDispatcher.forward(request, response);
+        } else {
+            System.out.println("models >> " + Arrays.toString(models));
+            TempOrder[] tempOrders = new TempOrder[models.length];
+            Gson gson = new Gson();
+            for (int i = 0; i < models.length; i++) {
+                tempOrders[i] = gson.fromJson(models[i], TempOrder.class);
+            }
+            System.out.println("Temp Order >> " + Arrays.toString(tempOrders));
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.add("order", gson.toJsonTree(tempOrders));
 
-        request.setAttribute("listDeliveryMethod", listDeliveryMethod);
-        request.setAttribute("listPaymentMethod", listPaymentMethod);
-        request.setAttribute("models", models);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_CHECKOUT);
-        requestDispatcher.forward(request, response);
-//        response.getWriter().write(re);
-//        response.sendRedirect(ConfigPage.USER_CHECKOUT);
+            request.setAttribute("listDeliveryMethod", listDeliveryMethod);
+            request.setAttribute("listPaymentMethod", listPaymentMethod);
+            request.setAttribute("models", jsonObject);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_CHECKOUT);
+            requestDispatcher.forward(request, response);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
+    }
+
+    @Data
+    @NoArgsConstructor
+    class TempOrder {
+        private int id;
+        private int count;
+        private double price;
     }
 }
