@@ -426,7 +426,7 @@
                         color: parent.find("p.order__color").text().trim(),
                         size: parent.find("p.order__size--specification").text().trim(),
                         count: parent.find("input.quality__required").val(),
-                        price: parent.find("td.subtotal__item").text().trim()
+                        price: parent.find("td.subtotal__item").text().replace('₫', '').replace('.', '').trim()
                     }
                     data.push({
                         name: check.attr('name'),

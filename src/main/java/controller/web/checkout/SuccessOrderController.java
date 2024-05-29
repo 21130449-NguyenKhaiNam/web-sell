@@ -20,20 +20,20 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 
-@WebServlet(name = "SuccessOrderController", value = "/SuccessOrder")
+@WebServlet(name = "SuccessOrderController", value = "/public/user/successOrder")
 public class SuccessOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        HttpSession session = request.getSession(true);
-//
-//        User user = SessionManager.getInstance(request, response).getUser();
-//        String userIdCart = String.valueOf(user.getId());
-//
-//        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
+        HttpSession session = request.getSession(true);
+
+        User user = SessionManager.getInstance(request, response).getUser();
+        String userIdCart = String.valueOf(user.getId());
+
+        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 //        int totalPrice = (int)cart.getTotalPrice(true);
 
-//        int invoiceNo = Integer.parseInt(request.getParameter("invoiceNo"));
-//        String dateOrder = LocalDate.now().toString();
+        int invoiceNo = Integer.parseInt(request.getParameter("invoiceNo"));
+        String dateOrder = LocalDate.now().toString();
 //        String fullNameBuyer = cart.getDeliveryInfo().getFullName();
 //        String emailBuyer = cart.getDeliveryInfo().getEmail();
 //        String phoneBuyer = cart.getDeliveryInfo().getPhone();
@@ -42,24 +42,24 @@ public class SuccessOrderController extends HttpServlet {
 //        Integer voucherId = null;
 //        Integer deliveryMethodId = null;
 
-//        IMailServices mailPlaceOrderService = new MailPlaceOrderService(cart, dateOrder, invoiceNo);
-//        try {
-//            mailPlaceOrderService.send();
-//        } catch (MessagingException e) {
-//            throw new RuntimeException(e);
-//        }
-//
+        IMailServices mailPlaceOrderService = new MailPlaceOrderService(cart, dateOrder, invoiceNo);
+        try {
+            mailPlaceOrderService.send();
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+
 //        if(paymentMethodId == 2 || paymentMethodId == 3){
 //            session.setAttribute("totalPrice", totalPrice);
 //            request.getRequestDispatcher("/public/user/vnpPay.jsp").forward(request,response);
 //        }
 //        else{
-//
+
 //            try {
 //                if (cart.getVoucherApplied() != null) {
 //                    voucherId = cart.getVoucherApplied().getId();
 //                }
-//
+
 //                if (cart.getDeliveryMethod() != null) {
 //                    deliveryMethodId = cart.getDeliveryMethod().getId();
 //                }
@@ -77,17 +77,12 @@ public class SuccessOrderController extends HttpServlet {
 //            }
 
 //            session.removeAttribute(userIdCart);
-//            session.removeAttribute("promotionCode");
-//            session.removeAttribute("failedApply");
-//            session.removeAttribute("successApplied");
-//            request.setAttribute("invoiceNo", invoiceNo);
-//            RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_SUCCESS_ORDER);
-//            requestDispatcher.forward(request, response);
+            session.removeAttribute("promotionCode");
+            session.removeAttribute("failedApply");
+            session.removeAttribute("successApplied");
+            request.setAttribute("invoiceNo", invoiceNo);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_SUCCESS_ORDER);
+            requestDispatcher.forward(request, response);
 //        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

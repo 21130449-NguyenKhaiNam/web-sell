@@ -39,7 +39,7 @@
     </body>
     <script>
         const timerDisplay = document.querySelector(".countdown__second");
-        let countdownSeconds = 20;
+        let countdownSeconds = 30;
         timerDisplay.innerText = countdownSeconds + "s";
 
         function startTimer() {

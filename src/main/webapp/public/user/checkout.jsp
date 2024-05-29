@@ -249,36 +249,22 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:if test="${not empty requestScope.models}">
-                            <c:forEach items="${requestScope.models}" var="cartProduct">
-                                <c:set var="info" value="${cartProduct.replaceAll('[{}]', '').split('\",\"')}"/>
-                                <c:set var="id"
-                                       value="${info[0].substring(info[0].indexOf(':') + 1).replaceAll('[\"\"]', '')}"/>
-                                <c:set var="name"
-                                       value="${info[1].substring(info[1].indexOf(':') + 1).replaceAll('[\"\"]', '')}"/>
-                                <c:set var="color"
-                                       value="${info[2].substring(info[2].indexOf(':') + 1).replaceAll('[\"\"]', '')}"/>
-                                <c:set var="size"
-                                       value="${info[3].substring(info[3].indexOf(':') + 1).replaceAll('[\"\"]', '')}"/>
-                                <c:set var="count"
-                                       value="${info[4].substring(info[4].indexOf(':') + 1).replaceAll('[\"\"]', '')}"/>
-                                <c:set var="price"
-                                       value="${info[5].substring(info[5].indexOf(':') + 1).replaceAll('[\"\"]', '')}"/>
-                                <tr class="row__content">
-                                    <td class="td__item">
-                                        <div class="product__item">
-                                            <div class="order__product--info">
-                                                <p class="product__name">${name}</p>
-                                                <p class="order__color">Màu sắc: ${color}</p>
-                                                <p class="order__size">${size}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="td__item">${count}</td>
-                                    <td class="td__item">${price}</td>
-                                </tr>
-                            </c:forEach>
-                        </c:if>
+                        <tr class="row__content">
+                            <td class="td__item">
+                                <div class="product__item">
+                                    <div class="order__product--info">
+                                        <p class="product__name">name</p>
+                                        <span>
+                                                Màu sắc:
+                                                <p class="order__color d-inline">Color</p>
+                                            </span>
+                                        <p class="order__size">Size</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="td__item">Count</td>
+                            <td class="td__item">Price</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -326,6 +312,16 @@
 <script src="<c:url value="/js/base.js"/>"></script>
 <script src="<c:url value="/js/checkout.js"/>"></script>
 <script type="text/javascript">
+    function updateCheckout(order) {
+        console.log(order)
+    }
+
+    <c:if test="${not empty requestScope.models}">
+        <c:set value="${requestScope.models}" var="jsonOrder" />
+        let order = JSON.parse(${jsonOrder})
+        updateCheckout(order)
+    </c:if>
+
     function handleChoiceDeliveryMethod() {
         $(document).ready(function () {
             $('input[name="delivery__method"]').change(function () {
@@ -466,7 +462,7 @@
         $('.place__order').on('click', function () {
             $.ajax({
                 type: 'POST',
-                url: '/PlaceOrder',
+                url: '/public/user/placeOrder',
                 data: {},
                 dataType: 'json',
                 success: function (response) {
@@ -488,7 +484,7 @@
                     setTimeout(function () {
                         let invoiceNo = response.invoiceNo;
                         let dateOrder = response.dateOrder;
-                        window.location.href = "/SuccessOrder?invoiceNo=" + invoiceNo;
+                        window.location.href = "/public/user/successOrder?invoiceNo=" + invoiceNo;
                     }, 3000);
                 }
             })
