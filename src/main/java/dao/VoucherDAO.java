@@ -28,7 +28,7 @@ public class VoucherDAO {
     }
 
     public Voucher selectByCode(String code) {
-        String sql = "SELECT id, code, minimumPrice,discountPercent, expiryDate, state FROM vouchers WHERE code = ?";
+        String sql = "SELECT id, code, minimumPrice,discountPercent, expiryDate, state, availableTurns FROM vouchers WHERE code = ?";
         List<Voucher> vouchers = new ArrayList<>();
         vouchers = GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, code);
         return vouchers.isEmpty() ? null : vouchers.get(0);
@@ -59,7 +59,7 @@ public class VoucherDAO {
     }
 
     public List<CartItem> getCartProductByProduct(List<Integer> listProductId, List<Integer> listCartItemId) {
-        String sql = "SELECT cart_id, product_id, size, color_id, sizeCustomize, quantity \n" +
+        String sql = "SELECT cart_id, product_id, color_id ,size, quantity \n" +
                 "FROM cart_items " +
                 "WHERE  cart_items.product_id IN (" + convertToSQL(listProductId) + ") AND cart_items.id IN  (" + convertToSQL(listCartItemId) + ")";
         return GeneralDao.executeQueryWithSingleTable(sql, CartItem.class);

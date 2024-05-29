@@ -38,9 +38,11 @@ public class ApplyVoucherController extends HttpServlet {
             if (idsParam != null) {
                 List<Integer> ids = List.of(idsParam).stream().map(Integer::parseInt).collect(Collectors.toList());
                 VoucherState state = voucherServices.canApply(user, code, ids);
-                jsonObject.addProperty("canApply", state.getValue());
-                Voucher voucher = voucherDAO.selectByCode(code);
-                jsonObject.add("voucher", gson.toJsonTree(voucher));
+                jsonObject.addProperty("state", state.getValue());
+                if (state == VoucherState.CAN_APPLY) {
+                    Voucher voucher = voucherDAO.selectByCode(code);
+                    jsonObject.add("voucher", gson.toJsonTree(voucher));
+                }
             }
             jsonObject.addProperty("success", true);
         } catch (Exception e) {

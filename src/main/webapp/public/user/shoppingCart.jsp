@@ -48,10 +48,10 @@
                             <i
                                     class="fa-solid fa-fire"></i>
                             <span>
-                                                                                                        <fmt:formatNumber
-                                                                                                                type="percent"
-                                                                                                                value="${voucher.discountPercent}"/>
-                                                                                                    </span>
+                            <fmt:formatNumber
+                                    type="percent"
+                                    value="${voucher.discountPercent}"/>
+                        </span>
                         </div>
                         <div
                                 class="item__content">
@@ -142,14 +142,14 @@
                             </div>
                             <table id="cart__table">
                                 <thead class="cart__header">
-                                    <tr>
-                                        <th>Lựa chọn</th>
-                                        <th>Sản phẩm</th>
-                                        <th>Giá may</th>
-                                        <th>Số lượng</th>
-                                        <th>Thành tiền</th>
-                                        <th>Xóa</th>
-                                    </tr>
+                                <tr>
+                                    <th>Lựa chọn</th>
+                                    <th>Sản phẩm</th>
+                                    <th>Giá may</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                    <th>Xóa</th>
+                                </tr>
                                 </thead>
                                 <tbody class="cart__items">
                                 <% String
@@ -203,7 +203,7 @@
                                                 <p class="order__color">
                                                     Màu
                                                     sắc:
-                                                    <div style="width: 15px;height: 15px; background-color: <%=cartProduct.getColor().getCodeColor()%>; border: 1px solid gray"></div>
+                                                <div style="width: 15px;height: 15px; background-color: <%=cartProduct.getColor().getCodeColor()%>; border: 1px solid gray"></div>
                                                 </p>
                                                 <ul
                                                         class="order__size--specification">
@@ -287,7 +287,7 @@
                                             type="text"
                                             name="promotionCode"
                                             id="promotion__code"
-                                            value="">
+                                            value="" required>
                                     <button
                                             type="submit"
                                             name="action"
@@ -296,15 +296,9 @@
                                         Áp dụng
                                     </button>
                                 </div>
-                                <div class="apply__status">
-<%--                                    <c:if--%>
-<%--                                            test="${sessionScope.successApplied != null}">--%>
-<%--                                        <span>${sessionScope.successApplied}</span></span>--%>
-<%--                                    </c:if>--%>
-<%--                                    <c:if--%>
-<%--                                            test="${sessionScope.failedApply != null}">--%>
-<%--                                        <span>${sessionScope.failedApply}</span></span>--%>
-<%--                                    </c:if>--%>
+                                <div class="mt-2 w-100 d-block">
+                                    <div id="apply__status">
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -317,19 +311,19 @@
                                     <li class="price__item">
                                         <p class="price__text">
                                             Tạm tính
-                                            (<span class="total__items">0</span>
+                                            (<span class="total__items" id="total__items">0</span>
                                             sp)
                                         </p>
-                                        <p class="price__value price__total">
+                                        <p class="price__value" id="price__total">
                                             0 ₫
                                         </p>
                                     </li>
-                                    <li class="price__item price_voucher">
+                                    <li class="price__item ">
                                         Của voucher
                                         <p class="price__text">
                                             Giảm giá
                                         </p>
-                                        <p class="price__value price_voucher">
+                                        <p class="price__value " id="price_voucher">
 
                                         </p>
                                     </li>
@@ -340,10 +334,9 @@
                                         Tổng cộng:
                                     </p>
                                     <div class="price__content">
-                                        <p class="price__value--final price__final">
-                                            0
+                                        <p class="price__value--final price__final" id="price__final">
+                                            0 ₫
                                         </p>
-                                        <span>.000₫</span>
                                         <p class="price__value--noted">
                                             (Đã bao gồm VAT nếu có)
                                         </p>
@@ -351,7 +344,6 @@
                                 </div>
                             </div>
                         </div>
-                        <span>Phí vận toán</span>
                         <div class="group__button--forward">
                             <a id="continue--directional" href="<c:url value="/public/user/checkout.jsp" />">
                                 <button id="continue--checkout">
@@ -372,7 +364,7 @@
 </main>
 <div class="popup__deletion"></div>
 
-<%@include file="../footer.jsp"%>
+<%@include file="../footer.jsp" %>
 </body>
 
 <script src="<c:url value="/js/base.js"/>"></script>
@@ -393,293 +385,7 @@
 </script>
 <script src="<c:url value="/js/shoppingCart.js" />"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#continue--directional').on('click', function (event) {
-            event.preventDefault()
 
-            let checked = false
-            const checks = $('.check__pay')
-            checks.each(function () {
-                const check = $(this)
-                if (check.prop('checked')) {
-                    checked = true
-                    return;
-                }
-            })
-
-            if (checked) {
-                // Đã lựa chọn hàng
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Vui lòng lựa chọn món hàng muốn thanh toán",
-                });
-            }
-
-        })
-
-        function checkPayHigh(isAll = false) {
-            if (isAll)
-                $('.check__pay').prop('checked', true)
-
-            $('#check__pay-all').on('click', function () {
-                $('.check__pay').prop('checked', true)
-                let comTotalItem = $('.total__items')[0]
-                comTotalItem.innerText = $('.check__pay').length
-            })
-
-            $('#remove__pay-all').on('click', function () {
-                $('.check__pay').prop('checked', false)
-                let comTotalItem = $('.total__items')[0]
-                comTotalItem.innerText = 0
-                let comPriceTotal = $('.price__value')[0]
-                comPriceTotal.innerText = 0 + '₫'
-            })
-        }
-
-        checkPayHigh()
-
-        function handelPay() {
-            let isClick = false;
-
-            $('.check__pay').on('click', function () {
-                isClick = true
-                let myCom = $(this)
-                let checkPay = myCom.prop('checked')
-                let comTotalItem = $('.total__items')[0]
-                let totalItem = parseInt(comTotalItem.innerText) || 0
-                if(checkPay) {
-                    // Thêm sản phẩm
-                    comTotalItem.innerText = totalItem + 1
-
-                } else {
-                    // Hủy bỏ sản phẩm
-                    comTotalItem.innerText = totalItem - 1
-
-                }
-                myCom.prop('checked', checkPay);
-            })
-
-            $('.container__check__pay').on('click', function () {
-                const checkbox = $(this).find('.check__pay');
-                if (!isClick) {
-                    checkbox.prop('checked', !checkbox.prop('checked'));
-                }
-                isClick = false
-            });
-        }
-
-        handelPay()
-
-        function increaseQuantityCartProduct() {
-            $(document).ready(function () {
-                $('.plus__quality').on('click', function (event) {
-                    event.preventDefault();
-                    let cartItem = $(this).closest('.cart__item');
-                    let productId = cartItem.data("productId");
-                    let cartProductIndex = cartItem.data("cartProductIndex");
-                    let cartForm = $(document).find('.shopping__cart--form');
-                    let action = $(this).val();
-                    $.ajax({
-                        url: cartForm.attr('action'),
-                        type: cartForm.attr('method'),
-                        data: {
-                            action: action,
-                            productId: productId,
-                            cartProductIndex: cartProductIndex
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            let quantitySwapper = $(cartItem).find('.quality__swapper');
-                            let quantityRequired = $(quantitySwapper).find('.quality__required');
-                            quantityRequired.val(response.newQuantity);
-
-                            let subtotalItem = $(cartItem).find('.subtotal__item');
-                            subtotalItem.text(response.newSubtotalFormat);
-
-                            let temporaryPrice = $(document).find('.price__item:first-child .price__value')
-                            temporaryPrice.text(response.newTemporaryPriceFormat)
-
-                            let totalPrice = $(document).find('.price__value--final')
-                            totalPrice.text(response.newTotalPriceFormat);
-
-                            const applyStatus = $(document).find('.apply__status')
-                            if (response.successApplied) {
-                                $(applyStatus).html(`<span class="apply__success"><i class="fa-solid fa-circle-check"></i><span>` + response.successApplied + `</span></span>`)
-                                $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
-                                $(document).find('.price__value--final').text(response.newTotalPriceFormat)
-                            } else if (response.failedApply) {
-                                $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
-                            }
-                        }
-                    })
-                })
-            });
-        }
-
-        increaseQuantityCartProduct();
-
-        function decreaseQuantityCartProduct() {
-            $(document).ready(function () {
-                $('.minus__quality').on('click', function (event) {
-                    event.preventDefault();
-                    let cartItem = $(this).closest('.cart__item');
-                    let productId = cartItem.data("productId");
-                    let cartProductIndex = cartItem.data("cartProductIndex");
-                    let cartForm = $(document).find('.shopping__cart--form');
-                    let action = $(this).val();
-                    $.ajax({
-                        url: cartForm.attr('action'),
-                        type: cartForm.attr('method'),
-                        data: {
-                            action: action,
-                            productId: productId,
-                            cartProductIndex: cartProductIndex
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            let quantitySwapper = $(cartItem).find('.quality__swapper');
-                            let quantityRequired = $(quantitySwapper).find('.quality__required');
-                            quantityRequired.val(response.newQuantity);
-
-                            let subtotalItem = $(cartItem).find('.subtotal__item');
-                            subtotalItem.text(response.newSubtotalFormat);
-
-                            let temporaryPrice = $(document).find('.price__item:first-child .price__value')
-                            temporaryPrice.text(response.newTemporaryPriceFormat)
-
-                            let totalPrice = $(document).find('.price__value--final')
-                            totalPrice.text(response.newTotalPriceFormat);
-
-                            if (response.discountPrice !== 0) {
-                                $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
-                            }
-
-                            const applyStatus = $(document).find('.apply__status')
-                            if (response.failedApply) {
-                                $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
-                                $(document).find('.price__items .price__item:last-child').html("");
-                            }
-                        }
-                    })
-                })
-            });
-        }
-
-        decreaseQuantityCartProduct();
-
-        function deleteCartProduct() {
-            $(document).ready(function () {
-                $('.remove__item').on('click', function (event) {
-                    event.preventDefault();
-                    let cartItem = $(this).closest('.cart__item');
-                    let productId = cartItem.data("productId");
-                    let cartProductIndex = cartItem.data("cartProductIndex");
-                    let cartForm = $(document).find('.shopping__cart--form');
-                    let action = $(this).val();
-
-                    const popupDeletion = $(document).find('.popup__deletion');
-                    popupDeletion.html(`<div class="popup__container">
-                                        <div class="popup__content">
-                                            <div class="title__header">
-                                                <span class="title"><i class="fa-solid fa-triangle-exclamation"></i> Xóa sản phẩm khỏi giỏ hàng</span>
-                                                <span class="subtitle">Bạn có muốn xóa sản phẩm đang chọn?</span>
-                                            </div>
-                                            <div class="button__control">
-                                                <button class="agree__button">Xác nhận</button>
-                                                <button class="cancel__button">Hủy</button>
-                                            </div>
-                                        </div>
-                                    </div>`);
-                    $(popupDeletion).find('.cancel__button').on('click', function () {
-                        $(popupDeletion).find('.popup__container').remove();
-                    })
-
-                    $(popupDeletion).find('.agree__button').on('click', function () {
-                        $.ajax({
-                            url: cartForm.attr('action'),
-                            type: cartForm.attr('method'),
-                            data: {
-                                action: action,
-                                productId: productId,
-                                cartProductIndex: cartProductIndex
-                            },
-                            dataType: 'json',
-                            success: function (response) {
-                                $(popupDeletion).find('.popup__container').remove();
-                                $(cartItem).remove();
-                                $(document).find('.qlt__value').text(response.newTotalItems)
-                                $(document).find('.total__items').text(response.newTotalItems)
-                                if (response.newTotalItems === 0) {
-                                    $(document).find('.cart__container').html(`<div class="cart__container--empty">
-                                                                                <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
-                                                                                <a href="../product/productBuying.jsp"><button>Tiếp tục mua sắm</button></a>
-                                                                                <img src="../../assets/img/continueShopping.svg">
-                                                                            </div>`);
-                                } else {
-                                    let temporaryPrice = $(document).find('.price__item:first-child .price__value')
-                                    temporaryPrice.text(response.newTemporaryPriceFormat)
-
-                                    let totalPrice = $(document).find('.price__value--final')
-                                    totalPrice.text(response.newTotalPriceFormat);
-
-                                    if (response.discountPrice !== 0) {
-                                        $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
-                                    }
-
-                                    const applyStatus = $(document).find('.apply__status')
-                                    if (response.failedApply) {
-                                        $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
-                                        $(document).find('.price__items .price__item:last-child').html("");
-                                    }
-                                }
-                            }
-                        })
-                    })
-                })
-            });
-        }
-
-        deleteCartProduct()
-
-        function applyCodeVoucher() {
-            $(document).ready(function () {
-                $('#promotion__form').on('submit', function (event) {
-                    const promotionForm = $(this);
-                    const buttonApply = $(promotionForm).find('#apply');
-                    const promotionCodeInput = $(promotionForm).find('#promotion__code')
-                    const temporaryPriceInputHidden = $(promotionForm).find('input[type=hidden][name=temporaryPrice]')
-                    const action = buttonApply.val();
-                    let promotionCode = promotionCodeInput.val();
-                    let temporaryPrice = temporaryPriceInputHidden.val();
-                    event.preventDefault();
-                    $.ajax({
-                        url: promotionForm.attr('action'),
-                        type: promotionForm.attr('method'),
-                        data: {
-                            action: action,
-                            promotionCode: promotionCode,
-                            temporaryPrice: temporaryPrice
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            const applyStatus = $(document).find('.apply__status')
-                            if (response.successApplied) {
-                                $(applyStatus).html(`<span class="apply__success"><i class="fa-solid fa-circle-check"></i><span>` + response.successApplied + `</span></span>`)
-                                $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
-                                $(document).find('.price__value--final').text(response.newTotalPriceFormat)
-                            } else if (response.failedApply) {
-                                $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
-                            }
-                        }
-                    });
-                })
-            })
-        }
-
-        // applyCodeVoucher();
-    })
 </script>
 
 </html>
