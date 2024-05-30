@@ -256,7 +256,7 @@
                     <div class="invoice__content">
                         <div class="price__item--detail">
                             <div class="temporary__container">
-                                <span>Tạm tính (${sessionScope[userIdCart].getTotalItems()} sản phẩm)</span>
+                                <span>Tạm tính ( <span class="count__product"></span> sản phẩm)</span>
                                 <span>${sessionScope[userIdCart].temporaryPriceFormat()}</span>
                             </div>
                             <c:if test="${sessionScope[userIdCart].voucherApplied != null}">
@@ -275,7 +275,7 @@
                         </div>
                         <div class="total__price--final">
                             <span class="total__label">Tổng tiền</span>
-                            <span class="total__value">${sessionScope[userIdCart].totalPriceFormat(true)}</span>
+                            <span class="total__value"></span>
                         </div>
                     </div>
                     <div class="ground__button--forward">
@@ -298,6 +298,10 @@
 <script type="text/javascript">
     function updateCheckout(orders) {
         const con = $('.order__list')
+        const conCount = $('.count__product')
+        const totalPrice = $('.total__value')
+        let totalCost = 0
+        conCount.text(orders.order.length + '')
         con.html('')
         // Lỗi gọi 2 lần bằng servlet
         orders.order.forEach(order => {
@@ -318,15 +322,22 @@
                             <td class="td__item">` + order.count + `</td>
                             <td class="td__item">` + order.price + `</td>
                         </tr>
-        `
+            `
             con.append(content)
+            totalCost += order.price
         })
+        totalPrice.text(totalCost + '')
     }
 
     <c:if test="${not empty requestScope.models}">
     <c:set value="${requestScope.models}" var="jsonOrder" />
     updateCheckout(${jsonOrder})
     </c:if>
+    $(document).ready(function () {
+        // Thiết lập lựa chọn mặc định
+        $('input[class=radio__button][name=delivery__method]')[0].checked = true
+        $('input[class=radio__button][name=payment__method]')[0].checked = true
+    })
 
     function handleChoiceDeliveryMethod() {
         $(document).ready(function () {
