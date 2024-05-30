@@ -4,12 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import config.ConfigPage;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import models.DeliveryMethod;
 import models.PaymentMethod;
 import models.User;
 import models.shoppingCart.ShoppingCart;
 import services.CheckoutServices;
+import services.ProductServices;
 import session.SessionManager;
 
 import javax.servlet.RequestDispatcher;
@@ -20,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -120,19 +121,30 @@ public class CheckoutController extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_CART);
             requestDispatcher.forward(request, response);
         } else {
-            System.out.println("models >> " + Arrays.toString(models));
             TempOrder[] tempOrders = new TempOrder[models.length];
             Gson gson = new Gson();
+
+            // Chuyển đổi json sang obj
             for (int i = 0; i < models.length; i++) {
                 tempOrders[i] = gson.fromJson(models[i], TempOrder.class);
             }
-            System.out.println("Temp Order >> " + Arrays.toString(tempOrders));
+
+            // Kiểm tra và cập nhật giá thực tế
+            for (int i = 0; i < tempOrders.length; i++) {
+                if (tempOrders[i].getCount() <= 0) {
+                    tempOrders[i].setCount(1);
+                }
+
+                double realPrice = ProductServices.getINSTANCE().getProductByProductId(tempOrders[i].getId()).getSalePrice();
+                tempOrders[i].setPrice(realPrice * tempOrders[i].getCount());
+            }
+
             JsonObject jsonObject = new JsonObject();
             jsonObject.add("order", gson.toJsonTree(tempOrders));
 
             request.setAttribute("listDeliveryMethod", listDeliveryMethod);
             request.setAttribute("listPaymentMethod", listPaymentMethod);
-            request.setAttribute("models", jsonObject);
+            request.setAttribute("models", gson.toJson(jsonObject));
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_CHECKOUT);
             requestDispatcher.forward(request, response);
         }
@@ -144,9 +156,13 @@ public class CheckoutController extends HttpServlet {
     }
 
     @Data
+    @Getter
     @NoArgsConstructor
     class TempOrder {
         private int id;
+        private String name;
+        private String color;
+        private String size;
         private int count;
         private double price;
     }

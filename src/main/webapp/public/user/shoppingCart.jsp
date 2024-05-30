@@ -273,8 +273,7 @@
                         <c:set
                                 var="temporaryPrice"
                                 value="${sessionScope[userIdCart].getTemporaryPrice()}"/>
-                        <div
-                                class="apply__promotion">
+                        <div class="apply__promotion">
                             <h2>Khuyến mãi </h2>
                             <form
                                     id="promotion__form"
@@ -286,7 +285,8 @@
                                          <i class="fa-solid fa-ticket-simple"></i>
                                             Mã giảm giá
                                      </span>
-                                    <span>Xem tất cả
+                                    <span>
+                                        Xem tất cả
                                        <i class="fa-solid fa-chevron-right"></i>
                                     </span>
                                 </div>
@@ -369,7 +369,7 @@
                         </div>
                         <span>Phí vận toán</span>
                         <div class="group__button--forward">
-                            <a id="continue--directional" href="<c:url value="/api/checkout" />">
+                            <a id="continue--directional" href="<c:url value="/public/user/checkout.jsp" />">
                                 <button id="continue--checkout">
                                     Tiến hành thanh toán
                                 </button>
@@ -438,8 +438,9 @@
             if (checked) {
                 // Đã lựa chọn hàng
                 let formData = $.param(data);
+                let url = this.href
                 $.ajax({
-                    url: this.href,
+                    url: url,
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -447,7 +448,7 @@
                         // Ghi lại toàn bộ nội dung của document
                         document.open();
                         document.write(data);
-                        history.pushState(null, null, this.href);
+                        history.pushState(null, null, url);
                         document.close();
                     },
                     error: (err) => {
