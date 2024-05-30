@@ -248,23 +248,7 @@
                             <th class="thead__item">Đơn giá</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr class="row__content">
-                            <td class="td__item">
-                                <div class="product__item">
-                                    <div class="order__product--info">
-                                        <p class="product__name">name</p>
-                                        <span>
-                                                Màu sắc:
-                                                <p class="order__color d-inline">Color</p>
-                                            </span>
-                                        <p class="order__size">Size</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="td__item">Count</td>
-                            <td class="td__item">Price</td>
-                        </tr>
+                        <tbody class="order__list">
                         </tbody>
                     </table>
                 </div>
@@ -312,14 +296,36 @@
 <script src="<c:url value="/js/base.js"/>"></script>
 <script src="<c:url value="/js/checkout.js"/>"></script>
 <script type="text/javascript">
-    function updateCheckout(order) {
-        console.log(order)
+    function updateCheckout(orders) {
+        const con = $('.order__list')
+        con.html('')
+        // Lỗi gọi 2 lần bằng servlet
+        orders.order.forEach(order => {
+            let content = `
+            <tr class="row__content">
+                            <td class="td__item">
+                                <div class="product__item">
+                                    <div class="order__product--info">
+                                        <p class="product__name">` + order.name + `</p>
+                                        <span>
+                                                Màu sắc:
+                                                <p class="order__color d-inline">` + order.name + `</p>
+                                            </span>
+                                        <p class="order__size">` + order.size + `</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="td__item">` + order.count + `</td>
+                            <td class="td__item">` + order.price + `</td>
+                        </tr>
+        `
+            con.append(content)
+        })
     }
 
     <c:if test="${not empty requestScope.models}">
-        <c:set value="${requestScope.models}" var="jsonOrder" />
-        let order = JSON.parse(${jsonOrder})
-        updateCheckout(order)
+    <c:set value="${requestScope.models}" var="jsonOrder" />
+    updateCheckout(${jsonOrder})
     </c:if>
 
     function handleChoiceDeliveryMethod() {
