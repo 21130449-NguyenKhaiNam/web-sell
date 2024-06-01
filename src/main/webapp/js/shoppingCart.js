@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
         $('#continue--directional').on('click', function (event) {
             event.preventDefault()
 
@@ -29,24 +28,20 @@ $(document).ready(function () {
 
         function checkPayHigh(isAll = false) {
             if (isAll)
-                $('.check__pay').prop('checked', true)
+                $('.check__pay').attr('checked', true)
 
             $('#check__pay-all').on('click', function () {
-                $('.check__pay').prop('checked', true)
-                let comTotalItem = $('.total__items')[0]
-                comTotalItem.innerText = $('.check__pay').length
+                $('.check__pay').attr('checked', true)
+                updatePrice();
             })
 
             $('#remove__pay-all').on('click', function () {
-                $('.check__pay').prop('checked', false)
-                let comTotalItem = $('.total__items')[0]
-                comTotalItem.innerText = 0
-                let comPriceTotal = $('.price__value')[0]
-                comPriceTotal.innerText = 0 + '₫'
+                $('.check__pay').attr('checked', false)
+                updatePrice();
             })
         }
 
-        checkPayHigh()
+        // checkPayHigh()
 
         function handlePay() {
             let isClick = false;
@@ -78,53 +73,51 @@ $(document).ready(function () {
             });
         }
 
-        handlePay()
+        // handlePay()
 
         function increaseQuantityCartProduct() {
-            $(document).ready(function () {
-                $('.plus__quality').on('click', function (event) {
-                    event.preventDefault();
-                    let cartItem = $(this).closest('.cart__item');
-                    let productId = cartItem.data("productId");
-                    let cartProductIndex = cartItem.data("cartProductIndex");
-                    let cartForm = $(document).find('.shopping__cart--form');
-                    let action = $(this).val();
-                    $.ajax({
-                        url: cartForm.attr('action'),
-                        type: cartForm.attr('method'),
-                        data: {
-                            action: action,
-                            productId: productId,
-                            cartProductIndex: cartProductIndex
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            // Tăng số lượng sản phẩm
-                            let quantitySwapper = $(cartItem).find('.quality__swapper');
-                            let quantityRequired = $(quantitySwapper).find('.quality__required');
-                            quantityRequired.val(response.newQuantity);
+            $('.plus__quality').on('click', function (event) {
+                event.preventDefault();
+                let cartItem = $(this).closest('.cart__item');
+                let productId = cartItem.data("productId");
+                let cartProductIndex = cartItem.data("cartProductIndex");
+                let cartForm = $(document).find('.shopping__cart--form');
+                let action = $(this).val();
+                $.ajax({
+                    url: cartForm.attr('action'),
+                    type: cartForm.attr('method'),
+                    data: {
+                        action: action,
+                        productId: productId,
+                        cartProductIndex: cartProductIndex
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        // Tăng số lượng sản phẩm
+                        let quantitySwapper = $(cartItem).find('.quality__swapper');
+                        let quantityRequired = $(quantitySwapper).find('.quality__required');
+                        quantityRequired.val(response.newQuantity);
 
-                            let subtotalItem = $(cartItem).find('.subtotal__item');
-                            subtotalItem.text(response.newSubtotalFormat);
-                            updatePrice();
-                            // let temporaryPrice = $(document).find('.price__item:first-child .price__value')
-                            // temporaryPrice.text(response.newTemporaryPriceFormat)
+                        let subtotalItem = $(cartItem).find('.subtotal__item');
+                        subtotalItem.text(response.newSubtotalFormat);
+                        updatePrice();
+                        // let temporaryPrice = $(document).find('.price__item:first-child .price__value')
+                        // temporaryPrice.text(response.newTemporaryPriceFormat)
 
-                            // let totalPrice = $(document).find('.price__value--final')
-                            // totalPrice.text(response.newTotalPriceFormat);
+                        // let totalPrice = $(document).find('.price__value--final')
+                        // totalPrice.text(response.newTotalPriceFormat);
 
-                            // const applyStatus = $(document).find('.apply__status')
-                            // if (response.successApplied) {
-                            //     $(applyStatus).html(`<span class="apply__success"><i class="fa-solid fa-circle-check"></i><span>` + response.successApplied + `</span></span>`)
-                            //     $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
-                            //     $(document).find('.price__value--final').text(response.newTotalPriceFormat)
-                            // } else if (response.failedApply) {
-                            //     $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
-                            // }
-                        }
-                    })
+                        // const applyStatus = $(document).find('.apply__status')
+                        // if (response.successApplied) {
+                        //     $(applyStatus).html(`<span class="apply__success"><i class="fa-solid fa-circle-check"></i><span>` + response.successApplied + `</span></span>`)
+                        //     $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
+                        //     $(document).find('.price__value--final').text(response.newTotalPriceFormat)
+                        // } else if (response.failedApply) {
+                        //     $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
+                        // }
+                    }
                 })
-            });
+            })
         }
 
         increaseQuantityCartProduct();
@@ -363,9 +356,7 @@ $(document).ready(function () {
                 state: 1,
                 className: "success",
                 message: "Áp dụng mã giảm giá thành công",
-            }
-            ,
-            {
+            }, {
                 state: 2,
                 className: "warning",
                 message: "Mã giảm giá không tìm thấy",
@@ -385,7 +376,7 @@ $(document).ready(function () {
         ];
 
         function getVoucherState(state) {
-            return voucherState.find(voucher => voucher.sate === state);
+            return voucherState.find(voucher => voucher.state == state);
         }
 
         function handleApplyVoucher() {
@@ -393,7 +384,6 @@ $(document).ready(function () {
                 event.preventDefault();
                 const promotionCodeInput = $(formVoucher).find('#promotion__code')
                 let promotionCode = promotionCodeInput.val();
-                if (voucherApply && voucherApply.code == promotionCode) return;
                 $.ajax({
                     url: "/api/voucher/apply",
                     type: "POST",
@@ -403,6 +393,7 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         if (response.success) {
+                            console.log(getVoucherState(response.state))
                             updateVoucherState(getVoucherState(response.state));
                         }
                         if (response.voucher) {
@@ -418,10 +409,28 @@ $(document).ready(function () {
 
         handleApplyVoucher();
 
-// Gắn sự kiện thay đổi giá tiền khi có sự kiện thay đổi số lượng sản phẩm
+// Gắn sự kiện
         function handleEventChangePrice() {
+            // Thêm sự kiện check box chọn tất cả
+            $('#check__pay-all').on('click', function () {
+                $('.check__pay').attr('checked', true)
+                updatePrice();
+            })
+
+            // Thêm sự kiện check box bỏ chọn tất cả
+            $('#remove__pay-all').on('click', function () {
+                $('.check__pay').attr('checked', false)
+                updatePrice();
+            })
+
+            $('.container__check__pay').on('click', function () {
+                const checkbox = $(this).find('.check__pay');
+                checkbox.prop('checked', !checkbox.prop('checked'));
+                updatePrice();
+            });
+
             // Thêm sự kiện check box cart item
-            $(".cart__item input.check__pay").on("click", () => {
+            $(".cart__item .container__check__pay:has(input.check__pay)").on("click", () => {
                 updatePrice();
             })
             //Thêm sự kiện check box chọn tất cả
@@ -456,9 +465,10 @@ $(document).ready(function () {
             }).reduce((acc, cur) => acc + cur, 0);
             const priceVoucher = voucherApply ? voucherApply.discountPercent * totalPrice : 0;
             const finalPrice = totalPrice - priceVoucher;
+            console.log(voucherApply)
             $("#total__items").text(totalItem);
             $("#price__total").text(formatCurrencyVND(totalPrice));
-            $("#price_voucher").text(priceVoucher ? formatCurrencyVND(priceVoucher) : "");
+            $("#price__voucher").text(priceVoucher ? formatCurrencyVND(priceVoucher) : "");
             $("#price__final").text(formatCurrencyVND(finalPrice));
         }
 

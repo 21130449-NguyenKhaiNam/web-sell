@@ -5,6 +5,7 @@ import dao.ProductDao;
 import dao.VoucherDAO;
 import models.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,9 @@ public class VoucherServices {
             return VoucherState.EMPTY_AVAILABLE_TURN;
         }
 
-        if (voucher.getExpiryDate().getTime() < System.currentTimeMillis()) {
+        LocalDate current = LocalDate.now();
+        LocalDate givenDate = voucher.getExpiryDate().toLocalDate().plusDays(1);
+        if (current.isAfter(givenDate)){
             return VoucherState.EXPIRED;
         }
 

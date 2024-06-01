@@ -323,7 +323,7 @@
                                         <p class="price__text">
                                             Giảm giá
                                         </p>
-                                        <p class="price__value " id="price_voucher">
+                                        <p class="price__value " id="price__voucher">
 
                                         </p>
                                     </li>
@@ -384,8 +384,5 @@
     });
 </script>
 <script src="<c:url value="/js/shoppingCart.js" />"></script>
-<script type="text/javascript">
-
-</script>
 
 </html>
