@@ -31,8 +31,8 @@ public class ProcessAfterPaymentOnline extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        int vnp_TransactionStatus = Integer.parseInt(request.getParameter("vnp_TransactionStatus"));
-//
+        int vnp_TransactionStatus = Integer.parseInt(request.getParameter("vnp_TransactionStatus"));
+
 //        if(vnp_TransactionStatus == 00){
 //            HttpSession session = request.getSession();
 //            User user = SessionManager.getInstance(request, response).getUser();
@@ -77,8 +77,8 @@ public class ProcessAfterPaymentOnline extends HttpServlet {
 //            session.removeAttribute("promotionCode");
 //            session.removeAttribute("failedApply");
 //            session.removeAttribute("successApplied");
-//        }
+        }
 //
 //        request.getRequestDispatcher(ConfigPage.PRODUCT_BUYING).forward(request, response);
-    }
+//    }
 }
