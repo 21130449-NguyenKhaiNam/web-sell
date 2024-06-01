@@ -221,19 +221,4 @@ public class UserDAO {
                 .append("WHERE order_details.id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), User.class, orderDetailId);
     }
-
-    public void updateAddress(Address address) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT id FROM address WHERE userId = ?");
-        List<Address> list = GeneralDao.executeQueryWithSingleTable(sql.toString(), Address.class, address.getUserId());
-        sql.setLength(0);
-        if (list.isEmpty()) {
-            sql.append("INSERT INTO address (userId, provinceId, districtId, wardId, provinceName, districtName, wardName, detail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            GeneralDao.executeAllTypeUpdate(sql.toString(), address.getUserId(), address.getProvinceId(), address.getDistrictId(), address.getWardId(), address.getProvinceName(), address.getDistrictName(), address.getWardName(), address.getDetail());
-        } else {
-            sql.append("UPDATE address SET provinceId = ?, districtId = ?, wardId = ?, provinceName = ?, districtName = ?, wardName = ?, detail = ? WHERE userId = ?");
-            GeneralDao.executeAllTypeUpdate(sql.toString(), address.getProvinceId(), address.getDistrictId(), address.getUserId(), address.getProvinceName(), address.getDistrictName(), address.getWardName(), address.getDetail(), address.getUserId());
-        }
-    }
 }
-

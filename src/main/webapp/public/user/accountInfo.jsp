@@ -60,7 +60,6 @@
                                             <label class="medium mb-1" for="inputUsername">Họ và tên</label>
                                             <input name="fullName" class="form-control" id="inputUsername" type="text" placeholder="Vui lòng nhập tên của bạn" value="${user.fullName}">
                                             <div class="valid-feedback">
-
                                             </div>
                                         </div>
                                     </div>
@@ -97,7 +96,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="medium mb-1" for="inputPhone"> Số điện thoại</label>
+                                        <label class="medium mb-1" for="inputPhone">Số điện thoại</label>
                                         <input class="form-select" name="phone" value="${user.phone}" id="inputPhone" type="text">
                                         <div class="valid-feedback">
 
@@ -181,7 +180,6 @@
         <!---Sweet Alert 2--->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.css" integrity="sha512-OWGg8FcHstyYFwtjfkiCoYHW2hG3PDWwdtczPAPUcETobBJOVCouKig8rqED0NMLcT9GtE4jw6IT1CSrwY87uw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.js" integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script type="module" src="/js/user/accountInfo.js">
-        </script>
+        <script type="module" src="/js/user/accountInfo.js"></script>
     </body>
 </html>

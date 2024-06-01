@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/assets/css/user/account.css">
+    <link rel="stylesheet" href="/assets/css/user/accountInfo.css">
     <jsp:include page="/public/commonLink.jsp"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/checkout.css" />">
     <title>Thanh toán</title>
@@ -20,59 +22,124 @@
                 <div class="delivery__info--container">
                     <h1 class="checkout__title">Thanh toán</h1>
                     <h2 class="checkout__subtitle">Thông tin giao hàng</h2>
-                    <form id="delivery__info--form">
-                        <%--                                ${String.valueOf(sessionScope.auth.id)}--%>
-                        <c:set var="userIdCart" value="23"/>
-                        <c:if test="${sessionScope.deliveryInfoStorage != null}">
-                            <c:forEach items="${sessionScope.deliveryInfoStorage.deliveryInfoMap.keySet()}"
-                                       var="deliveryInfoKey">
-                                <div
-                                        <c:if test="${deliveryInfoKey eq 'defaultDeliveryInfo'}"> id="default__info" </c:if>
-                                        class="delivery__info">
-                                    <c:set var="deliveryInfo"
-                                           value="${sessionScope.deliveryInfoStorage.getDeliveryInfoByKey(deliveryInfoKey)}"/>
-                                    <input data-customer-name="${deliveryInfo.fullName}"
-                                           data-customer-email="${deliveryInfo.email}"
-                                           data-customer-phone="${deliveryInfo.phone}"
-                                           data-customer-address="${deliveryInfo.address}" type="hidden"
-                                           name="deliveryInfoKey" value="${deliveryInfoKey}">
-                                    <div class="info__header">
-                                        <h3>Giao tới <i class="fa-solid fa-turn-down"></i></h3>
-                                        <span class="edit__delivery"
-                                              onclick="showCustomizeDeliveryInfoForm(this, 'Chỉnh sửa thông tin giao hàng')">Chỉnh
-                                                    sửa</span>
-                                    </div>
-                                    <ul class="info__items">
-                                        <li class="info__item customer__name">${deliveryInfo.fullName}
-                                            <c:if test="${deliveryInfoKey eq 'defaultDeliveryInfo'}"><span
-                                                    class="default__tag">Mặc định</span></c:if>
-                                        </li>
-                                        <li class="info__item">Email: ${deliveryInfo.email}</li>
-                                        <li class="info__item">Số điện thoại: ${deliveryInfo.phone}</li>
-                                        <li class="info__item">Địa chỉ: ${deliveryInfo.address}</li>
-                                    </ul>
-
-                                    <c:choose>
-                                        <c:when test="${deliveryInfo eq sessionScope[userIdCart].deliveryInfo}">
-                                            <c:set var="statusChoice" value="Đã chọn"/> </c:when> <c:otherwise>
-                                        <c:set var="statusChoice" value="Chọn"/> </c:otherwise> </c:choose>
-                                    <div class="choice__remove">
-                                        <button type="submit" class="button__choice" name="typeEdit"
-                                                value="choiceDeliveryInfo">${statusChoice}</button>
-                                        <c:if test="${deliveryInfoKey ne 'defaultDeliveryInfo'}">
-                                            <button type="submit" class="button__remove" name="typeEdit"
-                                                    value="removeDeliveryInfo">
-                                                Xóa
-                                            </button>
-                                        </c:if>
+                    <div class="row">
+                        <c:if test="${not empty requestScope.address}">
+                            <c:forEach items="${requestScope.address}" var="address" varStatus="status">
+                                <div class="col-sm-12 mb-3">
+                                    <input type="hidden" name="id-address" value="${address.id}"/>
+                                    <div class="card">
+                                        <div class="card-body focus__address <c:if test="${status.first}">selected</c:if>"
+                                             onclick="selectCard(this)" style="cursor: pointer">
+                                            <h5 class="card-title">Địa chỉ giao hàng</h5>
+                                            <p class="card-text">${address.exportAddressString()}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </c:forEach> </c:if>
-                    </form>
+                            </c:forEach>
+                        </c:if>
+                    </div>
                     <p class="other__info">Bạn muốn giao hàng đến địa chỉ khác?
-                        <span onclick="showCustomizeDeliveryInfoForm(this, 'Thêm thông tin giao hàng')"
-                              class="add__delivery">Thêm thông tin giao hàng mới</span>
+                        <span class="add__delivery">Thêm thông tin giao hàng mới</span>
                     </p>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card mb-4">
+                                <div class="card-header">Thông tin cá nhân</div>
+                                <div class="card-body">
+                                    <form id="form-personal">
+                                        <div class="row gx-3 mb-3">
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="medium mb-1" for="inputUsername">Họ và tên</label>
+                                                    <input name="fullName" class="form-control" id="inputUsername"
+                                                           type="text" placeholder="Vui lòng nhập tên của bạn"
+                                                           value="${user.fullName}">
+                                                    <div class="valid-feedback">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <fmt:formatDate var="date" type="DATE" value="${user.birthDay}"
+                                                                pattern="dd-MM-yyy"/>
+                                                <label class="medium mb-1" for="inputDate">Ngày sinh</label>
+                                                <input class="form-select" name="birthDay" value="${date}"
+                                                       id="inputDate"
+                                                       type="text">
+                                                <div class="valid-feedback">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="medium mb-1" for="inputPhone">Số điện thoại</label>
+                                                <input class="form-select" name="phone" value="${user.phone}"
+                                                       id="inputPhone" type="text">
+                                                <div class="valid-feedback">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary mt-2" type="submit">Thay đổi</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card mb-4">
+                                <div class="card-header">Địa chỉ</div>
+                                <div class="card-body">
+                                    <form id="form-address">
+                                        <div class="row gx-3 mb-3 mt-2">
+                                            <div class="col-md-4 col-sm-12">
+                                                <label class="small  py-1" for="inputProvince">Tỉnh / Thành phố </label>
+                                                <select name="province" id="inputProvince" class="form-select"
+                                                        aria-label="Chọn">
+                                                    <option value=""></option>
+                                                </select>
+                                                <div class="valid-feedback">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-12">
+                                                <label class="small py-1" for="inputDistrict"> Quận / Huyện </label>
+                                                <select name="district" id="inputDistrict" class="form-select"
+                                                        aria-label="Chọn">
+                                                    <option value=""></option>
+                                                </select>
+                                                <div class="valid-feedback">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-12">
+                                                <label class="small py-1" for="inputWard">Phường</label>
+                                                <select name="ward" id="inputWard" class="form-select"
+                                                        aria-label="Chọn">
+                                                    <option value=""></option>
+                                                </select>
+                                                <div class="valid-feedback">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row gx-3 mb-3 mt-2 ">
+                                            <div class="col-12">
+                                                <label class="small py-1" for="inputAddress"> Số nhà, đường </label>
+                                                <textarea class="form-control" name="detail"
+                                                          id="inputAddress"></textarea>
+                                                <div class="valid-feedback">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary mt-2" type="submit">Thay đổi</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="popup__bg">
                         <div class="popup__form">
                             <div class="form__header">
@@ -295,7 +362,42 @@
 <%--        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--%>
 <script src="<c:url value="/js/base.js"/>"></script>
 <script src="<c:url value="/js/checkout.js"/>"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
+      integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!--Select 2 jquery-->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
+        integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--jQuery validator-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"
+        integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
+<!---Sweet Alert 2--->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.css"
+      integrity="sha512-OWGg8FcHstyYFwtjfkiCoYHW2hG3PDWwdtczPAPUcETobBJOVCouKig8rqED0NMLcT9GtE4jw6IT1CSrwY87uw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.js"
+        integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="module" src="/js/user/accountInfo.js"></script>
 <script type="text/javascript">
+    function selectCard(card) {
+        // Xóa lớp 'selected' khỏi tất cả các thẻ
+        var cards = document.querySelectorAll('.focus__address');
+        cards.forEach(function (card) {
+            card.classList.remove('selected');
+        });
+
+        // Thêm lớp 'selected' vào thẻ đã được click
+        card.classList.add('selected');
+    }
+
     function updateCheckout(orders) {
         const con = $('.order__list')
         const conCount = $('.count__product')
@@ -303,7 +405,6 @@
         let totalCost = 0
         conCount.text(orders.order.length + '')
         con.html('')
-        // Lỗi gọi 2 lần bằng servlet
         orders.order.forEach(order => {
             let content = `
             <tr class="row__content">
@@ -313,7 +414,7 @@
                                         <p class="product__name">` + order.name + `</p>
                                         <span>
                                                 Màu sắc:
-                                                <p class="order__color d-inline">` + order.name + `</p>
+                                                <p class="order__color d-inline">` + order.color + `</p>
                                             </span>
                                         <p class="order__size">` + order.size + `</p>
                                     </div>
@@ -332,151 +433,14 @@
     <c:if test="${not empty requestScope.models}">
     <c:set value="${requestScope.models}" var="jsonOrder" />
     updateCheckout(${jsonOrder})
-    </c:if>
-    $(document).ready(function () {
-        // Thiết lập lựa chọn mặc định
-        $('input[class=radio__button][name=delivery__method]')[0].checked = true
-        $('input[class=radio__button][name=payment__method]')[0].checked = true
-    })
-
-    function handleChoiceDeliveryMethod() {
-        $(document).ready(function () {
-            $('input[name="delivery__method"]').change(function () {
-                let action = $('#delivery__method--form input[type=hidden][name="action"]').val();
-                let deliveryMethodId = $(this).val();
-                $.ajax({
-                    type: 'POST',
-                    url: '/Checkout',
-                    data: {
-                        action: action,
-                        deliveryMethodId: deliveryMethodId
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        $(this).prop('checked', true);
-                        $('.total__price--final .total__value').text(response.newTotalPrice);
-                        $('.shipping__container span:last-child').text(response.shippingFee);
-                        $('.amount__pay .amount').text(response.newTotalPrice);
-                    }
-                })
-            })
-        })
-    }
-
-    handleChoiceDeliveryMethod();
-
-    function handleChoicePaymentMethod() {
-        $(document).ready(function () {
-            $('input[name="payment__method"]').change(function () {
-                let action = $('#payment__method--form input[type=hidden][name="action"]').val();
-                let paymentMethodId = $(this).val();
-                $.ajax({
-                    type: 'POST',
-                    url: '/Checkout',
-                    data: {
-                        action: action,
-                        paymentMethodId: paymentMethodId
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        $('.transaction__content .content').text(response.contentForPay);
-                    }
-                })
-            })
-        })
-    }
-
-    handleChoicePaymentMethod();
-
-    function handleChoiceDeliveryInfo() {
-        $(document).ready(function () {
-            $('#delivery__info--form').on('click', '.button__choice', function (event) {
-                event.preventDefault();
-                let buttonChoiceClicked = $(this);
-                if (buttonChoiceClicked.text() === 'Chọn') {
-                    let deliveryInfo = buttonChoiceClicked.closest('.delivery__info');
-                    let deliveryInfoKey = deliveryInfo.find('input[type=hidden][name=deliveryInfoKey]').val();
-                    let typeEdit = buttonChoiceClicked.val();
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Checkout',
-                        data: {
-                            typeEdit: typeEdit,
-                            deliveryInfoKey: deliveryInfoKey
-                        },
-                        success: function (response) {
-                            buttonChoiceClicked.text(response)
-                            $('.button__choice').not(buttonChoiceClicked).text("Chọn")
-                        }
-                    })
-                }
-            })
-        })
-    }
-
-    handleChoiceDeliveryInfo();
-
-    function handleRemoveDeliveryInfo() {
-        $(document).ready(function () {
-            $('#delivery__info--form').on('click', '.button__remove', function (event) {
-                event.preventDefault();
-                let buttonRemoveClicked = $(this);
-                let deliveryInfo = buttonRemoveClicked.closest('.delivery__info');
-                let deliveryInfoKey = deliveryInfo.find('input[type=hidden][name=deliveryInfoKey]').val();
-                let typeEdit = buttonRemoveClicked.val();
-
-                let buttonChoice = deliveryInfo.find('.button__choice');
-                let statusChoice = buttonChoice.text();
-
-                const popupDeletion = $(document).find('.popup__deletion');
-                popupDeletion.html(`<div class="popup__container">
-
-                                        <div class="popup__content">
-                                            <div class="title__header">
-                                                <span class="title"><i class="fa-solid fa-triangle-exclamation"></i> Xóa thông tin giao hàng</span>
-                                                <span class="subtitle">Bạn có muốn xóa thông tin giao hàng đang chọn?</span>
-                                            </div>
-                                            <div class="button__control">
-                                                <button class="agree__button">Xác nhận</button>
-                                                <button class="cancel__button">Hủy</button>
-                                            </div>
-                                        </div>
-                                    </div>`);
-
-                $(popupDeletion).find('.cancel__button').on('click', function () {
-                    $(popupDeletion).find('.popup__container').remove();
-                })
-
-                $(popupDeletion).find('.agree__button').on('click', function () {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Checkout',
-                        data: {
-                            typeEdit: typeEdit,
-                            deliveryInfoKey: deliveryInfoKey,
-                            statusChoice: statusChoice
-                        },
-                        success: function (response) {
-                            $(popupDeletion).find('.popup__container').remove();
-                            deliveryInfo.remove();
-                            if (statusChoice === "Đã chọn") {
-                                $('#default__info').find('.button__choice').text("Đã chọn")
-                            }
-                        }
-                    })
-                })
-            })
-        })
-    }
-
-    handleRemoveDeliveryInfo();
-
     function handlePlaceOrder() {
         $('#delivery__method--form input[class=radio__button][name=delivery__method]').change(function () {
             $('#payment__method--form input[class=radio__button][name=payment__method]').prop('disabled', false);
         })
 
         $('.place__order').on('click', function () {
+            <c:choose>
+            <c:when test="${not empty requestScope.address}">
             $.ajax({
                 type: 'POST',
                 url: '/public/user/placeOrder',
@@ -501,13 +465,185 @@
                     setTimeout(function () {
                         let invoiceNo = response.invoiceNo;
                         let dateOrder = response.dateOrder;
-                        window.location.href = "/public/user/successOrder?invoiceNo=" + invoiceNo;
+                        listOrder = ${jsonOrder};
+                        obj = {
+                            delivery: $('input[class=radio__button][name=delivery__method]:checked').val(),
+                            payment: $('input[class=radio__button][name=payment__method]:checked').val(),
+                            address: $('.focus__address .selected > input').val(),
+                            orders: listOrder.order,
+                            invoiceNo: invoiceNo
+                        }
+                        data = [{
+                            name: 'order',
+                            value: JSON.stringify(obj)
+                        }]
+                        console.log(data)
+                        let formData = $.param(data);
+                        $.ajax({
+                            url: "/public/user/successOrder",
+                            method: 'post',
+                            data: data,
+                            success: function(res) {
+                                console.log(res)
+                            },
+                            error: function (err) {
+                                console.log(err)
+                            }
+                        })
+                        // window.location.href = "/public/user/successOrder?invoiceNo=" + invoiceNo;
                     }, 3000);
                 }
             })
+            </c:when>
+            <c:otherwise>
+            Swal.fire({
+                title: "Chúng tôi không tìm thấy địa chỉ giao hàng của bạn?",
+                text: "Vui lòng bổ sung thông tin ở trường bên trái!!!",
+                icon: "question"
+            });
+            </c:otherwise>
+            </c:choose>
         })
     }
 
     handlePlaceOrder();
+    </c:if>
+    $(document).ready(function () {
+        // Thiết lập lựa chọn mặc định
+        $('input[class=radio__button][name=delivery__method]')[0].checked = true
+        $('input[class=radio__button][name=payment__method]')[0].checked = true
+    })
+
+    // function handleChoiceDeliveryMethod() {
+    //     $(document).ready(function () {
+    //         $('input[name="delivery__method"]').change(function () {
+    //             let action = $('#delivery__method--form input[type=hidden][name="action"]').val();
+    //             let deliveryMethodId = $(this).val();
+    //             $.ajax({
+    //                 type: 'POST',
+    //                 url: '/Checkout',
+    //                 data: {
+    //                     action: action,
+    //                     deliveryMethodId: deliveryMethodId
+    //                 },
+    //                 dataType: 'json',
+    //                 success: function (response) {
+    //                     $(this).prop('checked', true);
+    //                     $('.total__price--final .total__value').text(response.newTotalPrice);
+    //                     $('.shipping__container span:last-child').text(response.shippingFee);
+    //                     $('.amount__pay .amount').text(response.newTotalPrice);
+    //                 }
+    //             })
+    //         })
+    //     })
+    // }
+    //
+    // handleChoiceDeliveryMethod();
+    //
+    // function handleChoicePaymentMethod() {
+    //     $(document).ready(function () {
+    //         $('input[name="payment__method"]').change(function () {
+    //             let action = $('#payment__method--form input[type=hidden][name="action"]').val();
+    //             let paymentMethodId = $(this).val();
+    //             $.ajax({
+    //                 type: 'POST',
+    //                 url: '/Checkout',
+    //                 data: {
+    //                     action: action,
+    //                     paymentMethodId: paymentMethodId
+    //                 },
+    //                 dataType: 'json',
+    //                 success: function (response) {
+    //                     $('.transaction__content .content').text(response.contentForPay);
+    //                 }
+    //             })
+    //         })
+    //     })
+    // }
+    //
+    // handleChoicePaymentMethod();
+    //
+    // function handleChoiceDeliveryInfo() {
+    //     $(document).ready(function () {
+    //         $('#delivery__info--form').on('click', '.button__choice', function (event) {
+    //             event.preventDefault();
+    //             let buttonChoiceClicked = $(this);
+    //             if (buttonChoiceClicked.text() === 'Chọn') {
+    //                 let deliveryInfo = buttonChoiceClicked.closest('.delivery__info');
+    //                 let deliveryInfoKey = deliveryInfo.find('input[type=hidden][name=deliveryInfoKey]').val();
+    //                 let typeEdit = buttonChoiceClicked.val();
+    //                 $.ajax({
+    //                     type: 'POST',
+    //                     url: '/Checkout',
+    //                     data: {
+    //                         typeEdit: typeEdit,
+    //                         deliveryInfoKey: deliveryInfoKey
+    //                     },
+    //                     success: function (response) {
+    //                         buttonChoiceClicked.text(response)
+    //                         $('.button__choice').not(buttonChoiceClicked).text("Chọn")
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //     })
+    // }
+    //
+    // handleChoiceDeliveryInfo();
+    //
+    // function handleRemoveDeliveryInfo() {
+    //     $(document).ready(function () {
+    //         $('#delivery__info--form').on('click', '.button__remove', function (event) {
+    //             event.preventDefault();
+    //             let buttonRemoveClicked = $(this);
+    //             let deliveryInfo = buttonRemoveClicked.closest('.delivery__info');
+    //             let deliveryInfoKey = deliveryInfo.find('input[type=hidden][name=deliveryInfoKey]').val();
+    //             let typeEdit = buttonRemoveClicked.val();
+    //
+    //             let buttonChoice = deliveryInfo.find('.button__choice');
+    //             let statusChoice = buttonChoice.text();
+    //
+    //             const popupDeletion = $(document).find('.popup__deletion');
+    //             popupDeletion.html(`<div class="popup__container">
+    //
+    //                                     <div class="popup__content">
+    //                                         <div class="title__header">
+    //                                             <span class="title"><i class="fa-solid fa-triangle-exclamation"></i> Xóa thông tin giao hàng</span>
+    //                                             <span class="subtitle">Bạn có muốn xóa thông tin giao hàng đang chọn?</span>
+    //                                         </div>
+    //                                         <div class="button__control">
+    //                                             <button class="agree__button">Xác nhận</button>
+    //                                             <button class="cancel__button">Hủy</button>
+    //                                         </div>
+    //                                     </div>
+    //                                 </div>`);
+    //
+    //             $(popupDeletion).find('.cancel__button').on('click', function () {
+    //                 $(popupDeletion).find('.popup__container').remove();
+    //             })
+    //
+    //             $(popupDeletion).find('.agree__button').on('click', function () {
+    //                 $.ajax({
+    //                     type: 'POST',
+    //                     url: '/Checkout',
+    //                     data: {
+    //                         typeEdit: typeEdit,
+    //                         deliveryInfoKey: deliveryInfoKey,
+    //                         statusChoice: statusChoice
+    //                     },
+    //                     success: function (response) {
+    //                         $(popupDeletion).find('.popup__container').remove();
+    //                         deliveryInfo.remove();
+    //                         if (statusChoice === "Đã chọn") {
+    //                             $('#default__info').find('.button__choice').text("Đã chọn")
+    //                         }
+    //                     }
+    //                 })
+    //             })
+    //         })
+    //     })
+    // }
+    //
+    // handleRemoveDeliveryInfo();
 </script>
 </html>
