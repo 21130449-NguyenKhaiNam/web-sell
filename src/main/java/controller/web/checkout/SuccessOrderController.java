@@ -30,7 +30,6 @@ public class SuccessOrderController extends HttpServlet {
         User user = SessionManager.getInstance(request, response).getUser();
         String userIdCart = String.valueOf(user.getId());
 
-        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         HashMap<String, String[]> parameter = new HashMap<>(request.getParameterMap());
         String[] models = parameter.get("order");
         if (models == null || models.length == 0) {
@@ -42,6 +41,8 @@ public class SuccessOrderController extends HttpServlet {
             // Chuyển đổi json sang obj
             OrderSuccess order = gson.fromJson(model, OrderSuccess.class);
             String dateOrder = LocalDate.now().toString();
+            int paymentMethodId = order.getPayment();
+            // Đã  có đủ dữ liệu, tiến hành thanh toán thực
             //        int totalPrice = (int)cart.getTotalPrice(true);
 
 //        Lỗi do thiếu thông tin giao
@@ -60,10 +61,19 @@ public class SuccessOrderController extends HttpServlet {
 //            throw new RuntimeException(e);
 //        }
 
-//        if(paymentMethodId == 2 || paymentMethodId == 3){
-//            session.setAttribute("totalPrice", totalPrice);
-//            request.getRequestDispatcher("/public/user/vnpPay.jsp").forward(request,response);
-//        }
+            // Tính tổng giá
+            int totalPrice = 500000;
+        if(paymentMethodId == 2 || paymentMethodId == 3){
+            session.setAttribute("totalPrice", totalPrice);
+            request.getRequestDispatcher("/public/user/vnpPay.jsp").forward(request,response);
+        } else {
+            session.removeAttribute("promotionCode");
+            session.removeAttribute("failedApply");
+            session.removeAttribute("successApplied");
+            request.setAttribute("invoiceNo", order.getInvoiceNo());
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_SUCCESS_ORDER);
+            requestDispatcher.forward(request, response);
+        }
 //        else{
 
 //            try {
@@ -88,12 +98,6 @@ public class SuccessOrderController extends HttpServlet {
 //            }
 
 //            session.removeAttribute(userIdCart);
-            session.removeAttribute("promotionCode");
-            session.removeAttribute("failedApply");
-            session.removeAttribute("successApplied");
-//            request.setAttribute("invoiceNo", invoiceNo);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_SUCCESS_ORDER);
-            requestDispatcher.forward(request, response);
 //        }
         }
     }

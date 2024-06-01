@@ -13,7 +13,6 @@
     </head>
 
     <body>
-        <c:import url="/public/header.jsp" />
         <div class="container">
             <div class="notification__success">
                 <span class="icon__success"><i class="fa-solid fa-cart-shopping"></i></span>
@@ -35,7 +34,6 @@
             </div>
             <p class="back__home">Website sẽ tự động quay về trang chủ sau <span class="countdown__second"></span></p>
         </div>
-        <jsp:include page="${initParam.contextPath}/public/footer.jsp" />
     </body>
     <script>
         const timerDisplay = document.querySelector(".countdown__second");

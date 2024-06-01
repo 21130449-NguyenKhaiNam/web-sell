@@ -19,17 +19,14 @@
 </head>
 
 <body>
-
 <div class="container">
-    <div class="header clearfix">
-        <h3 class="text-muted">VNPAY DEMO</h3>
-    </div>
     <h3>Tạo mới đơn hàng</h3>
     <div class="table-responsive">
         <form action="/ajax_servlet" id="frmCreateOrder" method="POST">
             <div class="form-group">
                 <label for="amount">Số tiền</label>
-                <input readonly class="form-control" data-val="true" data-val-number="The field Amount must be a number."
+                <input readonly class="form-control" data-val="true"
+                       data-val-number="The field Amount must be a number."
                        data-val-required="The Amount field is required." id="amount" max="100000000" min="1"
                        name="amount" type="number" value="<%=session.getAttribute("totalPrice")%>"/>
             </div>
@@ -56,8 +53,6 @@
         <p>&copy; VNPAY 2020</p>
     </footer>
 </div>
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

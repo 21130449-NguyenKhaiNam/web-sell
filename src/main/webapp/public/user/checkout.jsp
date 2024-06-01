@@ -357,6 +357,7 @@
     </div>
 </main>
 <div class="popup__deletion"></div>
+<c:import url="/public/footer.jsp"/>
 </body>
 <%--<script src="https://code.jquery.com/jquery-3.7.1.min.js"--%>
 <%--        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--%>
@@ -477,14 +478,13 @@
                             name: 'order',
                             value: JSON.stringify(obj)
                         }]
-                        console.log(data)
                         let formData = $.param(data);
                         $.ajax({
                             url: "/public/user/successOrder",
                             method: 'post',
                             data: data,
                             success: function(res) {
-                                console.log(res)
+                                $('#main').html(res)
                             },
                             error: function (err) {
                                 console.log(err)

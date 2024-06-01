@@ -387,7 +387,7 @@
     </div>
 </main>
 <div class="popup__deletion"></div>
-<%@include file="../footer.jsp" %>
+<c:import url="/public/footer.jsp"/>
 </body>
 <script src="<c:url value="/js/base.js"/>"></script>
 <script src="<c:url value="/js/validateContactForm.js"/>">
