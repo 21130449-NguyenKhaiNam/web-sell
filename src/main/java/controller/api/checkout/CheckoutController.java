@@ -6,10 +6,12 @@ import config.ConfigPage;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import models.Address;
 import models.DeliveryMethod;
 import models.PaymentMethod;
 import models.User;
 import models.shoppingCart.ShoppingCart;
+import services.AddressServices;
 import services.CheckoutServices;
 import services.ProductServices;
 import session.SessionManager;
@@ -141,10 +143,12 @@ public class CheckoutController extends HttpServlet {
 
             JsonObject jsonObject = new JsonObject();
             jsonObject.add("order", gson.toJsonTree(tempOrders));
+            List<Address> addressList = AddressServices.getINSTANCE().getAddress(user.getId());
 
             request.setAttribute("listDeliveryMethod", listDeliveryMethod);
             request.setAttribute("listPaymentMethod", listPaymentMethod);
             request.setAttribute("models", gson.toJson(jsonObject));
+            request.setAttribute("address", addressList);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_CHECKOUT);
             requestDispatcher.forward(request, response);
         }

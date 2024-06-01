@@ -2,6 +2,11 @@
     margin: 60px 0px;
 }
 
+.selected {
+    border: 2px solid blue !important;
+    background-color: lightblue !important;
+}
+
 .delivery__info--container{
     margin-bottom: 36px;
 }

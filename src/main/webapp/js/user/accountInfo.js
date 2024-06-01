@@ -19,89 +19,93 @@ $(document).ready(function () {
         $("#open-form").hide();
     })
 
-    $.validator.addMethod("singleFile", function (value, element) {
-        return this.optional(element) || element.files.length === 1;
-    }, "Please select only one file.");
+    if ($.validator) {
+        $.validator.addMethod("singleFile", function (value, element) {
+            return this.optional(element) || element.files.length === 1;
+        }, "Please select only one file.");
+    }
 
-    $("#form-avatar").validate({
-        rules: {
-            avatar: {
-                required: true,
-                extension: "jpg|jpeg|png",
-                singleFile: true,
-            },
-            messages: {
+    if ($("#form-avatar")[0]) {
+        $("#form-avatar").validate({
+            rules: {
                 avatar: {
-                    required: "Vui lòng chọn ảnh",
-                    extension: "Vui lòng chọn file có định dạng jpg, jpeg, png",
-                    singleFile: "Vui lòng chọn 1 file duy nhất",
+                    required: true,
+                    extension: "jpg|jpeg|png",
+                    singleFile: true,
                 },
-            }
-        },
-        validClass: 'is-valid',
-        errorClass: 'is-invalid',
-        errorPlacement: function (error, element) {
-            $(element).next().text(error.text());
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).addClass(errorClass).removeClass(validClass).attr('required', 'required');
-            $(element).next().addClass("invalid-feedback");
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass(errorClass).addClass(validClass).removeAttr('required');
-            $(element).next().text("");
-        },
-        submitHandler: function (form) {
-            // Submit form via AJAX
-            alert(() => {
-                var formData = new FormData(form);
-                $.ajax({
-                    url: "/upload-avatar",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    beforeSend: function () {
-                        addSpinner();
+                messages: {
+                    avatar: {
+                        required: "Vui lòng chọn ảnh",
+                        extension: "Vui lòng chọn file có định dạng jpg, jpeg, png",
+                        singleFile: "Vui lòng chọn 1 file duy nhất",
                     },
-                    success: function (response) {
-                        Swal.fire({
-                            title: "Chúc mừng!",
-                            text: "Avatar đã được cập nhập",
-                            icon: "success"
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        Swal.fire({
-                            title: "Lỗi!",
-                            text: "Avatar không cập nhập thành công",
-                            icon: "error"
-                        });
-                    },
-                    complete: function () {
-                        cancelSpinner();
-                    }
+                }
+            },
+            validClass: 'is-valid',
+            errorClass: 'is-invalid',
+            errorPlacement: function (error, element) {
+                $(element).next().text(error.text());
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass(errorClass).removeClass(validClass).attr('required', 'required');
+                $(element).next().addClass("invalid-feedback");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass(errorClass).addClass(validClass).removeAttr('required');
+                $(element).next().text("");
+            },
+            submitHandler: function (form) {
+                // Submit form via AJAX
+                alert(() => {
+                    var formData = new FormData(form);
+                    $.ajax({
+                        url: "/upload-avatar",
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function () {
+                            addSpinner();
+                        },
+                        success: function (response) {
+                            Swal.fire({
+                                title: "Chúc mừng!",
+                                text: "Avatar đã được cập nhập",
+                                icon: "success"
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                title: "Lỗi!",
+                                text: "Avatar không cập nhập thành công",
+                                icon: "error"
+                            });
+                        },
+                        complete: function () {
+                            cancelSpinner();
+                        }
+                    });
                 });
-            });
-            return false; // Prevent form submission
-        }
-    })
-    $("#avatar").on("change", function () {
-        // Check if file input is valid
-        if ($("#avatar").valid()) {
-            // Read the selected file and display preview
-            const file = this.files[0];
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                $("#preview-avatar").attr("src", e.target.result);
-                $("#preview-avatar").show();
-            };
-            reader.readAsDataURL(file);
-        } else {
-            // Hide preview if file input is not valid
-            $("#preview").hide();
-        }
-    });
+                return false; // Prevent form submission
+            }
+        })
+        $("#avatar").on("change", function () {
+            // Check if file input is valid
+            if ($("#avatar").valid()) {
+                // Read the selected file and display preview
+                const file = this.files[0];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#preview-avatar").attr("src", e.target.result);
+                    $("#preview-avatar").show();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Hide preview if file input is not valid
+                $("#preview").hide();
+            }
+        });
+    }
 
 //     -------------------------------
 //     Cập nhập thông tin cá nhân
@@ -116,7 +120,7 @@ $(document).ready(function () {
     });
     $.validator.addMethod(
         "customDate",
-        function(value, element) {
+        function (value, element) {
             // Validate the date format using a regular expression
             return value.match(/^\d{2}-\d{2}-\d{4}$/);
         },
@@ -226,7 +230,6 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'json',
         success: function (response, xhr) {
-            console.log(response);
             if (response.status == 200) {
                 const address = response;
                 provinceId = address.provinceId;
