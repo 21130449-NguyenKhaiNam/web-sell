@@ -13,7 +13,7 @@
     </head>
 
     <body>
-        <div class="container">
+        <div class="container" style="margin-left: 130px">
             <div class="notification__success">
                 <span class="icon__success"><i class="fa-solid fa-cart-shopping"></i></span>
                 <strong class="text__success">ĐẶT HÀNG THÀNH CÔNG</strong>
@@ -28,8 +28,8 @@
                     <strong class="order__no">${requestScope.invoiceNo}</strong>
                 </div>
                 <div class="navigation__target">
-                    <a class="order__detail">Chi tiết đơn hàng</a>
-                    <a class="continue__shopping" href="../product/productBuying.jsp">Tiếp tục mua hàng</a>
+                    <a class="order__detail" href="<c:url value="/public/user/accountOrder.jsp"/>">Chi tiết đơn hàng</a>
+                    <a class="continue__shopping" href="<c:url value="/public/product/productBuying.jsp" />">Tiếp tục mua hàng</a>
                 </div>
             </div>
             <p class="back__home">Website sẽ tự động quay về trang chủ sau <span class="countdown__second"></span></p>

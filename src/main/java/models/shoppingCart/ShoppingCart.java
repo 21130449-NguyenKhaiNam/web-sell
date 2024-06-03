@@ -150,7 +150,6 @@ public class ShoppingCart {
             int currentQuantity = listCartProducts.get(cartProductIndex).getQuantity();
             AbstractCartProduct cartProduct = listCartProducts.get(cartProductIndex);
             cartProduct.setQuantity(currentQuantity + 1);
-            System.out.println(cartProduct);
             listCartProducts.set(cartProductIndex, cartProduct);
         }
     }
@@ -174,7 +173,6 @@ public class ShoppingCart {
             int quantityDecreased = currentQuantity - 1;
             if (quantityDecreased > 0) {
                 cartProduct.setQuantity(quantityDecreased);
-                System.out.println(cartProduct);
                 listCartProducts.set(cartProductIndex, cartProduct);
             }
         }

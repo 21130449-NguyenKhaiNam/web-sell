@@ -422,6 +422,7 @@
                         checked = true
                     let obj = {
                         id: check.val(),
+                        ind: parent.data("cartProductIndex"),
                         name: parent.find("a.product__name").text().trim(),
                         color: parent.find("p.order__color").text().trim(),
                         size: parent.find("p.order__size--specification").text().trim(),
