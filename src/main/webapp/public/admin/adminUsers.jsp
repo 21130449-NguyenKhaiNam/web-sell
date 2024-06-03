@@ -18,7 +18,7 @@
                 <div class="col-12">
                     <div>
                         <h1>Danh sách người dùng</h1>
-                        <article action="#!" class="form__search-block filler__block">
+                        <article class="form__search-block filler__block">
                             <i class="search__icon fa-solid fa-magnifying-glass"></i>
                             <form id="form-search" method="get">
                                 <input id="search-input" type="text" name="search"
@@ -46,79 +46,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%--                            <c:forEach items="${requestScope.lists}" var="user">--%>
-                            <%--                                <tr class="table__row">--%>
-                            <%--                                    <td class="table__data">--%>
-                            <%--                                        <a id="updateUser"--%>
-                            <%--                                           onclick="openUpdateDialog(${user.id}, '${user.username}', '${user.fullName}', '${user.gender}', '${user.email}', '${user.phone}', '${user.address}', '${user.birthDay}','${user.role}')">--%>
-                            <%--                                            <i class="fa-solid fa-pen-to-square"></i>--%>
-                            <%--                                        </a>--%>
-                            <%--                                    </td>--%>
-                            <%--                                    <td class="table__data">--%>
-                            <%--                                        <p class="table__cell"><c:out value="${user.id}"/></p>--%>
-                            <%--                                    </td>--%>
-                            <%--                                    <td class="table__data">--%>
-                            <%--                                        <p class="table__cell"><c:out value="${user.username}"/></p>--%>
-                            <%--                                    </td>--%>
-                            <%--                                    <td class="table__data">--%>
-                            <%--                                        <p class="table__cell"><c:out value="${user.email}"/></p>--%>
-                            <%--                                    </td>--%>
-                            <%--                                    <td class="table__data">--%>
-                            <%--                                        <p class="table__cell table__data--fullname"><c:out--%>
-                            <%--                                                value="${user.fullName}"/></p>--%>
-                            <%--                                    </td>--%>
-                            <%--                                    <td class="table__data">--%>
-                            <%--                                        <p class="table__cell"><c:out value="${user.gender}"/></p>--%>
-                            <%--                                    </td>--%>
-                            <%--                                    <td class="table__data table__data--birthday">--%>
-                            <%--                                        <p class="table__cell"><c:out value="${user.birthDay}"/></p>--%>
-                            <%--                                    </td>--%>
-                            <%--                                    <td class="table__data">--%>
-                            <%--                                        <p class="table__cell"><c:out value="${user.phone}"/></p>--%>
-                            <%--                                    </td>--%>
-                            <%--                                    <td class="table__data">--%>
-                            <%--                                        <p class="table__cell"><c:out value="${user.address}"/></p>--%>
-                            <%--                                    </td>--%>
-                            <%--                                    <td class="table__data">--%>
-                            <%--                                        <p class="table__cell">--%>
-                            <%--                                                &lt;%&ndash;  <c:out value="${user.role}"/>&ndash;%&gt;--%>
-                            <%--                                            <c:if test="${user.role == '2'}">admin</c:if>--%>
-                            <%--                                            <c:if test="${user.role == '1'}">mod</c:if>--%>
-                            <%--                                            <c:if test="${user.role == '0'}">khách</c:if>--%>
-                            <%--                                        </p>--%>
-                            <%--                                    </td>--%>
-                            <%--                                    <td class="table__data">--%>
-                            <%--                                        <a id="deleteUserLink" onclick="openDeleteDialog(${user.id})">--%>
-                            <%--                                            <i class="fa-solid fa-trash-can"></i>--%>
-                            <%--                                        </a>--%>
-                            <%--                                    </td>--%>
-                            <%--                                </tr>--%>
-                            <%--                            </c:forEach>--%>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="pagination">
-                        <%--                        <%System.out.println(request.getAttribute("AdminUser"));%>--%>
-                        <%--                        <c:if test="${page > 1}">--%>
-                        <%--                            <c:url var="prevURLPage" value="AdminUser">--%>
-
-                        <%--                                <c:param name="page" value="${page - 1}"/>--%>
-                        <%--                            </c:url>--%>
-                        <%--                            <a href="${prevURLPage}" class="previous__page"><i class="fa-solid fa-chevron-left"></i></a>--%>
-                        <%--                        </c:if>--%>
-                        <%--                        <c:forEach begin="${1}" end="${requestScope.totalPage}" var="i">--%>
-                        <%--                            <c:url var="trURLPage" value="AdminUser">--%>
-                        <%--                                <c:param name="page" value="${i}"/>--%>
-                        <%--                            </c:url>--%>
-                        <%--                            <a class="${i == page ? "active" : "page__forward"}" href="${trURLPage}">${i}</a>--%>
-                        <%--                        </c:forEach>--%>
-                        <%--                        <c:if test="${page < requestScope.totalPage}">--%>
-                        <%--                            <c:url var="nextURLPage" value="AdminUser">--%>
-                        <%--                                <c:param name="page" value="${page + 1}"/>--%>
-                        <%--                            </c:url>--%>
-                        <%--                            <a href="${nextURLPage}" class="next__page"><i class="fa-solid fa-chevron-right"></i></a>--%>
-                        <%--                        </c:if>--%>
                     </div>
                 </div>
             </div>
@@ -254,7 +186,7 @@
 <!-- Modal update user-->
 <div class="modal fade" id="modal-update" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 80%" >
+    <div class="modal-dialog" style="max-width: 80%">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Cập nhập thông tin ngừoi dùng</h5>

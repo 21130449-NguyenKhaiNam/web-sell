@@ -58,9 +58,9 @@
                 </li>
 
                 <li>
-                    <a href="#dashboard" data-link="dashboard.jsp" class="sidebar_item">
-                        <i class="fa-solid fa-chart-simple"></i>
-                        <span>Thống kê</span></a>
+<%--                    <a href="#dashboard" data-link="dashboard.jsp" class="sidebar_item">--%>
+<%--                        <i class="fa-solid fa-chart-simple"></i>--%>
+<%--                        <span>Thống kê</span></a>--%>
                 </li>
                 <li>
                     <a href="#voucher" data-link="adminVoucher.jsp" class="sidebar_item">

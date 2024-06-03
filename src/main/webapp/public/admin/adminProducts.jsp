@@ -141,7 +141,6 @@
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
                         </span>
-
                     </div>
                     <div class="table__wrapper">
                         <table class="table">
@@ -293,22 +292,11 @@
                                             <i class="fa-solid fa-eye"></i>
                                         </label>
                                     </td>
-<<<<<<< HEAD
-                                    <c:if test="${sessionScope.auth.role == '2'}">
-                                        <td class="table__data-edit">
-                                            <label>
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </label>
-                                        </td>
-                                    </c:if>
-
-=======
                                     <td class="table__data-edit">
                                         <label>
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </label>
                                     </td>
->>>>>>> main
                                     <td class="table__data table__data-id">
                                         <p class="table__cell">` + contentProduct.id + `</p>
                                     </td>

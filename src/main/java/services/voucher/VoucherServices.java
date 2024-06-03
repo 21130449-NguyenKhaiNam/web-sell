@@ -1,7 +1,5 @@
 package services.voucher;
 
-import dao.ProductCardDAO;
-import dao.ProductDao;
 import dao.VoucherDAO;
 import models.*;
 
@@ -11,6 +9,18 @@ import java.util.stream.Collectors;
 
 public class VoucherServices {
     VoucherDAO voucherDAO = new VoucherDAO();
+    private static VoucherServices INSTANCE;
+
+
+    private VoucherServices() {
+    }
+
+    public static VoucherServices getINSTANCE() {
+        if (INSTANCE == null) {
+            INSTANCE = new VoucherServices();
+        }
+        return INSTANCE;
+    }
 
     public List<Voucher> getAll() {
         List<Voucher> listVoucher = voucherDAO.selectAll();
@@ -38,7 +48,7 @@ public class VoucherServices {
 
         LocalDate current = LocalDate.now();
         LocalDate givenDate = voucher.getExpiryDate().toLocalDate().plusDays(1);
-        if (current.isAfter(givenDate)){
+        if (current.isAfter(givenDate)) {
             return VoucherState.EXPIRED;
         }
 
@@ -46,6 +56,15 @@ public class VoucherServices {
         if (!strategy.apply()) return VoucherState.CAN_NOT_APPLY;
         return VoucherState.CAN_APPLY;
     }
+
+    public List<Voucher> getVoucher(Integer start, Integer length, String searchValue, String orderBy, String orderDir) {
+        return voucherDAO.selectWithCondition(start, length, searchValue, orderBy, orderDir);
+    }
+
+    public long getTotalWithCondition(String searchValue) {
+        return voucherDAO.getSizeWithCondition(searchValue);
+    }
+
 
 //    public boolean canApply(Integer code, List<Integer> cartItem) {
 //        Voucher voucher = dao.selectByCode(code);

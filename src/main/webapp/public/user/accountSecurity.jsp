@@ -95,6 +95,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.js"
         integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type="module" src="/js/user/accountSecurity.js"></script>
+<script type="module" src="<c:url value="/js/user/accountSecurity.js"/>"></script>
 </body>
 </html>

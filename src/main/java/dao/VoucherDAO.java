@@ -3,11 +3,12 @@ package dao;
 import models.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class VoucherDAO {
     public List<Voucher> selectAll() {
-        String sql = "SELECT id, code, minimumPrice,discountPercent, expired_date, status FROM vouchers";
+        String sql = "SELECT id, code, minimumPrice,discountPercent, expired_date,createAt, status FROM vouchers";
         List<Voucher> vouchers = new ArrayList<>();
         vouchers = GeneralDao.executeQueryWithSingleTable(sql, Voucher.class);
         return vouchers;
@@ -71,6 +72,18 @@ public class VoucherDAO {
         return productSizes.isEmpty() ? 0 : productSizes.get(0).getSizePrice();
     }
 
+    public long getSizeWithCondition(String search) {
+        String sql = "SELECT COUNT(*) count FROM vouchers WHERE code LIKE :search OR availableTurns LIKE :search OR state LIKE :search";
+        LogDAOImp.CountResult result = new LogDAOImp.CountResult();
+        GeneralDao.customExecute(handle -> {
+            result.setCount(handle.createQuery(sql)
+                    .bind("search", "%" + search + "%")
+                    .mapToBean(LogDAOImp.CountResult.class)
+                    .list().get(0).getCount());
+        });
+        return result.getCount();
+    }
+
     private String convertToSQL(List<Integer> list) {
         String sql = "";
         for (int i = 0; i < list.size(); i++) {
@@ -80,5 +93,26 @@ public class VoucherDAO {
             }
         }
         return sql;
+    }
+
+    public List<Voucher> selectWithCondition(Integer start, Integer limit, String search, String orderBy, String orderDir) {
+        String sql = "SELECT `code`, createAt, expiryDate, availableTurns, state " + "FROM vouchers " +
+                "WHERE code LIKE :search OR createAt LIKE :search OR expiryDate LIKE :search OR availableTurns LIKE :search OR state LIKE :search " +
+                "ORDER BY :orderBy :orderDir LIMIT :limit OFFSET :start";
+        List<Voucher> vouchers = new ArrayList<>();
+        GeneralDao.customExecute(handle -> {
+            vouchers.addAll(handle.createQuery(sql)
+                    .bind("search", "%" + search + "%")
+                    .bind("limit", limit)
+                    .bind("start", start)
+                    .bind("orderBy", orderBy)
+                    .bind("orderDir", orderDir)
+                    .mapToBean(Voucher.class)
+                    .list());
+        });
+        if (orderDir.equals("desc")) {
+            Collections.reverse(vouchers);
+        }
+        return vouchers;
     }
 }

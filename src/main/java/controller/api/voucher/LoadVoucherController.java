@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 @WebServlet(value = "/api/voucher/getAll")
 public class LoadVoucherController extends HttpServlet {
-    VoucherServices voucherService = new VoucherServices();
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd") // Customize date format here
             .create();
@@ -30,7 +29,7 @@ public class LoadVoucherController extends HttpServlet {
             String[] idsParam = req.getParameterValues("id[]");
             if (idsParam != null) {
                 List<Integer> ids = List.of(idsParam).stream().map(Integer::parseInt).collect(Collectors.toList());
-                List<Voucher> vouchers = voucherService.getAll(ids);
+                List<Voucher> vouchers = VoucherServices.getINSTANCE().getAll(ids);
                 JsonArray jsonArray = gson.toJsonTree(vouchers).getAsJsonArray();
                 jsonObject.add("vouchers", jsonArray);
             }

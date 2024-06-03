@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,4 +20,5 @@ public class Voucher {
     private Date expiryDate;
     private int availableTurns;
     private String state;
+    private Date createAt;
 }

@@ -32,7 +32,7 @@ public class GeneralDao {
                 }
             }
             List<T> list = query.mapToBean(type).list();
-            LogService.getINSTANCE().insertLogForSelect(sql, list);
+//            LogService.getINSTANCE().insertLogForSelect(sql, list);
             return list;
         } finally {
             ConnectionPool.getINSTANCE().releaseHandle(handle);
@@ -48,7 +48,7 @@ public class GeneralDao {
                 }
             }
             List<Map<String, Object>> list = query.mapToMap().list();
-            LogService.getINSTANCE().insertLogForSelect(sql, list);
+//            LogService.getINSTANCE().insertLogForSelect(sql, list);
             return list;
         });
     }

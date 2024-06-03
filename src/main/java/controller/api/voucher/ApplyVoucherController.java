@@ -25,7 +25,6 @@ public class ApplyVoucherController extends HttpServlet {
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd") // Customize date format here
             .create();
-    VoucherServices voucherServices = new VoucherServices();
     VoucherDAO voucherDAO = new VoucherDAO();
 
     @Override
@@ -37,7 +36,7 @@ public class ApplyVoucherController extends HttpServlet {
             User user = SessionManager.getInstance(req, resp).getUser();
             if (idsParam != null) {
                 List<Integer> ids = List.of(idsParam).stream().map(Integer::parseInt).collect(Collectors.toList());
-                VoucherState state = voucherServices.canApply(user, code, ids);
+                VoucherState state = VoucherServices.getINSTANCE().canApply(user, code, ids);
                 jsonObject.addProperty("state", state.getValue());
                 if (state == VoucherState.CAN_APPLY) {
                     Voucher voucher = voucherDAO.selectByCode(code);
