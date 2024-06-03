@@ -194,7 +194,6 @@ public class LogDAOImp implements ILogDAO {
                     case "select" -> System.out.println("Log >> Hàm không hỗ trợ select");
                     default -> {
                         System.out.println("Log >> Câu lệnh chưa tồn tại hoặc chưa được hiện thực");
-                        return;
                     }
                 }
             } catch (JsonProcessingException e) {

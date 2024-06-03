@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import models.User;
 import models.shoppingCart.ShoppingCart;
-import services.mail.MailPlaceOrderService;
+import services.CheckoutServices;
 import session.SessionManager;
 
 import javax.servlet.RequestDispatcher;
@@ -29,6 +29,7 @@ public class SuccessOrderController extends HttpServlet {
 
         User user = SessionManager.getInstance(request, response).getUser();
         String userIdCart = String.valueOf(user.getId());
+        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
         HashMap<String, String[]> parameter = new HashMap<>(request.getParameterMap());
         String[] models = parameter.get("order");
@@ -40,9 +41,13 @@ public class SuccessOrderController extends HttpServlet {
             String model = models[0];
             // Chuyển đổi json sang obj
             OrderSuccess order = gson.fromJson(model, OrderSuccess.class);
+            TempOrder[] tempOrders = order.getOrders();
+            double totalPrice = 0;
+            for (int i = 0; i < tempOrders.length; i++) {
+                totalPrice += tempOrders[i].getPrice();
+            }
             String dateOrder = LocalDate.now().toString();
             int paymentMethodId = order.getPayment();
-            // Đã  có đủ dữ liệu, tiến hành thanh toán thực
             //        int totalPrice = (int)cart.getTotalPrice(true);
 
 //        Lỗi do thiếu thông tin giao
@@ -60,20 +65,24 @@ public class SuccessOrderController extends HttpServlet {
 //        } catch (MessagingException e) {
 //            throw new RuntimeException(e);
 //        }
-
-            // Tính tổng giá
-            int totalPrice = 500000;
-        if(paymentMethodId == 2 || paymentMethodId == 3){
-            session.setAttribute("totalPrice", totalPrice);
-            request.getRequestDispatcher("/public/user/vnpPay.jsp").forward(request,response);
-        } else {
-            session.removeAttribute("promotionCode");
-            session.removeAttribute("failedApply");
-            session.removeAttribute("successApplied");
-            request.setAttribute("invoiceNo", order.getInvoiceNo());
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_SUCCESS_ORDER);
-            requestDispatcher.forward(request, response);
-        }
+            if (paymentMethodId == 2 || paymentMethodId == 3) {
+                session.setAttribute("totalPrice", totalPrice);
+                request.getRequestDispatcher("/public/user/vnpPay.jsp").forward(request, response);
+            } else {
+                session.removeAttribute("promotionCode");
+                session.removeAttribute("failedApply");
+                session.removeAttribute("successApplied");
+                request.setAttribute("invoiceNo", order.getInvoiceNo());
+                // Cần điều chỉnh khi có voucher
+                CheckoutServices.getINSTANCE().addNewOrder(order.getInvoiceNo(), user.getId(), dateOrder, user.getFullName(), user.getEmail(), user.getPhone(), user.getAddress(), order.getDelivery(), order.getPayment(), null);
+                for (int i = 0; i < tempOrders.length; i++) {
+                    cart.remove(tempOrders[i].getId(), tempOrders[i].getInd());
+                    CheckoutServices.getINSTANCE().addEachOrderDetail(order.getInvoiceNo(), tempOrders[i].getId(), tempOrders[i].getName(), tempOrders[i].getSize(), tempOrders[i].getColor(), tempOrders[i].getCount(), tempOrders[i].getPrice());
+                }
+                session.setAttribute(userIdCart, cart);
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_SUCCESS_ORDER);
+                requestDispatcher.forward(request, response);
+            }
 //        else{
 
 //            try {
@@ -118,6 +127,7 @@ public class SuccessOrderController extends HttpServlet {
     @NoArgsConstructor
     class TempOrder {
         private int id;
+        private int ind;
         private String name;
         private String color;
         private String size;

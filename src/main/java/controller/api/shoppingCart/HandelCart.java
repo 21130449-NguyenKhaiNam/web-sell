@@ -97,6 +97,7 @@ public class HandelCart implements HttpSessionAttributeListener {
                 services.insertCart(cartId, user.getId(), onlyRight);
                 source.putAll(onlyRight);
             } else {
+                // Cần xác trường hợp bên trong thay đổi
                 long delay = 1000 * 30; // 30 seconds
                 if (debouncing == null) {
                     debouncing = new Debouncing(delay);

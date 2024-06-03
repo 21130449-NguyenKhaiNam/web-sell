@@ -164,6 +164,7 @@ public class CheckoutController extends HttpServlet {
     @NoArgsConstructor
     class TempOrder {
         private int id;
+        private int ind;
         private String name;
         private String color;
         private String size;
