@@ -479,7 +479,6 @@ $(document).ready(function () {
                         cancel: "Hủy",
                     });
             }
-
         })
     }
 

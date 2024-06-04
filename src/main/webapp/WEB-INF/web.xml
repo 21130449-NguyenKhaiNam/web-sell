@@ -9,6 +9,7 @@
     <welcome-file-list>
         <welcome-file>public/index.jsp</welcome-file>
     </welcome-file-list>
+
     <error-page>
         <error-code>403</error-code>
         <location>/public/error/error403.jsp</location>

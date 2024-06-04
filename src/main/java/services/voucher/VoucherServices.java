@@ -3,6 +3,7 @@ package services.voucher;
 import dao.VoucherDAO;
 import models.*;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,27 +66,20 @@ public class VoucherServices {
         return voucherDAO.getSizeWithCondition(searchValue);
     }
 
-
-//    public boolean canApply(Integer code, List<Integer> cartItem) {
-//        Voucher voucher = dao.selectByCode(code);
-//        if (voucher == null) return false;
-//        cartItem = exportCartItems(voucher.getId(), cartItem);
-//        if (cartItem == null) return false;
-//        double totalPrice = 0;
-//        for (CartItemDTO item : cartItem) {
-//            Product product = productDao.getProductByProductId(item.getProductId());
-//            double currentPrice = product.getSalePrice() == 0 ? product.getOriginalPrice() : product.getSalePrice();
-//            double priceSize = productDao.getPriceSizeByName(item.getSize(), item.getProductId());
-//            totalPrice += (currentPrice + priceSize) * item.getQuantity();
-//        }
-//        return totalPrice >= voucher.getMinimumPrice();
-//    }
-//
-//    private List<AbstractModel> exportCartItems(Integer voucherId, List<Integer> cartItem) {
-//        List<VoucherProduct> voucherProduct = dao.selectProductByVoucher(voucherId);
-//        List<AbstractModel> cartItem = productCardDAO.getCartItems();
-//        if (voucherProduct == null) return null;
-//        return cartItem.stream().filter(item -> voucherProduct.stream().anyMatch(product -> product.getProductId().equals(item.getProductId()))).collect(Collectors.toList());
-//    }
-
+    public boolean saveVoucher(Voucher voucher) {
+//        Kiểm tra ngày hết hạn voucher có nhỏ hơn ngày hiện tại không
+        Date currentDate = new Date(System.currentTimeMillis());
+        if (voucher.getExpiryDate().compareTo(currentDate) < 0) return false;
+//        Kiểm tra số lần sử dụng voucher có nhỏ hơn 0 không
+        if (voucher.getAvailableTurns() < 0) return false;
+//        Kiểm tra phần trăm giảm giá có nhỏ hơn 0 không
+        if (voucher.getDiscountPercent() < 0) return false;
+//        Kiểm tra giá trị đơn hàng tối thiểu có nhỏ hơn 0 không
+        if (voucher.getMinimumPrice() < 0) return false;
+//        Kiểm tra mã voucher đã tồn tại chưa
+        boolean isExist = voucherDAO.selectByCode(voucher.getCode()) != null;
+        if (isExist) return false;
+        voucherDAO.save(voucher);
+        return true;
+    }
 }

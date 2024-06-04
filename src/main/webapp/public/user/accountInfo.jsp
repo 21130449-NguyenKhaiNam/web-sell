@@ -6,7 +6,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <jsp:include page="/public/commonLink.jsp"/>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
@@ -60,7 +59,7 @@
                         <div id="open-form" class="btn btn-primary ">Thay đổi ảnh</div>
 
                         <form id="form-avatar" enctype="multipart/form-data">
-                            <input id="avatar" name="avatar" type="file" class="form-control" accept="image/png">
+                            <input id="avatar" name="avatar" type="file" class="form-control" accept="image/png" >
                             <div class="mt-2 small">
                             </div>
                             <button type="submit" class="btn btn-primary w-100 mt-2">Cập nhập ảnh</button>

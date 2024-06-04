@@ -114,8 +114,4 @@ public class ProductDao {
         if(GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, name, categoryId, des, originalPrice, salePrice).isEmpty()) return null;
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, name, categoryId, des, originalPrice, salePrice).get(0);
     }
-
-    public static void main(String[] args) {
-        System.out.println(ProductFactory.getMaxId());
-    }
 }

@@ -5,9 +5,7 @@ public enum VoucherState {
     NOT_FOUND("2"),
     EMPTY_AVAILABLE_TURN("3"),
     EXPIRED("4"),
-    CAN_NOT_APPLY("5"),
-    PRODUCT("PRODUCT"),
-    CATEGORY("CATEGORY");
+    CAN_NOT_APPLY("5");
 
     private String value;
 

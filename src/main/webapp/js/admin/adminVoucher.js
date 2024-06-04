@@ -5,6 +5,8 @@ $(document).ready(function () {
     $.validator.addMethod("notEqual", function (value, element, param) {
         return value !== param;
     }, "Please select an option.");
+    $.fn.select2.defaults.set("theme", "bootstrap-5");
+    $.fn.select2.defaults.set("width", "resolve");
     const configDatatable = {
         paging: true,
         processing: true,
@@ -52,13 +54,6 @@ $(document).ready(function () {
         },
     }
     const datatable = $("#table").DataTable(configDatatable);
-    // $("#expiryDate").datepicker({
-    //     dateFormat: 'dd-mm-yy', // Set the date format to "dd-mm-yyyy"
-    //     changeMonth: true, // Allow changing of months
-    //     changeYear: true, // Allow changing of years
-    //     yearRange: '-100:+0', // Allow selection of years from 100 years ago to the current year
-    //     strictInputParsing: true
-    // });
 
     const configValidator = {
         rules: {
@@ -78,6 +73,7 @@ $(document).ready(function () {
             },
             discountPercent: {
                 required: true,
+                min: 0.1,
                 range: [0, 100],
             },
             availableTurns: {
@@ -109,6 +105,7 @@ $(document).ready(function () {
             },
             discountPercent: {
                 required: "Vui lòng nhập phần trăm giảm giá",
+                min: "Phần trăm giảm giá phải lớn hơn 0.1",
                 range: "Phần trăm giảm giá phải nằm trong khoảng từ 0 đến 100",
             },
             availableTurns: {
@@ -136,8 +133,6 @@ $(document).ready(function () {
         validClass: 'is-valid',
         errorClass: 'is-invalid',
         errorPlacement: function (error, element) {
-            console.log(error.text(), element);
-            console.log($(element).next())
             $(element).next().text(error.text());
         },
         highlight: function (element, errorClass, validClass) {
@@ -149,27 +144,22 @@ $(document).ready(function () {
             $(element).next().text("");
         },
         submitHandler: function (form) {
-            // const formData = new FormData(form);
-            // $.ajax({
-            //     url: "/api/admin/voucher/create",
-            //     type: "POST",
-            //     data: formData,
-            //     processData: false,
-            //     contentType: false,
-            //     success: function (response) {
-            //         if (response.status === 200) {
-            //             $("#modal__create").modal("hide");
-            //             form.reset();
-            //             datatable.ajax.reload();
-            //             toastr.success(response.message);
-            //         } else {
-            //             toastr.error(response.message);
-            //         }
-            //     }
-            // })
+            const formData = $(form).serialize();
+            handleSave(formData, (response) => {
+                if (response) {
+                    // form.reset();
+                    // datatable.ajax.reload();
+                } else {
+                    alert("Có lỗi xảy ra");
+                }
+            });
+            return false;
         }
     };
 
+    $("#form__create").on("submit", (e) => {
+        e.preventDefault()
+    })
     const formValidate = $("#form__create").validate(configValidator);
 
     function convertDateFormat(dateString) {
@@ -191,6 +181,51 @@ $(document).ready(function () {
         document.querySelector("#modal__create").addEventListener("hide.bs.modal", function () {
             formValidate.resetForm();
         })
+        document.querySelector("#modal__create").addEventListener("show.bs.modal", function () {
+            setupSelect2();
+        });
     }
 
+
+
+    function handleSave(formData, callback) {
+        $.ajax({
+            url: "/api/admin/voucher/create",
+            type: "POST",
+            data: formData,
+            success: function (response) {
+                callback(response);
+            }
+        })
+    }
+
+    function setupSelect2() {
+        $.ajax({
+            url: "/api/admin/voucher/get-product",
+            type: "GET",
+            success: function (response) {
+                if (response) {
+                    const data = response.map(item => {
+                        return {
+                            id: item.id,
+                            text: item.name
+                        }
+                    })
+                    $("#productId").select2({
+                        data: data,
+                        theme: 'bootstrap-5',
+                        placeholder: "Chọn sản phẩm muốn áp dụng mã giảm giá",
+                        multiple: true
+                    });
+                    // select2.on("select2:select", function (e) {
+                    //     // const data = e.params.data;
+                    //     // $("#productId").val(data.id);
+                    // });
+                    // select2.on("select2:unselect", function (e) {
+                    //     // $("#productId").val("");
+                    // });
+                }
+            }
+        })
+    }
 })

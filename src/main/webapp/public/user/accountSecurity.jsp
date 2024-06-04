@@ -30,7 +30,8 @@
                 </li>
                 <li class="navbar__item">
                     <a href="<c:url value="/public/user/accountSecurity.jsp"/>"
-                       class="navbar__link button button button--hover navbar__link--clicked hvr-grow-shadow"> Bảo mật</a>
+                       class="navbar__link button button button--hover navbar__link--clicked hvr-grow-shadow"> Bảo
+                        mật</a>
                 </li>
                 <li class="navbar__item">
                     <a href="<c:url value="/public/user/accountOrder.jsp"/>"

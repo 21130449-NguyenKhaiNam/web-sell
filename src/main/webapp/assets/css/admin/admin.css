@@ -545,3 +545,7 @@ td[data-level='DANGEROUS'] {
 }
 
 /*Extend bootstrap*/
+
+.modal{
+    z-index: 1055;
+}

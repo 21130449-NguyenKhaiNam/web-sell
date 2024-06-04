@@ -115,4 +115,20 @@ public class VoucherDAO {
         }
         return vouchers;
     }
+
+
+    public void save(Voucher voucher) {
+        String sql = "INSERT INTO vouchers (code, minimumPrice, description, discountPercent, expiryDate, state, availableTurns) VALUES (:code, :minimumPrice, :description, :discountPercent, :expiryDate, :state, :availableTurns)";
+        GeneralDao.customExecute(handle -> {
+            handle.createUpdate(sql)
+                    .bind("code", voucher.getCode())
+                    .bind("minimumPrice", voucher.getMinimumPrice())
+                    .bind("description", voucher.getDescription())
+                    .bind("discountPercent", voucher.getDiscountPercent())
+                    .bind("expiryDate", voucher.getExpiryDate())
+                    .bind("state", voucher.getState())
+                    .bind("availableTurns", voucher.getAvailableTurns())
+                    .execute();
+        });
+    }
 }
