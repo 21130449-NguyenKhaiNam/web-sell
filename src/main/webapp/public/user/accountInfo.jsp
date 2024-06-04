@@ -6,6 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <jsp:include page="/public/commonLink.jsp"/>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
@@ -48,18 +49,17 @@
                 <div class="card mb-4 mb-xl-0">
                     <div class="card-header">Ảnh đại diện</div>
                     <div class="card-body text-center">
-                        <c:set var="avatar"
-                               value="${(not empty requestScope.avatarLink)? requestScope.avatarLink :'/assets/img/user/default-avatar.png'}"/>
+
                         <img id="preview-avatar"
                              class="img-account-profile object-fit-cover rounded-circle overflow-hidden  mb-2"
-                             src="${avatar}"
+                             src="${not empty user.avatar ? avatar : '/assets/img/user/userDefaultAvatar.png'}"
                              alt="">
                         <div id="username" class="medium  text-muted mb-2">${user.username}</div>
                         <div id="email" class="small  text-muted mb-4">${user.email}</div>
                         <div id="open-form" class="btn btn-primary ">Thay đổi ảnh</div>
 
                         <form id="form-avatar" enctype="multipart/form-data">
-                            <input id="avatar" name="avatar" type="file" class="form-control" accept="image/png" >
+                            <input id="avatar" name="avatar" type="file" class="form-control" accept="image/png">
                             <div class="mt-2 small">
                             </div>
                             <button type="submit" class="btn btn-primary w-100 mt-2">Cập nhập ảnh</button>
