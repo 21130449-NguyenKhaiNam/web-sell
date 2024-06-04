@@ -80,8 +80,6 @@ public class HandelCart implements HttpSessionAttributeListener {
             // Tìm sự khác biệt
             MapDifference<Integer, List<AbstractCartProduct>> diff = Maps.difference(source, target);
             HttpSession session = event.getSession();
-            System.out.println("Left >> " + source);
-            System.out.println("Right >> " + target);
             if (!diff.entriesOnlyOnLeft().isEmpty()) {
                 // Có sản phẩm bị loại bỏ
                 Map<Integer, List<AbstractCartProduct>> onlyLeft = diff.entriesOnlyOnLeft();
@@ -120,7 +118,6 @@ public class HandelCart implements HttpSessionAttributeListener {
                         right = right.subList(entry.getValue().leftValue().size(), right.size());
                         diffOfRight.put(entry.getKey(), right);
                     }
-                    System.out.println("Diff inline >> " + diffOfRight);
                     services.insertCart(cartId, user.getId(), diffOfRight);
                     diffOfRight.forEach((k, v) -> source.put(k, new ArrayList<>(v)));
                 }

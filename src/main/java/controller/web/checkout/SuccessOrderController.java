@@ -42,11 +42,12 @@ public class SuccessOrderController extends HttpServlet {
             // Chuyển đổi json sang obj
             OrderSuccess order = gson.fromJson(model, OrderSuccess.class);
             TempOrder[] tempOrders = order.getOrders();
-            double totalPrice = 0;
+            int totalPrice = 0;
             for (int i = 0; i < tempOrders.length; i++) {
                 totalPrice += tempOrders[i].getPrice();
             }
             String dateOrder = LocalDate.now().toString();
+            order.setDateOrder(dateOrder);
             int paymentMethodId = order.getPayment();
             //        int totalPrice = (int)cart.getTotalPrice(true);
 
@@ -65,8 +66,10 @@ public class SuccessOrderController extends HttpServlet {
 //        } catch (MessagingException e) {
 //            throw new RuntimeException(e);
 //        }
+            // Gửi sang trang thanh toán onl
             if (paymentMethodId == 2 || paymentMethodId == 3) {
-                session.setAttribute("totalPrice", totalPrice);
+                request.setAttribute("totalPrice", totalPrice);
+                session.setAttribute("orders", gson.toJson(order));
                 request.getRequestDispatcher("/public/user/vnpPay.jsp").forward(request, response);
             } else {
                 session.removeAttribute("promotionCode");
@@ -74,7 +77,7 @@ public class SuccessOrderController extends HttpServlet {
                 session.removeAttribute("successApplied");
                 request.setAttribute("invoiceNo", order.getInvoiceNo());
                 // Cần điều chỉnh khi có voucher
-                CheckoutServices.getINSTANCE().addNewOrder(order.getInvoiceNo(), user.getId(), dateOrder, user.getFullName(), user.getEmail(), user.getPhone(), user.getAddress(), order.getDelivery(), order.getPayment(), null);
+                CheckoutServices.getINSTANCE().addNewOrder(order.getInvoiceNo(), user.getId(), order.getDateOrder(), user.getFullName(), user.getEmail(), user.getPhone(), user.getAddress(), order.getDelivery(), order.getPayment(), null);
                 for (int i = 0; i < tempOrders.length; i++) {
                     cart.remove(tempOrders[i].getId(), tempOrders[i].getInd());
                     CheckoutServices.getINSTANCE().addEachOrderDetail(order.getInvoiceNo(), tempOrders[i].getId(), tempOrders[i].getName(), tempOrders[i].getSize(), tempOrders[i].getColor(), tempOrders[i].getCount(), tempOrders[i].getPrice());
@@ -119,7 +122,7 @@ public class SuccessOrderController extends HttpServlet {
         private int payment;
         private TempOrder[] orders;
         private int invoiceNo;
-
+        private String dateOrder;
     }
 
     @Data
