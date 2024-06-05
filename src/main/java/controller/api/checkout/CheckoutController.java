@@ -99,8 +99,6 @@ public class CheckoutController extends HttpServlet {
 
         User user = SessionManager.getInstance(request, response).getUser();
         String userIdCart = String.valueOf(user.getId());
-        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
-
 //        if(cart.getTotalPrice(false) < 5000000){
 //            if(cart.getDeliveryMethod() == null){
 //                DeliveryMethod deliveryMethodDefault = CheckoutServices.getINSTANCE().getDeliveryMethodById(1);
