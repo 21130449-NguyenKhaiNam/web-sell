@@ -208,7 +208,20 @@ h1 {
     align-items: center;
 }
 
-.button__add:hover, .btn_uploadImg:hover {
+.btn_export{
+    gap: 10px;
+    width: 180px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #4BAC4D;
+    color: #fff;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button__add:hover, .btn_uploadImg:hover, .btn_export:hover {
     cursor: pointer;
     opacity: 0.9;
 }

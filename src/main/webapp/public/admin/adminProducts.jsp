@@ -128,7 +128,8 @@
                         <span class="reload__btn">
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
-                         <span id="button-import-product" class="button button__import">
+
+                        <span id="button-import-product" class="button button__import">
                              <form action="/admin-import-product" method="POST" enctype="multipart/form-data" style="display: flex;justify-content: center;align-items: center">
                                  <input type="file" name="file">
                                  <span class="btn_uploadImg">
@@ -137,6 +138,7 @@
                                  </span>
                              </form>
                         </span>
+
                         <span id="button-create-product" class="button button__add">
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
@@ -166,6 +168,12 @@
                     </div>
                     <!--Paging-->
                     <ul class="paging"></ul>
+                    <form action="/exportExcelProduct" method="GET">
+                        <button class="btn_export">
+                            <i class="fa-solid fa-file-export"></i>
+                            Xuất file excel
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
