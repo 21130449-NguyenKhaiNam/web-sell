@@ -51,11 +51,11 @@ public class HandelCart implements HttpSessionAttributeListener {
                 if (cartIdDb > 0) {
                     cartId = cartIdDb;
                     cart = services.findCartByCartId(cartId);
-                    cart.getShoppingCartMap().forEach((k, v) -> newCart.getShoppingCartMap().put(k, new ArrayList<>(v)));
+                    cart.getShoppingCartMap().forEach((k, v) -> addItem(newCart.getShoppingCartMap(), k , v));
                     isReplaceReal = false;
                 } else {
                     cart = new ShoppingCart();
-                    newCart.getShoppingCartMap().forEach((k, v) -> cart.getShoppingCartMap().put(k, new ArrayList<>(v)));
+                    newCart.getShoppingCartMap().forEach((k, v) -> addItem(cart.getShoppingCartMap(), k , v));
                     services.insertCart(cartId, user.getId(), cart.getShoppingCartMap());
                     isReplaceReal = true;
                 }
@@ -90,12 +90,12 @@ public class HandelCart implements HttpSessionAttributeListener {
                 }
                 services.deleteByCartIdAndIdProduct(cartId, onlyLeft.keySet().toArray(productIds));
                 source.clear();
-                newCart.getShoppingCartMap().forEach((k, v) -> source.put(k, v));
+                newCart.getShoppingCartMap().forEach((k, v) -> addItem(source, k , v));
             } else if (!diff.entriesOnlyOnRight().isEmpty()) {
                 // Có sản phẩm thêm vào
                 Map<Integer, List<AbstractCartProduct>> onlyRight = diff.entriesOnlyOnRight();
                 services.insertCart(cartId, user.getId(), onlyRight);
-                onlyRight.forEach((k, v) -> source.put(k, new ArrayList<>(v)));
+                onlyRight.forEach((k, v) -> addItem(source, k , v));
             } else {
                 // Trường hợp bên trong thay đổi
                 Map<Integer, MapDifference.ValueDifference<List<AbstractCartProduct>>> differingEntries = diff.entriesDiffering();
@@ -108,7 +108,7 @@ public class HandelCart implements HttpSessionAttributeListener {
                         // Có nội dung thay đổi trong cart
                         services.update(target);
                         source.clear();
-                        target.forEach((k, v)-> source.put(k, new ArrayList<>(v)));
+                        target.forEach((k, v) -> addItem(source, k , v));
                         debouncing.cancel();
                     });
                 } else {
@@ -119,7 +119,7 @@ public class HandelCart implements HttpSessionAttributeListener {
                         diffOfRight.put(entry.getKey(), right);
                     }
                     services.insertCart(cartId, user.getId(), diffOfRight);
-                    diffOfRight.forEach((k, v) -> source.put(k, new ArrayList<>(v)));
+                    diffOfRight.forEach((k, v) -> addItem(source, k , v));
                 }
             }
             isReplaceReal = false;
@@ -127,6 +127,13 @@ public class HandelCart implements HttpSessionAttributeListener {
         } else {
             isReplaceReal = true;
         }
+    }
+
+    public void addItem(Map<Integer, List<AbstractCartProduct>> cart, Integer k, List<AbstractCartProduct> value) {
+        if (!cart.containsKey(k)) {
+            cart.put(k, new ArrayList<>());
+        }
+        cart.get(k).addAll(value);
     }
 
     @Override

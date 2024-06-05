@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import models.User;
+import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.ShoppingCart;
+import org.apache.commons.collections.map.HashedMap;
 import services.CheckoutServices;
 import session.SessionManager;
 
@@ -19,7 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "SuccessOrderController", value = "/public/user/successOrder")
 public class SuccessOrderController extends HttpServlet {
@@ -78,8 +83,13 @@ public class SuccessOrderController extends HttpServlet {
                 request.setAttribute("invoiceNo", order.getInvoiceNo());
                 // Cần điều chỉnh khi có voucher
                 CheckoutServices.getINSTANCE().addNewOrder(order.getInvoiceNo(), user.getId(), order.getDateOrder(), user.getFullName(), user.getEmail(), user.getPhone(), user.getAddress(), order.getDelivery(), order.getPayment(), null);
+                Map<Integer, Integer> counts = new HashMap<>();
                 for (int i = 0; i < tempOrders.length; i++) {
-                    cart.remove(tempOrders[i].getId(), tempOrders[i].getInd());
+                    int id = tempOrders[i].getId();
+                    if(!counts.containsKey(id))
+                        counts.put(id, 0);
+                    cart.remove(id, tempOrders[i].getInd() - counts.get(id));
+                    counts.put(id, counts.get(id) + 1);
                     CheckoutServices.getINSTANCE().addEachOrderDetail(order.getInvoiceNo(), tempOrders[i].getId(), tempOrders[i].getName(), tempOrders[i].getSize(), tempOrders[i].getColor(), tempOrders[i].getCount(), tempOrders[i].getPrice());
                 }
                 session.setAttribute(userIdCart, cart);
@@ -112,6 +122,13 @@ public class SuccessOrderController extends HttpServlet {
 //            session.removeAttribute(userIdCart);
 //        }
         }
+    }
+
+    public void addItem(Map<Integer, List<AbstractCartProduct>> cart, Integer k, List<AbstractCartProduct> value) {
+        if (!cart.containsKey(k)) {
+            cart.put(k, new ArrayList<>());
+        }
+        cart.get(k).addAll(value);
     }
 
     @Data
