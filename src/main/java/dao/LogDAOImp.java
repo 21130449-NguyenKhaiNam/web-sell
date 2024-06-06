@@ -234,7 +234,7 @@ public class LogDAOImp implements ILogDAO {
                     .mapToBean(Log.class)
                     .list());
         });
-        if(orderDir.equals("desc")) {
+        if (orderDir.equals("desc")) {
             Collections.reverse(logs);
         }
         return logs;
@@ -251,12 +251,27 @@ public class LogDAOImp implements ILogDAO {
         String sql = "SELECT COUNT(*) count FROM logs WHERE ip LIKE :search OR level LIKE :search OR resource LIKE :search";
         CountResult result = new CountResult();
         GeneralDao.customExecute(handle -> {
-           result.setCount(handle.createQuery(sql)
-                   .bind("search", "%" + search + "%")
-                   .mapToBean(CountResult.class)
-                   .list().get(0).getCount());
+            result.setCount(handle.createQuery(sql)
+                    .bind("search", "%" + search + "%")
+                    .mapToBean(CountResult.class)
+                    .list().get(0).getCount());
         });
         return result.getCount();
+    }
+
+    @Override
+    public void save(Log log) {
+        String sql = "INSERT logs (ip, level, resource, dateCreated, previous, current) VALUES (:ip, :level, :resource, :dateCreated, :previous, :current)";
+        GeneralDao.customExecute(handle -> {
+            handle.createUpdate(sql)
+                    .bind("ip", log.getIp())
+                    .bind("level", log.getLevel())
+                    .bind("resource", log.getResource())
+                    .bind("dateCreated", log.getDateCreated())
+                    .bind("previous", log.getPrevious())
+                    .bind("current", log.getCurrent())
+                    .execute();
+        });
     }
 
     // Chuyển đổi tương ứng với tác động của câu query, sau này tách ra
