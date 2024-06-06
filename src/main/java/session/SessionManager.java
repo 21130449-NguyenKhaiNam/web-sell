@@ -52,7 +52,6 @@ public class SessionManager {
                 }
             }
         }
-        System.out.println(Arrays.toString(cookies));
         return null;
     }
 

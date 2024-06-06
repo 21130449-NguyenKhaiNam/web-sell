@@ -6,6 +6,7 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Query;
 import services.LogService;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -69,8 +70,8 @@ public class GeneralDao {
 
             });
         } catch (Exception exception) {
-            handle.rollback();
             exception.printStackTrace();
+            handle.rollback();
         } finally {
             ConnectionPool.getINSTANCE().releaseHandle(handle);
         }

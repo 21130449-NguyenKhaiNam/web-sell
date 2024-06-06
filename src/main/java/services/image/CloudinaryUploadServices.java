@@ -3,16 +3,15 @@ package services.image;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
+import lombok.Getter;
 import properties.CloudinaryProperties;
 
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 //Services dùng để upload ảnh, service hiện tại đang sử dụng Cloudinary làm cloud lưu trữ ảnh
 public class CloudinaryUploadServices implements IUpload {
@@ -24,7 +23,7 @@ public class CloudinaryUploadServices implements IUpload {
     //    Obj dùng để thao tác trên ảnh
     private Transformation transformation;
 
-    //Khởi tạo các giá trị cần thiết cho biến
+    // Khởi tạo các giá trị cần thiết cho biến
     private void init() {
         cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", CloudinaryProperties.getCloudName(), "api_key", CloudinaryProperties.getApiKey(), "api_secret", CloudinaryProperties.getApiSecret(), "access_mode", "public", "secure", true));
         transformation = new Transformation().crop("scale").chain()

@@ -30,3 +30,16 @@ public class AddressDAO implements IAddressDAO {
         GeneralDao.executeAllTypeUpdate(sql, addressId);
     }
 }
+
+    public void updateAddress(Address address) {
+        String sql = "UPDATE address SET province = ?, district = ?, ward = ?, detail = ? WHERE userId = ? AND id = ";
+        List<Address> list = GeneralDao.executeQueryWithSingleTable(sql.toString(), Address.class, address.getUserId());
+        GeneralDao.executeAllTypeUpdate(sql, address.getProvince(), address.getDistrict(), address.getWard(), address.getDetail(), address.getUserId(), address.getId());
+    }
+
+    @Override
+    public void deleteAddress(int addressId) {
+        String sql = "DELETE FROM address WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(sql, addressId);
+    }
+}

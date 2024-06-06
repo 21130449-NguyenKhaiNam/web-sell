@@ -41,32 +41,25 @@
                 <c:forEach
                         items="${requestScope.listVouchers}"
                         var="voucher">
-                    <div
-                            class="promotion__item">
-                        <div
-                                class="discount__percent">
-                            <i
-                                    class="fa-solid fa-fire"></i>
+                    <div class="promotion__item">
+                        <div class="discount__percent">
+                            <i class="fa-solid fa-fire"></i>
                             <span>
-                            <fmt:formatNumber
-                                    type="percent"
-                                    value="${voucher.discountPercent}"/>
-                        </span>
+<%--                                <fmt:formatNumber--%>
+<%--                                        type="percent"--%>
+<%--                                        value="${voucher.discountPercent}"/>--%>
+                            </span>
                         </div>
-                        <div
-                                class="item__content">
-                            <h1
-                                    class="promotion__text">
-                                NHẬP MÃ:
-                                    ${voucher.code}
+                        <div class="item__content">
+                            <h1 class="promotion__text">
+                                NHẬP MÃ: ${voucher.code}
                             </h1>
                             <p>HSD:
                                 <fmt:formatDate
                                         pattern="dd-MM-yyyy"
                                         value="${voucher.expiryDate}"/>
                             </p>
-                            <p
-                                    class="promotion__description">
+                            <p class="promotion__description">
                                     ${voucher.description}
                                 <fmt:setLocale
                                         value="vi_VN"/>
@@ -78,8 +71,7 @@
                                     class="button__copy"
                                     data-code="${voucher.code}">Sao
                                 chép
-                                <i
-                                        class="fa-solid fa-copy"></i></button>
+                                <i class="fa-solid fa-copy"></i></button>
                         </div>
                     </div>
                 </c:forEach>
@@ -105,8 +97,7 @@
             <c:choose>
                 <c:when
                         test="${sessionScope[userIdCart].getTotalItems() == 0 || sessionScope[userIdCart] == null}">
-                    <div
-                            class="cart__container--empty">
+                    <div class="cart__container--empty">
                         <p>Không có sản phẩm nào
                             trong giỏ hàng của
                             bạn</p>
@@ -119,11 +110,10 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <div
-                            class="cart__content col">
+                    <div class="cart__content col">
                         <form
                                 class="shopping__cart--form"
-                                action="/api/cart"
+                                action="<c:url value="/api/cart"/>"
                                 method="post">
                             <div
                                     class="d-flex w-100 check__header">
@@ -137,18 +127,38 @@
                                         class="check__title">Lựa
                                     chọn toàn
                                     bộ</label>
-                                <input type="radio" id="remove__pay-all" name="check-high" class="check-high" checked/>
-                                <label for="remove__pay-all" class="check__title">Hủy chọn tất cả</label>
+                                <input
+                                        type="radio"
+                                        id="remove__pay-all"
+                                        name="check-high"
+                                        class="check-high"
+                                        checked/>
+                                <label
+                                        for="remove__pay-all"
+                                        class="check__title">Hủy chọn tất cả</label>
                             </div>
-                            <table id="cart__table">
-                                <thead class="cart__header">
+                            <table
+                                    id="cart__table">
+                                <thead
+                                        class="cart__header">
                                 <tr>
-                                    <th>Lựa chọn</th>
-                                    <th>Sản phẩm</th>
-                                    <th>Giá may</th>
-                                    <th>Số lượng</th>
-                                    <th>Thành tiền</th>
-                                    <th>Xóa</th>
+                                    <th>Lựa
+                                        chọn
+                                    </th>
+                                    <th>Sản
+                                        phẩm
+                                    </th>
+                                    <th>Giá
+                                        may
+                                    </th>
+                                    <th>Số
+                                        lượng
+                                    </th>
+                                    <th>Thành
+                                        tiền
+                                    </th>
+                                    <th>Xóa
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody class="cart__items">
@@ -180,35 +190,37 @@
                                 <tr class="cart__item"
                                     data-product-id="<%=productId%>"
                                     data-cart-product-index="<%=cartProductIndex%>">
-                                    <td
-                                            class="container__check__pay">
+                                    <td class="container__check__pay">
                                         <input
+                                                name="product"
+                                                value="<%=productId%>"
                                                 type="checkbox"
                                                 class="check__pay"/>
                                     </td>
-                                    <td
-                                            class="product__item">
-                                        <div
-                                                class="product__content">
+                                    <td class="product__item">
+                                        <div class="product__content">
                                             <a class="product__image"
                                                href="<c:url value="/showProductDetail" />?id=<%=productId%>">
                                                 <img src='<%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
                                             </a>
-                                            <div
-                                                    class="order__product--info">
+                                            <div class="order__product--info">
                                                 <a href="#"
                                                    class="product__name">
                                                     <%=cartProduct.getProduct().getName()%>
                                                 </a>
-                                                <p class="order__color">
-                                                    Màu
-                                                    sắc:
-                                                <div style="width: 15px;height: 15px; background-color: <%=cartProduct.getColor().getCodeColor()%>; border: 1px solid gray"></div>
-                                                </p>
-                                                <ul
-                                                        class="order__size--specification">
-
-                                                    <%=cartProduct.makeSizeFormat()%>
+                                                <span>
+                                                    Màu sắc:
+                                                    <p class="order__color d-inline">
+                                                        <%=cartProduct.getColor().getCodeColor()%>
+                                                    </p>
+                                                </span>
+                                                <ul class="d-block">
+                                                    <span>
+                                                        Kích thước:
+                                                        <p class="order__size--specification d-inline">
+                                                            <%=cartProduct.makeSizeFormat()%>
+                                                        </p>
+                                                    </span>
                                                 </ul>
                                             </div>
                                         </div>
@@ -261,11 +273,11 @@
                         <c:set
                                 var="temporaryPrice"
                                 value="${sessionScope[userIdCart].getTemporaryPrice()}"/>
-                        <div
-                                class="apply__promotion">
+                        <div class="apply__promotion">
                             <h2>Khuyến mãi </h2>
                             <form
                                     id="promotion__form"
+                                    action="ShoppingCart"
                                     method="post">
                                 <!-- New update template -->
                                 <div class="promotion__all">
@@ -273,7 +285,8 @@
                                          <i class="fa-solid fa-ticket-simple"></i>
                                             Mã giảm giá
                                      </span>
-                                    <span>Xem tất cả
+                                    <span>
+                                        Xem tất cả
                                        <i class="fa-solid fa-chevron-right"></i>
                                     </span>
                                 </div>
@@ -363,10 +376,8 @@
     </div>
 </main>
 <div class="popup__deletion"></div>
-
-<%@include file="../footer.jsp" %>
+<c:import url="/public/footer.jsp"/>
 </body>
-
 <script src="<c:url value="/js/base.js"/>"></script>
 <script src="<c:url value="/js/validateContactForm.js"/>">
     ValidatorContactForm({
@@ -384,5 +395,330 @@
     });
 </script>
 <script src="<c:url value="/js/shoppingCart.js" />"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#continue--directional').on('click', function (event) {
+            event.preventDefault()
+
+            let checked = false
+            let data = []
+            const checks = $('.check__pay')
+            checks.each(function () {
+                const check = $(this)
+                const parent = $(this).parents("tr")
+                if (check.prop('checked')) {
+                    if (!checked)
+                        checked = true
+                    let obj = {
+                        id: check.val(),
+                        ind: parent.data("cartProductIndex"),
+                        name: parent.find("a.product__name").text().trim(),
+                        color: parent.find("p.order__color").text().trim(),
+                        size: parent.find("p.order__size--specification").text().trim(),
+                        count: parent.find("input.quality__required").val(),
+                        price: parent.find("td.subtotal__item").text().replace('₫', '').replace('.', '').trim()
+                    }
+                    data.push({
+                        name: check.attr('name'),
+                        value: JSON.stringify(obj),
+                    });
+                }
+            })
+
+            if (checked) {
+                // Đã lựa chọn hàng
+                let formData = $.param(data);
+                let url = this.href
+                $.ajax({
+                    url: url,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: (data) => {
+                        // Ghi lại toàn bộ nội dung của document
+                        document.open();
+                        document.write(data);
+                        history.pushState(null, null, url);
+                        document.close();
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Vui lòng lựa chọn món hàng muốn thanh toán",
+                });
+            }
+
+        })
+
+        function checkPayHigh(isAll = false) {
+            if (isAll)
+                $('.check__pay').prop('checked', true)
+
+            $('#check__pay-all').on('click', function () {
+                $('.check__pay').prop('checked', true)
+                let comTotalItem = $('.total__items')[0]
+                comTotalItem.innerText = $('.check__pay').length
+            })
+
+            $('#remove__pay-all').on('click', function () {
+                $('.check__pay').prop('checked', false)
+                let comTotalItem = $('.total__items')[0]
+                comTotalItem.innerText = 0
+                let comPriceTotal = $('.price__value')[0]
+                comPriceTotal.innerText = 0 + '₫'
+            })
+        }
+
+        checkPayHigh()
+
+        function handelPay() {
+            let isClick = false;
+
+            $('.check__pay').on('click', function () {
+                isClick = true
+                let myCom = $(this)
+                let checkPay = myCom.prop('checked')
+                let comTotalItem = $('.total__items')[0]
+                let totalItem = parseInt(comTotalItem.innerText) || 0
+                if (checkPay) {
+                    // Thêm sản phẩm
+                    comTotalItem.innerText = totalItem + 1
+
+                } else {
+                    // Hủy bỏ sản phẩm
+                    comTotalItem.innerText = totalItem - 1
+
+                }
+                myCom.prop('checked', checkPay);
+            })
+
+            $('.container__check__pay').on('click', function () {
+                const checkbox = $(this).find('.check__pay');
+                if (!isClick) {
+                    checkbox.prop('checked', !checkbox.prop('checked'));
+                }
+                isClick = false
+            });
+        }
+
+        handelPay()
+
+        function increaseQuantityCartProduct() {
+            $(document).ready(function () {
+                $('.plus__quality').on('click', function (event) {
+                    event.preventDefault();
+                    let cartItem = $(this).closest('.cart__item');
+                    let productId = cartItem.data("productId");
+                    let cartProductIndex = cartItem.data("cartProductIndex");
+                    let cartForm = $(document).find('.shopping__cart--form');
+                    let action = $(this).val();
+                    $.ajax({
+                        url: cartForm.attr('action'),
+                        type: cartForm.attr('method'),
+                        data: {
+                            action: action,
+                            productId: productId,
+                            cartProductIndex: cartProductIndex
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            let quantitySwapper = $(cartItem).find('.quality__swapper');
+                            let quantityRequired = $(quantitySwapper).find('.quality__required');
+                            quantityRequired.val(response.newQuantity);
+
+                            let subtotalItem = $(cartItem).find('.subtotal__item');
+                            subtotalItem.text(response.newSubtotalFormat);
+
+                            let temporaryPrice = $(document).find('.price__item:first-child .price__value')
+                            temporaryPrice.text(response.newTemporaryPriceFormat)
+
+                            let totalPrice = $(document).find('.price__value--final')
+                            totalPrice.text(response.newTotalPriceFormat);
+
+                            const applyStatus = $(document).find('.apply__status')
+                            if (response.successApplied) {
+                                $(applyStatus).html(`<span class="apply__success"><i class="fa-solid fa-circle-check"></i><span>` + response.successApplied + `</span></span>`)
+                                $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
+                                $(document).find('.price__value--final').text(response.newTotalPriceFormat)
+                            } else if (response.failedApply) {
+                                $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
+                            }
+                        }
+                    })
+                })
+            });
+        }
+
+        increaseQuantityCartProduct();
+
+        function decreaseQuantityCartProduct() {
+            $(document).ready(function () {
+                $('.minus__quality').on('click', function (event) {
+                    event.preventDefault();
+                    let cartItem = $(this).closest('.cart__item');
+                    let productId = cartItem.data("productId");
+                    let cartProductIndex = cartItem.data("cartProductIndex");
+                    let cartForm = $(document).find('.shopping__cart--form');
+                    let action = $(this).val();
+                    $.ajax({
+                        url: cartForm.attr('action'),
+                        type: cartForm.attr('method'),
+                        data: {
+                            action: action,
+                            productId: productId,
+                            cartProductIndex: cartProductIndex
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            let quantitySwapper = $(cartItem).find('.quality__swapper');
+                            let quantityRequired = $(quantitySwapper).find('.quality__required');
+                            quantityRequired.val(response.newQuantity);
+
+                            let subtotalItem = $(cartItem).find('.subtotal__item');
+                            subtotalItem.text(response.newSubtotalFormat);
+
+                            let temporaryPrice = $(document).find('.price__item:first-child .price__value')
+                            temporaryPrice.text(response.newTemporaryPriceFormat)
+
+                            let totalPrice = $(document).find('.price__value--final')
+                            totalPrice.text(response.newTotalPriceFormat);
+
+                            if (response.discountPrice !== 0) {
+                                $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
+                            }
+
+                            const applyStatus = $(document).find('.apply__status')
+                            if (response.failedApply) {
+                                $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
+                                $(document).find('.price__items .price__item:last-child').html("");
+                            }
+                        }
+                    })
+                })
+            });
+        }
+
+        decreaseQuantityCartProduct();
+
+        function deleteCartProduct() {
+            $(document).ready(function () {
+                $('.remove__item').on('click', function (event) {
+                    event.preventDefault();
+                    let cartItem = $(this).closest('.cart__item');
+                    let productId = cartItem.data("productId");
+                    let cartProductIndex = cartItem.data("cartProductIndex");
+                    let cartForm = $(document).find('.shopping__cart--form');
+                    let action = $(this).val();
+
+                    const popupDeletion = $(document).find('.popup__deletion');
+                    popupDeletion.html(`<div class="popup__container">
+                                        <div class="popup__content">
+                                            <div class="title__header">
+                                                <span class="title"><i class="fa-solid fa-triangle-exclamation"></i> Xóa sản phẩm khỏi giỏ hàng</span>
+                                                <span class="subtitle">Bạn có muốn xóa sản phẩm đang chọn?</span>
+                                            </div>
+                                            <div class="button__control">
+                                                <button class="agree__button">Xác nhận</button>
+                                                <button class="cancel__button">Hủy</button>
+                                            </div>
+                                        </div>
+                                    </div>`);
+                    $(popupDeletion).find('.cancel__button').on('click', function () {
+                        $(popupDeletion).find('.popup__container').remove();
+                    })
+
+                    $(popupDeletion).find('.agree__button').on('click', function () {
+                        $.ajax({
+                            url: cartForm.attr('action'),
+                            type: cartForm.attr('method'),
+                            data: {
+                                action: action,
+                                productId: productId,
+                                cartProductIndex: cartProductIndex
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                $(popupDeletion).find('.popup__container').remove();
+                                $(cartItem).remove();
+                                $(document).find('.qlt__value').text(response.newTotalItems)
+                                $(document).find('.total__items').text(response.newTotalItems)
+                                if (response.newTotalItems === 0) {
+                                    $(document).find('.cart__container').html(`<div class="cart__container--empty">
+                                                                                <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+                                                                                <a href="../product/productBuying.jsp"><button>Tiếp tục mua sắm</button></a>
+                                                                                <img src="../../assets/img/continueShopping.svg">
+                                                                            </div>`);
+                                } else {
+                                    let temporaryPrice = $(document).find('.price__item:first-child .price__value')
+                                    temporaryPrice.text(response.newTemporaryPriceFormat)
+
+                                    let totalPrice = $(document).find('.price__value--final')
+                                    totalPrice.text(response.newTotalPriceFormat);
+
+                                    if (response.discountPrice !== 0) {
+                                        $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
+                                    }
+
+                                    const applyStatus = $(document).find('.apply__status')
+                                    if (response.failedApply) {
+                                        $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
+                                        $(document).find('.price__items .price__item:last-child').html("");
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err)
+                            }
+                        })
+                    })
+                })
+            });
+        }
+
+        deleteCartProduct()
+
+        function applyCodeVoucher() {
+            $(document).ready(function () {
+                $('#promotion__form').on('submit', function (event) {
+                    const promotionForm = $(this);
+                    const buttonApply = $(promotionForm).find('#apply');
+                    const promotionCodeInput = $(promotionForm).find('#promotion__code')
+                    const temporaryPriceInputHidden = $(promotionForm).find('input[type=hidden][name=temporaryPrice]')
+                    const action = buttonApply.val();
+                    let promotionCode = promotionCodeInput.val();
+                    let temporaryPrice = temporaryPriceInputHidden.val();
+                    event.preventDefault();
+                    $.ajax({
+                        url: promotionForm.attr('action'),
+                        type: promotionForm.attr('method'),
+                        data: {
+                            action: action,
+                            promotionCode: promotionCode,
+                            temporaryPrice: temporaryPrice
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            const applyStatus = $(document).find('.apply__status')
+                            if (response.successApplied) {
+                                $(applyStatus).html(`<span class="apply__success"><i class="fa-solid fa-circle-check"></i><span>` + response.successApplied + `</span></span>`)
+                                $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
+                                $(document).find('.price__value--final').text(response.newTotalPriceFormat)
+                            } else if (response.failedApply) {
+                                $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
+                            }
+                        }
+                    });
+                })
+            })
+        }
+
+        applyCodeVoucher();
+    })
+</script>
 
 </html>

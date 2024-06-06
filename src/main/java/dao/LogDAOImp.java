@@ -30,6 +30,9 @@ public class LogDAOImp implements ILogDAO {
         // from
         String selectfrom = "SELECT abc, xyz from table WHERE abc...";
         System.out.println("SELECT from >> " + dao.getNameTable(new StringBuilder(selectfrom), typeSelect));
+        // ()
+        String select = "SELECT (abc, xyz) from table where abc...";
+        System.out.println("SELECT () >> " + dao.getNameTable(new StringBuilder(select), typeSelect));
 
         // INSERT
         String typeInsert = "insert";
@@ -81,6 +84,7 @@ public class LogDAOImp implements ILogDAO {
                 return "ERROR";
         }
 
+        // Tìm từ khóa tương ứng trong chuỗi truy vấn
         int startIdx = indexOfKeyword(builder, keyword);
         if (startIdx == -1) {
             return "ERROR";
@@ -89,24 +93,28 @@ public class LogDAOImp implements ILogDAO {
         String symbol = " ";
         // Insert có 1 trường hợp đặt biệt về các dấu ()
         if (type.equals("insert")) {
-            int indOpen = builder.indexOf("(", startIdx);
-            int indValues = builder.indexOf("VALUES");
+            int indOpen = builder.indexOf("(", startIdx); // Tìm dấu ( từ vị trí đầu tiên của tên bảng
+            int indValues = builder.indexOf("VALUES"); // Tìm vị trí từ khóa value để so sánh
             indValues = indValues == -1 ? builder.indexOf("values") : indValues;
             if (indOpen < indValues) {
+                // Hàm insert này có chỉ định rõ ràng cột insert
                 symbol = "(";
             }
         }
 
+        // Vị trí kết thúc tên
         int endIdx = builder.indexOf(symbol, startIdx);
 
+        // Dành cho các type khác
         // Trường hợp câu không có vế điều kiện, ...
         if (endIdx == -1) {
             endIdx = builder.length();
         }
-        return builder.substring(startIdx, endIdx).trim();
+
+        return builder.substring(startIdx, endIdx).trim(); // Lấy ra tên
     }
 
-    // Phương thức để tìm vị trí của từ khóa
+    // Phương thức để tìm vị trí đầu tiên của tên bảng
     private int indexOfKeyword(StringBuilder builder, String keyword) {
         int index = builder.indexOf(keyword);
         if (index == -1)
@@ -189,7 +197,6 @@ public class LogDAOImp implements ILogDAO {
                     case "select" -> System.out.println("Log >> Hàm không hỗ trợ select");
                     default -> {
                         System.out.println("Log >> Câu lệnh chưa tồn tại hoặc chưa được hiện thực");
-                        return;
                     }
                 }
             } catch (JsonProcessingException e) {
