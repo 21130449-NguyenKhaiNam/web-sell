@@ -187,7 +187,6 @@ $(document).ready(function () {
     }
 
 
-
     function handleSave(formData, callback) {
         $.ajax({
             url: "/api/admin/voucher/create",
@@ -215,7 +214,12 @@ $(document).ready(function () {
                         data: data,
                         theme: 'bootstrap-5',
                         placeholder: "Chọn sản phẩm muốn áp dụng mã giảm giá",
-                        multiple: true
+                        multiple: true,
+                        language: {
+                            "noResults": function () {
+                                return "Chọn sản phẩm muốn áp dụng mã giảm giá";
+                            }
+                        }
                     });
                     // select2.on("select2:select", function (e) {
                     //     // const data = e.params.data;
