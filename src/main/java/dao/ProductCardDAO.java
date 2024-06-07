@@ -292,7 +292,6 @@ public class ProductCardDAO {
 
     public List<Product> getAll() {
         String sql = "select id, name, categoryId, description, originalPrice, salePrice, visibility, createAt from products";
-        List<Product> list = GeneralDao.executeQueryWithSingleTable(sql, Product.class);
-        return list;
+        return GeneralDao.executeQueryWithSingleTable(sql, Product.class);
     }
 }

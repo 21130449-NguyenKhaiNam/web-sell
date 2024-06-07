@@ -1,4 +1,4 @@
-package controller.web.admin.product;
+package controller.web.admin.log;
 
 import models.*;
 import org.apache.poi.ss.usermodel.Cell;
@@ -6,8 +6,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import services.admin.AdminCategoryServices;
-import services.admin.AdminProductServices;
+import services.LogService;
+import services.LogServices;
+import services.admin.AdminOrderServices;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,23 +20,23 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.List;
 
-@WebServlet(name = "exportExcelProduct", value = "/exportExcelProduct")
-public class ExportExcelProduct extends HttpServlet implements Serializable {
+@WebServlet(name = "exportExcelLog", value = "/exportExcelLog")
+public class ExportExcelLog extends HttpServlet implements Serializable {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Thiết lập header cho phản hồi HTTP
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment; filename=product_report.xlsx");
+        response.setHeader("Content-Disposition", "attachment; filename=log_report.xlsx");
 
         // Tạo workbook và sheet
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Data");
 
-        List<Product> productList = AdminProductServices.getINSTANCE().getAll();
+        List<Log> logList = LogService.getINSTANCE().getAll();
 
         // Tạo tiêu đề cho các cột
         Row headerRow = sheet.createRow(0);
-        String[] columnHeaders = {"Mã sản phẩm", "Tên sản phẩm", "Phân loại sản phẩm", "Giá gốc", "Giá giảm"};
+        String[] columnHeaders = {"Mã số", "IP", "Mức độ", "Ngày tạo", "Tác động", "Giá trị trước", "Giá trị sau"};
         for (int i = 0; i < columnHeaders.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(columnHeaders[i]);
@@ -43,19 +44,16 @@ public class ExportExcelProduct extends HttpServlet implements Serializable {
 
         // Viết dữ liệu vào sheet
         int rowNum = 1;
-        for (Product product : productList) {
-            System.out.println(product.getId());
+        for (Log log : logList) {
             Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue(product.getId());
-            row.createCell(1).setCellValue(product.getName());
 
-            List<Category> category = AdminCategoryServices.getINSTANCE().getCategoryById(product.getCategoryId());
-            if(!category.isEmpty()){
-                row.createCell(2).setCellValue(category.get(0).getNameType());
-            }
-
-            row.createCell(3).setCellValue(product.getOriginalPrice());
-            row.createCell(4).setCellValue(product.getSalePrice());
+            row.createCell(0).setCellValue(log.getId());
+            row.createCell(1).setCellValue(log.getIp());
+            row.createCell(2).setCellValue(log.getLevel());
+            row.createCell(3).setCellValue(log.getDateCreated());
+            row.createCell(4).setCellValue(log.getResource());
+            row.createCell(5).setCellValue(log.getPrevious());
+            row.createCell(6).setCellValue(log.getCurrent());
         }
 
         // Ghi workbook vào OutputStream
@@ -64,8 +62,6 @@ public class ExportExcelProduct extends HttpServlet implements Serializable {
         } finally {
             workbook.close();
         }
-
-        System.out.println(" in report thanh cong");
     }
 
     @Override

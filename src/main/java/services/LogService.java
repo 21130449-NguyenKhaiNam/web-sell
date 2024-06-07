@@ -50,6 +50,10 @@ public class LogService {
         return logDAO.getSize();
     }
 
+    public List<Log> getAll() {
+        return logDAO.getAll();
+    }
+
     public long getTotalWithCondition(String search) {
         return logDAO.getSizeWithCondition(search);
     }
