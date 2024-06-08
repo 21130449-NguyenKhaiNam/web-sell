@@ -4,8 +4,7 @@ import models.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import services.admin.AdminOrderServices;
 
 import javax.servlet.ServletException;
@@ -20,6 +19,8 @@ import java.util.List;
 
 @WebServlet(name = "exportExcelOrder", value = "/exportExcelOrder")
 public class ExportExcelOrder extends HttpServlet implements Serializable {
+    private final int LIMIT = 5000;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Thiết lập header cho phản hồi HTTP
@@ -27,10 +28,8 @@ public class ExportExcelOrder extends HttpServlet implements Serializable {
         response.setHeader("Content-Disposition", "attachment; filename=order_report.xlsx");
 
         // Tạo workbook và sheet
-        Workbook workbook = new XSSFWorkbook();
+        SXSSFWorkbook workbook = new SXSSFWorkbook();
         Sheet sheet = workbook.createSheet("Data");
-
-        List<Order> orderList = AdminOrderServices.getINSTANCE().getListAllOrders();
 
 
         // Tạo tiêu đề cho các cột
@@ -41,36 +40,42 @@ public class ExportExcelOrder extends HttpServlet implements Serializable {
             cell.setCellValue(columnHeaders[i]);
         }
 
-        // Viết dữ liệu vào sheet
+        long quantity = AdminOrderServices.getINSTANCE().getQuantity();
+        long loop = (quantity + LIMIT - 1) / LIMIT; // làm tròn lên
         int rowNum = 1;
-        for (Order order : orderList) {
-            Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue(order.getId());
-            row.createCell(1).setCellValue(order.getDateOrder());
-            row.createCell(2).setCellValue(order.getFullName());
 
-            DeliveryMethod deliveryMethod =  AdminOrderServices.getINSTANCE().getDeliveryMethodManageById(order.getDeliveryMethodId());
-            if(deliveryMethod != null){
-                row.createCell(3).setCellValue(deliveryMethod.getTypeShipping());
+        for (long i = 0; i < loop; i++) {
+            List<Order> orderList = AdminOrderServices.getINSTANCE().getLimit(LIMIT, (int) (i * LIMIT));
+            System.out.println(orderList.size());
+            for (Order order : orderList) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(order.getId());
+                row.createCell(1).setCellValue(order.getDateOrder());
+                row.createCell(2).setCellValue(order.getFullName());
+
+                DeliveryMethod deliveryMethod =  AdminOrderServices.getINSTANCE().getDeliveryMethodManageById(order.getDeliveryMethodId());
+                if(deliveryMethod != null){
+                    row.createCell(3).setCellValue(deliveryMethod.getTypeShipping());
+                }
+
+                PaymentMethod paymentMethod = AdminOrderServices.getINSTANCE().getPaymentMethodMangeById(order.getPaymentMethodId());
+                if(paymentMethod != null){
+                    row.createCell(4).setCellValue(paymentMethod.getTypePayment());
+                }
+
+                OrderStatus orderStatus = AdminOrderServices.getINSTANCE().getOrderStatusById(order.getOrderStatusId());
+                if(orderStatus != null){
+                    row.createCell(5).setCellValue(orderStatus.getTypeStatus());
+                }
+
+                TransactionStatus transactionStatus = AdminOrderServices.getINSTANCE().getTransactionStatusById(order.getTransactionStatusId());
+                if(transactionStatus != null){
+                    row.createCell(6).setCellValue(transactionStatus.getTypeStatus());
+                }
+
+                String total = AdminOrderServices.getINSTANCE().getTotalPriceFormatByOrderId(order.getId());
+                row.createCell(7).setCellValue(total);
             }
-
-            PaymentMethod paymentMethod = AdminOrderServices.getINSTANCE().getPaymentMethodMangeById(order.getPaymentMethodId());
-            if(paymentMethod != null){
-                row.createCell(4).setCellValue(paymentMethod.getTypePayment());
-            }
-
-            OrderStatus orderStatus = AdminOrderServices.getINSTANCE().getOrderStatusById(order.getOrderStatusId());
-            if(orderStatus != null){
-                row.createCell(5).setCellValue(orderStatus.getTypeStatus());
-            }
-
-            TransactionStatus transactionStatus = AdminOrderServices.getINSTANCE().getTransactionStatusById(order.getTransactionStatusId());
-            if(transactionStatus != null){
-                row.createCell(6).setCellValue(transactionStatus.getTypeStatus());
-            }
-
-            String total = AdminOrderServices.getINSTANCE().getTotalPriceFormatByOrderId(order.getId());
-            row.createCell(7).setCellValue(total);
         }
 
         // Ghi workbook vào OutputStream

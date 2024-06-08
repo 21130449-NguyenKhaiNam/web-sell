@@ -82,4 +82,12 @@ public class UserServices {
         Optional<Address> optionalAddress = addressDAO.getAddress(userId);
         return optionalAddress.orElse(null);
     }
+
+    public long getQuantity() {
+        return userDAO.getQuantity();
+    }
+
+    public List<User> getLimit(int limit, int offset) {
+        return userDAO.getLimit(limit, offset);
+    }
 }
