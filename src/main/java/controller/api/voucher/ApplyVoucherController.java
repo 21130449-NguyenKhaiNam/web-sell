@@ -2,8 +2,10 @@ package controller.api.voucher;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dao.VoucherDAO;
+import dto.VoucherDTO;
 import models.Voucher;
 import services.voucher.VoucherState;
 import models.User;
@@ -36,12 +38,9 @@ public class ApplyVoucherController extends HttpServlet {
             User user = SessionManager.getInstance(req, resp).getUser();
             if (idsParam != null) {
                 List<Integer> ids = List.of(idsParam).stream().map(Integer::parseInt).collect(Collectors.toList());
-                VoucherState state = VoucherServices.getINSTANCE().canApply(user, code, ids);
-                jsonObject.addProperty("state", state.getValue());
-                if (state == VoucherState.CAN_APPLY) {
-                    Voucher voucher = voucherDAO.selectByCode(code);
-                    jsonObject.add("voucher", gson.toJsonTree(voucher));
-                }
+                VoucherDTO voucherDTO = VoucherServices.getINSTANCE().canApply(user, code, ids);
+                JsonElement jsonElement = gson.toJsonTree(voucherDTO);
+                jsonObject.add("result", jsonElement);
             }
             jsonObject.addProperty("success", true);
         } catch (Exception e) {

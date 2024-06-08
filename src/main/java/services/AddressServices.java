@@ -1,5 +1,7 @@
 package services;
 
+import dao.AddressDAO;
+import models.Address;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
@@ -8,11 +10,14 @@ import properties.Map4dProperties;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class AddressServices {
     private static AddressServices INSTANCE;
+    private AddressDAO addressDAO ;
 
     private AddressServices() {
+        this.addressDAO = new AddressDAO();
     }
 
     public static AddressServices getINSTANCE() {

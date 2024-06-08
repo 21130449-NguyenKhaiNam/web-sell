@@ -55,7 +55,6 @@ $(document).ready(function () {
                 if (checkPay) {
                     // Thêm sản phẩm
                     comTotalItem.innerText = totalItem + 1
-
                 } else {
                     // Hủy bỏ sản phẩm
                     comTotalItem.innerText = totalItem - 1
@@ -372,6 +371,11 @@ $(document).ready(function () {
                 state: 5,
                 className: "danger",
                 message: "Mã giảm giá không áp dụng cho sản phẩm này",
+            },
+            {
+                state: 6,
+                className: "danger",
+                message: "Vui lòng chọn sản phẩm cần áp dụng mã giảm giá",
             }
         ];
 
@@ -393,14 +397,15 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         if (response.success) {
-                            console.log(getVoucherState(response.state))
-                            updateVoucherState(getVoucherState(response.state));
-                        }
-                        if (response.voucher) {
-                            voucherApply = response.voucher;
+                            voucherApply = {
+                                state: response.result?.state,
+                                voucher: response.result?.voucher,
+                                listIdProduct: response.result?.listIdProduct
+                            }
                             updatePrice();
                         } else {
-                            voucherApply = undefined;
+                            updateVoucherState(getVoucherState(6));
+                            voucherApply = {};
                         }
                     }
                 });

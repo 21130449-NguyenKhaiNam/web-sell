@@ -39,14 +39,13 @@ $(document).ready(function () {
                 }
             }, {
                 data: "state", render: function (data, type, row) {
-                    if (data == "1") {
-                        return "Đang hoạt động"
-                    }
-                    if (data == "0") {
-                        return "Hết hạn"
-                    }
-                    if (data == "-1") {
-                        return "Bị khóa"
+                    switch (data) {
+                        case "1":
+                            return "Đang hoạt động"
+                        case "2":
+                            return "Hết hạn"
+                        case "3":
+                            return "Bị khóa"
                     }
                 }
             },], language: {

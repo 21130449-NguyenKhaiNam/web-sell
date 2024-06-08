@@ -35,36 +35,6 @@ public class VoucherDAO {
         return vouchers.isEmpty() ? null : vouchers.get(0);
     }
 
-    public List<VoucherProduct> selectProductByVoucher(Integer voucherId) {
-        String sql = "SELECT DISTINCT productId FROM voucher_product WHERE voucherId = ?";
-        List<VoucherProduct> result = new ArrayList<>();
-        result = GeneralDao.executeQueryWithSingleTable(sql, VoucherProduct.class, voucherId);
-        return result.isEmpty() ? null : result;
-    }
-
-    public List<CartItem> getCartItem(Integer userId) {
-        String sql = "SELECT cart_id, product_id, color_id, quantity FROM cart_items JOIN cart ON cart_items.cart_id = cart.id WHERE cart.user_id = ? ";
-        return GeneralDao.executeQueryWithSingleTable(sql, CartItem.class, userId);
-    }
-
-    public List<VoucherType> getVoucherType(Integer voucherId) {
-        String sql = "SELECT voucherId, type, jsonIds FROM voucher_types WHERE id = ?";
-        return GeneralDao.executeQueryWithSingleTable(sql, VoucherType.class, voucherId);
-    }
-
-    public List<CartItem> getCartProductByCategory(List<Integer> listCategoryId, List<Integer> listCartItemId) {
-        String sql = "SELECT  cart_id, product_id, size, color_id, sizeCustomize, quantity \n" +
-                "FROM cart_items JOIN products ON cart_items.product_id = products.id;\n" +
-                "WHERE  products.categoryId IN (" + convertToSQL(listCategoryId) + ") AND cart_items.id IN  (" + convertToSQL(listCartItemId) + ")";
-        return GeneralDao.executeQueryWithSingleTable(sql, CartItem.class);
-    }
-
-    public List<CartItem> getCartProductByProduct(List<Integer> listProductId, List<Integer> listCartItemId) {
-        String sql = "SELECT cart_id, product_id, color_id ,size, quantity \n" +
-                "FROM cart_items " +
-                "WHERE  cart_items.product_id IN (" + convertToSQL(listProductId) + ") AND cart_items.id IN  (" + convertToSQL(listCartItemId) + ")";
-        return GeneralDao.executeQueryWithSingleTable(sql, CartItem.class);
-    }
 
     public double getPriceSize(Integer sizeId) {
         String sql = "SELECT sizePrice FROM sizes WHERE id = ?";
@@ -82,17 +52,6 @@ public class VoucherDAO {
                     .list().get(0).getCount());
         });
         return result.getCount();
-    }
-
-    private String convertToSQL(List<Integer> list) {
-        String sql = "";
-        for (int i = 0; i < list.size(); i++) {
-            sql += list.get(i);
-            if (i != list.size() - 1) {
-                sql += ",";
-            }
-        }
-        return sql;
     }
 
     public List<Voucher> selectWithCondition(Integer start, Integer limit, String search, String orderBy, String orderDir) {
@@ -130,5 +89,25 @@ public class VoucherDAO {
                     .bind("availableTurns", voucher.getAvailableTurns())
                     .execute();
         });
+    }
+
+    public List<CartItem> getCartItemCanApply(List<Integer> cartItemId, Integer voucherId) {
+        String sql = "SELECT cart_id, product_id, color_id ,size, quantity \n" +
+                "FROM cart_items JOIN cart ON cart_items.cart_id = cart.id \n" +
+                "WHERE cart_items.id IN (" + convertToSQL(cartItemId) + ") AND cart_items.product_id IN (\n" +
+                "SELECT productId from voucher_products WHERE voucherId = ?\n" +
+                ") ";
+        return GeneralDao.executeQueryWithSingleTable(sql, CartItem.class, voucherId);
+    }
+
+    private String convertToSQL(List<Integer> list) {
+        String sql = "";
+        for (int i = 0; i < list.size(); i++) {
+            sql += list.get(i);
+            if (i != list.size() - 1) {
+                sql += ",";
+            }
+        }
+        return sql;
     }
 }

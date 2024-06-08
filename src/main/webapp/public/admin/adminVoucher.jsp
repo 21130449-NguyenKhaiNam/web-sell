@@ -5,6 +5,11 @@
     <jsp:include page="/public/commonLink.jsp"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/> ">
+    <!--jQuery validator-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"
+            integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminVoucher.css"/>">

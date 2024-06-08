@@ -1,13 +1,10 @@
 package filter;
 
-import logging.ThreadSharing;
-import models.Log;
+import services.LogService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.sql.Date;
 
 @WebFilter(urlPatterns = "/*")
 public class IpFilter implements Filter {
@@ -15,11 +12,10 @@ public class IpFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String ip = request.getRemoteHost();
-        Date dateCreated = new Date(System.currentTimeMillis());
-        String address = ((HttpServletRequest) request).getServletPath();
-        Log log = Log.builder().ip(ip).dateCreated(dateCreated).resource(address).build();
-        ThreadSharing.set(log);
+        if (!ip.equals("0:0:0:0:0:0:0:1")) {
+            LogService.getINSTANCE().setIp(ip);
+        }
         chain.doFilter(request, response);
-        ThreadSharing.remove();
+
     }
 }
