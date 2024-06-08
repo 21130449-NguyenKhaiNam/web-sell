@@ -45,6 +45,14 @@ public class LogService {
         return logDAO.getSize();
     }
 
+    public List<Log> getLimit(int limit, int offset) {
+        return logDAO.getLimit(limit, offset);
+    }
+
+    public long getQuantity() {
+        return logDAO.getQuantity();
+    }
+
     public long getTotalWithCondition(String search) {
         return logDAO.getSizeWithCondition(search);
     }

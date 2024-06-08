@@ -16,6 +16,12 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-12">
+                    <form action="/exportExcelUser" method="GET">
+                        <button class="btn_export">
+                            <i class="fa-solid fa-file-export"></i>
+                            Xuất file excel
+                        </button>
+                    </form>
                     <div>
                         <h1>Danh sách người dùng</h1>
                         <article class="form__search-block filler__block">
@@ -26,8 +32,7 @@
                             </form>
                         </article>
                         <button id="button-add-user" class="button button__delete">
-                            <i class="fa-solid fa-add"></i>
-                            Thêm người dùng
+                            <i class="fa-solid fa-add"></i>Thêm người dùng
                         </button>
                     </div>
                     <div class="table__wrapper">

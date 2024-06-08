@@ -26,6 +26,12 @@
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
 
+                        <form action="/exportExcelLog" method="GET" style="margin-left: 12px;">
+                            <button class="btn_export" onclick="updateProgressBar()">
+                                <i class="fa-solid fa-file-export"></i>
+                                Xuất file excel
+                            </button>
+                        </form>
                     </div>
                     <div class="table__wrapper">
                         <table id="table" class="table">

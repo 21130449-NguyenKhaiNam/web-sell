@@ -1,7 +1,9 @@
 package dao;
 
-import models.*;
-import utils.ProductFactory;
+import models.Color;
+import models.Image;
+import models.Product;
+import models.Size;
 
 import java.util.HashMap;
 import java.util.List;
@@ -113,5 +115,11 @@ public class ProductDao {
         sql.append("select id from products").append(" where name = ? and categoryId = ? and description = ? and originalPrice = ? and salePrice = ?");
         if(GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, name, categoryId, des, originalPrice, salePrice).isEmpty()) return null;
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, name, categoryId, des, originalPrice, salePrice).get(0);
+    }
+
+
+    public List<Product> getLimit(int limit, int offset) {
+        String sql = "select id, name, categoryId, description, originalPrice, salePrice, visibility, createAt from products limit ? offset ?";
+        return GeneralDao.executeQueryWithSingleTable(sql, Product.class, limit, offset);
     }
 }

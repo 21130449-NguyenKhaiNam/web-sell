@@ -124,6 +124,12 @@
                     </aside>
                 </div>
                 <div class="col-8">
+                    <form action="/exportExcelOrder" method="GET">
+                        <button class="btn_export">
+                            <i class="fa-solid fa-file-export"></i>
+                            Xuất file excel
+                        </button>
+                    </form>
                     <form id="process__order--form" action="<c:url value="/api/admin/order"/>" method="post">
                         <div class="order__heading">
                             <h1><i class="fa-solid fa-list"></i> Danh sách đơn hàng</h1>

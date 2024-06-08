@@ -16,7 +16,6 @@ public class UserServices {
     private static UserServices INSTANCE;
     private UserDAO userDAO;
     private IAddressDAO addressDAO;
-
     private UserServices() {
         userDAO = new UserDAO();
         addressDAO = new AddressDAO();
@@ -70,5 +69,11 @@ public class UserServices {
     public void updateUserByIDWithRole(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay, String role) {
         userDAO.updateUserByIDWithRole(id, username, fullname, gender, email, phone, address, birthDay, role);
     }
+    public long getQuantity() {
+        return userDAO.getQuantity();
+    }
 
+    public List<User> getLimit(int limit, int offset) {
+        return userDAO.getLimit(limit, offset);
+    }
 }
