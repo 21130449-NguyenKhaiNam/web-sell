@@ -500,7 +500,6 @@
                 } else {
                     // Hủy bỏ sản phẩm
                     comTotalItem.innerText = totalItem - 1
-
                 }
                 myCom.prop('checked', checkPay);
                 updatePrice();
