@@ -256,6 +256,12 @@ public class LogDAOImp implements ILogDAO {
         return result.getCount();
     }
 
+    @Override
+    public List<Log> getAll() {
+        String sql = "select id, ip, level, resource, dateCreated, previous, current from logs";
+        return GeneralDao.executeQueryWithSingleTable(sql, Log.class);
+    }
+
     // Chuyển đổi tương ứng với tác động của câu query, sau này tách ra
     private String mapStateTypeQuery(String query) {
         String state = query.toLowerCase();

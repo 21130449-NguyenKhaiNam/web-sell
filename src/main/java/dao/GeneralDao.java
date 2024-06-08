@@ -26,6 +26,8 @@ public class GeneralDao {
         Handle handle = ConnectionPool.getINSTANCE().getHandle();
         try {
             Query query = handle.createQuery(sql);
+            query.setFetchSize(1000000);
+
             if (params != null) {
                 for (int i = 0; i < params.length; i++) {
                     query.bind(i, params[i]);

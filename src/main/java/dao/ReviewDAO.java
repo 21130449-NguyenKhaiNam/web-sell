@@ -108,4 +108,8 @@ public class ReviewDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Review.class, id);
     }
 
+    public List<Review> getAll() {
+        String sql = "select id, orderDetailId, ratingStar, feedback, reviewDate from reviews";
+        return GeneralDao.executeQueryWithSingleTable(sql, Review.class);
+    }
 }

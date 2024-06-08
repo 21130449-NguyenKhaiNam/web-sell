@@ -143,6 +143,12 @@
                     </aside>
                 </div>
                 <div class="col-8">
+                    <form action="/exportExcelOrder" method="GET">
+                        <button class="btn_export">
+                            <i class="fa-solid fa-file-export"></i>
+                            Xuất file excel
+                        </button>
+                    </form>
                     <form id="process__order--form" action="/api/admin/order" method="post">
                         <div class="order__heading">
                             <h1><i class="fa-solid fa-list"></i> Danh sách đơn hàng</h1>
@@ -253,8 +259,9 @@
                         <div class="popup__deletion"></div>
                         <div class="popup__cancel"></div>
                         <div class="popup__update">
-
                         </div>
+
+
                         <div id="dialog__order" class="modal">
                             <article class="modal__content modal__order">
 

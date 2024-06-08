@@ -22,7 +22,12 @@
                     <div>
                         <h1>Danh sách nhận xét</h1>
                     </div>
-
+                    <form action="/exportExcelReview" method="GET">
+                        <button class="btn_export">
+                            <i class="fa-solid fa-file-export"></i>
+                            Xuất file excel
+                        </button>
+                    </form>
                     <div class="table__wrapper">
                         <table class="table">
                             <thead>
