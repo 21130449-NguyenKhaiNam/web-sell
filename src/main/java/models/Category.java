@@ -1,5 +1,14 @@
 package models;
 
+import com.google.common.collect.MapDifference;
+import com.google.common.collect.Maps;
+import models.shoppingCart.AbstractCartProduct;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Category {
     private int id;
     private String nameType;

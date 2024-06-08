@@ -497,7 +497,6 @@
                 if (checkPay) {
                     // Thêm sản phẩm
                     comTotalItem.innerText = totalItem + 1
-
                 } else {
                     // Hủy bỏ sản phẩm
                     comTotalItem.innerText = totalItem - 1

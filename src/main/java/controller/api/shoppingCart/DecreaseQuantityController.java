@@ -41,7 +41,7 @@ public class DecreaseQuantityController extends HttpServlet {
         JSONObject jsonObject = new JSONObject();
         response.setContentType("application/json");
 
-        if (code != null) {
+//        if (code != null) {
 //            Voucher voucher = cart.getVoucherApplied();
 //            if (voucher == null) {
 //                voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
@@ -57,7 +57,7 @@ public class DecreaseQuantityController extends HttpServlet {
 //                cart.setVoucherApplied(null);
 //                session.setAttribute("failedApply", "Bạn chưa đủ điều kiện để áp dụng mã " + code + ". Hãy mua thêm " + priceBuyMoreFormat);
 //            }
-        }
+//        }
 
         session.setAttribute(userIdCart, cart);
 

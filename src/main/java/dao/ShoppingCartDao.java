@@ -6,10 +6,7 @@ import models.shoppingCart.CartProduct;
 import models.shoppingCart.CartProductCustom;
 import models.shoppingCart.ShoppingCart;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ShoppingCartDao {
@@ -115,14 +112,15 @@ public class ShoppingCartDao {
 
 
     public void update(Map<Integer, List<AbstractCartProduct>> change) {
-        String sql = "UPDATE cart_items SET quantity=?, size=? WHERE product_id=? AND color_id=?";
+        String sql = "UPDATE cart_items SET quantity=? WHERE product_id=? AND color_id=? AND size=?";
         for (Map.Entry<Integer, List<AbstractCartProduct>> entry : change.entrySet()) {
             int productId = entry.getKey();
             List<AbstractCartProduct> list = entry.getValue();
             for (int i = 0; i < list.size(); i++) {
                 AbstractCartProduct product = list.get(i);
                 int colorId = product.getColor().getId();
-                GeneralDao.executeAllTypeUpdate(sql, productId, colorId);
+                System.out.println("Param update cart >> " + Arrays.asList(product.getQuantity(), productId, colorId, product.getSize()));
+                GeneralDao.executeAllTypeUpdate(sql, product.getQuantity(), productId, colorId, product.getSize());
             }
         }
     }
