@@ -182,7 +182,7 @@ public class ShoppingCart {
     public void remove(int productId, int cartProductIndex) {
         if (shoppingCartMap.containsKey(productId)) {
             List<AbstractCartProduct> listCartProducts = shoppingCartMap.get(productId);
-            AbstractCartProduct cartProductTarget = listCartProducts.get(cartProductIndex);
+            AbstractCartProduct cartProductTarget = listCartProducts.get(cartProductIndex % listCartProducts.size());
             listCartProducts.remove(cartProductTarget);
             if (listCartProducts.isEmpty()) {
                 shoppingCartMap.remove(productId);

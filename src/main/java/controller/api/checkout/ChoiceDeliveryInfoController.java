@@ -23,9 +23,7 @@ public class ChoiceDeliveryInfoController extends HttpServlet {
         User user = SessionManager.getInstance(request, response).getUser();
         String userIdCart = String.valueOf(user.getId());
         DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
-        DeliveryInfo deliveryInfo = deliveryInfoStorage.getDeliveryInfoByKey(deliveryInfoKey);
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
-//        cart.setDeliveryInfo(deliveryInfo);
         session.setAttribute(userIdCart, cart);
 
         response.getWriter().write("Đã chọn");

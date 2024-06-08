@@ -51,11 +51,11 @@ public class HandelCart implements HttpSessionAttributeListener {
                 if (cartIdDb > 0) {
                     cartId = cartIdDb;
                     cart = services.findCartByCartId(cartId);
-                    cart.getShoppingCartMap().forEach((k, v) -> addItem(newCart.getShoppingCartMap(), k , v));
+                    cart.getShoppingCartMap().forEach((k, v) -> addItem(newCart.getShoppingCartMap(), k, v));
                     isReplaceReal = false;
                 } else {
                     cart = new ShoppingCart();
-                    newCart.getShoppingCartMap().forEach((k, v) -> addItem(cart.getShoppingCartMap(), k , v));
+                    newCart.getShoppingCartMap().forEach((k, v) -> addItem(cart.getShoppingCartMap(), k, v));
                     services.insertCart(cartId, user.getId(), cart.getShoppingCartMap());
                     isReplaceReal = true;
                 }
@@ -75,6 +75,7 @@ public class HandelCart implements HttpSessionAttributeListener {
         if (isReplaceReal && event.getValue() instanceof ShoppingCart && user != null) {
             Integer cartId = Integer.parseInt(event.getName());
             ShoppingCart newCart = (ShoppingCart) event.getValue();
+            cart = services.findCartByCartId(cartId);
             Map<Integer, List<AbstractCartProduct>> source = cart.getShoppingCartMap();
             Map<Integer, List<AbstractCartProduct>> target = newCart.getShoppingCartMap();
             // Tìm sự khác biệt
@@ -89,37 +90,39 @@ public class HandelCart implements HttpSessionAttributeListener {
                     productIds[ind++] = entry.getKey();
                 }
                 services.deleteByCartIdAndIdProduct(cartId, onlyLeft.keySet().toArray(productIds));
-                source.clear();
-                newCart.getShoppingCartMap().forEach((k, v) -> addItem(source, k , v));
+//                source.clear();
+//                newCart.getShoppingCartMap().forEach((k, v) -> addItem(source, k, v));
             } else if (!diff.entriesOnlyOnRight().isEmpty()) {
                 // Có sản phẩm thêm vào
                 Map<Integer, List<AbstractCartProduct>> onlyRight = diff.entriesOnlyOnRight();
                 services.insertCart(cartId, user.getId(), onlyRight);
-                onlyRight.forEach((k, v) -> addItem(source, k , v));
+//                onlyRight.forEach((k, v) -> addItem(source, k, v));
             } else {
-                // Trường hợp bên trong thay đổi
-                Map<Integer, MapDifference.ValueDifference<List<AbstractCartProduct>>> differingEntries = diff.entriesDiffering();
-                if (differingEntries.isEmpty()) {
-                    long delay = 1000 * 30; // 30 seconds
-                    if (debouncing == null) {
-                        debouncing = new Debouncing(delay);
+                if(!diff.areEqual()) {
+                    // Trường hợp bên trong thay đổi
+                    Map<Integer, MapDifference.ValueDifference<List<AbstractCartProduct>>> differingEntries = diff.entriesDiffering();
+                    if (!differingEntries.isEmpty()) {
+                        long delay = 1000 * 10; // 30 seconds
+                        if (debouncing == null) {
+                            debouncing = new Debouncing(delay);
+                        }
+                        debouncing.debounce(() -> {
+                            // Có nội dung thay đổi trong cart
+                            services.update(target);
+//                            source.clear();
+//                            target.forEach((k, v) -> addItem(source, k, v));
+                            debouncing.cancel();
+                        });
+                    } else {
+                        Map<Integer, List<AbstractCartProduct>> diffOfRight = new HashMap<>();
+                        for (Map.Entry<Integer, MapDifference.ValueDifference<List<AbstractCartProduct>>> entry : differingEntries.entrySet()) {
+                            List<AbstractCartProduct> right = entry.getValue().rightValue();
+                            right = right.subList(entry.getValue().leftValue().size(), right.size());
+                            diffOfRight.put(entry.getKey(), right);
+                        }
+                        services.insertCart(cartId, user.getId(), diffOfRight);
+//                        diffOfRight.forEach((k, v) -> addItem(source, k, v));
                     }
-                    debouncing.debounce(() -> {
-                        // Có nội dung thay đổi trong cart
-                        services.update(target);
-                        source.clear();
-                        target.forEach((k, v) -> addItem(source, k , v));
-                        debouncing.cancel();
-                    });
-                } else {
-                    Map<Integer, List<AbstractCartProduct>> diffOfRight = new HashMap<>();
-                    for (Map.Entry<Integer, MapDifference.ValueDifference<List<AbstractCartProduct>>> entry : differingEntries.entrySet()) {
-                        List<AbstractCartProduct> right = entry.getValue().rightValue();
-                        right = right.subList(entry.getValue().leftValue().size(), right.size());
-                        diffOfRight.put(entry.getKey(), right);
-                    }
-                    services.insertCart(cartId, user.getId(), diffOfRight);
-                    diffOfRight.forEach((k, v) -> addItem(source, k , v));
                 }
             }
             isReplaceReal = false;

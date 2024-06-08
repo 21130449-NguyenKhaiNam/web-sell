@@ -1,17 +1,8 @@
 package models.shoppingCart;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Color;
 import models.Product;
-import models.Size;
 import utils.FormatCurrency;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 public abstract class AbstractCartProduct {
     protected Product product;
@@ -52,17 +43,17 @@ public abstract class AbstractCartProduct {
         return priorityPrice;
     }
 
-    public String makeSizeFormat(){
-        String sizeFormat = "";
-        sizeFormat += sizeRequired();
-        if(this instanceof CartProduct){
-            sizeFormat += " (giá kích thước: " + ((CartProduct)(this)).getInstanceSize().getSizePrice() + ")";
-        }
-        return sizeFormat;
-    }
-
     public void setPriorityPrice(double priorityPrice) {
         this.priorityPrice = priorityPrice;
+    }
+
+    public String makeSizeFormat() {
+        String sizeFormat = "";
+        sizeFormat += sizeRequired();
+        if (this instanceof CartProduct) {
+            sizeFormat += " (giá kích thước: " + ((CartProduct) (this)).getInstanceSize().getSizePrice() + ")";
+        }
+        return sizeFormat;
     }
 
     public Color getColor() {
