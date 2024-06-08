@@ -10,11 +10,6 @@ public class CloundinaryTest {
 
     }
 
-
-    private static List<Product> test2(){
-        return AdminProductServices.getINSTANCE().getAll();
-    }
-
     public static void copyImageFromFolder(String folderName, String des) throws IOException {
         File folder = new File(folderName);
 

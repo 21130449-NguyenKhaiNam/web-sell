@@ -5,8 +5,10 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import services.admin.AdminCategoryServices;
+
 import services.admin.AdminProductServices;
 
 import javax.servlet.ServletException;
@@ -21,6 +23,7 @@ import java.util.List;
 
 @WebServlet(name = "exportExcelProduct", value = "/exportExcelProduct")
 public class ExportExcelProduct extends HttpServlet implements Serializable {
+    private final int LIMIT = 100000;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Thiết lập header cho phản hồi HTTP
@@ -28,10 +31,8 @@ public class ExportExcelProduct extends HttpServlet implements Serializable {
         response.setHeader("Content-Disposition", "attachment; filename=product_report.xlsx");
 
         // Tạo workbook và sheet
-        Workbook workbook = new XSSFWorkbook();
+        SXSSFWorkbook workbook = new SXSSFWorkbook();
         Sheet sheet = workbook.createSheet("Data");
-
-        List<Product> productList = AdminProductServices.getINSTANCE().getAll();
 
         // Tạo tiêu đề cho các cột
         Row headerRow = sheet.createRow(0);
@@ -41,22 +42,27 @@ public class ExportExcelProduct extends HttpServlet implements Serializable {
             cell.setCellValue(columnHeaders[i]);
         }
 
-        // Viết dữ liệu vào sheet
+        long loop = AdminProductServices.getINSTANCE().getQuantityPage(LIMIT);
+
         int rowNum = 1;
-        for (Product product : productList) {
-            System.out.println(product.getId());
-            Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue(product.getId());
-            row.createCell(1).setCellValue(product.getName());
+        for (int i = 0; i < loop; i++) {
+            List<Product> productList = AdminProductServices.getINSTANCE().getLimit(LIMIT, (i * LIMIT));
+            System.out.println(i);
+            for (Product product : productList) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(product.getId());
+                row.createCell(1).setCellValue(product.getName());
 
-            List<Category> category = AdminCategoryServices.getINSTANCE().getCategoryById(product.getCategoryId());
-            if(!category.isEmpty()){
-                row.createCell(2).setCellValue(category.get(0).getNameType());
+                List<Category> category = AdminCategoryServices.getINSTANCE().getCategoryById(product.getCategoryId());
+                if(!category.isEmpty()){
+                    row.createCell(2).setCellValue(category.get(0).getNameType());
+                }
+
+                row.createCell(3).setCellValue(product.getOriginalPrice());
+                row.createCell(4).setCellValue(product.getSalePrice());
             }
-
-            row.createCell(3).setCellValue(product.getOriginalPrice());
-            row.createCell(4).setCellValue(product.getSalePrice());
         }
+
 
         // Ghi workbook vào OutputStream
         try (OutputStream out = response.getOutputStream()) {
