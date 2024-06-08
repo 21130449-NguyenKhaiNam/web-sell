@@ -25,7 +25,7 @@
                     <div>
                         <h1>Danh sách mã giảm giá</h1>
 
-                        <button type="button" id="button-create-product" class="button button__add"
+                        <button type="button" id="button" class="button button__add"
                                 data-bs-toggle="modal" data-bs-target="#modal__create">
                             <i class="fa-solid fa-plus"></i>
                             Thêm mã giảm giá
@@ -35,11 +35,12 @@
                         <table id="table" class="table">
                             <thead>
                             <tr class="table__row">
-                                <th class="table__head">Mã giảm giá</th>
-                                <th class="table__head">Lượt sử dụng còn lại</th>
-                                <th class="table__head">Ngày tạo</th>
-                                <th class="table__head">Ngày hết hạn</th>
-                                <th class="table__head">Trạng thái</th>
+                                <th class="table__head" scope="col">Mã giảm giá</th>
+                                <th class="table__head" scope="col">Lượt sử dụng còn lại</th>
+                                <th class="table__head" scope="col">Ngày tạo</th>
+                                <th class="table__head" scope="col">Ngày hết hạn</th>
+                                <th class="table__head" scope="col">Trạng thái</th>
+                                <th class="table__head" scope="col">Mở/khóa</th>
                             </tr>
                             </thead>
                             <tbody>

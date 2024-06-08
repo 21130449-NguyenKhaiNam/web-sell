@@ -6,8 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dao.VoucherDAO;
 import dto.VoucherDTO;
-import models.Voucher;
-import services.voucher.VoucherState;
 import models.User;
 import services.voucher.VoucherServices;
 import session.SessionManager;

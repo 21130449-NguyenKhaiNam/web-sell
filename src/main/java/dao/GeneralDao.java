@@ -4,6 +4,7 @@ import database.ConnectionPool;
 import database.JDBIConnector;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Query;
+import org.jdbi.v3.core.statement.Update;
 import services.LogService;
 
 import java.util.Arrays;
@@ -77,4 +78,16 @@ public class GeneralDao {
         }
     }
 
+    public static int executeInsert(String sql, Object... params) {
+        Handle handle = ConnectionPool.getINSTANCE().getHandle();
+        Update insert = handle.createUpdate(sql);
+        if (params != null) {
+            for (int i = 0; i < params.length; i++) {
+                insert.bind(i, params[i]);
+            }
+        }
+        return insert.executeAndReturnGeneratedKeys("id") // "id" is the column name of the generated key
+                .mapTo(Integer.class) // or the appropriate type for your generated key
+                .one();
+    }
 }

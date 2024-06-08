@@ -18,7 +18,7 @@ $(document).ready(function () {
             {data: "code"},
             {data: "availableTurns"},
             {
-                data: "expiryDate",
+                data: "createAt",
                 defaultContent: '',
                 render: function (data, type, row) {
                     if (data == null) {
@@ -43,16 +43,77 @@ $(document).ready(function () {
                         case "1":
                             return "Đang hoạt động"
                         case "2":
-                            return "Hết hạn"
-                        case "3":
-                            return "Bị khóa"
+                            return "Ẩn "
                     }
                 }
-            },], language: {
+            }, {
+                data: "state", render: function (data, type, row) {
+                    let obj = {
+                        icon: "",
+                        className: ""
+                    }
+                    if (data == "2")
+                        obj = {
+                            icon: `<i class="fa-solid fa-unlock"></i>`,
+                            className: "btn btn-primary"
+                        }
+                    else
+                        obj = {
+                            icon: `<i class="fa-solid fa-lock"></i>`,
+                            className: "btn btn-danger"
+                        }
+                    return `<button class="${obj.className}">${obj.icon}</button>`;
+                }
+            }
+        ],
+        columnDefs: [
+            {
+                targets: 5,
+                createdCell: function (td, cellData, rowData, row, col) {
+                    $(td).addClass('text-center');
+                    $(td).find("button").attr("data-code", rowData.code);
+                    $(td).find("button").attr("data-state", rowData.state);
+                },
+                orderable: false
+            },
+            {
+                targets: 4,
+                createdCell: function (td, cellData, rowData, row, col) {
+                    if (rowData.availableTurns == 0) {
+                        $(td).text("Hết lượt sử dụng ")
+                    }
+                },
+            },
+        ],
+        createdRow: function (row, data, dataIndex) {
+            if (data.availableTurns == 0) {
+                $(row).addClass('table-warning');
+                return;
+            }
+            switch (data.state) {
+                case "1":
+                    $(row).addClass('table-success');
+                    break;
+                case "2":
+                    $(row).addClass('table-danger');
+                    break;
+            }
+
+        },
+        language: {
             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/vi.json'
         },
+        initComplete: function (settings, json) {
+            handleEventDatatable();
+        }
     }
-    const datatable = $("#table").DataTable(configDatatable);
+    const table = $("#table");
+    const button = $("#button");
+    let row = {
+        rowDataSelected: {},//Lưu giữ đối tượng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
+        rowIndexSelected: undefined //Lưu giữ vị trí dòng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
+    };
+    const datatable = table.DataTable(configDatatable);
 
     const configValidator = {
         rules: {
@@ -153,12 +214,28 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             const formData = $(form).serialize();
-            handleSave(formData, (response) => {
-                if (response) {
-                    // form.reset();
-                    // datatable.ajax.reload();
-                } else {
-                    alert("Có lỗi xảy ra");
+            Swal.fire({
+                title: `Bạn có muốn thêm sản phẩm này không`,
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Có",
+                denyButtonText: `Không`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    handleSave(formData, (response) => {
+                        if (response.success) {
+                            form.reset();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cập nhập thành công',
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Cập nhập thất bại',
+                            })
+                        }
+                    })
                 }
             });
             return false;
@@ -171,15 +248,18 @@ $(document).ready(function () {
     })
     const formValidate = $("#form__create").validate(configValidator);
 
-    configModalCreate();
+    configModal();
 
-    function configModalCreate() {
+    function configModal() {
         document.querySelector("#modal__create").addEventListener("hide.bs.modal", function () {
             form.find("input, textarea, select").val("")
             formValidate.resetForm();
         })
         document.querySelector("#modal__create").addEventListener("show.bs.modal", function () {
             setupSelect2();
+            if (row) {
+                getDetail(row.rowDataSelected.code);
+            }
         });
     }
 
@@ -227,6 +307,112 @@ $(document).ready(function () {
                 }
             }
         })
+    }
+
+    function handleEventDatatable() {
+        // Xử lý sự kiện khi click vào 1 dòng trong bảng
+        table.find("tbody").on('click', 'tr', function () {
+            table.find("tbody tr").removeClass('selected');
+            const rowIndex = datatable.row(this).index();
+            if (row?.rowIndexSelected == rowIndex) {
+                row = undefined;
+                $(this).removeClass('selected');
+                button.text("Thêm mã giảm giá")
+                return;
+            }
+            row = {
+                rowDataSelected: datatable.row(this).data(),
+                rowIndexSelected: datatable.row(this).index()
+            }
+            $(this).addClass('selected');
+            button.text("Cập nhật mã giảm giá");
+        }).on('mouseenter', 'tr', function () {
+            $(this).addClass('hovered').css('cursor', 'pointer');
+        }).on('mouseleave', 'tr', function () {
+            $(this).removeClass('hovered').css('cursor', 'default');
+        });
+        // Xử lý sự kiện khi click vào bút ẩn/hiện mã giảm giá
+        table.find("tbody").on('click', 'button', function () {
+            const code = $(this).data("code");
+            const state = $(this).data("state");
+            if (state == "1") {
+                handleEventVisible("hide", code);
+            } else {
+                handleEventVisible("visible", code);
+            }
+        });
+    }
+
+    function getDetail(id) {
+        $.ajax({
+            url: "/api/admin/voucher/detail",
+            type: "GET",
+            data: {
+                code: row.rowDataSelected.code
+            },
+            success: function (response) {
+                if (response) {
+                    fieldDataVoucher(response);
+                }
+            }
+        })
+    }
+
+    function fieldDataVoucher(data) {
+        const voucher = data.voucher;
+        const listIdProduct = data.listIdProduct;
+        form.find("#code").val(voucher.code);
+        form.find("#description").val(voucher.description);
+        form.find("#minimumPrice").val(voucher.minimumPrice);
+        form.find("#discountPercent").val(voucher.discountPercent);
+        form.find("#availableTurns").val(voucher.availableTurns);
+        form.find("#expiryDate").val(voucher.expiryDate);
+        form.find("#state").val(voucher.state);
+    }
+
+    function handleEventVisible(type, code) {
+        Swal.fire({
+            title: `Bạn có muốn ${type == "visible" ? "hiện thị" : "ẩn"} mã giảm giá này không?`,
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Có",
+            denyButtonText: `Không`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log(type, code)
+                $.ajax({
+                    url: "/api/admin/voucher/visible",
+                    data: {
+                        code: code,
+                        type: type,
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cập nhập thành công ',
+                            })
+                            datatable.row(row.rowIndexSelected).data({
+                                ...row.rowDataSelected,
+                                state: type == "hide" ? "1" : "2"
+                            }).draw();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Cập nhập thất bại',
+                            })
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Có lỗi xảy ra',
+                        })
+                    }
+                })
+            }
+        });
     }
 
     function convertDateFormat(dateString) {

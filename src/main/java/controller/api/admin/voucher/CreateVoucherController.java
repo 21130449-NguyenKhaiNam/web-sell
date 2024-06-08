@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 @WebServlet(name = "CreateVoucher", value = "/api/admin/voucher/create")
@@ -37,7 +40,8 @@ public class CreateVoucherController extends HttpServlet {
                     .expiryDate(new Date(formatter.parse(req.getParameter("expiryDate")).getTime()))
                     .state(req.getParameter("state"))
                     .build();
-            boolean saveSuccess = voucherServices.saveVoucher(voucher);
+            List<Integer> listProductId = Arrays.stream(req.getParameterValues("productId")).mapToInt(Integer::parseInt).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+            boolean saveSuccess = voucherServices.saveVoucher(voucher,listProductId);
             jsonObject.addProperty("success", saveSuccess);
         } catch (Exception e) {
             jsonObject.addProperty("success", false);

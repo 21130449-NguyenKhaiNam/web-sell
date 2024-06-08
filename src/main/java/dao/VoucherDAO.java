@@ -1,6 +1,7 @@
 package dao;
 
 import models.*;
+import services.voucher.VoucherState;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +35,6 @@ public class VoucherDAO {
         vouchers = GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, code);
         return vouchers.isEmpty() ? null : vouchers.get(0);
     }
-
 
     public double getPriceSize(Integer sizeId) {
         String sql = "SELECT sizePrice FROM sizes WHERE id = ?";
@@ -75,20 +75,19 @@ public class VoucherDAO {
         return vouchers;
     }
 
+    public int save(Voucher voucher) {
+        String sql = "INSERT INTO vouchers (code, minimumPrice, description, discountPercent, expiryDate, state, availableTurns) VALUES (?,?,?,?,?,?,?)";
+        int id = GeneralDao.executeInsert(sql, voucher.getCode(), voucher.getMinimumPrice(), voucher.getDescription(), voucher.getDiscountPercent(), voucher.getExpiryDate(), voucher.getState(), voucher.getAvailableTurns());
+        return id;
+    }
 
-    public void save(Voucher voucher) {
-        String sql = "INSERT INTO vouchers (code, minimumPrice, description, discountPercent, expiryDate, state, availableTurns) VALUES (:code, :minimumPrice, :description, :discountPercent, :expiryDate, :state, :availableTurns)";
-        GeneralDao.customExecute(handle -> {
-            handle.createUpdate(sql)
-                    .bind("code", voucher.getCode())
-                    .bind("minimumPrice", voucher.getMinimumPrice())
-                    .bind("description", voucher.getDescription())
-                    .bind("discountPercent", voucher.getDiscountPercent())
-                    .bind("expiryDate", voucher.getExpiryDate())
-                    .bind("state", voucher.getState())
-                    .bind("availableTurns", voucher.getAvailableTurns())
-                    .execute();
-        });
+    public void save(Integer voucherId, List<Integer> listProductId) {
+        String sql = "INSERT INTO voucher_products (voucherId, productId) VALUES ";
+        for (Integer productId : listProductId) {
+            sql += " (" + voucherId + ", " + productId + "),";
+        }
+        sql = sql.substring(0, sql.length() - 1);
+        GeneralDao.executeAllTypeUpdate(sql);
     }
 
     public List<CartItem> getCartItemCanApply(List<Integer> cartItemId, Integer voucherId) {
@@ -109,5 +108,24 @@ public class VoucherDAO {
             }
         }
         return sql;
+    }
+
+    public List<Integer> getListProductByCode(String code) {
+        String sql = "SELECT productId FROM voucher_products JOIN vouchers on voucher_products.voucherId = vouchers.id WHERE vouchers.code = ?";
+        List<Integer> listId = new ArrayList<>();
+        GeneralDao.customExecute(
+                handle -> {
+                    listId.addAll(handle.createQuery(sql)
+                            .bind(0, code)
+                            .mapTo(Integer.class)
+                            .list());
+                }
+        );
+        return listId;
+    }
+
+    public void changeState(String code, VoucherState type) {
+        String sql = "UPDATE vouchers SET state = ? WHERE code = ?";
+        GeneralDao.executeAllTypeUpdate(sql, type.getValue(), code);
     }
 }

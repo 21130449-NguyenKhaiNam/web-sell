@@ -1,11 +1,8 @@
 package services.voucher;
 
 public enum VoucherState {
-    CAN_APPLY("1"),
-    NOT_FOUND("2"),
-    EMPTY_AVAILABLE_TURN("3"),
-    EXPIRED("4"),
-    CAN_NOT_APPLY("5");
+    VISIBLE("1"),
+    HIDE("2");
 
     private String value;
 
