@@ -2,6 +2,7 @@ package dao;
 
 import database.JDBIConnector;
 import models.Address;
+import models.Order;
 import models.User;
 
 import java.sql.Date;
@@ -234,6 +235,22 @@ public class UserDAO {
             sql.append("UPDATE address SET provinceId = ?, districtId = ?, wardId = ?, provinceName = ?, districtName = ?, wardName = ?, detail = ? WHERE userId = ?");
             GeneralDao.executeAllTypeUpdate(sql.toString(), address.getProvinceId(), address.getDistrictId(), address.getUserId(), address.getProvinceName(), address.getDistrictName(), address.getWardName(), address.getDetail(), address.getUserId());
         }
+    }
+
+    public long getQuantity() {
+        String sql = "SELECT COUNT(*) count FROM users";
+        LogDAOImp.CountResult result = new LogDAOImp.CountResult();
+        GeneralDao.customExecute(handle -> {
+            result.setCount(handle.createQuery(sql)
+                    .mapToBean(LogDAOImp.CountResult.class)
+                    .list().get(0).getCount());
+        });
+        return result.getCount();
+    }
+
+    public List<User> getLimit(int limit, int offset) {
+        String querry = "Select id, username, email, fullname, gender, phone, address, birthDay, role from users limit ? offset ?";
+        return GeneralDao.executeQueryWithSingleTable(querry, User.class, limit, offset);
     }
 }
 

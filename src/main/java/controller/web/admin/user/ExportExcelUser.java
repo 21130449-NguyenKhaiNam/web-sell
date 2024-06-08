@@ -1,12 +1,15 @@
 package controller.web.admin.user;
 
+import filter.adminPage.AdminUsers;
 import models.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import services.UserServices;
+import services.admin.AdminOrderServices;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +23,7 @@ import java.util.List;
 
 @WebServlet(name = "exportExcelUser", value = "/exportExcelUser")
 public class ExportExcelUser extends HttpServlet implements Serializable {
+    private final int LIMIT = 5000;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Thiết lập header cho phản hồi HTTP
@@ -27,10 +31,8 @@ public class ExportExcelUser extends HttpServlet implements Serializable {
         response.setHeader("Content-Disposition", "attachment; filename=user_report.xlsx");
 
         // Tạo workbook và sheet
-        Workbook workbook = new XSSFWorkbook();
+        SXSSFWorkbook workbook = new SXSSFWorkbook();
         Sheet sheet = workbook.createSheet("Data");
-
-        List<User> userList = UserServices.getINSTANCE().selectAll();
 
 
         // Tạo tiêu đề cho các cột
@@ -41,27 +43,32 @@ public class ExportExcelUser extends HttpServlet implements Serializable {
             cell.setCellValue(columnHeaders[i]);
         }
 
-        // Viết dữ liệu vào sheet
+        long quantity = UserServices.getINSTANCE().getQuantity();
+        long loop = (quantity + LIMIT - 1) / LIMIT; // làm tròn lên
         int rowNum = 1;
-        for (User user : userList) {
-            Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue(user.getId());
-            row.createCell(1).setCellValue(user.getUsername());
-            row.createCell(2).setCellValue(user.getEmail());
-            row.createCell(3).setCellValue(user.getFullName());
-            row.createCell(4).setCellValue(user.getGender());
-            row.createCell(5).setCellValue(user.getBirthDay());
-            row.createCell(6).setCellValue(user.getPhone());
-            row.createCell(7).setCellValue(user.getAddress());
-            String roleId = user.getRole();
+        for (int i = 0; i < loop; i++) {
+            List<User> userList = UserServices.getINSTANCE().getLimit(LIMIT, (i * LIMIT));;
 
-            if(roleId.equals("0")){
-                row.createCell(8).setCellValue("Khách");
-            }else if(roleId.equals("1")){
-                row.createCell(8).setCellValue("Mod");
-            }
-            else if(roleId.equals("2")){
-                row.createCell(8).setCellValue("Admin");
+            for (User user : userList) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(user.getId());
+                row.createCell(1).setCellValue(user.getUsername());
+                row.createCell(2).setCellValue(user.getEmail());
+                row.createCell(3).setCellValue(user.getFullName());
+                row.createCell(4).setCellValue(user.getGender());
+                row.createCell(5).setCellValue(user.getBirthDay());
+                row.createCell(6).setCellValue(user.getPhone());
+                row.createCell(7).setCellValue(user.getAddress());
+                String roleId = user.getRole();
+
+                if(roleId.equals("0")){
+                    row.createCell(8).setCellValue("Khách");
+                }else if(roleId.equals("1")){
+                    row.createCell(8).setCellValue("Mod");
+                }
+                else if(roleId.equals("2")){
+                    row.createCell(8).setCellValue("Admin");
+                }
             }
         }
 

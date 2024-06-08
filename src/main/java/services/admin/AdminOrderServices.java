@@ -129,4 +129,13 @@ public class AdminOrderServices {
         return FormatCurrency.vietNamCurrency(totalPrice);
     }
 
+    public long getQuantity() {
+        return orderDao.getQuantity();
+    }
+
+    public List<Order> getLimit(int limit, int offset) {
+        return orderDao.getLimit(limit, offset);
+    }
+
+
 }

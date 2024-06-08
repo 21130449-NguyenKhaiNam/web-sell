@@ -3,6 +3,7 @@ package dao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Log;
+import services.LogService;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -257,10 +258,23 @@ public class LogDAOImp implements ILogDAO {
     }
 
     @Override
-    public List<Log> getAll() {
-        String sql = "select id, ip, level, resource, dateCreated, previous, current from logs";
-        return GeneralDao.executeQueryWithSingleTable(sql, Log.class);
+    public List<Log> getLimit(int limit, int offset) {
+        String sql = "select id, ip, level, resource, dateCreated, previous, current from logs limit ? offset ?";
+        return GeneralDao.executeQueryWithSingleTable(sql, Log.class, limit, offset);
     }
+
+    @Override
+    public long getQuantity() {
+        String sql = "SELECT COUNT(*) count FROM logs";
+        CountResult result = new CountResult();
+        GeneralDao.customExecute(handle -> {
+            result.setCount(handle.createQuery(sql)
+                    .mapToBean(CountResult.class)
+                    .list().get(0).getCount());
+        });
+        return result.getCount();
+    }
+
 
     // Chuyển đổi tương ứng với tác động của câu query, sau này tách ra
     private String mapStateTypeQuery(String query) {

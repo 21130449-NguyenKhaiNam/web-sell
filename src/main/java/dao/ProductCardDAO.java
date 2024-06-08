@@ -3,6 +3,7 @@ package dao;
 import models.Category;
 import models.Parameter;
 import models.Product;
+import services.admin.AdminProductServices;
 import utils.MoneyRange;
 
 import java.sql.Date;
@@ -290,8 +291,4 @@ public class ProductCardDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
     }
 
-    public List<Product> getAll() {
-        String sql = "select id, name, categoryId, description, originalPrice, salePrice, visibility, createAt from products";
-        return GeneralDao.executeQueryWithSingleTable(sql, Product.class);
-    }
 }
