@@ -115,7 +115,7 @@
                                     <div class="col-6 mt-2">
                                         <label for="state" class="form-label text-nowrap">Trạng thái </label>
                                         <select id="state" name="state" class="form-select" aria-label="Chọn">
-                                            <option value="-1" id="defaultOption">-- Chọn trạng thái --
+                                            <option value="-1" id="">-- Chọn trạng thái --
                                             </option>
                                             <option value="1">Hoạt động</option>
                                             <option value="2">Khóa</option>
@@ -124,10 +124,11 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-md-12 col-sm-12">
-                                        <label for="productId" class="small py-1">Các sản phẩm áp
+                                    <div class="col-md-12 col-sm-12 mt-2 pb-4">
+                                        <label for="productId" class="form-label  py-1">Các sản phẩm áp
                                             dụng</label>
-                                        <select id="productId" name="productId[]" class="form-select" aria-label="Chọn" style="width: 100%" multiple="multiple">
+                                        <select id="productId" name="productId" class="form-select" aria-label="Chọn"
+                                                style="width: 100%" multiple="multiple">
                                             <option value=""></option>
                                         </select>
                                         <div class="valid-feedback">
@@ -147,7 +148,6 @@
             </form>
         </div>
     </div>
-
 </main>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

@@ -86,6 +86,9 @@ $(document).ready(function () {
             state: {
                 required: true,
                 notEqual: "-1"
+            },
+            productId: {
+                required: true
             }
         }, messages: {
             code: {
@@ -118,6 +121,9 @@ $(document).ready(function () {
             state: {
                 required: "Vui lòng chọn trạng thái",
                 notEqual: "Vui lòng chọn trạng thái"
+            },
+            productId: {
+                required: "Vui lòng chọn sản phẩm tối thiểu 1 sản phẩm"
             }
         },
         onkeyup: function (element) {
@@ -132,15 +138,18 @@ $(document).ready(function () {
         validClass: 'is-valid',
         errorClass: 'is-invalid',
         errorPlacement: function (error, element) {
-            $(element).next().text(error.text());
+            $(element).parent().find(".valid-feedback , .invalid-feedback").text(error.text());
+        },
+        success: function (label) {
+            label.remove(); // Remove the error message when input is valid
         },
         highlight: function (element, errorClass, validClass) {
             $(element).addClass(errorClass).removeClass(validClass).attr('required', 'required');
-            $(element).next().addClass("invalid-feedback");
+            $(element).parent().find(".valid-feedback").addClass("invalid-feedback");
         },
         unhighlight: function (element, errorClass, validClass) {
             $(element).removeClass(errorClass).addClass(validClass).removeAttr('required');
-            $(element).next().text("");
+            $(element).find(".valid-feedback").text("");
         },
         submitHandler: function (form) {
             const formData = $(form).serialize();
@@ -156,35 +165,23 @@ $(document).ready(function () {
         }
     };
 
-    $("#form__create").on("submit", (e) => {
+    const form = $("#form__create")
+    form.on("submit", (e) => {
         e.preventDefault()
     })
     const formValidate = $("#form__create").validate(configValidator);
-
-    function convertDateFormat(dateString) {
-        // Split the input string by the hyphen (-)
-        const parts = dateString.split('-');
-
-        // Extract the year, month, and day parts
-        const year = parts[0];
-        const month = parts[1];
-        const day = parts[2];
-
-        // Rearrange the parts to the format DD/MM/YYYY
-        return day + '/' + month + '/' + year;
-    }
 
     configModalCreate();
 
     function configModalCreate() {
         document.querySelector("#modal__create").addEventListener("hide.bs.modal", function () {
+            form.find("input, textarea, select").val("")
             formValidate.resetForm();
         })
         document.querySelector("#modal__create").addEventListener("show.bs.modal", function () {
             setupSelect2();
         });
     }
-
 
     function handleSave(formData, callback) {
         $.ajax({
@@ -211,7 +208,7 @@ $(document).ready(function () {
                     })
                     $("#productId").select2({
                         data: data,
-                        theme: 'bootstrap-5',
+                        // theme: 'bootstrap-5',
                         placeholder: "Chọn sản phẩm muốn áp dụng mã giảm giá",
                         multiple: true,
                         language: {
@@ -231,4 +228,18 @@ $(document).ready(function () {
             }
         })
     }
+
+    function convertDateFormat(dateString) {
+        // Split the input string by the hyphen (-)
+        const parts = dateString.split('-');
+
+        // Extract the year, month, and day parts
+        const year = parts[0];
+        const month = parts[1];
+        const day = parts[2];
+
+        // Rearrange the parts to the format DD/MM/YYYY
+        return day + '/' + month + '/' + year;
+    }
+
 })
