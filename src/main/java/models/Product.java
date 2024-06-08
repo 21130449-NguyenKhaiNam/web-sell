@@ -1,11 +1,14 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import com.google.common.collect.MapDifference;
+import com.google.common.collect.Maps;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.util.*;
 
 public class Product {
+
     private int id;
     private String name;
     private int categoryId;
@@ -15,7 +18,6 @@ public class Product {
     private boolean visibility;
     private Date createAt;
     private List<Image> images;
-
     public Product() {
         this.images = new ArrayList<>();
     }

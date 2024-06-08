@@ -7,7 +7,7 @@ import utils.FormatCurrency;
 
 import java.util.Objects;
 
-public class CartProduct extends AbstractCartProduct{
+public class CartProduct extends AbstractCartProduct {
     private Size size;
 
     public CartProduct(Product product, int quantity, Color color, Size size) {
@@ -28,19 +28,19 @@ public class CartProduct extends AbstractCartProduct{
         return size.getNameSize();
     }
 
-    public double getSewingPrice(){
+    public double getSewingPrice() {
         return getPriorityPrice() + this.size.getSizePrice();
     }
 
-    public double getSubtotal(){
+    public double getSubtotal() {
         return this.quantity * getSewingPrice();
     }
 
-    public String sewingPriceFormat(){
+    public String sewingPriceFormat() {
         return FormatCurrency.vietNamCurrency(getSewingPrice());
     }
 
-    public String subtotalFormat(){
+    public String subtotalFormat() {
         return FormatCurrency.vietNamCurrency(getSubtotal());
     }
 
@@ -49,8 +49,9 @@ public class CartProduct extends AbstractCartProduct{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartProduct that = (CartProduct) o;
-        return Objects.equals(product, that.product) && Objects.equals(color, that.color) && Objects.equals(size, that.size);
+        return Objects.equals(product, that.product) && Objects.equals(quantity, that.quantity) && Objects.equals(color, that.color) && Objects.equals(size, that.size);
     }
+
 
     @Override
     public int hashCode() {

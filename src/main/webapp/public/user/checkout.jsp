@@ -256,11 +256,11 @@
                                                 </tr>
                                                 <tr class="payment__platform">
                                                     <c:if test="${paymentMethod.id eq 2}">
-                                                        <c:set var="qrImage" value="bank.png"/>
+                                                        <img src="" alt="https://cdn-icons-png.flaticon.com/512/2830/2830155.png" />
                                                         <td>Ngân hàng</td>
                                                     </c:if>
                                                     <c:if test="${paymentMethod.id eq 3}">
-                                                        <c:set var="qrImage" value="e-wallet.png"/>
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/1796/1796874.png" alt="Ví điện tử"/>
                                                         <td>Ví điện tử</td>
                                                     </c:if>
                                                     <td><span>${paymentOwner.paymentPlatform}</span></td>
