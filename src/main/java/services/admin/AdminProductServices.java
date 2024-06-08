@@ -257,4 +257,8 @@ public class AdminProductServices {
         return true;
     }
 
+    public List<Product> getAll() {
+        List<Product> productList = productCardDAO.getAll();
+        return productList;
+    }
 }

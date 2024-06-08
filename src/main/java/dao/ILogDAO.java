@@ -18,4 +18,5 @@ public interface ILogDAO {
     long getSize();
 
     long getSizeWithCondition(String search);
+    List<Log> getAll();
 }
