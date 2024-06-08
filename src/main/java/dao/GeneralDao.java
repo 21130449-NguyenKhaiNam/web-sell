@@ -89,7 +89,7 @@ public class GeneralDao {
             }
         }
         return insert.executeAndReturnGeneratedKeys("id") // "id" is the column name of the generated key
-                .mapTo(Integer.class) // or the appropriate type for your generated key
+                .mapTo(Integer.class)
                 .one();
     }
 }
