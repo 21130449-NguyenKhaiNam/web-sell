@@ -26,7 +26,7 @@
                         <h1>Danh sách mã giảm giá</h1>
 
                         <button type="button" id="button" class="button button__add"
-                                data-bs-toggle="modal" data-bs-target="#modal__create">
+                                data-bs-toggle="modal" data-bs-target="#modal">
                             <i class="fa-solid fa-plus"></i>
                             Thêm mã giảm giá
                         </button>
@@ -54,11 +54,11 @@
     </section>
 
     <!-- Modal Create-->
-    <div class="modal fade" id="modal__create" tabindex="-1" aria-labelledby="modal__create-label" aria-hidden="true">
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
         <div class="modal-dialog" style="max-width: 80%">
-            <form id="form__create" class="modal-content needs-validation">
+            <form id="form" class="modal-content needs-validation">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modal__create-label">Thêm mã giảm giá</h1>
+                    <h1 class="modal-title fs-5" id="modal-label">Thêm mã giảm giá</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

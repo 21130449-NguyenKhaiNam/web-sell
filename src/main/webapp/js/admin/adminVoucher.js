@@ -107,12 +107,22 @@ $(document).ready(function () {
             handleEventDatatable();
         }
     }
+    const configSelect2 = {
+        placeholder: "Chọn sản phẩm muốn áp dụng mã giảm giá",
+        multiple: true,
+        language: {
+            "noResults": function () {
+                return "Chọn sản phẩm muốn áp dụng mã giảm giá";
+            }
+        }
+    }
     const table = $("#table");
     const button = $("#button");
     let row = {
         rowDataSelected: {},//Lưu giữ đối tượng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
         rowIndexSelected: undefined //Lưu giữ vị trí dòng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
     };
+    row = undefined;
     const datatable = table.DataTable(configDatatable);
 
     const configValidator = {
@@ -213,50 +223,84 @@ $(document).ready(function () {
             $(element).find(".valid-feedback").text("");
         },
         submitHandler: function (form) {
-            const formData = $(form).serialize();
-            Swal.fire({
-                title: `Bạn có muốn thêm sản phẩm này không`,
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: "Có",
-                denyButtonText: `Không`
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    handleSave(formData, (response) => {
-                        if (response.success) {
-                            form.reset();
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Cập nhập thành công',
-                            })
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Cập nhập thất bại',
-                            })
-                        }
-                    })
-                }
-            });
+            let formData = $(form).serialize();
+            // Nếu không có dòng nào được chọn thì thực hiện thêm mới
+            if (!row) {
+                Swal.fire({
+                    title: `Bạn có muốn thêm sản phẩm này không`,
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Có",
+                    denyButtonText: `Không`
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        handleSave(formData, (response) => {
+                            if (response.success) {
+                                form.reset();
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Cập nhập thành công',
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Cập nhập thất bại',
+                                })
+                            }
+                        })
+                    }
+                });
+            } else {
+                // Nếu có dòng nào được chọn thì thực hiện cập nhập
+                // Thêm id vào form data
+                const id = $.param({
+                    id: row.rowDataSelected.id
+                });
+                formData += '&' + id;
+                Swal.fire({
+                    title: `Bạn có muốn cập nhập sản phẩm này không`,
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Có",
+                    denyButtonText: `Không`
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        handleUpdate(formData, (response) => {
+                            if (response.success) {
+                                form.reset();
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Cập nhập thành công',
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Cập nhập thất bại',
+                                })
+                            }
+                        })
+                    }
+                });
+            }
             return false;
         }
     };
 
-    const form = $("#form__create")
+    const select2Element = $("#productId").select2(configSelect2);
+    const form = $("#form")
     form.on("submit", (e) => {
         e.preventDefault()
     })
-    const formValidate = $("#form__create").validate(configValidator);
-
+    const formValidate = form.validate(configValidator);
     configModal();
 
     function configModal() {
-        document.querySelector("#modal__create").addEventListener("hide.bs.modal", function () {
+        document.querySelector("#modal").addEventListener("hide.bs.modal", function () {
             form.find("input, textarea, select").val("")
             formValidate.resetForm();
         })
-        document.querySelector("#modal__create").addEventListener("show.bs.modal", function () {
-            setupSelect2();
+        document.querySelector("#modal").addEventListener("show.bs.modal", function () {
+            addDataToSelect();
             if (row) {
                 getDetail(row.rowDataSelected.code);
             }
@@ -274,40 +318,17 @@ $(document).ready(function () {
         })
     }
 
-    function setupSelect2() {
+    function handleUpdate(formData, callback) {
         $.ajax({
-            url: "/api/admin/voucher/get-product",
-            type: "GET",
+            url: "/api/admin/voucher/update",
+            type: "POST",
+            data: formData,
             success: function (response) {
-                if (response) {
-                    const data = response.map(item => {
-                        return {
-                            id: item.id,
-                            text: item.name
-                        }
-                    })
-                    $("#productId").select2({
-                        data: data,
-                        // theme: 'bootstrap-5',
-                        placeholder: "Chọn sản phẩm muốn áp dụng mã giảm giá",
-                        multiple: true,
-                        language: {
-                            "noResults": function () {
-                                return "Chọn sản phẩm muốn áp dụng mã giảm giá";
-                            }
-                        }
-                    });
-                    // select2.on("select2:select", function (e) {
-                    //     // const data = e.params.data;
-                    //     // $("#productId").val(data.id);
-                    // });
-                    // select2.on("select2:unselect", function (e) {
-                    //     // $("#productId").val("");
-                    // });
-                }
+                callback(response);
             }
         })
     }
+
 
     function handleEventDatatable() {
         // Xử lý sự kiện khi click vào 1 dòng trong bảng
@@ -368,6 +389,7 @@ $(document).ready(function () {
         form.find("#availableTurns").val(voucher.availableTurns);
         form.find("#expiryDate").val(voucher.expiryDate);
         form.find("#state").val(voucher.state);
+        addDataToSelect(listIdProduct);
     }
 
     function handleEventVisible(type, code) {
@@ -428,4 +450,34 @@ $(document).ready(function () {
         return day + '/' + month + '/' + year;
     }
 
+    // Tải tất cả sản phẩm vào select2
+    function addDataToSelect(selectedValues) {
+        // Clear existing options if needed
+        select2Element.empty();
+        // Lấy danh sách sản phẩm
+        $.ajax({
+            url: "/api/admin/voucher/get-product",
+            type: "GET",
+            success: function (response) {
+                if (response) {
+                    const data = response.map(item => {
+                        return {
+                            id: item.id,
+                            text: item.name
+                        }
+                    });
+                    // Loop through the data array and create new options
+                    data.forEach(function (item) {
+                        const isSelected = selectedValues ? selectedValues.includes(item.id) : false;
+                        const newOption = new Option(item.text, item.id, isSelected, isSelected);
+                        select2Element.append(newOption);
+                    });
+
+                    // Refresh the Select2 UI to reflect the changes
+                    select2Element.trigger('change');
+                }
+            }
+        })
+
+    }
 })

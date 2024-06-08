@@ -128,4 +128,9 @@ public class VoucherDAO {
         String sql = "UPDATE vouchers SET state = ? WHERE code = ?";
         GeneralDao.executeAllTypeUpdate(sql, type.getValue(), code);
     }
+
+    public void update(Voucher voucher) {
+        String sql = "UPDATE vouchers SET code = ?, minimumPrice = ?, description = ?, discountPercent = ?, expiryDate = ?, state = ?, availableTurns = ? WHERE code = ?";
+        GeneralDao.executeAllTypeUpdate(sql, voucher.getCode(), voucher.getMinimumPrice(), voucher.getDescription(), voucher.getDiscountPercent(), voucher.getExpiryDate(), voucher.getState(), voucher.getAvailableTurns(), voucher.getCode());
+    }
 }

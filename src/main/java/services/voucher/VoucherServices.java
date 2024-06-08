@@ -86,18 +86,9 @@ public class VoucherServices {
     }
 
     public boolean saveVoucher(Voucher voucher, List<Integer> listProductId) {
-//        Kiểm tra ngày hết hạn voucher có nhỏ hơn ngày hiện tại không
-        Date currentDate = new Date(System.currentTimeMillis());
-        if (voucher.getExpiryDate().compareTo(currentDate) < 0) return false;
-//        Kiểm tra số lần sử dụng voucher có nhỏ hơn 0 không
-        if (voucher.getAvailableTurns() < 0) return false;
-//        Kiểm tra phần trăm giảm giá có nhỏ hơn 0 không
-        if (voucher.getDiscountPercent() < 0) return false;
-//        Kiểm tra giá trị đơn hàng tối thiểu có nhỏ hơn 0 không
-        if (voucher.getMinimumPrice() < 0) return false;
-//        Kiểm tra mã voucher đã tồn tại chưa
-        boolean isExist = voucherDAO.selectByCode(voucher.getCode()) != null;
-        if (isExist) return false;
+        boolean isValid = voucherValid(voucher);
+        if (!isValid) return false;
+        voucher.setCreateAt(new Date(System.currentTimeMillis()));
         int voucherIdCreated = voucherDAO.save(voucher);
         voucherDAO.save(voucherIdCreated, listProductId);
         return true;
@@ -114,5 +105,28 @@ public class VoucherServices {
 
     public void changeState(String code, VoucherState type) {
         voucherDAO.changeState(code, type);
+    }
+
+    public boolean updateProduct(Voucher voucher, List<Integer> listProductId) {
+        boolean isValid = voucherValid(voucher);
+        if (!isValid) return false;
+        voucherDAO.update(voucher);
+        return true;
+    }
+
+    private boolean voucherValid(Voucher voucher) {
+//        Kiểm tra ngày hết hạn voucher có nhỏ hơn ngày hiện tại không
+        Date currentDate = new Date(System.currentTimeMillis());
+        if (voucher.getExpiryDate().compareTo(currentDate) < 0) return false;
+//        Kiểm tra số lần sử dụng voucher có nhỏ hơn 0 không
+        if (voucher.getAvailableTurns() < 0) return false;
+//        Kiểm tra phần trăm giảm giá có nhỏ hơn 0 không
+        if (voucher.getDiscountPercent() < 0) return false;
+//        Kiểm tra giá trị đơn hàng tối thiểu có nhỏ hơn 0 không
+        if (voucher.getMinimumPrice() < 0) return false;
+//        Kiểm tra mã voucher đã tồn tại chưa
+        boolean isExist = voucherDAO.selectByCode(voucher.getCode()) != null;
+        if (isExist) return false;
+        return true;
     }
 }
