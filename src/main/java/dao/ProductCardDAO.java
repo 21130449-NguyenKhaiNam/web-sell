@@ -290,5 +290,4 @@ public class ProductCardDAO {
                 .append("WHERE id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
     }
-
 }

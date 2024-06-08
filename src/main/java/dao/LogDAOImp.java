@@ -276,6 +276,7 @@ public class LogDAOImp implements ILogDAO {
     }
 
 
+
     // Chuyển đổi tương ứng với tác động của câu query, sau này tách ra
     private String mapStateTypeQuery(String query) {
         String state = query.toLowerCase();

@@ -22,4 +22,5 @@ public interface ILogDAO {
     List<Log> getLimit(int limit, int offset);
 
     long getQuantity();
+
 }

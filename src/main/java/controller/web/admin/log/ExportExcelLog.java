@@ -19,18 +19,21 @@ import java.util.List;
 
 @WebServlet(name = "exportExcelLog", value = "/exportExcelLog")
 public class ExportExcelLog extends HttpServlet implements Serializable {
+
     private final int LIMIT = 10000;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+
         // Thiết lập header cho phản hồi HTTP
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Content-Disposition", "attachment; filename=log_report.xlsx");
 
         SXSSFWorkbook workbook = new SXSSFWorkbook();
         Sheet sheet = workbook.createSheet("Data");
+
 
         // Tạo tiêu đề cho các cột
         Row headerRow = sheet.createRow(0);

@@ -263,7 +263,6 @@ public class AdminProductServices {
         return true;
     }
 
-
     public List<Product> getLimit(int limit, int offset) {
         return productDAO.getLimit(limit, offset);
     }

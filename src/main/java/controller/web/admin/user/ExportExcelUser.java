@@ -1,6 +1,5 @@
 package controller.web.admin.user;
 
-import filter.adminPage.AdminUsers;
 import models.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -9,7 +8,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import services.UserServices;
-import services.admin.AdminOrderServices;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +22,7 @@ import java.util.List;
 @WebServlet(name = "exportExcelUser", value = "/exportExcelUser")
 public class ExportExcelUser extends HttpServlet implements Serializable {
     private final int LIMIT = 5000;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Thiết lập header cho phản hồi HTTP
@@ -69,6 +68,7 @@ public class ExportExcelUser extends HttpServlet implements Serializable {
                 else if(roleId.equals("2")){
                     row.createCell(8).setCellValue("Admin");
                 }
+
             }
         }
 

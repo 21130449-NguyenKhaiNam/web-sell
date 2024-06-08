@@ -10,7 +10,6 @@ public class CloundinaryTest {
 
     }
 
-
     public static void copyImageFromFolder(String folderName, String des) throws IOException {
         File folder = new File(folderName);
 
