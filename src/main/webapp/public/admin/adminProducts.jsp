@@ -128,7 +128,8 @@
                         <span class="reload__btn">
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
-                         <span id="button-import-product" class="button button__import">
+
+                        <span id="button-import-product" class="button button__import">
                              <form action="/admin-import-product" method="POST" enctype="multipart/form-data" style="display: flex;justify-content: center;align-items: center">
                                  <input type="file" name="file">
                                  <span class="btn_uploadImg">
@@ -137,11 +138,11 @@
                                  </span>
                              </form>
                         </span>
+
                         <span id="button-create-product" class="button button__add">
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
                         </span>
-
                     </div>
                     <div class="table__wrapper">
                         <table class="table">
@@ -166,6 +167,12 @@
                     </div>
                     <!--Paging-->
                     <ul class="paging"></ul>
+                    <form action="/exportExcelProduct" method="GET">
+                        <button class="btn_export">
+                            <i class="fa-solid fa-file-export"></i>
+                            Xuất file excel
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -293,22 +300,11 @@
                                             <i class="fa-solid fa-eye"></i>
                                         </label>
                                     </td>
-<<<<<<< HEAD
-                                    <c:if test="${sessionScope.auth.role == '2'}">
-                                        <td class="table__data-edit">
-                                            <label>
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </label>
-                                        </td>
-                                    </c:if>
-
-=======
                                     <td class="table__data-edit">
                                         <label>
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </label>
                                     </td>
->>>>>>> main
                                     <td class="table__data table__data-id">
                                         <p class="table__cell">` + contentProduct.id + `</p>
                                     </td>

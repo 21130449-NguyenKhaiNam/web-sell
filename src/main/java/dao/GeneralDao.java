@@ -4,6 +4,7 @@ import database.ConnectionPool;
 import database.JDBIConnector;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Query;
+import org.jdbi.v3.core.statement.Update;
 import services.LogService;
 
 import java.util.Arrays;
@@ -27,13 +28,15 @@ public class GeneralDao {
         Handle handle = ConnectionPool.getINSTANCE().getHandle();
         try {
             Query query = handle.createQuery(sql);
+            query.setFetchSize(Integer.MIN_VALUE);
+
             if (params != null) {
                 for (int i = 0; i < params.length; i++) {
                     query.bind(i, params[i]);
                 }
             }
             List<T> list = query.mapToBean(type).list();
-            LogService.getINSTANCE().insertLogForSelect(sql, list);
+//            LogService.getINSTANCE().insertLogForSelect(sql, list);
             return list;
         } finally {
             ConnectionPool.getINSTANCE().releaseHandle(handle);
@@ -49,7 +52,7 @@ public class GeneralDao {
                 }
             }
             List<Map<String, Object>> list = query.mapToMap().list();
-            LogService.getINSTANCE().insertLogForSelect(sql, list);
+//            LogService.getINSTANCE().insertLogForSelect(sql, list);
             return list;
         });
     }
@@ -58,7 +61,7 @@ public class GeneralDao {
     public static void executeAllTypeUpdate(String sql, Object... params) {
         Handle handle = ConnectionPool.getINSTANCE().getHandle();
         try {
-            LogService.getINSTANCE().insertLog(sql, params);
+//            LogService.getINSTANCE().insertLog(sql, params);
             handle.useTransaction(handleInner -> {
                 try {
                     handleInner.getConnection().setAutoCommit(false);
@@ -77,4 +80,16 @@ public class GeneralDao {
         }
     }
 
+    public static int executeInsert(String sql, Object... params) {
+        Handle handle = ConnectionPool.getINSTANCE().getHandle();
+        Update insert = handle.createUpdate(sql);
+        if (params != null) {
+            for (int i = 0; i < params.length; i++) {
+                insert.bind(i, params[i]);
+            }
+        }
+        return insert.executeAndReturnGeneratedKeys("id") // "id" is the column name of the generated key
+                .mapTo(Integer.class)
+                .one();
+    }
 }

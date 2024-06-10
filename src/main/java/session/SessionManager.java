@@ -81,7 +81,6 @@ public class SessionManager {
                     session.setAttribute(SESSION_TABLE, sessionTable);
                     cookie.setMaxAge(0);
                     response.addCookie(cookie);
-                    ShoppingCartServices.getINSTANCE().setUser(null);
                     break;
                 }
             }

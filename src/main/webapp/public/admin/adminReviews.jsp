@@ -4,25 +4,30 @@
 <jsp:useBean id="productFactory" class="utils.ProductFactory"/>
 <jsp:useBean id="userFactory" class="utils.UserFactory"/>
 <!doctype html>
-<html lang="en">
-<head>
-    <jsp:include page="/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
-    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">
-    <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/>">
-    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminReviews.css" />">
-    <title>Quản lý nhận xét</title>
-</head>
+<%--<html lang="en">--%>
+<%--<head>--%>
+<%--    <jsp:include page="/public/commonLink.jsp"/>--%>
+<%--    <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">--%>
+<%--    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">--%>
+<%--    <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/>">--%>
+<%--    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminReviews.css" />">--%>
+<%--    <title>Quản lý nhận xét</title>--%>
+<%--</head>--%>
 <body>
-<main id="main">
-    <section class="content">
+<%--<main id="main">--%>
+<%--    <section class="content">--%>
         <div class="container-xl">
             <div class="row">
                 <div class="col-12">
                     <div>
                         <h1>Danh sách nhận xét</h1>
                     </div>
-
+                    <form action="/exportExcelReview" method="GET">
+                        <button class="btn_export">
+                            <i class="fa-solid fa-file-export"></i>
+                            Xuất file excel
+                        </button>
+                    </form>
                     <div class="table__wrapper">
                         <table class="table">
                             <thead>
@@ -46,8 +51,8 @@
                 </div>
             </div>
         </div>
-    </section>
-</main>
+<%--    </section>--%>
+<%--</main>--%>
 <div id="dialog-review-read" class="modal">
     <article class="modal__content modal__product">
         <div>
@@ -61,4 +66,4 @@
 
 <script src="<c:url value="/js/admin/adminReviews.js" />"></script>
 </body>
-</html>
+<%--</html>--%>

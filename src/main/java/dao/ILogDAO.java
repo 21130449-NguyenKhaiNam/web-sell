@@ -18,4 +18,11 @@ public interface ILogDAO {
     long getSize();
 
     long getSizeWithCondition(String search);
+
+    List<Log> getLimit(int limit, int offset);
+
+    long getQuantity();
+
+
+    void save(Log log);
 }

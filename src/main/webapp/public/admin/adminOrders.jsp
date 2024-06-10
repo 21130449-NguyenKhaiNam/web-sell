@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-4">
                     <aside class="filler">
-                        <form class="form" action="SearchFilterOrderAdmin" method="get">
+                        <form id="form-search" class="form" action="<c:url value="/api/admin/order/search"/>" method="get">
                             <div class="search__filter">
                                 <article class="form__search-block">
                                     <i class="search__icon fa-solid fa-magnifying-glass"></i>
@@ -53,25 +53,6 @@
                                                                <c:if test="${requestScope.endDateFiltered != null}">value="${requestScope.endDateFiltered}"</c:if>
                                                                id="date-end">
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                        <article class="filler__block">
-                                            <div class="filler__container">
-                                                <h2 class="filler__heading">Phương thức vận chuyển</h2>
-                                                <c:set var="listCheckedDMS"
-                                                       value="${requestScope.listCheckedDeliveryMethods}"/>
-                                                <div class="filter__content">
-                                                    <c:forEach items="${requestScope.listAllDeliveryMethodManage}"
-                                                               var="deliveryMethod">
-                                                        <label class="filter__label check">
-                                                            <input type="checkbox" name="deliveryMethod"
-                                                                   <c:if test="${listCheckedDMS != null && listCheckedDMS.contains(String.valueOf(deliveryMethod.id))}">checked</c:if>
-                                                                   value="${deliveryMethod.id}" class="filter__input"
-                                                                   hidden="true">
-                                                            <span>${deliveryMethod.typeShipping}</span>
-                                                        </label>
-                                                    </c:forEach>
                                                 </div>
                                             </div>
                                         </article>
@@ -143,7 +124,13 @@
                     </aside>
                 </div>
                 <div class="col-8">
-                    <form id="process__order--form" action="/api/admin/order" method="post">
+                    <form action="/exportExcelOrder" method="GET">
+                        <button class="btn_export">
+                            <i class="fa-solid fa-file-export"></i>
+                            Xuất file excel
+                        </button>
+                    </form>
+                    <form id="process__order--form" action="<c:url value="/api/admin/order"/>" method="post">
                         <div class="order__heading">
                             <h1><i class="fa-solid fa-list"></i> Danh sách đơn hàng</h1>
                             <div class="delete__cancel">
@@ -171,95 +158,87 @@
                                     <th class="table__head">Mã đơn hàng</th>
                                     <th class="table__head">Ngày tạo</th>
                                     <th class="table__head">Khách hàng</th>
-                                    <th class="table__head">Phương thức vận chuyển</th>
+<%--                                    <th class="table__head">Phương thức vận chuyển</th>--%>
                                     <th class="table__head">Phương thức thanh toán</th>
                                     <th class="table__head">Tình trạng đơn hàng</th>
-                                    <th class="table__head">Tình trạng giao dịch</th>
-                                    <th class="table__head">Tổng cộng</th>
+<%--                                    <th class="table__head">Tình trạng giao dịch</th>--%>
+<%--                                    <th class="table__head">Tổng cộng</th>--%>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${requestScope.listOrdersPerPage}" var="order">
-                                    <c:set var="notAllow" value="${order.orderStatusId == 5 ? 'not__allow' : ''}"/>
-                                    <tr class="table__row ${notAllow}">
-                                        <td class="table__data">
-                                            <label class="filter__label check">
-                                                <input type="checkbox" name="multipleOrderId" value="${order.id}"
-                                                       class="filter__input" hidden="true">
-                                            </label>
-                                        </td>
-                                        <td class="table__data">
-                                            <button type="button" name="seeDetailId" data-action="seeDetail"
-                                                    value="${order.id}" class="table__cell see__detail">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </button>
-                                        </td>
-                                        <td class="table__data">
-                                            <button type="button" name="showDialogUpdateId" value="${order.id}"
-                                                    data-action="showDialogUpdate" class="table__cell show__update">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                        </td>
-                                        <td class="table__data"><p class="table__cell">${order.id}</p></td>
-                                        <td class="table__data"><p class="table__cell">${order.dateOrder}</p></td>
-                                        <td class="table__data"><p class="table__cell">${order.fullName}</p></td>
-                                        <td class="table__data"><p
-                                                class="table__cell">${adminOrderServices.getDeliveryMethodManageById(order.deliveryMethodId).typeShipping}</p>
-                                        </td>
-                                        <td class="table__data"><p
-                                                class="table__cell">${adminOrderServices.getPaymentMethodMangeById(order.paymentMethodId).typePayment}</p>
-                                        </td>
-                                        <td class="table__data data__status order"><p
-                                                class="table__cell">${adminOrderServices.getOrderStatusById(order.orderStatusId).typeStatus}</p>
-                                        </td>
-                                        <td class="table__data data__status transaction"><p
-                                                class="table__cell">${adminOrderServices.getTransactionStatusById(order.transactionStatusId).typeStatus}</p>
-                                        </td>
-                                        <td class="table__data">${adminOrderServices.getTotalPriceFormatByOrderId(order.id)}</td>
-                                    </tr>
-                                </c:forEach>
+<%--                                <c:forEach items="${requestScope.listOrdersPerPage}" var="order">--%>
+<%--                                    <c:set var="notAllow" value="${order.orderStatusId == 5 ? 'not__allow' : ''}"/>--%>
+<%--                                    <tr class="table__row ${notAllow}">--%>
+<%--                                        <td class="table__data">--%>
+<%--                                            <label class="filter__label check">--%>
+<%--                                                <input type="checkbox" name="multipleOrderId" value="${order.id}"--%>
+<%--                                                       class="filter__input" hidden="true">--%>
+<%--                                            </label>--%>
+<%--                                        </td>--%>
+<%--                                        <td class="table__data">--%>
+<%--                                            <button type="button" name="seeDetailId" data-action="seeDetail"--%>
+<%--                                                    value="${order.id}" class="table__cell see__detail">--%>
+<%--                                                <i class="fa-solid fa-eye"></i>--%>
+<%--                                            </button>--%>
+<%--                                        </td>--%>
+<%--                                        <td class="table__data">--%>
+<%--                                            <button type="button" name="showDialogUpdateId" value="${order.id}"--%>
+<%--                                                    data-action="showDialogUpdate" class="table__cell show__update">--%>
+<%--                                                <i class="fa-solid fa-pen-to-square"></i>--%>
+<%--                                            </button>--%>
+<%--                                        </td>--%>
+<%--                                        <td class="table__data"><p class="table__cell">${order.id}</p></td>--%>
+<%--                                        <td class="table__data"><p class="table__cell">${order.dateOrder}</p></td>--%>
+<%--                                        <td class="table__data"><p class="table__cell">${order.fullName}</p></td>--%>
+<%--                                        <td class="table__data"><p--%>
+<%--                                                class="table__cell">${adminOrderServices.getDeliveryMethodManageById(order.deliveryMethodId).typeShipping}</p>--%>
+<%--                                        </td>--%>
+<%--                                        <td class="table__data"><p--%>
+<%--                                                class="table__cell">${adminOrderServices.getPaymentMethodMangeById(order.paymentMethodId).typePayment}</p>--%>
+<%--                                        </td>--%>
+<%--                                        <td class="table__data data__status order"><p--%>
+<%--                                                class="table__cell">${adminOrderServices.getOrderStatusById(order.orderStatusId).typeStatus}</p>--%>
+<%--                                        </td>--%>
+<%--                                        <td class="table__data data__status transaction"><p--%>
+<%--                                                class="table__cell">${adminOrderServices.getTransactionStatusById(order.transactionStatusId).typeStatus}</p>--%>
+<%--                                        </td>--%>
+<%--                                        <td class="table__data">${adminOrderServices.getTotalPriceFormatByOrderId(order.id)}</td>--%>
+<%--                                    </tr>--%>
+<%--                                </c:forEach>--%>
                                 </tbody>
                             </table>
                         </div>
                         <!--Paging-->
                         <c:set value="${requestScope.page}" var="page"/>
                         <c:set value="${requestScope.queryStringFilter}" var="queryStringFilter"/>
+<%--                        <div class="pagination">--%>
+<%--                            <c:if test="${page > 1}">--%>
+<%--                                <c:url var="prevURLPage"--%>
+<%--                                       value="${requestScope.servletProcess}?${queryStringFilter != null ? queryStringFilter : ''}">--%>
+<%--                                    <c:param name="page" value="${page - 1}"/>--%>
+<%--                                </c:url>--%>
+<%--                                <a href="${prevURLPage.replaceAll('&$', '')}" class="previous__page"><i--%>
+<%--                                        class="fa-solid fa-chevron-left"></i></a>--%>
+<%--                            </c:if>--%>
+<%--                            <c:forEach begin="${1}" end="${requestScope.totalPage}" var="i">--%>
+<%--                                <c:url var="trURLPage"--%>
+<%--                                       value="${requestScope.servletProcess}?${queryStringFilter != null ? queryStringFilter : ''}">--%>
+<%--                                    <c:param name="page" value="${i}"/>--%>
+<%--                                </c:url>--%>
+<%--                                <a class="${i == page ? "active" : "page__forward"}"--%>
+<%--                                   href="${trURLPage.replaceAll('&$', '')}">${i}</a>--%>
+<%--                            </c:forEach>--%>
+<%--                            <c:if test="${page < requestScope.totalPage}">--%>
+<%--                                <c:url var="nextURLPage"--%>
+<%--                                       value="${requestScope.servletProcess}?${queryStringFilter != null ? queryStringFilter : ''}">--%>
+<%--                                    <c:param name="page" value="${page + 1}"/>--%>
+<%--                                </c:url>--%>
+<%--                                <a href="${nextURLPage.replaceAll('&$', '')}" class="next__page"><i--%>
+<%--                                        class="fa-solid fa-chevron-right"></i></a>--%>
+<%--                            </c:if>--%>
+<%--                        </div>--%>
                         <div class="pagination">
-                            <c:if test="${page > 1}">
-                                <c:url var="prevURLPage"
-                                       value="${requestScope.servletProcess}?${queryStringFilter != null ? queryStringFilter : ''}">
-                                    <c:param name="page" value="${page - 1}"/>
-                                </c:url>
-                                <a href="${prevURLPage.replaceAll('&$', '')}" class="previous__page"><i
-                                        class="fa-solid fa-chevron-left"></i></a>
-                            </c:if>
-                            <c:forEach begin="${1}" end="${requestScope.totalPage}" var="i">
-                                <c:url var="trURLPage"
-                                       value="${requestScope.servletProcess}?${queryStringFilter != null ? queryStringFilter : ''}">
-                                    <c:param name="page" value="${i}"/>
-                                </c:url>
-                                <a class="${i == page ? "active" : "page__forward"}"
-                                   href="${trURLPage.replaceAll('&$', '')}">${i}</a>
-                            </c:forEach>
-                            <c:if test="${page < requestScope.totalPage}">
-                                <c:url var="nextURLPage"
-                                       value="${requestScope.servletProcess}?${queryStringFilter != null ? queryStringFilter : ''}">
-                                    <c:param name="page" value="${page + 1}"/>
-                                </c:url>
-                                <a href="${nextURLPage.replaceAll('&$', '')}" class="next__page"><i
-                                        class="fa-solid fa-chevron-right"></i></a>
-                            </c:if>
-                        </div>
-                        <div class="popup__deletion"></div>
-                        <div class="popup__cancel"></div>
-                        <div class="popup__update">
 
-                        </div>
-                        <div id="dialog__order" class="modal">
-                            <article class="modal__content modal__order">
-
-                            </article>
-                            <div class="modal__blur"></div>
                         </div>
                     </form>
                 </div>
@@ -268,6 +247,31 @@
     </section>
 </main>
 
+<div class="popup__deletion"></div>
+<div class="popup__cancel"></div>
+<div class="popup__update"></div>
+<%--<div id="dialog__order" class="modal">--%>
+<%--    <article class="modal__content modal__order">--%>
+
+<%--    </article>--%>
+<%--    <div class="modal__blur"></div>--%>
+<%--</div>--%>
+
+
+<!-- Modal order-->
+<div class="modal fade modal-dialog-scrollable"  id="dialog__order" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 80%;">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title h2" id="exampleModalLabel">Chi tiết đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body modal__order">
+
+            </div>
+        </div>
+    </div>
+</div>
 <script src="<c:url value="/js/paging.js"/>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
         integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="

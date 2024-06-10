@@ -82,7 +82,7 @@ public class OrderDaoUser {
         StringBuilder query = new StringBuilder();
         query.append("SELECT order_details.productName AS name, order_details.quantityRequired AS quantity, order_details.sizeRequired AS size, order_details.colorRequired AS color, order_details.price AS price, images.nameImage AS thumbnail \n" +
                 "FROM (\n" +
-                "    SELECT productId, MIN(images.id) AS minImageId, images.nameImage \n" +
+                "    SELECT productId, MIN(images.id) AS minImageId \n" +
                 "    FROM images\n" +
                 "    GROUP BY productId\n" +
                 ") AS minImages\n" +

@@ -240,10 +240,6 @@ $(document).ready(()=>{
         if (currentPage > 3) {
             productPages.innerHTML += `<a class="page access_page_quickly">...</a>`
             const div = document.createElement('div')
-            div.style.width = '200px'
-            div.style.height = '50px'
-            div.style.overflow = 'auto'
-
             for (let i = 1; i < minPage; i++) {
                 const a = document.createElement('a')
                 a.innerText = i

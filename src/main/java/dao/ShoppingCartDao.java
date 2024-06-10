@@ -1,9 +1,6 @@
 package dao;
 
-import models.Color;
-import models.Product;
-import models.Size;
-import models.Voucher;
+import models.*;
 import models.shoppingCart.AbstractCartProduct;
 import models.shoppingCart.CartProduct;
 import models.shoppingCart.CartProductCustom;
@@ -122,10 +119,27 @@ public class ShoppingCartDao {
             for (int i = 0; i < list.size(); i++) {
                 AbstractCartProduct product = list.get(i);
                 int colorId = product.getColor().getId();
-                System.out.println("Param update cart >> " + Arrays.asList(product.getQuantity(), productId, colorId, product.getSize()));
                 GeneralDao.executeAllTypeUpdate(sql, product.getQuantity(), productId, colorId, product.getSize());
             }
         }
+    }
+
+    public List<CartItem> getCartProductByProductIdAndUserId(List<Integer> listProductId, Integer userId) {
+        String sql = "SELECT cart_items.id, cart_id, product_id, color_id ,size, quantity \n" +
+                "FROM cart_items JOIN cart ON cart_items.cart_id = cart.id " +
+                "WHERE cart_items.product_id IN (" + convertToSQL(listProductId) + ") AND cart.user_id = ?";
+        return GeneralDao.executeQueryWithSingleTable(sql, CartItem.class, userId);
+    }
+
+    private String convertToSQL(List<Integer> list) {
+        String sql = "";
+        for (int i = 0; i < list.size(); i++) {
+            sql += list.get(i);
+            if (i != list.size() - 1) {
+                sql += ",";
+            }
+        }
+        return sql;
     }
 
     public static class Cart {
@@ -181,4 +195,5 @@ public class ShoppingCartDao {
 //        String sql = "SELECT minimumPrice FROM vouchers WHERE code = ?";
 //        return GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, code).get(0).getMinimumPrice();
 //    }
+
 }

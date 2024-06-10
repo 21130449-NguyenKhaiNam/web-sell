@@ -57,4 +57,8 @@ public class AdminReviewServices {
         }
         return listUser.get(0);
     }
+
+    public List<Review> getAll(){
+        return reviewDAO.getAll();
+    }
 }

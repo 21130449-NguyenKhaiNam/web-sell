@@ -2,6 +2,7 @@ package dao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import models.*;
+import services.admin.AdminOrderServices;
 
 import java.util.List;
 import java.util.Map;
@@ -123,29 +124,6 @@ public class OrderDaoAdmin {
         return GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, id).get(0);
     }
 
-//    public static void main(String[] args) {
-//        System.out.println(getVoucherById(1));
-//        String[] list1 = {"1"};
-//        String[] list2 = {"1", "2"};
-//        Map<Object, List<String>> map = new HashMap<>();
-//        map.put(new DeliveryMethod(), list1);
-//        map.put(new PaymentMethod(), list2);
-//
-//        System.out.println(getListOrdersByFilterSection(map, "2022-10-01", "2022-10-30"));
-//        System.out.println(getListAllOrders());
-//        System.out.println(getListOrderByCustomerName("N"));
-//        String sql = "SELECT id FROM orders";
-//        List<Order> list = GeneralDao.executeQueryWithSingleTable(sql, Order.class);
-//        for (Order order: list) {
-//            System.out.println(order.getId());
-//        }
-//    }
-
-    public static void main(String[] args) throws JsonProcessingException {
-        String[] multipleOrderId = {"658558470"};
-//        cancelOrderByArrayMultipleId(multipleOrderId);
-//        updateStatusByOrderId("0194e6c", 1, 2);
-    }
     public List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder){
         String querry = "SELECT id FROM orders WHERE userId = ? AND orderStatusId = ?";
         return GeneralDao.executeQueryWithSingleTable(querry,Order.class, userId,statusOrder);
@@ -197,5 +175,26 @@ public class OrderDaoAdmin {
                 "WHERE orders.userId = ? AND orders.orderStatusId = 4 " +
                 "AND order_details.id IN (SELECT reviews.orderDetailId FROM reviews) ";
         return GeneralDao.executeQueryWithSingleTable(querry, OrderDetail.class, userId);
+    }
+
+    public long getQuantity() {
+        String sql = "SELECT COUNT(*) count FROM orders";
+        LogDAOImp.CountResult result = new LogDAOImp.CountResult();
+        GeneralDao.customExecute(handle -> {
+            result.setCount(handle.createQuery(sql)
+                    .mapToBean(LogDAOImp.CountResult.class)
+                    .list().get(0).getCount());
+        });
+        return result.getCount();
+    }
+
+    public List<Order> getLimit(int limit, int offset) {
+        String sql = "select id, userId, dateOrder, deliveryMethodId, paymentMethodId, fullName, email, phone, address, orderStatusId, transactionStatusId, voucherId from orders limit ? offset ?";
+        return GeneralDao.executeQueryWithSingleTable(sql, Order.class, limit, offset);
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(AdminOrderServices.getINSTANCE().getQuantity());
     }
 }

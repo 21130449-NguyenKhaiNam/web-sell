@@ -19,6 +19,7 @@ public class JDBIConnector {
         dataSource.setPassword(DBProperties.getPassword());
 
         try {
+            dataSource.setDefaultFetchSize(1000);
             dataSource.setUseCompression(true);
             dataSource.setAutoReconnect(true);
         } catch (SQLException throwables) {

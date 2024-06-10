@@ -91,6 +91,12 @@ public class AdminProductServices {
         return (int) quantityPage;
     }
 
+    public int getQuantityPage(int limit) {
+        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct() + "") / limit);
+        System.out.println("quantityPage: " + quantityPage);
+        return (int) quantityPage;
+    }
+
     public List<Integer> getProductByName(String name) {
         List<Product> listProduct = productCardDAO.getIdProductByName(name);
         if (listProduct.isEmpty()) return null;
@@ -257,4 +263,7 @@ public class AdminProductServices {
         return true;
     }
 
+    public List<Product> getLimit(int limit, int offset) {
+        return productDAO.getLimit(limit, offset);
+    }
 }

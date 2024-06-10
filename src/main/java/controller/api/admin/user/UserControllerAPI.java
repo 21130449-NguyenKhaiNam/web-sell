@@ -16,9 +16,6 @@ import java.util.List;
 public class UserControllerAPI extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
         String isString = request.getParameter("id");
         Gson gson = new Gson();
         try {
