@@ -25,4 +25,6 @@ public interface ILogDAO {
 
 
     void save(Log log);
+
+    void deleteAll();
 }

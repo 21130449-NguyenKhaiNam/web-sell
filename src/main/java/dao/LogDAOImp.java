@@ -283,6 +283,14 @@ public class LogDAOImp implements ILogDAO {
     }
 
     @Override
+    public void deleteAll() {
+        String sql = "DELETE FROM logs WHERE 1=1";
+        GeneralDao.customExecute((handle) -> {
+            handle.execute(sql);
+        });
+    }
+
+    @Override
     public List<Log> getLimit(int limit, int offset) {
         String sql = "select id, ip, level, resource, dateCreated, previous, current from logs limit ? offset ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Log.class, limit, offset);

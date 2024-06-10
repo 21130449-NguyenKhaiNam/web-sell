@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -121,6 +122,7 @@ public class CheckoutController extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(ConfigPage.USER_CART);
             requestDispatcher.forward(request, response);
         } else {
+            System.out.println(Arrays.toString(models));
             TempOrder[] tempOrders = new TempOrder[models.length];
             Gson gson = new Gson();
 

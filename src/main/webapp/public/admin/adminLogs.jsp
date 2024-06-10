@@ -26,8 +26,8 @@
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
 
-                        <form action="/exportExcelLog" method="GET" style="margin-left: 12px;">
-                            <button class="btn_export" onclick="updateProgressBar()">
+                        <form class="export__excel" action="/exportExcelLog" method="POST" style="margin-left: 12px;">
+                            <button class="btn_export">
                                 <i class="fa-solid fa-file-export"></i>
                                 Xuất file excel
                             </button>
@@ -113,6 +113,34 @@
                 }
             })
         }
+
+        $('.export__excel').on('submit', (e) => {
+            e.preventDefault();
+
+            Swal.fire({
+                title: "Bạn có muốn xóa nội dung sau khi xuất file?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Xóa tất cả",
+                denyButtonText: `Không xóa`,
+                cancelButtonText: "Hủy bỏ"
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    const form = e.target;
+                    form.action += "?delete=true";
+                    form.submit();
+                    const idInterval = setInterval(() => {
+                        table.clear();
+                        table.draw();
+                    }, 1000)
+                } else if (result.isDenied) {
+                    const form = e.target;
+                    form.action += "?delete=false";
+                    form.submit();
+                }
+            });
+        })
     })
 </script>
 </body>

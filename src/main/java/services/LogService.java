@@ -60,4 +60,8 @@ public class LogService {
     public void save(Log log) {
         logDAO.save(log);
     }
+
+    public void deleteAll() {
+        logDAO.deleteAll();
+    }
 }
