@@ -15,7 +15,7 @@
 <main class="main">
     <div class="frame">
         <article>
-            <span class="text-cetner mb-3 d-flex justify-content-center hvr-bob">
+            <span class="text-center mb-3 d-flex justify-content-center hvr-bob">
                 <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
             </span>
             <form action="<c:url value="/forgetPassword" />" class="form form--forget-password" method="post">

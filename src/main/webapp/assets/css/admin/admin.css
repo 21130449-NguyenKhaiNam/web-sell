@@ -549,6 +549,19 @@ td[data-level='DANGEROUS'] {
 }
 
 
+/*Extend base.css*/
+.button {
+    min-width: var(--width);
+    width: unset;
+    padding: 0 10px;
+}
+
+/*Extend bootstrap*/
+
+.modal{
+    z-index: 1055;
+}
+
 .progress-container {
     background-color: #e0e0e0;
     border-radius: 25px;

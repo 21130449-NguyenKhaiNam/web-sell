@@ -29,8 +29,6 @@ public class DeleteCartProductController extends HttpServlet {
         String userIdCart = String.valueOf(user.getId());
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         try {
-            System.out.println(request.getAttribute("productId"));
-            System.out.println(request.getAttribute("cartProductIndex"));
             if(request.getAttribute("productId") != null){
                 productId = Integer.parseInt((String) request.getAttribute("productId"));
                 cartProductIndex = Integer.parseInt((String) request.getAttribute("cartProductIndex"));
@@ -82,6 +80,7 @@ public class DeleteCartProductController extends HttpServlet {
 //            jsonObject.put("discountPriceFormat", discountPriceFormat);
         }
         response.getWriter().print(jsonObject);
+        response.getWriter().flush();
     }
 
     @Override

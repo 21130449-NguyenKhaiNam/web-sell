@@ -22,8 +22,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>KẾT QUẢ THANH TOÁN</title>
-    <!-- Bootstrap core CSS -->
-    <link href="/vnpay_jsp/assets/bootstrap.min.css" rel="stylesheet"/>
     <!-- Custom styles for this template -->
     <link href="/vnpay_jsp/assets/jumbotron-narrow.css" rel="stylesheet">
     <script src="/vnpay_jsp/assets/jquery-1.11.3.min.js"></script>
@@ -112,7 +110,7 @@
     </p>
 
     <form action="/ProcessAfterPaymentOnline?vnp_TransactionStatus=<%=request.getParameter("vnp_TransactionStatus")%>&invoiceNo=<%=session.getAttribute("invoiceNo")%>" method="POST">
-        <button>Hoàn tất</button>
+        <button class="btn btn-success">Hoàn tất</button>
     </form>
 
     <footer class="footer">

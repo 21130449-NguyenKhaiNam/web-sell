@@ -109,6 +109,7 @@
                     </form>
                 </div>
                 <div class="col-9">
+                    <div class="product__notification"></div>
                     <div class="product__list">
                         <%--  sản phẩm được hiển thị ở đây--%>
                     </div>

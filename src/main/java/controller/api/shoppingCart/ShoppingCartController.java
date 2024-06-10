@@ -34,7 +34,7 @@ public class ShoppingCartController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                 }
                 case "removeCartProduct" -> {
-                    requestDispatcher = request.getRequestDispatcher("api/cart/delete");
+                    requestDispatcher = request.getRequestDispatcher("/api/cart/delete");
                     requestDispatcher.forward(request, response);
                 }
                 case "applyVoucher" -> {

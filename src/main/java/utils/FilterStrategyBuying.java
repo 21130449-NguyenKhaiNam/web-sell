@@ -125,6 +125,7 @@ public class FilterStrategyBuying extends FilterStrategy {
         public void setImgs(List<Image> imgs) {
             this.imgs = imgs;
         }
+
     }
 
     private class FilteredProductResponse {
