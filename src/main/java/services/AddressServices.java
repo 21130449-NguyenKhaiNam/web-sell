@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AddressServices {
     private static AddressServices INSTANCE;
-    private final AddressDAO addressDAO;
+    private AddressDAO addressDAO ;
 
     private AddressServices() {
         this.addressDAO = new AddressDAO();

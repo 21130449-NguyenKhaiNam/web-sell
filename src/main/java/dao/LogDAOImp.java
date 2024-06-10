@@ -2,7 +2,9 @@ package dao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import models.Log;
+import services.LogService;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -132,6 +134,8 @@ public class LogDAOImp implements ILogDAO {
             String nameTable = getNameTable(builder, nameQuery);
 
             ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+
             try {
                 String sqlLog;
                 switch (nameQuery) {
@@ -255,13 +259,48 @@ public class LogDAOImp implements ILogDAO {
         String sql = "SELECT COUNT(*) count FROM logs WHERE ip LIKE :search OR level LIKE :search OR resource LIKE :search";
         CountResult result = new CountResult();
         GeneralDao.customExecute(handle -> {
-           result.setCount(handle.createQuery(sql)
-                   .bind("search", "%" + search + "%")
-                   .mapToBean(CountResult.class)
-                   .list().get(0).getCount());
+            result.setCount(handle.createQuery(sql)
+                    .bind("search", "%" + search + "%")
+                    .mapToBean(CountResult.class)
+                    .list().get(0).getCount());
         });
         return result.getCount();
     }
+
+    @Override
+    public void save(Log log) {
+        String sql = "INSERT logs (ip, level, resource, dateCreated, previous, current) VALUES (:ip, :level, :resource, :dateCreated, :previous, :current)";
+        GeneralDao.customExecute(handle -> {
+            handle.createUpdate(sql)
+                    .bind("ip", log.getIp())
+                    .bind("level", log.getLevel())
+                    .bind("resource", log.getResource())
+                    .bind("dateCreated", log.getDateCreated())
+                    .bind("previous", log.getPrevious())
+                    .bind("current", log.getCurrent())
+                    .execute();
+        });
+    }
+
+    @Override
+    public List<Log> getLimit(int limit, int offset) {
+        String sql = "select id, ip, level, resource, dateCreated, previous, current from logs limit ? offset ?";
+        return GeneralDao.executeQueryWithSingleTable(sql, Log.class, limit, offset);
+    }
+
+    @Override
+    public long getQuantity() {
+        String sql = "SELECT COUNT(*) count FROM logs";
+        CountResult result = new CountResult();
+        GeneralDao.customExecute(handle -> {
+            result.setCount(handle.createQuery(sql)
+                    .mapToBean(CountResult.class)
+                    .list().get(0).getCount());
+        });
+        return result.getCount();
+    }
+
+
 
     // Chuyển đổi tương ứng với tác động của câu query, sau này tách ra
     private String mapStateTypeQuery(String query) {

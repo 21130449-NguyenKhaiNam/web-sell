@@ -208,7 +208,20 @@ h1 {
     align-items: center;
 }
 
-.button__add:hover, .btn_uploadImg:hover {
+.btn_export{
+    gap: 10px;
+    width: 180px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #4BAC4D;
+    color: #fff;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button__add:hover, .btn_uploadImg:hover, .btn_export:hover {
     cursor: pointer;
     opacity: 0.9;
 }
@@ -535,3 +548,31 @@ td[data-level='DANGEROUS'] {
     font-size: 20px;
 }
 
+
+/*Extend base.css*/
+.button {
+    min-width: var(--width);
+    width: unset;
+    padding: 0 10px;
+}
+
+/*Extend bootstrap*/
+
+.modal{
+    z-index: 1055;
+}
+
+.progress-container {
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
+}
+
+.progress-bar {
+    height: 30px;
+    width: 0;
+    background-color: #76c7c0;
+    border-radius: 25px 0 0 25px;
+    transition: width 0.4s ease-in-out;
+}

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "AdminUsers", urlPatterns = {"/public/admin/adminUsers.jsp"})
+//@WebFilter(filterName = "AdminUsers", urlPatterns = {"/public/admin/adminUsers.jsp"})
 public class AdminUsers implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }

@@ -92,6 +92,7 @@ th {
 
 .filter__text {
     flex: 1;
+    width: 100%;
     border-bottom: 1.5px solid  #cccccc;
     padding: 5px 0;
 }

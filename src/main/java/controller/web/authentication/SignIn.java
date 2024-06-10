@@ -1,8 +1,13 @@
 package controller.web.authentication;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import config.ConfigPage;
+import models.Log;
 import models.User;
 import models.shoppingCart.ShoppingCart;
+import services.LogService;
 import services.authentication.AuthenticateServices;
 import session.SessionManager;
 import utils.Validation;
@@ -17,6 +22,8 @@ import java.io.IOException;
 
 @WebServlet(name = "signIn", value = "/signIn")
 public class SignIn extends HttpServlet {
+    Gson gson = new GsonBuilder().create();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }

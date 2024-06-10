@@ -15,46 +15,47 @@ const addressShop = {
     ward: "Phường Bến Nghé",
     detail: "123 Nguyễn Huệ"
 }
-let addressShopAPI, addressCustomerAPI;
 
-async function getAddressShopAPI() {
-    const provinceId = await getProvinceId(addressShop.province);
-    const districtId = await getDistrictId(provinceId, addressShop.district);
-    const wardCode = await getWardCode(districtId, addressShop.ward);
-    addressShopAPI = {
-        provinceId: provinceId,
-        districtId: districtId,
-        wardCode: wardCode
-    };
+async function getAddressCode(address) {
+    let province, district;
+    return getProvinceId(address.province)
+        .then(provinceId => {
+            province = provinceId;
+            console.log(provinceId, address.district)
+            return getDistrictId(provinceId, address.district)
+        })
+        .then(districtId => {
+            district = districtId;
+            console.log(districtId, address.ward)
+            return getWardCode(districtId, address.ward)
+        })
+        .then(wardCode => {
+            console.log(wardCode)
+            console.log(province, district, wardCode)
+            return {
+                provinceId: province,
+                districtId: district,
+                wardCode: wardCode
+            };
+        });
 }
 
-async function getAddressCustomerAPI(address) {
-    const provinceId = await getProvinceId(address.province);
-    const districtId = await getDistrictId(provinceId, address.district);
-    const wardCode = await getWardCode(districtId, address.ward);
-    addressCustomerAPI = {
-        provinceId: provinceId,
-        districtId: districtId,
-        wardCode: wardCode
+async function getFeeAndLeadTime(addressCustomer) {
+    // try {
+    const addressShopAPI = await getAddressCode(addressShop);
+    const addressCustomerAPI = await getAddressCode(addressCustomer);
+
+    const feeShipping = await getFeeShipping(addressShopAPI, addressCustomerAPI);
+    const leadDate = await getLeadDate(addressShopAPI, addressCustomerAPI); // Assuming this function returns a value synchronously
+
+    return {
+        feeShipping: feeShipping,
+        leadDate: leadDate
     };
-}
-
-export async function getFeeAndLeadTime(addressCustomer) {
-    try {
-        const addressShopAPI = await getAddressShopAPI();
-        const addressCustomerAPI = await getAddressCustomerAPI(addressCustomer);
-
-        const feeShipping = await getFeeShipping(); // Assuming this function returns a value synchronously
-        const leadDate = await getLeadDate(); // Assuming this function returns a value synchronously
-
-        return {
-            feeShipping: feeShipping,
-            leadDate: leadDate
-        };
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
+    // } catch (error) {
+    //     console.error(error);
+    //     throw error;
+    // }
 }
 
 
@@ -84,7 +85,7 @@ async function callAPI(url, param) {
 
 function getProvinceId(provinceName) {
     return callAPI(URL_PROVINCE).then(data => {
-        return data.data.find(province => province.NameExtension.includes(provinceName) ).ProvinceID;
+        return data.data.find(province => province.NameExtension.includes(provinceName)).ProvinceID;
     });
 }
 
@@ -104,14 +105,14 @@ function getWardCode(districtId, wardName) {
     });
 }
 
-function getFeeShipping(province, district, ward, detail) {
+async function getFeeShipping(addressFrom, addressTo) {
     return callAPI(CALCULATE_SHIPPING, {
-        from_province_id: addressShopAPI.provinceId,
-        from_district_id: addressShopAPI.districtId,
-        from_ward_code: addressShopAPI.wardCode,
-        to_province_id: addressCustomerAPI.provinceId,
-        to_district_id: addressCustomerAPI.districtId,
-        to_ward_code: addressCustomerAPI.wardCode,
+        from_province_id: addressFrom.provinceId,
+        from_district_id: addressFrom.districtId,
+        from_ward_code: addressFrom.wardCode,
+        to_province_id: addressTo.provinceId,
+        to_district_id: addressTo.districtId,
+        to_ward_code: addressTo.wardCode,
         service_type_id: SERVICE_TYPE_ID,
         weight: 500,
     }).then(data => {
@@ -119,16 +120,63 @@ function getFeeShipping(province, district, ward, detail) {
     });
 }
 
-function getLeadDate(province, district, ward, detail) {
+async function getLeadDate(addressFrom, addressTo) {
     return callAPI(CALCULATE_LEAD_DAY, {
-        from_province_id: addressShopAPI.provinceId,
-        from_district_id: addressShopAPI.districtId,
-        from_ward_code: addressShopAPI.wardCode,
-        to_province_id: addressCustomerAPI.provinceId,
-        to_district_id: addressCustomerAPI.districtId,
-        to_ward_code: addressCustomerAPI.wardCode,
+        from_province_id: addressFrom.provinceId,
+        from_district_id: addressFrom.districtId,
+        from_ward_code: addressFrom.wardCode,
+        to_province_id: addressTo.provinceId,
+        to_district_id: addressTo.districtId,
+        to_ward_code: addressTo.wardCode,
         service_id: SERVICE_ID,
     }).then(data => {
         return data.data.leadtime;
     });
+}
+
+async function getProvince() {
+    return callAPI(URL_PROVINCE,).then(res => {
+        return res.data.map(item => {
+            return {
+                id: item.ProvinceID,
+                text: item.ProvinceName
+            }
+        });
+    });
+}
+
+async function getDistrict(provinceId) {
+    return callAPI(URL_DISTRICT, {
+        province_id: provinceId
+    }).then(res => {
+        return res.data.map(item => {
+            return {
+                id: item.DistrictID,
+                text: item.DistrictName
+            }
+        });
+    });
+}
+
+async function getWard(districtId) {
+    return callAPI(URL_WARD, {
+        district_id: districtId
+    }).then(res => {
+        return res.data.map(item => {
+            return {
+                id: item.WardCode,
+                text: item.WardName
+            }
+        });
+    });
+}
+
+export {
+    getProvinceId,
+    getDistrictId,
+    getWardCode,
+    getFeeAndLeadTime,
+    getProvince,
+    getDistrict,
+    getWard,
 }

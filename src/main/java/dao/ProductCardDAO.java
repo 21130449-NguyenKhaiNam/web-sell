@@ -3,6 +3,7 @@ package dao;
 import models.Category;
 import models.Parameter;
 import models.Product;
+import services.admin.AdminProductServices;
 import utils.MoneyRange;
 
 import java.sql.Date;
@@ -288,5 +289,13 @@ public class ProductCardDAO {
                 .append("FROM order_details ")
                 .append("WHERE id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
+    }
+
+//    Sử dụng để lấy ra danh sách tên sản phẩm và id của sản phẩm (sử dụng đưa vào select)
+    public List<Product> getProduct(){
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id, `name`, categoryId, originalPrice, salePrice, visibility ")
+                .append("FROM products ");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 }

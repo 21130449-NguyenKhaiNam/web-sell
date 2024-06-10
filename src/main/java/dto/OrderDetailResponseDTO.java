@@ -14,7 +14,6 @@ import java.util.List;
 public class OrderDetailResponseDTO implements Serializable {
     private String orderId;
     private Date orderDate;
-//    private Date leadDate;
     private String status;
     private String fullName;
     private String phone;
