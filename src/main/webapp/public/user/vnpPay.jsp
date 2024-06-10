@@ -8,56 +8,60 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Tạo mới đơn hàng</title>
+    <title>Xác nhận đơn hàng</title>
     <!-- Bootstrap core CSS -->
     <!-- Custom styles for this template -->
     <link href="${pageContext.request.contextPath}/assets/css/user/jumbotron-narrow.css" rel="stylesheet">
-    <%--    <jsp:include page="/public/commonLink.jsp"/>--%>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://pay.vnpay.vn/lib/vnpay/vnpay.css" rel="stylesheet"/>
 </head>
 
 <body>
+<style>
+    .form-group {
+        margin-bottom: 20px;
+    }
 
-<div class="container">
-    <div class="header clearfix">
-        <h3 class="text-muted">VNPAY DEMO</h3>
-    </div>
-    <h3>Tạo mới đơn hàng</h3>
-    <div class="table-responsive">
+    .font-weight-bold {
+        font-weight: 600;
+    }
+</style>
+
+<div class="container mt-2">
+    <h3 class="display-4">Xác nhận đơn hàng</h3>
+    <div class="table-responsive mt-2">
         <form action="/ajax_servlet" id="frmCreateOrder" method="POST">
             <div class="form-group">
-                <label for="amount">Số tiền</label>
-                <input readonly class="form-control" data-val="true" data-val-number="The field Amount must be a number."
+                <label for="amount" class="font-weight-bold">Số tiền</label>
+                <input readonly class="form-control" data-val="true"
+                       data-val-number="The field Amount must be a number."
                        data-val-required="The Amount field is required." id="amount" max="100000000" min="1"
-                       name="amount" type="number" value="<%=session.getAttribute("totalPrice")%>"/>
+                       name="amount" type="number" value="<%=request.getAttribute("totalPrice")%>"/>
             </div>
-            <h4>Chọn phương thức thanh toán</h4>
+            <h4 class="display-6">Chọn phương thức thanh toán</h4>
             <div class="form-group">
-                <h5>Cách 1: Chuyển hướng sang Cổng VNPAY chọn phương thức thanh toán</h5>
+                <h5 class="mt-2 mb-2 font-weight-bold">Cách 1: Chuyển hướng sang Cổng VNPAY chọn phương thức thanh toán</h5>
                 <input type="radio" Checked="True" id="bankCode" name="bankCode" value="">
                 <label for="bankCode">Cổng thanh toán VNPAYQR</label><br>
             </div>
             <div class="form-group">
-                <h5>Chọn ngôn ngữ giao diện thanh toán:</h5>
+                <h5 class="display-6 mt-2 mb-2">Chọn ngôn ngữ giao diện thanh toán:</h5>
                 <input type="radio" id="language" Checked="True" name="language" value="vn">
                 <label for="language">Tiếng việt</label><br>
                 <input type="radio" id="language" name="language" value="en">
                 <label for="language">Tiếng anh</label><br>
             </div>
-            <button type="submit" class="btn btn-default" href>Thanh toán</button>
+           <div>
+               <button type="submit" class="btn-default btn btn-success" href>Thanh toán</button>
+           </div>
         </form>
     </div>
     <p>
         &nbsp;
     </p>
-    <footer class="footer">
+    <footer class="footer mb-2">
         <p>&copy; VNPAY 2020</p>
     </footer>
 </div>
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

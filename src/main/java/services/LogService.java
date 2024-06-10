@@ -29,11 +29,6 @@ public class LogService {
         logDAO.setIp(ip == null ? this.ip : ip);
     }
 
-    /**
-     * Dùng cho các câu chỉ có lệnh
-     * @param sql
-     * @param params
-     */
     public void insertLog(String sql, Object... params) {
         logDAO.insertLog(sql, params);
     }
@@ -60,5 +55,9 @@ public class LogService {
 
     public long getTotalWithCondition(String search) {
         return logDAO.getSizeWithCondition(search);
+    }
+
+    public void save(Log log) {
+        logDAO.save(log);
     }
 }

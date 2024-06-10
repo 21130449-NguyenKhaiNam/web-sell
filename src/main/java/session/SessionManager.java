@@ -52,7 +52,6 @@ public class SessionManager {
                 }
             }
         }
-        System.out.println(Arrays.toString(cookies));
         return null;
     }
 
@@ -82,7 +81,6 @@ public class SessionManager {
                     session.setAttribute(SESSION_TABLE, sessionTable);
                     cookie.setMaxAge(0);
                     response.addCookie(cookie);
-                    ShoppingCartServices.getINSTANCE().setUser(null);
                     break;
                 }
             }

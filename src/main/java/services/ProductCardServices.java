@@ -69,8 +69,7 @@ public class ProductCardServices {
         List<Product> listProduct = productCardDAO.getIdProductByCategoryId(Arrays.asList(categoryIds));
         if (listProduct.isEmpty()) return null;
         List<Integer> listId = new ArrayList<>();
-        for (Product p :
-                listProduct) {
+        for (Product p : listProduct) {
             listId.add(p.getId());
         }
         return listId;
@@ -100,10 +99,9 @@ public class ProductCardServices {
 
     public List<Integer> getIdProductFromMoneyRange(List<MoneyRange> moneyRangeList) {
         List<Product> listProduct = productCardDAO.getIdProductByMoneyRange(moneyRangeList);
-        if (listProduct.isEmpty()) return null;
+        if (listProduct.isEmpty()) return new ArrayList<>();
         List<Integer> listId = new ArrayList<>();
-        for (Product p :
-                listProduct) {
+        for (Product p : listProduct) {
             listId.add(p.getId());
         }
         return listId;

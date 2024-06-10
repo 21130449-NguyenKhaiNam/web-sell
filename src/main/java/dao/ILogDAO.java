@@ -23,4 +23,6 @@ public interface ILogDAO {
 
     long getQuantity();
 
+
+    void save(Log log);
 }

@@ -7,6 +7,7 @@
     <head>
         <jsp:include page="/public/commonLink.jsp" />
         <link rel="stylesheet" href="<c:url value="/assets/css/logIn.css"/>">
+        <script src="https://www.google.com/recaptcha/api.js?render=6LdSQu4pAAAAAJ0LbzMt-kVSfKqzVZYQtmPo3mHD"></script>
         <title>Đăng ký</title>
     </head>
 
@@ -16,9 +17,9 @@
                 <div class="frame__media"></div>
 
                 <article>
-                    <span class="text-cetner mb-3 d-flex justify-content-center hvr-bob">
+                    <span class="text-center mb-3 d-flex justify-content-center hvr-bob">
 
-                        <a href="/public/index.jsp" class="logo"></a>
+                        <a href="<c:url value="/public/index.jsp"/>" class="logo"></a>
                     </span>
                     <form action="<c:url value="/signUp"/>" method="post" class="form form--signUp">
                         <div class="form__block">
@@ -96,6 +97,11 @@
                                 <c:if test="${passwordError != null}">${passwordConfirmError}</c:if>
                             </p>
                         </div>
+                        <input type="hidden" id="recaptchaToken" name="g-recaptcha-response">
+                        <c:set var="errorReCaptcha" value="${requestScope.errorReCaptcha}"/>
+                        <c:if test="${param.errorReCaptcha eq 'true'}">${errorReCaptcha}
+                            <p class="alert alert-danger" role="alert">Mã recaptcha không hợp lệ, vui lòng thử đăng nhập lại </p>
+                        </c:if>
                         <button type="submit" id="form__submit" class="form__submit button button--hover">Đăng ký
                         </button>
                     </form>
@@ -134,26 +140,30 @@
                     this.value = this.value.replace(/\s/g, "");
                 }
             });
-
-            var validation = new Validation({
-                formSelector: ".form",
-                formBlockClass: "form__block",
-                errorSelector: ".form__error",
-                rules: [
-                    Validation.isRequired("#username"),
-                    Validation.isExistsUsername("#username"),
-                    Validation.isRequired("#email"),
-                    Validation.isEmail("#email"),
-                    Validation.isExistsEmail("#email"),
-                    Validation.isRequired("#password"),
-                    Validation.isUnique("#password"),
-                    Validation.isRequired("#confirm-password"),
-                    Validation.isConfirm("#confirm-password", function () {
-                        return document.querySelector("#password").value;
+            grecaptcha.ready(function () {
+                grecaptcha.execute('6LdSQu4pAAAAAJ0LbzMt-kVSfKqzVZYQtmPo3mHD', {action: 'submit'}).then(function (token) {
+                    document.querySelector("#recaptchaToken").value = token;
+                    var validation = new Validation({
+                        formSelector: ".form",
+                        formBlockClass: "form__block",
+                        errorSelector: ".form__error",
+                        rules: [
+                            Validation.isRequired("#username"),
+                            Validation.isExistsUsername("#username"),
+                            Validation.isRequired("#email"),
+                            Validation.isEmail("#email"),
+                            Validation.isExistsEmail("#email"),
+                            Validation.isRequired("#password"),
+                            Validation.isUnique("#password"),
+                            Validation.isRequired("#confirm-password"),
+                            Validation.isConfirm("#confirm-password", function () {
+                                return document.querySelector("#password").value;
+                            })
+                        ],
+                        submitSelector: "#form__submit",
                     })
-                ],
-                submitSelector: "#form__submit",
-            })
+                });
+            });
         </script>
     </body>
 
