@@ -45,15 +45,9 @@
                         <div class="discount__percent">
                             <i class="fa-solid fa-fire"></i>
                             <span>
-<<<<<<< HEAD
-                                <fmt:formatNumber
-                                        type="percent"
-                                        value="${voucher.discountPercent}"/>
-=======
 <%--                                <fmt:formatNumber--%>
 <%--                                        type="percent"--%>
 <%--                                        value="${voucher.discountPercent}"/>--%>
->>>>>>> main
                             </span>
                         </div>
                         <div class="item__content">
@@ -465,6 +459,7 @@
                     text: "Vui lòng lựa chọn món hàng muốn thanh toán",
                 });
             }
+
         })
 
         function checkPayHigh(isAll = false) {
