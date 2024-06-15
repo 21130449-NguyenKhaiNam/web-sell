@@ -6,15 +6,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <jsp:include page="/public/commonLink.jsp"/>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/user/account.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/user/accountInfo.css"/>">
+    <jsp:include page="/public/commonLink.jsp"/>
     <title>Thông tin cá nhân</title>
 </head>
 <body>
+<%@include file="/public/header.jsp" %>
 <c:set var="user" value="${requestScope.accountInfo}"/>
 <div id="main">
     <nav class="navbar">
