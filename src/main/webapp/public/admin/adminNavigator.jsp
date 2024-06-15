@@ -94,7 +94,7 @@
 <script>
     function isFirstVisit() {
         // Check LocalStorage for a specific item
-        const isVisited = localStorage.getItem('hasVisited')
+        const isVisited = localStorage.getItem('hasVisited');
         if (isVisited) {
             localStorage.setItem('hasVisited', null);
         }
@@ -106,11 +106,32 @@
         localStorage.setItem('hasVisited', 'true');
     }
 
-    // Event handler for when the page is fully loaded
+    // Function to load content based on the URL
+    function loadContentFromURL(url) {
+        let ind = url.indexOf("#");
+        if (ind < 0) {
+            const defaultReload = $('.sidebar_active > .sidebar_item')[0];
+            const path = defaultReload.href;
+            url += path.substring(path.indexOf("#"), path.length);
+        }
+        const sub = url.substring(url.indexOf("#"), url.length);
+        $('li > .sidebar_item').each(function () {
+            let linkHref = this.href;
+            linkHref = linkHref.substring(linkHref.indexOf("#"), linkHref.length);
+            if (linkHref == sub) {
+                $('.sidebar_active').removeClass('sidebar_active');
+                $(this).parent().addClass('sidebar_active');
+                const path = this.dataset.link;
+                $("#contain").load(path);
+                return false; // Exit loop
+            }
+        });
+    }
+
     window.addEventListener('load', function () {
         if (isFirstVisit()) {
-            const defaultReload = $('.sidebar_active > .sidebar_item')[0]
-            const path = defaultReload.dataset.link
+            const defaultReload = $('.sidebar_active > .sidebar_item')[0];
+            const path = defaultReload.dataset.link;
             window.history.pushState(null, null, defaultReload.href);
         }
         // Set the visit status regardless of whether it's the first visit or not
@@ -119,47 +140,29 @@
 
     $(document).ready(function () {
         localStorage.setItem("link", window.location.href);
-
-        let link = localStorage.getItem("link") || window.location.href
-        let ind = link.indexOf("#")
-        if (ind < 0) {
-            const defaultReload = $('.sidebar_active > .sidebar_item')[0]
-            const path = defaultReload.href
-            link += path.substring(path.indexOf("#"), path.length)
-        }
-        const sub = link.substring(link.indexOf("#"), link.length)
-        $('li > .sidebar_item').each(function () {
-            let linkHref = this.href
-            linkHref = linkHref.substring(linkHref.indexOf("#"), linkHref.length)
-            if (linkHref == sub) {
-                link = this
-                $('.sidebar_active').removeClass('sidebar_active')
-                this.parentElement.classList.add('sidebar_active')
-                return;
-            }
-        })
-        const defaultReload = link || $('.sidebar_active > .sidebar_item')[0]
-        // Gọi tới đường dẫn
-        const path = defaultReload.dataset.link
-        window.history.pushState(null, null, defaultReload.href);
-        $("#contain").load(path)
-
+        loadContentFromURL(window.location.href);
 
         $('.sidebar_item').on('click', function (event) {
             // Ngăn sự kiện chuyển trang
             event.preventDefault();
 
             // Thay đổi trạng thái active cho tag được nhấn
-            $('.sidebar_active').removeClass('sidebar_active')
-            this.classList.add('sidebar_active')
+            $('.sidebar_active').removeClass('sidebar_active');
+            $(this).parent().addClass('sidebar_active');
 
             // Gọi tới đường dẫn
-            const path = this.dataset.link
+            const path = this.dataset.link;
             window.history.pushState(null, null, this.href);
             localStorage.setItem("link", window.location.href);
-            $("#contain").load(path)
-        })
-    })
+            $("#contain").load(path);
+        });
+    });
+
+    // Lắng nghe sự kiện popstate để xử lý nút back/forward
+    window.addEventListener('popstate', function () {
+        loadContentFromURL(window.location.href);
+    });
+
 </script>
 </body>
 </html>
