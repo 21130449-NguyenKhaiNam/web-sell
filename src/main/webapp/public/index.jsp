@@ -29,7 +29,7 @@
 <!--Header-->
 <c:import url="header.jsp" charEncoding="UTF-8"/>
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
-<main id="main"> <!--Hero-->
+<main id="main" class="animate__animated animate__zoomIn"> <!--Hero-->
     <div class="hero">
         <img src="<c:url value="/assets/img/hero__img.png" />" alt="" class="hero__img">
         <div class="hero__slogan">
@@ -384,6 +384,7 @@
         $('.search__box').removeClass('focused');
     });
 
+    $('#header').addClass("animate__animated animate__backInDown")
     handelSearch()
     addToCartAjax()
 </script>

@@ -65,7 +65,7 @@
                                         </span>
                                 </a>
                             </div>
-                            <div class="account">
+                            <div class="account hvr-grow">
                                 <i class="account__icon fa-regular fa-user"></i>
                                 <div class="setting__list">
                                     <a href="<c:url value=" /public/user/accountInfo.jsp" />"
