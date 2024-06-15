@@ -1,21 +1,21 @@
-// function handleUpdateStatusSelection() {
-//     const optionMenus = document.querySelectorAll(".select-menu");
-//     optionMenus.forEach(optionMenu => {
-//         const selectBtn = optionMenu.querySelector(".select-btn");
-//         const options = optionMenu.querySelectorAll(".option");
-//         const sBtn_text = optionMenu.querySelector(".sBtn-text");
-//         selectBtn.addEventListener("click", () => optionMenu.classList.toggle("active"));
-//         options.forEach(option => {
-//             option.addEventListener("click", () => {
-//                 let selectedOption = option.innerText;
-//                 sBtn_text.innerText = selectedOption;
-//                 optionMenu.classList.remove("active");
-//             });
-//         });
-//     })
-// }
-//
-// handleUpdateStatusSelection();
+function handleUpdateStatusSelection() {
+    const optionMenus = document.querySelectorAll(".select-menu");
+    optionMenus.forEach(optionMenu => {
+        const selectBtn = optionMenu.querySelector(".select-btn");
+        const options = optionMenu.querySelectorAll(".option");
+        const sBtn_text = optionMenu.querySelector(".sBtn-text");
+        selectBtn.addEventListener("click", () => optionMenu.classList.toggle("active"));
+        options.forEach(option => {
+            option.addEventListener("click", () => {
+                let selectedOption = option.innerText;
+                sBtn_text.innerText = selectedOption;
+                optionMenu.classList.remove("active");
+            });
+        });
+    })
+}
+
+handleUpdateStatusSelection();
 
 $(document).ready(() => {
     const dialogUpdateOrder = document.querySelector("#dialog__order")
@@ -63,6 +63,7 @@ $(document).ready(() => {
                 setupData(resp.listOrdersPerPage);
                 paging(resp.page, resp.totalPage);
                 handelShowListDetailOfOrder();
+                handleOpenPopupUpdateStatus();
             },
             error: function (error) {
                 console.log("loi khong hien thi san pham")
@@ -489,123 +490,121 @@ $(document).ready(() => {
 //     })
 // }
 //
-// function handleOpenPopupUpdateStatus() {
-//     $(document).ready(function () {
-//         const popupUpdate = $('.popup__update');
-//         let processOrderForm = $('#process__order--form');
-//         let showUpdateStatusButton = $('.table__cell.show__update');
-//         showUpdateStatusButton.on('click', function () {
-//             let showUSButtonTarget = $(this);
-//             let orderId = $(this).val()
-//             let action = $(this).data('action')
-//             $.ajax({
-//                 url: processOrderForm.attr('action'),
-//                 type: processOrderForm.attr('method'),
-//                 data: {
-//                     action: action,
-//                     orderId: orderId
-//                 },
-//                 success: function (response) {
-//                     let arrAllOrderStatus = response.listAllOrderStatus;
-//                     let arrAllTransactionStatus = response.listAllTransactionStatus;
-//                     let orderStatusTarget = JSON.parse(response.orderStatusTarget);
-//                     let transactionStatusTarget = JSON.parse(response.transactionStatusTarget);
-//
-//                     $(popupUpdate).html(`<div class="update__status--modal">
-//                                                     <div class="popup__container">
-//                                                         <div class="popup__heading">
-//                                                             <h1 class="popup__title">Cập nhật trạng thái</h1>
-//                                                             <span class="popup__close"><i class="fa-solid fa-xmark"></i></span>
-//                                                         </div>
-//                                                         <div class="popup__body">
-//                                                             <div class="popup__content">
-//                                                                 <div class="update__status">
-//                                                                     <div class="section__content">
-//                                                                         <span class="content__no">1</span>
-//                                                                         <span class="content__title">Tình trạng đơn hàng</span>
-//                                                                     </div>
-//                                                                     <select class="select__status" name="orderStatus">
-//
-//                                                                     </select>
-//                                                                 </div>
-//                                                                 <div class="update__status">
-//                                                                     <div class="section__content">
-//                                                                         <span class="content__no">2</span>
-//                                                                         <span class="content__title">Tình trạng giao dịch</span>
-//                                                                     </div>
-//                                                                     <select class="select__status" name="transactionStatus">
-//
-//                                                                     </select>
-//                                                                 </div>
-//                                                             </div>
-//                                                             <div class="button__control">
-//                                                                 <button type="submit" class="save__update" name="action" value="saveUpdateStatus" data-order-id="">Lưu cập nhật</button>
-//                                                                 <button type="button" class="cancel__update" name="action" value="cancelUpdate">Hủy</button>
-//                                                             </div>
-//                                                         </div>
-//                                                     </div>
-//                                                 </div>`);
-//
-//                     $.each(arrAllOrderStatus, function (index, value) {
-//                         let selectStatus = $('.update__status:first-child .select__status');
-//                         $(selectStatus).append(`<option class="option__status" value="${value.id}">${value.typeStatus}</option>`)
-//                         if (orderStatusTarget.typeStatus === value.typeStatus) {
-//                             $(selectStatus).find('.option__status').prop('selected', true)
-//                         }
-//                     })
-//
-//                     $.each(arrAllTransactionStatus, function (index, value) {
-//                         let selectStatus = $('.update__status:last-child .select__status');
-//                         $(selectStatus).append(`<option class="option__status" value="${value.id}">${value.typeStatus}</option>`)
-//                         if (value.typeStatus === transactionStatusTarget.typeStatus) {
-//                             $(selectStatus).find('.option__status').prop('selected', true)
-//                         }
-//                     })
-//
-//                     $('.select__status').select2();
-//                     $(popupUpdate).find('.popup__close').on('click', function () {
-//                         $(popupUpdate).find('.update__status--modal').remove();
-//                     })
-//
-//                     $(popupUpdate).find('.cancel__update').on('click', function () {
-//                         $(popupUpdate).find('.update__status--modal').remove();
-//                     })
-//
-//
-//                     function handleUpdateStatusOrderTran() {
-//                         let processOrderForm = $('#process__order--form');
-//                         let updateStatusButton = $('.save__update');
-//                         updateStatusButton.on('click', function (event) {
-//                             event.preventDefault();
-//                             let action = $(updateStatusButton).val();
-//                             let orderStatusId = $('select[name=orderStatus].select__status').val();
-//                             let transactionStatusId = $('select[name=transactionStatus].select__status').val();
-//                             $.ajax({
-//                                 url: processOrderForm.attr("action"),
-//                                 type: processOrderForm.attr("method"),
-//                                 data: {
-//                                     action: action,
-//                                     orderId: orderId,
-//                                     orderStatusId: orderStatusId,
-//                                     transactionStatusId: transactionStatusId
-//                                 },
-//                                 success: function (response) {
-//                                     $(popupUpdate).find('.update__status--modal').remove();
-//                                     $(showUSButtonTarget).closest('.table__row').find('.data__status.order .table__cell').text(response.orderStatusUpdate);
-//                                     $(showUSButtonTarget).closest('.table__row').find('.data__status.transaction .table__cell').text(response.transactionStatusUpdate)
-//                                     $('.order__status--section').find('.info__value').text(response.orderStatusUpdate);
-//                                     $('.transaction__status--section').find('.info__value').text(response.transactionStatusUpdate)
-//                                 }
-//                             })
-//                         })
-//                     }
-//
-//                     handleUpdateStatusOrderTran()
-//                 }
-//             })
-//         })
-//     })
-// }
-//
-// handleOpenPopupUpdateStatus()
-//
+function handleOpenPopupUpdateStatus() {
+    const popupUpdate = $('.popup__update');
+    let processOrderForm = $('#process__order--form');
+    let showUpdateStatusButton = $('.table__cell.show__update');
+    showUpdateStatusButton.on('click', function () {
+        console.log("click")
+        let showUSButtonTarget = $(this);
+        let orderId = $(this).val()
+        let action = $(this).data('action')
+        $.ajax({
+            url: processOrderForm.attr('action'),
+            type: processOrderForm.attr('method'),
+            data: {
+                action: action,
+                orderId: orderId
+            },
+            success: function (response) {
+                let arrAllOrderStatus = response.listAllOrderStatus;
+                let arrAllTransactionStatus = response.listAllTransactionStatus;
+                let orderStatusTarget = JSON.parse(response.orderStatusTarget);
+                let transactionStatusTarget = JSON.parse(response.transactionStatusTarget);
+
+                $(popupUpdate).html(`<div class="update__status--modal">
+                                                    <div class="popup__container">
+                                                        <div class="popup__heading">
+                                                            <h1 class="popup__title">Cập nhật trạng thái</h1>
+                                                            <span class="popup__close"><i class="fa-solid fa-xmark"></i></span>
+                                                        </div>
+                                                        <div class="popup__body">
+                                                            <div class="popup__content">
+                                                                <div class="update__status">
+                                                                    <div class="section__content">
+                                                                        <span class="content__no">1</span>
+                                                                        <span class="content__title">Tình trạng đơn hàng</span>
+                                                                    </div>
+                                                                    <select class="select__status" name="orderStatus">
+
+                                                                    </select>
+                                                                </div>
+                                                                <div class="update__status">
+                                                                    <div class="section__content">
+                                                                        <span class="content__no">2</span>
+                                                                        <span class="content__title">Tình trạng giao dịch</span>
+                                                                    </div>
+                                                                    <select class="select__status" name="transactionStatus">
+
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="button__control">
+                                                                <button type="submit" class="save__update" name="action" value="saveUpdateStatus" data-order-id="">Lưu cập nhật</button>
+                                                                <button type="button" class="cancel__update" name="action" value="cancelUpdate">Hủy</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>`);
+
+                $.each(arrAllOrderStatus, function (index, value) {
+                    let selectStatus = $('.update__status:first-child .select__status');
+                    $(selectStatus).append(`<option class="option__status" value="${value.id}">${value.typeStatus}</option>`)
+                    if (orderStatusTarget.typeStatus === value.typeStatus) {
+                        $(selectStatus).find('.option__status').prop('selected', true)
+                    }
+                })
+
+                $.each(arrAllTransactionStatus, function (index, value) {
+                    let selectStatus = $('.update__status:last-child .select__status');
+                    $(selectStatus).append(`<option class="option__status" value="${value.id}">${value.typeStatus}</option>`)
+                    if (value.typeStatus === transactionStatusTarget.typeStatus) {
+                        $(selectStatus).find('.option__status').prop('selected', true)
+                    }
+                })
+
+                $('.select__status').select2();
+                $(popupUpdate).find('.popup__close').on('click', function () {
+                    $(popupUpdate).find('.update__status--modal').remove();
+                })
+
+                $(popupUpdate).find('.cancel__update').on('click', function () {
+                    $(popupUpdate).find('.update__status--modal').remove();
+                })
+
+
+                function handleUpdateStatusOrderTran() {
+                    let processOrderForm = $('#process__order--form');
+                    let updateStatusButton = $('.save__update');
+                    updateStatusButton.on('click', function (event) {
+                        event.preventDefault();
+                        let action = $(updateStatusButton).val();
+                        let orderStatusId = $('select[name=orderStatus].select__status').val();
+                        let transactionStatusId = $('select[name=transactionStatus].select__status').val();
+                        $.ajax({
+                            url: processOrderForm.attr("action"),
+                            type: processOrderForm.attr("method"),
+                            data: {
+                                action: action,
+                                orderId: orderId,
+                                orderStatusId: orderStatusId,
+                                transactionStatusId: transactionStatusId
+                            },
+                            success: function (response) {
+                                $(popupUpdate).find('.update__status--modal').remove();
+                                $(showUSButtonTarget).closest('.table__row').find('.data__status.order .table__cell').text(response.orderStatusUpdate);
+                                $(showUSButtonTarget).closest('.table__row').find('.data__status.transaction .table__cell').text(response.transactionStatusUpdate)
+                                $('.order__status--section').find('.info__value').text(response.orderStatusUpdate);
+                                $('.transaction__status--section').find('.info__value').text(response.transactionStatusUpdate)
+                            }
+                        })
+                    })
+                }
+                handleUpdateStatusOrderTran()
+            }
+        })
+    })
+}
+
+handleOpenPopupUpdateStatus()
+

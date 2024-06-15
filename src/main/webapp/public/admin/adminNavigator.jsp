@@ -8,9 +8,28 @@
     <script src="<c:url value="/ckeditor/ckeditor.js"/>"></script>
     <!--Ck Finder-->
     <script src="<c:url value="/ckfinder/ckfinder.js"/>"></script>
+    <!--jQuery validator-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"
+            integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css" />">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminCategories.css"/>">
+    <script>
+        $.validator.addMethod("currencyVND", function (value, element) {
+            return /^-?\d+(?:\.\d{1,2})?$/.test(value);
+        }, "Please enter a valid currency format");
+        $.validator.addMethod("notEqual", function (value, element, param) {
+            return value !== param;
+        }, "Please select an option.");
+        $.fn.select2.defaults.set("theme", "bootstrap-5");
+        $.fn.select2.defaults.set("width", "resolve");
+    </script>
     <title>Trang quản trị hệ thống</title>
 </head>
 <body>
