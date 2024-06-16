@@ -1,4 +1,9 @@
 $(document).ready(function () {
+        $.validator.addMethod("notEqual", function (value, element, param) {
+            return value !== param;
+        }, "Please select an option.");
+        $.fn.select2.defaults.set("width", "resolve");
+
         const configDatatable = {
             paging: true,
             processing: true,
@@ -130,7 +135,6 @@ $(document).ready(function () {
                 },
                 minimumPrice: {
                     required: true,
-                    // currencyVND: true
                 },
                 discountPercent: {
                     required: true,
@@ -147,7 +151,7 @@ $(document).ready(function () {
                 },
                 state: {
                     required: true,
-                    // notEqual: "-1"
+                    notEqual: "-1"
                 },
                 productId: {
                     required: true
@@ -165,7 +169,6 @@ $(document).ready(function () {
                 },
                 minimumPrice: {
                     required: "Vui lòng nhập giá tối thiểu",
-                    currencyVND: "Vui lòng nhập đúng định dạng tiền tệ VND"
                 },
                 discountPercent: {
                     required: "Vui lòng nhập phần trăm giảm giá",
@@ -270,7 +273,7 @@ $(document).ready(function () {
                 return false;
             }
         };
-        const select2Element = $("#productId").select2();
+        const select2Element = $("#productId").select2(configSelect2);
         const form = $("#form")
         form.on("submit", (e) => {
             e.preventDefault()
@@ -279,20 +282,16 @@ $(document).ready(function () {
         configModal();
 
         function configModal() {
-            const myModal = new Modal("myModal",
-                {
-                    beforeOpen: function () {
-                        addDataToSelect();
-                        if (row.rowDataSelected)
-                            getDetail(row.rowDataSelected.code);
-                    },
-                    afterClose: function () {
-                        form.find('.form-control').removeClass('is-valid is-invalid');
-                        form.find('.form-select').removeClass('is-valid is-invalid');
-                        form.find("input, textarea, select").val("")
-                        formValidate.resetForm();
-                    }
-                });
+            document.querySelector("#modal").addEventListener("hide.bs.modal", function () {
+                form.find("input, textarea, select").val("")
+                formValidate.resetForm();
+            })
+            document.querySelector("#modal").addEventListener("show.bs.modal", function () {
+                addDataToSelect();
+                if (row) {
+                    getDetail(row.rowDataSelected.code);
+                }
+            });
         }
 
         function handleSave(formData, callback) {
