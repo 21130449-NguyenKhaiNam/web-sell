@@ -7,7 +7,6 @@ import org.jdbi.v3.core.statement.Query;
 import org.jdbi.v3.core.statement.Update;
 import services.LogService;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -36,7 +35,11 @@ public class GeneralDao {
                 }
             }
             List<T> list = query.mapToBean(type).list();
-//            LogService.getINSTANCE().insertLogForSelect(sql, list);
+            try {
+                LogService.getINSTANCE().insertLogForSelect(sql, list);
+            } catch (Exception e) {
+                System.out.println("Lỗi bởi ghi log trong general dao [executeQueryWithSingleTable] >> " + e.getMessage());
+            }
             return list;
         } finally {
             ConnectionPool.getINSTANCE().releaseHandle(handle);
@@ -52,7 +55,11 @@ public class GeneralDao {
                 }
             }
             List<Map<String, Object>> list = query.mapToMap().list();
-//            LogService.getINSTANCE().insertLogForSelect(sql, list);
+            try {
+                LogService.getINSTANCE().insertLogForSelect(sql, list);
+            } catch (Exception e) {
+                System.out.println("Lỗi bởi ghi log trong general dao [executeQueryWithJoinTables]>> " + e.getMessage());
+            }
             return list;
         });
     }
@@ -73,7 +80,7 @@ public class GeneralDao {
 
             });
         } catch (Exception exception) {
-            exception.printStackTrace();
+            System.out.println("Lỗi bởi ghi log trong general dao [executeAllTypeUpdate]>> " + exception.getMessage());
             handle.rollback();
         } finally {
             ConnectionPool.getINSTANCE().releaseHandle(handle);
@@ -87,6 +94,11 @@ public class GeneralDao {
             for (int i = 0; i < params.length; i++) {
                 insert.bind(i, params[i]);
             }
+        }
+        try {
+            LogService.getINSTANCE().insertLog(sql, params);
+        } catch (Exception e) {
+            System.out.println("Lỗi bởi ghi log trong general dao [executeInsert]>> " + e.getMessage());
         }
         return insert.executeAndReturnGeneratedKeys("id") // "id" is the column name of the generated key
                 .mapTo(Integer.class)
