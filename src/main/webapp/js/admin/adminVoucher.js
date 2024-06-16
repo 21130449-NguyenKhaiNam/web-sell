@@ -114,7 +114,7 @@ $(document).ready(function () {
             rowDataSelected: undefined,//Lưu giữ đối tượng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
             rowIndexSelected: undefined //Lưu giữ vị trí dòng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
         };
-        const datatable = table.DataTable(configDatatable);
+        const datatable = new DataTable("#table",configDatatable);
 
         const configValidator = {
             rules: {
@@ -271,7 +271,7 @@ $(document).ready(function () {
             }
         };
 
-        const select2Element = $("#productId").select2(configSelect2);
+        const select2Element = $("#productId").select2();
         const form = $("#form")
         form.on("submit", (e) => {
             e.preventDefault()
@@ -280,21 +280,20 @@ $(document).ready(function () {
         configModal();
 
         function configModal() {
-            $("#toggle-myModal").on("change", function () {
-                // Modal mở
-                if ($(this).is(":checked")) {
-                    addDataToSelect();
-                    if (row.rowDataSelected)
-                        getDetail(row.rowDataSelected.code);
-                }
-                // Modal đóng
-                else {
-                    form.find('.form-control').removeClass('is-valid is-invalid');
-                    form.find('.form-select').removeClass('is-valid is-invalid');
-                    form.find("input, textarea, select").val("")
-                    formValidate.resetForm();
-                }
-            });
+            const myModal = new Modal("myModal",
+                {
+                    beforeOpen: function () {
+                        addDataToSelect();
+                        if (row.rowDataSelected)
+                            getDetail(row.rowDataSelected.code);
+                    },
+                    afterClose: function () {
+                        form.find('.form-control').removeClass('is-valid is-invalid');
+                        form.find('.form-select').removeClass('is-valid is-invalid');
+                        form.find("input, textarea, select").val("")
+                        formValidate.resetForm();
+                    }
+                });
         }
 
         function handleSave(formData, callback) {

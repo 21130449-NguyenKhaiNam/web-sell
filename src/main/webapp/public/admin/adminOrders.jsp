@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="<c:url value="/assets/css/modal.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminOrders.css"/>">
     <title>Admin</title>
@@ -185,7 +186,6 @@
 </div>
 <div id="dialog__order" class="modal">
     <article class="modal__content modal__order">
-
     </article>
     <div class="modal__blur"></div>
 </div>
@@ -206,9 +206,6 @@
 <%--    </div>--%>
 <%--</div>--%>
 <script src="<c:url value="/js/paging.js"/>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
-        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="<c:url value="/js/admin/adminOrders.js" />"></script>
 </body>
 </html>

@@ -495,7 +495,6 @@ function handleOpenPopupUpdateStatus() {
     let processOrderForm = $('#process__order--form');
     let showUpdateStatusButton = $('.table__cell.show__update');
     showUpdateStatusButton.on('click', function () {
-        console.log("click")
         let showUSButtonTarget = $(this);
         let orderId = $(this).val()
         let action = $(this).data('action')

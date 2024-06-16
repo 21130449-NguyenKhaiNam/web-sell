@@ -1,13 +1,10 @@
-input#toggle-myModal:checked ~ .myModal {
-    position: fixed;
-    inset: 0 0 0 0;
-    display: flex;
-    z-index: 2;
-}
+
 
 .myModal {
     display: none;
-    position: relative;
+    position: fixed;
+    inset: 0 0 0 0;
+    z-index: 2;
 }
 
 .myModal__blur {

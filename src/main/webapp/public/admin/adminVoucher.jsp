@@ -17,8 +17,7 @@
                 <div class="col-lg-12">
                     <div>
                         <h1>Danh sách mã giảm giá</h1>
-                        <label for="toggle-myModal" id="button" class="button button__add"
-                        >
+                        <label modal-triger-open="myModal" id="button" class="button button__add">
                             <i class="fa-solid fa-plus"></i>
                             Thêm mã giảm giá
                         </label>
@@ -45,18 +44,16 @@
         </div>
     </section>
 
-    <!-- Modal Create-->
-    <input type="checkbox" id="toggle-myModal" hidden="hidden">
-    <div class="myModal">
-        <label for="toggle-myModal" class="myModal__blur">
+    <div id="myModal" class="myModal">
+        <div class="myModal__blur overlay">
 
-        </label>
+        </div>
         <form id="form" class="myModal__body needs-validation">
             <header class="myModal__header">
                 <h1 class="modal-title fs-5" id="modal-label">Thêm mã giảm giá</h1>
-                <label for="toggle-myModal" class="myModal__close">
+                <span class="myModal__close close">
                     <i class="fa-solid fa-xmark"></i>
-                </label>
+                </span>
             </header>
             <div class="myModal__content">
                 <div class="container-fluid">
@@ -140,19 +137,18 @@
                 </div>
             </div>
             <div class="myModal__footer">
-                <button type="button" class="btn btn-secondary">Đóng</button>
+                <button type="button" modal-triger-close="myModal" class="btn btn-secondary">Đóng</button>
                 <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
         </form>
     </div>
-    <%--    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">--%>
-    <%--        <div class="modal-dialog" style="max-width: 80%">--%>
-
-    <%--        </div>--%>
-    <%--    </div>--%>
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script src="<c:url value="/js/admin/adminVoucher.js"/>"></script>
+<script src="<c:url value="/js/admin/adminVoucher.js"/>">
+</script>
 
 </body>
 </html>
