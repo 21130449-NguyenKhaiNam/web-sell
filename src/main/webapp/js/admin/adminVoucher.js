@@ -114,7 +114,7 @@ $(document).ready(function () {
             rowDataSelected: undefined,//Lưu giữ đối tượng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
             rowIndexSelected: undefined //Lưu giữ vị trí dòng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
         };
-        const datatable = new DataTable("#table",configDatatable);
+        const datatable = new DataTable("#table", configDatatable);
 
         const configValidator = {
             rules: {
@@ -270,7 +270,6 @@ $(document).ready(function () {
                 return false;
             }
         };
-
         const select2Element = $("#productId").select2();
         const form = $("#form")
         form.on("submit", (e) => {
