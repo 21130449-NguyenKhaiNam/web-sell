@@ -5,13 +5,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <jsp:include page="/public/admin/adminLink.jsp"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/modal.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminOrders.css"/>">
-    <title>Admin</title>
+    <title>Quản lý đơn hàng</title>
 </head>
 <body>
+<!--Header-->
+<c:import url="/public/header.jsp"/>
 <main id="main">
+    <!--Navigate-->
+    <c:import url="/public/admin/adminNavigator.jsp"/>
     <section class="content">
         <div class="container-xl">
             <div class="row">
