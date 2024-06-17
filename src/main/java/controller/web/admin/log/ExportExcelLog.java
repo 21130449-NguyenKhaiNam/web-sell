@@ -23,7 +23,8 @@ public class ExportExcelLog extends HttpServlet implements Serializable {
     private final int LIMIT = 10000;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        boolean delete = Boolean.parseBoolean(request.getParameter("delete").toLowerCase());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
@@ -50,7 +51,6 @@ public class ExportExcelLog extends HttpServlet implements Serializable {
 
         for (long i = 0; i < loop; i++) {
             List<Log> logList = LogService.getINSTANCE().getLimit(LIMIT, (int) (i * LIMIT));
-            System.out.println(i);
             for (Log log : logList) {
 
                 Row row = sheet.createRow(rowNum++);
@@ -72,9 +72,12 @@ public class ExportExcelLog extends HttpServlet implements Serializable {
             }
         }
 
+        if(delete) {
+           LogService.getINSTANCE().deleteAll();
+        }
+
         try (OutputStream out = response.getOutputStream()) {
             workbook.write(out);
         }
     }
-
 }

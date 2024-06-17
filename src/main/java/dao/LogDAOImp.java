@@ -85,6 +85,7 @@ public class LogDAOImp implements ILogDAO {
                 return "ERROR";
         }
 
+        // Tìm từ khóa tương ứng trong chuỗi truy vấn
         int startIdx = indexOfKeyword(builder, keyword);
         if (startIdx == -1) {
             return "ERROR";
@@ -278,6 +279,14 @@ public class LogDAOImp implements ILogDAO {
                     .bind("previous", log.getPrevious())
                     .bind("current", log.getCurrent())
                     .execute();
+        });
+    }
+
+    @Override
+    public void deleteAll() {
+        String sql = "DELETE FROM logs WHERE 1=1";
+        GeneralDao.customExecute((handle) -> {
+            handle.execute(sql);
         });
     }
 

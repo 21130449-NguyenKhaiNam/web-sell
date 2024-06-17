@@ -119,7 +119,6 @@ public class ShoppingCartDao {
             for (int i = 0; i < list.size(); i++) {
                 AbstractCartProduct product = list.get(i);
                 int colorId = product.getColor().getId();
-                System.out.println("Param update cart >> " + Arrays.asList(product.getQuantity(), productId, colorId, product.getSize()));
                 GeneralDao.executeAllTypeUpdate(sql, product.getQuantity(), productId, colorId, product.getSize());
             }
         }
