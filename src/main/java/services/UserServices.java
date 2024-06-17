@@ -3,19 +3,17 @@ package services;
 import dao.AddressDAO;
 import dao.IAddressDAO;
 import dao.UserDAO;
-import models.Address;
 import models.User;
+import utils.Encoding;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 
 public class UserServices {
     private static UserServices INSTANCE;
     private UserDAO userDAO;
     private IAddressDAO addressDAO;
+
     private UserServices() {
         userDAO = new UserDAO();
         addressDAO = new AddressDAO();
@@ -54,26 +52,28 @@ public class UserServices {
         return listUser.get(0);
     }
 
-    public List<User> searchUsersByName(String search) {
-        return userDAO.searchUsersByName(search);
+    public void insertUser(User user, String password) {
+        user.setPasswordEncoding(Encoding.getINSTANCE().toSHA1(password));
+        userDAO.insertUser(user);
     }
 
-    public List<User> selectAll() {
-        return userDAO.selectALl();
+    public void updateUser(User user) {
+        userDAO.updateUser(user);
     }
 
-    public void insertUser(String username, String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay, String role) {
-        userDAO.insertUser(username, passwordEncoding, fullname, gender, email, phone, address, birthDay, role);
-    }
-
-    public void updateUserByIDWithRole(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay, String role) {
-        userDAO.updateUserByIDWithRole(id, username, fullname, gender, email, phone, address, birthDay, role);
-    }
     public long getQuantity() {
         return userDAO.getQuantity();
     }
 
     public List<User> getLimit(int limit, int offset) {
         return userDAO.getLimit(limit, offset);
+    }
+
+    public List<User> getUser(Integer start, Integer length, String searchValue, String orderBy, String orderDir) {
+        return userDAO.selectWithCondition(start, length, searchValue, orderBy, orderDir);
+    }
+
+    public long getTotalWithCondition(String searchValue) {
+        return userDAO.getSizeWithCondition(searchValue);
     }
 }

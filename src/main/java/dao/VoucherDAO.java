@@ -29,8 +29,15 @@ public class VoucherDAO {
         return vouchers;
     }
 
+    public boolean existVoucher(Integer id) {
+        String sql = "SELECT id, code, minimumPrice, description, discountPercent, expiryDate, state, availableTurns FROM vouchers WHERE id = ?";
+        List<Voucher> vouchers = new ArrayList<>();
+        vouchers = GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, id);
+        return !vouchers.isEmpty();
+    }
+
     public Voucher selectByCode(String code) {
-        String sql = "SELECT id, code, minimumPrice,discountPercent, expiryDate, state, availableTurns FROM vouchers WHERE code = ?";
+        String sql = "SELECT id, code, minimumPrice, description, discountPercent, expiryDate, state, availableTurns FROM vouchers WHERE code = ?";
         List<Voucher> vouchers = new ArrayList<>();
         vouchers = GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, code);
         return vouchers.isEmpty() ? null : vouchers.get(0);
@@ -55,7 +62,7 @@ public class VoucherDAO {
     }
 
     public List<Voucher> selectWithCondition(Integer start, Integer limit, String search, String orderBy, String orderDir) {
-        String sql = "SELECT `code`, createAt, expiryDate, availableTurns, state " + "FROM vouchers " +
+        String sql = "SELECT id, `code`, createAt, expiryDate, availableTurns, state " + "FROM vouchers " +
                 "WHERE code LIKE :search OR createAt LIKE :search OR expiryDate LIKE :search OR availableTurns LIKE :search OR state LIKE :search " +
                 "ORDER BY :orderBy :orderDir LIMIT :limit OFFSET :start";
         List<Voucher> vouchers = new ArrayList<>();

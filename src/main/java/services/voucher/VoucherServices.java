@@ -107,9 +107,9 @@ public class VoucherServices {
         voucherDAO.changeState(code, type);
     }
 
-    public boolean updateProduct(Voucher voucher, List<Integer> listProductId) {
-        boolean isValid = voucherValid(voucher);
-        if (!isValid) return false;
+    public boolean updateVoucher(Voucher voucher, List<Integer> listProductId) {
+        boolean exist = voucherDAO.existVoucher(voucher.getId());
+        if (!exist) return false;
         voucherDAO.update(voucher);
         return true;
     }

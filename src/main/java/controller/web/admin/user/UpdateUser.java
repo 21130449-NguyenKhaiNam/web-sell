@@ -44,7 +44,7 @@ public class UpdateUser extends HttpServlet {
             int userId = Integer.parseInt(userIdString);
             Date birthDay = Date.valueOf(birthDayString);
 
-            UserServices.getINSTANCE().updateUserByIDWithRole(userId, username, fullName, gender, email, phone, address, birthDay, role);
+//            UserServices.getINSTANCE().updateUser(userId, username, fullName, gender, email, phone, address, birthDay, role);
 
             response.sendRedirect(request.getContextPath() + "/AdminUser");
         } catch (NumberFormatException e) {

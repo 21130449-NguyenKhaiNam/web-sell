@@ -40,7 +40,7 @@ public class UpdateVoucherController extends HttpServlet {
                     .state(req.getParameter("state"))
                     .build();
             List<Integer> listProductId = Arrays.stream(req.getParameterValues("productId")).mapToInt(Integer::parseInt).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-            boolean saveSuccess = voucherServices.updateProduct(voucher, listProductId);
+            boolean saveSuccess = voucherServices.updateVoucher(voucher, listProductId);
             jsonObject.addProperty("success", saveSuccess);
         } catch (Exception e) {
             jsonObject.addProperty("success", false);

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/> ">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminVoucher.css"/>">
-    <title>Quản lý sản phẩm</title>
+    <title>Quản lý mã giảm giá</title>
 </head>
 <body>
 <!--Header-->
@@ -146,7 +146,7 @@
     </div>
 </main>
 
-<script src="<c:url value="/js/admin/adminVoucher.js"/>">
+<script type="module" src="<c:url value="/js/admin/adminVoucher.js"/>">
 </script>
 
 </body>

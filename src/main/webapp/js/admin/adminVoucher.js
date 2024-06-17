@@ -1,3 +1,5 @@
+import {addParam} from "../base.js";
+
 $(document).ready(function () {
         $.validator.addMethod("notEqual", function (value, element, param) {
             return value !== param;
@@ -215,7 +217,7 @@ $(document).ready(function () {
                 // Nếu không có dòng nào được chọn thì thực hiện thêm mới
                 if (!row) {
                     Swal.fire({
-                        title: `Bạn có muốn thêm sản phẩm này không`,
+                        title: `Bạn có muốn thêm mã giảm giá này không?`,
                         showDenyButton: true,
                         showCancelButton: true,
                         confirmButtonText: "Có",
@@ -224,11 +226,11 @@ $(document).ready(function () {
                         if (result.isConfirmed) {
                             handleSave(formData, (response) => {
                                 if (response.success) {
-                                    form.reset();
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'Cập nhập thành công',
                                     })
+                                    $("#modal").modal("hide");
                                 } else {
                                     Swal.fire({
                                         icon: 'error',
@@ -239,27 +241,27 @@ $(document).ready(function () {
                         }
                     });
                 } else {
-                    // Nếu có dòng nào được chọn thì thực hiện cập nhập
-                    // Thêm id vào form data
-                    const id = $.param({
-                        id: row.rowDataSelected.id
-                    });
-                    formData += '&' + id;
                     Swal.fire({
-                        title: `Bạn có muốn cập nhập sản phẩm này không`,
+                        title: `Bạn có muốn cập nhập sản phẩm này không?`,
                         showDenyButton: true,
                         showCancelButton: true,
                         confirmButtonText: "Có",
                         denyButtonText: `Không`
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            // Nếu có dòng nào được chọn thì thực hiện cập nhập
+                            // Thêm id vào form data
+                            formData = addParam(form, {
+                                key: "id",
+                                value: row.rowDataSelected.id
+                            })
                             handleUpdate(formData, (response) => {
                                 if (response.success) {
-                                    form.reset();
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'Cập nhập thành công',
                                     })
+                                    $("#modal").modal("hide");
                                 } else {
                                     Swal.fire({
                                         icon: 'error',
@@ -282,13 +284,13 @@ $(document).ready(function () {
         configModal();
 
         function configModal() {
-            document.querySelector("#modal").addEventListener("hide.bs.modal", function () {
+            $("#modal").on("hide.bs.modal", function () {
                 form.find("input, textarea, select").val("")
                 formValidate.resetForm();
             })
-            document.querySelector("#modal").addEventListener("show.bs.modal", function () {
+            $("#modal").on("show.bs.modal", function () {
                 addDataToSelect();
-                if (row) {
+                if (row.rowDataSelected) {
                     getDetail(row.rowDataSelected.code);
                 }
             });
@@ -355,6 +357,12 @@ $(document).ready(function () {
                     handleEventVisible("hide", code);
                 } else {
                     handleEventVisible("visible", code);
+                }
+            });
+            table.on('draw.dt', function () {
+                row = {
+                    rowDataSelected: undefined,
+                    rowIndexSelected: undefined
                 }
             });
         }
