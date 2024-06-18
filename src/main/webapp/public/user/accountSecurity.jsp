@@ -17,7 +17,7 @@
 <%@include file="/public/header.jsp" %>
 <div id="main" class="d-flex">
     <%@include file="accountNavigator.jsp" %>
-    <div class="container-xl px-4 mt-4">
+    <div class="w-100 px-4 mt-4">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card mb-4">
