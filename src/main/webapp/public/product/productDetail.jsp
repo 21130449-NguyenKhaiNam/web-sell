@@ -141,7 +141,7 @@
                                     <p class="form__error"></p>
                                 </div>
                             </div>
-                            <a href="<c:url value="/showProductOrder?id=<%=product.getId()%>"/>"
+                            <a href="<c:url value="/showProductOrder?id="/><%=product.getId()%>"
                                type="submit"
                                class="form__submit form__submit--order button text-secondary"
                                data="Đặt may theo số đo">
