@@ -68,3 +68,9 @@ textarea{
 .modal{
     z-index: 1055;
 }
+
+.img-account-profile {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}

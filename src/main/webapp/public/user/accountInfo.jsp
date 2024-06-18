@@ -19,7 +19,7 @@
 <c:set var="user" value="${requestScope.accountInfo}"/>
 <div id="main" class="d-flex">
     <%@include file="accountNavigator.jsp" %>
-    <div class="container-xl px-4 mt-4">
+    <div class="px-4 mt-4 w-100">
         <div class="row">
             <div class="col-xl-4">
                 <div class="card mb-4 mb-xl-0">
@@ -27,7 +27,7 @@
                     <div class="card-body text-center">
 
                         <img id="preview-avatar"
-                             class="img-account-profile object-fit-cover rounded-circle overflow-hidden  mb-2"
+                             class="img-account-profile object-fit-cover rounded-circle overflow-hidden mb-2"
                              src="${not empty user.avatar ? avatar : '/assets/img/user/userDefaultAvatar.png'}"
                              alt="">
                         <div id="username" class="medium  text-muted mb-2">${user.username}</div>
