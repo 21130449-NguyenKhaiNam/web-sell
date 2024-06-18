@@ -21,8 +21,6 @@ public class UpdateUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userIdString = request.getParameter("id");
-        String username = request.getParameter("username");
-        String email = request.getParameter("email");
         String fullName = request.getParameter("fullName");
         String phone = request.getParameter("phone");
         String gender = request.getParameter("gender");
@@ -33,9 +31,7 @@ public class UpdateUserController extends HttpServlet {
             int userId = Integer.parseInt(userIdString);
             Date birthDay = Date.valueOf(birthDayString);
             User user = User.builder()
-                    .username(username)
                     .id(userId)
-                    .email(email)
                     .fullName(fullName)
                     .phone(phone)
                     .birthDay(birthDay)
@@ -44,7 +40,7 @@ public class UpdateUserController extends HttpServlet {
                     .build();
             UserServices.getINSTANCE().updateUser(user);
             jsonObject.addProperty("success", true);
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             jsonObject.addProperty("success", false);
         }
         response.getWriter().println(gson.toJson(jsonObject));

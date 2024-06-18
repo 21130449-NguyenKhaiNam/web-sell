@@ -1,4 +1,4 @@
-import {addParam} from "../base.js";
+import {addParam, convertFormToObject} from "../base.js";
 
 $(document).ready(function () {
         $.validator.addMethod("notEqual", function (value, element, param) {
@@ -113,7 +113,8 @@ $(document).ready(function () {
                 "noResults": function () {
                     return "Chọn sản phẩm muốn áp dụng mã giảm giá";
                 }
-            }
+            },
+            dropdownParent: $("#modal")
         }
         const table = $("#table");
         const button = $("#button");
@@ -230,6 +231,12 @@ $(document).ready(function () {
                                         icon: 'success',
                                         title: 'Cập nhập thành công',
                                     })
+                                    // Thêm dòng mới vào bảng
+                                    datatable.row(row.rowIndexSelected).add(
+                                        {
+                                            ...convertFormToObject(form)
+                                        }
+                                    ).draw(false);
                                     $("#modal").modal("hide");
                                 } else {
                                     Swal.fire({
@@ -242,7 +249,7 @@ $(document).ready(function () {
                     });
                 } else {
                     Swal.fire({
-                        title: `Bạn có muốn cập nhập sản phẩm này không?`,
+                        title: `Bạn có muốn cập nhập mã giảm giá này không?`,
                         showDenyButton: true,
                         showCancelButton: true,
                         confirmButtonText: "Có",
@@ -261,6 +268,13 @@ $(document).ready(function () {
                                         icon: 'success',
                                         title: 'Cập nhập thành công',
                                     })
+                                    // Cập nhập dòng mới vào bảng
+                                    datatable.row(row.rowIndexSelected).data(
+                                        {
+                                            ...row.rowDataSelected,
+                                            ...convertFormToObject(form)
+                                        }
+                                    ).draw(false);
                                     $("#modal").modal("hide");
                                 } else {
                                     Swal.fire({
@@ -420,7 +434,7 @@ $(document).ready(function () {
                                 datatable.row(row.rowIndexSelected).data({
                                     ...row.rowDataSelected,
                                     state: type == "hide" ? "1" : "2"
-                                }).draw();
+                                }).draw(false);
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -493,7 +507,6 @@ $(document).ready(function () {
                     }
                 }
             })
-
         }
     }
 )

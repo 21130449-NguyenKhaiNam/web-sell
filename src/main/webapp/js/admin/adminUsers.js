@@ -20,7 +20,6 @@ $(document).ready(() => {
                 data: "username",
             }, {
                 data: "email",
-
             }, {
                 data: "fullName",
                 defaultContent: "Chưa cập nhật",
@@ -66,13 +65,6 @@ $(document).ready(() => {
             handleEventDatatable();
         }
     }
-    const table = $("#table");
-    const button = $("#button");
-    let row = {
-        rowDataSelected: undefined,//Lưu giữ đối tượng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
-        rowIndexSelected: undefined //Lưu giữ vị trí dòng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
-    };
-    const datatable = table.DataTable(configDatatable);
 
     function handleEventDatatable() {
         // Xử lý sự kiện khi click vào 1 dòng trong bảng
@@ -124,7 +116,7 @@ $(document).ready(() => {
             },
             phone: {
                 required: true,
-                minlength: 11
+                minlength: 10
             },
             gender: {
                 required: true,
@@ -189,7 +181,6 @@ $(document).ready(() => {
             if (!row) {
                 Swal.fire({
                     title: `Bạn có muốn thêm người dùng này không?`,
-                    showDenyButton: true,
                     showCancelButton: true,
                     confirmButtonText: "Có",
                     denyButtonText: `Không`
@@ -202,6 +193,7 @@ $(document).ready(() => {
                                     icon: 'success',
                                     title: 'Thêm thành công',
                                 })
+                                modal.modal("hide");
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -212,7 +204,6 @@ $(document).ready(() => {
                     }
                 });
             } else {
-                // Nếu có dòng nào được chọn thì thực hiện cập nhập
                 Swal.fire({
                     title: `Bạn có muốn cập nhập người dùng này không?`,
                     showDenyButton: true,
@@ -220,7 +211,7 @@ $(document).ready(() => {
                     confirmButtonText: "Có",
                     denyButtonText: `Không`
                 }).then((result) => {
-                    // Thêm id vào form data
+                    // Nếu có dòng nào được chọn thì thực hiện cập nhập
                     formData = addParam(form, {
                         key: "id",
                         value: row.rowDataSelected.id
@@ -233,6 +224,7 @@ $(document).ready(() => {
                                     icon: 'success',
                                     title: 'Cập nhập thành công',
                                 })
+                                modal.modal("hide");
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -246,20 +238,23 @@ $(document).ready(() => {
             return false;
         }
     };
-    const form = $("#form")
-    const formValidate = form.validate(configValidator);
-    configModal();
+
 
     function configModal() {
-        $("#modal").on("hide.bs.modal", function () {
+        // Bắt sự kiên khi modal đóng
+        modal.on("hide.bs.modal", function () {
             form.find("input, textarea, select").val("")
             formValidate.resetForm();
         })
-        $("#modal").on("show.bs.modal", function () {
+        // Bắt sự kiện khi modal mở
+        modal.on("show.bs.modal", function () {
+            // Tắt các input không cho phép chỉnh sửa
             disableInputs();
+            // Khi ngừoi dùng đẫ chọn dòng để update
             if (row.rowDataSelected) {
                 fieldDataVoucher(row.rowDataSelected);
             }else{
+                // Khi người dùng thêm mới -> Bật các input cho phép chỉnh sửa
                 enableInputs();
             }
         });
@@ -292,6 +287,7 @@ $(document).ready(() => {
         form.find("#email").val(user.email);
         form.find("#username").val(user.username);
         form.find("#fullName").val(user.fullName);
+        form.find("#password").val("")
         form.find("#phone").val(user.phone);
         form.find("#gender").val(user.gender);
         form.find("#birthday").val(user.birthDay);
@@ -308,4 +304,15 @@ $(document).ready(() => {
         form.find("#email").removeAttr("disabled");
         form.find("#username").removeAttr("disabled");
     }
+    const table = $("#table");
+    const button = $("#button");
+    let row = {
+        rowDataSelected: undefined,//Lưu giữ đối tượng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
+        rowIndexSelected: undefined //Lưu giữ vị trí dòng mà ngừoi dùng đã chọn để thực hiện cập lấy thông tin trong chức năng cập nhập
+    };
+    const datatable = table.DataTable(configDatatable);
+    const form = $("#form")
+    const formValidate = form.validate(configValidator);
+    const modal = $("#modal");
+    configModal();
 });

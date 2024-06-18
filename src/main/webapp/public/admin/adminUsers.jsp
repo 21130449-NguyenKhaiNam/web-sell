@@ -88,8 +88,7 @@
                     </div>
                     <div class="col-4">
                         <label for="password" class="form-label">Mật khẩu</label>
-                        <input type="password" name="password" class="form-control" id="password"
-                               placeholder="email@example.com">
+                        <input type="password" name="password" class="form-control" id="password">
                         <div class="valid-feedback">
 
                         </div>
@@ -129,10 +128,10 @@
                         </div>
                     </div>
                     <div class="col-4 mt-2">
-                                        <label for="role" class="form-label text-nowrap">Vai trò</label>
+                        <label for="role" class="form-label text-nowrap">Vai trò</label>
                         <select class="form-select" aria-label="" name="role" id="role">
                             <option value="2">Quản trị</option>
-                            <option value="1" >Người dùng</option>
+                            <option value="1">Người dùng</option>
                             <option value="0">Khóa tài khoản</option>
                         </select>
                         <div class="valid-feedback">

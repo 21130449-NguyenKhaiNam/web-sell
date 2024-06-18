@@ -167,7 +167,7 @@ public class UserDAO {
 
 
     public void updateUser(User user) {
-        String query = "UPDATE users SET username = ?, fullname = ?, gender = ?, email = ?, phone = ?, birthDay = ?, role = ? WHERE id = ?";
+        String query = "UPDATE users SET  fullname = ?, gender = ?, phone = ?, birthDay = ?, role = ? WHERE id = ?";
         GeneralDao.executeAllTypeUpdate(query, user.getUsername(), user.getFullName(), user.getGender(), user.getEmail(), user.getPhone(), user.getBirthDay(), user.getRole(), user.getId());
     }
 
