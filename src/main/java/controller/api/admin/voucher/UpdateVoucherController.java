@@ -39,6 +39,7 @@ public class UpdateVoucherController extends HttpServlet {
                     .expiryDate(new Date(formatter.parse(req.getParameter("expiryDate")).getTime()))
                     .state(req.getParameter("state"))
                     .build();
+            String[] listProductIdString = req.getParameterValues("productId");
             List<Integer> listProductId = Arrays.stream(req.getParameterValues("productId")).mapToInt(Integer::parseInt).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
             boolean saveSuccess = voucherServices.updateVoucher(voucher, listProductId);
             jsonObject.addProperty("success", saveSuccess);

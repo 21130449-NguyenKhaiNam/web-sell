@@ -216,7 +216,7 @@ $(document).ready(function () {
             submitHandler: function (form) {
                 let formData = $(form).serialize();
                 // Nếu không có dòng nào được chọn thì thực hiện thêm mới
-                if (!row) {
+                if (!row.rowDataSelected) {
                     Swal.fire({
                         title: `Bạn có muốn thêm mã giảm giá này không?`,
                         showDenyButton: true,
@@ -229,10 +229,10 @@ $(document).ready(function () {
                                 if (response.success) {
                                     Swal.fire({
                                         icon: 'success',
-                                        title: 'Cập nhập thành công',
+                                        title: 'Thêm thành công',
                                     })
                                     // Thêm dòng mới vào bảng
-                                    datatable.row(row.rowIndexSelected).add(
+                                    datatable.row.add(
                                         {
                                             ...convertFormToObject(form)
                                         }
@@ -241,7 +241,7 @@ $(document).ready(function () {
                                 } else {
                                     Swal.fire({
                                         icon: 'error',
-                                        title: 'Cập nhập thất bại',
+                                        title: 'Thêm thất bại',
                                     })
                                 }
                             })
