@@ -6,15 +6,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <jsp:include page="/public/commonLink.jsp"/>
-    <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
+    <jsp:include page="/public/admin/adminLink.jsp"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminReviews.css" />">
     <title>Quản lý nhận xét</title>
 </head>
 <body>
+<!--Header-->
+<c:import url="/public/header.jsp"/>
 <main id="main">
+    <!--Navigate-->
+    <c:import url="/public/admin/adminNavigator.jsp"/>
     <section class="content">
         <div class="container-xl">
             <div class="row">
@@ -66,4 +69,4 @@
 
 <script src="<c:url value="/js/admin/adminReviews.js" />"></script>
 </body>
-</html>
+<%--</html>--%>

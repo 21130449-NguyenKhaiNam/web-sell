@@ -6,12 +6,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <jsp:include page="/public/commonLink.jsp"/>
+    <jsp:include page="/public/admin/adminLink.jsp"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/admin/adminUsers.css" />">
     <title>Quản lí người dùng</title>
 </head>
 <body>
+<!--Header-->
+<c:import url="/public/header.jsp"/>
 <main id="main">
+    <!--Navigate-->
+    <c:import url="/public/admin/adminNavigator.jsp"/>
     <section class="content">
         <div class="container-xl">
             <div class="row">
@@ -24,9 +28,9 @@
                     </form>
                     <div>
                         <h1>Danh sách người dùng</h1>
-                        <article action="#!" class="form__search-block filler__block">
+                        <article class="form__search-block filler__block">
                             <i class="search__icon fa-solid fa-magnifying-glass"></i>
-                            <form action="AdminUser" method="get">
+                            <form id="form-search" method="get">
                                 <input id="search-input" type="text" name="search"
                                        placeholder="Tìm kiếm theo username hoặc email người dùng">
                             </form>
@@ -47,86 +51,15 @@
                                 <th class="table__head table__gender">Giới tính</th>
                                 <th class="table__head table__birthday">Ngày sinh</th>
                                 <th class="table__head table__phone">Số điện thoại</th>
-                                <th class="table__head table__address">Địa chỉ</th>
                                 <th class="table__head ">Vai trò</th>
-                                <th class="table__head ">Xóa</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${requestScope.lists}" var="user">
-                                <tr class="table__row">
-                                    <td class="table__data">
-                                        <a id="updateUser"
-                                           onclick="openUpdateDialog(${user.id}, '${user.username}', '${user.fullName}', '${user.gender}', '${user.email}', '${user.phone}', '${user.address}', '${user.birthDay}','${user.role}')">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell"><c:out value="${user.id}"/></p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell"><c:out value="${user.username}"/></p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell"><c:out value="${user.email}"/></p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell table__data--fullname"><c:out
-                                                value="${user.fullName}"/></p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell"><c:out value="${user.gender}"/></p>
-                                    </td>
-                                    <td class="table__data table__data--birthday">
-                                        <p class="table__cell"><c:out value="${user.birthDay}"/></p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell"><c:out value="${user.phone}"/></p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell"><c:out value="${user.address}"/></p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell">
-                                                <%--  <c:out value="${user.role}"/>--%>
-                                            <c:if test="${user.role == '2'}">admin</c:if>
-                                            <c:if test="${user.role == '1'}">mod</c:if>
-                                            <c:if test="${user.role == '0'}">khách</c:if>
-                                        </p>
-                                    </td>
-                                    <td class="table__data">
-                                        <a id="deleteUserLink" onclick="openDeleteDialog(${user.id})">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
 
-                    <c:set value="${requestScope.page}" var="page"/>
                     <div class="pagination">
-                        <%System.out.println(request.getAttribute("AdminUser"));%>
-                        <c:if test="${page > 1}">
-                            <c:url var="prevURLPage" value="AdminUser">
-
-                                <c:param name="page" value="${page - 1}"/>
-                            </c:url>
-                            <a href="${prevURLPage}" class="previous__page"><i class="fa-solid fa-chevron-left"></i></a>
-                        </c:if>
-                        <c:forEach begin="${1}" end="${requestScope.totalPage}" var="i">
-                            <c:url var="trURLPage" value="AdminUser">
-                                <c:param name="page" value="${i}"/>
-                            </c:url>
-                            <a class="${i == page ? "active" : "page__forward"}" href="${trURLPage}">${i}</a>
-                        </c:forEach>
-                        <c:if test="${page < requestScope.totalPage}">
-                            <c:url var="nextURLPage" value="AdminUser">
-                                <c:param name="page" value="${page + 1}"/>
-                            </c:url>
-                            <a href="${nextURLPage}" class="next__page"><i class="fa-solid fa-chevron-right"></i></a>
-                        </c:if>
                     </div>
                 </div>
             </div>
@@ -150,59 +83,60 @@
         </div>
     </div>
 </div>
-<%--DialogUpdateUser--%>
-<div id="update-user-dialog" class="modal">
-    <div class="modal__content">
-        <div class="modal__header">
-            <h1>Chỉnh sửa thông tin người dùng</h1>
-            <i id="close-update-user-dialog" class="fa-solid fa-xmark"></i>
-        </div>
-        <div class="modal__body">
-            <form id="update-user-form" action="UpdateUser" method="post">
-                <label for="username">Username:</label>
-                <input type="text" id="username--Update" name="username" value="${user.username}">
+<%--&lt;%&ndash;DialogUpdateUser&ndash;%&gt;--%>
+<%--<div id="update-user-dialog" class="modal">--%>
+<%--    <div class="modal__content">--%>
+<%--        <div class="modal__header">--%>
+<%--            <h1>Chỉnh sửa thông tin người dùng</h1>--%>
+<%--            <i id="close-update-user-dialog" class="fa-solid fa-xmark"></i>--%>
+<%--        </div>--%>
+<%--        <div class="modal__body">--%>
+<%--            <form id="update-user-form" action="UpdateUser" method="post">--%>
+<%--                <label for="username">Username:</label>--%>
+<%--                <input type="text" id="username--Update" name="username" value="${user.username}">--%>
 
-                <label for="fullName">Họ tên:</label>
-                <input type="text" id="fullName--Update" name="fullName" value="${user.fullName}">
+<%--                <label for="fullName">Họ tên:</label>--%>
+<%--                <input type="text" id="fullName--Update" name="fullName" value="${user.fullName}">--%>
 
-                <label for="gender">Giới tính:</label>
-                <select id="gender--Update" name="gender">
-                    <option value="Nam" ${user.gender eq 'Nam' ? 'selected' : ''}>Nam</option>
-                    <option value="Nữ" ${user.gender eq 'Nữ' ? 'selected' : ''}>Nữ</option>
-                </select>
+<%--                <label for="gender">Giới tính:</label>--%>
+<%--                <select id="gender--Update" name="gender">--%>
+<%--                    <option value="Nam" ${user.gender eq 'Nam' ? 'selected' : ''}>Nam</option>--%>
+<%--                    <option value="Nữ" ${user.gender eq 'Nữ' ? 'selected' : ''}>Nữ</option>--%>
+<%--                </select>--%>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email--Update" name="email" value="${user.email}" required>
+<%--                <label for="email">Email:</label>--%>
+<%--                <input type="email" id="email--Update" name="email" value="${user.email}" required>--%>
 
-                <label for="phone">Số điện thoại:</label>
-                <input type="number" id="phone--Update" name="phone" value="${user.phone}" required>
+<%--                <label for="phone">Số điện thoại:</label>--%>
+<%--                <input type="number" id="phone--Update" name="phone" value="${user.phone}" required>--%>
 
-                <label for="address">Địa chỉ:</label>
-                <input type="text" id="address--Update" name="address" value="${user.address}" required>
+<%--                <label for="address">Địa chỉ:</label>--%>
+<%--                <input type="text" id="address--Update" name="address" value="${user.address}" required>--%>
 
-                <label for="birthDay">Ngày sinh:</label>
-                <input type="date" id="birthDay--Update" name="birthDay" value="${user.birthDay}" required>
+<%--                <label for="birthDay">Ngày sinh:</label>--%>
+<%--                <input type="date" id="birthDay--Update" name="birthDay" value="${user.birthDay}" required>--%>
 
-                <input type="hidden" id="id--Update" name="userID" value="${user.id}">
+<%--                <input type="hidden" id="id--Update" name="userID" value="${user.id}">--%>
 
-                <label for="role">Vai trò</label>
-                <select id="role--Update" name="role">
-                    <option value="0" ${user.role eq '0' ? 'selected' : ''}>Khách hàng</option>
-                    <option value="1" ${user.role eq '1' ? 'selected' : ''}>Mod</option>
-                    <option value="2" ${user.role eq '2' ? 'selected' : ''}>Admin</option>
-                </select>
+<%--                <label for="role--Update">Vai trò</label>--%>
+<%--                <select id="role--Update" name="role">--%>
+<%--                    <option value="0" ${user.role eq '0' ? 'selected' : ''}>Khách hàng</option>--%>
+<%--                    <option value="1" ${user.role eq '1' ? 'selected' : ''}>Mod</option>--%>
+<%--                    <option value="2" ${user.role eq '2' ? 'selected' : ''}>Admin</option>--%>
+<%--                </select>--%>
 
-                <div class="modal__footer">
-                    <button type="button" id="cancel-update-user" class="button button__cancel">Hủy bỏ</button>
-                    <button type="submit" class="button button__update-user">
-                        <i class="fa-solid fa-user-plus"></i>
-                        Chỉnh sửa
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<%--                <div class="modal__footer">--%>
+<%--                    <button type="button" id="cancel-update-user" class="button button__cancel">Hủy bỏ</button>--%>
+<%--                    <button type="submit" class="button button__update-user">--%>
+<%--                        <i class="fa-solid fa-user-plus"></i>--%>
+<%--                        Chỉnh sửa--%>
+<%--                    </button>--%>
+<%--                </div>--%>
+<%--            </form>--%>
+
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 <!-- DialogAddUser-->
 <div id="add-user-dialog" class="modal">
     <div class="modal__content">
@@ -254,6 +188,74 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal update user-->
+<div class="modal fade" id="modal-update" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 80%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Cập nhập thông tin ngừoi dùng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        <img id="staticAvatar" src="" class="img-thumbnail rounded" alt="...">
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="staticEmail" class="form-label">Email</label>
+                                <input type="text" readonly class="form-control" disabled id="staticEmail"
+                                       value="email@example.com">
+                            </div>
+                            <div class="col-6">
+                                <label for="staticUsername" class="form-label">Tên đăng nhập</label>
+                                <input type="text" readonly class="form-control" disabled id="staticUsername"
+                                       value="email@example.com">
+                            </div>
+                            <div class="col-6 mt-2">
+                                <label for="staticFullName" class="form-label">Họ và tên</label>
+                                <input type="text" readonly class="form-control" disabled id="staticFullName"
+                                       value="email@example.com">
+                            </div>
+
+                            <div class="col-6 mt-2">
+                                <label for="staticPhone" class="form-label"> Số điện thoại </label>
+                                <input type="text" readonly class="form-control" disabled id="staticPhone"
+                                       value="email@example.com">
+                            </div>
+                            <div class="col-6 mt-2">
+                                <label for="staticDate" class="form-label text-nowrap"> Ngày tháng năm sinh</label>
+                                <input type="text" readonly class="form-control" disabled id="staticDate"
+                                       value="email@example.com">
+                            </div>
+                            <div class="col-6 mt-2">
+                                <div class="form-label text-nowrap">Vai trò</div>
+                                <select class="form-select" aria-label="">
+                                    <option value="2">Admin</option>
+                                    <option value="1">Mod</option>
+                                    <option value="0" selected>User</option>
+                                    <option value="3">Khóa</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <label class="form-label">Địa chỉ</label>
+                                <div id="staticAddress" readonly class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary">Cập nhập</button>
+            </div>
         </div>
     </div>
 </div>

@@ -33,23 +33,23 @@ public class AdminOrderServices {
         return INSTANCE;
     }
 
-    public List<OrderStatus> getListAllOrderStatus(){
+    public List<OrderStatus> getListAllOrderStatus() {
         return orderStatusDao.getListAllOrderStatus();
     }
 
-    public List<TransactionStatus> getListAllTransactionStatus(){
+    public List<TransactionStatus> getListAllTransactionStatus() {
         return transactionStatusDao.getListAllTransactionStatus();
     }
 
-    public OrderStatus getOrderStatusById(int orderStatusId){
+    public OrderStatus getOrderStatusById(int orderStatusId) {
         return orderStatusDao.getOrderStatusById(orderStatusId);
     }
 
-    public TransactionStatus getTransactionStatusById(int transactionStatusId){
+    public TransactionStatus getTransactionStatusById(int transactionStatusId) {
         return transactionStatusDao.getTransactionStatusById(transactionStatusId);
     }
 
-    public List<Order> getListAllOrders(){
+    public List<Order> getListAllOrders() {
         return orderDao.getListAllOrders();
     }
 
@@ -57,19 +57,19 @@ public class AdminOrderServices {
         return orderDao.getListOrdersBySearchFilter(mapFilterSectionOrders, contentSearch, searchSelect, startDate, endDate);
     }
 
-    public List<PaymentMethod> getListAllPaymentMethodManage(){
+    public List<PaymentMethod> getListAllPaymentMethodManage() {
         return orderDao.getListAllPaymentMethodManage();
     }
 
-    public List<DeliveryMethod> getListAllDeliveryMethodManage(){
+    public List<DeliveryMethod> getListAllDeliveryMethodManage() {
         return orderDao.getListAllDeliveryMethodManage();
     }
 
-    public PaymentMethod getPaymentMethodMangeById(int id){
+    public PaymentMethod getPaymentMethodMangeById(int id) {
         return orderDao.getPaymentMethodMangeById(id);
     }
 
-    public DeliveryMethod getDeliveryMethodManageById(int id){
+    public DeliveryMethod getDeliveryMethodManageById(int id) {
         return orderDao.getDeliveryMethodManageById(id);
     }
 
@@ -81,7 +81,7 @@ public class AdminOrderServices {
 //        return orderDao.getListOrderByCustomerName(customerName);
 //    }
 
-    public Order getOrderById(String id){
+    public Order getOrderById(String id) {
         return orderDao.getOrderById(id);
     }
 
@@ -93,38 +93,38 @@ public class AdminOrderServices {
 //        orderDao.updateTransactionStatusIdByOrderId(transactionStatusId,orderId);
 //    }
 
-    public void removeOrderByMultipleOrderId(String[] multipleOrderId){
+    public void removeOrderByMultipleOrderId(String[] multipleOrderId) {
         orderDetailDAO.removeOrderDetailByMultipleOrderId(multipleOrderId);
         orderDao.removeOrderByMultipleId(multipleOrderId);
     }
 
-    public void cancelOrderByMultipleId(String[] multipleId){
+    public void cancelOrderByMultipleId(String[] multipleId) {
         orderDao.cancelOrderByArrayMultipleId(multipleId);
     }
 
-    public List<OrderDetail> getListOrderDetailByOrderId(String orderId){
+    public List<OrderDetail> getListOrderDetailByOrderId(String orderId) {
         return orderDetailDAO.getListOrderDetailByOrderId(orderId);
     }
 
-    public void updateStatusByOrderId(String orderId, int orderStatusId, int transactionStatusId){
+    public void updateStatusByOrderId(String orderId, int orderStatusId, int transactionStatusId) {
         orderDao.updateStatusByOrderId(orderId, orderStatusId, transactionStatusId);
     }
 
-    public Voucher getVoucherById(int id){
+    public Voucher getVoucherById(int id) {
         return orderDao.getVoucherById(id);
     }
 
-    public String getTotalPriceFormatByOrderId(String orderId){
+    public String getTotalPriceFormatByOrderId(String orderId) {
         Order order = orderDao.getOrderById(orderId);
         List<OrderDetail> listOrderDetail = orderDetailDAO.getListOrderDetailByOrderId(orderId);
         double totalPrice = 0;
-        for (OrderDetail orderDetail :listOrderDetail) {
+        for (OrderDetail orderDetail : listOrderDetail) {
             totalPrice += orderDetail.getPrice();
         }
 
-        if(order.getVoucherId() != 0){
+        if (order.getVoucherId() != 0) {
             Voucher voucher = getVoucherById(order.getVoucherId());
-            totalPrice  *= (1 - voucher.getDiscountPercent());
+            totalPrice *= (1 - voucher.getDiscountPercent());
         }
         return FormatCurrency.vietNamCurrency(totalPrice);
     }

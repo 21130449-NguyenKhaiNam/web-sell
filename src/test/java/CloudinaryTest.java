@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CloudinaryTest {
-
     private static final String vnp_TmnCode = "H1B0VPW2";
     private static final String vnp_HashSecret = "8VXRGEO0P8AOXW3BT40FG2HSKB6JYQOT";
 

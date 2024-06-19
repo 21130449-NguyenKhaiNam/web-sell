@@ -42,12 +42,12 @@ public class Size {
 
     @Override
     public String toString() {
-        return "Sizes{" +
-                "id=" + id +
-                ", nameSize='" + nameSize + '\'' +
-                ", productId=" + productId +
-                ", sizePrice=" + sizePrice +
-                '}';
+        return "{" +
+                "\"id\":\"" + id +
+                "\", \"nameSize\":\"" + nameSize + "\"" +
+                ", \"productId\":\"" + productId +
+                "\", \"sizePrice\":\"" + sizePrice +
+                "\"}";
     }
 
     @Override

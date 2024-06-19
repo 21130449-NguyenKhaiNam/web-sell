@@ -8,14 +8,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="/public/commonLink.jsp"/>
+    <jsp:include page="/public/admin/adminLink.jsp"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/> ">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css" />">
     <title>Quản lý sản phẩm</title>
 </head>
 <body>
+<!--Header-->
+<c:import url="/public/header.jsp"/>
 <main id="main">
+    <!--Navigate-->
+    <c:import url="/public/admin/adminNavigator.jsp"/>
     <section class="content">
         <div class="container-xl">
             <div class="row">
@@ -143,7 +147,6 @@
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
                         </span>
-
                     </div>
                     <div class="table__wrapper">
                         <table class="table">
@@ -301,22 +304,11 @@
                                             <i class="fa-solid fa-eye"></i>
                                         </label>
                                     </td>
-<<<<<<< HEAD
-                                    <c:if test="${sessionScope.auth.role == '2'}">
-                                        <td class="table__data-edit">
-                                            <label>
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </label>
-                                        </td>
-                                    </c:if>
-
-=======
                                     <td class="table__data-edit">
                                         <label>
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </label>
                                     </td>
->>>>>>> main
                                     <td class="table__data table__data-id">
                                         <p class="table__cell">` + contentProduct.id + `</p>
                                     </td>

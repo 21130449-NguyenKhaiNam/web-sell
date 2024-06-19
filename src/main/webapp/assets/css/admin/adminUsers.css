@@ -493,4 +493,6 @@ form{
     display: block;
     width: 240px;
 }
-
+.modal{
+    z-index: 1055;
+}

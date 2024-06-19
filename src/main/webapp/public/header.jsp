@@ -65,7 +65,7 @@
                                         </span>
                                 </a>
                             </div>
-                            <div class="account">
+                            <div class="account hvr-grow">
                                 <i class="account__icon fa-regular fa-user"></i>
                                 <div class="setting__list">
                                     <a href="<c:url value=" /public/user/accountInfo.jsp" />"
@@ -82,12 +82,11 @@
                                         <div class="setting__link">Tài khoản của tôi</div>
                                     </a>
                                     <c:if test="${auth.role == 2 || auth.role == 1}">
-                                        <a href="<c:url value="
-                                                    /public/admin/adminNavigator.jsp" />" class="setting__item">
-                                            <div class="setting__link">Quản lý</div>
-                                        </a>
+                                        <a href="<c:url value="/public/admin/adminProducts.jsp" />" class="setting__item">
+                                        <div class="setting__link">Quản lý</div>
+                                    </a>
                                     </c:if>
-                                    <a href="/signOut" class="setting__item">
+                                    <a href="<c:url value=" /signOut" />" class="setting__item">
                                         <div class="setting__link setting__logOut">Đăng xuất</div>
                                     </a>
                                 </div>
