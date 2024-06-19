@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import models.Log;
-import services.LogService;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -15,48 +14,53 @@ import java.util.List;
 
 public class LogDAOImp implements ILogDAO {
     private String ip;
-
+    private List<String> acceptTables = List.of("cart", "contacts", "orders", "products", "users", "vouchers");
     public LogDAOImp() {
     }
 
     public static void main(String[] args) {
 
-        LogDAOImp dao = new LogDAOImp();
-
-        // SELECT
-        String typeSelect = "SELECT";
-        // FROM
-        String selectFORM = "SELECT abc, xyz FROM table WHERE abc...";
-        System.out.println("SELECT FROM >> " + dao.getNameTable(new StringBuilder(selectFORM), typeSelect));
-        // from
-        String selectfrom = "SELECT abc, xyz from table WHERE abc...";
-        System.out.println("SELECT from >> " + dao.getNameTable(new StringBuilder(selectfrom), typeSelect));
-        // ()
-        String select = "SELECT (abc, xyz) from table where abc...";
-        System.out.println("SELECT () >> " + dao.getNameTable(new StringBuilder(select), typeSelect));
-
-        // INSERT
-        String typeInsert = "insert";
-        // Khong co ()
-        String isnertNot = "INSERT INTO table VALUES (1, 2, 3)";
-        System.out.println("INSERT NOT () >> " + dao.getNameTable(new StringBuilder(isnertNot), typeInsert));
-        // Co () o sat
-        String insertNear = "INSERT INTO table(a, b, c) VALUES (1, 2, 3)";
-        System.out.println("INSERT HAVE () NEAR >> " + dao.getNameTable(new StringBuilder(insertNear), typeInsert));
-        // Co () o xa
-        String insertSpaceNear = "INSERT INTO table (a, b, c) VALUES (1, 2, 3)";
-        System.out.println("INSERT HAVE () SPACE NEAR >> " + dao.getNameTable(new StringBuilder(insertSpaceNear), typeInsert));
-
-        // UPDATE
-        String typeUpdate = "update";
-        String update = "UPDATE table SET a = 1 WHERE b = 2";
-        System.out.println("UPDATE >> " + dao.getNameTable(new StringBuilder(update), typeUpdate));
+//        LogDAOImp dao = new LogDAOImp();
+//
+//        // SELECT
+//        String typeSelect = "SELECT";
+//        // FROM
+//        String selectFORM = "SELECT abc, xyz FROM table WHERE abc...";
+//        System.out.println("SELECT FROM >> " + dao.getNameTable(new StringBuilder(selectFORM), typeSelect));
+//        // from
+//        String selectfrom = "SELECT abc, xyz from table WHERE abc...";
+//        System.out.println("SELECT from >> " + dao.getNameTable(new StringBuilder(selectfrom), typeSelect));
+//        // ()
+//        String select = "SELECT (abc, xyz) from table where abc...";
+//        System.out.println("SELECT () >> " + dao.getNameTable(new StringBuilder(select), typeSelect));
+//
+//        // INSERT
+//        String typeInsert = "insert";
+//        // Khong co ()
+//        String isnertNot = "INSERT INTO table VALUES (1, 2, 3)";
+//        System.out.println("INSERT NOT () >> " + dao.getNameTable(new StringBuilder(isnertNot), typeInsert));
+//        // Co () o sat
+//        String insertNear = "INSERT INTO table(a, b, c) VALUES (1, 2, 3)";
+//        System.out.println("INSERT HAVE () NEAR >> " + dao.getNameTable(new StringBuilder(insertNear), typeInsert));
+//        // Co () o xa
+//        String insertSpaceNear = "INSERT INTO table (a, b, c) VALUES (1, 2, 3)";
+//        System.out.println("INSERT HAVE () SPACE NEAR >> " + dao.getNameTable(new StringBuilder(insertSpaceNear), typeInsert));
+//
+//        // UPDATE
+//        String typeUpdate = "update";
+//        String update = "UPDATE table SET a = 1 WHERE b = 2";
+//        System.out.println("UPDATE >> " + dao.getNameTable(new StringBuilder(update), typeUpdate));
 
 //        Khi muốn test thì mở dòng in tại đúng vị trí trong hàm tương ứng
 //        String queryUpdate = "UPDATE test SET a = ? WHERE b = ?";
 //        String queryInsert = "INSERT INTO test(a, b, c) VALUES (?, ?, ?)";
 //        dao.insertLog(queryUpdate, 1, 2);
 //        dao.insertLog(queryInsert, 1, 2, 3);
+
+        List<String> a = Arrays.asList("1", "2", "3");
+        String sql = "0";
+        System.out.println(Boolean.valueOf(a.stream().reduce("true", (result, table) ->
+                sql.contains(table) ? "false" : result)));
 
     }
 
@@ -126,8 +130,8 @@ public class LogDAOImp implements ILogDAO {
     // Sử dụng cho insert và update
     @Override
     public void insertLog(String sql, Object... params) {
-        // Tránh vòng lặp vô tận
-        if (!sql.contains("logs")) {
+        // Tránh vòng lặp vô tận - Chỉ những bảng được phép
+        if (!sql.contains("logs") || Boolean.valueOf(acceptTables.stream().reduce("true", (result, table) ->  sql.contains(table) ? "false" : result))) {
             StringBuilder builder = new StringBuilder(sql);
             String nameQuery = builder.substring(0, builder.indexOf(" ")).toLowerCase();
             String nameState = mapStateTypeQuery(nameQuery);
@@ -210,7 +214,7 @@ public class LogDAOImp implements ILogDAO {
     @Override
     public void insertLogForSelect(String sql, List<?> list) {
         // Nếu trong câu select không trả về kết quả thì cũng không thêm vào log
-        if (!list.isEmpty()) {
+        if (!list.isEmpty() || Boolean.valueOf(acceptTables.stream().reduce("true", (result, table) ->  sql.contains(table) ? "false" : result))) {
             StringBuilder builder = new StringBuilder(sql);
             String nameTable = getNameTable(builder, "select");
             String nameQuery = builder.substring(0, builder.indexOf(" "));
@@ -242,7 +246,7 @@ public class LogDAOImp implements ILogDAO {
                     .mapToBean(Log.class)
                     .list());
         });
-        if(orderDir.equals("desc")) {
+        if (orderDir.equals("desc")) {
             Collections.reverse(logs);
         }
         return logs;
@@ -307,8 +311,6 @@ public class LogDAOImp implements ILogDAO {
         });
         return result.getCount();
     }
-
-
 
     // Chuyển đổi tương ứng với tác động của câu query, sau này tách ra
     private String mapStateTypeQuery(String query) {
