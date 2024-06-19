@@ -1,14 +1,11 @@
-
-import models.Product;
-import services.admin.AdminProductServices;
-
 import java.io.*;
-import java.util.List;
+import java.util.Random;
 
 public class CloundinaryTest {
     public static void main(String[] args) {
 
     }
+
 
     public static void copyImageFromFolder(String folderName, String des) throws IOException {
         File folder = new File(folderName);
