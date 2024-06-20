@@ -56,12 +56,6 @@ public class LogDAOImp implements ILogDAO {
 //        String queryInsert = "INSERT INTO test(a, b, c) VALUES (?, ?, ?)";
 //        dao.insertLog(queryUpdate, 1, 2);
 //        dao.insertLog(queryInsert, 1, 2, 3);
-
-        List<String> a = Arrays.asList("1", "2", "3");
-        String sql = "0";
-        System.out.println(Boolean.valueOf(a.stream().reduce("true", (result, table) ->
-                sql.contains(table) ? "false" : result)));
-
     }
 
     @Override
