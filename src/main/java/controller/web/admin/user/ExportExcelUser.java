@@ -24,7 +24,7 @@ public class ExportExcelUser extends HttpServlet implements Serializable {
     private final int LIMIT = 5000;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Thiết lập header cho phản hồi HTTP
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Content-Disposition", "attachment; filename=user_report.xlsx");
@@ -81,7 +81,7 @@ public class ExportExcelUser extends HttpServlet implements Serializable {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 }

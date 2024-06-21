@@ -76,12 +76,4 @@ public class UserServices {
     public List<User> getLimit(int limit, int offset) {
         return userDAO.getLimit(limit, offset);
     }
-
-    public long getQuantity() {
-        return userDAO.getQuantity();
-    }
-
-    public List<User> getLimit(int limit, int offset) {
-        return userDAO.getLimit(limit, offset);
-    }
 }

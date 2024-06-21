@@ -27,6 +27,11 @@
                             <i class="fa-solid fa-table-list"></i>
                             <span>Loại sản phẩm</span></a>
                     </li>
+                    <li>
+                        <a href="<c:url value="/public/admin/adminImportMaterial.jsp"/>" data-link="adminImportMaterial.jsp" class="pb-3 sidebar_item">
+                            <i class="fa-solid fa-table-list"></i>
+                            <span>Nhập hàng</span></a>
+                    </li>
                 </ul>
             </li>
 

@@ -1,14 +1,12 @@
 package controller.web.admin.product;
 
-import models.*;
+import models.Category;
+import models.Product;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import services.admin.AdminCategoryServices;
-
 import services.admin.AdminProductServices;
 
 import javax.servlet.ServletException;
@@ -24,8 +22,9 @@ import java.util.List;
 @WebServlet(name = "exportExcelProduct", value = "/exportExcelProduct")
 public class ExportExcelProduct extends HttpServlet implements Serializable {
     private final int LIMIT = 100000;
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Thiết lập header cho phản hồi HTTP
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Content-Disposition", "attachment; filename=product_report.xlsx");
@@ -54,7 +53,7 @@ public class ExportExcelProduct extends HttpServlet implements Serializable {
                 row.createCell(1).setCellValue(product.getName());
 
                 List<Category> category = AdminCategoryServices.getINSTANCE().getCategoryById(product.getCategoryId());
-                if(!category.isEmpty()){
+                if (!category.isEmpty()) {
                     row.createCell(2).setCellValue(category.get(0).getNameType());
                 }
 
@@ -75,7 +74,7 @@ public class ExportExcelProduct extends HttpServlet implements Serializable {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 }

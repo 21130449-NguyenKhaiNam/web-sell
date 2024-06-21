@@ -20,7 +20,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-12">
-                    <form action="/exportExcelUser" method="GET">
+                    <form action="/exportExcelUser" method="POST">
                         <button class="btn_export">
                             <i class="fa-solid fa-file-export"></i>
                             Xuất file excel

@@ -117,8 +117,6 @@
                 }
             })
         }
-<<<<<<< HEAD
-=======
 
         $('.export__excel').on('submit', (e) => {
             e.preventDefault();
@@ -147,7 +145,6 @@
                 }
             });
         })
->>>>>>> main
     })
 </script>
 </body>
