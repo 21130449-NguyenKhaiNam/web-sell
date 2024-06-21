@@ -617,6 +617,7 @@ label:has(.form__radio:checked) {
     height: unset;
     background-color: #fff;
     border-radius: var(--border-radius);
+    border: 2px solid #ccc;
 }
 
 .product__list .product__item:hover {

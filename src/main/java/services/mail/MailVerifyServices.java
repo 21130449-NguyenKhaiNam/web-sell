@@ -55,7 +55,13 @@ public class MailVerifyServices implements IMailServices {
         message.setContent(htmlTemplate, "text/html; charset = UTF-8");
 
 //        Send mail
-        Transport.send(message);
+        ThreadMail.executorService.execute(() -> {
+            try {
+                Transport.send(message);
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private  String htmlTemplate(InputStream is) {

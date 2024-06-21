@@ -30,7 +30,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-6 ">
-                    <div id="main-slider" class="splide custom-splide">
+                    <div id="main-slider" class="splide custom-splide mb-3">
                         <div class="splide__track">
                             <ul class="splide__list">
                                 <%for (Image image : productFactory.getListImagesByProductId(product.getId())) {%>
@@ -169,7 +169,6 @@
 
                     <!--Reviews-->
                     <div class="product__review">
-
                         <c:choose> <c:when test="${not empty requestScope.listReview}">
                             <div class="review__list">
                                 <%for (Review review : (List<Review>) request.getAttribute("listReview")) {%><%
