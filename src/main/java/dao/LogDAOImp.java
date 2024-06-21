@@ -326,8 +326,7 @@ public class LogDAOImp implements ILogDAO {
     public static class CountResult {
         private long count;
 
-        public CountResult() {
-        }
+        public CountResult() {}
 
         public CountResult(int count) {
             this.count = count;
