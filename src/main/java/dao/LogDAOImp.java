@@ -125,7 +125,7 @@ public class LogDAOImp implements ILogDAO {
     @Override
     public void insertLog(String sql, Object... params) {
         // Tránh vòng lặp vô tận - Chỉ những bảng được phép
-        if (!sql.contains("logs") || Boolean.valueOf(acceptTables.stream().reduce("true", (result, table) ->  sql.contains(table) ? "false" : result))) {
+        if (!sql.contains("logs")) {
             StringBuilder builder = new StringBuilder(sql);
             String nameQuery = builder.substring(0, builder.indexOf(" ")).toLowerCase();
             String nameState = mapStateTypeQuery(nameQuery);
@@ -208,7 +208,7 @@ public class LogDAOImp implements ILogDAO {
     @Override
     public void insertLogForSelect(String sql, List<?> list) {
         // Nếu trong câu select không trả về kết quả thì cũng không thêm vào log
-        if (!list.isEmpty() || Boolean.valueOf(acceptTables.stream().reduce("true", (result, table) ->  sql.contains(table) ? "false" : result))) {
+        if (!list.isEmpty()) {
             StringBuilder builder = new StringBuilder(sql);
             String nameTable = getNameTable(builder, "select");
             String nameQuery = builder.substring(0, builder.indexOf(" "));
