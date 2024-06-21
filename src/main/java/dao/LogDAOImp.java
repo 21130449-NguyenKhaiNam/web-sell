@@ -15,6 +15,7 @@ import java.util.List;
 public class LogDAOImp implements ILogDAO {
     private String ip;
     private List<String> acceptTables = List.of("cart", "contacts", "orders", "products", "users", "vouchers");
+
     public LogDAOImp() {
     }
 
@@ -131,75 +132,77 @@ public class LogDAOImp implements ILogDAO {
             String nameState = mapStateTypeQuery(nameQuery);
             String nameTable = getNameTable(builder, nameQuery);
 
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.registerModule(new JavaTimeModule());
+            if (!acceptTables.contains(nameTable)) {
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.registerModule(new JavaTimeModule());
 
-            try {
-                String sqlLog;
-                switch (nameQuery) {
-                    case "update" -> {
-                        int indCondition = builder.indexOf("WHERE");
-                        if (indCondition == -1)
-                            indCondition = builder.indexOf("where");
-                        if (indCondition == -1)
-                            indCondition = builder.length();
+                try {
+                    String sqlLog;
+                    switch (nameQuery) {
+                        case "update" -> {
+                            int indCondition = builder.indexOf("WHERE");
+                            if (indCondition == -1)
+                                indCondition = builder.indexOf("where");
+                            if (indCondition == -1)
+                                indCondition = builder.length();
 
-                        // Chia tách 2 tập giá trị thành: giá trị dành cho SET và dành cho WHERE
-                        int countEquals = builder.substring(0, indCondition).split("=").length - 1;
-                        Object[] splitParam = Arrays.copyOfRange(params, countEquals, params.length);
+                            // Chia tách 2 tập giá trị thành: giá trị dành cho SET và dành cho WHERE
+                            int countEquals = builder.substring(0, indCondition).split("=").length - 1;
+                            Object[] splitParam = Arrays.copyOfRange(params, countEquals, params.length);
 
-                        // Các giá trị sẽ thay đổi
-                        StringBuilder valueChanges = new StringBuilder(builder.substring(builder.indexOf("SET") + 3, indCondition));
-                        for (int i = 0; i < countEquals; i++) {
-                            int indEqual = valueChanges.indexOf("=");
-                            int indAsk = valueChanges.indexOf("?");
-                            valueChanges.replace(indEqual, indEqual + 1, ":");
-                            valueChanges.replace(indAsk, indAsk + 1, params[i] + "");
-                        }
-                        Object[] changes = valueChanges.toString().split(",");
+                            // Các giá trị sẽ thay đổi
+                            StringBuilder valueChanges = new StringBuilder(builder.substring(builder.indexOf("SET") + 3, indCondition));
+                            for (int i = 0; i < countEquals; i++) {
+                                int indEqual = valueChanges.indexOf("=");
+                                int indAsk = valueChanges.indexOf("?");
+                                valueChanges.replace(indEqual, indEqual + 1, ":");
+                                valueChanges.replace(indAsk, indAsk + 1, params[i] + "");
+                            }
+                            Object[] changes = valueChanges.toString().split(",");
 //                    System.out.println("Log UPDATE >> giá trị sẽ thay đổi:" + Arrays.toString(changes));
 
-                        // Lấy ra giá trị trước khi thay đổi
-                        String sqlPrevious = "SELECT * FROM " + nameTable + " " + builder.substring(indCondition);
+                            // Lấy ra giá trị trước khi thay đổi
+                            String sqlPrevious = "SELECT * FROM " + nameTable + " " + builder.substring(indCondition);
 //                    System.out.println("Log UPDATE >> Câu lệnh lấy giá trị trước khi thay đổi: " + sqlPrevious);
-                        List<?> list = GeneralDao.executeQueryWithJoinTables(sqlPrevious, splitParam);
-                        // Sau dòng này do bảng test không tồn tại nên báo lỗi
+                            List<?> list = GeneralDao.executeQueryWithJoinTables(sqlPrevious, splitParam);
+                            // Sau dòng này do bảng test không tồn tại nên báo lỗi
 
-                        sqlLog = "INSERT INTO logs (ip, level, resource, dateCreated, previous, current) VALUES (?, ?, ?, ?, ?, ?)";
-                        GeneralDao.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, Date.valueOf(LocalDate.now()), mapper.writeValueAsString(list.toArray()), mapper.writeValueAsString(changes));
-                    }
-                    case "insert" -> {
-                        sqlLog = "INSERT INTO logs (ip, level, resource, dateCreated, current) VALUES (?, ?, ?, ?, ?)";
-
-                        // Lấy ra các tham số sẽ insert của câu lệnh
-                        String paramaters = builder.substring(builder.indexOf(nameTable) + nameTable.length(), builder.indexOf("VALUES"));
-                        StringBuilder parameter = new StringBuilder(paramaters);
-
-                        // Nếu câu lệnh được chỉ định có tham số mới được phép ghi log
-                        if (parameter.length() > 2) {
-                            // Loại bỏ dấu (
-                            parameter.deleteCharAt(0);
-                            // Loại bỏ dấu )
-                            parameter.deleteCharAt(parameter.length() - 1);
-
-                            // Phân tách riêng biệt các đối số
-                            String[] paras = parameter.toString().split(",");
-                            for (int i = 0; i < paras.length; i++) {
-                                paras[i] = paras[i].trim() + ":" + params[i];
-                            }
-//                        System.out.println("Log INSERT >> Tham số hiện tại: " + Arrays.toString(paras));
-                            GeneralDao.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, Date.valueOf(LocalDate.now()), mapper.writeValueAsString(paras));
-                            break;
+                            sqlLog = "INSERT INTO logs (ip, level, resource, dateCreated, previous, current) VALUES (?, ?, ?, ?, ?, ?)";
+                            GeneralDao.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, Date.valueOf(LocalDate.now()), mapper.writeValueAsString(list.toArray()), mapper.writeValueAsString(changes));
                         }
-                        System.out.println("Log >> Phương thức insert của " + nameTable + " không được chỉ định rõ ràng tham số sẽ nhận hoặc có sai sót trong câu lệnh");
+                        case "insert" -> {
+                            sqlLog = "INSERT INTO logs (ip, level, resource, dateCreated, current) VALUES (?, ?, ?, ?, ?)";
+
+                            // Lấy ra các tham số sẽ insert của câu lệnh
+                            String paramaters = builder.substring(builder.indexOf(nameTable) + nameTable.length(), builder.indexOf("VALUES"));
+                            StringBuilder parameter = new StringBuilder(paramaters);
+
+                            // Nếu câu lệnh được chỉ định có tham số mới được phép ghi log
+                            if (parameter.length() > 2) {
+                                // Loại bỏ dấu (
+                                parameter.deleteCharAt(0);
+                                // Loại bỏ dấu )
+                                parameter.deleteCharAt(parameter.length() - 1);
+
+                                // Phân tách riêng biệt các đối số
+                                String[] paras = parameter.toString().split(",");
+                                for (int i = 0; i < paras.length; i++) {
+                                    paras[i] = paras[i].trim() + ":" + params[i];
+                                }
+//                        System.out.println("Log INSERT >> Tham số hiện tại: " + Arrays.toString(paras));
+                                GeneralDao.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, Date.valueOf(LocalDate.now()), mapper.writeValueAsString(paras));
+                                break;
+                            }
+                            System.out.println("Log >> Phương thức insert của " + nameTable + " không được chỉ định rõ ràng tham số sẽ nhận hoặc có sai sót trong câu lệnh");
+                        }
+                        case "select" -> System.out.println("Log >> Hàm không hỗ trợ select");
+                        default -> {
+                            System.out.println("Log >> Câu lệnh chưa tồn tại hoặc chưa được hiện thực");
+                        }
                     }
-                    case "select" -> System.out.println("Log >> Hàm không hỗ trợ select");
-                    default -> {
-                        System.out.println("Log >> Câu lệnh chưa tồn tại hoặc chưa được hiện thực");
-                    }
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
                 }
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
             }
         }
     }
@@ -214,12 +217,14 @@ public class LogDAOImp implements ILogDAO {
             String nameQuery = builder.substring(0, builder.indexOf(" "));
             String nameState = mapStateTypeQuery(nameQuery);
 
-            String sqlLog = "INSERT INTO logs (ip, level, resource, dateCreated, current) VALUES (?, ?, ?, ?, ?)";
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                GeneralDao.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, Date.valueOf(LocalDate.now()), mapper.writeValueAsString(list.toArray()));
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
+            if (!acceptTables.contains(nameTable)) {
+                String sqlLog = "INSERT INTO logs (ip, level, resource, dateCreated, current) VALUES (?, ?, ?, ?, ?)";
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    GeneralDao.executeAllTypeUpdate(sqlLog, ip, nameState, nameTable, Date.valueOf(LocalDate.now()), mapper.writeValueAsString(list.toArray()));
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
