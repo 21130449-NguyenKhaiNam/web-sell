@@ -36,8 +36,8 @@ target/
 *.tar.gz
 
 *.rar
-src/main/resources/db.properties
-<<<<<<< HEAD
+**/src/main/**/db.properties
+**/src/main/**/credentials.json
 
 ###
 /.idea/
@@ -85,7 +85,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
-=======
 /bin/
 /.settings/
->>>>>>> f41c717c858d51c2af80ad58f5ddb81a8e70cef3

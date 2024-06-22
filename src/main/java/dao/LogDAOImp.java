@@ -272,17 +272,19 @@ public class LogDAOImp implements ILogDAO {
 
     @Override
     public void save(Log log) {
-        String sql = "INSERT logs (ip, level, resource, dateCreated, previous, current) VALUES (:ip, :level, :resource, :dateCreated, :previous, :current)";
-        GeneralDao.customExecute(handle -> {
-            handle.createUpdate(sql)
-                    .bind("ip", log.getIp())
-                    .bind("level", log.getLevel())
-                    .bind("resource", log.getResource())
-                    .bind("dateCreated", log.getDateCreated())
-                    .bind("previous", log.getPrevious())
-                    .bind("current", log.getCurrent())
-                    .execute();
-        });
+        if (!acceptTables.contains(log.getResource())) {
+            String sql = "INSERT logs (ip, level, resource, dateCreated, previous, current) VALUES (:ip, :level, :resource, :dateCreated, :previous, :current)";
+            GeneralDao.customExecute(handle -> {
+                handle.createUpdate(sql)
+                        .bind("ip", log.getIp())
+                        .bind("level", log.getLevel())
+                        .bind("resource", log.getResource())
+                        .bind("dateCreated", log.getDateCreated())
+                        .bind("previous", log.getPrevious())
+                        .bind("current", log.getCurrent())
+                        .execute();
+            });
+        }
     }
 
     @Override
@@ -326,7 +328,8 @@ public class LogDAOImp implements ILogDAO {
     public static class CountResult {
         private long count;
 
-        public CountResult() {}
+        public CountResult() {
+        }
 
         public CountResult(int count) {
             this.count = count;
