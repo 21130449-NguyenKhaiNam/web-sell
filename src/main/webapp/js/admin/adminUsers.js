@@ -61,6 +61,7 @@ $(document).ready(() => {
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/vi.json'
         },
+        select: true,
         initComplete: function (settings, json) {
             handleEventDatatable();
         }
@@ -68,25 +69,20 @@ $(document).ready(() => {
 
     function handleEventDatatable() {
         // Xử lý sự kiện khi click vào 1 dòng trong bảng
-        table.find("tbody").on('click', 'tr', function () {
-            table.find("tbody tr").removeClass('selected');
-            const rowIndex = datatable.row(this).index();
-            if (row.rowIndexSelected == rowIndex) {
-                row = {
-                    rowDataSelected: undefined,
-                    rowIndexSelected: undefined
-                };
-                $(this).removeClass('selected');
-                button.text("Thêm mã khách hàng")
-                return;
-            }
+        datatable.on('select', function (e, dt, type, indexes) {
             row = {
-                rowDataSelected: datatable.row(this).data(),
-                rowIndexSelected: datatable.row(this).index()
+                rowDataSelected: datatable.row(indexes).data(),
+                rowIndexSelected: datatable.row(indexes).index()
             }
-            $(this).addClass('selected');
             button.text("Cập nhật khách hàng");
-        }).on('mouseenter', 'tr', function () {
+        }).on('deselect', function (e, dt, type, indexes) {
+            row = {
+                rowDataSelected: undefined,
+                rowIndexSelected: undefined,
+            }
+            button.text("Thêm mã khách hàng")
+        });
+        table.on('mouseenter', 'tr', function () {
             $(this).addClass('hovered').css('cursor', 'pointer');
         }).on('mouseleave', 'tr', function () {
             $(this).removeClass('hovered').css('cursor', 'default');
@@ -253,7 +249,7 @@ $(document).ready(() => {
             // Khi ngừoi dùng đẫ chọn dòng để update
             if (row.rowDataSelected) {
                 fieldDataVoucher(row.rowDataSelected);
-            }else{
+            } else {
                 // Khi người dùng thêm mới -> Bật các input cho phép chỉnh sửa
                 enableInputs();
             }
@@ -299,11 +295,13 @@ $(document).ready(() => {
         form.find("#email").attr("disabled", "disabled");
         form.find("#username").attr("disabled", "disabled");
     }
+
     function enableInputs() {
         form.find("#password").removeAttr("disabled");
         form.find("#email").removeAttr("disabled");
         form.find("#username").removeAttr("disabled");
     }
+
     const table = $("#table");
     const button = $("#button");
     let row = {
