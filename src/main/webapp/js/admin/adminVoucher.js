@@ -72,6 +72,7 @@ $(document).ready(function () {
                         $(td).addClass('text-center');
                         $(td).find("button").attr("data-code", rowData.code);
                         $(td).find("button").attr("data-state", rowData.state);
+                        $(td).find("button").attr("data-index", row);
                     },
                     orderable: false
                 },
@@ -97,11 +98,11 @@ $(document).ready(function () {
                         $(row).addClass('table-danger');
                         break;
                 }
-
             },
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/vi.json'
             },
+            select: true,
             initComplete: function (settings, json) {
                 handleEventDatatable();
             }
@@ -334,43 +335,29 @@ $(document).ready(function () {
 
         function handleEventDatatable() {
             // Xử lý sự kiện khi click vào 1 dòng trong bảng
-            table.find("tbody").on('click', 'tr', function () {
-                table.find("tbody tr").removeClass('selected');
-                const rowIndex = datatable.row(this).index();
-                if (row.rowIndexSelected == rowIndex) {
-                    row = {
-                        rowDataSelected: undefined,
-                        rowIndexSelected: undefined
-                    };
-                    $(this).removeClass('selected');
-                    button.text("Thêm mã giảm giá")
-                    return;
-                }
+            datatable.on('select', function (e, dt, type, indexes) {
                 row = {
-                    rowDataSelected: datatable.row(this).data(),
-                    rowIndexSelected: datatable.row(this).index()
+                    rowDataSelected: datatable.row(indexes).data(),
+                    rowIndexSelected: datatable.row(indexes).index()
                 }
-                $(this).addClass('selected');
+                console.log(row)
                 button.text("Cập nhật mã giảm giá");
-            }).on('mouseenter', 'tr', function () {
-                $(this).addClass('hovered').css('cursor', 'pointer');
-            }).on('mouseleave', 'tr', function () {
-                $(this).removeClass('hovered').css('cursor', 'default');
+            }).on('deselect', function (e, dt, type, indexes) {
+                row = {
+                    rowDataSelected: undefined,
+                    rowIndexSelected: undefined,
+                }
+                button.text("Thêm mã giảm giá")
             });
-            // Xử lý sự kiện khi click vào bút ẩn/hiện mã giảm giá
             table.find("tbody").on('click', 'button', function (e) {
                 e.stopPropagation();
                 const code = $(this).data("code");
                 const state = $(this).data("state");
-                row = {
-                    rowDataSelected: datatable.row(this.closest("tr")).data(),
-                    rowIndexSelected: datatable.row(this.closest("tr")).index()
-                }
-                console.log(state, code, row)
+                const index = $(this).data("index");
                 if (state == "1") {
-                    handleEventVisible("hide", code);
+                    handleEventVisible("hide", code, index);
                 } else {
-                    handleEventVisible("visible", code);
+                    handleEventVisible("visible", code, index);
                 }
             });
             table.on('draw.dt', function () {
@@ -409,7 +396,7 @@ $(document).ready(function () {
             addDataToSelect(listIdProduct);
         }
 
-        function handleEventVisible(type, code) {
+        function handleEventVisible(type, code, index) {
             Swal.fire({
                 title: `Bạn có muốn ${type == "visible" ? "hiện thị" : "ẩn"} mã giảm giá này không?`,
                 showDenyButton: true,
@@ -431,8 +418,8 @@ $(document).ready(function () {
                                     icon: 'success',
                                     title: 'Cập nhập thành công ',
                                 })
-                                datatable.row(row.rowIndexSelected).data({
-                                    ...row.rowDataSelected,
+                                datatable.row(index).data({
+                                    ...datatable.row(index).data(),
                                     state: type == "hide" ? "1" : "2"
                                 }).draw(false);
                             } else {
@@ -441,27 +428,14 @@ $(document).ready(function () {
                                     title: 'Cập nhập thất bại',
                                 })
                             }
-                            row = {
-                                rowDataSelected: undefined,
-                                rowIndexSelected: undefined
-                            };
                         },
                         error: function () {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Có lỗi xảy ra',
                             })
-                            row = {
-                                rowDataSelected: undefined,
-                                rowIndexSelected: undefined
-                            };
                         }
                     })
-                } else {
-                    row = {
-                        rowDataSelected: undefined,
-                        rowIndexSelected: undefined
-                    };
                 }
             });
         }

@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/> ">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminVoucher.css"/>">
+    <style>
+        <!--Ẩn thông tin dòng được chọn -->
+        .select-info {
+            display: none;
+        }
+    </style>
     <title>Quản lý mã giảm giá</title>
 </head>
 <body>
