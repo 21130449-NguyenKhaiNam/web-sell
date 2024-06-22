@@ -4,7 +4,8 @@ $(document).ready(function () {
         $.validator.addMethod("notEqual", function (value, element, param) {
             return value !== param;
         }, "Please select an option.");
-        $.fn.select2.defaults.set("width", "resolve");
+    $.fn.select2.defaults.set("theme", "bootstrap-5");
+    $.fn.select2.defaults.set("width", "resolve");
 
         const configDatatable = {
             paging: true,

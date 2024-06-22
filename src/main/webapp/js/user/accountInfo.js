@@ -542,6 +542,7 @@ $(document).ready(function () {
         inputProvince.select2({
             placeholder: 'Chọn tỉnh/thành phố',
             data: ["", ...data],
+            dropdownParent: $("#modal")
         }).val(provinceId).trigger('change.select2');
     }
 
@@ -556,6 +557,7 @@ $(document).ready(function () {
                     return "Vui lòng chọn tỉnh/thành phố trước";
                 }
             },
+            dropdownParent: $("#modal")
         }).val(districtId).trigger('change.select2');
     }
 
@@ -570,6 +572,7 @@ $(document).ready(function () {
                     return "Vui lòng chọn quận/huyện trước";
                 }
             },
+            dropdownParent: $("#modal")
         }).val(wardId).trigger('change.select2');
     }
 });
