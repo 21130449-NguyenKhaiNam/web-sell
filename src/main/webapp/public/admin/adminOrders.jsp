@@ -130,7 +130,7 @@
                     </aside>
                 </div>
                 <div class="col-8">
-                    <form action="/exportExcelOrder" method="GET">
+                    <form action="/exportExcelOrder" method="POST">
                         <button class="btn_export">
                             <i class="fa-solid fa-file-export"></i>
                             Xuất file excel
