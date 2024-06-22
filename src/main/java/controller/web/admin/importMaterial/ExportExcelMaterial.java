@@ -1,12 +1,11 @@
-package controller.web.admin.log;
+package controller.web.admin.importMaterial;
 
-import models.Log;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import services.LogService;
-import java.text.SimpleDateFormat;
+import services.admin.AdminMaterialServices;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,10 +15,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
-@WebServlet(name = "exportExcelLog", value = "/exportExcelLog")
-public class ExportExcelLog extends HttpServlet implements Serializable {
-
+@WebServlet(name = "exportExcelMaterial", value = "/exportExcelMaterial")
+public class ExportExcelMaterial extends HttpServlet implements Serializable {
     private final int LIMIT = 10000;
 
     @Override
@@ -37,37 +36,27 @@ public class ExportExcelLog extends HttpServlet implements Serializable {
 
         // Tạo tiêu đề cho các cột
         Row headerRow = sheet.createRow(0);
-        String[] columnHeaders = {"Mã số", "IP", "Mức độ", "Ngày tạo", "Tác động", "Giá trị trước", "Giá trị sau"};
+        String[] columnHeaders = {"ID", "Loại vải", "Số lượng nhập", "Ngày nhập"};
         for (int i = 0; i < columnHeaders.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(columnHeaders[i]);
         }
 
         String targetFormat = "dd/MM/yyyy";
-        long quantity = LogService.getINSTANCE().getQuantity();
+        long quantity = AdminMaterialServices.getINSTANCE().countAll();
         long loop = (quantity + LIMIT - 1) / LIMIT; // làm tròn lên
-        int rowNum = 1;
 
         for (long i = 0; i < loop; i++) {
-            List<Log> logList = LogService.getINSTANCE().getLimit(LIMIT, (int) (i * LIMIT));
-            for (Log log : logList) {
-
+            List<Map<String, Object>> materialList = AdminMaterialServices.getINSTANCE().getLimit(LIMIT, (int) (i * LIMIT));
+            int rowNum = 1;
+            for (Map<String, Object> m : materialList) {
                 Row row = sheet.createRow(rowNum++);
-                row.createCell(0).setCellValue(log.getId());
-                row.createCell(1).setCellValue(log.getIp());
-                row.createCell(2).setCellValue(log.getLevel());
 
-                SimpleDateFormat targetSdf = new SimpleDateFormat(targetFormat);
-                String targetDateString = targetSdf.format(log.getDateCreated());
-
-                row.createCell(3).setCellValue(targetDateString);
-                row.createCell(4).setCellValue(log.getResource());
-
-                String prev = log.getPrevious();
-                String current = log.getCurrent();
-
-                row.createCell(5).setCellValue(prev != null ? prev : "");
-                row.createCell(6).setCellValue(current != null ? current : "");
+                int col = 0;
+                for (Map.Entry<String, Object> entry : m.entrySet()) {
+                    row.createCell(col).setCellValue(entry.getValue()+"");
+                    col++;
+                }
             }
         }
 

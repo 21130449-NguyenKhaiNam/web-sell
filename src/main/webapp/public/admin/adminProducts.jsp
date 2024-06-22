@@ -171,7 +171,7 @@
                     </div>
                     <!--Paging-->
                     <ul class="paging"></ul>
-                    <form action="/exportExcelProduct" method="GET">
+                    <form action="/exportExcelProduct" method="POST">
                         <button class="btn_export">
                             <i class="fa-solid fa-file-export"></i>
                             Xuất file excel

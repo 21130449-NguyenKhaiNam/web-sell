@@ -25,7 +25,7 @@
                     <div>
                         <h1>Danh sách nhận xét</h1>
                     </div>
-                    <form action="/exportExcelReview" method="GET">
+                    <form action="/exportExcelReview" method="POST">
                         <button class="btn_export">
                             <i class="fa-solid fa-file-export"></i>
                             Xuất file excel
