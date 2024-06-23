@@ -7,7 +7,7 @@ on:
 jobs:
   pull-data:
     runs-on: ubuntu-latest | windows-latest
-    if: github.actor == 'CaoThanhNammm' or github.actor == 'Lê Anh Đức'
+    if: github.actor == 'CaoThanhNammm' or github.actor == 'Lê Anh Đức' or github.actor == '21130449-NguyenKhaiNam'
 
     steps:
     - name: Checkout repository
