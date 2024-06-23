@@ -10,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.Map;
 
 
@@ -25,11 +26,20 @@ public class SignUp extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         // Chưa check và thêm giới tính
-        String[] gender = request.getParameterValues("gender");
+        String gender = request.getParameter("gender");
         String password = request.getParameter("password");
+        String fullName = request.getParameter("fullname");
+        String phone = request.getParameter("phone");
+        String birthday = request.getParameter("birthday");
         String confirmPassword = request.getParameter("confirm-password");
-
-        Validation validation = AuthenticateServices.getINSTANCE().checkSignUp(username, email, password, confirmPassword);
+        User user = User.builder()
+                .username(username)
+                .email(email)
+                .gender(gender)
+                .passwordEncoding(password)
+                .fullName(fullName)
+                .phone(phone).birthDay(Date.valueOf(birthday)).build();
+        Validation validation = AuthenticateServices.getINSTANCE().checkSignUp(user, confirmPassword);
 
         Map<String, String> mapErrorPassword = AuthenticateServices.getINSTANCE().checkPasswordTemplate(password);
 

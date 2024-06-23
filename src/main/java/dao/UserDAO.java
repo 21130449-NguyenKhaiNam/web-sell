@@ -1,12 +1,12 @@
 package dao;
 
 import database.JDBIConnector;
-import models.Address;
-import models.Order;
 import models.User;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserDAO {
@@ -140,9 +140,17 @@ public class UserDAO {
     }
 
 
-    public void insertUser(String username, String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay, String role) {
-        String querry = "INSERT INTO users(username, passwordEncoding, fullname, gender, email, phone, address, birthDay, role) VALUES(?,?,?,?,?,?,?,?,?)";
-        GeneralDao.executeAllTypeUpdate(querry, username, passwordEncoding, fullname, gender, email, phone, address, birthDay, role);
+    public void insertUser(User user) {
+        String query = "INSERT INTO users(username, passwordEncoding, fullname, gender, email, phone, birthDay, role) VALUES(?,?,?,?,?,?,?,?,?)";
+        GeneralDao.executeAllTypeUpdate(query,
+                user.getUsername(),
+                user.getPasswordEncoding(),
+                user.getFullName(),
+                user.getGender(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getBirthDay(),
+                user.getRole());
     }
 
 
@@ -158,9 +166,9 @@ public class UserDAO {
     }
 
 
-    public void updateUserByIDWithRole(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay, String role) {
-        String query = "UPDATE users SET username = ?, fullname = ?, gender = ?, email = ?, phone = ?, address = ?, birthDay = ?, role = ? WHERE id = ?";
-        GeneralDao.executeAllTypeUpdate(query, username, fullname, gender, email, phone, address, birthDay, role, id);
+    public void updateUser(User user) {
+        String query = "UPDATE users SET  fullname = ?, gender = ?, phone = ?, birthDay = ?, role = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(query, user.getUsername(), user.getFullName(), user.getGender(), user.getEmail(), user.getPhone(), user.getBirthDay(), user.getRole(), user.getId());
     }
 
 
@@ -238,6 +246,39 @@ public class UserDAO {
     public List<User> getLimit(int limit, int offset) {
         String querry = "Select id, username, email, fullname, gender, phone, address, birthDay, role from users limit ? offset ?";
         return GeneralDao.executeQueryWithSingleTable(querry, User.class, limit, offset);
+    }
+
+    public List<User> selectWithCondition(Integer start, Integer length, String searchValue, String orderBy, String orderDir) {
+        String sql = "SELECT id, username, fullName, gender, email, phone, birthday, role " + "FROM users " +
+                "WHERE username LIKE :search OR fullName LIKE :search OR email LIKE :search OR phone LIKE :search " +
+                "ORDER BY :orderBy :orderDir LIMIT :limit OFFSET :start";
+        List<User> users = new ArrayList<>();
+        GeneralDao.customExecute(handle -> {
+            users.addAll(handle.createQuery(sql)
+                    .bind("search", "%" + searchValue + "%")
+                    .bind("limit", length)
+                    .bind("start", start)
+                    .bind("orderBy", orderBy)
+                    .bind("orderDir", orderDir)
+                    .mapToBean(User.class)
+                    .list());
+        });
+        if (orderDir.equals("desc")) {
+            Collections.reverse(users);
+        }
+        return users;
+    }
+
+    public long getSizeWithCondition(String searchValue) {
+        String sql = "SELECT COUNT(*) count FROM users WHERE username LIKE :search OR fullName LIKE :search OR email LIKE :search OR phone LIKE :search ";
+        LogDAOImp.CountResult result = new LogDAOImp.CountResult();
+        GeneralDao.customExecute(handle -> {
+            result.setCount(handle.createQuery(sql)
+                    .bind("search", "%" + searchValue + "%")
+                    .mapToBean(LogDAOImp.CountResult.class)
+                    .list().get(0).getCount());
+        });
+        return result.getCount();
     }
 }
 

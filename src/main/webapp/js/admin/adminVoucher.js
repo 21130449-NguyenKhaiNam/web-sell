@@ -1,4 +1,12 @@
+import {addParam, convertFormToObject} from "../base.js";
+
 $(document).ready(function () {
+        $.validator.addMethod("notEqual", function (value, element, param) {
+            return value !== param;
+        }, "Please select an option.");
+    $.fn.select2.defaults.set("theme", "bootstrap-5");
+    $.fn.select2.defaults.set("width", "resolve");
+
         const configDatatable = {
             paging: true,
             processing: true,
@@ -65,6 +73,7 @@ $(document).ready(function () {
                         $(td).addClass('text-center');
                         $(td).find("button").attr("data-code", rowData.code);
                         $(td).find("button").attr("data-state", rowData.state);
+                        $(td).find("button").attr("data-index", row);
                     },
                     orderable: false
                 },
@@ -90,11 +99,11 @@ $(document).ready(function () {
                         $(row).addClass('table-danger');
                         break;
                 }
-
             },
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/vi.json'
             },
+            select: true,
             initComplete: function (settings, json) {
                 handleEventDatatable();
             }
@@ -106,7 +115,8 @@ $(document).ready(function () {
                 "noResults": function () {
                     return "Chọn sản phẩm muốn áp dụng mã giảm giá";
                 }
-            }
+            },
+            dropdownParent: $("#modal")
         }
         const table = $("#table");
         const button = $("#button");
@@ -130,7 +140,6 @@ $(document).ready(function () {
                 },
                 minimumPrice: {
                     required: true,
-                    // currencyVND: true
                 },
                 discountPercent: {
                     required: true,
@@ -147,7 +156,7 @@ $(document).ready(function () {
                 },
                 state: {
                     required: true,
-                    // notEqual: "-1"
+                    notEqual: "-1"
                 },
                 productId: {
                     required: true
@@ -165,7 +174,6 @@ $(document).ready(function () {
                 },
                 minimumPrice: {
                     required: "Vui lòng nhập giá tối thiểu",
-                    currencyVND: "Vui lòng nhập đúng định dạng tiền tệ VND"
                 },
                 discountPercent: {
                     required: "Vui lòng nhập phần trăm giảm giá",
@@ -210,9 +218,9 @@ $(document).ready(function () {
             submitHandler: function (form) {
                 let formData = $(form).serialize();
                 // Nếu không có dòng nào được chọn thì thực hiện thêm mới
-                if (!row) {
+                if (!row.rowDataSelected) {
                     Swal.fire({
-                        title: `Bạn có muốn thêm sản phẩm này không`,
+                        title: `Bạn có muốn thêm mã giảm giá này không?`,
                         showDenyButton: true,
                         showCancelButton: true,
                         confirmButtonText: "Có",
@@ -221,42 +229,55 @@ $(document).ready(function () {
                         if (result.isConfirmed) {
                             handleSave(formData, (response) => {
                                 if (response.success) {
-                                    form.reset();
                                     Swal.fire({
                                         icon: 'success',
-                                        title: 'Cập nhập thành công',
+                                        title: 'Thêm thành công',
                                     })
+                                    // Thêm dòng mới vào bảng
+                                    datatable.row.add(
+                                        {
+                                            ...convertFormToObject(form)
+                                        }
+                                    ).draw(false);
+                                    $("#modal").modal("hide");
                                 } else {
                                     Swal.fire({
                                         icon: 'error',
-                                        title: 'Cập nhập thất bại',
+                                        title: 'Thêm thất bại',
                                     })
                                 }
                             })
                         }
                     });
                 } else {
-                    // Nếu có dòng nào được chọn thì thực hiện cập nhập
-                    // Thêm id vào form data
-                    const id = $.param({
-                        id: row.rowDataSelected.id
-                    });
-                    formData += '&' + id;
                     Swal.fire({
-                        title: `Bạn có muốn cập nhập sản phẩm này không`,
+                        title: `Bạn có muốn cập nhập mã giảm giá này không?`,
                         showDenyButton: true,
                         showCancelButton: true,
                         confirmButtonText: "Có",
                         denyButtonText: `Không`
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            // Nếu có dòng nào được chọn thì thực hiện cập nhập
+                            // Thêm id vào form data
+                            formData = addParam(form, {
+                                key: "id",
+                                value: row.rowDataSelected.id
+                            })
                             handleUpdate(formData, (response) => {
                                 if (response.success) {
-                                    form.reset();
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'Cập nhập thành công',
                                     })
+                                    // Cập nhập dòng mới vào bảng
+                                    datatable.row(row.rowIndexSelected).data(
+                                        {
+                                            ...row.rowDataSelected,
+                                            ...convertFormToObject(form)
+                                        }
+                                    ).draw(false);
+                                    $("#modal").modal("hide");
                                 } else {
                                     Swal.fire({
                                         icon: 'error',
@@ -270,7 +291,7 @@ $(document).ready(function () {
                 return false;
             }
         };
-        const select2Element = $("#productId").select2();
+        const select2Element = $("#productId").select2(configSelect2);
         const form = $("#form")
         form.on("submit", (e) => {
             e.preventDefault()
@@ -279,20 +300,16 @@ $(document).ready(function () {
         configModal();
 
         function configModal() {
-            const myModal = new Modal("myModal",
-                {
-                    beforeOpen: function () {
-                        addDataToSelect();
-                        if (row.rowDataSelected)
-                            getDetail(row.rowDataSelected.code);
-                    },
-                    afterClose: function () {
-                        form.find('.form-control').removeClass('is-valid is-invalid');
-                        form.find('.form-select').removeClass('is-valid is-invalid');
-                        form.find("input, textarea, select").val("")
-                        formValidate.resetForm();
-                    }
-                });
+            $("#modal").on("hide.bs.modal", function () {
+                form.find("input, textarea, select").val("")
+                formValidate.resetForm();
+            })
+            $("#modal").on("show.bs.modal", function () {
+                addDataToSelect();
+                if (row.rowDataSelected) {
+                    getDetail(row.rowDataSelected.code);
+                }
+            });
         }
 
         function handleSave(formData, callback) {
@@ -319,43 +336,35 @@ $(document).ready(function () {
 
         function handleEventDatatable() {
             // Xử lý sự kiện khi click vào 1 dòng trong bảng
-            table.find("tbody").on('click', 'tr', function () {
-                table.find("tbody tr").removeClass('selected');
-                const rowIndex = datatable.row(this).index();
-                if (row.rowIndexSelected == rowIndex) {
-                    row = {
-                        rowDataSelected: undefined,
-                        rowIndexSelected: undefined
-                    };
-                    $(this).removeClass('selected');
-                    button.text("Thêm mã giảm giá")
-                    return;
-                }
+            datatable.on('select', function (e, dt, type, indexes) {
                 row = {
-                    rowDataSelected: datatable.row(this).data(),
-                    rowIndexSelected: datatable.row(this).index()
+                    rowDataSelected: datatable.row(indexes).data(),
+                    rowIndexSelected: datatable.row(indexes).index()
                 }
-                $(this).addClass('selected');
+                console.log(row)
                 button.text("Cập nhật mã giảm giá");
-            }).on('mouseenter', 'tr', function () {
-                $(this).addClass('hovered').css('cursor', 'pointer');
-            }).on('mouseleave', 'tr', function () {
-                $(this).removeClass('hovered').css('cursor', 'default');
+            }).on('deselect', function (e, dt, type, indexes) {
+                row = {
+                    rowDataSelected: undefined,
+                    rowIndexSelected: undefined,
+                }
+                button.text("Thêm mã giảm giá")
             });
-            // Xử lý sự kiện khi click vào bút ẩn/hiện mã giảm giá
             table.find("tbody").on('click', 'button', function (e) {
                 e.stopPropagation();
                 const code = $(this).data("code");
                 const state = $(this).data("state");
-                row = {
-                    rowDataSelected: datatable.row(this.closest("tr")).data(),
-                    rowIndexSelected: datatable.row(this.closest("tr")).index()
-                }
-                console.log(state, code, row)
+                const index = $(this).data("index");
                 if (state == "1") {
-                    handleEventVisible("hide", code);
+                    handleEventVisible("hide", code, index);
                 } else {
-                    handleEventVisible("visible", code);
+                    handleEventVisible("visible", code, index);
+                }
+            });
+            table.on('draw.dt', function () {
+                row = {
+                    rowDataSelected: undefined,
+                    rowIndexSelected: undefined
                 }
             });
         }
@@ -388,7 +397,7 @@ $(document).ready(function () {
             addDataToSelect(listIdProduct);
         }
 
-        function handleEventVisible(type, code) {
+        function handleEventVisible(type, code, index) {
             Swal.fire({
                 title: `Bạn có muốn ${type == "visible" ? "hiện thị" : "ẩn"} mã giảm giá này không?`,
                 showDenyButton: true,
@@ -410,37 +419,24 @@ $(document).ready(function () {
                                     icon: 'success',
                                     title: 'Cập nhập thành công ',
                                 })
-                                datatable.row(row.rowIndexSelected).data({
-                                    ...row.rowDataSelected,
+                                datatable.row(index).data({
+                                    ...datatable.row(index).data(),
                                     state: type == "hide" ? "1" : "2"
-                                }).draw();
+                                }).draw(false);
                             } else {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Cập nhập thất bại',
                                 })
                             }
-                            row = {
-                                rowDataSelected: undefined,
-                                rowIndexSelected: undefined
-                            };
                         },
                         error: function () {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Có lỗi xảy ra',
                             })
-                            row = {
-                                rowDataSelected: undefined,
-                                rowIndexSelected: undefined
-                            };
                         }
                     })
-                } else {
-                    row = {
-                        rowDataSelected: undefined,
-                        rowIndexSelected: undefined
-                    };
                 }
             });
         }
@@ -486,7 +482,6 @@ $(document).ready(function () {
                     }
                 }
             })
-
         }
     }
 )
