@@ -1,0 +1,21 @@
+name: Pull Data and Write Secret
+
+on:
+  status
+
+jobs:
+  pull-data:
+    runs-on: ubuntu-latest
+    if: github.actor == 'CaoThanhNammm' or github.actor == 'Lê Anh Đức' or github.actor == '21130449-NguyenKhaiNam'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Pull data from remote
+      run: git pull origin main
+
+    - name: Write secret to file
+      env:
+        CREDENTIALS: ${{ secrets.CREDENTIALS }}
+      run: echo "${CREDENTIALS}" > src/main/resources/credential.json
