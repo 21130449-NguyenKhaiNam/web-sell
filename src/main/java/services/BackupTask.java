@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.time.LocalDate;
 import java.util.Collections;
@@ -33,7 +34,10 @@ public class BackupTask implements Runnable {
             name;
 
     public static String getPathToGGCredentials() {
-        return BackupTask.class.getClassLoader().getResource("credentials.json").getPath().substring(1);
+        URL url = BackupTask.class.getClassLoader()
+                .getResource("credentials.json");
+        String path = url == null ? "" : url.getPath().substring(1);
+        return path;
     }
 
     public static void main(String[] args) throws URISyntaxException {
@@ -99,15 +103,21 @@ public class BackupTask implements Runnable {
         return "success";
     }
 
-    public Drive createDriveService() throws GeneralSecurityException, IOException {
-        GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(SERVICE_ACCOUNT_KEY_PATH))
-                .createScoped(Collections.singleton(DriveScopes.DRIVE));
-        HttpRequestInitializer initializer = new HttpCredentialsAdapter(credentials);
-        return new Drive.Builder(
-                GoogleNetHttpTransport.newTrustedTransport(),
-                JSON_FACTORY,
-                initializer)
-                .build();
+    public Drive createDriveService() {
+        try{
+            GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(SERVICE_ACCOUNT_KEY_PATH))
+                    .createScoped(Collections.singleton(DriveScopes.DRIVE));
+            HttpRequestInitializer initializer = new HttpCredentialsAdapter(credentials);
+            return new Drive.Builder(
+                    GoogleNetHttpTransport.newTrustedTransport(),
+                    JSON_FACTORY,
+                    initializer)
+                    .build();
+        } catch (Exception e) {
+            System.out.println("BackupTask >> Có vẻ thiếu đường file credentials.json");
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

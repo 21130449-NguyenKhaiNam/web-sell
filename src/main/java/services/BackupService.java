@@ -22,7 +22,7 @@ public class BackupService implements ServletContextListener {
         scheduler = Executors.newScheduledThreadPool(1);
 
         // Thiết lập lịch trình chạy backup sau mỗi 24 giờ (ví dụ)
-        scheduler.scheduleAtFixedRate(new BackupTask(), 0, 1, TimeUnit.MINUTES);
+            scheduler.scheduleAtFixedRate(new BackupTask(), 0, 24, TimeUnit.HOURS);
     }
 
     @Override

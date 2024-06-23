@@ -36,7 +36,7 @@ target/
 *.tar.gz
 
 *.rar
-**/src/main/**/db.properties
+!**/src/main/**/db.properties
 **/src/main/**/credentials.json
 
 ###
