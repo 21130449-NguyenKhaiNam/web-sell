@@ -1,7 +1,7 @@
 name: Pull Data and Write Secret
 
 on:
-  pull:
+  pull_request:
     branches:
       - '*'
 jobs:
