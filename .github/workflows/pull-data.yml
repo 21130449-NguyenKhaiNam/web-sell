@@ -9,13 +9,4 @@ jobs:
     if: github.actor == 'CaoThanhNammm' || github.actor == 'ducvui2003' || github.actor == '21130449-NguyenKhaiNam'
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Pull data from remote
-        run: git pull origin main
-
-      - name: Write secret to file
-        env:
-          CREDENTIALS: ${{ secrets.CREDENTIALS }}
-        run: echo "${{ env.CREDENTIALS }}" > src/main/resources/credential.json
+        - run: echo "${{ secrets.CREDENTIALS }}" > src/main/resources/credential.json
