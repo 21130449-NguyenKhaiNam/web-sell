@@ -2,11 +2,7 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <jsp:include page="/public/commonLink.jsp"/>
-    <!--CK Editor-->
-    <script src="<c:url value="/ckeditor/ckeditor.js"/>"></script>
-    <!--Ck Finder-->
-    <script src="<c:url value="/ckfinder/ckfinder.js"/>"></script>
+    <jsp:include page="/public/admin/adminLink.jsp"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css" />">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminCategories.css"/>">
@@ -15,7 +11,11 @@
 </head>
 <body>
 <c:set var="listCategory" value="${requestScope.listCategory}"/>
+<!--Header-->
+<c:import url="/public/header.jsp"/>
 <main class="main">
+    <!--Navigate-->
+    <c:import url="/public/admin/adminNavigator.jsp"/>
     <div class="container-xl">
         <div class="row">
             <div class="col-12">

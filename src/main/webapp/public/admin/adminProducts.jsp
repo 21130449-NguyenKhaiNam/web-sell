@@ -8,14 +8,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="/public/commonLink.jsp"/>
+    <jsp:include page="/public/admin/adminLink.jsp"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/> ">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css" />">
     <title>Quản lý sản phẩm</title>
 </head>
 <body>
+<!--Header-->
+<c:import url="/public/header.jsp"/>
 <main id="main">
+    <!--Navigate-->
+    <c:import url="/public/admin/adminNavigator.jsp"/>
     <section class="content">
         <div class="container-xl">
             <div class="row">
@@ -167,7 +171,7 @@
                     </div>
                     <!--Paging-->
                     <ul class="paging"></ul>
-                    <form action="/exportExcelProduct" method="GET">
+                    <form action="/exportExcelProduct" method="POST">
                         <button class="btn_export">
                             <i class="fa-solid fa-file-export"></i>
                             Xuất file excel

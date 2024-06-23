@@ -4,25 +4,28 @@
 <jsp:useBean id="productFactory" class="utils.ProductFactory"/>
 <jsp:useBean id="userFactory" class="utils.UserFactory"/>
 <!doctype html>
-<%--<html lang="en">--%>
-<%--<head>--%>
-<%--    <jsp:include page="/public/commonLink.jsp"/>--%>
-<%--    <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">--%>
-<%--    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">--%>
-<%--    <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/>">--%>
-<%--    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminReviews.css" />">--%>
-<%--    <title>Quản lý nhận xét</title>--%>
-<%--</head>--%>
+<html lang="en">
+<head>
+    <jsp:include page="/public/admin/adminLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">
+    <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/>">
+    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminReviews.css" />">
+    <title>Quản lý nhận xét</title>
+</head>
 <body>
-<%--<main id="main">--%>
-<%--    <section class="content">--%>
+<!--Header-->
+<c:import url="/public/header.jsp"/>
+<main id="main">
+    <!--Navigate-->
+    <c:import url="/public/admin/adminNavigator.jsp"/>
+    <section class="content">
         <div class="container-xl">
             <div class="row">
                 <div class="col-12">
                     <div>
                         <h1>Danh sách nhận xét</h1>
                     </div>
-                    <form action="/exportExcelReview" method="GET">
+                    <form action="/exportExcelReview" method="POST">
                         <button class="btn_export">
                             <i class="fa-solid fa-file-export"></i>
                             Xuất file excel
@@ -51,8 +54,8 @@
                 </div>
             </div>
         </div>
-<%--    </section>--%>
-<%--</main>--%>
+    </section>
+</main>
 <div id="dialog-review-read" class="modal">
     <article class="modal__content modal__product">
         <div>
