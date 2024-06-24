@@ -59,9 +59,12 @@ body {
 }
 
 /*Extend bootstrap*/
+.list-group-item {
+    cursor: pointer;
+}
+
 .list-group-item.active {
     --bs-list-group-active-color: #fff;
     --bs-list-group-active-border-color: var(--blue-color-high);
     --bs-list-group-active-bg: var(--blue-color-high)
-
 }

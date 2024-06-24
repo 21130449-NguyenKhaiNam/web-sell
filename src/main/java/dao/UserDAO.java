@@ -281,4 +281,3 @@ public class UserDAO {
         return result.getCount();
     }
 }
-

@@ -14,15 +14,15 @@
 <main class="main">
     <div class="frame">
         <div class="frame__media"></div>
-
         <article>
-                        <span class="text-center mb-3 d-flex justify-content-center hvr-bob">
-                            <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
-                        </span>
+            <span class="text-center mb-3 d-flex justify-content-center hvr-bob">
+                <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
+            </span>
             <form action="<c:url value="/signIn"/>" class="form form--signUp" method="post">
                 <div class="form__block">
                     <label for="username" class="form__label">Tên đăng nhập</label>
-                    <input id="username" name="username" type="text" class="form__input p-2">
+                    <input id="username" name="username" type="text" class="form__input p-2" autocomplete="username"
+                           required>
                     <c:set value="${requestScope.usernameError}" var="usernameError"/>
                     <p class="form__error">
                         <c:if test="${usernameError != null}">${usernameError}</c:if>
@@ -30,7 +30,8 @@
                 </div>
                 <div class="form__block">
                     <label for="password" class="form__label">Mật khẩu</label>
-                    <input id="password" name="password" type="password" class="form__input p-2">
+                    <input id="password" name="password" type="password" class="form__input p-2"
+                           autocomplete="current-password" required>
                     <c:set value="${requestScope.passwordError}" var="passwordError"/>
                     <p class="form__error">
                         <c:if test="${passwordError != null}">${passwordError}</c:if>
@@ -45,7 +46,8 @@
                 <input type="hidden" id="recaptchaToken" name="g-recaptcha-response">
                 <c:set var="errorReCaptcha" value="${requestScope.errorReCaptcha}"/>
                 <c:if test="${param.errorReCaptcha eq 'true'}">${errorReCaptcha}
-                    <p class="alert alert-danger" role="alert">Mã recaptcha không hợp lệ, vui lòng thử đăng nhập lại </p>
+                    <p class="alert alert-danger" role="alert">Mã recaptcha không hợp lệ, vui lòng thử đăng nhập
+                        lại </p>
                 </c:if>
                 <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng nhập
                 </button>

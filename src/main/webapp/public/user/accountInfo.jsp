@@ -6,44 +6,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <jsp:include page="/public/commonLink.jsp"/>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/user/account.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/user/accountInfo.css"/>">
+    <jsp:include page="/public/commonLink.jsp"/>
     <title>Thông tin cá nhân</title>
 </head>
 <body>
+<%@include file="/public/header.jsp" %>
 <c:set var="user" value="${requestScope.accountInfo}"/>
-<div id="main">
-    <nav class="navbar">
-        <div class="container-xl">
-            <ul class="navbar__list">
-                <li class="navbar__item">
-                    <a href="<c:url value="/"/>"
-                       class="navbar__link button button button--hover hvr-grow-shadow">Trang
-                        chủ</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#"
-                       class="navbar__link button button button--hover navbar__link--clicked hvr-grow-shadow"> Thông tin
-                        cá
-                        nhân</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="<c:url value="/public/user/accountSecurity.jsp"/>"
-                       class="navbar__link button button button--hover  hvr-grow-shadow"> Bảo mật</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="<c:url value="/public/user/accountOrder.jsp"/>"
-                       class="navbar__link button button button--hover hvr-grow-shadow"> Đơn hàng
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container-xl px-4 mt-4">
+<div id="main" class="d-flex">
+    <%@include file="accountNavigator.jsp" %>
+    <div class="px-4 mt-4 w-100">
         <div class="row">
             <div class="col-xl-4">
                 <div class="card mb-4 mb-xl-0">
@@ -51,7 +27,7 @@
                     <div class="card-body text-center">
 
                         <img id="preview-avatar"
-                             class="img-account-profile object-fit-cover rounded-circle overflow-hidden  mb-2"
+                             class="img-account-profile object-fit-cover rounded-circle overflow-hidden mb-2"
                              src="${not empty user.avatar ? avatar : '/assets/img/user/userDefaultAvatar.png'}"
                              alt="">
                         <div id="username" class="medium  text-muted mb-2">${user.username}</div>
@@ -221,11 +197,12 @@
      style="background-color: rgba(0,0,0,0.5)">
     <span class='position-absolute top-50 start-50 translate-middle loader'></span>
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
-      integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"/>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<%@include file="/public/footer.jsp" %>
+<%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"--%>
+<%--      integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="--%>
+<%--      crossorigin="anonymous" referrerpolicy="no-referrer"/>--%>
+<%--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>--%>
+<%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>--%>
 <!--Select 2 jquery-->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -238,13 +215,24 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
 <!---Sweet Alert 2--->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.css"
-      integrity="sha512-OWGg8FcHstyYFwtjfkiCoYHW2hG3PDWwdtczPAPUcETobBJOVCouKig8rqED0NMLcT9GtE4jw6IT1CSrwY87uw=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.js"
-        integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.css"--%>
+<%--      integrity="sha512-OWGg8FcHstyYFwtjfkiCoYHW2hG3PDWwdtczPAPUcETobBJOVCouKig8rqED0NMLcT9GtE4jw6IT1CSrwY87uw=="--%>
+<%--      crossorigin="anonymous" referrerpolicy="no-referrer"/>--%>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.js"--%>
+<%--        integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg=="--%>
+<%--        crossorigin="anonymous" referrerpolicy="no-referrer"></script>--%>
 <script type="module" src="<c:url value="/js/user/accountInfo.js"/>">
+</script>
+<script>
+    function selected(ind) {
+        document.querySelectorAll('.navbar__link').forEach(tab => {
+            if (tab.dataset.index == ind) {
+                tab.classList.add('navbar__link--clicked');
+            }
+        });
+    }
+
+    selected(1);
 </script>
 </body>
 </html>

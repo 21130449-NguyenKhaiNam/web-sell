@@ -68,7 +68,7 @@ public class GeneralDao {
     public static void executeAllTypeUpdate(String sql, Object... params) {
         Handle handle = ConnectionPool.getINSTANCE().getHandle();
         try {
-//            LogService.getINSTANCE().insertLog(sql, params);
+            LogService.getINSTANCE().insertLog(sql, params);
             handle.useTransaction(handleInner -> {
                 try {
                     handleInner.getConnection().setAutoCommit(false);

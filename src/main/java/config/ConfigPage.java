@@ -35,7 +35,7 @@ public class ConfigPage implements ServletContextListener {
         SIGN_IN = folderAuth + "signIn.jsp";
         SIGN_UP = folderAuth + "signUp.jsp";
         RESET_PASSWORD = folderAuth + "resetPassword.jsp";
-        FORGET_PASSWORD = folderAuth + "forgetPassword.jsp";
+        FORGET_PASSWORD = folderAuth + "forgotPassword.jsp";
         VERIFY = folderAuth + "verifySuccess.jsp";
 
 //        Config path /public/user
