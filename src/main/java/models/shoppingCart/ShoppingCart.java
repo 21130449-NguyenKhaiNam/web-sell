@@ -150,7 +150,6 @@ public class ShoppingCart {
             int currentQuantity = listCartProducts.get(cartProductIndex).getQuantity();
             AbstractCartProduct cartProduct = listCartProducts.get(cartProductIndex);
             cartProduct.setQuantity(currentQuantity + 1);
-            System.out.println(cartProduct);
             listCartProducts.set(cartProductIndex, cartProduct);
         }
     }
@@ -174,7 +173,6 @@ public class ShoppingCart {
             int quantityDecreased = currentQuantity - 1;
             if (quantityDecreased > 0) {
                 cartProduct.setQuantity(quantityDecreased);
-                System.out.println(cartProduct);
                 listCartProducts.set(cartProductIndex, cartProduct);
             }
         }
@@ -184,7 +182,7 @@ public class ShoppingCart {
     public void remove(int productId, int cartProductIndex) {
         if (shoppingCartMap.containsKey(productId)) {
             List<AbstractCartProduct> listCartProducts = shoppingCartMap.get(productId);
-            AbstractCartProduct cartProductTarget = listCartProducts.get(cartProductIndex);
+            AbstractCartProduct cartProductTarget = listCartProducts.get(cartProductIndex % listCartProducts.size());
             listCartProducts.remove(cartProductTarget);
             if (listCartProducts.isEmpty()) {
                 shoppingCartMap.remove(productId);

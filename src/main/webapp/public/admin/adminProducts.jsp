@@ -8,14 +8,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="/public/commonLink.jsp"/>
+    <jsp:include page="/public/admin/adminLink.jsp"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/> ">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css" />">
     <title>Quản lý sản phẩm</title>
 </head>
 <body>
+<!--Header-->
+<c:import url="/public/header.jsp"/>
 <main id="main">
+    <!--Navigate-->
+    <c:import url="/public/admin/adminNavigator.jsp"/>
     <section class="content">
         <div class="container-xl">
             <div class="row">
@@ -30,6 +34,7 @@
                         </div>
                         <ul class="search__box shadow"></ul>
                     </div>
+
 
                     <form action="<c:url value="/filterProductAdmin"/>" class="form__filter" id="form__filter">
                         <div class="filter__group">
@@ -127,7 +132,8 @@
                         <span class="reload__btn">
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
-                         <span id="button-import-product" class="button button__import">
+
+                        <span id="button-import-product" class="button button__import">
                              <form action="/admin-import-product" method="POST" enctype="multipart/form-data" style="display: flex;justify-content: center;align-items: center">
                                  <input type="file" name="file">
                                  <span class="btn_uploadImg">
@@ -136,6 +142,7 @@
                                  </span>
                              </form>
                         </span>
+
                         <span id="button-create-product" class="button button__add">
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
@@ -164,6 +171,12 @@
                     </div>
                     <!--Paging-->
                     <ul class="paging"></ul>
+                    <form action="/exportExcelProduct" method="POST">
+                        <button class="btn_export">
+                            <i class="fa-solid fa-file-export"></i>
+                            Xuất file excel
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

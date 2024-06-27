@@ -8,6 +8,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -80,7 +81,6 @@ public class SessionManager {
                     session.setAttribute(SESSION_TABLE, sessionTable);
                     cookie.setMaxAge(0);
                     response.addCookie(cookie);
-                    ShoppingCartServices.getINSTANCE().setUser(null);
                     break;
                 }
             }

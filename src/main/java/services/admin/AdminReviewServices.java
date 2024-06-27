@@ -16,6 +16,7 @@ public class AdminReviewServices {
     private AdminReviewServices() {
         this.reviewDAO = new ReviewDAO();
         this.userDAO = new UserDAO();
+
     }
 
     public static AdminReviewServices getINSTANCE() {
@@ -55,5 +56,9 @@ public class AdminReviewServices {
             return null;
         }
         return listUser.get(0);
+    }
+
+    public List<Review> getAll(){
+        return reviewDAO.getAll();
     }
 }

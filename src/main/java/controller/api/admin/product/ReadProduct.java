@@ -9,7 +9,6 @@ import utils.ProductFactory;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,6 +21,7 @@ public class ReadProduct extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String idParameter = request.getParameter("id");
 
         int id;

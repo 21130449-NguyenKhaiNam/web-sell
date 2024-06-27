@@ -6,11 +6,6 @@ import models.Log;
 
 import java.util.List;
 
-/**
- * Sử dụng để ghi Log, lớp muốn ghi log thì sử dụng phương thức createProxy
- * để tạo các phiên bản:
- * I?Dao dao = LogService.getINSTANCE().createProxy(new ?DaoImp());
- */
 public class LogService {
     private static LogService logService;
     private ILogDAO logDAO;
@@ -29,11 +24,6 @@ public class LogService {
         logDAO.setIp(ip == null ? this.ip : ip);
     }
 
-    /**
-     * Dùng cho các câu chỉ có lệnh
-     * @param sql
-     * @param params
-     */
     public void insertLog(String sql, Object... params) {
         logDAO.insertLog(sql, params);
     }
@@ -50,7 +40,23 @@ public class LogService {
         return logDAO.getSize();
     }
 
+    public List<Log> getLimit(int limit, int offset) {
+        return logDAO.getLimit(limit, offset);
+    }
+
+    public long getQuantity() {
+        return logDAO.getQuantity();
+    }
+
     public long getTotalWithCondition(String search) {
         return logDAO.getSizeWithCondition(search);
+    }
+
+    public void save(Log log) {
+        logDAO.save(log);
+    }
+
+    public void deleteAll() {
+        logDAO.deleteAll();
     }
 }

@@ -1,19 +1,13 @@
 package controller.api.admin.product;
 
-import com.opencsv.CSVParser;
-import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import config.ConfigPage;
 import models.Product;
-import properties.PathProperties;
 import services.ProductServices;
 import services.admin.AdminCategoryServices;
 import services.admin.AdminProductServices;
 import services.image.CloudinaryUploadServices;
 import utils.ProductFactory;
-import utils.Token;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -26,17 +20,11 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 @WebServlet(name = "admin-import-product", value = "/admin-import-product")
 @MultipartConfig(fileSizeThreshold = 1024 * 12024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 100)
 public class ImportProduct extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Lấy file từ request

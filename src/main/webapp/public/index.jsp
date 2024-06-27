@@ -29,7 +29,7 @@
 <!--Header-->
 <c:import url="header.jsp" charEncoding="UTF-8"/>
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
-<main id="main"> <!--Hero-->
+<main id="main" class="animate__animated animate__zoomIn"> <!--Hero-->
     <div class="hero">
         <img src="<c:url value="/assets/img/hero__img.png" />" alt="" class="hero__img">
         <div class="hero__slogan">
@@ -109,7 +109,7 @@
     <div class="popular__section container-xl">
         <div class="popular__title">
             <h2 class="section__title">Sản phẩm thịnh hành</h2>
-            <a class="see__more hvr-forward" href="<c:url value="/public/product/productTrending.jsp" />">Xem
+            <a class="see__more hvr-forward" href="<c:url value="/trendingProducts" />">Xem
                 thêm
             </a>
         </div>
@@ -117,6 +117,7 @@
             <button class="left__button"><i
                     class="fa-solid fa-arrow-left"></i></button>
             <div class="product__items">
+                <% int i = 0; %>
                 <%for (Product trendProduct : (List<Product>) request.getAttribute("list6TrendingProducts")) {%>
                 <div class="product__item">
                     <div class="product__content">
@@ -124,7 +125,8 @@
                             <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(trendProduct.getId());%>
                             <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
 
-                            <span class="product__tag" data-style="popular">Thịnh hành</span>
+                            <span class="product__tag"
+                                  data-style="<%= (i % 2) == 0 ? "popular" : "guaranteed" %>"><%=(i++ % 2) == 0 ? "Thịnh hành" : "Phổ biến"%></span>
                             <form action="/api/cart/add"
                                   class="action__bar" method="post">
                                 <input type="hidden"
@@ -171,12 +173,11 @@
             </button>
         </div>
     </div>
-    </div>
 
     <div class="new__section container-xl">
         <div class="new__title">
             <h2 class="section__title">Sản phẩm mới</h2>
-            <a class="see__more hvr-forward" href="<c:url value="/public/product/productNew.jsp" />">Xem thêm
+            <a class="see__more hvr-forward" href="<c:url value="/newProducts" />">Xem thêm
             </a>
         </div>
         <div class="product__wrapper">
@@ -385,6 +386,7 @@
         $('.search__box').removeClass('focused');
     });
 
+    $('#header').addClass("animate__animated animate__backInDown")
     handelSearch()
     addToCartAjax()
 </script>

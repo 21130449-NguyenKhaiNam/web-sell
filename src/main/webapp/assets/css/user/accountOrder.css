@@ -1,5 +1,4 @@
 body {
-    margin-top: 20px;
     background-color: #f2f6fc;
     color: #69707a;
 }
@@ -54,19 +53,18 @@ body {
     border-bottom-color: #0061f2;
 }
 
-.nav-borders .nav-link {
-    color: #69707a;
-    border-bottom-width: 0.125rem;
-    border-bottom-style: solid;
-    border-bottom-color: transparent;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 1rem;
-    margin-right: 1rem;
+
+#modal {
+    z-index: 2000;
 }
 
-#modal{
-    z-index: 2000;
+/*Extend bootstrap*/
+.list-group-item {
+    cursor: pointer;
+}
+
+.list-group-item.active {
+    --bs-list-group-active-color: #fff;
+    --bs-list-group-active-border-color: var(--blue-color-high);
+    --bs-list-group-active-bg: var(--blue-color-high)
 }

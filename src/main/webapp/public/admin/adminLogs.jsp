@@ -8,14 +8,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="/public/commonLink.jsp"/>
+    <jsp:include page="/public/admin/adminLink.jsp"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/> ">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css" />">
     <title>Quản lý sản phẩm</title>
 </head>
 <body>
+<!--Header-->
+<c:import url="/public/header.jsp"/>
 <main id="main">
+    <!--Navigate-->
+    <c:import url="/public/admin/adminNavigator.jsp"/>
     <section class="content">
         <div class="container-xl">
             <div class="row">
@@ -26,6 +30,12 @@
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
 
+                        <form class="export__excel" action="/exportExcelLog" method="POST" style="margin-left: 12px;">
+                            <button class="btn_export">
+                                <i class="fa-solid fa-file-export"></i>
+                                Xuất file excel
+                            </button>
+                        </form>
                     </div>
                     <div class="table__wrapper">
                         <table id="table" class="table">
@@ -102,13 +112,41 @@
                         theme: 'light',
                         content: text,
                         interactive: true,
+                        placement: 'left-start'
                     })
                     $(this)[0].innerHTML = text.substring(0, 29) + "..."
                 }
             })
         }
-    })
 
+        $('.export__excel').on('submit', (e) => {
+            e.preventDefault();
+
+            Swal.fire({
+                title: "Bạn có muốn xóa nội dung sau khi xuất file?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Xóa tất cả",
+                denyButtonText: `Không xóa`,
+                cancelButtonText: "Hủy bỏ"
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    const form = e.target;
+                    form.action += "?delete=true";
+                    form.submit();
+                    const idInterval = setInterval(() => {
+                        table.clear();
+                        table.draw();
+                    }, 1000)
+                } else if (result.isDenied) {
+                    const form = e.target;
+                    form.action += "?delete=false";
+                    form.submit();
+                }
+            });
+        })
+    })
 </script>
 </body>
 </html>

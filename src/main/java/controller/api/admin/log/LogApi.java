@@ -16,7 +16,6 @@ import java.util.List;
 
 @WebServlet("/api/admin/logAdmin")
 public class LogApi extends HttpServlet {
-    private LogService service;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,8 +32,8 @@ public class LogApi extends HttpServlet {
         int ind = orderColumn == null ? 0 : Integer.parseInt(orderColumn);
         String orderBy = orderColumn == null ? "id" : (ind < columnNames.length ? columnNames[ind] : columnNames[0]);
         // Fetch filtered and sorted logs
-        List<Log> logs = service.getINSTANCE().getLog(start, length, searchValue, orderBy, orderDir);
-        long size = service.getINSTANCE().getTotalWithCondition(searchValue);
+        List<Log> logs = LogService.getINSTANCE().getLog(start, length, searchValue, orderBy, orderDir);
+        long size = LogService.getINSTANCE().getTotalWithCondition(searchValue);
 
         // Prepare JSON response
         ObjectMapper mapper = new ObjectMapper();
@@ -44,6 +43,7 @@ public class LogApi extends HttpServlet {
         jsonObject.put("recordsFiltered", size);
         jsonObject.put("data", logs);
 
+        System.out.println(mapper.writeValueAsString(jsonObject.toMap()));
         // Send response
         PrintWriter writer = resp.getWriter();
         writer.write(mapper.writeValueAsString(jsonObject.toMap()));

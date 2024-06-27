@@ -1,5 +1,8 @@
 package controller.web.admin.order;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import models.DeliveryMethod;
 import models.OrderStatus;
 import models.PaymentMethod;
@@ -13,20 +16,20 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@WebServlet(name = "SearchFilterOrderAdmin", value = "/SearchFilterOrderAdmin")
+@WebServlet(name = "SearchFilterOrderAdmin", value = "/api/admin/order/search")
 public class SearchFilterOrderAdmin extends HttpServlet {
 
     private final int countFilter = 0;
 //    private String queryStringStorage = null;
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String searchSelect = request.getParameter("searchSelect");
         String contentSearch = request.getParameter("contentSearch");
 
-        String[] arrCheckedDeliveryMethods = request.getParameterValues("deliveryMethod");
-        String[] arrCheckedPaymentMethods = request.getParameterValues("paymentMethod");
-        String[] arrCheckedOrderStatus = request.getParameterValues("orderStatus");
-        String[] arrCheckedTransactionStatus = request.getParameterValues("transactionStatus");
+        String[] arrCheckedDeliveryMethods = request.getParameterValues("deliveryMethod[]");
+        String[] arrCheckedPaymentMethods = request.getParameterValues("paymentMethod[]");
+        String[] arrCheckedOrderStatus = request.getParameterValues("orderStatus[]");
+        String[] arrCheckedTransactionStatus = request.getParameterValues("transactionStatus[]");
 
         Map<Object, List<String>> mapOrderFilter = new HashMap<>();
 
@@ -51,12 +54,12 @@ public class SearchFilterOrderAdmin extends HttpServlet {
             mapOrderFilter.put(new PaymentMethod(), listCheckedPaymentMethods);
         }
 
-        if(arrCheckedOrderStatus != null){
+        if (arrCheckedOrderStatus != null) {
             List<String> listCheckedOrderStatus = new ArrayList<>(Arrays.asList(arrCheckedOrderStatus));
             mapOrderFilter.put(new OrderStatus(), listCheckedOrderStatus);
         }
 
-        if(arrCheckedTransactionStatus != null){
+        if (arrCheckedTransactionStatus != null) {
             List<String> listCheckedTransactionStatus = new ArrayList<>(Arrays.asList(arrCheckedTransactionStatus));
             mapOrderFilter.put(new TransactionStatus(), listCheckedTransactionStatus);
         }
@@ -67,18 +70,25 @@ public class SearchFilterOrderAdmin extends HttpServlet {
         request.setAttribute("startDateFilter", startDateFilter);
         request.setAttribute("endDateFilter", endDateFilter);
         request.setAttribute("servletProcess", getServletName());
+//        jsonObject.addProperty("searchSelect", searchSelect);
+//        jsonObject.addProperty("contentSearch", contentSearch);
+//        jsonObject.add("mapOrderFilter", gson.toJsonTree(mapOrderFilter));
+//        jsonObject.addProperty("startDateFilter", startDateFilter);
+//        jsonObject.addProperty("endDateFilter", endDateFilter);
+//        jsonObject.addProperty("servletProcess", getServletName());
+//        request.setAttribute("jsonObject", jsonObject);
 
         RequestDispatcher requestDispatcher = null;
         switch (searchSelect) {
             case "orderId" -> {
-                requestDispatcher = request.getRequestDispatcher("SearchFilterOrderById");
+                requestDispatcher = request.getRequestDispatcher("/api/admin/order/search-id");
             }
 
             case "customerName" -> {
-                requestDispatcher = request.getRequestDispatcher("SearchOrderByCustomerName");
+                requestDispatcher = request.getRequestDispatcher("/api/admin/order/search-customer");
             }
         }
-        if(requestDispatcher != null){
+        if (requestDispatcher != null) {
             requestDispatcher.forward(request, response);
         }
     }

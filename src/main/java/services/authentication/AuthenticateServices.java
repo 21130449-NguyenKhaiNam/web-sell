@@ -84,7 +84,7 @@ public class AuthenticateServices {
         }
 
 //        Check user in db
-        List<User> users = userDAO.selectByEmail(username, STATE_VERIFY);
+        List<User> users = userDAO.selectByUsername(username, STATE_VERIFY);
 
 //        Check username
         if (users.size() != 1) {
@@ -103,7 +103,7 @@ public class AuthenticateServices {
         return validation;
     }
 
-    public Validation checkSignUp(String username, String email, String password, String confirmPassword) {
+    public Validation checkSignUp(User user, String confirmPassword) {
         Validation validation = new Validation();
         final String REGEX_EMAIL_VALID = "^(.+)@(.+)$";
         String errorEmail = "Email đã tồn tại";
@@ -116,16 +116,16 @@ public class AuthenticateServices {
 
 //        checkEmpty
         int countError = 0;
-        if (username.isBlank()) {
+        if (user.getUsername().isBlank()) {
             validation.setFieldUsername(emptyField);
             countError++;
         }
-        if (email.isBlank()) {
+        if (user.getEmail().isBlank()) {
             validation.setFieldEmail(emptyField);
             countError++;
         }
 
-        if (password.isBlank()) {
+        if (user.getPasswordEncoding().isBlank()) {
             validation.setFieldPassword(emptyField);
             countError++;
         }
@@ -140,44 +140,41 @@ public class AuthenticateServices {
         }
 
 //        Check Username Exist
-        if (!userDAO.findUsername(username).isEmpty()) {
+        if (!userDAO.findUsername(user.getUsername()).isEmpty()) {
             validation.setFieldUsername(errorUsername);
             countError++;
         }
 
 //        Check email regex format
         Pattern pattern = Pattern.compile(REGEX_EMAIL_VALID);
-        Matcher matcher = pattern.matcher(email);
+        Matcher matcher = pattern.matcher(user.getEmail());
         if (!matcher.find()) {
             validation.setFieldEmail(errorEmailRegex);
             countError++;
         } else {
 
 //        Check Email Exist
-            if (!userDAO.findEmail(email).isEmpty()) {
+            if (!userDAO.findEmail(user.getEmail()).isEmpty()) {
                 validation.setFieldEmail(errorEmail);
                 countError++;
             }
         }
 
 //        Check Pass
-        ValidatePassword validatePassword = new ValidatePassword(password);
+        ValidatePassword validatePassword = new ValidatePassword(user.getPasswordEncoding());
         if (!validatePassword.check()) {
             validation.setFieldPassword(errorPassword);
             countError++;
         }
 
 //        Check confirmPassword != password
-        if (!password.equals(confirmPassword)) {
+        if (!user.getPasswordEncoding().equals(confirmPassword)) {
             validation.setFieldConfirmPassword(errorPasswordConfirm);
             countError++;
         }
 
         if (countError == 0) {
-            User user = new User();
-            user.setUsername(username);
-            user.setEmail(email);
-            user.setPasswordEncoding(Encoding.getINSTANCE().toSHA1(password));
+            user.setPasswordEncoding(Encoding.getINSTANCE().toSHA1(user.getPasswordEncoding()));
             user.setRole(RoleProperties.getINSTANCE().getGuest());
             validation.setObjReturn(user);
         }

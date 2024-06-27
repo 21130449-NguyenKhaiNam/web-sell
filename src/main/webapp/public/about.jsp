@@ -8,9 +8,8 @@
     <title>Giới thiệu</title>
 </head>
 <body>
-
-<c:import url="header.jsp"/>
-<main class="wrapper">
+<%@include file="header.jsp" %>
+<main class="wrapper animate__animated animate__fadeIn">
     <div class="container">
         <div class="about">
             <h1 class="title">Về chúng tôi</h1>

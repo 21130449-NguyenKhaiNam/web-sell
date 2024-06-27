@@ -90,7 +90,7 @@ body {
     top: -10px;
     left: 0;
     right: 0;
-    z-index: 2;
+    z-index: 2000;
 }
 
 .nav {
@@ -558,6 +558,9 @@ body {
     --background-color: var(--blue-color-medium);
 }
 
+.modal-backdrop.show {
+    z-index: 1;
+}
 /*Paging*/
 .paging {
     display: flex;

@@ -1,0 +1,16 @@
+name: Pull Data and Write Secret
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pull-data:
+    runs-on: ubuntu-latest
+    if: github.actor == 'CaoThanhNammm' || github.actor == 'ducvui2003' || github.actor == '21130449-NguyenKhaiNam'
+
+    steps:
+      - name: Write credentials JSON
+        uses: petr-pokorny-1/create-file-action@v4
+        with:
+          filePath: credential.json
+          content: ${{ secrets.CREDENTIALS }}

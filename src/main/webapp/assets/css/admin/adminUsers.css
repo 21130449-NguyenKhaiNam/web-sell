@@ -236,12 +236,6 @@ thead {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-thead th,
-tbody td {
-    text-align: center;
-    padding: 10px;
-    vertical-align: middle;
-}
 
 tbody tr:nth-child(even) {
     background-color: #ddd;
@@ -493,4 +487,6 @@ form{
     display: block;
     width: 240px;
 }
-
+.modal{
+    z-index: 1055;
+}

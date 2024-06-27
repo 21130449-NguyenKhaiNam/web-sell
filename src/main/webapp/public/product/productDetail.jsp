@@ -30,7 +30,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-6 ">
-                    <div id="main-slider" class="splide custom-splide">
+                    <div id="main-slider" class="splide custom-splide mb-3">
                         <div class="splide__track">
                             <ul class="splide__list">
                                 <%for (Image image : productFactory.getListImagesByProductId(product.getId())) {%>
@@ -92,8 +92,7 @@
 
                             <div class="form__block">
                                 <p class="form__title">Màu sắc</p>
-                                <c:set var="colors"
-                                       value="<%=productFactory.getListColorsByProductId(product.getId())%>"/>
+                                <c:set var="colors" value="<%=productFactory.getListColorsByProductId(product.getId())%>" />
                                 <div class="form__choose-color">
                                     <c:forEach var="color" items="${colors}">
                                         <label class="form__color-check shadow rounded"
@@ -108,8 +107,7 @@
 
                             <p class="form__title">Kích thước</p>
                             <div class="form__block">
-                                <c:set var="sizes"
-                                       value="<%=productFactory.getListSizesByProductId(product.getId())%>"/>
+                                <c:set var="sizes" value="<%=productFactory.getListSizesByProductId(product.getId())%>"/>
                                 <div class="form__size-list">
                                     <c:forEach var="size" items="${sizes}">
                                         <div class="form__size-item hvr-skew-forward">
@@ -143,8 +141,7 @@
                                     <p class="form__error"></p>
                                 </div>
                             </div>
-
-                            <a href="<c:url value="/showProductOrder?id=<%=product.getId()%>"/>"
+                            <a href="<c:url value="/showProductOrder?id="/><%=product.getId()%>"
                                type="submit"
                                class="form__submit form__submit--order button text-secondary"
                                data="Đặt may theo số đo">
@@ -158,7 +155,6 @@
                 </div>
                 <div class="col-12 mb-5">
                     <hr/>
-
                     <div class="product__desc-review">
                         <div class="product__page product__page--clicked hvr-float-shadow">Mô tả</div>
                         <div class="product__page hvr-float-shadow">Đánh giá</div>
@@ -173,7 +169,6 @@
 
                     <!--Reviews-->
                     <div class="product__review">
-
                         <c:choose> <c:when test="${not empty requestScope.listReview}">
                             <div class="review__list">
                                 <%for (Review review : (List<Review>) request.getAttribute("listReview")) {%><%
@@ -233,7 +228,6 @@
                     <div class="product__list">
                         <%for (Product item : (List<Product>) request.getAttribute("listProductRelated")) {%>
                         <div class="product__item hvr-grow-shadow">
-
                             <c:set value="<%=productFactory.getListImagesByProductId(item.getId())%>"
                                    var="listProductImage"/>
 

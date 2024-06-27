@@ -46,21 +46,21 @@ public class MailPlaceOrderService implements IMailServices{
 //        String addressBuyer = deliveryInfoBuyer.getAddress();
 //        String temporaryPriceFormat = cart.temporaryPriceFormat();
 //        String discountPriceFormat = cart.discountPriceFormat();
-        double shippingFee = 0;
-        String deliveryMethod = "";
+//        double shippingFee = 0;
+//        String deliveryMethod = "";
 //        if(cart.getDeliveryMethod() != null){
 //            shippingFee = cart.getDeliveryMethod().getShippingFee();
 //            deliveryMethod = cart.getDeliveryMethod().getTypeShipping();
 //        }
 
 //        String paymentMethod = cart.getPaymentMethod().getTypePayment();
-        String totalPriceFormat;
+//        String totalPriceFormat;
 //        if(cart.getDeliveryMethod() != null){
 //            totalPriceFormat = cart.totalPriceFormat(true);
 //        }else{
 //            totalPriceFormat = cart.totalPriceFormat(false);
 //        }
-        int totalItems = cart.getTotalItems();
+//        int totalItems = cart.getTotalItems();
 
         Session session = Session.getInstance(MailProperties.getProperties(), auth);
         Message message = new MimeMessage(session);
@@ -118,7 +118,7 @@ public class MailPlaceOrderService implements IMailServices{
 //        htmlContent = htmlContent.replace("%%TEMPPRICE%%", temporaryPriceFormat);
 //        htmlContent = htmlContent.replace("%%DISCOUNTPRICE%%", discountPriceFormat);
 //        htmlContent = htmlContent.replace("%%SHIPPINGFEE%%", FormatCurrency.vietNamCurrency(shippingFee));
-        htmlContent = htmlContent.replace("%%DELIVERYMETHOD%%", deliveryMethod);
+//        htmlContent = htmlContent.replace("%%DELIVERYMETHOD%%", deliveryMethod);
 //        htmlContent = htmlContent.replace("%%PAYMENTMETHOD%%", paymentMethod);
 
         message.setContent(htmlContent, "text/html; charset = UTF-8");

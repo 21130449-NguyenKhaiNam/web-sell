@@ -4,7 +4,7 @@
     align-items: center;
     background: rgb(2, 0, 36);
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, var(--blue-color-high) 35%, var(--blue-color-medium) 100%);
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
 }
 
 .frame__media {
@@ -36,7 +36,7 @@ article {
     outline: 1.5px solid red;
 }
 
-.form__block~.form__block {
+.form__block ~ .form__block {
     margin-top: 8px;
 }
 
@@ -70,7 +70,7 @@ article {
     align-items: center;
 }
 
-.form__block:has(.form__link)>*:not(.form__checkbox) {
+.form__block:has(.form__link) > *:not(.form__checkbox) {
     display: inline-block;
     padding-bottom: 10px;
 }
@@ -105,11 +105,11 @@ article {
     rotate: -45deg;
 }
 
-#forget-password:checked+.icon_checkbox {
+#forget-password:checked + .icon_checkbox {
     background-color: var(--blue-color-medium);
 }
 
-#forget-password:checked+.icon_checkbox:after {
+#forget-password:checked + .icon_checkbox:after {
     display: block;
 }
 
@@ -132,10 +132,11 @@ article {
 #form__link--signIn,
 #form__link--signUp {
     padding-bottom: 5px;
-    display: block;
+    display: flex;
     width: 100%;
-    text-align: center;
-    margin-top: 34px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 /*Validate form css*/
