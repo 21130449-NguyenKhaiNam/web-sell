@@ -4,10 +4,12 @@ import dao.ShoppingCartDao;
 import dao.VoucherDAO;
 import dto.VoucherDTO;
 import models.*;
+import utils.Comparison;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public class VoucherServices {
     VoucherDAO voucherDAO = new VoucherDAO();
@@ -107,10 +109,11 @@ public class VoucherServices {
         voucherDAO.changeState(code, type);
     }
 
-    public boolean updateProduct(Voucher voucher, List<Integer> listProductId) {
-        boolean isValid = voucherValid(voucher);
-        if (!isValid) return false;
+    public boolean updateVoucher(Voucher voucher, List<Integer> listProductId) {
+        boolean exist = voucherDAO.existVoucher(voucher.getId());
+        if (!exist) return false;
         voucherDAO.update(voucher);
+        this.updateProductVoucher(voucher.getId(), listProductId);
         return true;
     }
 
@@ -128,5 +131,19 @@ public class VoucherServices {
         boolean isExist = voucherDAO.selectByCode(voucher.getCode()) != null;
         if (isExist) return false;
         return true;
+    }
+
+    private void updateProductVoucher(Integer voucherId, List<Integer> listProductId) {
+        List<Integer> listProductIdInDb = voucherDAO.getListProductById(voucherId);
+        Map<String, List<Integer>> mapQueryType = Comparison.filterTypeQuery(listProductId, listProductIdInDb);
+        if (!mapQueryType.get("delete").isEmpty()) {
+            voucherDAO.deleteProductVoucher(voucherId, mapQueryType.get("delete"));
+        }
+        if (!mapQueryType.get("insert").isEmpty()) {
+            voucherDAO.insertProductVoucher(voucherId, mapQueryType.get("insert"));
+        }
+        if (!mapQueryType.get("update").isEmpty()) {
+            voucherDAO.updateProductVoucher(voucherId, mapQueryType.get("update"));
+        }
     }
 }
