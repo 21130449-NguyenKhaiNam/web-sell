@@ -3,8 +3,25 @@ body {
     color: #69707a;
 }
 
-.img-account-profile {
-    height: 10rem;
+.navbar {
+    height: 100%;
+}
+
+.navbar__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Căn giữa các mục con theo chiều ngang */
+    align-items: center; /* Căn giữa các mục con theo chiều dọc */
+    list-style: none; /* Loại bỏ ký hiệu danh sách */
+    padding: 0; /* Loại bỏ khoảng trống mặc định */
+    margin: 0; /* Loại bỏ khoảng trống mặc định */
+}
+
+.navbar__item {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center; /* Căn giữa nội dung bên trong mục */
+    align-items: center; /* Căn giữa nội dung bên trong mục */
 }
 
 .nav-borders .nav-link.active {
@@ -20,6 +37,7 @@ body {
     padding: 0.5rem 0;
     margin-left: 1rem;
     margin-right: 1rem;
+    text-align: center;
 }
 
 /*Process*/
@@ -49,4 +67,10 @@ textarea{
 
 .modal{
     z-index: 1055;
+}
+
+.img-account-profile {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
 }

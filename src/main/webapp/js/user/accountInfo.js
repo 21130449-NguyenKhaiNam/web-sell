@@ -1,108 +1,112 @@
-import {alert} from "../notify.js";
-import {addSpinner, cancelSpinner} from "../spinner.js";
-import {getProvince, getWard, getDistrict, getProvinceId, getDistrictId, getWardCode} from "../shipping.js";
+import { alert } from "../notify.js";
+import { addSpinner, cancelSpinner } from "../spinner.js";
+import { getProvince, getWard, getDistrict, getProvinceId, getDistrictId, getWardCode } from "../shipping.js";
 
 $(document).ready(function () {
     $.fn.select2.defaults.set("theme", "bootstrap-5");
     $.fn.select2.defaults.set("width", "resolve");
 
-// ------------------------------------
-// Cập nhập avatar
-// Validate form upload avatar
+    // ------------------------------------
+    // Cập nhập avatar
+    // Validate form upload avatar
     $("#form-avatar").hide();
     $('#open-form').on("click", () => {
         $("#form-avatar").show();
         $("#open-form").hide();
     })
 
-    $.validator.addMethod("singleFile", function (value, element) {
-        return this.optional(element) || element.files.length === 1;
-    }, "Please select only one file.");
+    if ($.validator) {
+        $.validator.addMethod("singleFile", function (value, element) {
+            return this.optional(element) || element.files.length === 1;
+        }, "Please select only one file.");
+    }
 
-    $("#form-avatar").validate({
-        rules: {
-            avatar: {
-                required: true,
-                extension: "jpg|jpeg|png",
-                singleFile: true,
-            },
-            messages: {
+    if ($("#form-avatar")[0]) {
+        $("#form-avatar").validate({
+            rules: {
                 avatar: {
-                    required: "Vui lòng chọn ảnh",
-                    extension: "Vui lòng chọn file có định dạng jpg, jpeg, png",
-                    singleFile: "Vui lòng chọn 1 file duy nhất",
+                    required: true,
+                    extension: "jpg|jpeg|png",
+                    singleFile: true,
                 },
-            }
-        },
-        validClass: 'is-valid',
-        errorClass: 'is-invalid',
-        errorPlacement: function (error, element) {
-            $(element).next().text(error.text());
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).addClass(errorClass).removeClass(validClass).attr('required', 'required');
-            $(element).next().addClass("invalid-feedback");
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass(errorClass).addClass(validClass).removeAttr('required');
-            $(element).next().text("");
-        },
-        submitHandler: function (form) {
-            // Submit form via AJAX
-            alert(() => {
-                var formData = new FormData(form);
-                $.ajax({
-                    url: "/upload-avatar",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    beforeSend: function () {
-                        addSpinner();
+                messages: {
+                    avatar: {
+                        required: "Vui lòng chọn ảnh",
+                        extension: "Vui lòng chọn file có định dạng jpg, jpeg, png",
+                        singleFile: "Vui lòng chọn 1 file duy nhất",
                     },
-                    success: function (response) {
-                        Swal.fire({
-                            title: "Chúc mừng!",
-                            text: "Avatar đã được cập nhập",
-                            icon: "success"
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        Swal.fire({
-                            title: "Lỗi!",
-                            text: "Avatar không cập nhập thành công",
-                            icon: "error"
-                        });
-                    },
-                    complete: function () {
-                        cancelSpinner();
-                    }
+                }
+            },
+            validClass: 'is-valid',
+            errorClass: 'is-invalid',
+            errorPlacement: function (error, element) {
+                $(element).next().text(error.text());
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass(errorClass).removeClass(validClass).attr('required', 'required');
+                $(element).next().addClass("invalid-feedback");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass(errorClass).addClass(validClass).removeAttr('required');
+                $(element).next().text("");
+            },
+            submitHandler: function (form) {
+                // Submit form via AJAX
+                alert(() => {
+                    var formData = new FormData(form);
+                    $.ajax({
+                        url: "/upload-avatar",
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function () {
+                            addSpinner();
+                        },
+                        success: function (response) {
+                            Swal.fire({
+                                title: "Chúc mừng!",
+                                text: "Avatar đã được cập nhập",
+                                icon: "success"
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                title: "Lỗi!",
+                                text: "Avatar không cập nhập thành công",
+                                icon: "error"
+                            });
+                        },
+                        complete: function () {
+                            cancelSpinner();
+                        }
+                    });
                 });
-            });
-            return false; // Prevent form submission
-        }
-    })
-    $("#avatar").on("change", function () {
-        // Check if file input is valid
-        if ($("#avatar").valid()) {
-            // Read the selected file and display preview
-            const file = this.files[0];
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                $("#preview-avatar").attr("src", e.target.result);
-                $("#preview-avatar").show();
-            };
-            reader.readAsDataURL(file);
-        } else {
-            // Hide preview if file input is not valid
-            $("#preview").hide();
-        }
-    });
+                return false; // Prevent form submission
+            }
+        })
+        $("#avatar").on("change", function () {
+            // Check if file input is valid
+            if ($("#avatar").valid()) {
+                // Read the selected file and display preview
+                const file = this.files[0];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#preview-avatar").attr("src", e.target.result);
+                    $("#preview-avatar").show();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Hide preview if file input is not valid
+                $("#preview").hide();
+            }
+        });
+    }
 
-//     -------------------------------
-//     Cập nhập thông tin cá nhân
+    //     -------------------------------
+    //     Cập nhập thông tin cá nhân
 
-//     Date picker jquery plug-in
+    //     Date picker jquery plug-in
     $("#inputDate").datepicker({
         dateFormat: 'dd-mm-yy', // Set the date format to "dd-mm-yyyy"
         changeMonth: true, // Allow changing of months
@@ -118,7 +122,7 @@ $(document).ready(function () {
         },
         "Please enter a valid date in the format dd-mm-yyyy"
     );
-//     Validate form personal
+    //     Validate form personal
     $("#form-personal").validate({
         rules: {
             fullName: {
@@ -214,7 +218,7 @@ $(document).ready(function () {
         }
     })
 
-//    -------------------------------
+    //    -------------------------------
     let provinceId, districtId, wardId;
     const inputProvince = $("#inputProvince");
     const inputDistrict = $("#inputDistrict");
@@ -403,8 +407,8 @@ $(document).ready(function () {
         viewModal();
     }
 
-//    -------------------------------
-//     Xem địa chỉ chi tiết để cập nhập
+    //    -------------------------------
+    //     Xem địa chỉ chi tiết để cập nhập
     function viewModal() {
         $(".btn__address-create").on("click", function () {
             addressForm.resetForm();
@@ -440,40 +444,40 @@ $(document).ready(function () {
             const element = $(this).closest("tr");
             if (id) {
                 alert(() => {
-                        $.ajax({
-                            url: "/api/user/address/delete",
-                            type: 'POST',
-                            data: {
-                                id: id,
-                            },
-                            beforeSend: function () {
-                                addSpinner();
-                            },
-                            success: function (response) {
-                                Swal.fire({
-                                    title: "Chúc mừng!",
-                                    text: "Địa chỉ đã được xóa",
-                                    icon: "success"
-                                });
-                                element.remove();
-                                addressCustomer = addressCustomer.filter(address => {
-                                    return address.id != id;
-                                });
-                            },
-                            error: function (xhr, status, error) {
-                                Swal.fire({
-                                    title: "Lỗi!",
-                                    text: "Địa chỉ không xóa thành công",
-                                    icon: "error"
-                                });
-                            },
-                            complete: function () {
-                                cancelSpinner();
-                            }
-                        });
-                    }, () => {
-                        addressForm.resetForm();
-                    }
+                    $.ajax({
+                        url: "/api/user/address/delete",
+                        type: 'POST',
+                        data: {
+                            id: id,
+                        },
+                        beforeSend: function () {
+                            addSpinner();
+                        },
+                        success: function (response) {
+                            Swal.fire({
+                                title: "Chúc mừng!",
+                                text: "Địa chỉ đã được xóa",
+                                icon: "success"
+                            });
+                            element.remove();
+                            addressCustomer = addressCustomer.filter(address => {
+                                return address.id != id;
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                title: "Lỗi!",
+                                text: "Địa chỉ không xóa thành công",
+                                icon: "error"
+                            });
+                        },
+                        complete: function () {
+                            cancelSpinner();
+                        }
+                    });
+                }, () => {
+                    addressForm.resetForm();
+                }
                     , {
                         notify: "Bạn có muốn xóa địa chỉ này không?",
                         cancel: "Hủy",
@@ -542,6 +546,7 @@ $(document).ready(function () {
         inputProvince.select2({
             placeholder: 'Chọn tỉnh/thành phố',
             data: ["", ...data],
+            dropdownParent: $("#modal")
         }).val(provinceId).trigger('change.select2');
     }
 
@@ -556,6 +561,7 @@ $(document).ready(function () {
                     return "Vui lòng chọn tỉnh/thành phố trước";
                 }
             },
+            dropdownParent: $("#modal")
         }).val(districtId).trigger('change.select2');
     }
 
@@ -570,6 +576,7 @@ $(document).ready(function () {
                     return "Vui lòng chọn quận/huyện trước";
                 }
             },
+            dropdownParent: $("#modal")
         }).val(wardId).trigger('change.select2');
     }
 });

@@ -45,11 +45,9 @@
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 <link href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
 <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css"/>
-<!-- Datatable -->
-<link rel="stylesheet" type="text/css"
-      href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
-<script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+<!-- Datatable + Select-->
+<link href="https://cdn.datatables.net/v/dt/dt-2.0.8/sl-2.0.3/datatables.min.css" rel="stylesheet">
+<script src="https://cdn.datatables.net/v/dt/dt-2.0.8/sl-2.0.3/datatables.min.js"></script>
 <%--Sweetalert--%>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css" rel="stylesheet">
