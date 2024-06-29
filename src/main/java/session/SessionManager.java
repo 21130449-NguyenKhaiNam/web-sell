@@ -48,6 +48,7 @@ public class SessionManager {
                 if (cookie.getName().equals(SESSION_ID)) {
                     User user = sessionTable.get(cookie.getValue());
                     ShoppingCartServices.getINSTANCE().setUser(user);
+                    request.getSession().setAttribute("accountInfo", user);
                     return user;
                 }
             }

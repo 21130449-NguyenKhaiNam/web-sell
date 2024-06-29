@@ -16,6 +16,5 @@ public class IpFilter implements Filter {
             LogService.getINSTANCE().setIp(ip);
         }
         chain.doFilter(request, response);
-
     }
 }

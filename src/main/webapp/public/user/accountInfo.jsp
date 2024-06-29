@@ -1,3 +1,4 @@
+<%@ page import="services.image.CloudinaryUploadServices" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -10,13 +11,12 @@
           href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/user/account.css"/>">
-    <link rel="stylesheet" href="<c:url value="/assets/css/user/accountInfo.css"/>">
     <jsp:include page="/public/commonLink.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/user/accountInfo.css"/>">
     <title>Thông tin cá nhân</title>
 </head>
 <body>
 <%@include file="/public/header.jsp" %>
-<c:set var="user" value="${requestScope.accountInfo}"/>
 <div id="main" class="d-flex">
     <%@include file="accountNavigator.jsp" %>
     <div class="px-4 mt-4 w-100">
@@ -25,13 +25,13 @@
                 <div class="card mb-4 mb-xl-0">
                     <div class="card-header">Ảnh đại diện</div>
                     <div class="card-body text-center">
-
+                       <c:set var="avatar" value="${sessionScope.accountInfo.avatar}"/>
                         <img id="preview-avatar"
                              class="img-account-profile object-fit-cover rounded-circle overflow-hidden mb-2"
-                             src="${not empty user.avatar ? avatar : '/assets/img/user/userDefaultAvatar.png'}"
+                             src="${not empty sessionScope.accountInfo.avatar ? CloudinaryUploadServices.getINSTANCE().getImage("user/", sessionScope.accountInfo.avatar) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}"
                              alt="">
-                        <div id="username" class="medium  text-muted mb-2">${user.username}</div>
-                        <div id="email" class="small  text-muted mb-4">${user.email}</div>
+                        <div id="username" class="medium  text-muted mb-2">${sessionScope.accountInfo.username}</div>
+                        <div id="email" class="small  text-muted mb-4">${sessionScope.accountInfo.email}</div>
                         <div id="open-form" class="btn btn-primary ">Thay đổi ảnh</div>
 
                         <form id="form-avatar" enctype="multipart/form-data">
@@ -53,7 +53,7 @@
                                     <div class="">
                                         <label class="medium mb-1" for="inputUsername">Họ và tên</label>
                                         <input name="fullName" class="form-control" id="inputUsername" type="text"
-                                               placeholder="Vui lòng nhập tên của bạn" value="${user.fullName}">
+                                               placeholder="Vui lòng nhập tên của bạn" value="${sessionScope.accountInfo.fullName}">
                                         <div class="valid-feedback">
 
                                         </div>
@@ -63,11 +63,11 @@
                                 <div class="col-md-6">
                                     <label class="medium mb-1" for="inputGender">Giới tính</label>
                                     <select id="inputGender" name="gender" class="form-select" aria-label="Chọn">
-                                        <c:choose> <c:when test="${not empty user.gender}">
-                                            <option value="Nam" ${user.gender eq 'Nam'
+                                        <c:choose> <c:when test="${not empty sessionScope.accountInfo.gender}">
+                                            <option value="Nam" ${sessionScope.accountInfo.gender eq 'Nam'
                                                     ? 'selected' : '' }>Nam
                                             </option>
-                                            <option value="Nữ" ${user.gender eq 'Nữ'
+                                            <option value="Nữ" ${sessionScope.accountInfo.gender eq 'Nữ'
                                                     ? 'selected' : '' }>Nữ
                                             </option>
                                         </c:when> <c:otherwise>
@@ -84,18 +84,17 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <fmt:formatDate var="date" type="DATE" value="${user.birthDay}"
+                                    <fmt:formatDate var="date" type="DATE" value="${sessionScope.accountInfo.birthDay}"
                                                     pattern="dd-MM-yyy"/>
                                     <label class="medium mb-1" for="inputDate">Ngày sinh</label>
                                     <input class="form-select" name="birthDay" value="${date}" id="inputDate"
                                            type="text">
                                     <div class="valid-feedback">
-
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="medium mb-1" for="inputPhone"> Số điện thoại</label>
-                                    <input class="form-select" name="phone" value="${user.phone}" id="inputPhone"
+                                    <input class="form-select" name="phone" value="${sessionScope.accountInfo.phone}" id="inputPhone"
                                            type="text">
                                     <div class="valid-feedback">
 

@@ -10,7 +10,7 @@
 <head>
 </head>
 <body>
-<nav class="navbar d-block p-4" style="height: 100vh">
+<nav class="navbar d-block p-4" style="height: 100vh; min-height: 800px">
     <div class="wrapper_navigator">
         <ul class="navbar__list">
             <li class="navbar__item">

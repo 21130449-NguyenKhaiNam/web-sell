@@ -54,7 +54,6 @@ public class ReCaptchaFilter implements Filter {
                             .add("remoteip", remoteIp)
                             .build())
                     .execute().returnContent().asString();
-            System.out.println("Captcha: " + response);
             JSONObject json = new JSONObject(response);
             ReCaptcha reCaptcha = ReCaptcha.builder()
                     .action(json.getString("action"))
