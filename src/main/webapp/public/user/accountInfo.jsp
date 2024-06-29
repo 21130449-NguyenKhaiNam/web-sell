@@ -25,13 +25,13 @@
                 <div class="card mb-4 mb-xl-0">
                     <div class="card-header">Ảnh đại diện</div>
                     <div class="card-body text-center">
-                       <c:set var="avatar" value="${sessionScope.accountInfo.avatar}"/>
+                       <c:set var="avatar" value="${requestScope.accountInfo.avatar}"/>
                         <img id="preview-avatar"
                              class="img-account-profile object-fit-cover rounded-circle overflow-hidden mb-2"
-                             src="${not empty sessionScope.accountInfo.avatar ? CloudinaryUploadServices.getINSTANCE().getImage("user/", sessionScope.accountInfo.avatar) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}"
+                             src="${not empty requestScope.accountInfo.avatar ? CloudinaryUploadServices.getINSTANCE().getImage("user/", requestScope.accountInfo.avatar) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}"
                              alt="">
-                        <div id="username" class="medium  text-muted mb-2">${sessionScope.accountInfo.username}</div>
-                        <div id="email" class="small  text-muted mb-4">${sessionScope.accountInfo.email}</div>
+                        <div id="username" class="medium  text-muted mb-2">${requestScope.accountInfo.username}</div>
+                        <div id="email" class="small  text-muted mb-4">${requestScope.accountInfo.email}</div>
                         <div id="open-form" class="btn btn-primary ">Thay đổi ảnh</div>
 
                         <form id="form-avatar" enctype="multipart/form-data">
@@ -53,7 +53,7 @@
                                     <div class="">
                                         <label class="medium mb-1" for="inputUsername">Họ và tên</label>
                                         <input name="fullName" class="form-control" id="inputUsername" type="text"
-                                               placeholder="Vui lòng nhập tên của bạn" value="${sessionScope.accountInfo.fullName}">
+                                               placeholder="Vui lòng nhập tên của bạn" value="${requestScope.accountInfo.fullName}">
                                         <div class="valid-feedback">
 
                                         </div>
@@ -63,11 +63,11 @@
                                 <div class="col-md-6">
                                     <label class="medium mb-1" for="inputGender">Giới tính</label>
                                     <select id="inputGender" name="gender" class="form-select" aria-label="Chọn">
-                                        <c:choose> <c:when test="${not empty sessionScope.accountInfo.gender}">
-                                            <option value="Nam" ${sessionScope.accountInfo.gender eq 'Nam'
+                                        <c:choose> <c:when test="${not empty requestScope.accountInfo.gender}">
+                                            <option value="Nam" ${requestScope.accountInfo.gender eq 'Nam'
                                                     ? 'selected' : '' }>Nam
                                             </option>
-                                            <option value="Nữ" ${sessionScope.accountInfo.gender eq 'Nữ'
+                                            <option value="Nữ" ${requestScope.accountInfo.gender eq 'Nữ'
                                                     ? 'selected' : '' }>Nữ
                                             </option>
                                         </c:when> <c:otherwise>
@@ -84,7 +84,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <fmt:formatDate var="date" type="DATE" value="${sessionScope.accountInfo.birthDay}"
+                                    <fmt:formatDate var="date" type="DATE" value="${requestScope.accountInfo.birthDay}"
                                                     pattern="dd-MM-yyy"/>
                                     <label class="medium mb-1" for="inputDate">Ngày sinh</label>
                                     <input class="form-select" name="birthDay" value="${date}" id="inputDate"
@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="medium mb-1" for="inputPhone"> Số điện thoại</label>
-                                    <input class="form-select" name="phone" value="${sessionScope.accountInfo.phone}" id="inputPhone"
+                                    <input class="form-select" name="phone" value="${requestScope.accountInfo.phone}" id="inputPhone"
                                            type="text">
                                     <div class="valid-feedback">
 
@@ -230,7 +230,6 @@
             }
         });
     }
-
     selected(1);
 </script>
 </body>

@@ -8,18 +8,17 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class SessionManager {
+    private static final String SESSION_ID = "sessionId";
+    private static final String SESSION_TABLE = "sessionUser";
     private Map<String, User> sessionTable;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private HttpSession session;
-    private static final String SESSION_ID = "sessionId";
-    private static final String SESSION_TABLE = "sessionUser";
 
     private SessionManager(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
@@ -27,8 +26,12 @@ public class SessionManager {
         init();
     }
 
+    public static SessionManager getInstance(HttpServletRequest request, HttpServletResponse response) {
+        return new SessionManager(request, response);
+    }
+
     private void init() {
-        session = request.getSession(true);
+        session = request.getSession();
         if (session.getAttribute(SESSION_TABLE) == null) {
             sessionTable = new HashMap<>();
         } else {
@@ -37,18 +40,15 @@ public class SessionManager {
         session.setAttribute(SESSION_TABLE, sessionTable);
     }
 
-    public static SessionManager getInstance(HttpServletRequest request, HttpServletResponse response) {
-        return new SessionManager(request, response);
-    }
-
     public User getUser() {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(SESSION_ID)) {
-                    User user = sessionTable.get(cookie.getValue());
+                    User userOld = sessionTable.get(cookie.getValue());
+                    User user = UserServices.getINSTANCE().getUser(userOld.getId());
+                    sessionTable.replace(cookie.getValue(), user);
                     ShoppingCartServices.getINSTANCE().setUser(user);
-                    request.getSession().setAttribute("accountInfo", user);
                     return user;
                 }
             }
@@ -60,9 +60,10 @@ public class SessionManager {
         String sessionId = generateSessionId();
         sessionTable.put(sessionId, user);
         ShoppingCartServices.getINSTANCE().setUser(user);
-        session.setAttribute(SESSION_TABLE, sessionTable);
         Cookie cookie = new Cookie(SESSION_ID, sessionId);
+        cookie.setPath("/");
         response.addCookie(cookie);
+        session.setAttribute(SESSION_TABLE, sessionTable);
     }
 
     private String generateSessionId() {
@@ -77,12 +78,13 @@ public class SessionManager {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(SESSION_ID) && sessionTable.get(cookie.getValue()) != null) {
+                if (cookie.getName().equals(SESSION_ID) && sessionTable.containsKey(cookie.getValue())) {
                     sessionTable.remove(cookie.getValue());
-                    session.setAttribute(SESSION_TABLE, sessionTable);
                     cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    session.setAttribute(SESSION_TABLE, sessionTable);
                     response.addCookie(cookie);
-                    break;
+                    return;
                 }
             }
         }
@@ -90,8 +92,8 @@ public class SessionManager {
 
     public void updateUser() {
         int userId = getUser().getId();
-        User user = UserServices.getINSTANCE().getUser(userId);
         removeUser();
+        User user = UserServices.getINSTANCE().getUser(userId);
         addUser(user);
     }
 }

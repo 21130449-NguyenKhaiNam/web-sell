@@ -28,7 +28,6 @@ public class Home implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         List<Product> listAllTrendingProducts = HomeServices.getINSTANCE().getListTrendProducts(true);
-        HttpSession session = request.getSession(true);
 
         List<Slider> listSlideShow = HomeServices.getINSTANCE().getListSlideShow();
         List<Product> list6NewProducts = HomeServices.getINSTANCE().getListNewProducts(false);
