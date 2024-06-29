@@ -32,7 +32,7 @@
                 <c:choose>
                     <c:when test="${empty auth}"> <!--cta == call to action-->
                         <div class="nav__cta">
-                            <a href="<c:url value=" /public/auth/signIn.jsp" />"
+                            <a href="<c:url value="/public/auth/signIn.jsp" />"
                                class="me-3 nav__button nav__button--signIn hvr-ripple-in">
                                 Đăng nhập
                             </a>
