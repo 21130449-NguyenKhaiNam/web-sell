@@ -24,8 +24,8 @@ import java.util.regex.Pattern;
 
 
 public class AuthenticateServices {
-    private static AuthenticateServices INSTANCE;
     private static final String STATE_VERIFY = "1";
+    private static AuthenticateServices INSTANCE;
     UserDAO userDAO = new UserDAO();
 
     private AuthenticateServices() {
@@ -34,6 +34,21 @@ public class AuthenticateServices {
     public static AuthenticateServices getINSTANCE() {
         if (INSTANCE == null) INSTANCE = new AuthenticateServices();
         return INSTANCE;
+    }
+
+    private static Timestamp addTime(LocalDateTime dateTime, String duration) {
+        // Format duration to Time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime durationTime = LocalTime.parse(duration, formatter);
+
+        // CurrentTime + durationTime
+        LocalDateTime newDateTime = dateTime
+                .plusHours(durationTime.getHour())
+                .plusMinutes(durationTime.getMinute())
+                .plusSeconds(durationTime.getSecond());
+
+        Timestamp result = Timestamp.valueOf(newDateTime);
+        return result;
     }
 
     public Validation checkEmailExists(String email) {
@@ -280,21 +295,6 @@ public class AuthenticateServices {
             return true;
         }
         return false;
-    }
-
-    private static Timestamp addTime(LocalDateTime dateTime, String duration) {
-        // Format duration to Time
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalTime durationTime = LocalTime.parse(duration, formatter);
-
-        // CurrentTime + durationTime
-        LocalDateTime newDateTime = dateTime
-                .plusHours(durationTime.getHour())
-                .plusMinutes(durationTime.getMinute())
-                .plusSeconds(durationTime.getSecond());
-
-        Timestamp result = Timestamp.valueOf(newDateTime);
-        return result;
     }
 
     //    Trích xuất ra các giá trị cần thiết của user
