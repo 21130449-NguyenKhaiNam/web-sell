@@ -14,7 +14,6 @@
 <main class="main">
     <div class="frame">
         <div class="frame__media"></div>
-
         <article>
             <span class="text-center mb-3 d-flex justify-content-center hvr-bob">
                 <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>

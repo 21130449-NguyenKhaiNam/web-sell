@@ -13,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
-
 @WebServlet(name = "UploadAvatar", value = "/UploadAvatar")
 @MultipartConfig(maxFileSize = 16177215)
 public class UploadAvatar extends HttpServlet {

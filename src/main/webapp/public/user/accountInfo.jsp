@@ -33,7 +33,6 @@
                         <div id="username" class="medium  text-muted mb-2">${requestScope.accountInfo.username}</div>
                         <div id="email" class="small  text-muted mb-4">${requestScope.accountInfo.email}</div>
                         <div id="open-form" class="btn btn-primary ">Thay đổi ảnh</div>
-
                         <form id="form-avatar" enctype="multipart/form-data">
                             <input id="avatar" name="avatar" type="file" class="form-control" accept="image/png">
                             <div class="mt-2 small">
