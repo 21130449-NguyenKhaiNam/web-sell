@@ -108,7 +108,7 @@ Validation.isRequired = function (selectorInput) {
     return {
         element: selectorInput,
         check: function (value) {
-            return value.trim() ? undefined : "Trường này không được để trống";
+            return value ? undefined : "Trường này không được để trống";
         },
     }
 }

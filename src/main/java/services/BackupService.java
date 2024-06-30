@@ -29,5 +29,12 @@ public class BackupService implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         // Thực hiện các thao tác dọn dẹp khi ServletContext bị hủy
         scheduler.shutdown();
+        try {
+            if (!scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
+                scheduler.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            scheduler.shutdownNow();
+        }
     }
 }
