@@ -1,11 +1,10 @@
-import {addParam, convertFormToObject} from "../base.js";
+import {addParam, convertFormDataToObject} from "../base.js";
 
 $(document).ready(function () {
         $.validator.addMethod("notEqual", function (value, element, param) {
             return value !== param;
         }, "Please select an option.");
-    $.fn.select2.defaults.set("theme", "bootstrap-5");
-    $.fn.select2.defaults.set("width", "resolve");
+        $.fn.select2.defaults.set("width", "resolve");
 
         const configDatatable = {
             paging: true,
@@ -236,7 +235,7 @@ $(document).ready(function () {
                                     // Thêm dòng mới vào bảng
                                     datatable.row.add(
                                         {
-                                            ...convertFormToObject(form)
+                                            ...convertFormDataToObject(form)
                                         }
                                     ).draw(false);
                                     $("#modal").modal("hide");
@@ -274,7 +273,7 @@ $(document).ready(function () {
                                     datatable.row(row.rowIndexSelected).data(
                                         {
                                             ...row.rowDataSelected,
-                                            ...convertFormToObject(form)
+                                            ...convertFormDataToObject(form)
                                         }
                                     ).draw(false);
                                     $("#modal").modal("hide");

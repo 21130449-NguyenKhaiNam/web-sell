@@ -5,14 +5,14 @@
 <html lang="en">
 <head>
     <jsp:include page="/public/commonLink.jsp"/>
-    <!--CK Editor-->
-    <script src="<c:url value="/ckeditor/ckeditor.js"/>"></script>
-    <!--Ck Finder-->
-    <script src="<c:url value="/ckfinder/ckfinder.js"/>"></script>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css" />">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProductDetail.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/notify.css" />">
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@4.0.10/css/froala_editor.pkgd.min.css' rel='stylesheet'
+          type='text/css'/>
+    <script type='text/javascript'
+            src='https://cdn.jsdelivr.net/npm/froala-editor@4.0.10/js/froala_editor.pkgd.min.js'></script>
     <title>Thêm sản phẩm</title>
 </head>
 <body>
@@ -174,8 +174,9 @@
 
 </div>
 <script>
-    var editorCK = CKEDITOR.replace('ck-editor',);
-    CKFinder.setupCKEditor(editorCK, "/ckfinder/");
+    // var editorCK = CKEDITOR.replace('ck-editor',);
+    // CKFinder.setupCKEditor(editorCK, "/ckfinder/");
+    new FroalaEditor('#ck-editor');
 </script>
 <script src="<c:url value="/js/validateForm.js" />"></script>
 <script type="module" src="<c:url value="/js/admin/adminProductDetail.js"/>"></script>

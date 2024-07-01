@@ -349,9 +349,9 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
     align-items: center;
 }
 
-.form__label ~ .form__label {
-    margin-top: 10px;
-}
+/*.form__label ~ .form__label {*/
+/*    margin-top: 10px;*/
+/*}*/
 
 .form__title {
     position: relative;

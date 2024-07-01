@@ -477,10 +477,6 @@
 /*>>>>>>> 2f2e062eb617b76e5cf7f6eee7de2166a2940dfa*/
 
 
-.form__label {
-    margin-top: 20px;
-}
-
 body {
     background-color: var(--blue-color-low);
 }
@@ -503,11 +499,6 @@ h2 {
 .form__label {
     display: block;
 }
-
-.form__label {
-    margin-top: 20px;
-}
-
 .form__title {
     display: inline-flex;
     margin-bottom: 10px;
