@@ -9,7 +9,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import services.ReviewServices;
-import services.UserServices;
 import services.admin.AdminReviewServices;
 
 import javax.servlet.ServletException;
@@ -25,7 +24,7 @@ import java.util.List;
 @WebServlet(name = "exportExcelReview", value = "/exportExcelReview")
 public class ExportExcelReview extends HttpServlet implements Serializable {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Thiết lập header cho phản hồi HTTP
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Content-Disposition", "attachment; filename=review_report.xlsx");
@@ -53,7 +52,7 @@ public class ExportExcelReview extends HttpServlet implements Serializable {
             User user = AdminReviewServices.getINSTANCE().getUserByIdProductDetail(review.getOrderDetailId());
             OrderDetail orderDetail = ReviewServices.getINSTANCE().getOrderDetail(review.getOrderDetailId());
 
-            if(user != null && orderDetail != null){
+            if (user != null && orderDetail != null) {
                 row.createCell(0).setCellValue(user.getId());
                 row.createCell(1).setCellValue(orderDetail.getProductName());
                 row.createCell(2).setCellValue(review.getFeedback());
@@ -72,7 +71,7 @@ public class ExportExcelReview extends HttpServlet implements Serializable {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 }
