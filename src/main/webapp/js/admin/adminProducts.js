@@ -1,4 +1,4 @@
-import {objectToQueryString} from "../base.js";
+import {http, endLoading, objectToQueryString, startLoading} from "../base.js";
 
 $(document).ready(() => {
     // Enable tooltip bootstrap
@@ -24,8 +24,10 @@ $(document).ready(() => {
     const formColor = $("#form__color");
     const btnAddSize = $("#form__add-size");
     const btnAddColor = $("#form__add-color");
+    let editor;
     let dataSizeIndex = [];
     let dataColorIndex = [];
+    let pond;//trình thêm ảnh
 
     let selected = {
         index: undefined,
@@ -147,14 +149,14 @@ $(document).ready(() => {
         });
         datatable.on('select', function (e, dt, type, indexes) {
             selected = {
-                index: indexes,
+                index: indexes[0],
                 id: datatable.row(indexes).data().id
             }
             button.text("Cập nhật mã giảm giá");
         }).on('deselect', function (e, dt, type, indexes) {
             selected = {
-                rowDataSelected: undefined,
-                rowIndexSelected: undefined,
+                index: undefined,
+                id: undefined
             }
             button.text("Thêm mã giảm giá")
         });
@@ -400,6 +402,195 @@ $(document).ready(() => {
         });
     }
 
+    const formValidator = form.validate(configValidator)
+
+    btnAddSize.on("click", function () {
+        addSize();
+    });
+
+    createPicker("#color-input");
+    btnAddColor.on("click", () => {
+        addColor();
+    })
+
+    function initFileInput() {
+        const inputElement = $("#image")[0];
+        pond = FilePond.create(inputElement, {
+            allowMultiple: true,
+            allowImagePreview: true,
+            labelIdle: 'Kéo và thả tệp của bạn vào đây hoặc <span class="filepond--label-action">Chọn tệp</span>'
+        });
+
+        pond.on('addfile', (error, file) => {
+            if (!error) {
+                // console.log('File added:', file);
+            }
+        });
+    }
+
+    function initTextEditor() {
+        editor = new FroalaEditor('#editor', {
+            language: 'vi',
+            events: {
+                'contentChanged': function () {
+                    const content = this.html.get();
+                    $("#description").val(content);
+                    $("#description").valid();
+                }
+            }
+        });
+    }
+
+    function createPicker(el, colorHex) {
+        $(el).spectrum({
+            color: colorHex || "#000000",
+            showInput: true,
+            showAlpha: true,
+            preferredFormat: "hex",
+            move: function (color) {
+                const hexColor = color.toHexString();
+                $(el).val(hexColor);
+            },
+        });
+        colorHex || $(el).val(colorHex);
+    }
+
+    function configModal() {
+        modal.on("hidden.bs.modal", function () {
+            resetForm();
+        })
+            .on("show.bs.modal", function () {
+                if (selected.id)
+                    handleRead(selected.id);
+            });
+    }
+
+    // -------------------------------
+    // Thực hiện thêm color sản phẩm (trên UI)
+    function addColor(color) {
+        const colorId = `color-${Date.now()}`;
+        dataColorIndex.push(colorId);
+        const html = $(`
+         <div data-color-index=${colorId} ${color ? ("data-color-id=" + color.id) : ""} class="d-flex align-items-center gap-1 p-1 border border-1 round mb-1 me-2">
+            <input id="${colorId}" name="color" hidden="hidden" type="text" >
+            <div class="color__remove">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+        `)
+        formColor.append(html);
+        createPicker(`#${colorId}`, color && color.codeColor);
+        html.find(".color__remove").on("click", () => {
+            html.remove();
+        })
+    }
+
+    // -------------------------------
+    // Thực hiện thêm color sản phẩm (trên UI)
+    function addSize(size) {
+        const idSize = `size-${Date.now()}`;
+        dataSizeIndex.push(idSize);
+        const html = $(`
+            <div data-size-index="${idSize}" ${size ? ("data-size-id=" + size.id) : ""} class="row align-items-center mt-2">
+                <div class="col-4 form__label">
+                    <input type="text" name="nameSize[]" class="form-control" value=${size && size.nameSize}>
+                    <div class="valid-feedback"> </div>
+                </div>
+                <div class="col-4 form__label">
+                    <input type="text" name="sizePrice[]" class="form-control" value=${size && size.sizePrice}>
+                    <div class="valid-feedback"></div>
+                </div>
+                <div class="col-4">
+                    <div class="btn btn-danger form__remove-size w-100">Xóa size</div>
+                </div>
+            </div>
+        `);
+        formSize.append(html);
+
+        html.find(".form__remove-size").on("click", function () {
+            $(this).closest("[data-size-index]").remove();
+        });
+    }
+
+    // -------------------------------
+    // Thực hiện reset data form
+    function resetForm() {
+        form.find("input, textarea, select").val("")
+        editor.html.set("");
+        formValidator.resetForm();
+        if (dataSizeIndex.length > 0) {
+            dataSizeIndex.forEach(id => {
+                $(`[data-size-index=${id}]`).remove();
+            });
+            dataSizeIndex = [];
+        }
+        if (dataColorIndex.length > 0) {
+            dataColorIndex.forEach(id => {
+                $(`[data-color-index=${id}]`).remove();
+            });
+            dataColorIndex = [];
+        }
+        // Xóa ảnh trong filepond
+        const files = pond.getFiles();
+        files.forEach((file, index) => {
+            pond.removeFile(index);
+        });
+    }
+
+
+    // -------------------------------
+    // Thực hiện ẩn hoặc hiện sản phẩm
+    function handleVisible(type, id, index) {
+        Swal.fire({
+            title: `Bạn có muốn ${type == "visible" ? "hiện thị" : "ẩn"} sản phẩm này không?`,
+            showDenyButton: true,
+            confirmButtonText: "Có",
+            denyButtonText: `Không`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                http({
+                    url: "/api/admin/product/visible",
+                    data: {
+                        id: id,
+                        type: type,
+                    },
+                    type: "POST",
+                    beforeSend: function () {
+                        startLoading();
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cập nhập thành công ',
+                            })
+                            datatable.row(index).data({
+                                ...datatable.row(index).data(),
+                                state: type != "hide"
+                            }).draw(false);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Cập nhập thất bại',
+                            })
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Có lỗi xảy ra',
+                        })
+                    },
+                    complete: function () {
+                        endLoading();
+                    }
+                })
+            }
+        });
+    }
+
+    // --------------------------------
+    // Thực hiện thêm sản phẩm
     function handleCreate(form) {
         const formData = new FormData(form);
         // Thêm ảnh vào FormData
@@ -407,7 +598,7 @@ $(document).ready(() => {
         filePondFiles.forEach(file => {
             formData.append('images[]', file.file);
         });
-        $.ajax({
+        http({
             url: "/api/admin/product/create",
             type: "POST",
             contentType: false,
@@ -440,167 +631,69 @@ $(document).ready(() => {
         });
     }
 
-    const formValidator = form.validate(configValidator)
-
-    btnAddSize.on("click", function () {
-        const idSize = `size-${Date.now()}`;
-        console.log(dataSizeIndex)
-        dataSizeIndex.push(idSize);
-        const html = $(`
-            <div data-size-index="${idSize}" class="row align-items-center mt-2">
-                <div class="col-4 form__label">
-                    <input type="text" name="nameSize[]" class="form-control">
-                    <div class="valid-feedback"> </div>
-                </div>
-                <div class="col-4 form__label">
-                    <input type="text" name="sizePrice[]" class="form-control">
-                    <div class="valid-feedback"></div>
-                </div>
-                <div class="col-4">
-                    <div class="btn btn-danger form__remove-size w-100">Xóa size</div>
-                </div>
-            </div>
-        `);
-        formSize.append(html);
-
-        html.find(".form__remove-size").on("click", function () {
-            $(this).closest("[data-size-index]").remove();
-        });
-
-    });
-
-    createPicker("#color-input");
-    btnAddColor.on("click", () => {
-        const colorId = `color-${Date.now()}`;
-        dataColorIndex.push(colorId);
-        const html = $(`
-         <div data-color-index=${colorId} class="d-flex align-items-center gap-1 p-1 border border-1 round mb-1">
-            <input id="${colorId}" name="color" hidden="hidden" type="text" >
-            <div class="color__remove">
-                <i class="fa-solid fa-xmark"></i>
-            </div>
-        </div>
-        `)
-        formColor.append(html);
-        createPicker(`#${colorId}`);
-        html.find(".color__remove").on("click", () => {
-            html.remove();
-        })
-    })
-
-    function initFileInput() {
-        const inputElement = $("#image")[0];
-        const pond = FilePond.create(inputElement, {
-            allowMultiple: true,
-            allowImagePreview: true,
-            labelIdle: 'Kéo và thả tệp của bạn vào đây hoặc <span class="filepond--label-action">Chọn tệp</span>'
-        });
-
-        pond.on('addfile', (error, file) => {
-            if (!error) {
-                console.log('File added:', file);
-            }
-        });
-    }
-
-    function initTextEditor() {
-        new FroalaEditor('#editor', {
-            language: 'vi',
-            events: {
-                'contentChanged': function () {
-                    const content = this.html.get();
-                    $("#description").val(content);
-                    $("#description").valid();
-                }
-            }
-        });
-    }
-
-    function createPicker(el) {
-        $(el).spectrum({
-            color: "#000000",
-            showInput: true,
-            preferredFormat: "hex",
-            move: function (color) {
-                const hexColor = color.toHexString();
-                $(el).val(hexColor);
-            }
-        });
-    }
-
-    function configModal() {
-        modal.on("hide.bs.modal", function () {
-            form.find("input, textarea, select").val("")
-            formValidator.resetForm();
-            if (dataSizeIndex.length > 0) {
-                dataSizeIndex.forEach(id => {
-                    $(`[data-size-index=${id}]`).remove();
-                });
-                dataSizeIndex = [];
-            }
-            if (dataColorIndex.length > 0) {
-                dataColorIndex.forEach(id => {
-                    $(`[data-size-index=${id}]`).remove();
-                });
-                dataColorIndex = [];
+    // -------------------------------
+    // Thực thi xem sản phẩm
+    function handleRead(id) {
+        http({
+            url: "/api/admin/product/read",
+            type: "GET",
+            data: {
+                id: id
+            },
+            success: function (response) {
+                handleFieldData(response);
             }
         })
     }
 
     // -------------------------------
-    // Thực hiện ẩn hoặc hiện sản phẩm
-    function handleVisible(type, id, index) {
-        Swal.fire({
-            title: `Bạn có muốn ${type == "visible" ? "hiện thị" : "ẩn"} sản phẩm này không?`,
-            showDenyButton: true,
-            confirmButtonText: "Có",
-            denyButtonText: `Không`
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "/api/admin/product/visible",
-                    data: {
-                        id: id,
-                        type: type,
-                    },
-                    type: "POST",
-                    success: function (data) {
-                        if (data.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Cập nhập thành công ',
-                            })
-                            datatable.row(index).data({
-                                ...datatable.row(index).data(),
-                                state: type != "hide"
-                            }).draw(false);
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Cập nhập thất bại',
-                            })
-                        }
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Có lỗi xảy ra',
-                        })
-                    }
-                })
-            }
+    // Thực thi field data sản phẩm vào form
+    function handleFieldData(data) {
+        const product = data.product;
+        form.find("input[name=name]").val(product.name);
+        console.log("product", product)
+        form.find("select[name=idCategory]").val(product.categoryId);
+        form.find("input[name=originalPrice]").val(product.originalPrice);
+        form.find("input[name=salePrice]").val(product.salePrice);
+        form.find("input[name=quantity]").val(product.quantity);
+        form.find("input[name=discount]").val(product.discount);
+        form.find("input[name=description]").val(product.description);
+        editor.html.set(product.description);
+        // Thêm size đầu tiên vào form (mỗi sản phẩm phải có ít nhất 1 size)
+        form.find(`input[name="nameSize[]"]`).val(data.sizes[0].nameSize);
+        form.find(`input[name="sizePrice[]"]`).val(data.sizes[0].sizePrice);
+        form.find(`[data-size-id]`).attr("data-size-id", data.sizes[0].id);
+        data.sizes.slice(1).forEach(size => addSize(size));
+        // Thêm color đầu tiên vào form (mỗi sản phẩm phải có ít nhất 1 color)
+        createPicker("#color-input", data.colors[0].codeColor);
+        form.find(`[data-color-id]`).attr("data-color-id", data.colors[0].id);
+        data.colors.slice(1).forEach(color => addColor(color));
+
+        // Thêm ảnh vào filepond
+        const urls = data.images.map(image => image.nameImage);
+        urls.forEach(url => {
+            fetch(url).then(response => response.blob()).then(blob => {
+                const file = new File([blob], url.split('/').pop(), {type: blob.type});
+                pond.addFile(file);
+            });
         });
     }
 
     // -------------------------------
     // Thực thi cập nhập sản phẩm
-    function handleUpdate(url, type, formData, callback) {
-        $.ajax({
-            url: url,
-            type: type,
+    function handleUpdate(form, id) {
+        const formData = new FormData(form);
+        // Thêm ảnh vào FormData
+        const filePondFiles = FilePond.find(document.querySelector('#image')).getFiles();
+        filePondFiles.forEach(file => {
+            formData.append('images[]', file.file);
+        });
+        http({
+            url: "/api/admin/product/update",
+            type: "POST",
             data: formData,
             success: function (response) {
-                callback(response);
+
             }
         })
     }

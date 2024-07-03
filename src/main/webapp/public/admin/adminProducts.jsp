@@ -250,7 +250,7 @@
                                         <div class="col-4">
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row align-items-center mt-2" data-size-id="">
                                         <div class="col-4 form__label">
                                             <input type="text" name="nameSize[]" class="form-control">
                                             <div class="valid-feedback">
@@ -278,17 +278,16 @@
                                        HEX">Màu sắc có sẵn</h2>
                                     <div id="form__add-color" class="btn btn-primary">Thêm màu sắc</div>
                                 </div>
-                                <div id="form__color" class="d-flex flex-wrap">
-                                    <div class="d-inline-flex align-items-center gap-1 p-1 border border-1 round mb-1">
+                                <div id="form__color" class="d-flex flex-wrap mt-2">
+                                    <div data-color-id class="d-inline-flex align-items-center gap-1 p-1 border border-1 round mb-1 me-2">
                                         <input id="color-input" name="color" hidden="hidden" type="text">
                                     </div>
-
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-12 mt-4">
-                            <h2 class="mb-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                            <h2 class="mb-2 d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top"
                                 data-bs-title="Hình ảnh của sản phẩm, ảnh đầu tiên sẽ là ảnh nền của sản phẩm ">Hình
                                 ảnh</h2>
                             <input type="file" id="image" name="image"/>
@@ -339,7 +338,6 @@
 <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
 <script type="module" src="<c:url value="/js/admin/adminProducts.js"/>"></script>
 <%--<script type="module" src="<c:url value="/js/admin/adminProductDetail.js"/>"></script>--%>
-
 
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");

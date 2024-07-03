@@ -82,7 +82,6 @@ export const objectToQueryString = (obj) => {
     return keyValuePairs.join('&');
 }
 
-
 export const convertFormDataToObject = (form) => {
     const formDataArray = $(form).serializeArray();
 
@@ -91,4 +90,34 @@ export const convertFormDataToObject = (form) => {
         formDataJson[field.name] = field.value;
     });
     return formDataJson;
+}
+
+export const startLoading = () => {
+    $.LoadingOverlay("show", {
+        image: "",
+        fontawesome: "fa fa-spinner fa-spin",
+        background: "rgba(0, 0, 0, 0.5)"
+    });
+}
+
+export const endLoading = () => {
+    $.LoadingOverlay("hide");
+}
+
+export const http = ({beforeSend, complete, ...rest}) => {
+    $.ajax({
+        ...rest,
+        beforeSend: function (xhr, settings) {
+            startLoading();
+            if (typeof beforeSend === 'function') {
+                beforeSend(xhr, settings);
+            }
+        },
+        complete: function (xhr, status) {
+            endLoading();
+            if (typeof complete === 'function') {
+                complete(xhr, status);
+            }
+        }
+    })
 }
