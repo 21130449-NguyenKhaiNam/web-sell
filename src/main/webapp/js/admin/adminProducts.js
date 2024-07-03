@@ -3,12 +3,13 @@ import {objectToQueryString} from "../base.js";
 $(document).ready(() => {
     // Enable tooltip bootstrap
     $('[data-bs-toggle="tooltip"]').tooltip();
+    // config preview image
+    $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
+    // format currency vietnamdong
     const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
     });
-    // config preview image
-    $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
 
     const size = $("#size");
     const category = $("#category");
@@ -34,8 +35,8 @@ $(document).ready(() => {
             },
             dataSrc: function (json) {
                 json.draw = json.draw;
-                json.recordsTotal = json.quantity * 10;
-                json.recordsFiltered = json.quantity * 10;
+                json.recordsTotal = json.quantity * json.products.length;
+                json.recordsFiltered = json.quantity * json.products.length;
                 json.data = json.products.map(function (item) {
                     return {
                         id: item.product.id,
@@ -68,36 +69,67 @@ $(document).ready(() => {
                 }
             },
             {
-                data: "image",
+                data: "state",
                 render: function (data, type, row) {
                     let obj = {
                         icon: "",
                         className: ""
                     }
-                    if (data.state == true)
-                        obj = {
-                            icon: `<i class="fa-solid fa-unlock"></i>`,
-                            className: "btn btn-primary"
-                        }
-                    else
+                    if (data)
                         obj = {
                             icon: `<i class="fa-solid fa-lock"></i>`,
                             className: "btn btn-danger"
+                        }
+                    else
+                        obj = {
+                            icon: `<i class="fa-solid fa-unlock"></i>`,
+                            className: "btn btn-primary"
                         }
                     return `<button class="${obj.className}">${obj.icon}</button>`;
                 }
             }
         ],
+        columnDefs: [
+            {
+                targets: 5,
+                createdCell: function (td, cellData, rowData, row, col) {
+                    $(td).addClass('text-center');
+                    $(td).find("button").attr("data-id", rowData.id);
+                    $(td).find("button").attr("data-state", rowData.state);
+                    $(td).find("button").attr("data-index", row);
+                },
+            },
+        ],
+        createdRow: function (row, data, dataIndex) {
+            if (!data.state)
+                $(row).addClass('table-danger');
+        },
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/vi.json'
         },
         select: true,
         initComplete: function (settings, json) {
+            initEventDatatable();
             setupFormSearch();
             handleSubmitFormSearch();
+            configModal();
             initFileInput();
             initTextEditor();
         }
+    }
+
+    function initEventDatatable() {
+        table.find("tbody").on('click', 'button', function (e) {
+            e.stopPropagation();
+            const id = $(this).data("id");
+            const state = $(this).data("state");
+            const index = $(this).data("index");
+            if (state == true) {
+                handleVisible("hide", id, index);
+            } else {
+                handleVisible("visible", id, index);
+            }
+        });
     }
 
     function setupFormSearch() {
@@ -169,7 +201,7 @@ $(document).ready(() => {
             onUpdate: function (data) {
                 updateMoneyRangeInput(data);
             }
-        });
+        }).data("ionRangeSlider");
 
         function updateMoneyRangeInput(data) {
             const formattedValue = `${data.from} - ${data.to}`;
@@ -198,7 +230,8 @@ $(document).ready(() => {
         });
     }
 
-    const table = $('#table').DataTable(configDatatable);
+    const table = $('#table');
+    const datatable = table.DataTable(configDatatable);
     const searchForm = $('#form__filter');
 
     function handleSubmitFormSearch() {
@@ -220,10 +253,12 @@ $(document).ready(() => {
                 }
             });
             const queryString = objectToQueryString(formDataJson);
-            table.ajax.url(`/filterProductAdmin?${queryString}`).load();
+            datatable.ajax.url(`/filterProductAdmin?${queryString}`).load();
         });
     }
 
+    // ----------------------------------------------------------------
+    // Bắt đàu phần thêm sản phẩm
     $.validator.prototype.checkForm = function () {
         this.prepareForm();
         for (var i = 0, elements = (this.currentElements = this.elements()); elements[i]; i++) {
@@ -312,60 +347,90 @@ $(document).ready(() => {
             $(element).find(".valid-feedback").text("");
         },
         submitHandler: function (form) {
-            const formData = new FormData(form);
-            // Thêm ảnh vào FormData
-            const filePondFiles = FilePond.find(document.querySelector('#image')).getFiles();
-            filePondFiles.forEach(file => {
-                formData.append('files[]', file.file);
-            });
-            $.ajax({
-                url: "/api/admin/product/create",
-                type: "POST",
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                data: formData,
-                success: function (data) {
-                    if (data.status === true) {
-                        notifySuccess({
-                            title: "Thêm sản phẩm thành công",
-                            body: "Sản phẩm đã được thêm vào gian hàng.",
-                        });
-                    } else {
-                        notifyFailed({
-                            title: "Thêm sản phẩm không thành công",
-                            body: "Sản phẩm đã có tên trên đã tồn tại vào gian hàng.",
-                        });
-                    }
-                },
-                error: function (error) {
-                    console.log(error)
-                },
+            Swal.fire({
+                title: "Bạn có chắc muốn thêm sản phẩm này vào cửa hàng không?",
+                text: "Bạn sẽ không thể hoàn nguyên điều này!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Có",
+                cancelButtonText: "Không",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    handleCreate(form);
+                }
             });
         }
     }
-    const form = $("#form__add")
+
+    function handleCreate(form) {
+        const formData = new FormData(form);
+        // Thêm ảnh vào FormData
+        const filePondFiles = FilePond.find(document.querySelector('#image')).getFiles();
+        filePondFiles.forEach(file => {
+            formData.append('images[]', file.file);
+        });
+        $.ajax({
+            url: "/api/admin/product/create",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            data: formData,
+            success: function (data) {
+                if (data.status === true) {
+                    Swal.fire({
+                        title: "Thêm sản phẩm thành công",
+                        text: "Sản phẩm đã được thêm vào gian hàng.",
+                        icon: "success",
+                    });
+                    modal.modal("hide");
+                } else {
+                    Swal.fire({
+                        title: "Thêm sản phẩm không thành công",
+                        text: "Sản phẩm đã có tên trên đã tồn tại vào gian hàng.",
+                        icon: "error",
+                    });
+                }
+            },
+            error: function (error) {
+                Swal.fire({
+                    title: "Thêm sản phẩm không thành công",
+                    text: "Đã có lỗi xảy ra",
+                    icon: "warning",
+                })
+            },
+        });
+    }
+
+    const modal = $("#modal-create");
+    const form = $("#form__add");
     const formSize = $("#form__size");
     const formColor = $("#form__color");
     const btnAddSize = $("#form__add-size");
     const btnAddColor = $("#form__add-color");
-    let indexSize = 0;
+    let dataSizeIndex = [];
+    let dataColorIndex = [];
 
-    const validator = form.validate(configValidator)
+    const formValidator = form.validate(configValidator)
 
     btnAddSize.on("click", function () {
+        const idSize = `size-${Date.now()}`;
+        console.log(dataSizeIndex)
+        dataSizeIndex.push(idSize);
         const html = $(`
-            <div data-size-index="${indexSize}" class="row align-items-center mt-1">
+            <div data-size-index="${idSize}" class="row align-items-center mt-2">
                 <div class="col-4 form__label">
                     <input type="text" name="nameSize[]" class="form-control">
-                    <span class="form__error"></span>
+                    <div class="valid-feedback"> </div>
                 </div>
                 <div class="col-4 form__label">
                     <input type="text" name="sizePrice[]" class="form-control">
-                    <span class="form__error"></span>
+                    <div class="valid-feedback"></div>
                 </div>
                 <div class="col-4">
-                    <div class="btn btn-danger form__remove-size">Xóa size</div>
+                    <div class="btn btn-danger form__remove-size w-100">Xóa size</div>
                 </div>
             </div>
         `);
@@ -375,15 +440,15 @@ $(document).ready(() => {
             $(this).closest("[data-size-index]").remove();
         });
 
-        indexSize++;
     });
 
     createPicker("#color-input");
     btnAddColor.on("click", () => {
         const colorId = `color-${Date.now()}`;
+        dataColorIndex.push(colorId);
         const html = $(`
-         <div class="d-flex align-items-center gap-1 p-1 border border-1 round mb-1">
-            <input  id="${colorId}" name="color" hidden="hidden" type="text" >
+         <div data-color-index=${colorId} class="d-flex align-items-center gap-1 p-1 border border-1 round mb-1">
+            <input id="${colorId}" name="color" hidden="hidden" type="text" >
             <div class="color__remove">
                 <i class="fa-solid fa-xmark"></i>
             </div>
@@ -401,6 +466,7 @@ $(document).ready(() => {
         const pond = FilePond.create(inputElement, {
             allowMultiple: true,
             allowImagePreview: true,
+            labelIdle: 'Kéo và thả tệp của bạn vào đây hoặc <span class="filepond--label-action">Chọn tệp</span>'
         });
 
         pond.on('addfile', (error, file) => {
@@ -411,12 +477,13 @@ $(document).ready(() => {
     }
 
     function initTextEditor() {
-        var editor = new FroalaEditor('#editor', {
+        new FroalaEditor('#editor', {
             language: 'vi',
             events: {
                 'contentChanged': function () {
                     const content = this.html.get();
                     $("#description").val(content);
+                    $("#description").valid();
                 }
             }
         });
@@ -427,9 +494,73 @@ $(document).ready(() => {
             color: "#000000",
             showInput: true,
             preferredFormat: "hex",
-            change: function (color) {
+            move: function (color) {
                 const hexColor = color.toHexString();
                 $(el).val(hexColor);
+            }
+        });
+    }
+
+    function configModal() {
+        modal.on("hide.bs.modal", function () {
+            form.find("input, textarea, select").val("")
+            formValidator.resetForm();
+            if (dataSizeIndex.length > 0) {
+                dataSizeIndex.forEach(id => {
+                    $(`[data-size-index=${id}]`).remove();
+                });
+                dataSizeIndex = [];
+            }
+            if (dataColorIndex.length > 0) {
+                dataColorIndex.forEach(id => {
+                    $(`[data-size-index=${id}]`).remove();
+                });
+                dataColorIndex = [];
+            }
+        })
+    }
+
+    // -------------------------------
+    // Thực hiện ẩn hoặc hiện sản phẩmh
+    function handleVisible(type, id, index) {
+        Swal.fire({
+            title: `Bạn có muốn ${type == "visible" ? "hiện thị" : "ẩn"} sản phẩm này không?`,
+            showDenyButton: true,
+            confirmButtonText: "Có",
+            denyButtonText: `Không`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/api/admin/product/visible",
+                    data: {
+                        id: id,
+                        type: type,
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Cập nhập thành công ',
+                            })
+                            datatable.row(index).data({
+                                ...datatable.row(index).data(),
+                                state: type != "hide"
+                            }).draw(false);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Cập nhập thất bại',
+                            })
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Có lỗi xảy ra',
+                        })
+                    }
+                })
             }
         });
     }

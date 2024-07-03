@@ -277,10 +277,9 @@ public class ProductCardDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, id);
     }
 
-    public void updateVisibility(int productId, boolean visibility) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("UPDATE products ").append("SET visibility = ? ").append("WHERE id = ?");
-        GeneralDao.executeAllTypeUpdate(sql.toString(), visibility, productId);
+    public void updateVisibility(int productId, String visibility) {
+        String sql = "UPDATE products SET visibility = " + visibility + " WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(sql, productId);
     }
 
     public List<Product> getNameProductByIdOrderDetail(int orderDetailId) {
@@ -291,8 +290,8 @@ public class ProductCardDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
     }
 
-//    Sử dụng để lấy ra danh sách tên sản phẩm và id của sản phẩm (sử dụng đưa vào select)
-    public List<Product> getProduct(){
+    //    Sử dụng để lấy ra danh sách tên sản phẩm và id của sản phẩm (sử dụng đưa vào select)
+    public List<Product> getProduct() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id, `name`, categoryId, originalPrice, salePrice, visibility ")
                 .append("FROM products ");

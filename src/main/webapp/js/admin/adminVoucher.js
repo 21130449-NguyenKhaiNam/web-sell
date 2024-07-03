@@ -340,7 +340,6 @@ $(document).ready(function () {
                     rowDataSelected: datatable.row(indexes).data(),
                     rowIndexSelected: datatable.row(indexes).index()
                 }
-                console.log(row)
                 button.text("Cập nhật mã giảm giá");
             }).on('deselect', function (e, dt, type, indexes) {
                 row = {
@@ -400,7 +399,6 @@ $(document).ready(function () {
             Swal.fire({
                 title: `Bạn có muốn ${type == "visible" ? "hiện thị" : "ẩn"} mã giảm giá này không?`,
                 showDenyButton: true,
-                showCancelButton: true,
                 confirmButtonText: "Có",
                 denyButtonText: `Không`
             }).then((result) => {

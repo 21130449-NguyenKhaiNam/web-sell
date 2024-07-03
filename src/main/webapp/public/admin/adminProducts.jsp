@@ -233,19 +233,18 @@
                         </div>
                         <div class="col-6 mt-4">
                             <!--Size-->
-                            <div class="form__label form__block border border-1 rounded">
-                                <div class="d-flex justify-content-between align-content-center p-2">
+                            <div class="form__label form__block border border-1 rounded p-2">
+                                <div class="d-flex justify-content-between align-content-center" >
                                     <h2 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Mỗi sản phẩm có ít nhất một kích thước, mỗi kích thước gồm tên kích thước và giá của kích
                                            thước đó. Giá kích thước sẽ được cộng cùng với giá sản phẩm ở trên">Kích
                                         thước</h2>
-                                    <div id="form__add-size" class="btn btn-primary">Thêm size</div>
+
                                 </div>
                                 <div id="form__size" class="container-fluid">
                                     <div class="row mt-2 py-2">
-                                        <div class="col-5">Tên kích thước</div>
-                                        <div class="col-5">Giá</div>
-                                        <div class="col-2">
-                                            Hiệu chỉnh
+                                        <div class="col-4">Tên kích thước</div>
+                                        <div class="col-4">Giá</div>
+                                        <div class="col-4">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -262,7 +261,7 @@
                                             </div>
                                         </div>
                                         <div class="col-4">
-
+                                            <div id="form__add-size" class="btn btn-primary w-100">Thêm size</div>
                                         </div>
                                     </div>
                                 </div>
@@ -270,8 +269,8 @@
                         </div>
                         <div class="col-6 mt-4">
                             <!--Color -->
-                            <div class="form__label form__block border border-1 rounded">
-                                <div class="d-flex justify-content-between align-content-center p-2">
+                            <div class="form__label form__block border border-1 rounded p-2">
+                                <div class="d-flex justify-content-between align-content-center ">
                                     <h2 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Màu sắc của sản phẩm, mỗi sản phẩm phải có ít nhất 1 màu, mã màu được lưu dưới dạng mã
                                        HEX">Màu sắc có sẵn</h2>
                                     <div id="form__add-color" class="btn btn-primary">Thêm màu sắc</div>
@@ -333,11 +332,12 @@
 
 <!-- include FilePond jQuery adapter -->
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.7/js/languages/vi.js"></script>
 <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
 <script type="module" src="<c:url value="/js/admin/adminProducts.js"/>"></script>
-<script type="module" src="<c:url value="/js/admin/adminProductDetail.js"/>"></script>
+<%--<script type="module" src="<c:url value="/js/admin/adminProductDetail.js"/>"></script>--%>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.7/js/languages/vi.js"></script>
+
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
     Object keyword = request.getAttribute("keyword");
