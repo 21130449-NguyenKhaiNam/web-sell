@@ -32,8 +32,8 @@ public class CreateProduct extends HttpServlet {
         String originalPrice = request.getParameter("originalPrice");
         String salePrice = request.getParameter("salePrice");
         String description = request.getParameter("description");
-        String[] nameSizes = request.getParameterValues("nameSize");
-        String[] sizePrices = request.getParameterValues("sizePrice");
+        String[] nameSizes = request.getParameterValues("nameSize[]");
+        String[] sizePrices = request.getParameterValues("sizePrice[]");
         String[] colors = request.getParameterValues("color");
 
 //        Add Product
@@ -75,7 +75,6 @@ public class CreateProduct extends HttpServlet {
         response.getWriter().write(objJson.toString());
     }
 
-
     public void uploadImg(Collection<Part> parts, int productId) throws Exception {
         ServletContext servletContext = getServletContext();
         String root = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathProductWeb();
@@ -84,6 +83,5 @@ public class CreateProduct extends HttpServlet {
         uploadImageServices.addImages(parts);
 //       Add to db
         AdminProductServices.getINSTANCE().addImages(uploadImageServices.getNameImages(), productId);
-        System.out.println("Done");
     }
 }

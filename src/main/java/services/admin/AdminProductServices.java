@@ -6,6 +6,7 @@ import models.Image;
 import models.Product;
 import models.Size;
 import services.image.UploadImageServices;
+import services.state.ProductState;
 import utils.Comparison;
 
 import javax.servlet.http.Part;
@@ -33,11 +34,10 @@ public class AdminProductServices {
     public int addProduct(Product product) {
         List<Product> productList = productDAO.getIdProductByName(product.getName());
         if (!productList.isEmpty()) {
-            System.out.println("Không thể thêm sản phẩm cùng tên");
+            System.out.println("AdminProductServices: Không thể thêm sản phẩm cùng tên");
             return 0;
         }
-        productDAO.addProduct(product);
-        return productDAO.getIdProductByName(product.getName()).get(0).getId();
+        return productDAO.addProduct(product);
     }
 
     public void addColor(String[] codeColors, int productId) {
@@ -218,10 +218,10 @@ public class AdminProductServices {
         return nameImageList;
     }
 
-    public int keepImageAvailable(List<Image> imageList, Image image){
+    public int keepImageAvailable(List<Image> imageList, Image image) {
         int count = 0;
-        for (Image img : imageList){
-            if(img.equals(image)){
+        for (Image img : imageList) {
+            if (img.equals(image)) {
                 count++;
             }
         }
@@ -247,20 +247,15 @@ public class AdminProductServices {
             List<Integer> imageId = getIdImages(quantityImgDelete, productId);
             uploadImageServices.deleteImages(nameImages);//delete in cloud
             deleteImages(imageId);//delete in db
-        }
-        else{
+        } else {
             uploadImageServices.addImages(images);//add in cloud
             List<String> nameImagesAdded = uploadImageServices.getNameImages();
             addImages(nameImagesAdded, productId);//add in db
         }
     }
 
-    public boolean updateVisibility(int productId, boolean visibility) {
-        if (productCardDAO.isVisibility(productId).isEmpty() || visibility == productCardDAO.isVisibility(productId).get(0).isVisibility()) {
-            return false;
-        }
-        productCardDAO.updateVisibility(productId, visibility);
-        return true;
+    public void updateVisibility(int productId, ProductState state) {
+        productCardDAO.updateVisibility(productId, state.getValue());
     }
 
     public List<Product> getLimit(int limit, int offset) {
