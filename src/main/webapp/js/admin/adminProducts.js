@@ -11,11 +11,26 @@ $(document).ready(() => {
         currency: 'VND',
     });
 
+    const button = $("#button-modal");
     const size = $("#size");
     const category = $("#category");
     const color = $("#color")
     const moneyRange = $("#moneyRange");
     const createdAt = $("#createdAt")
+
+    const modal = $("#modal-create");
+    const form = $("#form__add");
+    const formSize = $("#form__size");
+    const formColor = $("#form__color");
+    const btnAddSize = $("#form__add-size");
+    const btnAddColor = $("#form__add-color");
+    let dataSizeIndex = [];
+    let dataColorIndex = [];
+
+    let selected = {
+        index: undefined,
+        id: undefined
+    };
     const configDatatable = {
         paging: true,
         processing: true,
@@ -129,6 +144,19 @@ $(document).ready(() => {
             } else {
                 handleVisible("visible", id, index);
             }
+        });
+        datatable.on('select', function (e, dt, type, indexes) {
+            selected = {
+                index: indexes,
+                id: datatable.row(indexes).data().id
+            }
+            button.text("Cập nhật mã giảm giá");
+        }).on('deselect', function (e, dt, type, indexes) {
+            selected = {
+                rowDataSelected: undefined,
+                rowIndexSelected: undefined,
+            }
+            button.text("Thêm mã giảm giá")
         });
     }
 
@@ -347,21 +375,29 @@ $(document).ready(() => {
             $(element).find(".valid-feedback").text("");
         },
         submitHandler: function (form) {
-            Swal.fire({
-                title: "Bạn có chắc muốn thêm sản phẩm này vào cửa hàng không?",
-                text: "Bạn sẽ không thể hoàn nguyên điều này!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Có",
-                cancelButtonText: "Không",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    handleCreate(form);
-                }
-            });
+            handleSubmitForm(form);
         }
+    }
+
+    function handleSubmitForm(form) {
+        const title = selected.id ? "Cập nhật sản phẩm" : "Thêm sản phẩm";
+        Swal.fire({
+            title: `Bạn có chắc muốn ${title} này vào cửa hàng không?`,
+            text: "Bạn sẽ không thể hoàn nguyên điều này!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (selected.id)
+                    handleUpdate(form, selected.id);
+                else
+                    handleCreate(form);
+            }
+        });
     }
 
     function handleCreate(form) {
@@ -403,15 +439,6 @@ $(document).ready(() => {
             },
         });
     }
-
-    const modal = $("#modal-create");
-    const form = $("#form__add");
-    const formSize = $("#form__size");
-    const formColor = $("#form__color");
-    const btnAddSize = $("#form__add-size");
-    const btnAddColor = $("#form__add-color");
-    let dataSizeIndex = [];
-    let dataColorIndex = [];
 
     const formValidator = form.validate(configValidator)
 
@@ -521,7 +548,7 @@ $(document).ready(() => {
     }
 
     // -------------------------------
-    // Thực hiện ẩn hoặc hiện sản phẩmh
+    // Thực hiện ẩn hoặc hiện sản phẩm
     function handleVisible(type, id, index) {
         Swal.fire({
             title: `Bạn có muốn ${type == "visible" ? "hiện thị" : "ẩn"} sản phẩm này không?`,
@@ -563,6 +590,19 @@ $(document).ready(() => {
                 })
             }
         });
+    }
+
+    // -------------------------------
+    // Thực thi cập nhập sản phẩm
+    function handleUpdate(url, type, formData, callback) {
+        $.ajax({
+            url: url,
+            type: type,
+            data: formData,
+            success: function (response) {
+                callback(response);
+            }
+        })
     }
 
 //     function getClose(modal) {

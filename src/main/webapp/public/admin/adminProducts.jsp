@@ -29,6 +29,8 @@
             href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
             rel="stylesheet"
     />
+    <!--gasparesganga-->
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
@@ -76,7 +78,7 @@
                                 Xuất file excel
                             </button>
                         </form>
-                        <button class="button button__add" type="button" data-bs-toggle="modal"
+                        <button class="button button__add" id="button-modal" type="button" data-bs-toggle="modal"
                                 data-bs-target="#modal-create">
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
@@ -226,7 +228,8 @@
                         <div class="col-12 mt-2">
                             <label for="description" class="form-label">Mô tả</label>
                             <div id="editor"></div>
-                            <textarea hidden="hidden" name="description" id="description" cols="30" rows="10"></textarea>
+                            <textarea hidden="hidden" name="description" id="description" cols="30"
+                                      rows="10"></textarea>
                             <div class="valid-feedback">
 
                             </div>
@@ -234,7 +237,7 @@
                         <div class="col-6 mt-4">
                             <!--Size-->
                             <div class="form__label form__block border border-1 rounded p-2">
-                                <div class="d-flex justify-content-between align-content-center" >
+                                <div class="d-flex justify-content-between align-content-center">
                                     <h2 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Mỗi sản phẩm có ít nhất một kích thước, mỗi kích thước gồm tên kích thước và giá của kích
                                            thước đó. Giá kích thước sẽ được cộng cùng với giá sản phẩm ở trên">Kích
                                         thước</h2>
