@@ -110,13 +110,13 @@ export const http = ({beforeSend, complete, ...rest}) => {
         beforeSend: function (xhr, settings) {
             startLoading();
             if (typeof beforeSend === 'function') {
-                beforeSend(xhr, settings);
+                beforeSend.call(this, xhr, settings);
             }
         },
         complete: function (xhr, status) {
             endLoading();
             if (typeof complete === 'function') {
-                complete(xhr, status);
+                complete.call(xhr, status);
             }
         }
     })

@@ -63,7 +63,7 @@ public class ProductDao {
         return GeneralDao.executeQueryWithSingleTable(sql, Product.class, name);
     }
 
-    //    Update
+    // Insert
     public int addProduct(Product product) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO products (name, categoryId, description, originalPrice, salePrice, visibility, createAt) ")
@@ -72,12 +72,12 @@ public class ProductDao {
     }
 
     //Update
-    public void updateProduct(Product product, int id) {
+    public void updateProduct(Product product) {
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE products ")
                 .append("SET ").append(updatedFieldProduct(product))
                 .append(" WHERE id = ?");
-        GeneralDao.executeAllTypeUpdate(sql.toString(), id);
+        GeneralDao.executeAllTypeUpdate(sql.toString(), product.getId());
     }
 
     private String updatedFieldProduct(Product product) {

@@ -1,16 +1,20 @@
 import {http, endLoading, objectToQueryString, startLoading} from "../base.js";
+import {deleteImage, uploadImage} from "../uploadImage.js";
 
 $(document).ready(() => {
     // Enable tooltip bootstrap
     $('[data-bs-toggle="tooltip"]').tooltip();
-    // config preview image
+    // config preview image/ rename image
     $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
+    $.fn.filepond.registerPlugin(FilePondPluginFileRename);
+
     // format currency vietnamdong
     const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
     });
 
+    const modalLabel = $("#modal-label");
     const button = $("#button-modal");
     const size = $("#size");
     const category = $("#category");
@@ -28,6 +32,13 @@ $(document).ready(() => {
     let dataSizeIndex = [];
     let dataColorIndex = [];
     let pond;//trình thêm ảnh
+    let rename = false;//tag đánh dấu ảnh có được rename không?
+    const images = {
+        productId: undefined,
+        exist: [],
+        added: [],
+        deleted: [],
+    };
 
     let selected = {
         index: undefined,
@@ -152,13 +163,15 @@ $(document).ready(() => {
                 index: indexes[0],
                 id: datatable.row(indexes).data().id
             }
-            button.text("Cập nhật mã giảm giá");
+            button.text("Cập nhật sản phẩm");
+            modalLabel.text("Cập nhật sản phẩm")
         }).on('deselect', function (e, dt, type, indexes) {
             selected = {
                 index: undefined,
                 id: undefined
             }
-            button.text("Thêm mã giảm giá")
+            modalLabel.text("Thêm sản phẩm")
+            button.text("Thêm sản phẩm")
         });
     }
 
@@ -394,9 +407,11 @@ $(document).ready(() => {
             cancelButtonText: "Không",
         }).then((result) => {
             if (result.isConfirmed) {
-                if (selected.id)
-                    handleUpdate(form, selected.id);
-                else
+                if (selected.id) {
+                    const listIdSizes = $('[data-size-id]').map((index, element) => $(element).attr('data-size-id')).get();
+                    const listIdColors = $('[data-color-id]').map((index, element) => $(element).attr('data-color-id')).get();
+                    handleUpdate(form, selected.id, listIdSizes, listIdColors);
+                } else
                     handleCreate(form);
             }
         });
@@ -418,13 +433,42 @@ $(document).ready(() => {
         pond = FilePond.create(inputElement, {
             allowMultiple: true,
             allowImagePreview: true,
-            labelIdle: 'Kéo và thả tệp của bạn vào đây hoặc <span class="filepond--label-action">Chọn tệp</span>'
+            allowFileRename: true,
+            allowFileMetadata: true,
+            labelIdle: 'Kéo và thả tệp của bạn vào đây hoặc <span class="filepond--label-action">Chọn tệp</span>',
+            // fileRenameFunction: (file) => {
+            //     console.log(file)
+            //     if (rename) {
+            //         rename = false
+            //         return file.name = `image_${Date.now()}`;
+            //     }
+            //     return file.name;
+            // }
         });
 
-        pond.on('addfile', (error, file) => {
-            if (!error) {
-                // console.log('File added:', file);
+        pond.on('addfile', (error, fileItem) => {
+            const metadata = fileItem.getMetadata();
+            if (!metadata.id) {
+                fileItem.setMetadata('index', images.added.length);
+                images.added.push({
+                    folder: `product_img/${images.productId}/`,
+                    name: `product_${images.productId}_${Date.now()}`,
+                    file: fileItem.file,
+                    fileExtension: fileItem.fileExtension,
+                });
             }
+            console.log(images)
+        });
+        pond.on('removefile', (error, fileItem) => {
+            if (!error) {
+                const metadata = fileItem.getMetadata();
+                if (metadata.id)
+                    images.deleted.push(metadata.id);
+                else if (metadata.index != undefined)
+                    images.added = images.added.filter(image => image.file != fileItem.file);
+            } else
+                console.log("error deleted")
+            console.log(images)
         });
     }
 
@@ -452,7 +496,8 @@ $(document).ready(() => {
                 $(el).val(hexColor);
             },
         });
-        colorHex || $(el).val(colorHex);
+        if (colorHex)
+            $(el).val(colorHex);
     }
 
     function configModal() {
@@ -473,8 +518,7 @@ $(document).ready(() => {
         const html = $(`
          <div data-color-index=${colorId} ${color ? ("data-color-id=" + color.id) : ""} class="d-flex align-items-center gap-1 p-1 border border-1 round mb-1 me-2">
             <input id="${colorId}" name="color" hidden="hidden" type="text" >
-            <div class="color__remove">
-                <i class="fa-solid fa-xmark"></i>
+            <div type="button"  class="color__remove btn-close" aria-label="Close">
             </div>
         </div>
         `)
@@ -651,13 +695,12 @@ $(document).ready(() => {
     function handleFieldData(data) {
         const product = data.product;
         form.find("input[name=name]").val(product.name);
-        console.log("product", product)
         form.find("select[name=idCategory]").val(product.categoryId);
         form.find("input[name=originalPrice]").val(product.originalPrice);
         form.find("input[name=salePrice]").val(product.salePrice);
         form.find("input[name=quantity]").val(product.quantity);
         form.find("input[name=discount]").val(product.discount);
-        form.find("input[name=description]").val(product.description);
+        form.find("textarea[name=description]").val(product.description);
         editor.html.set(product.description);
         // Thêm size đầu tiên vào form (mỗi sản phẩm phải có ít nhất 1 size)
         form.find(`input[name="nameSize[]"]`).val(data.sizes[0].nameSize);
@@ -669,33 +712,71 @@ $(document).ready(() => {
         form.find(`[data-color-id]`).attr("data-color-id", data.colors[0].id);
         data.colors.slice(1).forEach(color => addColor(color));
 
+        images.productId = undefined;
+        images.exist = [];
+        images.added = [];
+        images.deleted = [];
         // Thêm ảnh vào filepond
-        const urls = data.images.map(image => image.nameImage);
-        urls.forEach(url => {
+        images.productId = product.id;
+        const urls = data.images.map(image => {
+            images.exist.push({
+                id: image.id,
+                nameImage: image.nameImage.lastIndexOf("/") !== -1 ? image.nameImage.split("/").pop() : image.nameImage
+            });
+            return image.nameImage
+        });
+
+        urls.forEach((url, index) => {
             fetch(url).then(response => response.blob()).then(blob => {
                 const file = new File([blob], url.split('/').pop(), {type: blob.type});
-                pond.addFile(file);
-            });
+                pond.addFile(file).then((fileItem) => {
+                    fileItem.setMetadata('renamed', true);
+                    fileItem.setMetadata('id', images.exist[index].id);
+                    fileItem.setMetadata('nameImage', images.exist[index].nameImage);
+                });
+            }).catch(error => {
+                console.error('Error fetching or adding file:', error);
+            })
         });
     }
 
     // -------------------------------
     // Thực thi cập nhập sản phẩm
-    function handleUpdate(form, id) {
+    function handleUpdate(form, id, listIdSizes, listIdColors) {
         const formData = new FormData(form);
         // Thêm ảnh vào FormData
         const filePondFiles = FilePond.find(document.querySelector('#image')).getFiles();
         filePondFiles.forEach(file => {
             formData.append('images[]', file.file);
         });
-        http({
-            url: "/api/admin/product/update",
-            type: "POST",
-            data: formData,
-            success: function (response) {
-
-            }
-        })
+        listIdSizes.forEach(idSize => {
+            formData.append('sizeId[]', idSize);
+        });
+        listIdColors.forEach(idColor => {
+            formData.append('colorId[]', idColor);
+        });
+        formData.append("id", id);
+        // console.log(images.added[0].file.file)
+        // console.log(filePondFiles)
+        // console.log(filePondFiles[0].file)
+        uploadImage(images.added, function (urls) {
+            console.log(urls)
+        });
+        // deleteImage([{folder: "", name: "product_img/product_111"}], function (urls) {
+        //     console.log(urls)
+        // });
+        // http({
+        //     url: "/api/admin/product/update",
+        //     type: "POST",
+        //     contentType: false,
+        //     processData: false,
+        //     dataType: "json",
+        //     cache: false,
+        //     data: formData,
+        //     success: function (response) {
+        //
+        //     }
+        // })
     }
 
 //     function getClose(modal) {

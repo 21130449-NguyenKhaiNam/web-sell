@@ -34,6 +34,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
+    <!--Cloudinary-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-jquery-file-upload/2.13.1/cloudinary-jquery-file-upload.min.js"
+            integrity="sha512-pH53M3IB57Cd20HYZE5Cxi0mUHgHvuV5mGVWOZ7v9t7fqGf5mqRXniKoWIoQrNbCKrW+Soql4SaxO4cyPt84Zw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         .color-display {
             width: 100%;
@@ -279,7 +283,8 @@
                                     <div id="form__add-color" class="btn btn-primary">Thêm màu sắc</div>
                                 </div>
                                 <div id="form__color" class="d-flex flex-wrap mt-2">
-                                    <div data-color-id class="d-inline-flex align-items-center gap-1 p-1 border border-1 round mb-1 me-2">
+                                    <div data-color-id
+                                         class="d-inline-flex align-items-center gap-1 p-1 border border-1 round mb-1 me-2">
                                         <input id="color-input" name="color" hidden="hidden" type="text">
                                     </div>
                                 </div>
@@ -334,10 +339,11 @@
 
 <!-- include FilePond jQuery adapter -->
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-rename/dist/filepond-plugin-file-rename.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.7/js/languages/vi.js"></script>
 <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
 <script type="module" src="<c:url value="/js/admin/adminProducts.js"/>"></script>
-<%--<script type="module" src="<c:url value="/js/admin/adminProductDetail.js"/>"></script>--%>
 
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
