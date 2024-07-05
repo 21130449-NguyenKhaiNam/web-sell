@@ -47,6 +47,8 @@ public class UpdateProductController extends HttpServlet {
         String[] sizeId = request.getParameterValues("sizeId[]");
         String[] codeColors = request.getParameterValues("color");
         String[] idColors = request.getParameterValues("colorId[]");
+        String[] nameImageAdded = request.getParameterValues("nameImageAdded[]");
+        String[] imagesDeleted = request.getParameterValues("imagesDeleted[]");
         JsonObject jsonObject = new JsonObject();
 
         int id;

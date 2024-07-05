@@ -745,10 +745,10 @@ $(document).ready(() => {
     function handleUpdate(form, id, listIdSizes, listIdColors) {
         const formData = new FormData(form);
         // Thêm ảnh vào FormData
-        const filePondFiles = FilePond.find(document.querySelector('#image')).getFiles();
-        filePondFiles.forEach(file => {
-            formData.append('images[]', file.file);
-        });
+        // const filePondFiles = FilePond.find(document.querySelector('#image')).getFiles();
+        // filePondFiles.forEach(file => {
+        //     formData.append('images[]', file.file);
+        // });
         listIdSizes.forEach(idSize => {
             formData.append('sizeId[]', idSize);
         });
@@ -759,24 +759,33 @@ $(document).ready(() => {
         // console.log(images.added[0].file.file)
         // console.log(filePondFiles)
         // console.log(filePondFiles[0].file)
-        uploadImage(images.added, function (urls) {
-            console.log(urls)
+        uploadImage(images.added, function (response) {
+            const idImageDeleted = images.deleted.map(id => images.exist[id].id);
+            const nameImageAdded = response.map(response => response.public_id);
+
+            idImageDeleted.forEach(idImage => {
+                formData.append('idImageDeleted[]', idImage);
+            });
+            nameImageAdded.forEach(nameImage => {
+                formData.append('nameImageAdded[]', nameImage);
+            });
+
+            http({
+                url: "/api/admin/product/update",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                cache: false,
+                data: formData,
+                success: function (response) {
+                    modal.modal("hide");
+                }
+            })
         });
         // deleteImage([{folder: "", name: "product_img/product_111"}], function (urls) {
         //     console.log(urls)
         // });
-        // http({
-        //     url: "/api/admin/product/update",
-        //     type: "POST",
-        //     contentType: false,
-        //     processData: false,
-        //     dataType: "json",
-        //     cache: false,
-        //     data: formData,
-        //     success: function (response) {
-        //
-        //     }
-        // })
     }
 
 //     function getClose(modal) {

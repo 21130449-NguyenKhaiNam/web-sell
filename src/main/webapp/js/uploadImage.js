@@ -2,8 +2,8 @@ import {http} from "./base.js";
 
 export const uploadImage = function (fileUploads, callback) {
     const numberOfFiles = fileUploads.length;
-    const urls = [];
-    $.ajax({
+    const dataReturn = [];
+    http({
         url: '/api/admin/generateSignature',
         method: 'POST',
         data: {
@@ -35,8 +35,11 @@ export const uploadImage = function (fileUploads, callback) {
                             console.log("success")
                             return response.json()
                         })
-                        .then(data => urls.push(data.url))
-                        .catch(error => urls.push("error"))
+                        .then(data => dataReturn.push({
+                            url: data.url,
+                            public_id: data.public_id
+                        }))
+                        .catch(error => dataReturn.push("error"))
                 );
             }
             try {
@@ -44,7 +47,7 @@ export const uploadImage = function (fileUploads, callback) {
             } catch (error) {
                 console.error('Error uploading images:', error);
             } finally {
-                callback(urls);
+                callback(dataReturn);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
