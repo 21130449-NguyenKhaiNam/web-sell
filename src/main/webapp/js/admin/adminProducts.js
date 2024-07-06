@@ -221,9 +221,9 @@ $(document).ready(() => {
             grid: true,
             grid_num: 2,
             min: 0,
-            max: 3000000,
-            from: 200000,
-            to: 1000000,
+            max: 1500000,
+            from: 50000,
+            to: 300000,
             grid_margin: true,
             hide_min_max: true,
             step: 100000, // 100,000 VND
@@ -250,6 +250,13 @@ $(document).ready(() => {
             const formattedValue = `${data.from} - ${data.to}`;
             moneyRange.val(formattedValue);
         }
+
+        // Set initial value manually
+        const initialSlider = moneyRange.data("ionRangeSlider");
+        updateMoneyRangeInput({
+            from: initialSlider.options.from,
+            to: initialSlider.options.to
+        });
 
         createdAt.daterangepicker({
             autoUpdateInput: false,
@@ -778,7 +785,7 @@ $(document).ready(() => {
                     dataRow = value
                     indexRow = index;
                 });
-                const category =  $(`#idCategory option[value=${objectAfterUpdate.category}]`).text();
+                const category = $(`#idCategory option[value=${objectAfterUpdate.category}]`).text();
                 // console.log(dataRow, indexRow)
                 // console.log(objectAfterUpdate)
                 // console.log({

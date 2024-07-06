@@ -232,7 +232,7 @@ public class ProductCardDAO {
     public List<Product> getIdProductByName(String name) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id ").append("FROM products ").append("WHERE name LIKE ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, "%" + name + "%");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, name + "%");
     }
 
     public List<Product> getProductByTimeCreated(Date dateBegin, Date dateEnd) {
