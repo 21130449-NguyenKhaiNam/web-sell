@@ -18,6 +18,12 @@
         <error-code>404</error-code>
         <location>/public/error/error404.jsp</location>
     </error-page>
+    <!--Bắt lỗi tập chung đối với api-->
+
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error</location>
+    </error-page>
 
     <!--Cấu hình servlet cho ckeditor và ckfinder-->
     <servlet>

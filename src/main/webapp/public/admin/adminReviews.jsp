@@ -69,4 +69,3 @@
 
 <script src="<c:url value="/js/admin/adminReviews.js" />"></script>
 </body>
-<%--</html>--%>

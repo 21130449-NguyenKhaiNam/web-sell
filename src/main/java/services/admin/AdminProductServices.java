@@ -6,6 +6,7 @@ import models.Image;
 import models.Product;
 import models.Size;
 import services.image.UploadImageServices;
+import services.state.ProductState;
 import utils.Comparison;
 
 import javax.servlet.http.Part;
@@ -33,11 +34,10 @@ public class AdminProductServices {
     public int addProduct(Product product) {
         List<Product> productList = productDAO.getIdProductByName(product.getName());
         if (!productList.isEmpty()) {
-            System.out.println("Không thể thêm sản phẩm cùng tên");
+            System.out.println("AdminProductServices: Không thể thêm sản phẩm cùng tên");
             return 0;
         }
-        productDAO.addProduct(product);
-        return productDAO.getIdProductByName(product.getName()).get(0).getId();
+        return productDAO.addProduct(product);
     }
 
     public void addColor(String[] codeColors, int productId) {
@@ -124,29 +124,17 @@ public class AdminProductServices {
         return productList;
     }
 
-
     public boolean isContain(Product product) {
         List<Product> productList = productDAO.getIdProductByName(product.getName());
         return !productList.isEmpty();
     }
 
-    //Sản phẩm không có hiệu chỉnh -> Không cập nhập
-    public void updateProduct(Product product, Product productOther, int id) {
-        if (product != null && productOther != null && !product.equals(productOther)) {
-//Trích xuất ra những điểm khác nhau giữa 2 obj
-            Product productUpdate = Comparison.different2Product(product, productOther);
-            productDAO.updateProduct(productUpdate, id);
-        }
+
+    public void updateProduct(Product product) {
+        productDAO.updateProduct(product);
     }
 
-    public void updateColors(String[] codeColors, int productId) {
-        Color[] colors = new Color[codeColors.length];
-        for (int i = 0; i < colors.length; i++) {
-            Color color = new Color();
-            color.setCodeColor(codeColors[i]);
-            color.setProductId(productId);
-            colors[i] = color;
-        }
+    public void updateColors(Color[] colors, int productId) {
 //        update
         List<Color> listColorId = colorDAO.getIdColorByProductId(productId);
         int index = Math.min(listColorId.size(), colors.length);
@@ -167,30 +155,23 @@ public class AdminProductServices {
         }
     }
 
-    public void updateSizes(String[] nameSizes, String[] sizePrices, int productId) {
-        if (nameSizes.length != sizePrices.length) return;
-//        Create sizes obj
-        Size[] sizes = new Size[nameSizes.length];
-        for (int i = 0; i < sizes.length; i++) {
-            Size size = new Size();
-            size.setNameSize(nameSizes[i]);
-            size.setSizePrice(Double.parseDouble(sizePrices[i]));
-            size.setProductId(productId);
-            sizes[i] = size;
-        }
+    public void updateSizes(Size[] sizes, int productId) {
 //        Lấy ra các id size thuôc về product đó đang có trong cửa hàng
         List<Size> listSizeId = sizeDAO.getIdSizeByProductId(productId);
-//       listSizeId < sizes
+
+//       update
         int index = Math.min(listSizeId.size(), sizes.length);
         for (int i = 0; i < index; i++) {
             sizeDAO.updateSize(sizes[i], listSizeId.get(i).getId());
         }
+
 //       delete
         if (listSizeId.size() > index) {
             List<Size> sizesDelete = listSizeId.subList(index, listSizeId.size());
             List<Integer> listIdDelete = (List<Integer>) sizesDelete.stream().map(Size::getId);
             sizeDAO.deleteSizeList(listIdDelete);
         }
+
 //       create
         if (sizes.length > index) {
 //            int update = index - listSizeId.size();
@@ -218,10 +199,10 @@ public class AdminProductServices {
         return nameImageList;
     }
 
-    public int keepImageAvailable(List<Image> imageList, Image image){
+    public int keepImageAvailable(List<Image> imageList, Image image) {
         int count = 0;
-        for (Image img : imageList){
-            if(img.equals(image)){
+        for (Image img : imageList) {
+            if (img.equals(image)) {
                 count++;
             }
         }
@@ -237,33 +218,35 @@ public class AdminProductServices {
         return nameImageList.subList(imageList.size() - quantityImgDelete, imageList.size());
     }
 
-    private void deleteImages(List<Integer> nameImages) {
-        imageDAO.deleteImages(nameImages);
+//    Xóa image theo id
+    public void deleteImages(List<Integer> idImages) {
+        imageDAO.deleteImages(idImages);
     }
 
-    public void updateImages(UploadImageServices uploadImageServices, Collection<Part> images, int quantityImgDelete, int productId) throws Exception {
-        if (quantityImgDelete != 0) {
-            List<String> nameImages = getNameImages(quantityImgDelete, productId);
-            List<Integer> imageId = getIdImages(quantityImgDelete, productId);
-            uploadImageServices.deleteImages(nameImages);//delete in cloud
-            deleteImages(imageId);//delete in db
-        }
-        else{
-            uploadImageServices.addImages(images);//add in cloud
-            List<String> nameImagesAdded = uploadImageServices.getNameImages();
-            addImages(nameImagesAdded, productId);//add in db
-        }
+//    Thêm image
+    public void addImages(List<Image> images ) {
+        imageDAO.addImages(images);
+    }
+    public void updateImages(UploadImageServices uploadImageServices, Collection<Part> images, int productId) throws Exception {
+
+//        if (quantityImgDelete != 0) {
+//            List<String> nameImages = getNameImages(quantityImgDelete, productId);
+//            List<Integer> imageId = getIdImages(quantityImgDelete, productId);
+//            uploadImageServices.deleteImages(nameImages);//delete in cloud
+//            deleteImages(imageId);//delete in db
+//        } else {
+//            uploadImageServices.addImages(images);//add in cloud
+//            List<String> nameImagesAdded = uploadImageServices.getNameImages();
+//            addImages(nameImagesAdded, productId);//add in db
+//        }
     }
 
-    public boolean updateVisibility(int productId, boolean visibility) {
-        if (productCardDAO.isVisibility(productId).isEmpty() || visibility == productCardDAO.isVisibility(productId).get(0).isVisibility()) {
-            return false;
-        }
-        productCardDAO.updateVisibility(productId, visibility);
-        return true;
+    public void updateVisibility(int productId, ProductState state) {
+        productCardDAO.updateVisibility(productId, state.getValue());
     }
 
     public List<Product> getLimit(int limit, int offset) {
         return productDAO.getLimit(limit, offset);
     }
+
 }

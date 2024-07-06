@@ -1,5 +1,7 @@
 package controller.api.admin.product;
 
+import controller.exception.AppException;
+import controller.exception.ErrorCode;
 import models.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,30 +15,23 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "adminReadProduct", value = "/api/admin/product/read")
-public class ReadProduct extends HttpServlet {
+public class ReadProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String idParameter = request.getParameter("id");
 
         int id;
         try {
             id = Integer.parseInt(idParameter.trim());
         } catch (NumberFormatException e) {
-            response.sendError(404);
-            return;
+            throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
         }
 
         Product product = ProductServices.getINSTANCE().getProductByProductId(id);
         if (product == null) {
-            response.sendError(404);
-            return;
+            throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
         }
+
         List<Size> sizeList = ProductFactory.getListSizesByProductId(id);
         List<Color> colorList = ProductFactory.getListColorsByProductId(id);
         List<Image> imageList = ProductFactory.getListImagesByProductId(id);
@@ -55,4 +50,8 @@ public class ReadProduct extends HttpServlet {
         response.getWriter().write(jsonResponse.toString());
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
 }

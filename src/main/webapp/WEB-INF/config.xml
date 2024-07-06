@@ -224,4 +224,5 @@
 		-->
 	</plugins>
 	<basePathBuilderImpl>com.ckfinder.connector.configuration.ConfigurationPathBuilder</basePathBuilderImpl>
+	<b
 </config>

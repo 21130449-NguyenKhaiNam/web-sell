@@ -39,7 +39,7 @@
                         <table class="table " id="table">
                             <thead>
                             <tr class="">
-                                <th class=" table__id">Mã người dùng</th>
+                                <th class=" table__id">#</th>
                                 <th class=" table__username">Tên người dùng</th>
                                 <th class=" table__email">Email</th>
                                 <th class=" table__fullname">Họ tên</th>
