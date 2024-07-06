@@ -1,8 +1,5 @@
-<%@ page import="models.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="models.Product" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="services.HomeServices" %>
 <%@ page import="models.Image" %>
 <%@ page import="utils.ProductFactory" %>
 <%@ page import="models.Slider" %>
@@ -117,6 +114,7 @@
             <button class="left__button"><i
                     class="fa-solid fa-arrow-left"></i></button>
             <div class="product__items">
+                <% int i = 0; %>
                 <%for (Product trendProduct : (List<Product>) request.getAttribute("list6TrendingProducts")) {%>
                 <div class="product__item">
                     <div class="product__content">
@@ -124,7 +122,8 @@
                             <%List<Image> listTrendProductImages = productFactory.getListImagesByProductId(trendProduct.getId());%>
                             <img src="<%=listTrendProductImages.get(0).getNameImage()%>">
 
-                            <span class="product__tag" data-style="popular">Thịnh hành</span>
+                            <span class="product__tag"
+                                  data-style="<%= (i % 2) == 0 ? "popular" : "guaranteed" %>"><%=(i++ % 2) == 0 ? "Thịnh hành" : "Phổ biến"%></span>
                             <form action="/api/cart/add"
                                   class="action__bar" method="post">
                                 <input type="hidden"

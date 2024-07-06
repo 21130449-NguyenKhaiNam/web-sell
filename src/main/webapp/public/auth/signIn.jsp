@@ -14,11 +14,10 @@
 <main class="main">
     <div class="frame">
         <div class="frame__media"></div>
-
         <article>
-                        <span class="text-center mb-3 d-flex justify-content-center hvr-bob">
-                            <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
-                        </span>
+            <span class="text-center mb-3 d-flex justify-content-center hvr-bob">
+                <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
+            </span>
             <form action="<c:url value="/signIn"/>" class="form form--signUp" method="post">
                 <div class="form__block">
                     <label for="username" class="form__label">Tên đăng nhập</label>
@@ -43,9 +42,20 @@
                     </a>
                 </div>
                 <input type="hidden" id="recaptchaToken" name="g-recaptcha-response">
+<%--                <c:set var="errorReCaptcha" value="${requestScope.errorReCaptcha}"/>--%>
+<%--                <c:if test="${param.errorReCaptcha eq 'true'}">${errorReCaptcha}--%>
+<%--                    <p class="alert alert-danger" role="alert">Mã recaptcha không hợp lệ, vui lòng thử đăng nhập--%>
+<%--                        lại </p>--%>
+<%--                </c:if>--%>
                 <c:set var="errorReCaptcha" value="${requestScope.errorReCaptcha}"/>
-                <c:if test="${param.errorReCaptcha eq 'true'}">${errorReCaptcha}
-                    <p class="alert alert-danger" role="alert">Mã recaptcha không hợp lệ, vui lòng thử đăng nhập lại </p>
+                <c:if test="${errorReCaptcha eq 'true'}">
+                    <script>
+                        Swal.fire({
+                            title: "Khoan đã",
+                            text: "Liệu bạn có phải là con người!",
+                            icon: "info"
+                        });
+                    </script>
                 </c:if>
                 <button id="form__submit" type="submit" class="form__submit button button--hover">Đăng nhập
                 </button>

@@ -3,8 +3,30 @@ body {
     color: #69707a;
 }
 
-.img-account-profile {
-    height: 10rem;
+#main {
+    max-height: 500px !important;
+    overflow-y: scroll;
+}
+
+.navbar {
+    height: 100%;
+}
+
+.navbar__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Căn giữa các mục con theo chiều ngang */
+    align-items: center; /* Căn giữa các mục con theo chiều dọc */
+    list-style: none; /* Loại bỏ ký hiệu danh sách */
+    padding: 0; /* Loại bỏ khoảng trống mặc định */
+    margin: 0; /* Loại bỏ khoảng trống mặc định */
+}
+
+.navbar__item {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center; /* Căn giữa nội dung bên trong mục */
+    align-items: center; /* Căn giữa nội dung bên trong mục */
 }
 
 .nav-borders .nav-link.active {
@@ -20,6 +42,7 @@ body {
     padding: 0.5rem 0;
     margin-left: 1rem;
     margin-right: 1rem;
+    text-align: center;
 }
 
 /*Process*/
@@ -49,4 +72,19 @@ textarea{
 
 .modal{
     z-index: 1055;
+}
+
+.img-account-profile {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+#ui-datepicker-div {
+    font-family: 'Open Sans', sans-serif;
+    background: #f0f0f0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 }

@@ -6,11 +6,6 @@ import models.Log;
 
 import java.util.List;
 
-/**
- * Sử dụng để ghi Log, lớp muốn ghi log thì sử dụng phương thức createProxy
- * để tạo các phiên bản:
- * I?Dao dao = LogService.getINSTANCE().createProxy(new ?DaoImp());
- */
 public class LogService {
     private static LogService logService;
     private ILogDAO logDAO;

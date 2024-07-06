@@ -30,7 +30,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-6 ">
-                    <div id="main-slider" class="splide custom-splide">
+                    <div id="main-slider" class="splide custom-splide mb-3">
                         <div class="splide__track">
                             <ul class="splide__list">
                                 <%for (Image image : productFactory.getListImagesByProductId(product.getId())) {%>
@@ -141,7 +141,7 @@
                                     <p class="form__error"></p>
                                 </div>
                             </div>
-                            <a href="<c:url value="/showProductOrder?id=<%=product.getId()%>"/>"
+                            <a href="<c:url value="/showProductOrder?id="/><%=product.getId()%>"
                                type="submit"
                                class="form__submit form__submit--order button text-secondary"
                                data="Đặt may theo số đo">
@@ -169,7 +169,6 @@
 
                     <!--Reviews-->
                     <div class="product__review">
-
                         <c:choose> <c:when test="${not empty requestScope.listReview}">
                             <div class="review__list">
                                 <%for (Review review : (List<Review>) request.getAttribute("listReview")) {%><%

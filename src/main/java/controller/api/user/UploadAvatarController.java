@@ -39,6 +39,7 @@ public class UploadAvatarController extends HttpServlet {
         String nameAvatar = uploadImageServices.getNameImages().get(0);
         JSONObject json = new JSONObject();
         UserServices.getINSTANCE().updateInfoUser(user.getId(), nameAvatar);
+        user.setAvatar(nameAvatar);
         json.put("status", "success");
         json.put("message", "Upload avatar success");
         response.setStatus(200);

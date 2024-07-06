@@ -22,7 +22,7 @@
                         </a>
                     </li>
                     <li class="nav__item">
-                        <a href="<c:url value=" /public/about.jsp" />" class="nav__link hvr-grow-shadow"> Về
+                        <a href="<c:url value="/public/about.jsp" />" class="nav__link hvr-grow-shadow"> Về
                             chúng tôi
                         </a>
                     </li>
@@ -32,7 +32,7 @@
                 <c:choose>
                     <c:when test="${empty auth}"> <!--cta == call to action-->
                         <div class="nav__cta">
-                            <a href="<c:url value=" /public/auth/signIn.jsp" />"
+                            <a href="<c:url value="/public/auth/signIn.jsp" />"
                                class="me-3 nav__button nav__button--signIn hvr-ripple-in">
                                 Đăng nhập
                             </a>
@@ -47,7 +47,7 @@
                         <div class="account__wrapper">
                             <!--Giỏ hàng-->
                             <div class="cart__wrapper">
-                                <a href="<c:url value=" /public/user/shoppingCart.jsp" />" class="cart">
+                                <a href="<c:url value="/public/user/shoppingCart.jsp" />" class="cart">
                                         <span class="cart__content">
                                             <i class="cart__icon fa-solid fa-cart-shopping"></i>
                                             Giỏ hàng
@@ -86,7 +86,7 @@
                                         <div class="setting__link">Quản lý</div>
                                     </a>
                                     </c:if>
-                                    <a href="<c:url value=" /signOut" />" class="setting__item">
+                                    <a href="<c:url value="/signOut" />" class="setting__item">
                                         <div class="setting__link setting__logOut">Đăng xuất</div>
                                     </a>
                                 </div>

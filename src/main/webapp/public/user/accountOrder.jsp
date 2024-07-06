@@ -5,41 +5,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <jsp:include page="/public/commonLink.jsp"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/user/account.css"/>">
+    <link rel="stylesheet" href="<c:url value="/assets/css/user/accountInfo.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/user/accountOrder.css"/>">
+    <jsp:include page="/public/commonLink.jsp"/>
     <title>Lịch sử mua hàng</title>
 </head>
 <body>
-<div id="main">
-    <nav class="navbar">
-        <div class="container-xl">
-            <ul class="navbar__list">
-                <li class="navbar__item">
-                    <a href="<c:url value="/"/>"
-                       class="navbar__link button button button--hover hvr-grow-shadow">Trang
-                        chủ</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="<c:url value="/public/user/accountInfo.jsp"/>"
-                       class="navbar__link button button button--hover  hvr-grow-shadow"> Thông tin
-                        cá
-                        nhân</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="<c:url value="/public/user/accountSecurity.jsp"/>"
-                       class="navbar__link button button button--hover  hvr-grow-shadow"> Bảo mật</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="<c:url value="/public/user/accountOrder.jsp"/>"
-                       class="navbar__link button button button--hover navbar__link--clicked hvr-grow-shadow"> Đơn hàng
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container-xl px-4 mt-4">
+<%@include file="/public/header.jsp" %>
+<div id="main" class="d-flex">
+    <%@include file="accountNavigator.jsp" %>
+    <div class="w-100 px-4 mt-4">
         <div class="row">
             <div class="col-3">
                 <div class="list-group">
@@ -78,7 +55,7 @@
         </div>
     </div>
 </div>
-
+<%@include file="/public/footer.jsp" %>
 <!--Modal-->
 <div class="modal fade text-black" id="modal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div id="model" class="modal-dialog modal-dialog-scrollable" style="max-width: 80%">
@@ -211,11 +188,11 @@
 </div>
 </body>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
-      integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"/>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<%--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"--%>
+<%--      integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="--%>
+<%--      crossorigin="anonymous" referrerpolicy="no-referrer"/>--%>
+<%--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>--%>
+<%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>--%>
 <!--Select 2 jquery-->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -231,4 +208,15 @@
         integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="module" src="<c:url value="/js/user/accountOrder.js"/>"></script>
+<script>
+    function selected(ind) {
+        document.querySelectorAll('.navbar__link').forEach(tab => {
+            if (tab.dataset.index == ind) {
+                tab.classList.add('navbar__link--clicked');
+            }
+        });
+    }
+
+    selected(3);
+</script>
 </html>

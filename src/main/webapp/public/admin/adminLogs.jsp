@@ -112,6 +112,7 @@
                         theme: 'light',
                         content: text,
                         interactive: true,
+                        placement: 'left-start'
                     })
                     $(this)[0].innerHTML = text.substring(0, 29) + "..."
                 }

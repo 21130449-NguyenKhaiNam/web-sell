@@ -24,16 +24,25 @@ public class ConnectionPool implements IConnectionPool {
 
     public static ConnectionPool getINSTANCE() {
         if (INSTANCE == null) {
-            INSTANCE = new ConnectionPool();
+            synchronized (ConnectionPool.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new ConnectionPool();
+                }
+            }
         }
         return INSTANCE;
     }
 
     @Override
     public synchronized Handle getHandle() {
+        long startTime = System.currentTimeMillis();
+        long waitTime = 10000; // 10 seconds
         while (pool.isEmpty()) {
             try {
-                wait();
+                wait(waitTime);
+                if (System.currentTimeMillis() - startTime >= waitTime) {
+                    throw new RuntimeException("Timeout waiting for database connection.");
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -41,15 +50,16 @@ public class ConnectionPool implements IConnectionPool {
         Handle handle = pool.removeFirst();
         handleStatus.put(handle, true);
         return handle;
-
     }
 
     @Override
     public synchronized void releaseHandle(Handle handle) {
-        pool.addLast(handle);
-        handleStatus.put(handle, false);
-        notifyAll();
+        if (handle != null && handleStatus.get(handle)) {
+            pool.addLast(handle);
+            handleStatus.put(handle, false);
+            notifyAll();
+        } else {
+            throw new IllegalArgumentException("Handle not part of this pool or already released.");
+        }
     }
-
-
 }
