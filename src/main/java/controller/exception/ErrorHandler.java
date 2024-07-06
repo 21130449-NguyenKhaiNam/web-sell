@@ -39,13 +39,12 @@ public class ErrorHandler extends HttpServlet {
             requestUri = "Unknown";
         }
 
-        JsonObject json = new JsonObject();
-        String contentType = request.getContentType();
-        if (contentType != null && contentType.equalsIgnoreCase("application/json")) {
+        String contentType = response.getContentType();
+        if (contentType != null && contentType.equalsIgnoreCase("application/json;charset=UTF-8"))
             handleErrorApi(request, response);
-        } else {
+        else
             handleErrorHTML(request, response);
-        }
+
     }
 
     private void handleErrorApi(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -172,19 +172,9 @@
         </div>
     </section>
 </main>
-<div id="dialog-product-read" class="modal">
-    <article class="modal__content modal__product">
-        <div>
-            <h1>Xem sản phẩm</h1>
-            <i class="modal__product-close fa-solid fa-xmark"></i>
-        </div>
-        <iframe class="modal__product-iframe" src="<c:url value="/public/admin/adminProductForm.jsp"/>"
-                frameborder="0"></iframe>
-    </article>
-    <div class="modal__blur"></div>
-</div>
 
-<!-- Modal create -->
+
+<!-- Modal  -->
 <div class="modal fade" id="modal-create" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 80%">
         <form id="form__add" class="modal-content needs-validation ">
@@ -309,29 +299,6 @@
     </div>
 </div>
 
-<%--<div id="dialog-product-create" class="modal">--%>
-<%--    <article class="modal__content modal__product">--%>
-<%--        <div>--%>
-<%--            <h1>Thêm sản phẩm</h1>--%>
-<%--            <i class="modal__product-close fa-solid fa-xmark"></i>--%>
-<%--        </div>--%>
-<%--        <iframe class="modal__product-iframe" src="<c:url value="/public/admin/adminProductForm.jsp"/>"--%>
-<%--                frameborder="0"></iframe>--%>
-<%--    </article>--%>
-<%--    <div class="modal__blur"></div>--%>
-<%--</div>--%>
-<%--<div id="dialog-product-update" class="modal">--%>
-<%--    <article class="modal__content modal__product">--%>
-<%--        <div>--%>
-<%--            <h1>Cập nhập sản phẩm</h1>--%>
-<%--            <i class="modal__product-close fa-solid fa-xmark"></i>--%>
-<%--        </div>--%>
-<%--        <iframe class="modal__product-iframe" src="<c:url value="/public/admin/adminProductUpdateForm.jsp"/>"--%>
-<%--                frameborder="0"></iframe>--%>
-<%--    </article>--%>
-<%--    <div class="modal__blur"></div>--%>
-<%--</div>--%>
-<!-- include FilePond library -->
 <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
 
 <!-- include FilePond plugins -->

@@ -218,10 +218,15 @@ public class AdminProductServices {
         return nameImageList.subList(imageList.size() - quantityImgDelete, imageList.size());
     }
 
-    private void deleteImages(List<Integer> nameImages) {
-        imageDAO.deleteImages(nameImages);
+//    Xóa image theo id
+    public void deleteImages(List<Integer> idImages) {
+        imageDAO.deleteImages(idImages);
     }
 
+//    Thêm image
+    public void addImages(List<Image> images ) {
+        imageDAO.addImages(images);
+    }
     public void updateImages(UploadImageServices uploadImageServices, Collection<Part> images, int productId) throws Exception {
 
 //        if (quantityImgDelete != 0) {
@@ -243,4 +248,5 @@ public class AdminProductServices {
     public List<Product> getLimit(int limit, int offset) {
         return productDAO.getLimit(limit, offset);
     }
+
 }

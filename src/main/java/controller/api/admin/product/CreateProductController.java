@@ -1,5 +1,7 @@
 package controller.api.admin.product;
 
+import controller.exception.AppException;
+import controller.exception.ErrorCode;
 import models.Product;
 import properties.PathProperties;
 import services.admin.AdminProductServices;
@@ -51,7 +53,7 @@ public class CreateProductController extends HttpServlet {
 
         StringBuilder objJson = new StringBuilder();
         if (productId == 0) {
-            objJson.append("{\"status\":").append("false}");
+            throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
         } else {
 //        Add Size
             double[] sizePricesDouble = new double[sizePrices.length];

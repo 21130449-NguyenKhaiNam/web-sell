@@ -3,8 +3,11 @@ package controller.api.admin.product;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import controller.exception.AppException;
+import controller.exception.ErrorCode;
 import lombok.SneakyThrows;
 import models.Color;
+import models.Image;
 import models.Product;
 import models.Size;
 import services.admin.AdminProductServices;
@@ -17,7 +20,10 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 12024,
@@ -30,10 +36,9 @@ public class UpdateProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+
     }
 
-    @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idString = request.getParameter("id");
@@ -48,16 +53,41 @@ public class UpdateProductController extends HttpServlet {
         String[] codeColors = request.getParameterValues("color");
         String[] idColors = request.getParameterValues("colorId[]");
         String[] nameImageAdded = request.getParameterValues("nameImageAdded[]");
-        String[] imagesDeleted = request.getParameterValues("imagesDeleted[]");
-        JsonObject jsonObject = new JsonObject();
+        String[] idImagesDeletedParam = request.getParameterValues("idImageDeleted[]");
 
+//        Precondition
         int id;
+        List<Integer> idImagesDeleted;
+        List<Image> imagesAdded;
         try {
             id = Integer.parseInt(idString);
         } catch (NumberFormatException e) {
-            jsonObject.addProperty("status", false);
-            response.getWriter().write(gson.toJson(jsonObject));
-            return;
+            throw new AppException(ErrorCode.UPDATE_PRODUCT_FAILED);
+        }
+
+        if (nameSizes.length != sizePrices.length) {
+            throw new AppException(ErrorCode.SIZE_ERROR);
+        }
+
+        if (codeColors.length != idColors.length) {
+            throw new AppException(ErrorCode.COLOR_ERROR);
+        }
+
+        if (idImagesDeletedParam != null) {
+            idImagesDeleted = Arrays.stream(idImagesDeletedParam).map(Integer::parseInt).collect(Collectors.toList());
+        } else {
+            idImagesDeleted = List.of();
+        }
+
+        if (nameImageAdded != null) {
+            imagesAdded = Arrays.stream(nameImageAdded).map(nameImage -> {
+                Image image = new Image();
+                image.setNameImage(nameImage);
+                image.setProductId(id);
+                return image;
+            }).collect(Collectors.toList());
+        } else {
+            imagesAdded = List.of();
         }
 
 //        Update Product
@@ -69,16 +99,9 @@ public class UpdateProductController extends HttpServlet {
         product.setOriginalPrice(Double.parseDouble(originalPrice));
         product.setSalePrice(Double.parseDouble(salePrice));
         product.setCreateAt(Date.valueOf(LocalDate.now()));
+        AdminProductServices.getINSTANCE().updateProduct(product);
 
-//        AdminProductServices.getINSTANCE().updateProduct(product);
 //        Update size
-        if (nameSizes.length != sizePrices.length) {
-            jsonObject.addProperty("status", false);
-            jsonObject.addProperty("message", "Có lỗi khi thêm size, hay kiểm tra và thử lại!");
-            response.getWriter().write(gson.toJson(jsonObject));
-            return;
-        }
-
         Size[] sizes = new Size[nameSizes.length];
         for (int i = 0; i < nameSizes.length; i++) {
             Size size = new Size();
@@ -89,42 +112,33 @@ public class UpdateProductController extends HttpServlet {
             sizes[i] = size;
         }
 
-        if (codeColors.length != idColors.length) {
-            jsonObject.addProperty("status", false);
-            jsonObject.addProperty("message", "Có lỗi khi thêm color, hay kiểm tra và thử lại!");
-            response.getWriter().write(gson.toJson(jsonObject));
-            return;
-        }
-
         Color[] colors = new Color[codeColors.length];
         for (int i = 0; i < colors.length; i++) {
             Color color = new Color();
-            color.setId(Integer.parseInt(sizeId[i]));
+            color.setId(Integer.parseInt(idColors[i]));
             color.setCodeColor(codeColors[i]);
             color.setProductId(id);
             colors[i] = color;
         }
 
-//        Update color
+//        Update sizes
         AdminProductServices.getINSTANCE().updateSizes(sizes, id);
-//        Update images
-        AdminProductServices.getINSTANCE().updateColors(colors, id);
-        Collection<Part> images = request.getParts();
-        if (!images.isEmpty()) {
-            try {
-                updateImage(images, 0, id);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
 
-        jsonObject.addProperty("status", true);
+//        Update colors
+        AdminProductServices.getINSTANCE().updateColors(colors, id);
+
+//        delete images
+        if (!idImagesDeleted.isEmpty())
+            AdminProductServices.getINSTANCE().deleteImages(idImagesDeleted);
+
+//        add images
+        if (!imagesAdded.isEmpty())
+            AdminProductServices.getINSTANCE().addImages(imagesAdded);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("code", ErrorCode.UPDATE_PRODUCT_SUCCESS.getCode());
+        jsonObject.addProperty("message", ErrorCode.UPDATE_PRODUCT_SUCCESS.getMessage());
         response.getWriter().write(gson.toJson(jsonObject));
     }
 
-    public void updateImage(Collection<Part> images, int quantityImgDelete, int productId) throws Exception {
-        UploadImageServices uploadImageServices = new UploadImageServices("product_img/" + productId);
-        images.stream().forEach(part -> System.out.println(UploadImageServices.isPartImage(part) + " - -" + part.getSubmittedFileName()));
-//        AdminProductServices.getINSTANCE().updateImages(uploadImageServices, images, productId);
-    }
 }

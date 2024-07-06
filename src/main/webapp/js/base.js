@@ -105,19 +105,27 @@ export const endLoading = () => {
 }
 
 export const http = ({beforeSend, complete, ...rest}) => {
-    $.ajax({
-        ...rest,
-        beforeSend: function (xhr, settings) {
-            startLoading();
-            if (typeof beforeSend === 'function') {
-                beforeSend.call(this, xhr, settings);
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            ...rest,
+            beforeSend: function (xhr, settings) {
+                startLoading();
+                if (typeof beforeSend === 'function') {
+                    beforeSend.call(this, xhr, settings);
+                }
+            },
+            success: function (data) {
+                resolve(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                reject(new Error(`Error: ${textStatus}, ${errorThrown}`));
+            },
+            complete: function (xhr, status) {
+                endLoading();
+                if (typeof complete === 'function') {
+                    complete.call(xhr, status);
+                }
             }
-        },
-        complete: function (xhr, status) {
-            endLoading();
-            if (typeof complete === 'function') {
-                complete.call(xhr, status);
-            }
-        }
-    })
+        })
+    });
 }

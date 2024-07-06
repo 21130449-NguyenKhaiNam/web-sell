@@ -1,17 +1,18 @@
-import {http} from "./base.js";
+import {endLoading, http, startLoading} from "./base.js";
 
-export const uploadImage = function (fileUploads, callback) {
-    const numberOfFiles = fileUploads.length;
-    const dataReturn = [];
-    http({
-        url: '/api/admin/generateSignature',
-        method: 'POST',
-        data: {
-            numberOfFiles: numberOfFiles,
-            publicId: fileUploads.map(fileUpload => fileUpload.name),
-            folder: fileUploads.map(fileUpload => fileUpload.folder)
-        },
-        success: async function (response) {
+export const uploadImage = function (fileUploads) {
+    return new Promise((resolve, reject) => {
+        const numberOfFiles = fileUploads.length;
+        const dataReturn = [];
+        http({
+            url: '/api/admin/generateSignature',
+            method: 'POST',
+            data: {
+                numberOfFiles: numberOfFiles,
+                publicId: fileUploads.map(fileUpload => fileUpload.name),
+                folder: fileUploads.map(fileUpload => fileUpload.folder)
+            },
+        }).then(async (response) => {
             const apiKey = response.api_key;
             const cloudName = response.cloud_name;
             const signs = response.signs;
@@ -43,17 +44,19 @@ export const uploadImage = function (fileUploads, callback) {
                 );
             }
             try {
+                startLoading();
                 await Promise.all(uploadPromises);
+                endLoading();
+                resolve(dataReturn);
             } catch (error) {
-                console.error('Error uploading images:', error);
-            } finally {
-                callback(dataReturn);
+                endLoading();
+                reject(error);
             }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error('Error generating signature: ' + textStatus);
-        }
-    })
+        }).catch(error => {
+            console.error('Error generating signature:', error);
+            reject(error);
+        });
+    });
 }
 
 export const deleteImage = function (fileDeletes, callback) {
