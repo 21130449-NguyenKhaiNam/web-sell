@@ -117,7 +117,7 @@ $(document).ready(() => {
             gender: {
                 required: true,
             },
-            birthday: {
+            birthDay: {
                 required: true
             },
             role: {
