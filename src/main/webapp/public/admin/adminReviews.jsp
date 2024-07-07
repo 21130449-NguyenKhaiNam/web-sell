@@ -7,9 +7,16 @@
 <html lang="en">
 <head>
     <jsp:include page="/public/admin/adminLink.jsp"/>
-    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">
-    <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/>">
-    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminReviews.css" />">
+    <style>
+        .badge__color {
+            display: inline-block;
+            background-color: var(--badge-color, #fff);
+            width: 30px;
+            height: 20px;
+            border-radius: 10px;
+            border: 1px solid #aaa;
+        }
+    </style>
     <title>Quản lý nhận xét</title>
 </head>
 <body>
@@ -31,19 +38,19 @@
                             Xuất file excel
                         </button>
                     </form>
-                    <div class="table__wrapper">
-                        <table class="table">
+                    <div>
+                        <table id="table" class="table">
                             <thead>
-                                <tr class="table__row">
-                                    <th class="table__head">Xem</th>
-                                    <th class="table__head table__head-id">ID</th>
-                                    <th class="table__head">Mã khách hàng</th>
-                                    <th class="table__head">Tên sản phẩm</th>
-                                    <th class="table__head">Mã đơn hàng</th>
-                                    <th class="table__head">Số sao</th>
-                                    <th class="table__head">Ngày tạo</th>
-                                    <th class="table__head">Hiển thị</th>
-                                </tr>
+                            <tr class="table__row">
+                                <th class="table__head">#</th>
+                                <th class="table__head">Mã khách hàng</th>
+                                <th class="table__head">Tên sản phẩm</th>
+                                <th class="table__head">Mã đơn hàng</th>
+                                <th class="table__head">Số sao</th>
+                                <th class="table__head">Ngày tạo</th>
+                                <th class="table__head">Hiển thị</th>
+                                <th class="table__head">Xem</th>
+                            </tr>
                             </thead>
 
                             <tbody class="body_table">
@@ -56,16 +63,88 @@
         </div>
     </section>
 </main>
-<div id="dialog-review-read" class="modal">
-    <article class="modal__content modal__product">
-        <div>
-            <h1>Nhận xét chi tiết</h1>
-            <i class="modal__product-close  modal__review-close fa-solid fa-xmark"></i>
-        </div>
-        <iframe class="modal__product-iframe" src="adminReviewForm.jsp" frameborder="0"></iframe>
-    </article>
-    <div class="modal__blur"></div>
-</div>
+<!-- Modal -->
+<div class="modal fade " id="modal" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+        <div id="form" class="modal-content needs-validation">
+            <div class="modal-header">
+                <h2 class="modal-title" id="staticBackdropLabel">Xem đánh giá</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div style="height: 400px" class="img-thumbnail">
+                            <img id="image" style="height: 100%; object-fit: cover"
+                                 src="https://res.cloudinary.com/yourstyle/image/upload/c_scale/q_auto/f_auto/v1/product_img/1/product5.jpg"
+                                 alt="">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="h3" id="name">Tên sản phẩm</h3>
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex align-items-center gap-2">Màu sắc: <span
+                                            class="badge__color" id="color"></span></li>
+                                    <li class="list-group-item d-flex align-items-center gap-2">Mã màu: <span
+                                            id="color-code"></span></li>
+                                    <li class="list-group-item">Kích thước: <span id="size"></span></li>
+                                    <li class="list-group-item">Số lượng: <span id="quantity"></span></li>
+                                    <li class="list-group-item">Đơn giá: <span id="price-unit"></span></li>
+                                    <li class="list-group-item">Tổng tiền: <span id="total-price"></span></li>
+                                </ul>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <h3 class="h3 mt-2">Đánh giá sản phẩm</h3>
+                                <div class="d-flex justify-content-between p-2">
+                                    <p id="date" class="badge text-bg-primary"></p>
+                                    <span id="stars" class="badge text-bg-secondary">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    </span>
+                                </div>
 
-<script src="<c:url value="/js/admin/adminReviews.js" />"></script>
+                                <div id="description" class="border lh-base border-1 border-round p-2 fs-6">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor
+                                    ducimus est ipsum minima provident quaerat similique ut. Architecto
+                                    asperiores distinctio dolores incidunt laudantium libero quae. Asperiores
+                                    cumque minima nam.
+                                </div>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <h3 class="h3">Thông tin khách hàng</h3>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Tên <span id="fullName"></span></li>
+                                    <li class="list-group-item">Email <span id="email"></span></li>
+                                    <li class="list-group-item">Số điện thoại <span id="phone"></span></li>
+                                    <li class="list-group-item">Địa chỉ <span id="address"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<%--<div id="dialog-review-read" class="modal">--%>
+<%--    <article class="modal__content modal__product">--%>
+<%--        <div>--%>
+<%--            <h1>Nhận xét chi tiết</h1>--%>
+<%--            <i class="modal__product-close  modal__review-close fa-solid fa-xmark"></i>--%>
+<%--        </div>--%>
+<%--        <iframe class="modal__product-iframe" src="adminReviewForm.jsp" frameborder="0"></iframe>--%>
+<%--    </article>--%>
+<%--    <div class="modal__blur"></div>--%>
+<%--</div>--%>
+
+<script type="module" src="<c:url value="/js/admin/adminReviews.js" />"></script>
 </body>

@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "adminReadProduct", value = "/api/admin/product/read")
-public class ReadProductController extends HttpServlet {
+public class GetProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idParameter = request.getParameter("id");

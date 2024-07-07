@@ -1,4 +1,4 @@
-package controller.web.review;
+package controller.api.admin.review;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,8 +18,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "ReviewPage", value = "/api/admin/review/page")
-public class ReviewPage extends HttpServlet {
+@WebServlet(name = "ReviewPage", value = "/api/admin/review/datatable")
+public class ReviewDatatableController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

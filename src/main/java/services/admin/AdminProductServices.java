@@ -236,9 +236,9 @@ public class AdminProductServices {
 //            deleteImages(imageId);//delete in db
 //        } else {
 //            uploadImageServices.addImages(images);//add in cloud
-//            List<String> nameImagesAdded = uploadImageServices.getNameImages();
 //            addImages(nameImagesAdded, productId);//add in db
 //        }
+//            List<String> nameImagesAdded = uploadImageServices.getNameImages();
     }
 
     public void updateVisibility(int productId, ProductState state) {

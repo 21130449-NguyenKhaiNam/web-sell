@@ -29,8 +29,6 @@
             href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
             rel="stylesheet"
     />
-    <!--gasparesganga-->
-    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">

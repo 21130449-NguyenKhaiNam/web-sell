@@ -75,7 +75,7 @@ public class ConfigPage implements ServletContextListener {
         DASHBOARD = folderAdminProduct + "dashboard.jsp";
 
         String folderError = "/public/error/";
-        ERROR_404 = folderError + "404.jsp";
+        ERROR_404 = folderError + "error404.jsp";
     }
 
 }

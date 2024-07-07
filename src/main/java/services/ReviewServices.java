@@ -1,7 +1,9 @@
 package services;
 
+import dao.OrderDaoAdmin;
 import dao.OrderDetailDAO;
 import dao.ReviewDAO;
+import models.Order;
 import models.OrderDetail;
 import models.Product;
 import models.Review;
@@ -11,11 +13,13 @@ import java.util.List;
 public class ReviewServices {
     private static ReviewServices INSTANCE;
     private ReviewDAO reviewDAO;
+    private OrderDaoAdmin orderDAO;
 
     private OrderDetailDAO orderDetailDAO;
     private ReviewServices() {
         reviewDAO = new ReviewDAO();
         orderDetailDAO = new OrderDetailDAO();
+        orderDAO = new OrderDaoAdmin();
     }
     public static ReviewServices getINSTANCE() {
         if (INSTANCE == null)
@@ -47,5 +51,9 @@ public class ReviewServices {
 
     public void createReview(Review review){
         reviewDAO.createReview(review);
+    }
+
+    public Order getOrder(String orderId) {
+        return orderDAO.getOrderById(orderId);
     }
 }
