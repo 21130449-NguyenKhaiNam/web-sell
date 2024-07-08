@@ -57,12 +57,12 @@
                             </tbody>
                         </table>
                     </div>
-                    <ul class="paging"></ul>
                 </div>
             </div>
         </div>
     </section>
 </main>
+
 <!-- Modal -->
 <div class="modal fade " id="modal" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -116,16 +116,27 @@
                                     cumque minima nam.
                                 </div>
                             </div>
-                            <div class="col-12 mt-2">
-                                <h3 class="h3">Thông tin khách hàng</h3>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Tên <span id="fullName"></span></li>
-                                    <li class="list-group-item">Email <span id="email"></span></li>
-                                    <li class="list-group-item">Số điện thoại <span id="phone"></span></li>
-                                    <li class="list-group-item">Địa chỉ <span id="address"></span></li>
-                                </ul>
-                            </div>
                         </div>
+                    </div>
+                    <div class="col-12">
+                        <hr style="height: 1px; width: 100%; background-color: #aaa">
+                    </div>
+                    <div class="col-6 mt-2">
+                        <h3 class="h3">Thông tin khách hàng</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Tên: <span id="fullName"></span></li>
+                            <li class="list-group-item">Email: <span id="email"></span></li>
+                            <li class="list-group-item">Số điện thoại: <span id="phone"></span></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 mt-2">
+                        <h3 class="h3">Địa chỉ</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Tỉnh/Thành phố: <span id="province"></span></li>
+                            <li class="list-group-item">Quận/Huyện: <span id="district"></span></li>
+                            <li class="list-group-item">Xã/Phường: <span id="ward"></span></li>
+                            <li class="list-group-item">Đường/Địa chỉ chi tiết: <span id="detail"></span></li>
+                        </ul>
                     </div>
                 </div>
             </div>

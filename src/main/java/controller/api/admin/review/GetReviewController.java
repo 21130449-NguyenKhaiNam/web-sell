@@ -60,8 +60,10 @@ public class GetReviewController extends HttpServlet {
     }
 
     private JsonElement convertOrderDetail(OrderDetail orderDetail) {
+        String image = ProductFactory.getListImagesByProductId(orderDetail.getProductId()).get(0).getNameImage();
         JsonObject result = new JsonObject();
         result.addProperty("productName", orderDetail.getProductName());
+        result.addProperty("image", image);
         result.addProperty("size", orderDetail.getSizeRequired());
         result.addProperty("color", orderDetail.getColorRequired());
         result.addProperty("quantity", orderDetail.getQuantityRequired());
