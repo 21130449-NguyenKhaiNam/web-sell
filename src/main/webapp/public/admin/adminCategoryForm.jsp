@@ -3,10 +3,6 @@
 <html>
 <head>
     <jsp:include page="/public/commonLink.jsp"/>
-    <!--CK Editor-->
-    <script src="<c:url value="/ckeditor/ckeditor.js"/>"></script>
-    <!--Ck Finder-->
-    <script src="<c:url value="/ckfinder/ckfinder.js"/>"></script>
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css" />">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminCategoryForm.css"/>">

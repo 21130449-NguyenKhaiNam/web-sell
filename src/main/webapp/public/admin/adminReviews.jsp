@@ -146,16 +146,6 @@
         </div>
     </div>
 </div>
-<%--<div id="dialog-review-read" class="modal">--%>
-<%--    <article class="modal__content modal__product">--%>
-<%--        <div>--%>
-<%--            <h1>Nhận xét chi tiết</h1>--%>
-<%--            <i class="modal__product-close  modal__review-close fa-solid fa-xmark"></i>--%>
-<%--        </div>--%>
-<%--        <iframe class="modal__product-iframe" src="adminReviewForm.jsp" frameborder="0"></iframe>--%>
-<%--    </article>--%>
-<%--    <div class="modal__blur"></div>--%>
-<%--</div>--%>
 
 <script type="module" src="<c:url value="/js/admin/adminReviews.js" />"></script>
 </body>

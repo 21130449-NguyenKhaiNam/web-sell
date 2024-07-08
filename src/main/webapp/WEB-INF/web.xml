@@ -18,32 +18,11 @@
         <error-code>404</error-code>
         <location>/public/error/error404.jsp</location>
     </error-page>
-    <!--Bắt lỗi tập chung đối với api-->
 
+    <!--Bắt lỗi tập chung đối với api-->
     <error-page>
         <exception-type>java.lang.Throwable</exception-type>
         <location>/error</location>
     </error-page>
 
-    <!--Cấu hình servlet cho ckeditor và ckfinder-->
-    <servlet>
-        <servlet-name>ConnectorServlet</servlet-name>
-        <servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
-        <init-param>
-            <description>Path to configuration file can be relative path inside application, absolute path on local file
-                system or UNC path.
-            </description>
-            <param-name>XMLConfig</param-name>
-            <param-value>/WEB-INF/config.xml</param-value>
-        </init-param>
-        <init-param>
-            <param-name>debug</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ConnectorServlet</servlet-name>
-        <url-pattern>/ckfinder/core/connector/java/connector.java</url-pattern>
-    </servlet-mapping>
 </web-app>

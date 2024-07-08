@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/productBuying.css"/> ">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css" />">
-    <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProductDetail.css"/>">
     <!--froala-->
     <link href='https://cdn.jsdelivr.net/npm/froala-editor@4.0.10/css/froala_editor.pkgd.min.css' rel='stylesheet'
           type='text/css'/>
