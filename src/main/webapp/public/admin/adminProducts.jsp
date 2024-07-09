@@ -95,14 +95,6 @@
                                 <input class="filter__input filter__text" type="text" name="keyword">
                             </label>
                         </div>
-<<<<<<< HEAD
-                        <ul class="search__box shadow"></ul>
-                    </div>
-
-
-                    <form action="<c:url value="/filterProductAdmin"/>" class="form__filter" id="form__filter">
-=======
->>>>>>> merge
                         <div class="filter__group">
                             <span class="filter__title">Thời gian cập nhập</span>
                             <label class="filter__text-block">
@@ -167,24 +159,11 @@
                             </tr>
                             </thead>
                             <tbody class="product__list-admin">
-<<<<<<< HEAD
-
-=======
->>>>>>> merge
                             </tbody>
                         </table>
                     </div>
                     <!--Paging-->
                     <ul class="paging"></ul>
-<<<<<<< HEAD
-                    <form action="/exportExcelProduct" method="POST">
-                        <button class="btn_export">
-                            <i class="fa-solid fa-file-export"></i>
-                            Xuất file excel
-                        </button>
-                    </form>
-=======
->>>>>>> merge
                 </div>
             </div>
         </div>
@@ -373,132 +352,6 @@
     <%--<% if (dateEnd != null){%>--%>
     <%--checkDate(document.querySelector("#date-end"), "<%=dateEnd%>");--%>
     <%--<%}%>--%>
-
-<<<<<<< HEAD
-    $(document).ready(function () {
-        $('#form__filter').submit(
-            function (event) {
-                // Ngăn chặn hành vi mặc định của form (chẳng hạn chuyển hướng trang)
-                event.preventDefault();
-
-                var formData = $(this).serialize();
-
-                $.ajax({
-                    type: 'GET',
-                    url: $(this).attr('action'),
-                    data: formData,
-                    success: function (response) {
-                        updateProducts(response)
-                    },
-                    error: function (err) {
-                        console.log(err)
-                    }
-                });
-
-                function updateProducts(response) {
-                    window.history.pushState('string', '', response.url);
-                    let container = $('.product__list-admin')[0]
-                    let products = response.products
-                    let content = ''
-                    if (products.length <= 0) {
-                        content = '<p class="product__list--empty">Không có sản phẩm nào ứng với bộ lọc </p>'
-                    } else {
-                        const vndFormat = Intl.NumberFormat("vi-VI", {
-                            style: "currency",
-                            currency: "VND",
-                        });
-                        content = products.map(function (product) {
-                            const contentProduct = product.product
-                            let originPrice = contentProduct.salePrice
-                            let salePrice = contentProduct.originalPrice
-                            return `
-                                <tr class="table__row">
-                                    <td class="table__data-view">
-                                        <label>
-                                            <i class="fa-solid fa-eye"></i>
-                                        </label>
-                                    </td>
-                                    <td class="table__data-edit">
-                                        <label>
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </label>
-                                    </td>
-                                    <td class="table__data table__data-id">
-                                        <p class="table__cell">` + contentProduct.id + `</p>
-                                    </td>
-                                    <td class="table__data table__data-name">
-                                        <p class="table__cell line-clamp line-1">` + contentProduct.name + `</p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell">Bo sung loai san pham</p>
-                                    </td>
-                                    <td class="table__data">
-                                        <p class="table__cell">` + originPrice +`đ</p>
-                                    </td>
-                                    <td class="table__data">
-                                            <p class="table__cell">` + salePrice +`đ</p>
-                                    </td>` +
-                                (contentProduct.visibility ? `
-                                    <td class="table__data table__data-visibility table__data-hide">
-                                                <div class="button button--hover button__hide">Ẩn</div>
-                                            </td>
-                                ` : `
-                                    <td class="table__data table__data-visibility table__data-un-hide">
-                                                <div class="button button--hover button__un-hide">Bỏ ẩn</div>
-                                            </td>
-                                `) + `</tr>`
-                        })
-                    }
-                    container.innerHTML = content.join("")
-                }
-            })
-    })
-    let ulCom = $('.search__box')[0]
-
-    function handelSearch() {
-        let debounceTimer;
-        $('.filter__input').keydown(function () {
-
-            var formData = $(this).serialize();
-
-            clearTimeout(debounceTimer);
-
-            debounceTimer = setTimeout(() => {
-                $.ajax({
-                    url: '/searchProduct',
-                    method: 'GET',
-                    data: formData,
-                    success: function (response) {
-                        ulCom.innerHTML = ""
-                        for (let i = 0; i < response.length; ++i) {
-                            const li = document.createElement("li")
-                            li.setAttribute("class", "mb-1")
-                            const a = document.createElement("a")
-                            a.setAttribute("class", "text-dark mb-2 search__box-item")
-                            a.setAttribute("href", "/")
-                            a.innerText = response[i]
-                            li.appendChild(a)
-                            ulCom.appendChild(li)
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                })
-            }, 800);
-        })
-    }
-
-    handelSearch()
-
-    $('.filter__input').on('focus', function () {
-        $('.search__box').addClass('focused');
-    });
-
-    $('.filter__input').on('blur', function () {
-        $('.search__box').removeClass('focused');
-    });
-=======
     // $(document).ready(function () {
     //     $('#form__filter').submit(
     //         function (event) {
@@ -621,7 +474,6 @@
     // $('.filter__input').on('blur', function () {
     //     $('.search__box').removeClass('focused');
     // });
->>>>>>> merge
 </script>
 
 </body>
