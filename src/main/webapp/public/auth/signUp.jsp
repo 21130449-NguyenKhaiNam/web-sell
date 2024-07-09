@@ -14,7 +14,7 @@
 <body>
 <main class="main">
     <div class="frame" style="min-height: 100vh">
-        <article class="container">
+        <article class="container pb-5">
                     <span class="text-center mb-3 d-flex justify-content-center hvr-bob">
                         <a href="<c:url value="/public/index.jsp"/>" class="logo"></a>
                     </span>
@@ -180,11 +180,15 @@
     // Check nhập không phù hợp
     $("input.form__input").on({
         keydown: function (e) {
-            if (e.which === 32)
+            console.log();
+            if (e.which === 32 && this.id !== 'fullname') {
                 return false;
+            }
         },
         change: function () {
-            this.value = this.value.replace(/\s/g, "");
+            if (this.id !== 'fullname') {
+                this.value = this.value.replace(/\s/g, "");
+            }
         }
     });
     grecaptcha.ready(function () {
@@ -196,10 +200,10 @@
                 errorSelector: ".form__error",
                 rules: [
                     Validation.isRequired("#username"),
-                    // Validation.isExistsUsername("#username"),
+                    Validation.isExistsUsername("#username"),
                     Validation.isRequired("#email"),
                     Validation.isEmail("#email"),
-                    // Validation.isExistsEmail("#email"),
+                    Validation.isExistsEmail("#email"),
                     Validation.isRequired("#password"),
                     Validation.isUnique("#password"),
                     Validation.isRequired("#fullname"),

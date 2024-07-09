@@ -107,10 +107,11 @@ public class FilterStrategyAdmin extends FilterStrategy {
     }
 
     private List<Integer> filterByTimeUpdate() throws ParseException {
-        String[] dates = request.getParameterValues("date");
-        if (dates == null || dates.length == 1 || dates[0].isBlank() || dates[1].isBlank()) return new ArrayList<>();
+        String dateQueryString = request.getParameter("date");
+        if (dateQueryString == null || dateQueryString.isEmpty()) return new ArrayList<>();
 
         try {
+            String[] dates = dateQueryString.split(" - ");
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate dateStart = LocalDate.parse(dates[0], dateFormatter);
             LocalDate dateEnd = LocalDate.parse(dates[1], dateFormatter);
@@ -152,13 +153,14 @@ public class FilterStrategyAdmin extends FilterStrategy {
             this.nameCategory = nameCategory;
         }
 
-        public String getNameCategory(){
+        public String getNameCategory() {
             return nameCategory;
         }
 
-        public void setNameCategory(String nameCategory){
+        public void setNameCategory(String nameCategory) {
             this.nameCategory = nameCategory;
         }
+
         public int getStars() {
             return stars;
         }

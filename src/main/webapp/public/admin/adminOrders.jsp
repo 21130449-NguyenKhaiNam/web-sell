@@ -6,7 +6,6 @@
 <html lang="en">
 <head>
     <jsp:include page="/public/admin/adminLink.jsp"/>
-    <link rel="stylesheet" href="<c:url value="/assets/css/modal.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminOrders.css"/>">
     <title>Quản lý đơn hàng</title>

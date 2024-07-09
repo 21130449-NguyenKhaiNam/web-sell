@@ -136,6 +136,4 @@ public class AdminOrderServices {
     public List<Order> getLimit(int limit, int offset) {
         return orderDao.getLimit(limit, offset);
     }
-
-
 }

@@ -223,7 +223,7 @@ $(document).ready(function () {
     const inputProvince = $("#inputProvince");
     const inputDistrict = $("#inputDistrict");
     const inputWard = $("#inputWard");
-    let addressCustomer = {}
+    let addressCustomer = []
     let currentAction = "";
     // Cấu hình validate form địa chỉ
     const addressValidator = {
@@ -317,6 +317,9 @@ $(document).ready(function () {
                             if (currentAction == "create") {
                                 addressCustomer.push(response.address);
                                 loadDataToTable();
+                                setInterval(() => {
+                                    location.reload();
+                                }, 1000)
                             } else {
                                 const address = addressCustomer.find(address => {
                                     return address.id == response.address.id;
@@ -387,7 +390,8 @@ $(document).ready(function () {
         const table = $('#addressList tbody');
         table.empty();
         const htmls = addressCustomer.map(function (address) {
-            return `<tr>
+           if(address) {
+               return `<tr>
                         <td>${address.id}</td>
                         <td>${address.province}</td>
                         <td>${address.district}</td>
@@ -402,6 +406,8 @@ $(document).ready(function () {
                             </button>
                         </td>
                     </tr>`
+           }
+           return '';
         })
         table.html(htmls.join(''));
         viewModal();

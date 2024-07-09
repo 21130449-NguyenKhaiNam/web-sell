@@ -72,7 +72,7 @@ public class OrderDaoAdmin {
     }
 
     public Order getOrderById(String id){
-        StringBuilder sql = new StringBuilder("SELECT id, userId, dateOrder, deliveryMethodId, paymentMethodId, fullName, email, phone, address, orderStatusId, transactionStatusId, voucherId");
+        StringBuilder sql = new StringBuilder("SELECT id, userId, dateOrder, deliveryMethodId, paymentMethodId, fullName, email, phone, address, orderStatusId, transactionStatusId, voucherId, province, district, ward, detail");
         sql.append(" FROM orders WHERE id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Order.class, id).get(0);
     }

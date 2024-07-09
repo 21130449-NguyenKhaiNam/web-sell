@@ -55,8 +55,8 @@ public class CloudinaryUploadServices implements IUpload {
     public List<String> getImages(String folderPath, List<String> imageNameArray) {
         List<String> res = new ArrayList<>();
 
-        for(String imageName : imageNameArray){
-            res.add( getImage(folderPath, imageName));
+        for (String imageName : imageNameArray) {
+            res.add(getImage(folderPath, imageName));
         }
         return res;
     }
@@ -92,7 +92,7 @@ public class CloudinaryUploadServices implements IUpload {
     }
 
     public void deleteImages(List<String> imagesFolder) throws IOException {
-        for (String imageFolder : imagesFolder){
+        for (String imageFolder : imagesFolder) {
             cloudinary.uploader().destroy(imageFolder, ObjectUtils.emptyMap());
         }
     }
@@ -120,5 +120,9 @@ public class CloudinaryUploadServices implements IUpload {
     public void setHeight(Integer height) {
         this.height = height;
         transformation.height(this.height);
+    }
+
+    public String generateSignature(Map<String, Object> params) {
+        return cloudinary.apiSignRequest(params, CloudinaryProperties.getApiSecret());
     }
 }

@@ -19,6 +19,8 @@ public class ConfigPage implements ServletContextListener {
     //    Admin/Product
     public static String ADMIN_PRODUCT, ADMIN_CATEGORY, ADMIN_CATEGORY_FORM, ADMIN_ORDER, ADMIN_PRODUCT_FORM, ADMIN_PRODUCT_UPDATE_FORM, ADMIN_REVIEW_FORM, ADMIN_REVIEW, ADMIN_USER, ADMIN_MATERIAL, DASHBOARD;
 
+    public static String ERROR_404;
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContextListener.super.contextInitialized(sce);
@@ -71,6 +73,9 @@ public class ConfigPage implements ServletContextListener {
         ADMIN_USER = folderAdminProduct + "adminUsers.jsp";
         ADMIN_MATERIAL = folderAdminProduct + "adminImportMaterial.jsp";
         DASHBOARD = folderAdminProduct + "dashboard.jsp";
+
+        String folderError = "/public/error/";
+        ERROR_404 = folderError + "error404.jsp";
     }
 
 }

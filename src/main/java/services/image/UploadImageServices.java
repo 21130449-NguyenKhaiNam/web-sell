@@ -40,9 +40,9 @@ public class UploadImageServices {
     }
 
     public void addImage(Part part) throws Exception {
-        if(isPartImage(part)){
+        if (isPartImage(part)) {
             String root = ROOT_FOLDER.substring(0, ROOT_FOLDER.lastIndexOf("/"));
-            String idCategory = ROOT_FOLDER.substring(ROOT_FOLDER.lastIndexOf("/")+1, ROOT_FOLDER.length());
+            String idCategory = ROOT_FOLDER.substring(ROOT_FOLDER.lastIndexOf("/") + 1, ROOT_FOLDER.length());
             String imageName = idCategory + "/" + getFileName(part);
 
             nameImages.add(imageName);
@@ -56,7 +56,7 @@ public class UploadImageServices {
         String[] tokens = contentDisp.split(";");
         for (String token : tokens) {
             if (token.trim().startsWith("filename")) {
-                return token.substring(token.indexOf("=") + 2, token.length()-1);
+                return token.substring(token.indexOf("=") + 2, token.length() - 1);
             }
         }
         return "";
@@ -65,6 +65,7 @@ public class UploadImageServices {
     public void deleteImage(String imageName) throws IOException {
         CloudinaryUploadServices.getINSTANCE().deleteImage(imageName);
     }
+
     public void deleteImages(List<String> nameImages) throws IOException {
         for (String nameImage : nameImages) {
             nameImage = nameImage.substring(0, nameImage.lastIndexOf("."));

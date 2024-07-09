@@ -1,7 +1,7 @@
 package controller.api.user;
 
-import config.ConfigPage;
 import models.User;
+import org.json.JSONObject;
 import services.UserServices;
 import session.SessionManager;
 
@@ -31,18 +31,25 @@ public class UpdateInfoController extends HttpServlet {
         String phone = request.getParameter("phone");
         String gender = request.getParameter("gender");
         String birthDayString = request.getParameter("birthDay");
-
+        Date birthDay = null;
         try {
-            Date birthDay = formatDate(birthDayString);
-            UserServices.getINSTANCE().updateUserByID(userId, fullName, gender, phone, birthDay);
-            SessionManager.getInstance(request, response).updateUser();
-//            System.out.println(request.getContextPath());
-//            request.getRequestDispatcher(ConfigPage.USER_ACCOUNT).forward(request, response);
-            response.getWriter().print("success");
-            response.getWriter().flush();
+            birthDay = formatDate(birthDayString);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
+
+        UserServices.getINSTANCE().updateUserByID(userId, fullName, gender, phone, birthDay);
+        try {
+            // Nghỉ đảm bảo trong db cập nhật trước
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        SessionManager.getInstance(request, response).updateUser();
+        JSONObject json = new JSONObject();
+        json.put("status", "success");
+        response.setStatus(200);
+        response.getWriter().print(json);
     }
 
     private Date formatDate(String date) {

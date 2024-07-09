@@ -363,7 +363,6 @@
 <%--        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--%>
 <script src="<c:url value="/js/base.js"/>"></script>
 <script src="<c:url value="/js/checkout.js"/>"></script>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
       integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
       crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -514,5 +513,139 @@
         $('input[class=radio__button][name=delivery__method]')[0].checked = true
         $('input[class=radio__button][name=payment__method]')[0].checked = true
     })
+<<<<<<< HEAD
+=======
+
+    // function handleChoiceDeliveryMethod() {
+    //     $(document).ready(function () {
+    //         $('input[name="delivery__method"]').change(function () {
+    //             let action = $('#delivery__method--form input[type=hidden][name="action"]').val();
+    //             let deliveryMethodId = $(this).val();
+    //             $.ajax({
+    //                 type: 'POST',
+    //                 url: '/Checkout',
+    //                 data: {
+    //                     action: action,
+    //                     deliveryMethodId: deliveryMethodId
+    //                 },
+    //                 dataType: 'json',
+    //                 success: function (response) {
+    //                     $(this).prop('checked', true);
+    //                     $('.total__price--final .total__value').text(response.newTotalPrice);
+    //                     $('.shipping__container span:last-child').text(response.shippingFee);
+    //                     $('.amount__pay .amount').text(response.newTotalPrice);
+    //                 }
+    //             })
+    //         })
+    //     })
+    // }
+    //
+    // handleChoiceDeliveryMethod();
+    //
+    // function handleChoicePaymentMethod() {
+    //     $(document).ready(function () {
+    //         $('input[name="payment__method"]').change(function () {
+    //             let action = $('#payment__method--form input[type=hidden][name="action"]').val();
+    //             let paymentMethodId = $(this).val();
+    //             $.ajax({
+    //                 type: 'POST',
+    //                 url: '/Checkout',
+    //                 data: {
+    //                     action: action,
+    //                     paymentMethodId: paymentMethodId
+    //                 },
+    //                 dataType: 'json',
+    //                 success: function (response) {
+    //                     $('.transaction__content .content').text(response.contentForPay);
+    //                 }
+    //             })
+    //         })
+    //     })
+    // }
+    //
+    // handleChoicePaymentMethod();
+    //
+    // function handleChoiceDeliveryInfo() {
+    //     $(document).ready(function () {
+    //         $('#delivery__info--form').on('click', '.button__choice', function (event) {
+    //             event.preventDefault();
+    //             let buttonChoiceClicked = $(this);
+    //             if (buttonChoiceClicked.text() === 'Chọn') {
+    //                 let deliveryInfo = buttonChoiceClicked.closest('.delivery__info');
+    //                 let deliveryInfoKey = deliveryInfo.find('input[type=hidden][name=deliveryInfoKey]').val();
+    //                 let typeEdit = buttonChoiceClicked.val();
+    //                 $.ajax({
+    //                     type: 'POST',
+    //                     url: '/Checkout',
+    //                     data: {
+    //                         typeEdit: typeEdit,
+    //                         deliveryInfoKey: deliveryInfoKey
+    //                     },
+    //                     success: function (response) {
+    //                         buttonChoiceClicked.text(response)
+    //                         $('.button__choice').not(buttonChoiceClicked).text("Chọn")
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //     })
+    // }
+    //
+    // handleChoiceDeliveryInfo();
+    //
+    // function handleRemoveDeliveryInfo() {
+    //     $(document).ready(function () {
+    //         $('#delivery__info--form').on('click', '.button__remove', function (event) {
+    //             event.preventDefault();
+    //             let buttonRemoveClicked = $(this);
+    //             let deliveryInfo = buttonRemoveClicked.closest('.delivery__info');
+    //             let deliveryInfoKey = deliveryInfo.find('input[type=hidden][name=deliveryInfoKey]').val();
+    //             let typeEdit = buttonRemoveClicked.val();
+    //
+    //             let buttonChoice = deliveryInfo.find('.button__choice');
+    //             let statusChoice = buttonChoice.text();
+    //
+    //             const popupDeletion = $(document).find('.popup__deletion');
+    //             popupDeletion.html(`<div class="popup__container">
+    //
+    //                                     <div class="popup__content">
+    //                                         <div class="title__header">
+    //                                             <span class="title"><i class="fa-solid fa-triangle-exclamation"></i> Xóa thông tin giao hàng</span>
+    //                                             <span class="subtitle">Bạn có muốn xóa thông tin giao hàng đang chọn?</span>
+    //                                         </div>
+    //                                         <div class="button__control">
+    //                                             <button class="agree__button">Xác nhận</button>
+    //                                             <button class="cancel__button">Hủy</button>
+    //                                         </div>
+    //                                     </div>
+    //                                 </div>`);
+    //
+    //             $(popupDeletion).find('.cancel__button').on('click', function () {
+    //                 $(popupDeletion).find('.popup__container').remove();
+    //             })
+    //
+    //             $(popupDeletion).find('.agree__button').on('click', function () {
+    //                 $.ajax({
+    //                     type: 'POST',
+    //                     url: '/Checkout',
+    //                     data: {
+    //                         typeEdit: typeEdit,
+    //                         deliveryInfoKey: deliveryInfoKey,
+    //                         statusChoice: statusChoice
+    //                     },
+    //                     success: function (response) {
+    //                         $(popupDeletion).find('.popup__container').remove();
+    //                         deliveryInfo.remove();
+    //                         if (statusChoice === "Đã chọn") {
+    //                             $('#default__info').find('.button__choice').text("Đã chọn")
+    //                         }
+    //                     }
+    //                 })
+    //             })
+    //         })
+    //     })
+    // }
+    //
+    // handleRemoveDeliveryInfo();
 </script>
 </html>

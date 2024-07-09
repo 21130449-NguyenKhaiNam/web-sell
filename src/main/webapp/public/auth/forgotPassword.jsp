@@ -18,19 +18,31 @@
             <span class="text-center mb-3 d-flex justify-content-center hvr-bob">
                 <a href="${initParam.contextPath}/public/index.jsp" class="logo"></a>
             </span>
-            <form action="<c:url value="/forgetPassword" />" class="form form--forget-password" method="post">
+            <form action="<c:url value="/forgetPassword" />" class="form form--forget-password mb-5" method="post">
                 <h1 class="heading">Vui lòng nhập email của bạn để lấy lại mật khẩu</h1>
                 <div class="form__block">
                     <label for="email" class="form__label">Email</label>
                     <input id="email" name="email" type="email" class="form__input p-2">
                     <c:set value="${requestScope.emailError}" var="emailError"/>
                     <p class="form__error">
-                        <c:if test="${emailError != null}">${emailError}</c:if>
+                        <c:choose>
+                            <c:when test="${emailError != null}">
+                                ${emailError}
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="sendMail" value="${requestScope.sendMail}"/>
+                                <c:if test="${sendMail != null}">
+                                    ${sendMail}
+                                </c:if>
+                            </c:otherwise>
+                        </c:choose>
                     </p>
-                    <c:set var="sendMail" value="${requestScope.sendMail}"/>
-                    <c:if test="${sendMail != null}">
-                        <p class="form__error">${sendMail}</p>
-                    </c:if>
+                    <%--                    <p class="form__error">--%>
+                    <%--                        <c:if test="${emailError != null}">${emailError}</c:if>--%>
+                    <%--                    </p>--%>
+                    <%--                    <c:if test="${sendMail != null}">--%>
+                    <%--                        <p class="form__error">${sendMail}</p>--%>
+                    <%--                    </c:if>--%>
                 </div>
                 <button id="form__submit" type="submit" class="form__submit button button--hover">
                     Lấy lại mật khẩu
@@ -54,26 +66,28 @@
 <!--JS validate-->
 <script src="<c:url value="/js/validateForm.js"/>"></script>
 <script>
-    // Check nhập không phù hợp
-    $("input.form__input").on({
-        keydown: function(e) {
-            if (e.which === 32)
-                return false;
-        },
-        change: function() {
-            this.value = this.value.replace(/\s/g, "");
-        }
-    });
+    $(document).ready(() => {
+        // Check nhập không phù hợp
+        $("input.form__input").on({
+            keydown: function (e) {
+                if (e.which === 32)
+                    return false;
+            },
+            change: function () {
+                this.value = this.value.replace(/\s/g, "");
+            }
+        });
 
-    var validation = new Validation({
-        formSelector: ".form",
-        formBlockClass: "form__block",
-        errorSelector: ".form__error",
-        rules: [
-            Validation.isRequired("#email"),
-            Validation.isEmail("#email"),
-        ],
-        submitSelector: "#form__submit",
+        var validation = new Validation({
+            formSelector: ".form",
+            formBlockClass: "form__block",
+            errorSelector: ".form__error",
+            rules: [
+                Validation.isRequired("#email"),
+                Validation.isEmail("#email")
+            ],
+            submitSelector: "#form__submit",
+        })
     })
 </script>
 </body>
