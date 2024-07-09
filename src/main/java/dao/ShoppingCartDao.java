@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 public class ShoppingCartDao {
     public List<Voucher> getListVouchers() {
         String sql = "SELECT id, `code`, `description`, minimumPrice, discountPercent, expiryDate FROM vouchers WHERE expiryDate >= CURDATE() AND availableTurns > 0";
-//        return GeneralDao.executeQueryWithSingleTable(sql, Voucher.class);
-        return new ArrayList<>();
+        return GeneralDao.executeQueryWithSingleTable(sql, Voucher.class);
     }
 
 

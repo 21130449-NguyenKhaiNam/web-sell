@@ -58,6 +58,7 @@ public class SessionManager {
     public void addUser(User user) {
         String sessionId = generateSessionId();
         sessionTable.put(sessionId, user);
+
         ShoppingCartServices.getINSTANCE().setUser(user);
         session.setAttribute(SESSION_TABLE, sessionTable);
         Cookie cookie = new Cookie(SESSION_ID, sessionId);

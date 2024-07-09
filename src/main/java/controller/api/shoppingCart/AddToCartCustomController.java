@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "AddToCartCustomController", value = "/api/cart/add/custom")
+@WebServlet(name = "AddToCartCustomController", value = "/api/cart/custom")
 public class AddToCartCustomController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,9 +31,9 @@ public class AddToCartCustomController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
 
+        HttpSession session = request.getSession(true);
+        User userAuth = SessionManager.getInstance(request, response).getUser();
         if (userAuth == null) {
             response.sendRedirect(ConfigPage.SIGN_IN);
         } else {
@@ -58,7 +58,6 @@ public class AddToCartCustomController extends HttpServlet {
             }
             String colorCode = request.getParameter("color");
             String sizeRequired = request.getParameter("size");
-
             if (colorCode == null) {
                 colorCode = ProductFactory.getListColorsByProductId(productId).get(0).getCodeColor();
             }
@@ -72,8 +71,6 @@ public class AddToCartCustomController extends HttpServlet {
             cart.add(productId, quantityRequired, color, sizeRequired);
             cartProductCount = cart.getTotalItems();
             session.setAttribute(userIdCart, cart);
-//            response.sendRedirect("index.jsp");
-
             response.getWriter().write(String.valueOf(cartProductCount));
         }
     }

@@ -36,7 +36,10 @@ public class UpdateInfoController extends HttpServlet {
             Date birthDay = formatDate(birthDayString);
             UserServices.getINSTANCE().updateUserByID(userId, fullName, gender, phone, birthDay);
             SessionManager.getInstance(request, response).updateUser();
-            request.getRequestDispatcher(ConfigPage.USER_ACCOUNT).forward(request, response);
+//            System.out.println(request.getContextPath());
+//            request.getRequestDispatcher(ConfigPage.USER_ACCOUNT).forward(request, response);
+            response.getWriter().print("success");
+            response.getWriter().flush();
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }

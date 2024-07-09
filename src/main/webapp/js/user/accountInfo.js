@@ -444,40 +444,40 @@ $(document).ready(function () {
             const element = $(this).closest("tr");
             if (id) {
                 alert(() => {
-                    $.ajax({
-                        url: "/api/user/address/delete",
-                        type: 'POST',
-                        data: {
-                            id: id,
-                        },
-                        beforeSend: function () {
-                            addSpinner();
-                        },
-                        success: function (response) {
-                            Swal.fire({
-                                title: "Chúc mừng!",
-                                text: "Địa chỉ đã được xóa",
-                                icon: "success"
-                            });
-                            element.remove();
-                            addressCustomer = addressCustomer.filter(address => {
-                                return address.id != id;
-                            });
-                        },
-                        error: function (xhr, status, error) {
-                            Swal.fire({
-                                title: "Lỗi!",
-                                text: "Địa chỉ không xóa thành công",
-                                icon: "error"
-                            });
-                        },
-                        complete: function () {
-                            cancelSpinner();
-                        }
-                    });
-                }, () => {
-                    addressForm.resetForm();
-                }
+                        $.ajax({
+                            url: "/api/user/address/delete",
+                            type: 'POST',
+                            data: {
+                                id: id,
+                            },
+                            beforeSend: function () {
+                                addSpinner();
+                            },
+                            success: function (response) {
+                                Swal.fire({
+                                    title: "Chúc mừng!",
+                                    text: "Địa chỉ đã được xóa",
+                                    icon: "success"
+                                });
+                                element.remove();
+                                addressCustomer = addressCustomer.filter(address => {
+                                    return address.id != id;
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                Swal.fire({
+                                    title: "Lỗi!",
+                                    text: "Địa chỉ không xóa thành công",
+                                    icon: "error"
+                                });
+                            },
+                            complete: function () {
+                                cancelSpinner();
+                            }
+                        });
+                    }, () => {
+                        addressForm.resetForm();
+                    }
                     , {
                         notify: "Bạn có muốn xóa địa chỉ này không?",
                         cancel: "Hủy",

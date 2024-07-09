@@ -1,5 +1,6 @@
 .main {
     min-height: 300px;
+    position: relative;
 }
 
 .products {
@@ -38,11 +39,11 @@
 .search__box {
     min-height: 20px;
     max-height: 200px;
-    width: calc(100% - 168px);
+    width: calc(100% - 171px);
     overflow-y: auto;
     position: absolute;
     background-color: white;
-    z-index: 999;
+    z-index: 2;
     border-radius: 5px;
     margin-left: 1px;
     padding: 15px;
@@ -58,7 +59,7 @@
     display: inherit;
     border-radius: 5px;
     padding: 5px 2px;
-    width: calc(100% - 20px);
+    width: 100%;
 }
 
 .search__box.focused {
@@ -301,4 +302,15 @@
     --background-color: var(--blue-color-high);
     border-radius: var(--border-radius);
     --background-color-hover: var(--blue-color-low);
+}
+
+.modal_hidden_search__box{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background-color: rgba(1, 1, 1, .0);
+    display: none;
 }

@@ -1,9 +1,6 @@
 package models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -11,6 +8,7 @@ import java.sql.Timestamp;
 
 @Data
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements Serializable {
