@@ -1,8 +1,10 @@
-package controller.api.admin.product;
+package controller.api.admin.review;
 
 import com.google.gson.JsonObject;
 import services.admin.AdminProductServices;
+import services.admin.AdminReviewServices;
 import services.state.ProductState;
+import services.state.ReviewState;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value = "/api/admin/product/visible")
-public class VisibleProductController extends HttpServlet {
+@WebServlet(value = "/api/admin/review/visible")
+public class VisibleReviewController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idParameter = request.getParameter("id");
@@ -26,9 +28,9 @@ public class VisibleProductController extends HttpServlet {
             return;
         }
         try {
-            ProductState state = ProductState.valueOf(type.toUpperCase());
+            ReviewState state = ReviewState.valueOf(type.toUpperCase());
             productId = Integer.parseInt(idParameter);
-            AdminProductServices.getINSTANCE().updateVisibility(productId, state);
+            AdminReviewServices.getINSTANCE().updateVisibility(productId, state);
             jsonObject.addProperty("success", true);
         } catch (NumberFormatException e) {
             jsonObject.addProperty("success", false);

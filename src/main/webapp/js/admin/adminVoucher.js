@@ -1,4 +1,4 @@
-import {addParam, convertFormDataToObject} from "../base.js";
+import {addParam, convertFormDataToObject, formatDate} from "../base.js";
 
 $(document).ready(function () {
         $.validator.addMethod("notEqual", function (value, element, param) {
@@ -23,7 +23,7 @@ $(document).ready(function () {
                         if (data == null) {
                             return "Không có hạn sử dụng"
                         } else {
-                            return convertDateFormat(data)
+                            return formatDate(data)
                         }
                     }
                 }, {
@@ -33,7 +33,7 @@ $(document).ready(function () {
                         if (data == null) {
                             return "Không có hạn sử dụng"
                         } else {
-                            return convertDateFormat(data)
+                            return formatDate(data)
                         }
                     }
                 }, {
@@ -436,19 +436,6 @@ $(document).ready(function () {
                     })
                 }
             });
-        }
-
-        function convertDateFormat(dateString) {
-            // Split the input string by the hyphen (-)
-            const parts = dateString.split('-');
-
-            // Extract the year, month, and day parts
-            const year = parts[0];
-            const month = parts[1];
-            const day = parts[2];
-
-            // Rearrange the parts to the format DD/MM/YYYY
-            return day + '/' + month + '/' + year;
         }
 
         // Tải tất cả sản phẩm vào select2

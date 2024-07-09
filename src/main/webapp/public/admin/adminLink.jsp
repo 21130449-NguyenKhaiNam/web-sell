@@ -1,10 +1,7 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/public/commonLink.jsp"/>
-<!--CK Editor-->
-<script src="<c:url value="/ckeditor/ckeditor.js"/>"></script>
-<!--Ck Finder-->
-<script src="<c:url value="/ckfinder/ckfinder.js"/>"></script>
+
 <!--Select 2 jquery-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
       integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
@@ -21,3 +18,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.10.5/autoNumeric.min.js"
         integrity="sha512-EGJ6YGRXzV3b1ouNsqiw4bI8wxwd+/ZBN+cjxbm6q1vh3i3H19AJtHVaICXry109EVn4pLBGAwaVJLQhcazS2w=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--gasparesganga-->
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>

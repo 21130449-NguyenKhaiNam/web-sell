@@ -62,7 +62,7 @@ public class ReviewDAO {
                 .append(limit)
                 .append(" OFFSET ")
                 .append(offset);
-       return  GeneralDao.executeQueryWithSingleTable(sql.toString(), Review.class);
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Review.class);
     }
 
     public int getQuantityProduct() {
@@ -96,11 +96,8 @@ public class ReviewDAO {
     }
 
     public void updateVisibility(int reviewId, boolean hideState) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("UPDATE reviews ")
-                .append("SET visibility = ? ")
-                .append("WHERE id = ?");
-        GeneralDao.executeAllTypeUpdate(sql.toString(), hideState, reviewId);
+        String sql = "UPDATE reviews SET visibility = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(sql, hideState, reviewId);
     }
 
     public List<Review> isVisibility(int id) {
