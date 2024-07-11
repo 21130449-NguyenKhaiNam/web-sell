@@ -54,7 +54,7 @@ function getObjForm() {
 function addToCart() {
     const obj = getObjForm();
     $.ajax({
-        url: "/api/cart/custom",
+        url: "/api/cart/add/custom",
         type: "POST",
         dataType: "json",
         data: obj,

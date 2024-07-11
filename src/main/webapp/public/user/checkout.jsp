@@ -41,50 +41,6 @@
                     <p class="other__info">Bạn muốn giao hàng đến địa chỉ khác?
                         <span class="add__delivery">Thêm thông tin giao hàng mới</span>
                     </p>
-<%--                    <div class="row">--%>
-<%--                        <div class="col-xl-12">--%>
-<%--                            <div class="card mb-4">--%>
-<%--                                <div class="card-header">Thông tin cá nhân</div>--%>
-<%--                                <div class="card-body">--%>
-<%--                                    <form id="form-personal">--%>
-<%--                                        <div class="row gx-3 mb-3">--%>
-<%--                                            <div class="col-md-6">--%>
-<%--                                                <div class="">--%>
-<%--                                                    <label class="medium mb-1" for="inputUsername">Họ và tên</label>--%>
-<%--                                                    <input name="fullName" class="form-control" id="inputUsername"--%>
-<%--                                                           type="text" placeholder="Vui lòng nhập tên của bạn"--%>
-<%--                                                           value="${user.fullName}">--%>
-<%--                                                    <div class="valid-feedback">--%>
-<%--                                                    </div>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="row">--%>
-<%--                                            <div class="col-md-6">--%>
-<%--                                                <fmt:formatDate var="date" type="DATE" value="${user.birthDay}"--%>
-<%--                                                                pattern="dd-MM-yyy"/>--%>
-<%--                                                <label class="medium mb-1" for="inputDate">Ngày sinh</label>--%>
-<%--                                                <input class="form-select" name="birthDay" value="${date}"--%>
-<%--                                                       id="inputDate"--%>
-<%--                                                       type="text">--%>
-<%--                                                <div class="valid-feedback">--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-<%--                                            <div class="col-md-6">--%>
-<%--                                                <label class="medium mb-1" for="inputPhone">Số điện thoại</label>--%>
-<%--                                                <input class="form-select" name="phone" value="${user.phone}"--%>
-<%--                                                       id="inputPhone" type="text">--%>
-<%--                                                <div class="valid-feedback">--%>
-
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                        <button class="btn btn-primary mt-2" type="submit">Thay đổi</button>--%>
-<%--                                    </form>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
                     <div class="row mt-4">
                         <div class="col-12">
                             <div class="card mb-4">
@@ -513,8 +469,6 @@
         $('input[class=radio__button][name=delivery__method]')[0].checked = true
         $('input[class=radio__button][name=payment__method]')[0].checked = true
     })
-<<<<<<< HEAD
-=======
 
     // function handleChoiceDeliveryMethod() {
     //     $(document).ready(function () {

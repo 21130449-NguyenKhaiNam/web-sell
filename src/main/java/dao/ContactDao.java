@@ -23,12 +23,6 @@ public class ContactDao {
     }
 
     public void addNewRecordUserContact(Integer userId, String fullName, String phone, String email, int subjectId, String message){
-        System.out.println(userId);
-        System.out.println(fullName);
-        System.out.println(phone);
-        System.out.println(email);
-        System.out.println(subjectId);
-        System.out.println(message);
         GeneralDao.executeAllTypeUpdate("INSERT INTO contacts(userId, fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subjectId, message);
     }
 }

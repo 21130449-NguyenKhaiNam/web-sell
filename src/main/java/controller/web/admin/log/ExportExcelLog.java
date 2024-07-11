@@ -24,6 +24,7 @@ public class ExportExcelLog extends HttpServlet implements Serializable {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        boolean delete = Boolean.parseBoolean(request.getParameter("delete").toLowerCase());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
@@ -69,6 +70,10 @@ public class ExportExcelLog extends HttpServlet implements Serializable {
                 row.createCell(5).setCellValue(prev != null ? prev : "");
                 row.createCell(6).setCellValue(current != null ? current : "");
             }
+        }
+
+        if(delete) {
+            LogService.getINSTANCE().deleteAll();
         }
 
         try (OutputStream out = response.getOutputStream()) {

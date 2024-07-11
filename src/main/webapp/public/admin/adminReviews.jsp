@@ -57,10 +57,6 @@
                             </tbody>
                         </table>
                     </div>
-<<<<<<< HEAD
-                    <ul class="paging"></ul>
-=======
->>>>>>> merge
                 </div>
             </div>
         </div>
