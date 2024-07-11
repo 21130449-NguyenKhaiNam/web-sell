@@ -39,7 +39,7 @@
                         <table class="table " id="table">
                             <thead>
                             <tr class="">
-                                <th class=" table__id">Mã người dùng</th>
+                                <th class=" table__id">#</th>
                                 <th class=" table__username">Tên người dùng</th>
                                 <th class=" table__email">Email</th>
                                 <th class=" table__fullname">Họ tên</th>
@@ -59,10 +59,10 @@
     </section>
 </main>
 
-<!-- Modal update user-->
+<!-- Modal -->
 <div class="modal fade" id="modal" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 80%">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <form id="form" class="modal-content needs-validation">
             <div class="modal-header">
                 <h2 class="modal-title" id="staticBackdropLabel">Cập nhập thông tin ngừoi dùng</h2>

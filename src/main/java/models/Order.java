@@ -25,4 +25,8 @@ public class Order {
     private int transactionStatusId;
     private int voucherId;
     private String message;
+    private String province;
+    private String district;
+    private String ward;
+    private String detail;
 }

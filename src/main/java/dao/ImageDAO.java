@@ -25,7 +25,6 @@ public class ImageDAO  {
                     .append("\", ")
                     .append(images.get(i).getProductId()).append(") ");
         }
-        System.out.println(sql);
         GeneralDao.executeAllTypeUpdate(sql.toString());
     }
 

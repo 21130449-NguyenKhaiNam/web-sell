@@ -4,6 +4,7 @@ import dao.ReviewDAO;
 import dao.UserDAO;
 import models.Review;
 import models.User;
+import services.state.ReviewState;
 
 import java.util.List;
 
@@ -42,12 +43,8 @@ public class AdminReviewServices {
         return reviewDAO.getReviewById(reviewId);
     }
 
-    public boolean updateVisibility(int reviewId, boolean visibility) {
-        if (reviewDAO.isVisibility(reviewId).isEmpty() || visibility == reviewDAO.isVisibility(reviewId).get(0).isVisibility()) {
-            return false;
-        }
-        reviewDAO.updateVisibility(reviewId, visibility);
-        return true;
+    public void updateVisibility(int reviewId, ReviewState reviewState) {
+        reviewDAO.updateVisibility(reviewId, reviewState.getValue());
     }
 
     public User getUserByIdProductDetail(int orderDetailId) {
@@ -58,7 +55,7 @@ public class AdminReviewServices {
         return listUser.get(0);
     }
 
-    public List<Review> getAll(){
+    public List<Review> getAll() {
         return reviewDAO.getAll();
     }
 }
