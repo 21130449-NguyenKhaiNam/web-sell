@@ -13,6 +13,8 @@ import utils.ValidatePassword;
 import utils.Validation;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -169,7 +171,7 @@ public class AuthenticateServices {
         } else {
 
 //        Check Email Exist
-            if (!userDAO.findEmail(user.getEmail()).isEmpty()) {
+            if (!userDAO.findEmail(user.getEmail()).isEmpty() && !isValidEmailAddress(user.getEmail())) {
                 validation.setFieldEmail(errorEmail);
                 countError++;
             }
@@ -194,6 +196,17 @@ public class AuthenticateServices {
             validation.setObjReturn(user);
         }
         return validation;
+    }
+
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
     }
 
     public Map<String, String> checkPasswordTemplate(String password) {
@@ -250,7 +263,7 @@ public class AuthenticateServices {
         String errorEmail = "Tài khoản ứng với email này chưa đăng ký hoặc chưa xác thực";
 
         List<User> users = userDAO.selectByEmail(email, "1");
-        if (users.size() == 1) {
+        if (users.size() == 1 && isValidEmailAddress(email)) {
             User user = users.get(0);
             validation.setObjReturn(user);
         } else {
