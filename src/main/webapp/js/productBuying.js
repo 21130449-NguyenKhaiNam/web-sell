@@ -263,13 +263,20 @@ function handleSearch() {
 $('.search__inp').on('click', function () {
     $('.modal_hidden_search__box').css('display', 'block');
     $('.search__box').addClass('focused');
+    // $('.products').css('z-index', '-1');
 });
+
+// $('.products').on('click', function () {
+//     $('.search__box').removeClass('focused');
+//     // $('.products').css('z-index', '1');
+// });
 
 $('.modal_hidden_search__box').on('click', function () {
     $('.search__box').removeClass('focused');
     $('.modal_hidden_search__box').css('display', 'none');
+    // $('.tab_right').css('z-index', '1');
+    // $('.tab_left').css('z-index', '1');
 });
-
 
 const productList = document.querySelector('.product__list')
 const productPages = document.querySelector('.paging')

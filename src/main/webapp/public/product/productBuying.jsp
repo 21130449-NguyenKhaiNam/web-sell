@@ -19,7 +19,8 @@
 <body>
 <c:import url="/public/header.jsp"/>
 <main class="main">
-    <div class="p-5">
+    <div class="modal_hidden_search__box"></div>
+    <div class="p-5 animate__animated animate__slideInDown" style="position: relative; z-index: 10;">
         <div class="p-5 search">
             <form class="form-inline my-2 my-lg-0 d-flex">
                 <input style="z-index: 2;" class="search__inp form-control mr-sm-2 p-3 me-2" type="search" placeholder="Search"
@@ -36,7 +37,7 @@
     <section class="products">
         <div class="container-xl">
             <div class="row ">
-                <div class="col-3 animate__animated animate__slideInUp">
+                <div class="col-3 animate__animated animate__slideInUp tab_right">
                     <form class="form__filter" id="form__filter">
                         <div class="filter__group"><span class="filter__title">Phân loại sản phẩm</span>
                             <div class="filter__radio-list">
@@ -108,7 +109,7 @@
                         <button class="filter__submit button--hover button p-2" type="submit">Lọc</button>
                     </form>
                 </div>
-                <div class="col-9 animate__animated animate__fadeInRight">
+                <div class="col-9 animate__animated animate__fadeInRight tab_left">
                     <div class="product__notification"></div>
                     <div class="product__list">
                         <%--  sản phẩm được hiển thị ở đây--%>
@@ -119,7 +120,6 @@
 
         <ul class="paging"></ul>
     </section>
-    <div class="modal_hidden_search__box"></div>
 </main>
 <c:import url="/public/footer.jsp"/>
 </body>
