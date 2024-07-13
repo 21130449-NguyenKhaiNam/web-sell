@@ -352,7 +352,6 @@
     <%--<% if (dateEnd != null){%>--%>
     <%--checkDate(document.querySelector("#date-end"), "<%=dateEnd%>");--%>
     <%--<%}%>--%>
-
     // $(document).ready(function () {
     //     $('#form__filter').submit(
     //         function (event) {

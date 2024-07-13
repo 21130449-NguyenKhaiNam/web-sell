@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(filterName = "shoppingCartFilter", urlPatterns = {"/public/user/shoppingCart.jsp", "/ShoppingCart"})
+@WebFilter({"/public/user/shoppingCart.jsp"})
 public class ShoppingCartFilter implements Filter {
 
     @Override

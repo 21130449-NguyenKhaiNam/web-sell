@@ -46,6 +46,8 @@ public class ShoppingCartController extends HttpServlet {
                     requestDispatcher.forward(request, response);
                 }
             }
+        } else {
+            request.getRequestDispatcher(ConfigPage.SIGN_IN).forward(request, response);
         }
     }
 

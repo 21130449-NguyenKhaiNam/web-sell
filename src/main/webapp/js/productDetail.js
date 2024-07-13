@@ -105,15 +105,15 @@ var formObj = new Validation({
 })
 
 function addToCartAjax() {
+    console.log("call method ajax")
     const form = $('#form__product');
     let productId = $(form).find('input[name=productId]').val();
     let quantity = $(form).find('input[name=quantity]').val();
     let size = $(form).find('input[name=size]:checked').val();
     let color = $(form).find('input[name=color]:checked').val();
-    console.log(form.attr('action'))
     $.ajax({
-        type: form.attr('method'),
         url: form.attr('action'),
+        type: form.attr('method'),
         data: {
             productId: productId,
             size: size,
@@ -121,6 +121,7 @@ function addToCartAjax() {
             quantity: quantity
         },
         success: function (response) {
+            console.log("run ajax success")
             let addToCartSuccessHTML = `<div class="notification__cart">
                                                                 <div class="status__success">
                                                                     <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>

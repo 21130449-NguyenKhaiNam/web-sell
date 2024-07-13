@@ -129,7 +129,6 @@ public class AdminProductServices {
         return !productList.isEmpty();
     }
 
-
     public void updateProduct(Product product) {
         productDAO.updateProduct(product);
     }
@@ -248,5 +247,4 @@ public class AdminProductServices {
     public List<Product> getLimit(int limit, int offset) {
         return productDAO.getLimit(limit, offset);
     }
-
 }

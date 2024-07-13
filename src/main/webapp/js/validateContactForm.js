@@ -6,7 +6,7 @@ function addContactRecord(){
             let fullName = $('input[name=fullName].form__input').val();
             let phone = $('input[name=phone].form__input').val();
             let email = $('input[name=email].form__input').val();
-            let message = $('input[name=message].form__textarea').val();
+            let message = $('textarea[name=message].form__textarea').val();
             let subject = $('select[name=subject].select__box').val();
 
             $.ajax({
