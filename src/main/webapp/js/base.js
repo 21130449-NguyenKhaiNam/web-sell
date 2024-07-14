@@ -23,33 +23,31 @@ export const removeParamFromQueryString = (queryString, paramToRemove) => {
     return $.param(params);
 };
 
-export const addParamToQueryString = (form, {key, value}) => {
-    // Serialize form data to a query string
-    const formData = $(form).serialize();
-    console.log("formData", formData)
-    // Parse the serialized form data into an object
-    const params = new URLSearchParams(formData);
-
-    // Set or append the new parameter
-    params.set(key, value);
-
-    // Return the updated query string
-    return params.toString();
-
+export const addKeyFormData = (formData, key, value) => {
+    formData.append(key, value);
 }
 
-export const deleteKeyFromQueryString = (keyToDelete) => {
-    // Serialize form data to a query string
-    var formData = $(form).serialize();
-    console.log("formData", formData)
-    // Parse the serialized form data into an object
-    var params = new URLSearchParams(formData);
+export const deleteKeyFormData = (formData, keyRemove) => {
+    const keysToRemove = [];
+    for (let [key, value] of formData.entries()) {
+        if (key === keyRemove) {
+            keysToRemove.push(key);
+        }
+    }
+    // Remove the keys from the FormData object
+    keysToRemove.forEach(key => formData.delete(key));
+}
 
-    // Delete the specified key from the parameters
-    params.delete(keyToDelete);
+export const getValuesOfKeyFormData = (formData, keyToRetrieve) => {
+    const values = [];
 
-    // Return the updated query string
-    return params.toString();
+    // Iterate over the entries of the FormData object
+    for (let [key, value] of formData.entries()) {
+        if (key === keyToRetrieve) {
+            values.push(value);
+        }
+    }
+    return values;
 }
 
 export const objectToQueryString = (obj) => {
@@ -87,9 +85,20 @@ export const convertFormDataToObject = (form) => {
 
     const formDataJson = {};
     $.each(formDataArray, function (_, field) {
-        formDataJson[field.name] = field.value;
+        if (formDataJson[field.name])
+            formDataJson[field.name].push(field.value);
+        else
+            formDataJson[field.name] = [field.value];
     });
-    return formDataJson;
+    const result = {};
+    for (const key in formDataJson) {
+        if (Array.isArray(formDataJson[key]) && formDataJson[key].length === 1) {
+            result[key] = formDataJson[key][0];
+        } else {
+            result[key] = formDataJson[key];
+        }
+    }
+    return result;
 }
 
 export const startLoading = () => {
@@ -104,12 +113,13 @@ export const endLoading = () => {
     $.LoadingOverlay("hide");
 }
 
-export const http = ({beforeSend, complete, ...rest}) => {
+export const http = ({beforeSend, complete, ...rest}, automaticLoading = true) => {
     return new Promise((resolve, reject) => {
         $.ajax({
             ...rest,
             beforeSend: function (xhr, settings) {
-                startLoading();
+                if (automaticLoading)
+                    startLoading();
                 if (typeof beforeSend === 'function') {
                     beforeSend.call(this, xhr, settings);
                 }
@@ -121,7 +131,8 @@ export const http = ({beforeSend, complete, ...rest}) => {
                 reject(new Error(`Error: ${textStatus}, ${errorThrown}`));
             },
             complete: function (xhr, status) {
-                endLoading();
+                if (automaticLoading)
+                    endLoading();
                 if (typeof complete === 'function') {
                     complete.call(xhr, status);
                 }

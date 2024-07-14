@@ -98,7 +98,7 @@ public class HandelCart implements HttpSessionAttributeListener {
                 services.insertCart(cartId, user.getId(), onlyRight);
 //                onlyRight.forEach((k, v) -> addItem(source, k, v));
             } else {
-                if(!diff.areEqual()) {
+                if (!diff.areEqual()) {
                     // Trường hợp bên trong thay đổi
                     Map<Integer, MapDifference.ValueDifference<List<AbstractCartProduct>>> differingEntries = diff.entriesDiffering();
                     if (!differingEntries.isEmpty()) {

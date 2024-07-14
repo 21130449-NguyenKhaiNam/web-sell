@@ -29,15 +29,15 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-12">
-                    <div>
+                    <div class="d-flex align-items-center justify-content-between pb-3">
                         <h1>Danh sách nhận xét</h1>
+                        <form action="/exportExcelReview" method="POST">
+                            <button class="btn_export">
+                                <i class="fa-solid fa-file-export"></i>
+                                Xuất file excel
+                            </button>
+                        </form>
                     </div>
-                    <form action="/exportExcelReview" method="POST">
-                        <button class="btn_export">
-                            <i class="fa-solid fa-file-export"></i>
-                            Xuất file excel
-                        </button>
-                    </form>
                     <div>
                         <table id="table" class="table">
                             <thead>
@@ -66,13 +66,13 @@
 <!-- Modal -->
 <div class="modal fade " id="modal" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div id="form" class="modal-content needs-validation">
             <div class="modal-header">
                 <h2 class="modal-title" id="staticBackdropLabel">Xem đánh giá</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="max-height: 60vh">
                 <div class="row">
                     <div class="col-6">
                         <div style="height: 400px" class="img-thumbnail">
@@ -146,6 +146,5 @@
         </div>
     </div>
 </div>
-
 <script type="module" src="<c:url value="/js/admin/adminReviews.js" />"></script>
 </body>

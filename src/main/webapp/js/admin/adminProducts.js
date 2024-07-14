@@ -308,19 +308,7 @@ $(document).ready(() => {
 
     // ----------------------------------------------------------------
     // Bắt đàu phần thêm sản phẩm
-    $.validator.prototype.checkForm = function () {
-        this.prepareForm();
-        for (var i = 0, elements = (this.currentElements = this.elements()); elements[i]; i++) {
-            if (this.findByName(elements[i].name).length != undefined && this.findByName(elements[i].name).length > 1) {
-                for (var cnt = 0; cnt < this.findByName(elements[i].name).length; cnt++) {
-                    this.check(this.findByName(elements[i].name)[cnt]);
-                }
-            } else {
-                this.check(elements[i]);
-            }
-        }
-        return this.valid();
-    }
+
     // Form add
     const configValidator = {
         ignore: [],
@@ -543,11 +531,11 @@ $(document).ready(() => {
         const html = $(`
             <div data-size-index="${idSize}" ${size ? ("data-size-id=" + size.id) : ""} class="row align-items-center mt-2">
                 <div class="col-4 form__label">
-                    <input type="text" name="nameSize[]" class="form-control" value=${size && size.nameSize}>
+                    <input type="text" name="nameSize[]" class="form-control" value=${(size && size.nameSize) || ""}>
                     <div class="valid-feedback"> </div>
                 </div>
                 <div class="col-4 form__label">
-                    <input type="text" name="sizePrice[]" class="form-control" value=${size && size.sizePrice}>
+                    <input type="text" name="sizePrice[]" class="form-control" value=${(size && size.sizePrice) || ""}>
                     <div class="valid-feedback"></div>
                 </div>
                 <div class="col-4">

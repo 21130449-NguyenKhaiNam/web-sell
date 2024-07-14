@@ -55,7 +55,7 @@
     </section>
 
 </main>
-<!-- Modal Create-->
+<!-- Modal -->
 <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="staticBackdropLabel"  aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <form id="form" class="modal-content needs-validation">

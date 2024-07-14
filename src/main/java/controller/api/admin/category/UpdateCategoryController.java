@@ -20,7 +20,7 @@ import java.util.List;
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 100
 )
-public class UpdateCategory extends HttpServlet {
+public class UpdateCategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
