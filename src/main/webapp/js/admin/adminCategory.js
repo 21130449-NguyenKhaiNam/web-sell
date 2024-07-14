@@ -6,68 +6,63 @@ import {
     getValuesOfKeyFormData,
     http, startLoading
 } from "../base.js";
-import {fetchImage} from "../images.js";
-import {uploadImage} from "../uploadImage.js";
+import {image, fetchImage} from "../image.js";
 
 $(document).ready(function () {
-
     // Enable tooltip bootstrap
     $('[data-bs-toggle="tooltip"]').tooltip();
-    $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
-    $.fn.filepond.registerPlugin(FilePondPluginFileRename);
-    $.fn.filepond.registerPlugin(FilePondPluginImageValidateSize);
 
     const configValidator = {
         ignore: [],
         rules: {
-            // nameCategory: {
-            //     required: true,
-            // },
-            // 'nameParameter[]': {
-            //     required: true,
-            // },
-            // 'unit[]': {
-            //     required: true,
-            // },
-            // 'minValue[]': {
-            //     required: true,
-            // },
-            // 'maxValue[]': {
-            //     required: true,
-            // },
-            // sizeTableImage: {
-            //     required: true,
-            //     fileType: "jpg|jpeg|png",
-            // },
-            // 'guideImg[]': {
-            //     required: true,
-            //     fileType: "jpg|jpeg|png",
-            // },
+            nameCategory: {
+                required: true,
+            },
+            'nameParameter[]': {
+                required: true,
+            },
+            'unit[]': {
+                required: true,
+            },
+            'minValue[]': {
+                required: true,
+            },
+            'maxValue[]': {
+                required: true,
+            },
+            sizeTableImage: {
+                required: true,
+                fileType: "jpg|jpeg|png",
+            },
+            'guideImg[]': {
+                required: true,
+                fileType: "jpg|jpeg|png",
+            },
         },
         messages: {
-            // nameCategory: {
-            //     required: "Vui lòng nhập tên sản phẩm",
-            // },
-            // 'nameParameter[]': {
-            //     required: "Vui lòng nhập tên tham số",
-            // },
-            // 'unit[]': {
-            //     required: "Vui lòng nhập đơn vị tính",
-            // },
-            // 'minValue[]': {
-            //     required: "Vui lòng nhập giá trị tối thiểu",
-            // },
-            // 'maxValue[]': {
-            //     required: "Vui lòng nhập giá trị tối đa",
-            // },
-            // sizeTableImage: {
-            //     required: true,
-            //     fileType: "jpg|jpeg|png",
-            // },
-            // 'guideImg[]': {
-            //     required: "Vui lòng chọn ảnh",
-            //     fileType: "Chỉ chấp nhận file ảnh jpg, jpeg, png"
-            // }
+            nameCategory: {
+                required: "Vui lòng nhập tên sản phẩm",
+            },
+            'nameParameter[]': {
+                required: "Vui lòng nhập tên tham số",
+            },
+            'unit[]': {
+                required: "Vui lòng nhập đơn vị tính",
+            },
+            'minValue[]': {
+                required: "Vui lòng nhập giá trị tối thiểu",
+            },
+            'maxValue[]': {
+                required: "Vui lòng nhập giá trị tối đa",
+            },
+            sizeTableImage: {
+                required: "Vui lòng chọn ảnh",
+                fileType: "jpg|jpeg|png",
+            },
+            'guideImg[]': {
+                required: "Vui lòng chọn ảnh",
+                fileType: "Chỉ chấp nhận file ảnh jpg, jpeg, png"
+            }
         },
         onblur: function (element) {
             $(element).valid();
@@ -75,18 +70,26 @@ $(document).ready(function () {
         validClass: 'is-valid',
         errorClass: 'is-invalid',
         errorPlacement: function (error, element) {
-            $(element).parent().find(".valid-feedback , .invalid-feedback").text(error.text());
+            const elementPlace = $(element).closest(":has(.valid-feedback, .invalid-feedback)").find(".valid-feedback , .invalid-feedback");
+            elementPlace.text(error.text());
+            if (element.attr("type") === "file") {
+                elementPlace.css("display", " block")
+            }
         },
         success: function (label) {
             label.remove(); // Remove the error message when input is valid
         },
         highlight: function (element, errorClass, validClass) {
-            $(element).addClass(errorClass).removeClass(validClass).attr('required', 'required');
-            $(element).parent().find(".valid-feedback").addClass("invalid-feedback");
+            if ($(element).attr("type") !== "file") {
+                $(element).addClass(errorClass).removeClass(validClass).attr('required', 'required');
+            }
+            $(element).closest(":has(.valid-feedback)").find(".valid-feedback").addClass("invalid-feedback");
         },
         unhighlight: function (element, errorClass, validClass) {
+            if ($(element).attr("type") == "file") {
+                $(element).closest(":has(.valid-feedback, .invalid-feedback)").find(".valid-feedback , .invalid-feedback").text("");
+            }
             $(element).removeClass(errorClass).addClass(validClass).removeAttr('required');
-            $(element).find(".valid-feedback").text("");
         },
         submitHandler: function (form) {
             handleFormSubmit(form);
@@ -152,7 +155,8 @@ $(document).ready(function () {
 
     const datatable = table.DataTable(configDataTable);
 
-    function addParameter({name, unit, minValue, maxValue}) {
+    function addParameter(parameter) {
+        const {name, unit, minValue, maxValue} = parameter || {};
         const parameterId = `parameter-${Date.now()}`;
         dataIndexParameter.push(parameterId)
         const html = $(`<div data-parameter-index="${parameterId}" class="row border border-1 rounded mt-3 py-3 px-1 position-relative">
@@ -200,7 +204,10 @@ $(document).ready(function () {
                                     <label for="" class="form-label" data-bs-toggle="tooltip"
                                            data-bs-placement="top"
                                            data-bs-title="Ảnh hướng dẫn may đo cho thông số, chỉ được chọn 1 ảnh">Ảnh hướng dẫn may đo</label>
-                                    <input type="file" name="guideImg">
+                                    <input type="file" name="guideImg[]">
+                                      <div class="valid-feedback">
+
+                                    </div>
                                 </div>
                             </div>`)
         formParameter.append(html);
@@ -285,9 +292,11 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 if (idSelected)
-                    handleUpdate(form, idSelected);
+                    console.log("Update")
+                    // handleUpdate(form, idSelected);
                 else
-                    handleCreate(form);
+                    console.log("Create")
+                    // handleCreate(form);
             }
         });
     }
@@ -381,7 +390,7 @@ $(document).ready(function () {
                 file: item.findPond.getFile().file
             }
         ));
-        const response = await uploadImage([{
+        const response = await image([{
             folder: "size_table",
             name: Date.now(),
             file: fileCollect.category
@@ -392,9 +401,9 @@ $(document).ready(function () {
             name: Date.now(),
             file: item.file
         }))
-        const nameImageParameters = await uploadImage(fileImageParameters, false);
+        const nameImageParameters = await image(fileImageParameters, false);
         deleteKeyFormData(formData, "sizeTableImage");
-        deleteKeyFormData(formData, "guideImg");
+        deleteKeyFormData(formData, "guideImg[]");
         addKeyFormData(formData, "sizeTableImage", nameImageCategory)
         nameImageParameters.forEach((item, index) => {
             const nameImage = item.public_id.split('/')[1] + "." + item.format;

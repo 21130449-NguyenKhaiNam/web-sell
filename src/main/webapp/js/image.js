@@ -1,6 +1,6 @@
 import {endLoading, http, startLoading} from "./base.js";
 
-export const uploadImage = function (fileUploads, automaticLoading = true) {
+export const image = function (fileUploads, automaticLoading = true) {
     return new Promise((resolve, reject) => {
         const numberOfFiles = fileUploads.length;
         const dataReturn = [];
@@ -112,4 +112,32 @@ export const deleteImage = function (fileDeletes, callback) {
             console.error('Error generating signature: ' + textStatus);
         }
     })
+};
+
+const CLOUDNAME = "yourstyle";
+
+export function getImageProduct(nameImages) {
+    return `https://res.cloudinary.com/${CLOUDNAME}/image/upload/c_scale/q_auto/f_webp,fl_awebp/v1711545951/product_img/${nameImages}`;
+}
+
+export function fetchImage(url) {
+    return fetch(url).then(response => response.blob()).catch(error => console.error('Error fetching image:', error));
+}
+
+export const validateEmptyFilePond = () => {
+    const filepondInstances = [];
+    console.log($('input[type="file"]'))
+    $('input[type="file"]').each((index, element) => {
+        const instance = FilePond.find($(element));
+        if (instance) {
+            filepondInstances.push(instance);
+        }
+    });
+    console.log(filepondInstances)
+
+    const allEmpty = filepondInstances.every(instance => {
+        console.log(instance.getFiles())
+        return instance.getFiles().length === 0
+    });
+    return !allEmpty;
 };
