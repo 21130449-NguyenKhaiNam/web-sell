@@ -68,13 +68,13 @@ public class ErrorHandler extends HttpServlet {
             response.setStatus(appException.getErrorCode().getCode());
             json.addProperty("code", appException.getErrorCode().getCode());
             json.addProperty("message", appException.getErrorCode().getMessage());
-            response.getWriter().write(gson.toJson(json));
-            return;
         } else {
 //        Bắt các lỗi khác
             response.setStatus(statusCode);
-            response.getWriter().write("Unknown error");
+            json.addProperty("code", statusCode);
+            json.addProperty("message", "Error in:" + requestUri);
         }
+        response.getWriter().write(gson.toJson(json));
     }
 
     private void handleErrorHTML(HttpServletRequest request, HttpServletResponse response) throws IOException {

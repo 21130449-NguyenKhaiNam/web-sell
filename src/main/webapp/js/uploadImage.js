@@ -1,6 +1,6 @@
 import {endLoading, http, startLoading} from "./base.js";
 
-export const uploadImage = function (fileUploads) {
+export const uploadImage = function (fileUploads, automaticLoading = true) {
     return new Promise((resolve, reject) => {
         const numberOfFiles = fileUploads.length;
         const dataReturn = [];
@@ -38,18 +38,23 @@ export const uploadImage = function (fileUploads) {
                         })
                         .then(data => dataReturn.push({
                             url: data.url,
-                            public_id: data.public_id
+                            public_id: data.public_id,
+                            format: data.format
                         }))
                         .catch(error => dataReturn.push("error"))
                 );
             }
             try {
-                startLoading();
+                if (automaticLoading)
+                    startLoading();
                 await Promise.all(uploadPromises);
-                endLoading();
+                if (automaticLoading)
+                    endLoading();
                 resolve(dataReturn);
             } catch (error) {
-                endLoading();
+                console.error('Error uploading images:', error);
+                if (automaticLoading)
+                    endLoading();
                 reject(error);
             }
         }).catch(error => {

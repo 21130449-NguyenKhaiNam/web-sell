@@ -151,32 +151,43 @@ public class VoucherDAO {
 
     public void deleteProductVoucher(Integer code, List<Integer> delete) {
         String sql = "DELETE FROM voucher_products WHERE voucherId = ? AND productId IN (";
+        List<Integer> params = new ArrayList<>();
+        params.add(code);
         for (int i = 0; i < delete.size(); i++) {
-            sql += delete.get(i);
+            sql += "?";
+            params.add(delete.get(i));
             if (i != delete.size() - 1) {
                 sql += ",";
             }
         }
         sql += ")";
-        GeneralDao.executeAllTypeUpdate(sql, code);
+        GeneralDao.executeAllTypeUpdate(sql, params.toArray(new Object[0]));
     }
 
     public void insertProductVoucher(Integer code, List<Integer> insert) {
         String sql = "INSERT INTO voucher_products (voucherId, productId) VALUES ";
+        List<Integer> params = new ArrayList<>();
         for (Integer productId : insert) {
-            sql += " (" + code + ", " + productId + "),";
+            sql += " ( ? ,  ? ),";
+            params.add(code);
+            params.add(productId);
         }
+
         sql = sql.substring(0, sql.length() - 1);
-        GeneralDao.executeAllTypeUpdate(sql);
+        GeneralDao.executeAllTypeUpdate(sql, params.toArray(new Object[0]));
     }
 
     public void updateProductVoucher(Integer code, List<Integer> update) {
         String sql = "UPDATE voucher_products SET productId = CASE";
+        List<Integer> params = new ArrayList<>();
         for (Integer productId : update) {
-            sql += " WHEN productId = " + productId + " THEN " + productId;
+            sql += " WHEN productId = ? THEN ? ";
+            params.add(productId);
+            params.add(productId);
         }
         sql += " END WHERE voucherId = ?";
-        GeneralDao.executeAllTypeUpdate(sql, code);
+        params.add(code);
+        GeneralDao.executeAllTypeUpdate(sql, params.toArray(new Object[0]));
     }
 
 }

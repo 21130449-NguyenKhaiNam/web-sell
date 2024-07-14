@@ -1,9 +1,5 @@
-div:has(> h1) {
-    margin-top: 20px;
-}
 
 .category__list {
-    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px 30px;

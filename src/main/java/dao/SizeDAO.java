@@ -50,7 +50,7 @@ public class SizeDAO {
                 .append(" nameSize = ? ,")
                 .append(" sizePrice = ? ")
                 .append(" WHERE id = ? ");
-        GeneralDao.executeAllTypeUpdate(sql.toString(), size.getNameSize(), size.getNameSize(), id);
+        GeneralDao.executeAllTypeUpdate(sql.toString(), size.getNameSize(), size.getSizePrice(), id);
     }
 
     public void deleteSizeList(List<Integer> listId) {
