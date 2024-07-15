@@ -1,165 +1,91 @@
-function sliderImageController() {
-    const sliderItemsElement = document.querySelector(".slider__items");
-    const prevButtonElement = document.querySelector(".nav__prev");
-    const nextButtonElement = document.querySelector(".nav__next");
-    const sliderWidth = sliderItemsElement.clientWidth;
-    let currentIndex = 0;
-    const indicators = document.querySelectorAll(".indicator");
-
-    function slideTo(index) {
-        sliderItemsElement.style.transform = `translateX(-${index * sliderWidth}px)`;
-        updateIndicators(index);
-    }
-
-    window.addEventListener("resize", () => {
-        const imageItems = sliderItemsElement.querySelectorAll(".slider__item")
-        imageItems.forEach((item) => {
-            item.style.width = `${sliderWidth}px`;
-        });
-    });
-
-    function updateIndicators(index) {
-        indicators.forEach((indicator, i) => {
-            if (i === index) {
-                indicator.classList.add("active");
-            } else {
-                indicator.classList.remove("active");
-            }
-        });
-    }
-
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener("click", function () {
-            currentIndex = index;
-            slideTo(currentIndex);
-        });
-    });
-
-    function nextSlide() {
-        if (currentIndex < sliderItemsElement.childElementCount - 1) {
-            currentIndex++;
-        } else {
-            currentIndex = 0;
-        }
-        slideTo(currentIndex);
-    }
-
-    nextButtonElement.addEventListener("click", function () {
-        nextSlide();
-    });
-
-    prevButtonElement.addEventListener("click", function () {
-        if (currentIndex > 0) {
-            currentIndex--;
-            slideTo(currentIndex);
-        }
-    });
-
-    let interval = setInterval(nextSlide, 2000);
-
-    sliderItemsElement.addEventListener('mouseover', function () {
-        clearInterval(interval);
-    });
-
-    sliderItemsElement.addEventListener("mouseout", function () {
-        interval = setInterval(nextSlide, 2000);
+function addToCartAjax() {
+    $(document).ready(function () {
+        $('.action__bar').each(function (index, actionBar) {
+            $(actionBar).on('submit', function (event) {
+                event.preventDefault();
+                const form = $(actionBar);
+                let productId = form.find('input[name="productId"]').val();
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: {productId: productId},
+                    success: function (response) {
+                        let addToCartSuccessHTML = `<div class="notification__cart">
+                                                        <div class="status__success">
+                                                            <span>
+                                                            <i class="fa-solid fa-circle-check icon__success"></i>
+                                                            Đã thêm vào giỏ hàng thành công
+                                                            </span>
+                                                            <span onclick="handleCloseNotificationCart()">
+                                                            <i class="fa-solid fa-xmark close__notification"></i>
+                                                            </span>
+                                                        </div>
+                                                        <a class="view__cart" href="/public/user/shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                    </div>`;
+                        $('.cart__wrapper').append(addToCartSuccessHTML)
+                        $('.qlt__value').text(response);
+                    },
+                    error: function (error) {
+                        console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
+                    }
+                })
+            })
+        })
     })
 }
-sliderImageController();
 
-function animationShowCategory() {
-    const categoryItems = document.querySelectorAll(".category__item")
-    let currentIndex = 0;
 
-    function displayCategoryItem() {
-        if (currentIndex < categoryItems.length) {
-            categoryItems[currentIndex].style.display = "flex";
-            currentIndex++;
-            setTimeout(displayCategoryItem, 800)
-        } else {
-            currentIndex = 0;
-            categoryItems.forEach(category_item => {
-                category_item.style.display = "none"
-            });
-            setTimeout(displayCategoryItem, 100);
-        }
-    }
-    displayCategoryItem()
-}
-animationShowCategory();
+let ulCom = $('.search__box')[0]
 
-function sliderProductController() {
-    const productWrapperElements = document.querySelectorAll(".product__wrapper");
-    productWrapperElements.forEach(productWrapperElement =>{
-        const productItemsElement = productWrapperElement.querySelector(".product__items");
-        const firstProductWidth = productItemsElement.querySelector(".product__item").offsetWidth;
-        const arrowButtons = productWrapperElement.querySelectorAll("button");
-        const productItemChildren = [...productItemsElement.children];
+function handleSearch() {
+    let debounceTimer;
+    $('.search__inp').keydown(function () {
 
-        let isDragging = false, isAutoPlay = true, startX, startScrollLeft, timeoutId;
-        let productPerView = Math.round(productItemsElement.offsetWidth / firstProductWidth);
+        var formData = $(this).serialize();
 
-        productItemChildren.slice(-productPerView).reverse().forEach(product => {
-            productItemsElement.insertAdjacentHTML("afterbegin", product.outerHTML);
-        });
+        clearTimeout(debounceTimer);
 
-        productItemChildren.slice(0, productPerView).forEach(product => {
-            productItemsElement.insertAdjacentHTML("beforeend", product.outerHTML);
-        });
-
-        productItemsElement.classList.add("no-transition");
-        productItemsElement.scrollLeft = productItemsElement.offsetWidth;
-        productItemsElement.classList.remove("no-transition");
-
-        arrowButtons.forEach(btn => {
-            btn.addEventListener("click", () => {
-                productItemsElement.scrollLeft += btn.className === "left__button" ? -firstProductWidth : firstProductWidth;
-            });
-        });
-
-        const dragStart = (e) => {
-            isDragging = true;
-            productItemsElement.classList.add("dragging");
-            startX = e.pageX;
-            startScrollLeft = productItemsElement.scrollLeft;
-        }
-
-        const dragging = (e) => {
-            if (!isDragging) return;
-            productItemsElement.scrollLeft = startScrollLeft - (e.pageX - startX);
-        }
-
-        const dragStop = () => {
-            isDragging = false;
-            productItemsElement.classList.remove("dragging");
-        }
-
-        const infiniteScroll = () => {
-            if (productItemsElement.scrollLeft === 0) {
-                productItemsElement.classList.add("no-transition");
-                productItemsElement.scrollLeft = productItemsElement.scrollWidth - (2 * productItemsElement.offsetWidth);
-                productItemsElement.classList.remove("no-transition");
-            } else if (Math.ceil(productItemsElement.scrollLeft) === productItemsElement.scrollWidth - productItemsElement.offsetWidth) {
-                productItemsElement.classList.add("no-transition");
-                productItemsElement.scrollLeft = productItemsElement.offsetWidth;
-                productItemsElement.classList.remove("no-transition");
-            }
-            clearTimeout(timeoutId);
-            if (!productWrapperElement.matches(":hover")) autoPlay();
-        }
-
-        const autoPlay = () => {
-            if (window.innerWidth < 800 || !isAutoPlay) return;
-            timeoutId = setTimeout(() => productItemsElement.scrollLeft += firstProductWidth, 2500);
-        }
-        autoPlay();
-
-        productWrapperElement.addEventListener("mousedown", dragStart);
-        productItemsElement.addEventListener("mousemove", dragging);
-        document.addEventListener("mouseup", dragStop);
-        productItemsElement.addEventListener("scroll", infiniteScroll);
-        productWrapperElement.addEventListener("mouseenter", () => clearTimeout(timeoutId));
-        productWrapperElement.addEventListener("mouseleave", autoPlay);
+        debounceTimer = setTimeout(() => {
+            $.ajax({
+                url: '/searchProduct',
+                method: 'GET',
+                data: formData,
+                success: function (response) {
+                    console.log(response)
+                    ulCom.innerHTML = ""
+                    for (let i = 0; i < response.length; ++i) {
+                        const li = document.createElement("li")
+                        li.setAttribute("class", "mb-1")
+                        const a = document.createElement("a")
+                        a.setAttribute("class", "text-dark mb-2 search__box-item")
+                        a.setAttribute("href", `/showProductDetail?id=${response[i].id}`)
+                        a.setAttribute("target", "_blank");
+                        a.style.cursor = "pointer";
+                        a.innerText = response[i].name
+                        li.appendChild(a)
+                        ulCom.appendChild(li)
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            })
+        }, 800);
     })
 }
-sliderProductController();
+
+$('.search__inp').on('focus', function () {
+    $('.search__box').addClass('focused');
+    $('.modal_hidden_search__box').css('display', 'block');
+});
+
+$('.modal_hidden_search__box').on('click', function () {
+    $('.search__box').removeClass('focused');
+    $('.modal_hidden_search__box').css('display', 'none');
+});
+
+$('#header').addClass("animate__animated animate__backInDown")
+handleSearch()
+addToCartAjax()
+
+

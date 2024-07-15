@@ -19,23 +19,25 @@ import java.io.IOException;
 @WebServlet(name = "AddToCartController", value = "/api/cart/add")
 public class AddToCartController extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        response.setContentType("text/html;charset=UTF-8");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
 
         HttpSession session = request.getSession(true);
         User userAuth = SessionManager.getInstance(request, response).getUser();
 
-        if(userAuth == null){
+        if (userAuth == null) {
             response.sendRedirect(ConfigPage.SIGN_IN);
-        }else{
+        } else {
             int productId = 0;
             int quantityRequired = 0;
             try {
                 productId = Integer.parseInt(request.getParameter("productId"));
-                quantityRequired = Integer.parseInt(request.getParameter("quantity"));
-            }catch (NumberFormatException exception){
+
+                if (request.getParameter("quantity") != null) {
+                    quantityRequired = Integer.parseInt(request.getParameter("quantity"));
+                }
+            } catch (NumberFormatException exception) {
                 exception.printStackTrace();
             }
 
@@ -43,20 +45,20 @@ public class AddToCartController extends HttpServlet {
 
             ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
             int cartProductCount;
-            if(cart == null){
+            if (cart == null) {
                 cart = new ShoppingCart();
             }
-            if(quantityRequired <= 0){
+            if (quantityRequired <= 0) {
                 quantityRequired = 1;
             }
             String colorCode = request.getParameter("color");
             String sizeName = request.getParameter("size");
 
 
-            if(colorCode == null){
+            if (colorCode == null) {
                 colorCode = ProductFactory.getListColorsByProductId(productId).get(0).getCodeColor();
             }
-            if(sizeName == null){
+            if (sizeName == null) {
                 sizeName = ProductFactory.getListSizesByProductId(productId).get(0).getNameSize();
             }
 
