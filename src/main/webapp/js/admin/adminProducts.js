@@ -1,12 +1,9 @@
-import {http, endLoading, objectToQueryString, startLoading, convertFormDataToObject} from "../base.js";
+import {http, objectToQueryString, convertFormDataToObject} from "../base.js";
 import {deleteImage, uploadImage} from "../uploadImage.js";
 
 $(document).ready(() => {
     // Enable tooltip bootstrap
     $('[data-bs-toggle="tooltip"]').tooltip();
-    // config preview image/ rename image
-    $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
-    $.fn.filepond.registerPlugin(FilePondPluginFileRename);
 
     // format currency vietnamdong
     const formatter = new Intl.NumberFormat('vi-VN', {
@@ -390,25 +387,32 @@ $(document).ready(() => {
 
     function handleSubmitForm(form) {
         const title = selected.id ? "Cập nhật sản phẩm" : "Thêm sản phẩm";
-        Swal.fire({
-            title: `Bạn có chắc muốn ${title} này vào cửa hàng không?`,
-            text: "Bạn sẽ không thể hoàn nguyên điều này!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Có",
-            cancelButtonText: "Không",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                if (selected.id) {
-                    const listIdSizes = $('[data-size-id]').map((index, element) => $(element).attr('data-size-id')).get();
-                    const listIdColors = $('[data-color-id]').map((index, element) => $(element).attr('data-color-id')).get();
-                    handleUpdate(form, selected.id, listIdSizes, listIdColors);
-                } else
-                    handleCreate(form);
-            }
-        });
+        if (pond.getFiles().length == 0) {
+            Swal.fire({
+                title: "Các trường có ảnh lỗi",
+                text: "Vui lòng không để trống các trường chọn ảnh!",
+                icon: "warning",
+            });
+        } else
+            Swal.fire({
+                title: `Bạn có chắc muốn ${title} này vào cửa hàng không?`,
+                text: "Bạn sẽ không thể hoàn nguyên điều này!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Có",
+                cancelButtonText: "Không",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (selected.id) {
+                        const listIdSizes = $('[data-size-id]').map((index, element) => $(element).attr('data-size-id')).get();
+                        const listIdColors = $('[data-color-id]').map((index, element) => $(element).attr('data-color-id')).get();
+                        handleUpdate(form, selected.id, listIdSizes, listIdColors).then();
+                    } else
+                        handleCreate(form);
+                }
+            });
     }
 
     const formValidator = form.validate(configValidator)
@@ -430,6 +434,10 @@ $(document).ready(() => {
             allowFileRename: true,
             allowFileMetadata: true,
             labelIdle: 'Kéo và thả tệp của bạn vào đây hoặc <span class="filepond--label-action">Chọn tệp</span>',
+            // fileValidateTypeDetectType: (source, type) => new Promise((resolve, reject) => {
+            //     console.log(source, type)
+            //     console.log("upload")
+            // })
             // fileRenameFunction: (file) => {
             //     console.log(file)
             //     if (rename) {
@@ -442,16 +450,18 @@ $(document).ready(() => {
 
         pond.on('addfile', (error, fileItem) => {
             const metadata = fileItem.getMetadata();
-            if (!metadata.id) {
-                fileItem.setMetadata('index', images.added.length);
-                images.added.push({
-                    folder: `product_img/${images.productId}/`,
-                    name: `product_${images.productId}_${Date.now()}`,
-                    file: fileItem.file,
-                    fileExtension: fileItem.fileExtension,
-                });
+            if (!error) {
+                if (!metadata.id) {
+                    fileItem.setMetadata('index', images.added.length);
+                    images.added.push({
+                        folder: `product_img/${images.productId}/`,
+                        name: `product_${images.productId}_${Date.now()}`,
+                        file: fileItem.file,
+                        fileExtension: fileItem.fileExtension,
+                    });
+                }
             }
-            // console.log(images)
+            console.log(pond.getFiles())
         });
         pond.on('removefile', (error, fileItem) => {
             if (!error) {
@@ -462,7 +472,7 @@ $(document).ready(() => {
                     images.added = images.added.filter(image => image.file != fileItem.file);
             } else
                 console.log("error deleted")
-            // console.log(images)
+            console.log(pond.getFiles())
         });
     }
 

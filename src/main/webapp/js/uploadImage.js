@@ -36,12 +36,12 @@ export const uploadImage = function (fileUploads, automaticLoading = true) {
                             console.log("success")
                             return response.json()
                         })
-                        .then(data => dataReturn.push({
+                        .then(data => dataReturn[i] = {
                             url: data.url,
                             public_id: data.public_id,
                             format: data.format
-                        }))
-                        .catch(error => dataReturn.push("error"))
+                        })
+                        .catch(error => dataReturn[i] = "error")
                 );
             }
             try {
@@ -96,8 +96,8 @@ export const deleteImage = function (fileDeletes, callback) {
                             console.log("success")
                             return response.json()
                         })
-                        .then(data => urls.push(data.result))
-                        .catch(error => urls.push("error"))
+                        .then(data => urls[i] = data.result)
+                        .catch(error => urls[i] = "error")
                 );
             }
             try {
@@ -113,3 +113,13 @@ export const deleteImage = function (fileDeletes, callback) {
         }
     })
 };
+
+const CLOUDNAME = "yourstyle";
+
+export function getImageProduct(nameImages) {
+    return `https://res.cloudinary.com/${CLOUDNAME}/image/upload/c_scale/q_auto/f_webp,fl_awebp/v1711545951/product_img/${nameImages}`;
+}
+
+export function fetchImage(url) {
+    return fetch(url).then(response => response.blob()).catch(error => console.error('Error fetching image:', error));
+}

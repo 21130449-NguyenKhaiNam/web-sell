@@ -6,68 +6,47 @@ import {
     getValuesOfKeyFormData,
     http, startLoading
 } from "../base.js";
-import {fetchImage} from "../images.js";
-import {uploadImage} from "../uploadImage.js";
+import {uploadImage, fetchImage} from "../uploadImage.js";
 
 $(document).ready(function () {
-
     // Enable tooltip bootstrap
     $('[data-bs-toggle="tooltip"]').tooltip();
-    $.fn.filepond.registerPlugin(FilePondPluginImagePreview);
-    $.fn.filepond.registerPlugin(FilePondPluginFileRename);
-    $.fn.filepond.registerPlugin(FilePondPluginImageValidateSize);
 
     const configValidator = {
         ignore: [],
         rules: {
-            // nameCategory: {
-            //     required: true,
-            // },
-            // 'nameParameter[]': {
-            //     required: true,
-            // },
-            // 'unit[]': {
-            //     required: true,
-            // },
-            // 'minValue[]': {
-            //     required: true,
-            // },
-            // 'maxValue[]': {
-            //     required: true,
-            // },
-            // sizeTableImage: {
-            //     required: true,
-            //     fileType: "jpg|jpeg|png",
-            // },
-            // 'guideImg[]': {
-            //     required: true,
-            //     fileType: "jpg|jpeg|png",
-            // },
+            nameCategory: {
+                required: true,
+            },
+            'nameParameter[]': {
+                required: true,
+            },
+            'unit[]': {
+                required: true,
+            },
+            'minValue[]': {
+                required: true,
+            },
+            'maxValue[]': {
+                required: true,
+            },
         },
         messages: {
-            // nameCategory: {
-            //     required: "Vui lòng nhập tên sản phẩm",
-            // },
-            // 'nameParameter[]': {
-            //     required: "Vui lòng nhập tên tham số",
-            // },
-            // 'unit[]': {
-            //     required: "Vui lòng nhập đơn vị tính",
-            // },
-            // 'minValue[]': {
-            //     required: "Vui lòng nhập giá trị tối thiểu",
-            // },
-            // 'maxValue[]': {
-            //     required: "Vui lòng nhập giá trị tối đa",
-            // },
-            // sizeTableImage: {
-            //     required: true,
-            //     fileType: "jpg|jpeg|png",
-            // },
-            // 'guideImg[]': {
-            //     required: "Vui lòng chọn ảnh",
-            //     fileType: "Chỉ chấp nhận file ảnh jpg, jpeg, png"
-            // }
+            nameCategory: {
+                required: "Vui lòng nhập tên sản phẩm",
+            },
+            'nameParameter[]': {
+                required: "Vui lòng nhập tên tham số",
+            },
+            'unit[]': {
+                required: "Vui lòng nhập đơn vị tính",
+            },
+            'minValue[]': {
+                required: "Vui lòng nhập giá trị tối thiểu",
+            },
+            'maxValue[]': {
+                required: "Vui lòng nhập giá trị tối đa",
+            },
         },
         onblur: function (element) {
             $(element).valid();
@@ -99,7 +78,7 @@ $(document).ready(function () {
     let dataIndexParameter = [];
     const modal = $("#modal");
     const table = $("#table");
-    let idSelected;
+    let selected = undefined;
     const filePondCollect = {
         category: undefined,
         parameters: [],
@@ -152,7 +131,8 @@ $(document).ready(function () {
 
     const datatable = table.DataTable(configDataTable);
 
-    function addParameter({name, unit, minValue, maxValue}) {
+    function addParameter(parameter) {
+        const {name, unit, minValue, maxValue} = parameter || {};
         const parameterId = `parameter-${Date.now()}`;
         dataIndexParameter.push(parameterId)
         const html = $(`<div data-parameter-index="${parameterId}" class="row border border-1 rounded mt-3 py-3 px-1 position-relative">
@@ -200,7 +180,10 @@ $(document).ready(function () {
                                     <label for="" class="form-label" data-bs-toggle="tooltip"
                                            data-bs-placement="top"
                                            data-bs-title="Ảnh hướng dẫn may đo cho thông số, chỉ được chọn 1 ảnh">Ảnh hướng dẫn may đo</label>
-                                    <input type="file" name="guideImg">
+                                    <input type="file" name="guideImg[]">
+                                      <div class="valid-feedback">
+
+                                    </div>
                                 </div>
                             </div>`)
         formParameter.append(html);
@@ -236,9 +219,12 @@ $(document).ready(function () {
         modal.on("show.bs.modal", function (e) {
             const button = e.relatedTarget
             const id = $(button).data("id")
-            if (id) idSelected = id;
-            if (idSelected) {
-                getDetail(id);
+            if (id) {
+                selected = {};
+                selected.id = id;
+            }
+            if (selected && selected.id) {
+                getDetail(selected.id);
             }
         })
     }
@@ -248,17 +234,17 @@ $(document).ready(function () {
             allowImagePreview: true,
             allowFileRename: true,
             allowFileMetadata: true,
-            allowFileSizeValidation: true,
-            allowFileTypeValidation: true,
-            acceptedFileTypes: ['image/*'],
             maxFiles: 1,
             labelIdle: 'Kéo và thả tệp của bạn vào đây hoặc <span class="filepond--label-action">Chọn tệp</span>',
-            labelFileTypeNotAllowed: 'File of invalid type. Only images are allowed.',
-            fileValidateTypeLabelExpectedTypes: 'Expects {allTypes}',
-            maxFileSize: '5MB',
-            labelMaxFileSizeExceeded: 'File is too large',
-            labelMaxFileSize: 'Maximum file size is {filesize}'
         });
+        filePond.on("addfile", (error, file) => {
+            if (!file.getMetadata().exist) {
+                file.setMetadata("exist", false);
+            }
+        });
+        filePond.on("updatefiles", () => {
+            console.log("update file")
+        })
         return filePond;
     }
 
@@ -271,25 +257,43 @@ $(document).ready(function () {
         addFilePondParameter({id: "0", fileInput: "input#guideImg"})
     }
 
-    function handleFormSubmit(form) {
-        const title = idSelected ? "Cập nhật sản phẩm" : "Thêm sản phẩm";
-        Swal.fire({
-            title: `Bạn có chắc muốn ${title} này vào cửa hàng không?`,
-            text: "Bạn sẽ không thể hoàn nguyên điều này!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Có",
-            cancelButtonText: "Không",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                if (idSelected)
-                    handleUpdate(form, idSelected);
-                else
-                    handleCreate(form);
-            }
+    function validateImage() {
+        const imageCategory = filePondCollect.category.getFiles();
+        if (imageCategory.length == 0) return false;
+        filePondCollect.parameters.forEach(item => {
+            if (item.findPond.getFiles().length == 0) return false;
         });
+        return true;
+    }
+
+    function handleFormSubmit(form) {
+        if (!validateImage())
+            Swal.fire({
+                title: "Các trường có ảnh lỗi",
+                text: "Vui lòng không để trống các trường chọn ảnh!",
+                icon: "warning",
+            });
+        else {
+            const title = selected ? "cập nhật sản phẩm" : "thêm sản phẩm";
+            Swal.fire({
+                title: `Bạn có chắc muốn ${title} này vào cửa hàng không?`,
+                text: "Bạn sẽ không thể hoàn nguyên điều này!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Có",
+                cancelButtonText: "Không",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (selected) {
+                        // handleUpdate(form, selected);
+                    } else {
+                        handleCreate(form);
+                    }
+                }
+            });
+        }
     }
 
     function getDetail(id) {
@@ -300,14 +304,15 @@ $(document).ready(function () {
                 id: id
             }
         }).then(function (data) {
+            selected.data = data
             fieldData(data);
         }).catch(function (error) {
+            //error
             console.log(error)
         });
     }
 
     function fieldData(data) {
-        console.log(data)
         const category = data.category;
         const parameters = data.parameters;
         form.find("#nameCategory").val(category.nameType);
@@ -316,7 +321,7 @@ $(document).ready(function () {
         // thêm ảnh cho category
         fetchImage(urlCategory).then((file) => {
             filePondCollect.category.addFile(file).then((fileItem) => {
-
+                console.log("added category")
             });
         }).catch(error => {
             console.error('Error fetching or adding file:', error);
@@ -329,11 +334,14 @@ $(document).ready(function () {
         form.find("#unit").val(firstParameter.unit);
         form.find("#minValue").val(firstParameter.minValue);
         form.find("#maxValue").val(firstParameter.maxValue);
+
         // Thêm ảnh cho parameter đầu tiên
         fetchImage(firstParameter.guideImg).then((file) => {
             filePondCollect.parameters[0].findPond.addFile(file).then((fileItem) => {
-
+                fileItem.setMetadata("id", firstParameter.id);
+                fileItem.setMetadata("exist", true);
             });
+            filePondCollect.parameters[0].id = firstParameter.id;
         });
 
         // Thêm ảnh cho các parameter còn lại
@@ -342,7 +350,8 @@ $(document).ready(function () {
                 addParameter(item);
                 fetchImage(item.guideImg).then((file => {
                     filePondCollect.parameters[index + 1].findPond.addFile(file).then((fileItem) => {
-
+                        fileItem.setMetadata("id", item.id);
+                        fileItem.setMetadata("exist", true);
                     });
                 })).catch(error => {
                     console.error('Error fetching or adding file:', error);
@@ -356,7 +365,7 @@ $(document).ready(function () {
     }
 
     function resetForm() {
-        idSelected = undefined
+        selected = undefined
         form.find("input, textarea, select").val("")
         formValidator.resetForm();
         if (dataIndexParameter.length > 0) {
@@ -394,7 +403,7 @@ $(document).ready(function () {
         }))
         const nameImageParameters = await uploadImage(fileImageParameters, false);
         deleteKeyFormData(formData, "sizeTableImage");
-        deleteKeyFormData(formData, "guideImg");
+        deleteKeyFormData(formData, "guideImg[]");
         addKeyFormData(formData, "sizeTableImage", nameImageCategory)
         nameImageParameters.forEach((item, index) => {
             const nameImage = item.public_id.split('/')[1] + "." + item.format;
@@ -406,9 +415,6 @@ $(document).ready(function () {
             url: "/api/admin/category/create",
             type: "POST",
             dataType: "json",
-            beforeSend: function (xhr) {
-
-            },
             contentType: false,
             processData: false,
             data: formData,
@@ -444,7 +450,116 @@ $(document).ready(function () {
         });
     }
 
-    async function handleUpdate(form, id) {
+    async function handleUpdate(form, {id, data}) {
+        const formData = new FormData(form);
+        startLoading();
+        // Upload image
+        try {
+            const imageUploaded = [];
+            const imageDelete = [];
+            const categoryFile = filePondCollect.category.getFile().file;
+            if (categoryFile.getMetadata().exist == false) {
+                imageUploaded.push({
+                    folder: "parameter_guide",
+                    name: Date.now(),
+                    file: filePondCollect.category.file,
+                })
+            } else {
+                imageDelete.push({
+                    folder: "parameter_guide",
+                    name: data.category.sizeTableImage,
+                })
+            }
+            filePondCollect.parameters.forEach((item, index) => {
+                const file = item.getFile().file;
+                const parameterId = file.getMetadata().id;
+                if (file.getMetadata().exist == false)
+                    imageUploaded.push({
+                        folder: "parameter_guide",
+                        name: Date.now(),
+                        file: file,
+                        id: parameterId,
+                    })
+                else
+                    imageDelete.push({
+                        folder: "parameter_guide",
+                        name: Date.now(),
+                        file: file,
+                        id: parameterId,
+                    })
+            })
 
+            const responseCategoryUpload = await uploadImage(imageUploaded, false);
+
+            const nameImageCategory = responseCategoryUpload.map(response => response.public_id.split('/')[1] + "." + response.format)[0];
+            const nameImageParameters = responseParameterUpload.map(response => response.public_id.split('/')[1] + "." + response.format);
+
+            const dataUpdate = getObjUpdate(form);
+            dataUpdate.sizeTableImage = nameImageCategory;
+            dataUpdate.parameters.forEach((parameter, index) => {
+                parameter.guideImg = nameImageParameters[index];
+
+            });
+        } catch (e) {
+
+        }
+        // http({
+        //     url: "/api/admin/category/update",
+        //     type: "POST",
+        //     dataType: "json",
+        //     contentType: false,
+        //     processData: false,
+        //     data: formData,
+        // }, false).then(function (data) {
+        //     endLoading();
+        //     if (data.code == 200) {
+        //         Swal.fire({
+        //             icon: 'success',
+        //             title: 'Cập nhật thể loại thành công',
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //         })
+        //         datatable.ajax.reload();
+        //         modal.modal("hide");
+        //     } else {
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Cập nhật thể loại thất bại',
+        //             messages: "Vui lòng kiểm tra lại thông tin đã nhập",
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //         })
+        //     }
+        // }).catch(function (error) {
+        //     endLoading();
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Cập nhật thể loại thất bại',
+        //         messages: "Vui lòng kiểm tra lại thông tin đã nhập",
+        //         showConfirmButton: false,
+        //         timer: 1500
+        //     })
+        // });
+    }
+
+
+    function getObjUpdate(form) {
+        // {nameCategory: "Áo", nameParameter: ["dài áo", "ngang vai"], unit: ["cm", "cm"], minValue: ["10", "20"], maxValue: ["20", "30"]}
+        const result = convertFormDataToObject(form);
+        const parameters = result['nameParameter[]'].map((item, index) => ({
+            id: result['idParameter[]'][index] || null,
+            name: item,
+            unit: result['unit[]'][index],
+            minValue: result['minValue[]'][index],
+            maxValue: result['maxValue[]'][index],
+        }))
+        result.parameters = parameters;
+        delete result['guideImg[]'];
+        delete result['nameParameter[]'];
+        delete result['unit[]'];
+        delete result['minValue[]'];
+        delete result['maxValue[]'];
+        delete result['idParameter[]'];
+        return result;
     }
 })

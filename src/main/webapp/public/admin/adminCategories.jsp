@@ -7,11 +7,7 @@
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/admin.css" />">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminProducts.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/css/admin/adminCategories.css"/>">
-    <!--filepond-->
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet"/>
-    <link
-            href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-            rel="stylesheet"/>
+    <c:import url="/public/filePond.jsp"/>
     <!--LightBox 2-->
     <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/js/lightbox.min.js"></script>
@@ -87,7 +83,7 @@
                         <!--Parameter-->
                         <div class="col-12" id="parameter-form">
                             <div class="row ">
-                                <div class="col-12">
+                                <div class="col-12 ">
                                     <label for="nameParameter" class="form-label" data-bs-toggle="tooltip"
                                            data-bs-placement="top"
                                            data-bs-title="Tên tham số, ví dụ: dài áo, ngang vai,...">Tên tham
@@ -133,7 +129,7 @@
                                            data-bs-placement="top"
                                            data-bs-title="Ảnh hướng dẫn may đo cho thông số, chỉ được chọn 1 ảnh">Ảnh
                                         hướng dẫn may đo</label>
-                                    <input id="guideImg" type="file" name="guideImg">
+                                    <input id="guideImg" type="file" name="guideImg[]">
                                     <div class="valid-feedback">
 
                                     </div>
@@ -151,12 +147,7 @@
         </form>
     </div>
 </div>
-<!-- include FilePond plugins -->
-<script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-validate-size/dist/filepond-plugin-image-validate-size.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-rename/dist/filepond-plugin-file-rename.js"></script>
-<script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+
 <script src="<c:url value="/js/validator.js"/>"></script>
 <script type="module" src="<c:url value="/js/admin/adminCategory.js" />"></script>
 </body>
