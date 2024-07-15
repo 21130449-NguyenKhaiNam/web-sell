@@ -287,7 +287,7 @@ $(document).ready(function () {
             }).then((result) => {
                 if (result.isConfirmed) {
                     if (selected) {
-                        handleUpdate(form, selected);
+                        // handleUpdate(form, selected);
                     } else {
                         handleCreate(form);
                     }
