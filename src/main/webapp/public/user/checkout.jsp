@@ -41,50 +41,6 @@
                     <p class="other__info">Bạn muốn giao hàng đến địa chỉ khác?
                         <span class="add__delivery">Thêm thông tin giao hàng mới</span>
                     </p>
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="card mb-4">
-                                <div class="card-header">Thông tin cá nhân</div>
-                                <div class="card-body">
-                                    <form id="form-personal">
-                                        <div class="row gx-3 mb-3">
-                                            <div class="col-md-6">
-                                                <div class="">
-                                                    <label class="medium mb-1" for="inputUsername">Họ và tên</label>
-                                                    <input name="fullName" class="form-control" id="inputUsername"
-                                                           type="text" placeholder="Vui lòng nhập tên của bạn"
-                                                           value="${user.fullName}">
-                                                    <div class="valid-feedback">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <fmt:formatDate var="date" type="DATE" value="${user.birthDay}"
-                                                                pattern="dd-MM-yyy"/>
-                                                <label class="medium mb-1" for="inputDate">Ngày sinh</label>
-                                                <input class="form-select" name="birthDay" value="${date}"
-                                                       id="inputDate"
-                                                       type="text">
-                                                <div class="valid-feedback">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="medium mb-1" for="inputPhone">Số điện thoại</label>
-                                                <input class="form-select" name="phone" value="${user.phone}"
-                                                       id="inputPhone" type="text">
-                                                <div class="valid-feedback">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-primary mt-2" type="submit">Thay đổi</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row mt-4">
                         <div class="col-12">
                             <div class="card mb-4">
@@ -386,6 +342,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.js"
         integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script type="module" src="/js/user/accountInfo.js"></script>
 <script type="text/javascript">
     function selectCard(card) {
@@ -422,13 +379,13 @@
                                 </div>
                             </td>
                             <td class="td__item">` + order.count + `</td>
-                            <td class="td__item">` + order.price + `</td>
+                            <td class="td__item">` + order.price.toLocaleString('vi-VN') + `</td>
                         </tr>
             `
             con.append(content)
             totalCost += order.price
         })
-        totalPrice.text(totalCost + '')
+        totalPrice.text(totalCost.toLocaleString('vi-VN'))
     }
 
     <c:if test="${not empty requestScope.models}">
@@ -490,7 +447,6 @@
                                 console.log(err)
                             }
                         })
-                        // window.location.href = "/public/user/successOrder?invoiceNo=" + invoiceNo;
                     }, 3000);
                 }
             })

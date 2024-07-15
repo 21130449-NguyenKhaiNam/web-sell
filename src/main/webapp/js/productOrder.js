@@ -24,6 +24,7 @@ for (let i = 0; i < quantityInputParameter; i++) {
     const maxValue = document.querySelector(`#maxValueParameter${i}`).innerText;
     rules.push(Validation.range(`#parameter${i}`, minValue, maxValue));
 }
+
 console.log(rules)
 let validation = new Validation({
     formSelector: ".form",
@@ -53,7 +54,7 @@ function getObjForm() {
 function addToCart() {
     const obj = getObjForm();
     $.ajax({
-        url: "/api/cart/add-custom",
+        url: "/api/cart/add/custom",
         type: "POST",
         dataType: "json",
         data: obj,

@@ -244,7 +244,9 @@ function handleSearch() {
                         li.setAttribute("class", "mb-1")
                         const a = document.createElement("a")
                         a.setAttribute("class", "text-dark mb-2 search__box-item")
-                        a.setAttribute("href", "/")
+                        a.setAttribute("href", `/showProductDetail?id=${response[i].id}`)
+                        a.setAttribute("target", "_blank");
+                        a.style.cursor = "pointer";
                         a.innerText = response[i].name
                         li.appendChild(a)
                         ulCom.appendChild(li)
@@ -258,14 +260,23 @@ function handleSearch() {
     })
 }
 
-$('.search__inp').on('focus', function () {
+$('.search__inp').on('click', function () {
+    $('.modal_hidden_search__box').css('display', 'block');
     $('.search__box').addClass('focused');
+    // $('.products').css('z-index', '-1');
 });
 
-$('.search__inp').on('blur', function () {
+// $('.products').on('click', function () {
+//     $('.search__box').removeClass('focused');
+//     // $('.products').css('z-index', '1');
+// });
+
+$('.modal_hidden_search__box').on('click', function () {
     $('.search__box').removeClass('focused');
+    $('.modal_hidden_search__box').css('display', 'none');
+    // $('.tab_right').css('z-index', '1');
+    // $('.tab_left').css('z-index', '1');
 });
-
 
 const productList = document.querySelector('.product__list')
 const productPages = document.querySelector('.paging')
