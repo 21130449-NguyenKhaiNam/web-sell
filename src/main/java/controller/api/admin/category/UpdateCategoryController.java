@@ -29,19 +29,20 @@ public class UpdateCategoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         StringBuilder objJson = new StringBuilder();
-        String idString = request.getParameter("categoryId");
+        String idString = request.getParameter("id");
+        String nameCategory = request.getParameter("nameCategory");
+        Part sizeTableImagePart = request.getPart("sizeTableImage");
         int categoryId;
         try {
             categoryId = Integer.parseInt(idString);
             //        Category
-            String nameCategory = request.getParameter("nameCategory");
-            Part sizeTableImagePart = request.getPart("sizeTableImage");
+
             String sizeTableImage = uploadImageSizeTable(sizeTableImagePart);
             Category category = new Category();
             category.setId(categoryId);
             category.setNameType(nameCategory);
             category.setSizeTableImage(sizeTableImage);
-            AdminCategoryServices.getINSTANCE().updateCategory(category);
+//            AdminCategoryServices.getINSTANCE().updateCategory(category);
 
 //        Parameters
             String[] nameParameters = request.getParameterValues("nameParameter");

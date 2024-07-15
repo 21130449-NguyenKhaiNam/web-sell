@@ -1,6 +1,6 @@
 import {endLoading, http, startLoading} from "./base.js";
 
-export const image = function (fileUploads, automaticLoading = true) {
+export const uploadImage = function (fileUploads, automaticLoading = true) {
     return new Promise((resolve, reject) => {
         const numberOfFiles = fileUploads.length;
         const dataReturn = [];
@@ -36,12 +36,12 @@ export const image = function (fileUploads, automaticLoading = true) {
                             console.log("success")
                             return response.json()
                         })
-                        .then(data => dataReturn.push({
+                        .then(data => dataReturn[i] = {
                             url: data.url,
                             public_id: data.public_id,
                             format: data.format
-                        }))
-                        .catch(error => dataReturn.push("error"))
+                        })
+                        .catch(error => dataReturn[i] = "error")
                 );
             }
             try {
@@ -96,8 +96,8 @@ export const deleteImage = function (fileDeletes, callback) {
                             console.log("success")
                             return response.json()
                         })
-                        .then(data => urls.push(data.result))
-                        .catch(error => urls.push("error"))
+                        .then(data => urls[i] = data.result)
+                        .catch(error => urls[i] = "error")
                 );
             }
             try {
@@ -123,21 +123,3 @@ export function getImageProduct(nameImages) {
 export function fetchImage(url) {
     return fetch(url).then(response => response.blob()).catch(error => console.error('Error fetching image:', error));
 }
-
-export const validateEmptyFilePond = () => {
-    const filepondInstances = [];
-    console.log($('input[type="file"]'))
-    $('input[type="file"]').each((index, element) => {
-        const instance = FilePond.find($(element));
-        if (instance) {
-            filepondInstances.push(instance);
-        }
-    });
-    console.log(filepondInstances)
-
-    const allEmpty = filepondInstances.every(instance => {
-        console.log(instance.getFiles())
-        return instance.getFiles().length === 0
-    });
-    return !allEmpty;
-};

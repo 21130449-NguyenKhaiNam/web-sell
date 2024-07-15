@@ -1,5 +1,5 @@
 import {http, objectToQueryString, convertFormDataToObject} from "../base.js";
-import {deleteImage, image, validateEmptyFilePond} from "../image.js";
+import {deleteImage, uploadImage} from "../uploadImage.js";
 
 $(document).ready(() => {
     // Enable tooltip bootstrap
@@ -748,7 +748,7 @@ $(document).ready(() => {
         formData.append("id", id);
         try {
             if (images.added.length > 0) {
-                const response = await image(images.added);
+                const response = await uploadImage(images.added);
                 const idImageDeleted = images.deleted.map(id => images.exist[id].id);
                 const nameImageAdded = response.map(response => response.public_id);
 

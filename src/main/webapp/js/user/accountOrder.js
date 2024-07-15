@@ -1,4 +1,4 @@
-import {getImageProduct} from "../image.js";
+import {getImageProduct} from "../uploadImage.js";
 import {getFeeAndLeadTime} from "../shipping.js";
 
 $(document).ready(function () {
