@@ -1,6 +1,6 @@
 import {endLoading, http, startLoading} from "./base.js";
 
-export const uploadImage = function (fileUploads) {
+export const uploadImage = function (fileUploads, automaticLoading = true) {
     return new Promise((resolve, reject) => {
         const numberOfFiles = fileUploads.length;
         const dataReturn = [];
@@ -36,20 +36,25 @@ export const uploadImage = function (fileUploads) {
                             console.log("success")
                             return response.json()
                         })
-                        .then(data => dataReturn.push({
+                        .then(data => dataReturn[i] = {
                             url: data.url,
-                            public_id: data.public_id
-                        }))
-                        .catch(error => dataReturn.push("error"))
+                            public_id: data.public_id,
+                            format: data.format
+                        })
+                        .catch(error => dataReturn[i] = "error")
                 );
             }
             try {
-                startLoading();
+                if (automaticLoading)
+                    startLoading();
                 await Promise.all(uploadPromises);
-                endLoading();
+                if (automaticLoading)
+                    endLoading();
                 resolve(dataReturn);
             } catch (error) {
-                endLoading();
+                console.error('Error uploading images:', error);
+                if (automaticLoading)
+                    endLoading();
                 reject(error);
             }
         }).catch(error => {
@@ -91,8 +96,8 @@ export const deleteImage = function (fileDeletes, callback) {
                             console.log("success")
                             return response.json()
                         })
-                        .then(data => urls.push(data.result))
-                        .catch(error => urls.push("error"))
+                        .then(data => urls[i] = data.result)
+                        .catch(error => urls[i] = "error")
                 );
             }
             try {
@@ -108,3 +113,13 @@ export const deleteImage = function (fileDeletes, callback) {
         }
     })
 };
+
+const CLOUDNAME = "yourstyle";
+
+export function getImageProduct(nameImages) {
+    return `https://res.cloudinary.com/${CLOUDNAME}/image/upload/c_scale/q_auto/f_webp,fl_awebp/v1711545951/product_img/${nameImages}`;
+}
+
+export function fetchImage(url) {
+    return fetch(url).then(response => response.blob()).catch(error => console.error('Error fetching image:', error));
+}

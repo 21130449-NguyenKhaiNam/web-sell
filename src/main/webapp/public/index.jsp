@@ -301,7 +301,6 @@
 <!--Footer-->
 <%@include file="footer.jsp" %>
 <script src="<c:url value="/js/home.js" />"></script>
-<script src="<c:url value="/js/base.js" />"></script>
 <script type="text/javascript">
     function addToCartAjax() {
         $(document).ready(function () {

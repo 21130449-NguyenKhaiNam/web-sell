@@ -29,6 +29,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href=<c:url value="/assets/favicon/apple-touch-icon.png"/>>
 <link rel="icon" type="image/png" sizes="32x32" href=<c:url value="/assets/favicon/favicon-32x32.png"/>>
 <link rel="icon" type="image/png" sizes="16x16" href=<c:url value="/assets/favicon/favicon-16x16.png"/>>
+<link rel="icon" type="image/png" sizes="192x192" href=<c:url value="/assets/favicon/android-chrome-192x192.png"/>
 <link rel="manifest" href=<c:url value="/assets/favicon/site.webmanifest"/>>
 <!--Web font-->
 <%--jquery--%>
@@ -36,7 +37,7 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!--Font-->
-<link rel="stylesheet" href="<c:url value=" /assets/font/webfonts/Montserrat.css" />">
+<link rel="stylesheet" href="<c:url value="/assets/font/webfonts/Montserrat.css" />">
 <!--CSS-->
 <link rel="stylesheet" href=<c:url value="/assets/css/reset.css"/>>
 <link rel="stylesheet" href=<c:url value="/assets/css/base.css"/>>

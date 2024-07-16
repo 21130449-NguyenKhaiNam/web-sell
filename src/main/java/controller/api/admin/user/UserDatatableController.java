@@ -18,7 +18,6 @@ import java.util.List;
 
 @WebServlet(value = "/api/admin/user/datatable")
 public class UserDatatableController extends HttpServlet {
-    Gson gson = new GsonBuilder().create();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,21 +34,17 @@ public class UserDatatableController extends HttpServlet {
         int ind = orderColumn == null ? 0 : Integer.parseInt(orderColumn);
         String orderBy = orderColumn == null ? "id" : (ind < columnNames.length ? columnNames[ind] : columnNames[0]);
         // Fetch filtered and sorted logs
-        List<User> vouchers = UserServices.getINSTANCE().getUser(start, length, searchValue, orderBy, orderDir);
+        List<User> users = UserServices.getINSTANCE().getUser(start, length, searchValue, orderBy, orderDir);
         long size = UserServices.getINSTANCE().getTotalWithCondition(searchValue);
 
         // Prepare JSON response
-        ObjectMapper mapper = new ObjectMapper();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("draw", draw);
         jsonObject.put("recordsTotal", size);
         jsonObject.put("recordsFiltered", size);
-        jsonObject.put("data", vouchers);
-        // Prepare JSON response
+        jsonObject.put("data", users);
 
         // Send response
-        PrintWriter writer = resp.getWriter();
-        writer.write(mapper.writeValueAsString(jsonObject.toMap()));
-        writer.flush();
+        resp.getWriter().println(jsonObject.toString());
     }
 }
