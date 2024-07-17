@@ -1,9 +1,11 @@
 package services.admin;
 
+import config.ImagePath;
 import dao.CategoryDAO;
 import dao.ParameterDAO;
 import models.Category;
 import models.Parameter;
+import services.image.CloudinaryUploadServices;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class AdminCategoryServices {
     private static AdminCategoryServices INSTANCE;
     private CategoryDAO categoryDAO;
     private ParameterDAO parameterDAO;
+
     private AdminCategoryServices() {
         categoryDAO = new CategoryDAO();
         parameterDAO = new ParameterDAO();
@@ -24,36 +27,47 @@ public class AdminCategoryServices {
 
     public List<Category> getCategories() {
         List<Category> categories = categoryDAO.getAllCategory();
+        for (Category category : categories) {
+            String url = CloudinaryUploadServices.getINSTANCE().getImage(ImagePath.CATEGORY.getPath(), category.getSizeTableImage());
+            category.setSizeTableImage(url);
+        }
         return categories;
     }
 
-    public List<Category> getCategoryById(int id){
-        return categoryDAO.getCategoryById(id);
+    public Category getCategoryById(int id) {
+        Category category = categoryDAO.getCategoryById(id);
+        String url = CloudinaryUploadServices.getINSTANCE().getImage(ImagePath.CATEGORY.getPath(), category.getSizeTableImage());
+        category.setSizeTableImage(url);
+        return category;
     }
 
-    public int getIdByNameType(String nameType){
+    public List<Category> getListCategoryById(int id) {
+        return categoryDAO.getListCategoryById(id);
+    }
+
+    public int getIdByNameType(String nameType) {
         return categoryDAO.getCategoryByNameType(nameType).get(0).getId();
     }
 
     public int addCategory(Category category) {
         boolean isExist = !categoryDAO.getCategoryByNameType(category.getNameType()).isEmpty();
-        if (!isExist) {
-            categoryDAO.add(category);
-            return categoryDAO.getCategoryByNameType(category.getNameType()).get(0).getId();
-        } else {
-            return -1;
-        }
+        if (isExist) return -1;
+        return categoryDAO.add(category);
     }
 
-    public void addParameters(List<Parameter> parameterList, int categoryId) {
-        for (Parameter parameter :parameterList) {
-            parameter.setCategoryId(categoryId);
+    public void addParameters(List<Parameter> parameterList) {
+        for (Parameter parameter : parameterList) {
             categoryDAO.addParameter(parameter);
         }
     }
 
-    public List<Parameter> getParameterByCategoryId(int id) {
-        return parameterDAO.getParameterByCategoryId(id);
+    public List<Parameter> getParametersByCategoryId(int id) {
+        List<Parameter> listParameter = parameterDAO.getParameterByCategoryId(id);
+        for (Parameter parameter : listParameter) {
+            String url = CloudinaryUploadServices.getINSTANCE().getImage(ImagePath.PARAMETER.getPath(), parameter.getGuideImg());
+            parameter.setGuideImg(url);
+        }
+        return listParameter;
     }
 
     public void updateCategory(Category category) {

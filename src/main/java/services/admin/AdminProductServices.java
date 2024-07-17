@@ -129,7 +129,6 @@ public class AdminProductServices {
         return !productList.isEmpty();
     }
 
-
     public void updateProduct(Product product) {
         productDAO.updateProduct(product);
     }

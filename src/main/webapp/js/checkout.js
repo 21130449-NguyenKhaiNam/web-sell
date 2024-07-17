@@ -3,7 +3,6 @@ const paymentMethodRadioButtons = document.querySelectorAll(".payment__method--c
 const deliveryMethodRadioButtons = document.querySelectorAll(".delivery__method--container .radio__button");
 const customizeDeliveryInfo = document.getElementById("customize__info--form");
 
-
 function ValidatorCustomizeDeliveryForm(options) {
     let selectorRules = {};
 

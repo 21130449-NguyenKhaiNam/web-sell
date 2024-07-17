@@ -84,8 +84,7 @@ public class AuthenticateServices {
         List<User> users = userDAO.selectByEmail(email, STATE_VERIFY);
         if (users.size() != 1) return null;
         User user = users.get(0);
-        User userValid = extractUser(user);
-        return userValid;
+        return  extractUser(user);
     }
 
     //    Kiểm tra đăng nhập bằng username + password

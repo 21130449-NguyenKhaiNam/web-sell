@@ -73,7 +73,7 @@ public class ExportExcelLog extends HttpServlet implements Serializable {
         }
 
         if(delete) {
-           LogService.getINSTANCE().deleteAll();
+            LogService.getINSTANCE().deleteAll();
         }
 
         try (OutputStream out = response.getOutputStream()) {

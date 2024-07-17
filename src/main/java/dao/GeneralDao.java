@@ -104,4 +104,12 @@ public class GeneralDao {
                 .mapTo(Integer.class)
                 .one();
     }
+
+    public static <T> T executeSelectOne(String sql, Class<T> type, Object... params) {
+        List<T> list = executeQueryWithSingleTable(sql, type, params);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
 }

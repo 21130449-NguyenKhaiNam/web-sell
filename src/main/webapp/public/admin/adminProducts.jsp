@@ -23,11 +23,7 @@
           type='text/css'/>
     <script type='text/javascript'
             src='https://cdn.jsdelivr.net/npm/froala-editor@4.0.10/js/froala_editor.pkgd.min.js'></script>
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet"/>
-    <link
-            href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-            rel="stylesheet"
-    />
+    <c:import url="/public/filePond.jsp"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
@@ -162,8 +158,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <!--Paging-->
-                    <ul class="paging"></ul>
                 </div>
             </div>
         </div>
@@ -227,12 +221,12 @@
                         </div>
                         <div class="col-6 mt-4">
                             <!--Size-->
-                            <div class="form__label form__block border border-1 rounded p-2">
+                            <div class=" form__block border border-1 rounded p-2">
                                 <div class="d-flex justify-content-between align-content-center">
-                                    <h2 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Mỗi sản phẩm có ít nhất một kích thước, mỗi kích thước gồm tên kích thước và giá của kích
+                                    <h2 class="h4" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Mỗi sản phẩm có ít nhất một kích thước, mỗi kích thước gồm tên kích thước và giá của kích
                                            thước đó. Giá kích thước sẽ được cộng cùng với giá sản phẩm ở trên">Kích
                                         thước</h2>
-
+                                    <div id="form__add-size" class="btn btn-primary ">Thêm size</div>
                                 </div>
                                 <div id="form__size" class="container-fluid">
                                     <div class="row mt-2 py-2">
@@ -254,9 +248,6 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-4">
-                                            <div id="form__add-size" class="btn btn-primary w-100">Thêm size</div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -265,7 +256,7 @@
                             <!--Color -->
                             <div class="form__label form__block border border-1 rounded p-2">
                                 <div class="d-flex justify-content-between align-content-center ">
-                                    <h2 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Màu sắc của sản phẩm, mỗi sản phẩm phải có ít nhất 1 màu, mã màu được lưu dưới dạng mã
+                                    <h2 class="h4" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Màu sắc của sản phẩm, mỗi sản phẩm phải có ít nhất 1 màu, mã màu được lưu dưới dạng mã
                                        HEX">Màu sắc có sẵn</h2>
                                     <div id="form__add-color" class="btn btn-primary">Thêm màu sắc</div>
                                 </div>
@@ -296,17 +287,7 @@
     </div>
 </div>
 
-<script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-
-<!-- include FilePond plugins -->
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
-
-<!-- include FilePond jQuery adapter -->
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-rename/dist/filepond-plugin-file-rename.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.7/js/languages/vi.js"></script>
-<script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
 <script type="module" src="<c:url value="/js/admin/adminProducts.js"/>"></script>
 
 <%
