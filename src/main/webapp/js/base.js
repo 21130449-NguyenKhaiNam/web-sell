@@ -152,3 +152,8 @@ export const formatDate = (dateString) => {
 export const formatCurrency = (value) => {
     return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(value);
 }
+
+export const configSweetAlert2 = {
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+}

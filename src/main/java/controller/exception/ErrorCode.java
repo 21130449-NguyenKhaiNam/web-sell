@@ -5,12 +5,13 @@ import lombok.Getter;
 @Getter
 public enum ErrorCode {
     PRODUCT_NOT_FOUND(404, "Product not found"),
-    UPDATE_PRODUCT_FAILED(1000, "Update product failed"),
-    UPDATE_PRODUCT_SUCCESS(200, "Update product success"),
+    UPDATE_FAILED(1000, "Update failed"),
+    UPDATE_SUCCESS(200, "Update success"),
     SIZE_ERROR(1001, "Size error"),
     COLOR_ERROR(1002, "Color error"),
     CATEGORY_ERROR(1003, "Category error"),
     MISSING_REQUEST(1004, "Empty request"),
+    ERROR_PARAM_REQUEST(1004, "Param not valid"),
     PARAMETER_ERROR(1005, "Parameter error"),
     ;
     private Integer code;

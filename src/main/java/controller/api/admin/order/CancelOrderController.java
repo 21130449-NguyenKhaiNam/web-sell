@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Random;
 
 @WebServlet(name = "CancelOrderAdmin", value = "/api/admin/order/cancel")
-public class CancelOrderAdmin extends HttpServlet {
+public class CancelOrderController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String actionTarget = (String) request.getAttribute("action");

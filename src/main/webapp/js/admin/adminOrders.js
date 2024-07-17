@@ -201,7 +201,6 @@ $(document).ready(() => {
 
                     let modalOrder = document.querySelector('.modal__order');
                     $(modalOrder).html(`
-                                       
                                                 <div class="section__dialog">
                                                     <div class="section__heading">
                                                         <h1 class="h3">1. Thông tin giao hàng của khách hàng</h1>
