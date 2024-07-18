@@ -1,4 +1,11 @@
-import {http, objectToQueryString, convertFormDataToObject, configSweetAlert2} from "../base.js";
+import {
+    http,
+    objectToQueryString,
+    convertFormDataToObject,
+    configSweetAlert2,
+    startLoading,
+    endLoading
+} from "../base.js";
 import {deleteImage, uploadImage} from "../uploadImage.js";
 
 $(document).ready(() => {
@@ -400,7 +407,7 @@ $(document).ready(() => {
                         const listIdColors = $('[data-color-id]').map((index, element) => $(element).attr('data-color-id')).get();
                         handleUpdate(form, selected.id, listIdSizes, listIdColors).then();
                     } else
-                        handleCreate(form);
+                        handleCreate(form).then();
                 }
             });
     }
@@ -492,6 +499,8 @@ $(document).ready(() => {
         });
         if (colorHex)
             $(el).val(colorHex);
+        else
+            $(el).val("#000000");
     }
 
     function configModal() {
@@ -621,47 +630,57 @@ $(document).ready(() => {
 
     // --------------------------------
     // Thực hiện thêm sản phẩm
-    function handleCreate(form) {
+    async function handleCreate(form) {
+        startLoading();
         const formData = new FormData(form);
         // Thêm ảnh vào FormData
         const filePondFiles = FilePond.find(document.querySelector('#image')).getFiles();
         filePondFiles.forEach(file => {
             formData.append('images[]', file.file);
         });
-        http({
-            url: "/api/admin/product/create",
-            type: "POST",
-            contentType: false,
-            processData: false,
-            dataType: "json",
-            data: formData,
-        }).then((data) => {
-            if (data.status === true) {
-                Swal.fire({
-                    title: "Thêm sản phẩm thành công",
-                    text: "Sản phẩm đã được thêm vào gian hàng.",
-                    icon: "success",
-                });
-                datatable.row.add(
-                    {
-                        ...convertFormDataToObject(form)
-                    }
-                ).draw(false);
-                modal.modal("hide");
-            } else {
-                Swal.fire({
-                    title: "Thêm sản phẩm không thành công",
-                    text: "Sản phẩm đã có tên trên đã tồn tại vào gian hàng.",
-                    icon: "error",
-                });
-            }
-        }).catch((error) => {
+        try {
+            const response = await uploadImage(images.added, false);
+            const nameImageAdded = response.map(response => response.public_id.split('/').slice(1).join('/') + '.' + response.format);
+            nameImageAdded.forEach(nameImage => {
+                formData.append('nameImageAdded[]', nameImage);
+            });
+            http({
+                url: "/api/admin/product/create111",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                data: formData,
+            }, false).then((data) => {
+                endLoading();
+                if (data.code == 200) {
+                    Swal.fire({
+                        title: "Thêm sản phẩm thành công",
+                        text: "Sản phẩm đã được thêm vào gian hàng.",
+                        icon: "success",
+                    });
+                    datatable.row.add(
+                        {
+                            ...convertFormDataToObject(form)
+                        }
+                    ).draw(false);
+                    modal.modal("hide");
+                } else {
+                    Swal.fire({
+                        title: "Thêm sản phẩm không thành công",
+                        text: "Sản phẩm đã có tên trên đã tồn tại vào gian hàng.",
+                        icon: "error",
+                    });
+                }
+            })
+        } catch (e) {
+            endLoading();
             Swal.fire({
                 title: "Thêm sản phẩm không thành công",
                 text: "Đã có lỗi xảy ra",
                 icon: "warning",
             })
-        });
+        }
     }
 
     // -------------------------------
@@ -736,17 +755,17 @@ $(document).ready(() => {
         listIdColors.forEach(idColor => formData.append('colorId[]', idColor));
         formData.append("id", id);
         try {
+            startLoading();
             if (images.added.length > 0) {
-                const response = await uploadImage(images.added);
+                const response = await uploadImage(images.added, false);
                 const idImageDeleted = images.deleted.map(id => images.exist[id].id);
-                const nameImageAdded = response.map(response => response.public_id);
+                const nameImageAdded = response.map(response => response.public_id.split('/').slice(1).join('/') + '.' + response.format);
 
                 idImageDeleted.forEach(idImage => {
                     formData.append('idImageDeleted[]', idImage);
                 });
 
                 nameImageAdded.forEach(nameImage => {
-                    nameImage = nameImage.split('/').slice(1).join('/');
                     formData.append('nameImageAdded[]', nameImage);
                 });
             }
@@ -757,8 +776,8 @@ $(document).ready(() => {
                 contentType: false,
                 processData: false,
                 dataType: "json",
-            })
-
+            }, false)
+            endLoading();
             if (updateResponse.code == 200) {
                 Swal.fire({
                     title: "Cập nhập sản phẩm thành công",
@@ -802,6 +821,7 @@ $(document).ready(() => {
                 });
             }
         } catch (e) {
+            endLoading();
             console.error(e);
             Swal.fire({
                 title: "Cập nhập sản phẩm không thành công",

@@ -1,7 +1,9 @@
 package controller.api.admin.product;
 
+import com.google.gson.JsonObject;
 import controller.exception.AppException;
 import controller.exception.ErrorCode;
+import models.Image;
 import models.Product;
 import properties.PathProperties;
 import services.admin.AdminProductServices;
@@ -13,7 +15,10 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "adminCreateProduct", value = "/api/admin/product/create")
 @MultipartConfig(
@@ -37,6 +42,7 @@ public class CreateProductController extends HttpServlet {
         String[] nameSizes = request.getParameterValues("nameSize[]");
         String[] sizePrices = request.getParameterValues("sizePrice[]");
         String[] colors = request.getParameterValues("color");
+        String[] nameImageAdded = request.getParameterValues("nameImageAdded[]");
 
 //        Add Product
         Product product = new Product();
@@ -48,42 +54,39 @@ public class CreateProductController extends HttpServlet {
         product.setVisibility(true);
         product.setCreateAt(Date.valueOf(LocalDate.now()));
 
+        if (nameSizes.length == 0) throw new AppException(ErrorCode.SIZE_ERROR);
+        if (colors.length == 0) throw new AppException(ErrorCode.COLOR_ERROR);
+        if (nameImageAdded.length == 0) throw new AppException(ErrorCode.IMAGE_ERROR);
+
 //        Add Product
         int productId = AdminProductServices.getINSTANCE().addProduct(product);
 
-        StringBuilder objJson = new StringBuilder();
-        if (productId == 0) {
-            throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
-        } else {
+        JsonObject objJson = new JsonObject();
+//       Sản phẩm đã tồn tại
+        if (productId == 0) throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
+
 //        Add Size
-            double[] sizePricesDouble = new double[sizePrices.length];
-            for (int i = 0; i < sizePricesDouble.length; i++) {
-                sizePricesDouble[i] = Double.parseDouble(sizePrices[i]);
-            }
-            AdminProductServices.getINSTANCE().addSize(nameSizes, sizePricesDouble, productId);
+        double[] sizePricesDouble = new double[sizePrices.length];
+        for (int i = 0; i < sizePricesDouble.length; i++) {
+            sizePricesDouble[i] = Double.parseDouble(sizePrices[i]);
+        }
+        AdminProductServices.getINSTANCE().addSize(nameSizes, sizePricesDouble, productId);
 
 //        Add Color
-            AdminProductServices.getINSTANCE().addColor(colors, productId);
+        AdminProductServices.getINSTANCE().addColor(colors, productId);
 
 //        Add Images
-            Collection<Part> images = request.getParts();
-            try {
-                uploadImg(images, productId);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-            objJson.append("{\"status\":").append("true}");
-        }
-        response.getWriter().write(objJson.toString());
-    }
+        List<Image> imagesAdded = Arrays.stream(nameImageAdded).map(nameImage -> {
+            Image image = new Image();
+            image.setNameImage(nameImage);
+            image.setProductId(productId);
+            return image;
+        }).collect(Collectors.toList());
 
-    public void uploadImg(Collection<Part> parts, int productId) throws Exception {
-        ServletContext servletContext = getServletContext();
-        String root = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathProductWeb();
-//       Add to local project tree
-        UploadImageServices uploadImageServices = new UploadImageServices(root);
-        uploadImageServices.addImages(parts);
-//       Add to db
-        AdminProductServices.getINSTANCE().addImages(uploadImageServices.getNameImages(), productId);
+        AdminProductServices.getINSTANCE().addImages(imagesAdded);
+
+        objJson.addProperty("code", ErrorCode.CREATE_SUCCESS.getCode());
+        objJson.addProperty("message", ErrorCode.CREATE_SUCCESS.getMessage());
+        response.getWriter().write(objJson.toString());
     }
 }
