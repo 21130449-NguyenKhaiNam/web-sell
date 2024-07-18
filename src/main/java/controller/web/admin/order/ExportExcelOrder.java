@@ -17,7 +17,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.List;
 
-@WebServlet(name = "exportExcelOrder", value = "/exportExcelOrder")
+@WebServlet(name = "exportExcelOrder", value = "/admin/exportExcelOrder")
 public class ExportExcelOrder extends HttpServlet implements Serializable {
     private final int LIMIT = 5000;
 

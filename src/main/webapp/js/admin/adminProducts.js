@@ -1,4 +1,4 @@
-import {http, objectToQueryString, convertFormDataToObject} from "../base.js";
+import {http, objectToQueryString, convertFormDataToObject, configSweetAlert2} from "../base.js";
 import {deleteImage, uploadImage} from "../uploadImage.js";
 
 $(document).ready(() => {
@@ -25,11 +25,11 @@ $(document).ready(() => {
     const formColor = $("#form__color");
     const btnAddSize = $("#form__add-size");
     const btnAddColor = $("#form__add-color");
+    const modalFilter = $("#modal-filter");
     let editor;
     let dataSizeIndex = [];
     let dataColorIndex = [];
     let pond;//trình thêm ảnh
-    let rename = false;//tag đánh dấu ảnh có được rename không?
     const images = {
         productId: undefined,
         exist: [],
@@ -180,6 +180,7 @@ $(document).ready(() => {
                 closeOnSelect: false,
                 allowClear: true,
                 placeholder: 'Kích thước',
+                dropdownParent: modalFilter,
             }
         );
         category.select2(
@@ -189,6 +190,7 @@ $(document).ready(() => {
                 closeOnSelect: false,
                 allowClear: true,
                 placeholder: 'Thể loại',
+                dropdownParent: modalFilter,
             }
         );
 
@@ -209,7 +211,8 @@ $(document).ready(() => {
             closeOnSelect: false,
             allowClear: true,
             templateResult: formatColorOption,
-            templateSelection: formatColorOption
+            templateSelection: formatColorOption,
+            dropdownParent: modalFilter,
         });
 
         moneyRange.ionRangeSlider({
@@ -223,37 +226,17 @@ $(document).ready(() => {
             to: 300000,
             grid_margin: true,
             hide_min_max: true,
-            step: 100000, // 100,000 VND
+            step: 10000,
             prettify_enabled: true,
             prettify_separator: "-",
             prettify: function (num) {
                 return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " đ";
             },
-            onStart: function (data) {
-                updateMoneyRangeInput(data);
-            },
-            onChange: function (data) {
-                updateMoneyRangeInput(data);
-            },
-            onFinish: function (data) {
-                updateMoneyRangeInput(data);
-            },
-            onUpdate: function (data) {
-                updateMoneyRangeInput(data);
-            }
         }).data("ionRangeSlider");
-
-        function updateMoneyRangeInput(data) {
-            const formattedValue = `${data.from} - ${data.to}`;
-            moneyRange.val(formattedValue);
-        }
 
         // Set initial value manually
         const initialSlider = moneyRange.data("ionRangeSlider");
-        updateMoneyRangeInput({
-            from: initialSlider.options.from,
-            to: initialSlider.options.to
-        });
+        moneyRange.val(`${initialSlider.options.from} - ${initialSlider.options.to}`);
 
         createdAt.daterangepicker({
             autoUpdateInput: false,
@@ -279,15 +262,13 @@ $(document).ready(() => {
 
     const table = $('#table');
     const datatable = table.DataTable(configDatatable);
-    const searchForm = $('#form__filter');
+    const searchForm = $('#form-filter');
 
     function handleSubmitFormSearch() {
         searchForm.submit(function (e) {
-            e.preventDefault(); // Prevent the form from submitting normally
-            // Serialize form data to an array of name-value pairs
-            var formDataArray = $(this).serializeArray();
-            // Convert array to JSON object
-            var formDataJson = {};
+            e.preventDefault();
+            const formDataArray = $(this).serializeArray();
+            const formDataJson = {};
             $.each(formDataArray, function () {
                 if (formDataJson[this.name]) {
                     if (!formDataJson[this.name].push) {
@@ -298,8 +279,17 @@ $(document).ready(() => {
                     formDataJson[this.name] = this.value || '';
                 }
             });
+            formDataJson.moneyRange = formDataJson.moneyRange.replace(";", '-');
             const queryString = objectToQueryString(formDataJson);
             datatable.ajax.url(`/filterProductAdmin?${queryString}`).load();
+            modalFilter.modal("hide");
+            Swal.fire({
+                ...configSweetAlert2,
+                icon: 'success',
+                title: "Áp dụng bộ lọc tìm kiếm thành công",
+                showConfirmButton: false,
+                timer: 1500
+            });
         });
     }
 
@@ -584,7 +574,6 @@ $(document).ready(() => {
             pond.removeFile(index);
         });
     }
-
 
     // -------------------------------
     // Thực hiện ẩn hoặc hiện sản phẩm

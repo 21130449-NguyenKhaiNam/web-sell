@@ -34,7 +34,6 @@ public class UpdateStatusOrderController extends HttpServlet {
             jsonObject.addProperty("message", ErrorCode.UPDATE_SUCCESS.getMessage());
             response.getWriter().print(jsonObject);
         } catch (Exception exception) {
-            exception.printStackTrace();
             throw new AppException(ErrorCode.ERROR_PARAM_REQUEST);
         }
     }
