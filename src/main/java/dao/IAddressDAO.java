@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface IAddressDAO {
     List<Address> getAddress(int userId);
 
-    void insertAddress(Address address);
+    Integer insertAddress(Address address);
 
     void updateAddress(Address address);
 

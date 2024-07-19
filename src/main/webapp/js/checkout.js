@@ -1,3 +1,6 @@
+import {getDistrict, getProvince, getWard} from "./shipping.js";
+import {configSweetAlert2, http} from "./base.js";
+
 const deliveryInfoRadioButtons = document.querySelectorAll(".delivery__info--container .radio__button");
 const paymentMethodRadioButtons = document.querySelectorAll(".payment__method--container .radio__button");
 const deliveryMethodRadioButtons = document.querySelectorAll(".delivery__method--container .radio__button");
@@ -109,10 +112,10 @@ function ValidatorCustomizeDeliveryForm(options) {
     }
 }
 
-function handleDisplayDescriptionMethodOptionChecked(typeMethodRadioButtons){
+function handleDisplayDescriptionMethodOptionChecked(typeMethodRadioButtons) {
     let previousSelectedButton = null;
-    typeMethodRadioButtons.forEach((typeMethodRadioButton) =>{
-        if(typeMethodRadioButton.checked){
+    typeMethodRadioButtons.forEach((typeMethodRadioButton) => {
+        if (typeMethodRadioButton.checked) {
             let methodContent = typeMethodRadioButton.closest(".method__content");
             let methodItem = methodContent.querySelector('.method__item');
             let noteTypeMethodOption = methodContent.querySelector(".description__method")
@@ -122,14 +125,14 @@ function handleDisplayDescriptionMethodOptionChecked(typeMethodRadioButtons){
         }
     })
 
-    typeMethodRadioButtons.forEach((typeMethodRadioButton) =>{
+    typeMethodRadioButtons.forEach((typeMethodRadioButton) => {
         let methodContent = typeMethodRadioButton.closest(".method__content");
         let methodItem = methodContent.querySelector('.method__item');
         let noteTypeMethodOption = methodContent.querySelector(".description__method")
 
-        typeMethodRadioButton.addEventListener("click", ()=>{
+        typeMethodRadioButton.addEventListener("click", () => {
 
-            if(previousSelectedButton){
+            if (previousSelectedButton) {
                 let methodContent = previousSelectedButton.closest(".method__content");
                 let methodItem = methodContent.querySelector('.method__item');
                 let noteTypeMethodOption = methodContent.querySelector(".description__method")
@@ -138,7 +141,7 @@ function handleDisplayDescriptionMethodOptionChecked(typeMethodRadioButtons){
                 previousSelectedButton = null
             }
 
-            if(typeMethodRadioButton.checked){
+            if (typeMethodRadioButton.checked) {
                 noteTypeMethodOption.style.display = "grid";
                 methodItem.classList.add("method__checked");
                 previousSelectedButton = typeMethodRadioButton;
@@ -146,10 +149,12 @@ function handleDisplayDescriptionMethodOptionChecked(typeMethodRadioButtons){
         })
     })
 }
+
 handleDisplayDescriptionMethodOptionChecked(deliveryMethodRadioButtons);
+
 // handleDisplayDescriptionMethodOptionChecked(paymentMethodRadioButtons);
 
-function handleCustomizeDeliveryInfo(){
+function handleCustomizeDeliveryInfo() {
     const form = $('#customize__info--form');
     let fullNameField = form.find('input[name="fullName"]');
     let emailField = form.find('input[name="email"]');
@@ -157,8 +162,8 @@ function handleCustomizeDeliveryInfo(){
     let addressField = form.find('textarea[name="address"]');
     let buttonCustom = form.find('.button__custom');
 
-    $(document).ready(function (){
-        form.on('submit', function (event){
+    $(document).ready(function () {
+        form.on('submit', function (event) {
             event.preventDefault();
             let fullName = fullNameField.val().trim();
             let email = emailField.val().trim();
@@ -175,7 +180,7 @@ function handleCustomizeDeliveryInfo(){
             }
 
             let deliveryInfoKey
-            if(action === 'editDeliveryInfo'){
+            if (action === 'editDeliveryInfo') {
                 let deliveryInfoKeyTarget = form.find('input[name="deliveryInfoTarget"]');
                 deliveryInfoKey = deliveryInfoKeyTarget.val();
                 objectData.deliveryInfoKey = deliveryInfoKey;
@@ -186,14 +191,14 @@ function handleCustomizeDeliveryInfo(){
                 url: "/api/checkout",
                 data: objectData,
                 dataType: 'json',
-                success: function (response){
-                    if(response.isRegisterValid || response.isUpdateValid){
+                success: function (response) {
+                    if (response.isRegisterValid || response.isUpdateValid) {
                         let duplicateError = response.duplicateError;
-                        if(duplicateError !== undefined && duplicateError !== null){
+                        if (duplicateError !== undefined && duplicateError !== null) {
                             alert(duplicateError);
-                        }else {
+                        } else {
                             $('.popup__bg').css('display', 'none');
-                            if(action === 'addDeliveryInfo'){
+                            if (action === 'addDeliveryInfo') {
                                 let deliInfoKey = response.deliInfoKey;
                                 let newDeliveryInfo = `
                                             <div class="delivery__info">
@@ -218,8 +223,7 @@ function handleCustomizeDeliveryInfo(){
                                                 </div>
                                             </div>`;
                                 $('#delivery__info--form').append(newDeliveryInfo);
-                            }
-                            else if(action === 'editDeliveryInfo'){
+                            } else if (action === 'editDeliveryInfo') {
                                 let deliveryInfoKeyTarget = $(document).find('input[name=deliveryInfoKey][value="' + deliveryInfoKey + '"]');
                                 deliveryInfoKeyTarget.data('customerName', response.newFullName)
                                 deliveryInfoKeyTarget.data('customerEmail', response.newEmail)
@@ -235,8 +239,8 @@ function handleCustomizeDeliveryInfo(){
                                 infoItems.html(newInfoItemsContent);
                             }
                         }
-                    }else {
-                        $.each(response.errorFields, function(errorField, errorMessage) {
+                    } else {
+                        $.each(response.errorFields, function (errorField, errorMessage) {
                             errorField = `#${errorField}`;
                             $(errorField).text(errorMessage).show();
                             $(errorField).parent().find('.form__input').addClass('input-invalid');
@@ -247,10 +251,11 @@ function handleCustomizeDeliveryInfo(){
         })
     })
 }
+
 handleCustomizeDeliveryInfo();
 
-function showCustomizeDeliveryInfoForm(elementOpenForm, title){
-    document.querySelectorAll('.field__content').forEach(fieldContent =>{
+function showCustomizeDeliveryInfoForm(elementOpenForm, title) {
+    document.querySelectorAll('.field__content').forEach(fieldContent => {
         fieldContent.classList.remove("input-invalid");
         fieldContent.parentElement.querySelector('.error__notice').style.display = 'none'
     })
@@ -270,7 +275,7 @@ function showCustomizeDeliveryInfoForm(elementOpenForm, title){
     document.querySelector('.form__header .form__title').innerText = title;
     document.querySelector(".button__custom").innerText = title;
 
-    if(elementOpenForm.classList.contains("edit__delivery")){
+    if (elementOpenForm.classList.contains("edit__delivery")) {
         const deliveryInfoTarget = elementOpenForm.closest('.delivery__info');
         let datasetDelivery = deliveryInfoTarget.querySelector('input[type=hidden][name=deliveryInfoKey]')
         document.querySelector('.button__custom').value = 'editDeliveryInfo';
@@ -289,36 +294,269 @@ function showCustomizeDeliveryInfoForm(elementOpenForm, title){
     }
 
 
-    document.querySelector('.button__close').addEventListener('click', function() {
+    document.querySelector('.button__close').addEventListener('click', function () {
         document.querySelector('.popup__bg').style.display = 'none';
     });
 
-    document.querySelector('.button__cancel').addEventListener('click', function() {
+    document.querySelector('.button__cancel').addEventListener('click', function () {
         document.querySelector('.popup__bg').style.display = 'none';
     });
 
-    document.querySelector('.button__close').addEventListener('click', function() {
+    document.querySelector('.button__close').addEventListener('click', function () {
         document.querySelector('.popup__bg').style.display = 'none';
     });
 
-    document.querySelector('.popup__bg').addEventListener('click', function(event) {
+    document.querySelector('.popup__bg').addEventListener('click', function (event) {
         if (event.target === this) {
             document.querySelector('.popup__bg').style.display = 'none';
         }
     });
 }
 
-function handleRemoveErrorInputting(){
+function handleRemoveErrorInputting() {
     let fieldContents = document.querySelectorAll('.field__content');
-    fieldContents.forEach(fieldContent=>{
-        fieldContent.addEventListener('input',()=>{
+    fieldContents.forEach(fieldContent => {
+        fieldContent.addEventListener('input', () => {
             fieldContent.classList.remove('input-invalid');
             fieldContent.parentElement.querySelector('.error__notice').innerText = '';
         })
     })
 }
+
 handleRemoveErrorInputting();
 
-$(document).ready(function (){
+function handleAddress() {
+    const modalAddress = $("#modal-address");
+    const provinceInput = $("#inputProvince");
+    const districtInput = $("#inputDistrict");
+    const wardInput = $("#inputWard");
 
-});
+    setupAddress();
+
+    function setupAddress() {
+        const configSelect2 = {
+            width: '100%',
+            closeOnSelect: true,
+            allowClear: true,
+            language: 'vi',
+            dropdownParent: modalAddress,
+            data: [],
+        };
+
+        provinceInput.select2({
+            ...configSelect2,
+            placeholder: 'Chọn tỉnh/thành phố',
+        })
+
+        districtInput.select2({
+            ...configSelect2,
+            placeholder: 'Chọn quận/huyện',
+        });
+
+        wardInput.select2({
+            ...configSelect2,
+            placeholder: 'Chọn phường/xã',
+        });
+        const validator = handleFormAddress();
+        handleProvince();
+
+        modalAddress.on('hidden.bs.modal', function () {
+            resetProvince();
+            validator.resetForm();
+        });
+
+    }
+
+    function handleProvince() {
+        getProvince().then(province => {
+            province.forEach(item => {
+                const newOption = new Option(item.text, item.id);
+                provinceInput.append(newOption)
+            })
+            provinceInput.on("change", () => {
+                const selectedValue = provinceInput.val();
+                handleDistrict(selectedValue);
+            })
+        });
+    }
+
+    function handleDistrict(id) {
+        getDistrict(id).then(district => {
+            resetDistrict();
+            district.forEach(item => {
+                const newOption = new Option(item.text, item.id);
+                districtInput.append(newOption)
+            });
+            districtInput.on("change", () => {
+                const selectedValue = districtInput.val();
+                handleWard(selectedValue);
+            })
+        });
+    }
+
+
+    function handleWard(id) {
+        getWard(id).then(ward => {
+            resetWard();
+            ward.forEach(item => {
+                const newOption = new Option(item.text, item.id);
+                wardInput.append(newOption)
+            })
+        })
+
+    }
+
+    function resetProvince() {
+        provinceInput.empty().append(new Option('', ''));
+        resetDistrict();
+    }
+
+    function resetDistrict() {
+        districtInput.empty().append(new Option('', ''));
+        resetWard();
+    }
+
+    function resetWard() {
+        wardInput.empty().append(new Option('', ''));
+    }
+
+    function handleFormAddress() {
+        const addressValidator = {
+            rules: {
+                province: {
+                    required: true,
+                },
+                district: {
+                    required: true,
+                },
+                ward: {
+                    required: true,
+                },
+                detail: {
+                    required: true,
+                }
+            },
+            messages: {
+                province: {
+                    required: "Vui lòng chọn tỉnh/thành phố",
+                },
+                district: {
+                    required: "Vui lòng chọn quận/huyện",
+                },
+                ward: {
+                    required: "Vui lòng chọn phường/xã",
+                },
+                detail: {
+                    required: "Vui lòng nhập địa chỉ chi tiết",
+                }
+            },
+            onkeyup: function (element) {
+                $(element).valid();
+            },
+            onfocusout: function (element) {
+                $(element).valid();
+            },
+            onblur: function (element) {
+                $(element).valid();
+            },
+            validClass: 'is-valid',
+            errorClass: 'is-invalid',
+            errorPlacement: function (error, element) {
+                $(element).parent().children().last().text(error.text());
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass(errorClass).removeClass(validClass).attr('required', 'required');
+                $(element).parent().children().last().addClass("invalid-feedback");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass(errorClass).addClass(validClass).removeAttr('required');
+                $(element).parent().children().last().text("");
+            },
+            submitHandler: function (form) {
+                const formDataArray = $(form).serializeArray();
+                formDataArray.push(
+                    {
+                        name: "provinceName",
+                        value: provinceInput.find("option:selected").text()
+                    },
+                    {
+                        name: "districtName",
+                        value: districtInput.find("option:selected").text()
+                    },
+                    {
+                        name: "wardName",
+                        value: wardInput.find("option:selected").text()
+                    },
+                    {
+                        name: "action",
+                        value: "create"
+                    }
+                );
+
+                const formData = $.param(formDataArray);
+                Swal.fire({
+                    ...configSweetAlert2,
+                    title: "Bạn có muốn thêm địa chỉ này không?",
+                    showDenyButton: true,
+                    confirmButtonText: "Lưu",
+                    denyButtonText: "Không lưu",
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        http({
+                            url: "/api/user/address",
+                            type: 'POST',
+                            data: formData,
+                        }).then(response => {
+                            if (response.status) {
+                                Swal.fire({
+                                    title: "Chúc mừng!",
+                                    text: "Địa chỉ mới đã được thêm",
+                                    icon: "success"
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "Lỗi!",
+                                    text: "Địa chỉ mới thêm không thành công",
+                                    icon: "error"
+                                });
+                            }
+                            addDataToList({
+                                province: provinceInput.find("option:selected").text(),
+                                district: districtInput.find("option:selected").text(),
+                                ward: wardInput.find("option:selected").text(),
+                                detail: formDataArray.find(item => item.name === "detail").value,
+                                id: response.id
+                            })
+                            modalAddress.modal("hide")
+                        });
+                    }
+                }).catch(e => {
+                    modalAddress.modal("hide")
+                    Swal.fire({
+                        title: "Lỗi!",
+                        text: "Địa chỉ mới thêm không thành công",
+                        icon: "error"
+                    });
+                });
+            }
+        }
+        return $("#form-address").validate(addressValidator)
+    }
+
+    function addDataToList({province, district, ward, detail, id}) {
+        const html = ` <div class="col-sm-12 mb-3">
+                                    <input type="hidden" name="id-address" value="${id}"/>
+                                    <div class="card">
+                                        <div class="card-body focus__address "
+                                             onclick="selectCard(this)" style="cursor: pointer">
+                                            <h5 class="card-title">Địa chỉ giao hàng</h5>
+                                            <p class="card-text">${detail}, ${ward}, ${district}, ${province}</p>
+                                        </div>
+                                    </div>
+                                </div>`;
+        $("#address-list").append(html);
+    }
+}
+
+handleAddress();

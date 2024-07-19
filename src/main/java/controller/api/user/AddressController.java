@@ -32,7 +32,7 @@ public class AddressController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int userId = SessionManager.getInstance(request, response).getUser().getId();
-        List<Address> addressList =addressServices.getAddress(userId);
+        List<Address> addressList = addressServices.getAddress(userId);
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("status", HttpServletResponse.SC_OK);
         response.setStatus(HttpServletResponse.SC_OK);
@@ -70,11 +70,14 @@ public class AddressController extends HttpServlet {
             address.setUserId(user.getId());
             switch (action) {
                 case ADDRESS_ADD:
-                    addressServices.insertAddress(address);
+                    Integer idAdded = addressServices.insertAddress(address);
+                    jsonObject.addProperty("status", true);
+                    jsonObject.addProperty("id", idAdded);
                     break;
                 case ADDRESS_UPDATE:
                     address.setId(Integer.parseInt(id));
                     addressServices.updateAddress(address);
+                    jsonObject.addProperty("status", true);
                     break;
             }
         } catch (NumberFormatException e) {
@@ -88,7 +91,6 @@ public class AddressController extends HttpServlet {
             response.getWriter().println(gson.toJson(jsonObject));
             return;
         }
-        jsonObject.addProperty("status", true);
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().println(gson.toJson(jsonObject));
     }

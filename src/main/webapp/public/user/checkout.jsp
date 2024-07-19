@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <c:import url="/public/commonLink.jsp"/>
     <link rel="stylesheet" href="/assets/css/user/account.css">
     <link rel="stylesheet" href="/assets/css/user/accountInfo.css">
     <jsp:include page="/public/commonLink.jsp"/>
@@ -23,7 +22,7 @@
                 <div class="delivery__info--container">
                     <h1 class="checkout__title">Thanh toán</h1>
                     <h2 class="checkout__subtitle">Thông tin giao hàng</h2>
-                    <div class="row">
+                    <div class="row" id="address-list">
                         <c:if test="${not empty requestScope.address}">
                             <c:forEach items="${requestScope.address}" var="address" varStatus="status">
                                 <div class="col-sm-12 mb-3">
@@ -40,63 +39,9 @@
                         </c:if>
                     </div>
                     <p class="other__info">Bạn muốn giao hàng đến địa chỉ khác?
-                        <span class="add__delivery">Thêm thông tin giao hàng mới</span>
+                        <span class="add__delivery" data-bs-toggle="modal"
+                              data-bs-target="#modal-address">Thêm thông tin giao hàng mới</span>
                     </p>
-                    <div class="row mt-4">
-                        <div class="col-12">
-                            <div class="card mb-4">
-                                <div class="card-header">Địa chỉ</div>
-                                <div class="card-body">
-                                    <form id="form-address">
-                                        <div class="row gx-3 mb-3 mt-2">
-                                            <div class="col-md-4 col-sm-12">
-                                                <label class="small  py-1" for="inputProvince">Tỉnh / Thành phố </label>
-                                                <select name="province" id="inputProvince" class="form-select"
-                                                        aria-label="Chọn">
-                                                    <option value=""></option>
-                                                </select>
-                                                <div class="valid-feedback">
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12">
-                                                <label class="small py-1" for="inputDistrict"> Quận / Huyện </label>
-                                                <select name="district" id="inputDistrict" class="form-select"
-                                                        aria-label="Chọn">
-                                                    <option value=""></option>
-                                                </select>
-                                                <div class="valid-feedback">
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-12">
-                                                <label class="small py-1" for="inputWard">Phường</label>
-                                                <select name="ward" id="inputWard" class="form-select"
-                                                        aria-label="Chọn">
-                                                    <option value=""></option>
-                                                </select>
-                                                <div class="valid-feedback">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row gx-3 mb-3 mt-2 ">
-                                            <div class="col-12">
-                                                <label class="small py-1" for="inputAddress"> Số nhà, đường </label>
-                                                <textarea class="form-control" name="detail"
-                                                          id="inputAddress"></textarea>
-                                                <div class="valid-feedback">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-primary mt-2" type="submit">Thay đổi</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="popup__bg">
                         <div class="popup__form">
                             <div class="form__header">
@@ -294,7 +239,8 @@
                             <c:if test="${sessionScope[userIdCart].deliveryMethod != null}">
                                 <div class="shipping__container">
                                     <span>Phí vận chuyển</span>
-                                    <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency" value="${sessionScope[userIdCart].deliveryMethod.shippingFee}"/></span>
+                                    <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency"
+                                                                                          value="${sessionScope[userIdCart].deliveryMethod.shippingFee}"/></span>
                                 </div>
                             </c:if>
                         </div>
@@ -315,9 +261,70 @@
     </div>
 </main>
 <div class="popup__deletion"></div>
+<!-- Modal address -->
+<div class="modal fade " id="modal-address" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl modal-dialog-centered">
+        <form id="form-address" class="modal-content needs-validation ">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-label">Thêm địa chỉ</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row gx-3 mb-3 mt-2">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="small  py-1" for="inputProvince">Tỉnh / Thành phố </label>
+                            <select name="province" id="inputProvince" class="form-select"
+                                    aria-label="Chọn">
+                                <option value=""></option>
+                            </select>
+                            <div class="valid-feedback">
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <label class="small py-1" for="inputDistrict"> Quận / Huyện </label>
+                            <select name="district" id="inputDistrict" class="form-select"
+                                    aria-label="Chọn">
+                                <option value=""></option>
+                            </select>
+                            <div class="valid-feedback">
+
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label class="small py-1" for="inputWard">Phường</label>
+                            <select name="ward" id="inputWard" class="form-select"
+                                    aria-label="Chọn">
+                                <option value=""></option>
+                            </select>
+                            <div class="valid-feedback">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3 mt-2 ">
+                        <div class="col-12">
+                            <label class="small py-1" for="inputAddress"> Số nhà, đường </label>
+                            <textarea class="form-control" name="detail"
+                                      id="inputAddress"></textarea>
+                            <div class="valid-feedback">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </form>
+    </div>
+</div>
 <c:import url="/public/footer.jsp"/>
 </body>
-<script src="<c:url value="/js/base.js"/>"></script>
 <!--Select 2 jquery-->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -329,8 +336,7 @@
         integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
-
-<%--<script src="<c:url value="/js/checkout.js"/>"></script>--%>
+<script type="module" src="<c:url value="/js/checkout.js"/>"></script>
 <script type="text/javascript">
     function selectCard(card) {
         // Xóa lớp 'selected' khỏi tất cả các thẻ
