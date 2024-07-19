@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <c:import url="/public/commonLink.jsp"/>
     <link rel="stylesheet" href="/assets/css/user/account.css">
     <link rel="stylesheet" href="/assets/css/user/accountInfo.css">
     <jsp:include page="/public/commonLink.jsp"/>
@@ -212,11 +213,13 @@
                                                 </tr>
                                                 <tr class="payment__platform">
                                                     <c:if test="${paymentMethod.id eq 2}">
-                                                        <img src="" alt="https://cdn-icons-png.flaticon.com/512/2830/2830155.png" />
+                                                        <img src=""
+                                                             alt="https://cdn-icons-png.flaticon.com/512/2830/2830155.png"/>
                                                         <td>Ngân hàng</td>
                                                     </c:if>
                                                     <c:if test="${paymentMethod.id eq 3}">
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/1796/1796874.png" alt="Ví điện tử"/>
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/1796/1796874.png"
+                                                             alt="Ví điện tử"/>
                                                         <td>Ví điện tử</td>
                                                     </c:if>
                                                     <td><span>${paymentOwner.paymentPlatform}</span></td>
@@ -291,8 +294,7 @@
                             <c:if test="${sessionScope[userIdCart].deliveryMethod != null}">
                                 <div class="shipping__container">
                                     <span>Phí vận chuyển</span>
-                                    <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency"
-                                                                                          value="${sessionScope[userIdCart].deliveryMethod.shippingFee}"/></span>
+                                    <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency" value="${sessionScope[userIdCart].deliveryMethod.shippingFee}"/></span>
                                 </div>
                             </c:if>
                         </div>
@@ -315,15 +317,7 @@
 <div class="popup__deletion"></div>
 <c:import url="/public/footer.jsp"/>
 </body>
-<%--<script src="https://code.jquery.com/jquery-3.7.1.min.js"--%>
-<%--        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--%>
 <script src="<c:url value="/js/base.js"/>"></script>
-<script src="<c:url value="/js/checkout.js"/>"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
-      integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"/>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 <!--Select 2 jquery-->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -335,15 +329,8 @@
         integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
-<!---Sweet Alert 2--->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.css"
-      integrity="sha512-OWGg8FcHstyYFwtjfkiCoYHW2hG3PDWwdtczPAPUcETobBJOVCouKig8rqED0NMLcT9GtE4jw6IT1CSrwY87uw=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.js"
-        integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script type="module" src="/js/user/accountInfo.js"></script>
+<%--<script src="<c:url value="/js/checkout.js"/>"></script>--%>
 <script type="text/javascript">
     function selectCard(card) {
         // Xóa lớp 'selected' khỏi tất cả các thẻ
@@ -387,10 +374,11 @@
         })
         totalPrice.text(totalCost.toLocaleString('vi-VN'))
     }
-
+    var jsonOrder =
     <c:if test="${not empty requestScope.models}">
     <c:set value="${requestScope.models}" var="jsonOrder" />
     updateCheckout(${jsonOrder})
+
     function handlePlaceOrder() {
         $('#delivery__method--form input[class=radio__button][name=delivery__method]').change(function () {
             $('#payment__method--form input[class=radio__button][name=payment__method]').prop('disabled', false);
@@ -440,7 +428,7 @@
                             url: "/public/user/successOrder",
                             method: 'post',
                             data: data,
-                            success: function(res) {
+                            success: function (res) {
                                 $('#main').html(res)
                             },
                             error: function (err) {

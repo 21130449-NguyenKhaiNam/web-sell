@@ -148,7 +148,6 @@
     </div>
 </div>
 
-<script src="<c:url value="/js/validator.js"/>"></script>
 <script type="module" src="<c:url value="/js/admin/adminCategory.js" />"></script>
 </body>
 </html>

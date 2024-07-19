@@ -318,3 +318,7 @@ function handleRemoveErrorInputting(){
     })
 }
 handleRemoveErrorInputting();
+
+$(document).ready(function (){
+
+});

@@ -49,6 +49,8 @@
 <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css"/>
 <!-- Datatable + Select-->
 <link href="https://cdn.datatables.net/v/dt/dt-2.0.8/sl-2.0.3/datatables.min.css" rel="stylesheet">
+<!--gasparesganga-->
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
 <%--Sweetalert--%>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css" rel="stylesheet">
