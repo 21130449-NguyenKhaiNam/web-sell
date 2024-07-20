@@ -4,6 +4,7 @@ import models.Product;
 import models.Size;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SizeDAO {
@@ -21,20 +22,18 @@ public class SizeDAO {
 
     public void addSizes(Size[] sizes) {
         StringBuilder sql = new StringBuilder();
+        List<Object> params = new ArrayList<>();
         sql.append("INSERT INTO sizes (nameSize, productId, sizePrice) ")
                 .append("VALUES ");
         for (int i = 0; i < sizes.length; i++) {
             if (i != 0)
                 sql.append(" , ");
-            sql.append(" (\"")
-                    .append(sizes[i].getNameSize())
-                    .append("\" , ")
-                    .append(sizes[i].getProductId())
-                    .append(", ")
-                    .append(sizes[i].getSizePrice())
-                    .append(") ");
+            sql.append("( ?, ?, ? )");
+            params.add(sizes[i].getNameSize());
+            params.add(sizes[i].getProductId());
+            params.add(sizes[i].getSizePrice());
         }
-        GeneralDao.executeAllTypeUpdate(sql.toString());
+        GeneralDao.executeAllTypeUpdate(sql.toString(), params.toArray());
     }
 
     public List<Size> getIdSizeByProductId(int productId) {

@@ -1,22 +1,21 @@
-.dashbord--contain {
+.dashboard--contain {
     position: relative;
-    min-height: 90vh;
-    background: #f1f1f1;
-    border-radius: 20px;
+    /*min-height: 90vh;*/
+    /*background: #f1f1f1;*/
+    /*border-radius: 20px;*/
 }
-.dashbord--contain h2{
+.dashboard--contain h2{
     padding: 30px 20px 0px;
     font-weight: bold;
     font-size: 20px;
 }
-.dashbord--contain .cards {
-    padding: 20px 10px;
+.dashboard--contain .cards {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
 }
-.dashbord--contain .cards .card {
+.dashboard--contain .cards .card {
     width: 230px;
     height: 160px;
     background: white;
@@ -67,4 +66,8 @@ img{
     align-items: center;
     justify-content: center;
     color: #FFFFFF;
+}
+
+.icon-case{
+    font-size: 40px;
 }

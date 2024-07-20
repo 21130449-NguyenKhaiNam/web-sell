@@ -61,19 +61,13 @@
                             data-bs-target="#modal-filter">
                         <i class="fa-solid fa-filter"></i> Bộ lọc
                     </button>
-                    <div class="d-flex">
-                        <span id="button-import-product" class="button button__import ms-auto">
-                             <form action="/admin-import-product" method="POST" enctype="multipart/form-data"
-                                   style="display: flex;justify-content: center;align-items: center">
-                                 <input type="file" name="file">
-                                 <span class="btn_uploadImg">
-                                     <i class="fa-solid fa-upload"></i>
-                                     <input type="submit" value="Upload"
-                                            style="background-color: #4BAC4D; color: #fff"/>
-                                 </span>
-                             </form>
-                        </span>
-                        <form action="<c:url value="/exportExcelProduct"/>" method="POST" class="me-1">
+                    <div class="d-flex gap-2">
+                        <a href="<c:url value="/public/admin/adminImportProducts.jsp" />"
+                           class="btn btn-primary d-flex align-items-center gap-1">
+                            <i class="fa-solid fa-file-excel"></i>
+                            <span>Thêm sản phẩm qua excel</span>
+                        </a>
+                        <form action="<c:url value="/exportExcelProduct"/>" method="POST" class="">
                             <button class="btn_export" type="submit">
                                 <i class="fa-solid fa-file-export"></i>
                                 Xuất file excel
@@ -156,7 +150,8 @@
                         <div class="filter__group">
                             <label for="category" class="filter__title d-inline-block" data-bs-toggle="tooltip"
                                    data-bs-placement="top"
-                                   data-bs-title="Tìm kiếm theo phân loại, nếu không có sẽ tìm tất cả">Phân loại sản phẩm</label>
+                                   data-bs-title="Tìm kiếm theo phân loại, nếu không có sẽ tìm tất cả">Phân loại sản
+                                phẩm</label>
                             <div class="filter__radio-list">
                                 <select id="category" name="categoryId" multiple>
                                     <c:forEach items="${pageContext.servletContext.getAttribute('categoryList')}"
