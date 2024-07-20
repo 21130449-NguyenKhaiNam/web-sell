@@ -22,12 +22,6 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-12">
-                    <form action="<c:url value="/admin/exportExcelOrder"/>" method="POST">
-                        <button class="btn_export">
-                            <i class="fa-solid fa-file-export"></i>
-                            Xuất file excel
-                        </button>
-                    </form>
                     <!--Bảng thông tin đơn hàng -->
                     <div id="process__order--form">
                         <div class="order__heading py-2">
@@ -37,18 +31,24 @@
                                 <i class="fa-solid fa-filter"></i> Bộ lọc
                             </button>
                             <div class="delete__cancel ms-auto">
-                                <div class="delete__wrapper hvr-bounce-out">
-                                    <div class="button button__delete">
-                                        <i class="fa-solid fa-trash"></i>
-                                        Xóa đơn hàng
-                                    </div>
-                                </div>
-                                <div class="cancel__wrapper hvr-bounce-out">
-                                    <div class="button button__cancel">
-                                        <i class="fa-solid fa-ban"></i>
-                                        Hủy đơn hàng
-                                    </div>
-                                </div>
+                                <form action="<c:url value="/admin/exportExcelOrder"/>" method="POST">
+                                    <button class="btn_export">
+                                        <i class="fa-solid fa-file-export"></i>
+                                        Xuất file excel
+                                    </button>
+                                </form>
+<%--                                <div class="delete__wrapper hvr-bounce-out">--%>
+<%--                                    <div class="button button__delete">--%>
+<%--                                        <i class="fa-solid fa-trash"></i>--%>
+<%--                                        Xóa đơn hàng--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                                <div class="cancel__wrapper hvr-bounce-out">--%>
+<%--                                    <div class="button button__cancel">--%>
+<%--                                        <i class="fa-solid fa-ban"></i>--%>
+<%--                                        Hủy đơn hàng--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
                             </div>
                         </div>
                         <div class="table__wrapper">
@@ -202,10 +202,6 @@
                             <td class="info__text ">Mã giảm giá đã áp dụng</td>
                             <td class="info__value voucherApply"></td>
                         </tr>
-                        <%--                        <tr class="section__info">--%>
-                        <%--                            <td class="info__text ">Phương thức vận chuyển</td>--%>
-                        <%--                            <td class="info__value delivery"></td>--%>
-                        <%--                        </tr>--%>
                         <tr class="section__info">
                             <td class="info__text">Phương thức thanh toán</td>
                             <td class="info__value paymentMethod"></td>
@@ -217,6 +213,14 @@
                         <tr class="section__info transaction__status--section">
                             <td class="info__text ">Tình trạng giao dịch</td>
                             <td class="info__value transaction"></td>
+                        </tr>
+                        <tr class="section__info">
+                            <td class="info__text ">Phí vận chuyển</td>
+                            <td class="info__value payment-fee"></td>
+                        </tr>
+                        <tr class="section__info">
+                            <td class="info__text ">Ngày nhận hàng</td>
+                            <td class="info__value lead-date"></td>
                         </tr>
                         </tbody>
                     </table>

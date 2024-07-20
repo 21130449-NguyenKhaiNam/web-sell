@@ -30,12 +30,12 @@
                             <i class="fa-solid fa-table-list"></i>
                             <span>Loại sản phẩm</span></a>
                     </li>
-                    <li>
-                        <a href="<c:url value="/public/admin/adminImportMaterial.jsp"/>"
-                           data-link="adminImportMaterial.jsp" class="pb-3 sidebar_item">
-                            <i class="fa-solid fa-table-list"></i>
-                            <span>Nhập hàng</span></a>
-                    </li>
+<%--                    <li>--%>
+<%--                        <a href="<c:url value="/public/admin/adminImportMaterial.jsp"/>"--%>
+<%--                           data-link="adminImportMaterial.jsp" class="pb-3 sidebar_item">--%>
+<%--                            <i class="fa-solid fa-table-list"></i>--%>
+<%--                            <span>Nhập hàng</span></a>--%>
+<%--                    </li>--%>
                 </ul>
             </li>
 
@@ -53,7 +53,7 @@
             </li>
 
             <li>
-                <a href="<c:url value="/public/admin/adminDashboard.jsp" />" data-link="dashboardOverall.jsp" class="sidebar_item">
+                <a href="<c:url value="/public/admin/adminDashboard.jsp" />" data-link="adminDashboard.jsp" class="sidebar_item">
                     <i class="fa-solid fa-chart-simple"></i>
                     <span>Thống kê</span></a>
             </li>

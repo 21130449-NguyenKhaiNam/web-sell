@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/shopping-cart.jsp")
+@WebFilter(urlPatterns = "/*")
 public class CheckAccountFilter implements Filter {
 
     @Override

@@ -1,4 +1,5 @@
-import {configSweetAlert2, formatCurrency, formatDate, http} from "../base.js";
+import {configSweetAlert2, endLoading, formatCurrency, formatDate, http, startLoading} from "../base.js";
+import {getFeeAndLeadTime} from "../shipping.js";
 
 $(document).ready(function () {
     const TYPE_PAYMENT = {
@@ -6,9 +7,9 @@ $(document).ready(function () {
         3: "VNPAY"
     }
     const ORDER_STATUS = {
-        1: "Đang xác nhận ",
-        2: "Đang sản xuất ",
-        3: "Đang giao hàng ",
+        1: "Chờ xác nhận ",
+        2: "Đang sản xuất",
+        3: "Đang vận chuyển",
         4: "Giao hàng thành công ",
         5: "Giao hàng thất bại ",
     }
@@ -68,6 +69,14 @@ $(document).ready(function () {
             layout: {
                 topStart: {
                     buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+                }
+            },
+            createdRow: function (row, data, dataIndex) {
+                if (data.orderStatusId == 5) {
+                    $(row).addClass('table-danger');
+                }
+                if (data.orderStatusId == 4) {
+                    $(row).addClass('table-success');
                 }
             },
             initComplete: function (settings, json) {
@@ -203,7 +212,7 @@ $(document).ready(function () {
     function fieldData(data) {
         const order = {
             ...data.orderTarget,
-            status: data.orderStatusTarget.typeStatus,
+            status: data.orderStatusTarget,
             payment: data.paymentMethodTarget.typePayment,
             transaction: data.transactionStatusTarget.typeStatus,
             orderDetails: data.listOrderDetailByOrderId,
@@ -212,14 +221,28 @@ $(document).ready(function () {
         modalView.find(".fullname").text(order.fullName);
         modalView.find(".email").text(order.email);
         modalView.find(".phone").text(order.phone);
-        modalView.find(".address").text(order.address);
+        const address = order.detail + ", " + order.ward + ", " + order.district + ", " + order.province;
+        modalView.find(".address").text(address);
         modalView.find(".orderId").text(order.id);
         modalView.find(".createAt").text(formatDate(order.dateOrder));
         modalView.find(".voucherApply").text(order?.voucherId || "Không sử dụng mã giảm giá");
         modalView.find(".paymentMethod").text(order.payment);
-        modalView.find(".orderStatus").text(order.status);
+        modalView.find(".orderStatus").text(order.status.typeStatus);
         modalView.find(".transaction").text(order.transaction);
         loadListOrderDetail(order.orderDetails);
+        if (order.status.id == 1 || order.status.id == 2) return;
+        startLoading();
+        getFeeAndLeadTime({
+            province: order.province,
+            district: order.district,
+            ward: order.ward,
+            detail: order.detail
+        }).then(data => {
+            modalView.find(".payment-fee").text(formatCurrency(data.feeShipping));
+            modalView.find(".lead-date").text(formatDate(data.leadDate));
+        }).finally(() => {
+            endLoading();
+        })
     }
 
     function clearData() {
@@ -233,6 +256,8 @@ $(document).ready(function () {
         modalView.find(".paymentMethod").text("");
         modalView.find(".orderStatus").text("");
         modalView.find(".transaction").text("");
+        modalView.find(".payment-fee").text("");
+        modalView.find(".lead-date").text("");
         tableOrderDetail.html("");
     }
 
@@ -321,7 +346,7 @@ $(document).ready(function () {
                 placeholder: 'Chọn tình trạng đơn hàng',
                 dropdownParent: $('.swal2-popup'),
                 data: listAllOrderStatus,
-            }).val(orderStatusTarget.id).trigger("change");
+            }).val(orderStatusTarget.id);
 
             transactionStatusSelect.select2({
                 width: '100%',
@@ -330,7 +355,7 @@ $(document).ready(function () {
                 placeholder: 'Chọn tình trạng giao dịch',
                 dropdownParent: $('.swal2-popup'),
                 data: listAllTransactionStatus,
-            }).val(transactionStatusTarget.id).trigger("change");
+            }).val(transactionStatusTarget.id);
         });
     }
 
@@ -358,6 +383,8 @@ $(document).ready(function () {
                     title: 'Cập nhập trạng thái thành công!',
                     icon: 'success',
                     showCloseButton: true,
+                }).then(() => {
+                    datatable.ajax.reload();
                 });
             else
                 Swal.fire({
