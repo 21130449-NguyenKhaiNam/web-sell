@@ -43,16 +43,20 @@ public class SessionManager {
 
     public User getUser() {
         Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(SESSION_ID)) {
-                    User userOld = sessionTable.get(cookie.getValue());
-                    User user = UserServices.getINSTANCE().getUser(userOld.getId());
-                    sessionTable.replace(cookie.getValue(), user);
-                    ShoppingCartServices.getINSTANCE().setUser(user);
-                    return user;
+        try {
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals(SESSION_ID)) {
+                        User userOld = sessionTable.get(cookie.getValue());
+                        User user = UserServices.getINSTANCE().getUser(userOld.getId());
+                        sessionTable.replace(cookie.getValue(), user);
+                        ShoppingCartServices.getINSTANCE().setUser(user);
+                        return user;
+                    }
                 }
             }
+        } catch (Exception e) {
+            return null;
         }
         return null;
     }

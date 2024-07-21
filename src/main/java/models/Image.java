@@ -1,10 +1,12 @@
 package models;
 
+import lombok.Data;
 import services.image.CloudinaryUploadServices;
 
 import java.util.HashMap;
 import java.util.Objects;
 
+@Data
 public class Image {
     private int id;
     private String nameImage;

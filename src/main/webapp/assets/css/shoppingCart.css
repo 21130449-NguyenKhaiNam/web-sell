@@ -73,7 +73,7 @@
 .order__product--info, .order__size--specification {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 10px;
     text-align: left;
 }
 

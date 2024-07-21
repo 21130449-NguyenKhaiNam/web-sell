@@ -5,14 +5,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import controller.exception.AppException;
 import controller.exception.ErrorCode;
-import lombok.SneakyThrows;
 import models.Color;
 import models.Image;
 import models.Product;
 import models.Size;
 import services.admin.AdminProductServices;
-import services.ProductServices;
-import services.image.UploadImageServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -21,7 +18,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,7 +58,7 @@ public class UpdateProductController extends HttpServlet {
         try {
             id = Integer.parseInt(idString);
         } catch (NumberFormatException e) {
-            throw new AppException(ErrorCode.UPDATE_PRODUCT_FAILED);
+            throw new AppException(ErrorCode.UPDATE_FAILED);
         }
 
         if (nameSizes.length != sizePrices.length) {
@@ -136,8 +132,8 @@ public class UpdateProductController extends HttpServlet {
             AdminProductServices.getINSTANCE().addImages(imagesAdded);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("code", ErrorCode.UPDATE_PRODUCT_SUCCESS.getCode());
-        jsonObject.addProperty("message", ErrorCode.UPDATE_PRODUCT_SUCCESS.getMessage());
+        jsonObject.addProperty("code", ErrorCode.UPDATE_SUCCESS.getCode());
+        jsonObject.addProperty("message", ErrorCode.UPDATE_SUCCESS.getMessage());
         response.getWriter().write(gson.toJson(jsonObject));
     }
 

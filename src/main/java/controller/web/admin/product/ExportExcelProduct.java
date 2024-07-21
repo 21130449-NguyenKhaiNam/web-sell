@@ -73,8 +73,4 @@ public class ExportExcelProduct extends HttpServlet implements Serializable {
         System.out.println(" in report thanh cong");
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }

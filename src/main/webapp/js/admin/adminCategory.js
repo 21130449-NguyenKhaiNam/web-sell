@@ -219,32 +219,37 @@ $(document).ready(function () {
         modal.on("show.bs.modal", function (e) {
             const button = e.relatedTarget
             const id = $(button).data("id")
-            if (id) {
-                selected = {};
-                selected.id = id;
-            }
-            if (selected && selected.id) {
-                getDetail(selected.id);
-            }
+            if (id)
+                getDetail(id);
         })
     }
 
     function configFilePond(fileInput) {
         const filePond = FilePond.create($(fileInput)[0], {
-            allowImagePreview: true,
-            allowFileRename: true,
-            allowFileMetadata: true,
-            maxFiles: 1,
-            labelIdle: 'Kéo và thả tệp của bạn vào đây hoặc <span class="filepond--label-action">Chọn tệp</span>',
-        });
-        filePond.on("addfile", (error, file) => {
-            if (!file.getMetadata().exist) {
-                file.setMetadata("exist", false);
+                allowImagePreview: true,
+                allowFileRename: true,
+                allowFileMetadata: true,
+                maxFiles: 1,
+                labelIdle: 'Kéo và thả tệp của bạn vào đây hoặc <span class="filepond--label-action">Chọn tệp</span>',
+
             }
-        });
-        filePond.on("updatefiles", () => {
-            console.log("update file")
-        })
+        );
+        // filePond.on("addfile", (error, fileItem) => {
+        //     console.log(selected)
+        //     if (selected) {
+        //         const file = fileItem.file;
+        //         const fileExtension = file.name.split('.').pop();
+        //         const newName = `${Date.now()}.${fileExtension}`;
+        //         const newFile = new File([file], newName, {type: file.type});
+        //
+        //         filePond.removeFiles()
+        //         filePond.addFile(newFile).then(newFileItem => {
+        //             newFileItem.setMetadata("exist", true);
+        //             console.log(`File renamed and added as: ${newName}`);
+        //         });
+        //     }
+        // });
+
         return filePond;
     }
 
@@ -304,15 +309,14 @@ $(document).ready(function () {
                 id: id
             }
         }).then(function (data) {
-            selected.data = data
-            fieldData(data);
+            fieldData(id, data);
         }).catch(function (error) {
             //error
             console.log(error)
         });
     }
 
-    function fieldData(data) {
+    function fieldData(id, data) {
         const category = data.category;
         const parameters = data.parameters;
         form.find("#nameCategory").val(category.nameType);
@@ -321,7 +325,6 @@ $(document).ready(function () {
         // thêm ảnh cho category
         fetchImage(urlCategory).then((file) => {
             filePondCollect.category.addFile(file).then((fileItem) => {
-                console.log("added category")
             });
         }).catch(error => {
             console.error('Error fetching or adding file:', error);
@@ -338,6 +341,7 @@ $(document).ready(function () {
         // Thêm ảnh cho parameter đầu tiên
         fetchImage(firstParameter.guideImg).then((file) => {
             filePondCollect.parameters[0].findPond.addFile(file).then((fileItem) => {
+                console.log("added", fileItem.getMetadata())
                 fileItem.setMetadata("id", firstParameter.id);
                 fileItem.setMetadata("exist", true);
             });
@@ -455,44 +459,58 @@ $(document).ready(function () {
         startLoading();
         // Upload image
         try {
+            const imageExist = {
+                category: {
+                    id: data.category.id,
+                    image: getNameFromURL(data.category.sizeTableImage),
+                },
+                parameters: data.parameters.map(parameter => ({
+                    id: parameter.id,
+                    image: getNameFromURL(parameter.guideImg),
+                }))
+            }
             const imageUploaded = [];
-            const imageDelete = [];
+            const imageDeleted = [];
+
+            // Image cho category
             const categoryFile = filePondCollect.category.getFile().file;
-            if (categoryFile.getMetadata().exist == false) {
+            if (categoryFile.getFile().file.name != imageExist.category.image) {
                 imageUploaded.push({
+                    id: imageExist.category.id,
                     folder: "parameter_guide",
-                    name: Date.now(),
+                    name: imageExist.category.image,
                     file: filePondCollect.category.file,
                 })
-            } else {
-                imageDelete.push({
+                imageDeleted.push({
+                    id: imageExist.category.id,
                     folder: "parameter_guide",
-                    name: data.category.sizeTableImage,
+                    name: imageExist.category.image
                 })
             }
+
+            // Image cho parameters
             filePondCollect.parameters.forEach((item, index) => {
                 const file = item.getFile().file;
                 const parameterId = file.getMetadata().id;
-                if (file.getMetadata().exist == false)
+                if (file.name != imageExist.parameters[index].image) {
                     imageUploaded.push({
                         folder: "parameter_guide",
                         name: Date.now(),
                         file: file,
                         id: parameterId,
                     })
-                else
-                    imageDelete.push({
+                    imageDeleted.push({
                         folder: "parameter_guide",
                         name: Date.now(),
                         file: file,
                         id: parameterId,
                     })
+                }
             })
 
             const responseCategoryUpload = await uploadImage(imageUploaded, false);
-
             const nameImageCategory = responseCategoryUpload.map(response => response.public_id.split('/')[1] + "." + response.format)[0];
-            const nameImageParameters = responseParameterUpload.map(response => response.public_id.split('/')[1] + "." + response.format);
+            const nameImageParameters = responseCategoryUpload.map(response => response.public_id.split('/')[1] + "." + response.format);
 
             const dataUpdate = getObjUpdate(form);
             dataUpdate.sizeTableImage = nameImageCategory;
@@ -561,5 +579,20 @@ $(document).ready(function () {
         delete result['maxValue[]'];
         delete result['idParameter[]'];
         return result;
+    }
+
+    function getNameFromURL(url) {
+        // Split the URL by slashes to get the parts
+        let parts = url.split('/');
+        // Get the last part (the filename with extension)
+        let filenameWithExtension = parts[parts.length - 1];
+        // Split the filename by dots to separate the name and extension
+        let filenameParts = filenameWithExtension.split('.');
+        // The name will be all parts except the last one (which is the extension)
+        let name = filenameParts.slice(0, -1).join('.');
+        // The extension is the last part
+        let extension = filenameParts[filenameParts.length - 1];
+
+        return name + "." + extension;
     }
 })

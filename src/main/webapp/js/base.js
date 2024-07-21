@@ -146,9 +146,14 @@ export const formatDate = (dateString) => {
     const day = String(d.getDate()).padStart(2, '0');
     const month = String(d.getMonth() + 1).padStart(2, '0');
     const year = d.getFullYear();
-    return `${day}/${month}/${year}`;
+    return `${day} / ${month} / ${year}`;
 }
 
 export const formatCurrency = (value) => {
     return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(value);
+}
+
+export const configSweetAlert2 = {
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
 }

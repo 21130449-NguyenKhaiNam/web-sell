@@ -21,18 +21,17 @@ public class ColorDAO {
 
     public void addColors(Color[] colors) {
         StringBuilder sql = new StringBuilder();
+        List<Object> params = new ArrayList<>();
         sql.append("INSERT INTO colors (codeColor, productId) ")
                 .append("VALUES ");
         for (int i = 0; i < colors.length; i++) {
             if (i != 0)
                 sql.append(" , ");
-            sql.append(" (\"")
-                    .append(colors[i].getCodeColor())
-                    .append("\"")
-                    .append(", ")
-                    .append(colors[i].getProductId()).append(") ");
+            sql.append("( ?, ? )");
+            params.add(colors[i].getCodeColor());
+            params.add(colors[i].getProductId());
         }
-        GeneralDao.executeAllTypeUpdate(sql.toString());
+        GeneralDao.executeAllTypeUpdate(sql.toString(), params.toArray());
     }
 
     public List<Color> getIdColorByProductId(int productId) {

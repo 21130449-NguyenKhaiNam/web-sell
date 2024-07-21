@@ -11,32 +11,37 @@
                     <span>Sản phẩm</span></a>
                 <ul id="collapse_product">
                     <li class="sidebar_active">
-                        <a href="<c:url value="/public/admin/adminProducts.jsp"/>" data-link="adminProducts.jsp" class="mb-2 pb-3 sidebar_item">
+                        <a href="<c:url value="/public/admin/adminProducts.jsp"/>" data-link="adminProducts.jsp"
+                           class="mb-2 pb-3 sidebar_item">
                             <i class="fa-solid fa-list-check"></i>
                             <span>Quản lý</span></a>
                     </li>
 
                     <li>
-                        <a href="<c:url value="/public/admin/adminReviews.jsp"/>" data-link="adminReviews.jsp" class="mb-2 pb-3 sidebar_item">
+                        <a href="<c:url value="/public/admin/adminReviews.jsp"/>" data-link="adminReviews.jsp"
+                           class="mb-2 pb-3 sidebar_item">
                             <i class="fa-solid fa-square-poll-vertical"></i>
                             <span>Nhận xét</span></a>
                     </li>
 
                     <li>
-                        <a href="<c:url value="/public/admin/adminCategories.jsp"/>" data-link="adminCategories.jsp" class="pb-3 sidebar_item">
+                        <a href="<c:url value="/public/admin/adminCategories.jsp"/>" data-link="adminCategories.jsp"
+                           class="pb-3 sidebar_item">
                             <i class="fa-solid fa-table-list"></i>
                             <span>Loại sản phẩm</span></a>
                     </li>
-                    <li>
-                        <a href="<c:url value="/public/admin/adminImportMaterial.jsp"/>" data-link="adminImportMaterial.jsp" class="pb-3 sidebar_item">
-                            <i class="fa-solid fa-table-list"></i>
-                            <span>Nhập hàng</span></a>
-                    </li>
+<%--                    <li>--%>
+<%--                        <a href="<c:url value="/public/admin/adminImportMaterial.jsp"/>"--%>
+<%--                           data-link="adminImportMaterial.jsp" class="pb-3 sidebar_item">--%>
+<%--                            <i class="fa-solid fa-table-list"></i>--%>
+<%--                            <span>Nhập hàng</span></a>--%>
+<%--                    </li>--%>
                 </ul>
             </li>
 
             <li>
-                <a href="<c:url value="/public/admin/adminOrders.jsp"/>" data-link="adminOrders.jsp" class="sidebar_item">
+                <a href="<c:url value="/public/admin/adminOrders.jsp"/>" data-link="adminOrders.jsp"
+                   class="sidebar_item">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span>Đơn hàng</span></a>
             </li>
@@ -48,12 +53,13 @@
             </li>
 
             <li>
-                <%--                    <a href="#dashboard" data-link="dashboard.jsp" class="sidebar_item">--%>
-                <%--                        <i class="fa-solid fa-chart-simple"></i>--%>
-                <%--                        <span>Thống kê</span></a>--%>
+                <a href="<c:url value="/public/admin/adminDashboard.jsp" />" data-link="adminDashboard.jsp" class="sidebar_item">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span>Thống kê</span></a>
             </li>
             <li>
-                <a href="<c:url value="/public/admin/adminVoucher.jsp"/>" data-link="adminVoucher.jsp" class="sidebar_item">
+                <a href="<c:url value="/public/admin/adminVoucher.jsp"/>" data-link="adminVoucher.jsp"
+                   class="sidebar_item">
                     <i class="fa-solid fa-ticket-simple"></i>
                     <span>Mã giảm giá</span></a>
             </li>
@@ -64,18 +70,18 @@
             </li>
         </ul>
     </div>
-<%--    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">--%>
-<%--        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>--%>
-<%--    </div>--%>
-<%--    <div class="ps__rail-y" style="top: 0px; height: 652px; right: 0px;">--%>
-<%--        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 562px;"></div>--%>
-<%--    </div>--%>
-<%--    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">--%>
-<%--        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>--%>
-<%--    </div>--%>
-<%--    <div class="ps__rail-y" style="top: 0px; height: 652px; right: 0px;">--%>
-<%--        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 562px;"></div>--%>
-<%--    </div>--%>
+    <%--    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">--%>
+    <%--        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>--%>
+    <%--    </div>--%>
+    <%--    <div class="ps__rail-y" style="top: 0px; height: 652px; right: 0px;">--%>
+    <%--        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 562px;"></div>--%>
+    <%--    </div>--%>
+    <%--    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">--%>
+    <%--        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>--%>
+    <%--    </div>--%>
+    <%--    <div class="ps__rail-y" style="top: 0px; height: 652px; right: 0px;">--%>
+    <%--        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 562px;"></div>--%>
+    <%--    </div>--%>
 </nav>
 
 <script>

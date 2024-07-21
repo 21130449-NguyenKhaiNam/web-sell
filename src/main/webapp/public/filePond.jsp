@@ -23,7 +23,6 @@
         );
         FilePond.setOptions({
             onaddfilestart: function (file) {
-                console.log("onaddfilestart")
                 if (file.fileSize > sizeLimit) {
                     handleFileError('File quá lớn, tối đa là 5MB');
                     file.abortLoad();
@@ -38,8 +37,6 @@
             },
             onprocessfile:
                 function (error, file) {
-                    console.log("onprocessfile")
-                    console.log("error:", error)
                     if (!error) {
                         console.log('File added to FilePond', file);
                     } else {

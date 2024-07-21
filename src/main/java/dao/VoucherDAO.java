@@ -9,7 +9,7 @@ import java.util.List;
 
 public class VoucherDAO {
     public List<Voucher> selectAll() {
-        String sql = "SELECT id, code, minimumPrice,discountPercent, expired_date,createAt, status FROM vouchers";
+        String sql = "SELECT id, code, minimumPrice,discountPercent, expiryDate, description, state FROM vouchers WHERE state = 1 AND expiryDate >= NOW() AND availableTurns > 0";
         List<Voucher> vouchers = new ArrayList<>();
         vouchers = GeneralDao.executeQueryWithSingleTable(sql, Voucher.class);
         return vouchers;

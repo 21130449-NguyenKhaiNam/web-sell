@@ -6,14 +6,14 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "ProcessOrderAdmin", value = "/api/admin/order")
-public class ProcessOrderAdmin extends HttpServlet {
+public class AdminOrderController extends HttpServlet {
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         request.setAttribute("action", action);
 
         RequestDispatcher requestDispatcher = null;
-        switch (action){
+        switch (action) {
             case "seeDetail" -> {
                 String orderId = request.getParameter("orderId");
                 request.setAttribute("orderId", orderId);
@@ -29,10 +29,17 @@ public class ProcessOrderAdmin extends HttpServlet {
             case "saveUpdateStatus" -> {
                 String orderId = request.getParameter("orderId");
                 request.setAttribute("orderId", orderId);
+
                 String orderStatusId = request.getParameter("orderStatusId");
+                if (orderStatusId != null) {
+                    request.setAttribute("orderStatusId", orderStatusId);
+                }
+
                 String transactionStatusId = request.getParameter("transactionStatusId");
-                request.setAttribute("orderStatusId", orderStatusId);
-                request.setAttribute("transactionStatusId", transactionStatusId);
+
+                if (transactionStatusId != null) {
+                    request.setAttribute("transactionStatusId", transactionStatusId);
+                }
                 requestDispatcher = request.getRequestDispatcher("/api/admin/order/update-status");
             }
 
@@ -49,7 +56,7 @@ public class ProcessOrderAdmin extends HttpServlet {
             }
         }
 
-        if (requestDispatcher != null){
+        if (requestDispatcher != null) {
             requestDispatcher.forward(request, response);
         }
     }

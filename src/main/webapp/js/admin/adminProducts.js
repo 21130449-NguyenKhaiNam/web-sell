@@ -1,4 +1,11 @@
-import {http, objectToQueryString, convertFormDataToObject} from "../base.js";
+import {
+    http,
+    objectToQueryString,
+    convertFormDataToObject,
+    configSweetAlert2,
+    startLoading,
+    endLoading
+} from "../base.js";
 import {deleteImage, uploadImage} from "../uploadImage.js";
 
 $(document).ready(() => {
@@ -25,11 +32,11 @@ $(document).ready(() => {
     const formColor = $("#form__color");
     const btnAddSize = $("#form__add-size");
     const btnAddColor = $("#form__add-color");
+    const modalFilter = $("#modal-filter");
     let editor;
     let dataSizeIndex = [];
     let dataColorIndex = [];
     let pond;//trình thêm ảnh
-    let rename = false;//tag đánh dấu ảnh có được rename không?
     const images = {
         productId: undefined,
         exist: [],
@@ -180,6 +187,7 @@ $(document).ready(() => {
                 closeOnSelect: false,
                 allowClear: true,
                 placeholder: 'Kích thước',
+                dropdownParent: modalFilter,
             }
         );
         category.select2(
@@ -189,6 +197,7 @@ $(document).ready(() => {
                 closeOnSelect: false,
                 allowClear: true,
                 placeholder: 'Thể loại',
+                dropdownParent: modalFilter,
             }
         );
 
@@ -209,7 +218,8 @@ $(document).ready(() => {
             closeOnSelect: false,
             allowClear: true,
             templateResult: formatColorOption,
-            templateSelection: formatColorOption
+            templateSelection: formatColorOption,
+            dropdownParent: modalFilter,
         });
 
         moneyRange.ionRangeSlider({
@@ -223,37 +233,17 @@ $(document).ready(() => {
             to: 300000,
             grid_margin: true,
             hide_min_max: true,
-            step: 100000, // 100,000 VND
+            step: 10000,
             prettify_enabled: true,
             prettify_separator: "-",
             prettify: function (num) {
                 return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " đ";
             },
-            onStart: function (data) {
-                updateMoneyRangeInput(data);
-            },
-            onChange: function (data) {
-                updateMoneyRangeInput(data);
-            },
-            onFinish: function (data) {
-                updateMoneyRangeInput(data);
-            },
-            onUpdate: function (data) {
-                updateMoneyRangeInput(data);
-            }
         }).data("ionRangeSlider");
-
-        function updateMoneyRangeInput(data) {
-            const formattedValue = `${data.from} - ${data.to}`;
-            moneyRange.val(formattedValue);
-        }
 
         // Set initial value manually
         const initialSlider = moneyRange.data("ionRangeSlider");
-        updateMoneyRangeInput({
-            from: initialSlider.options.from,
-            to: initialSlider.options.to
-        });
+        moneyRange.val(`${initialSlider.options.from} - ${initialSlider.options.to}`);
 
         createdAt.daterangepicker({
             autoUpdateInput: false,
@@ -279,15 +269,13 @@ $(document).ready(() => {
 
     const table = $('#table');
     const datatable = table.DataTable(configDatatable);
-    const searchForm = $('#form__filter');
+    const searchForm = $('#form-filter');
 
     function handleSubmitFormSearch() {
         searchForm.submit(function (e) {
-            e.preventDefault(); // Prevent the form from submitting normally
-            // Serialize form data to an array of name-value pairs
-            var formDataArray = $(this).serializeArray();
-            // Convert array to JSON object
-            var formDataJson = {};
+            e.preventDefault();
+            const formDataArray = $(this).serializeArray();
+            const formDataJson = {};
             $.each(formDataArray, function () {
                 if (formDataJson[this.name]) {
                     if (!formDataJson[this.name].push) {
@@ -298,8 +286,17 @@ $(document).ready(() => {
                     formDataJson[this.name] = this.value || '';
                 }
             });
+            formDataJson.moneyRange = formDataJson.moneyRange.replace(";", '-');
             const queryString = objectToQueryString(formDataJson);
             datatable.ajax.url(`/filterProductAdmin?${queryString}`).load();
+            modalFilter.modal("hide");
+            Swal.fire({
+                ...configSweetAlert2,
+                icon: 'success',
+                title: "Áp dụng bộ lọc tìm kiếm thành công",
+                showConfirmButton: false,
+                timer: 1500
+            });
         });
     }
 
@@ -410,7 +407,7 @@ $(document).ready(() => {
                         const listIdColors = $('[data-color-id]').map((index, element) => $(element).attr('data-color-id')).get();
                         handleUpdate(form, selected.id, listIdSizes, listIdColors).then();
                     } else
-                        handleCreate(form);
+                        handleCreate(form).then();
                 }
             });
     }
@@ -502,6 +499,8 @@ $(document).ready(() => {
         });
         if (colorHex)
             $(el).val(colorHex);
+        else
+            $(el).val("#000000");
     }
 
     function configModal() {
@@ -585,7 +584,6 @@ $(document).ready(() => {
         });
     }
 
-
     // -------------------------------
     // Thực hiện ẩn hoặc hiện sản phẩm
     function handleVisible(type, id, index) {
@@ -632,47 +630,57 @@ $(document).ready(() => {
 
     // --------------------------------
     // Thực hiện thêm sản phẩm
-    function handleCreate(form) {
+    async function handleCreate(form) {
+        startLoading();
         const formData = new FormData(form);
         // Thêm ảnh vào FormData
         const filePondFiles = FilePond.find(document.querySelector('#image')).getFiles();
         filePondFiles.forEach(file => {
             formData.append('images[]', file.file);
         });
-        http({
-            url: "/api/admin/product/create",
-            type: "POST",
-            contentType: false,
-            processData: false,
-            dataType: "json",
-            data: formData,
-        }).then((data) => {
-            if (data.status === true) {
-                Swal.fire({
-                    title: "Thêm sản phẩm thành công",
-                    text: "Sản phẩm đã được thêm vào gian hàng.",
-                    icon: "success",
-                });
-                datatable.row.add(
-                    {
-                        ...convertFormDataToObject(form)
-                    }
-                ).draw(false);
-                modal.modal("hide");
-            } else {
-                Swal.fire({
-                    title: "Thêm sản phẩm không thành công",
-                    text: "Sản phẩm đã có tên trên đã tồn tại vào gian hàng.",
-                    icon: "error",
-                });
-            }
-        }).catch((error) => {
+        try {
+            const response = await uploadImage(images.added, false);
+            const nameImageAdded = response.map(response => response.public_id.split('/').slice(1).join('/') + '.' + response.format);
+            nameImageAdded.forEach(nameImage => {
+                formData.append('nameImageAdded[]', nameImage);
+            });
+            http({
+                url: "/api/admin/product/create111",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                data: formData,
+            }, false).then((data) => {
+                endLoading();
+                if (data.code == 200) {
+                    Swal.fire({
+                        title: "Thêm sản phẩm thành công",
+                        text: "Sản phẩm đã được thêm vào gian hàng.",
+                        icon: "success",
+                    });
+                    datatable.row.add(
+                        {
+                            ...convertFormDataToObject(form)
+                        }
+                    ).draw(false);
+                    modal.modal("hide");
+                } else {
+                    Swal.fire({
+                        title: "Thêm sản phẩm không thành công",
+                        text: "Sản phẩm đã có tên trên đã tồn tại vào gian hàng.",
+                        icon: "error",
+                    });
+                }
+            })
+        } catch (e) {
+            endLoading();
             Swal.fire({
                 title: "Thêm sản phẩm không thành công",
                 text: "Đã có lỗi xảy ra",
                 icon: "warning",
             })
-        });
+        }
     }
 
     // -------------------------------
@@ -747,17 +755,17 @@ $(document).ready(() => {
         listIdColors.forEach(idColor => formData.append('colorId[]', idColor));
         formData.append("id", id);
         try {
+            startLoading();
             if (images.added.length > 0) {
-                const response = await uploadImage(images.added);
+                const response = await uploadImage(images.added, false);
                 const idImageDeleted = images.deleted.map(id => images.exist[id].id);
-                const nameImageAdded = response.map(response => response.public_id);
+                const nameImageAdded = response.map(response => response.public_id.split('/').slice(1).join('/') + '.' + response.format);
 
                 idImageDeleted.forEach(idImage => {
                     formData.append('idImageDeleted[]', idImage);
                 });
 
                 nameImageAdded.forEach(nameImage => {
-                    nameImage = nameImage.split('/').slice(1).join('/');
                     formData.append('nameImageAdded[]', nameImage);
                 });
             }
@@ -768,8 +776,8 @@ $(document).ready(() => {
                 contentType: false,
                 processData: false,
                 dataType: "json",
-            })
-
+            }, false)
+            endLoading();
             if (updateResponse.code == 200) {
                 Swal.fire({
                     title: "Cập nhập sản phẩm thành công",
@@ -813,6 +821,7 @@ $(document).ready(() => {
                 });
             }
         } catch (e) {
+            endLoading();
             console.error(e);
             Swal.fire({
                 title: "Cập nhập sản phẩm không thành công",

@@ -2,9 +2,11 @@ package dao;
 
 import models.Image;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class ImageDAO  {
+public class ImageDAO {
     public List<Image> getThumbnail(int productId) {
         String sql = "SELECT nameImage FROM images WHERE productId = ? AND isThumbnail = 1";
         return GeneralDao.executeQueryWithSingleTable(sql, Image.class, productId);
@@ -12,18 +14,21 @@ public class ImageDAO  {
 
     public void addImages(List<Image> images) {
         StringBuilder sql = new StringBuilder();
+        List<Object> params = new ArrayList<>();
         sql.append("INSERT INTO images (nameImage, productId) ")
                 .append("VALUES ");
         for (int i = 0; i < images.size(); i++) {
-            if (i != 0) {
+            if (i != 0)
                 sql.append(" , ");
-            }
             String nameImage = images.get(i).getNameImage();
-            nameImage = nameImage.substring(nameImage.indexOf("product_img")+12);
+            nameImage = nameImage.substring(nameImage.indexOf("product_img") + 12);
+
             sql.append(" (\"")
                     .append(nameImage)
                     .append("\", ")
                     .append(images.get(i).getProductId()).append(") ");
+            params.add(nameImage);
+            params.add(images.get(i).getProductId());
         }
         GeneralDao.executeAllTypeUpdate(sql.toString());
     }

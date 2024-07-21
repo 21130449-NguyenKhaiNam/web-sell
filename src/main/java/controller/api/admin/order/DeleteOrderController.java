@@ -9,7 +9,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "RemoveOrderAdmin", value = "/api/admin/order/remove")
-public class RemoveOrderAdmin extends HttpServlet {
+public class DeleteOrderController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String actionTarget = (String) request.getAttribute("action");

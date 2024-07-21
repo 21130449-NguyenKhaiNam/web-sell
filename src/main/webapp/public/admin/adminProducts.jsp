@@ -55,22 +55,20 @@
     <section class="content">
         <div class="container-xl">
             <div class="row">
+                <h1 class="h3">Danh sách sản phẩm</h1>
                 <div class="d-flex justify-content-between">
-                    <h1 class="h3">Danh sách sản phẩm</h1>
-                    <div class="d-flex">
-                        <span id="button-import-product" class="button button__import ms-auto">
-                             <form action="/admin-import-product" method="POST" enctype="multipart/form-data"
-                                   style="display: flex;justify-content: center;align-items: center">
-                                 <input type="file" name="file">
-                                 <span class="btn_uploadImg">
-                                     <i class="fa-solid fa-upload"></i>
-                                     <input type="submit" value="Upload"
-                                            style="background-color: #4BAC4D; color: #fff"/>
-                                 </span>
-                             </form>
-                        </span>
-                        <form action="<c:url value="/exportExcelProduct"/>" method="GET" class="me-1">
-                            <button class="btn_export">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modal-filter">
+                        <i class="fa-solid fa-filter"></i> Bộ lọc
+                    </button>
+                    <div class="d-flex gap-2">
+                        <a href="<c:url value="/public/admin/adminImportProducts.jsp" />"
+                           class="btn btn-primary d-flex align-items-center gap-1">
+                            <i class="fa-solid fa-file-excel"></i>
+                            <span>Thêm sản phẩm qua excel</span>
+                        </a>
+                        <form action="<c:url value="/exportExcelProduct"/>" method="POST" class="">
+                            <button class="btn_export" type="submit">
                                 <i class="fa-solid fa-file-export"></i>
                                 Xuất file excel
                             </button>
@@ -82,64 +80,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-3 mt-2">
-                    <form action="<c:url value="/filterProductAdmin"/>" class="form__filter" id="form__filter">
-                        <div class="filter__group">
-                            <span class="filter__title">Tên sản phẩm</span>
-                            <label class="filter__text-block">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <input class="filter__input filter__text" type="text" name="keyword">
-                            </label>
-                        </div>
-                        <div class="filter__group">
-                            <span class="filter__title">Thời gian cập nhập</span>
-                            <label class="filter__text-block">
-                                <i class="fa-solid fa-calendar-days"></i>
-                                <input readonly class="filter__input" type="text" id="createdAt" name="date" value=""/>
-                            </label>
-                        </div>
-                        <span class="filter__separate"></span>
-                        <div class="filter__group">
-                            <label for="category" class="filter__title">Phân loại sản phẩm</label>
-                            <div class="filter__radio-list">
-                                <select id="category" name="categoryId" multiple>
-                                    <c:forEach items="${pageContext.servletContext.getAttribute('categoryList')}"
-                                               var="category">
-                                        <option class="filter__input filter__radio"
-                                                value="${category.id}"> ${category.nameType}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </div>
-                        <span class="filter__separate"></span>
-                        <div class="filter__group">
-                            <label for="moneyRange" class="filter__title">Mức giá</label>
-                            <input type="text" id="moneyRange" name="moneyRange" value=""/>
-                        </div>
-                        <span class="filter__separate"></span>
-                        <div class="filter__group">
-                            <label for="size" class="filter__title">Kích cỡ</label>
-                            <select id="size" name="size" multiple>
-                                <c:forEach items="${requestScope.sizeList}" var="item">
-                                    <option name="size" value="${item.nameSize}"
-                                            class="filter__input filter__radio"> ${item.nameSize}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <span class="filter__separate"></span>
-                        <div class="filter__group">
-                            <label for="color" class="filter__title">Màu sắc</label>
-                            <select id="color" name="color" multiple>
-                                <c:forEach items="${requestScope.colorList}" var="item">
-                                    <option name="color" value="${item.codeColor}"
-                                    >${item.codeColor}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <button class="filter__submit button--hover button p-2" type="submit">Lọc</button>
-                    </form>
-                </div>
-                <div class="col-9 mt-2">
+                <div class="col-12 mt-2">
                     <div>
                         <table id="table" class="table">
                             <thead>
@@ -164,8 +105,112 @@
     </section>
 </main>
 
-
-<!-- Modal  -->
+<!--Modal filter-->
+<div class="modal fade" id="modal-filter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <form id="form-filter" action="<c:url value="/filterProductAdmin"/>" class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Lọc và tìm kiếm</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="filter__group">
+                                <label for="keyword" class="filter__title d-inline-block" data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       data-bs-title="Tìm kiếm theo tên sản phẩm">Tên sản phẩm</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Nhập tên sản phẩm "
+                                           id="keyword" name="keyword">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="filter__group">
+                                <label for="createdAt" class="filter__title d-inline-block" data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       data-bs-title="Tìm kiếm theo thời gian cập nhập gần nhât">Thời gian cập
+                                    nhập</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">  <i
+                                            class="fa-solid fa-calendar-days"></i></span>
+                                    <input type="text" readonly class="form-control"
+                                           aria-label="Username" name="text" id="createdAt">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-12">
+                        <div class="filter__group">
+                            <label for="category" class="filter__title d-inline-block" data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   data-bs-title="Tìm kiếm theo phân loại, nếu không có sẽ tìm tất cả">Phân loại sản
+                                phẩm</label>
+                            <div class="filter__radio-list">
+                                <select id="category" name="categoryId" multiple>
+                                    <c:forEach items="${pageContext.servletContext.getAttribute('categoryList')}"
+                                               var="category">
+                                        <option class="filter__input filter__radio"
+                                                value="${category.id}"> ${category.nameType}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-12">
+                        <div class="filter__group">
+                            <label for="moneyRange" class="filter__title d-inline-block" data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   data-bs-title="Tìm kiếm mức giá của sản phẩm">Mức giá</label>
+                            <input type="text" id="moneyRange" name="moneyRange" value=""/>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-12">
+                        <div class="filter__group">
+                            <label for="size" class="filter__title d-inline-block" data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   data-bs-title="Tìm kiếm kích cỡ sản phẩm, nếu không chọn sẽ tìm tất cả">Kích
+                                cỡ</label>
+                            <select id="size" name="size" multiple>
+                                <c:forEach items="${requestScope.sizeList}" var="item">
+                                    <option name="size" value="${item.nameSize}"
+                                            class="filter__input filter__radio"> ${item.nameSize}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-12">
+                        <div class="filter__group">
+                            <label for="color" class="filter__title d-inline-block" data-bs-toggle="tooltip"
+                                   data-bs-placement="top"
+                                   data-bs-title="Tìm kiếm theo màu sắc, nếu không có sẽ tìm tất cả">Màu sắc</label>
+                            <select id="color" name="color" multiple>
+                                <c:forEach items="${requestScope.colorList}" var="item">
+                                    <option name="color" value="${item.codeColor}"
+                                    >${item.codeColor}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Modal -->
 <div class="modal fade " id="modal-create" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <form id="form__add" class="modal-content needs-validation ">

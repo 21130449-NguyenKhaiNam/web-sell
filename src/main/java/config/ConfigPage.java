@@ -68,7 +68,7 @@ public class ConfigPage implements ServletContextListener {
         ADMIN_REVIEW = folderAdminProduct + "adminReviews.jsp";
         ADMIN_USER = folderAdminProduct + "adminUsers.jsp";
         ADMIN_MATERIAL = folderAdminProduct + "adminImportMaterial.jsp";
-        DASHBOARD = folderAdminProduct + "dashboard.jsp";
+        DASHBOARD = folderAdminProduct + "adminDashboard.jsp";
 
         String folderError = "/public/error/";
         ERROR_404 = folderError + "error404.jsp";

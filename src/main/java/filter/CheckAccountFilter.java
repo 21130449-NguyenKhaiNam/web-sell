@@ -1,6 +1,5 @@
 package filter;
 
-import com.mysql.cj.Session;
 import models.User;
 import models.shoppingCart.ShoppingCart;
 import session.SessionManager;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-//@WebFilter(urlPatterns = "/*")
+@WebFilter(urlPatterns = "/*")
 public class CheckAccountFilter implements Filter {
 
     @Override

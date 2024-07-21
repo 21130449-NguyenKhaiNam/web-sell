@@ -1,10 +1,11 @@
 package controller.api.admin.order;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import models.Order;
 import models.OrderStatus;
 import models.TransactionStatus;
-import org.json.JSONObject;
 import services.admin.AdminOrderServices;
 
 import javax.servlet.*;
@@ -14,9 +15,10 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "ShowDialogUpdate", value = "/api/admin/order/update-dialog")
-public class ShowDialogUpdate extends HttpServlet {
+public class GetStatusOrderController extends HttpServlet {
+    Gson gson = new GsonBuilder().create();
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<OrderStatus> listAllOrderStatus = AdminOrderServices.getINSTANCE().getListAllOrderStatus();
         List<TransactionStatus> listAllTransactionStatus = AdminOrderServices.getINSTANCE().getListAllTransactionStatus();
 
@@ -26,14 +28,12 @@ public class ShowDialogUpdate extends HttpServlet {
         OrderStatus orderStatusTarget = AdminOrderServices.getINSTANCE().getOrderStatusById(order.getOrderStatusId());
         TransactionStatus transactionStatusTarget = AdminOrderServices.getINSTANCE().getTransactionStatusById(order.getTransactionStatusId());
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("listAllOrderStatus", listAllOrderStatus);
-        jsonObject.put("listAllTransactionStatus", listAllTransactionStatus);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.add("listAllOrderStatus", gson.toJsonTree(listAllOrderStatus));
+        jsonObject.add("listAllTransactionStatus", gson.toJsonTree(listAllTransactionStatus));
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        jsonObject.put("orderStatusTarget", objectMapper.writeValueAsString(orderStatusTarget));
-        jsonObject.put("transactionStatusTarget", objectMapper.writeValueAsString(transactionStatusTarget));
+        jsonObject.add("orderStatusTarget", gson.toJsonTree(orderStatusTarget));
+        jsonObject.add("transactionStatusTarget", gson.toJsonTree(transactionStatusTarget));
 
         response.getWriter().print(jsonObject);
     }

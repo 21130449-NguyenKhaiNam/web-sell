@@ -46,18 +46,6 @@
     margin-top: unset;
 }
 
-#process__order--form{
-    display: grid;
-    gap: 20px;
-}
-
-#process__order--form > h1{
-    display: inline-flex;
-    gap: 10px;
-    align-items: center;
-
-}
-
 .table {
     width: max-content;
 }
@@ -67,7 +55,7 @@ thead{
     font-size: 16px;
 }
 
-th, td{
+#table th, #table td{
     padding: 14px !important;
     vertical-align: middle;
     text-align: center;
@@ -588,7 +576,6 @@ th, td{
 
 .order__heading{
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 20px;
 }
