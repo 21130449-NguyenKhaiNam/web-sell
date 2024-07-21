@@ -95,7 +95,7 @@ public class ProcessAfterPaymentOnline extends HttpServlet {
             session.removeAttribute("successApplied");
             request.setAttribute("invoiceNo", order.getInvoiceNo());
             // Cần điều chỉnh khi có voucher
-            CheckoutServices.getINSTANCE().addNewOrder(order.getInvoiceNo(), user.getId(), order.getDateOrder(), user.getFullName(), user.getEmail(), user.getPhone(), user.getAddress(), order.getDelivery(), order.getPayment(), null);
+            CheckoutServices.getINSTANCE().addNewOrder(order.getInvoiceNo(), user.getId(), order.getDateOrder(), user.getFullName(), user.getEmail(), user.getPhone(), order.getAddress(), order.getDelivery(), order.getPayment(), null);
             for (int i = 0; i < tempOrders.length; i++) {
                 cart.remove(tempOrders[i].getId(), tempOrders[i].getInd());
                 CheckoutServices.getINSTANCE().addEachOrderDetail(order.getInvoiceNo(), tempOrders[i].getId(), tempOrders[i].getName(), tempOrders[i].getSize(), tempOrders[i].getColor(), tempOrders[i].getCount(), tempOrders[i].getPrice());
@@ -114,6 +114,7 @@ public class ProcessAfterPaymentOnline extends HttpServlet {
     class OrderSuccess {
         private int delivery;
         private int payment;
+        private String address;
         private TempOrder[] orders;
         private int invoiceNo;
         private String dateOrder;
