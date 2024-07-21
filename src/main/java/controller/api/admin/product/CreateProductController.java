@@ -45,48 +45,57 @@ public class CreateProductController extends HttpServlet {
         String[] nameImageAdded = request.getParameterValues("nameImageAdded[]");
 
 //        Add Product
-        Product product = new Product();
-        product.setName(name);
-        product.setCategoryId(Integer.parseInt(idCategory));
-        product.setOriginalPrice(Double.parseDouble(originalPrice));
-        product.setDescription(description);
-        product.setSalePrice(Double.parseDouble(salePrice));
-        product.setVisibility(true);
-        product.setCreateAt(Date.valueOf(LocalDate.now()));
+        try {
+            Product product = new Product();
+            product.setName(name);
+            product.setCategoryId(Integer.parseInt(idCategory));
+            product.setOriginalPrice(Double.parseDouble(originalPrice));
+            product.setDescription(description);
+            double salePriceDouble = salePrice.trim().isBlank() ? 0 : Double.parseDouble(salePrice);
+            if (product.getOriginalPrice() < 0)
+                throw new AppException(ErrorCode.PRICE_ERROR);
+            if (salePriceDouble != 0 && salePriceDouble > product.getOriginalPrice())
+                throw new AppException(ErrorCode.PRICE_ERROR);
+            product.setSalePrice(salePriceDouble);
+            product.setVisibility(true);
+            product.setCreateAt(Date.valueOf(LocalDate.now()));
 
-        if (nameSizes.length == 0) throw new AppException(ErrorCode.SIZE_ERROR);
-        if (colors.length == 0) throw new AppException(ErrorCode.COLOR_ERROR);
-        if (nameImageAdded.length == 0) throw new AppException(ErrorCode.IMAGE_ERROR);
+            if (nameSizes.length == 0) throw new AppException(ErrorCode.SIZE_ERROR);
+            if (colors.length == 0) throw new AppException(ErrorCode.COLOR_ERROR);
+            if (nameImageAdded.length == 0) throw new AppException(ErrorCode.IMAGE_ERROR);
 
 //        Add Product
-        int productId = AdminProductServices.getINSTANCE().addProduct(product);
+            int productId = AdminProductServices.getINSTANCE().addProduct(product);
 
-        JsonObject objJson = new JsonObject();
+            JsonObject objJson = new JsonObject();
 //       Sản phẩm đã tồn tại
-        if (productId == 0) throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
+            if (productId == 0) throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
 
 //        Add Size
-        double[] sizePricesDouble = new double[sizePrices.length];
-        for (int i = 0; i < sizePricesDouble.length; i++) {
-            sizePricesDouble[i] = Double.parseDouble(sizePrices[i]);
-        }
-        AdminProductServices.getINSTANCE().addSize(nameSizes, sizePricesDouble, productId);
+            double[] sizePricesDouble = new double[sizePrices.length];
+            for (int i = 0; i < sizePricesDouble.length; i++) {
+                sizePricesDouble[i] = Double.parseDouble(sizePrices[i]);
+            }
+            AdminProductServices.getINSTANCE().addSize(nameSizes, sizePricesDouble, productId);
 
 //        Add Color
-        AdminProductServices.getINSTANCE().addColor(colors, productId);
+            AdminProductServices.getINSTANCE().addColor(colors, productId);
 
 //        Add Images
-        List<Image> imagesAdded = Arrays.stream(nameImageAdded).map(nameImage -> {
-            Image image = new Image();
-            image.setNameImage(nameImage);
-            image.setProductId(productId);
-            return image;
-        }).collect(Collectors.toList());
+            List<Image> imagesAdded = Arrays.stream(nameImageAdded).map(nameImage -> {
+                Image image = new Image();
+                image.setNameImage(nameImage);
+                image.setProductId(productId);
+                return image;
+            }).collect(Collectors.toList());
 
-        AdminProductServices.getINSTANCE().addImages(imagesAdded);
+            AdminProductServices.getINSTANCE().addImages(imagesAdded);
 
-        objJson.addProperty("code", ErrorCode.CREATE_SUCCESS.getCode());
-        objJson.addProperty("message", ErrorCode.CREATE_SUCCESS.getMessage());
-        response.getWriter().write(objJson.toString());
+            objJson.addProperty("code", ErrorCode.CREATE_SUCCESS.getCode());
+            objJson.addProperty("message", ErrorCode.CREATE_SUCCESS.getMessage());
+            response.getWriter().write(objJson.toString());
+        } catch (AppException e) {
+            throw new AppException(ErrorCode.UPDATE_FAILED);
+        }
     }
 }

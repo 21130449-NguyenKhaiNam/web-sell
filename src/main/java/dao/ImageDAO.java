@@ -22,15 +22,11 @@ public class ImageDAO {
                 sql.append(" , ");
             String nameImage = images.get(i).getNameImage();
             nameImage = nameImage.substring(nameImage.indexOf("product_img") + 12);
-
-            sql.append(" (\"")
-                    .append(nameImage)
-                    .append("\", ")
-                    .append(images.get(i).getProductId()).append(") ");
+            sql.append(" ( ? , ? ) ");
             params.add(nameImage);
             params.add(images.get(i).getProductId());
         }
-        GeneralDao.executeAllTypeUpdate(sql.toString());
+        GeneralDao.executeAllTypeUpdate(sql.toString(), params.toArray());
     }
 
     public List<Image> getNameImages(int productId) {

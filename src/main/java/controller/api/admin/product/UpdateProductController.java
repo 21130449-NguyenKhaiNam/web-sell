@@ -85,15 +85,20 @@ public class UpdateProductController extends HttpServlet {
         } else {
             imagesAdded = List.of();
         }
-
+        double salePriceDouble = salePrice.trim().isBlank() ? 0 : Double.parseDouble(salePrice);
+        double originalPriceDouble = Double.parseDouble(originalPrice);
+        if (originalPriceDouble < 0)
+            throw new AppException(ErrorCode.PRICE_ERROR);
+        if (salePriceDouble != 0 && salePriceDouble > originalPriceDouble)
+            throw new AppException(ErrorCode.PRICE_ERROR);
 //        Update Product
         Product product = new Product();
         product.setId(id);
         product.setName(name);
         product.setCategoryId(Integer.parseInt(idCategory));
         product.setDescription(description);
-        product.setOriginalPrice(Double.parseDouble(originalPrice));
-        product.setSalePrice(Double.parseDouble(salePrice));
+        product.setOriginalPrice(originalPriceDouble);
+        product.setSalePrice(salePriceDouble);
         product.setCreateAt(Date.valueOf(LocalDate.now()));
         AdminProductServices.getINSTANCE().updateProduct(product);
 
@@ -136,5 +141,4 @@ public class UpdateProductController extends HttpServlet {
         jsonObject.addProperty("message", ErrorCode.UPDATE_SUCCESS.getMessage());
         response.getWriter().write(gson.toJson(jsonObject));
     }
-
 }

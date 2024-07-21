@@ -316,9 +316,6 @@ $(document).ready(() => {
             originalPrice: {
                 required: true,
             },
-            salePrice: {
-                required: true,
-            },
             description: {
                 required: true,
             },
@@ -341,9 +338,6 @@ $(document).ready(() => {
             },
             originalPrice: {
                 required: "Vui lòng nhập giá gốc",
-            },
-            salePrice: {
-                required: "Vui lòng nhập giá bán",
             },
             description: {
                 required: "Vui lòng nhập mô tả",
@@ -469,7 +463,7 @@ $(document).ready(() => {
                     images.added = images.added.filter(image => image.file != fileItem.file);
             } else
                 console.log("error deleted")
-            console.log(pond.getFiles())
+            // console.log(pond.getFiles())
         });
     }
 
@@ -582,6 +576,10 @@ $(document).ready(() => {
         files.forEach((file, index) => {
             pond.removeFile(index);
         });
+        images.productId = undefined;
+        images.exist = [];
+        images.added = [];
+        images.deleted = [];
     }
 
     // -------------------------------
@@ -645,7 +643,7 @@ $(document).ready(() => {
                 formData.append('nameImageAdded[]', nameImage);
             });
             http({
-                url: "/api/admin/product/create111",
+                url: "/api/admin/product/create",
                 type: "POST",
                 contentType: false,
                 processData: false,
@@ -672,7 +670,14 @@ $(document).ready(() => {
                         icon: "error",
                     });
                 }
-            })
+            }).catch((error) => {
+                endLoading();
+                Swal.fire({
+                    title: "Thêm sản phẩm không thành công",
+                    text: "Đã có lỗi xảy ra",
+                    icon: "warning",
+                });
+            });
         } catch (e) {
             endLoading();
             Swal.fire({
@@ -719,10 +724,7 @@ $(document).ready(() => {
         form.find(`[data-color-id]`).attr("data-color-id", data.colors[0].id);
         data.colors.slice(1).forEach(color => addColor(color));
 
-        images.productId = undefined;
-        images.exist = [];
-        images.added = [];
-        images.deleted = [];
+
         // Thêm ảnh vào filepond
         images.productId = product.id;
         const urls = data.images.map(image => {
@@ -758,15 +760,16 @@ $(document).ready(() => {
             startLoading();
             if (images.added.length > 0) {
                 const response = await uploadImage(images.added, false);
-                const idImageDeleted = images.deleted.map(id => images.exist[id].id);
                 const nameImageAdded = response.map(response => response.public_id.split('/').slice(1).join('/') + '.' + response.format);
-
-                idImageDeleted.forEach(idImage => {
-                    formData.append('idImageDeleted[]', idImage);
-                });
-
                 nameImageAdded.forEach(nameImage => {
                     formData.append('nameImageAdded[]', nameImage);
+                });
+            }
+
+            if (images.deleted.length > 0) {
+                const idImageDeleted = images.exist.filter(image => images.deleted.includes(image.id)).map(images => images.id);
+                idImageDeleted.forEach(idImage => {
+                    formData.append('idImageDeleted[]', idImage);
                 });
             }
             const updateResponse = await http({
