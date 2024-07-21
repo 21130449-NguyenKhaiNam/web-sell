@@ -28,4 +28,10 @@ public class AddressDAO implements IAddressDAO {
         String sql = "DELETE FROM address WHERE id = ?";
         GeneralDao.executeAllTypeUpdate(sql, addressId);
     }
+
+    public List<Address> getAddressById(String addressId) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id, province, ward, district, detail FROM address WHERE id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Address.class, addressId);
+    }
 }

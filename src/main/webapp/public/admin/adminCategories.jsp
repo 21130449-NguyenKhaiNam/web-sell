@@ -17,7 +17,7 @@
 <c:set var="listCategory" value="${requestScope.listCategory}"/>
 <!--Header-->
 <c:import url="/public/header.jsp"/>
-<main class="main">
+<main id="main">
     <!--Navigate-->
     <c:import url="/public/admin/adminNavigator.jsp"/>
     <section class="content">

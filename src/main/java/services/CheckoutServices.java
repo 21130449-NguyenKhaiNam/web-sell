@@ -1,6 +1,7 @@
 package services;
 
 import dao.CheckoutDao;
+import models.Address;
 import models.PaymentMethod;
 import models.DeliveryMethod;
 import models.PaymentOwner;
@@ -42,7 +43,8 @@ public class CheckoutServices {
     }
 
     public void addNewOrder(int orderId, int userId, String dateOrder, String fullName, String email, String phone, String address, Integer deliveryMethodId, int paymentMethodId, Integer voucherId){
-        checkoutDao.addNewOrder(orderId, userId, dateOrder, fullName, email, phone, address, deliveryMethodId, paymentMethodId, voucherId);
+        Address adr = AddressServices.getINSTANCE().getAddressById(address);
+        checkoutDao.addNewOrder(orderId, userId, dateOrder, fullName, email, phone, adr, deliveryMethodId, paymentMethodId, voucherId);
     }
 
     public void addEachOrderDetail(int orderId, int productId, String productName, String sizeRequired, String colorRequired, int quantityRequired, double price){

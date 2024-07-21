@@ -24,6 +24,10 @@
     padding-bottom: 20px;
 }
 
+table.dataTable>tbody>tr {
+    background-color: white;
+}
+
 .category__icon-detail {
     --width: 20px;
     --height: 2px;

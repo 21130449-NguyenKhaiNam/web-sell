@@ -66,4 +66,11 @@ public class AddressServices {
         addressDAO.deleteAddress(addressId);
         return true;
     }
+
+    public Address getAddressById(String address) {
+        List<Address> addressList = addressDAO.getAddressById(address);
+        if (addressList.isEmpty())
+            return null;
+        return addressList.get(0);
+    }
 }

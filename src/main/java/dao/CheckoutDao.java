@@ -1,5 +1,6 @@
 package dao;
 
+import models.Address;
 import models.DeliveryMethod;
 import models.PaymentMethod;
 import models.PaymentOwner;
@@ -33,10 +34,10 @@ public class CheckoutDao {
         return GeneralDao.executeQueryWithSingleTable(sql, PaymentOwner.class, id).get(0);
     }
 
-    public void addNewOrder(int orderId, int userId, String dateOrder, String fullName, String email, String phone, String address, Integer deliveryMethodId, int paymentMethodId, Integer voucherId) {
-        StringBuilder sql = new StringBuilder("INSERT INTO orders (id, userId, dateOrder, fullName, email, phone, address, deliveryMethodId, paymentMethodId, orderStatusId, transactionStatusId, voucherId)");
-        sql.append(" VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        GeneralDao.executeAllTypeUpdate(sql.toString(), orderId, userId, dateOrder, fullName, email, phone, address, deliveryMethodId, paymentMethodId, 1, 1, voucherId);
+    public void addNewOrder(int orderId, int userId, String dateOrder, String fullName, String email, String phone, Address address, Integer deliveryMethodId, int paymentMethodId, Integer voucherId) {
+        StringBuilder sql = new StringBuilder("INSERT INTO orders (id, userId, dateOrder, fullName, email, phone, address, deliveryMethodId, paymentMethodId, orderStatusId, transactionStatusId, voucherId, province, district, ward, detail)");
+        sql.append(" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        GeneralDao.executeAllTypeUpdate(sql.toString(), orderId, userId, dateOrder, fullName, email, phone, address.exportAddressString(), deliveryMethodId, paymentMethodId, 1, 1, voucherId, address.getProvince(), address.getDistrict(), address.getWard(), address.getDetail());
     }
 
     public void addEachOrderDetail(int orderId, int productId, String productName, String sizeRequired, String colorRequired, int quantityRequired, double price) {

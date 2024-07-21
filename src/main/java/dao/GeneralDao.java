@@ -36,7 +36,7 @@ public class GeneralDao {
             }
             List<T> list = query.mapToBean(type).list();
             try {
-//                LogService.getINSTANCE().insertLogForSelect(sql, list);
+                LogService.getINSTANCE().insertLogForSelect(sql, list);
             } catch (Exception e) {
                 System.out.println("Lỗi bởi ghi log trong general dao [executeQueryWithSingleTable] >> " + e.getMessage());
             }
@@ -56,7 +56,7 @@ public class GeneralDao {
             }
             List<Map<String, Object>> list = query.mapToMap().list();
             try {
-//                LogService.getINSTANCE().insertLogForSelect(sql, list);
+                LogService.getINSTANCE().insertLogForSelect(sql, list);
             } catch (Exception e) {
                 System.out.println("Lỗi bởi ghi log trong general dao [executeQueryWithJoinTables]>> " + e.getMessage());
             }
@@ -96,7 +96,7 @@ public class GeneralDao {
             }
         }
         try {
-//            LogService.getINSTANCE().insertLog(sql, params);
+            LogService.getINSTANCE().insertLog(sql, params);
         } catch (Exception e) {
             System.out.println("Lỗi bởi ghi log trong general dao [executeInsert]>> " + e.getMessage());
         }

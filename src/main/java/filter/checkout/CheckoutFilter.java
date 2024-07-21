@@ -1,9 +1,7 @@
 package filter.checkout;
 
-import models.DeliveryInfo;
 import models.DeliveryInfoStorage;
 import models.User;
-import models.shoppingCart.ShoppingCart;
 import session.SessionManager;
 
 import javax.servlet.*;
@@ -12,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
 
 @WebFilter(filterName = "checkoutFilter", urlPatterns = {"/public/user/checkout.jsp", "/api/checkout/*"})
 public class CheckoutFilter implements Filter {
@@ -30,14 +26,14 @@ public class CheckoutFilter implements Filter {
 
         User userAuth = SessionManager.getInstance(request, response).getUser();
 
-        String userIdCart = String.valueOf(userAuth.getId());
+//        String userIdCart = String.valueOf(userAuth.getId());
 
         String fullName = userAuth.getFullName();
         String email = userAuth.getEmail();
         String phone = userAuth.getPhone();
         String address = userAuth.getAddress();
 
-        DeliveryInfo deliveryInfoAuth = new DeliveryInfo(fullName, email, phone, address);
+//        DeliveryInfo deliveryInfoAuth = new DeliveryInfo(fullName, email, phone, address);
 
         DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
         if (deliveryInfoStorage == null) {
@@ -55,8 +51,7 @@ public class CheckoutFilter implements Filter {
         String url = request.getServletPath();
         if (url.contains("checkout.jsp") && !url.contains("error404.jsp")) {
             request.getRequestDispatcher("/api/checkout").forward(request, response);
-        }
-        else {
+        } else {
             filterChain.doFilter(request, response);
         }
     }

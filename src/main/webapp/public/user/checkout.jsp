@@ -30,6 +30,7 @@
                                     <div class="card">
                                         <div class="card-body focus__address <c:if test="${status.first}">selected</c:if>"
                                              onclick="selectCard(this)" style="cursor: pointer">
+                                            <input id="card-address" type="hidden" value="${address.id}"/>
                                             <h5 class="card-title">Địa chỉ giao hàng</h5>
                                             <p class="card-text">${address.exportAddressString()}</p>
                                         </div>
@@ -380,10 +381,11 @@
         })
         totalPrice.text(totalCost.toLocaleString('vi-VN'))
     }
+
     var jsonOrder =
-    <c:if test="${not empty requestScope.models}">
-    <c:set value="${requestScope.models}" var="jsonOrder" />
-    updateCheckout(${jsonOrder})
+        <c:if test="${not empty requestScope.models}">
+        <c:set value="${requestScope.models}" var="jsonOrder" />
+        updateCheckout(${jsonOrder})
 
     function handlePlaceOrder() {
         $('#delivery__method--form input[class=radio__button][name=delivery__method]').change(function () {
@@ -421,7 +423,7 @@
                         obj = {
                             delivery: $('input[class=radio__button][name=delivery__method]:checked').val(),
                             payment: $('input[class=radio__button][name=payment__method]:checked').val(),
-                            address: $('.focus__address .selected > input').val(),
+                            address: $('.focus__address.selected > #card-address').val(),
                             orders: listOrder.order,
                             invoiceNo: invoiceNo
                         }
@@ -430,6 +432,7 @@
                             value: JSON.stringify(obj)
                         }]
                         let formData = $.param(data);
+                        console.log("Order >> " + JSON.stringify(obj))
                         $.ajax({
                             url: "/public/user/successOrder",
                             method: 'post',
