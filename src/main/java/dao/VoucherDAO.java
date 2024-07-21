@@ -90,11 +90,14 @@ public class VoucherDAO {
 
     public void save(Integer voucherId, List<Integer> listProductId) {
         String sql = "INSERT INTO voucher_products (voucherId, productId) VALUES ";
+        List<Integer> params = new ArrayList<>();
         for (Integer productId : listProductId) {
-            sql += " (" + voucherId + ", " + productId + "),";
+            sql += " ( ?, ? ),";
+            params.add(voucherId);
+            params.add(productId);
         }
         sql = sql.substring(0, sql.length() - 1);
-        GeneralDao.executeAllTypeUpdate(sql);
+        GeneralDao.executeAllTypeUpdate(sql, params.toArray());
     }
 
     public List<CartItem> getCartItemCanApply(List<Integer> cartItemId, Integer voucherId) {

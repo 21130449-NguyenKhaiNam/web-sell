@@ -80,7 +80,7 @@ $(document).ready(() => {
                 rowDataSelected: undefined,
                 rowIndexSelected: undefined,
             }
-            button.text("Thêm mã khách hàng")
+            button.text("Thêm khách hàng")
         });
         table.on('mouseenter', 'tr', function () {
             $(this).addClass('hovered').css('cursor', 'pointer');
@@ -248,8 +248,10 @@ $(document).ready(() => {
             disableInputs();
             // Khi ngừoi dùng đẫ chọn dòng để update
             if (row.rowDataSelected) {
+                $("#staticBackdropLabel").text("Cập nhập thông tin khách hàng");
                 fieldDataVoucher(row.rowDataSelected);
             } else {
+                $("#staticBackdropLabel").text("Thêm khách hàng");
                 // Khi người dùng thêm mới -> Bật các input cho phép chỉnh sửa
                 enableInputs();
             }
