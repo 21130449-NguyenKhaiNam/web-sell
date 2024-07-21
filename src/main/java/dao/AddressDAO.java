@@ -12,9 +12,9 @@ public class AddressDAO implements IAddressDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Address.class, userId);
     }
 
-    public void insertAddress(Address address) {
+    public Integer insertAddress(Address address) {
         String sql = "INSERT INTO address (userId, province, district, ward, detail) VALUES (?, ?,?,?,?)";
-        GeneralDao.executeAllTypeUpdate(sql, address.getUserId(), address.getProvince(), address.getDistrict(), address.getWard(), address.getDetail());
+        return GeneralDao.executeInsert(sql, address.getUserId(), address.getProvince(), address.getDistrict(), address.getWard(), address.getDetail());
     }
 
     public void updateAddress(Address address) {
@@ -27,5 +27,11 @@ public class AddressDAO implements IAddressDAO {
     public void deleteAddress(int addressId) {
         String sql = "DELETE FROM address WHERE id = ?";
         GeneralDao.executeAllTypeUpdate(sql, addressId);
+    }
+
+    public List<Address> getAddressById(String addressId) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id, province, ward, district, detail FROM address WHERE id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Address.class, addressId);
     }
 }

@@ -1,12 +1,12 @@
 package models;
 
-import com.google.common.collect.MapDifference;
-import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.*;
 
+@Data
 public class Product {
 
     private int id;

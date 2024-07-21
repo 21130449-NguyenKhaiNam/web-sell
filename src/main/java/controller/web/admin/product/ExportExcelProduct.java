@@ -52,7 +52,7 @@ public class ExportExcelProduct extends HttpServlet implements Serializable {
                 row.createCell(0).setCellValue(product.getId());
                 row.createCell(1).setCellValue(product.getName());
 
-                List<Category> category = AdminCategoryServices.getINSTANCE().getCategoryById(product.getCategoryId());
+                List<Category> category = AdminCategoryServices.getINSTANCE().getListCategoryById(product.getCategoryId());
                 if (!category.isEmpty()) {
                     row.createCell(2).setCellValue(category.get(0).getNameType());
                 }
@@ -73,8 +73,4 @@ public class ExportExcelProduct extends HttpServlet implements Serializable {
         System.out.println(" in report thanh cong");
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }

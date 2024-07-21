@@ -1,8 +1,5 @@
 package controller.web.admin.order;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import models.DeliveryMethod;
 import models.OrderStatus;
 import models.PaymentMethod;
@@ -13,8 +10,6 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @WebServlet(name = "SearchFilterOrderAdmin", value = "/api/admin/order/search")
 public class SearchFilterOrderAdmin extends HttpServlet {
@@ -25,6 +20,10 @@ public class SearchFilterOrderAdmin extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String searchSelect = request.getParameter("searchSelect");
         String contentSearch = request.getParameter("contentSearch");
+        String startDateFilter = request.getParameter("startDate");
+        String endDateFilter = request.getParameter("endDate");
+        String start = request.getParameter("start");
+        String length = request.getParameter("length");
 
         String[] arrCheckedDeliveryMethods = request.getParameterValues("deliveryMethod[]");
         String[] arrCheckedPaymentMethods = request.getParameterValues("paymentMethod[]");
@@ -33,17 +32,16 @@ public class SearchFilterOrderAdmin extends HttpServlet {
 
         Map<Object, List<String>> mapOrderFilter = new HashMap<>();
 
-        String startDateFilter = request.getParameter("startDate");
-        String endDateFilter = request.getParameter("endDate");
 
+//
+//        String queryStringFilter = request.getQueryString();
+//        String regex = "page=\\d+&";
+//        Pattern pattern = Pattern.compile(regex);
+//        Matcher matcher = pattern.matcher(queryStringFilter);
+//        queryStringFilter = matcher.replaceFirst("");
+//
+//        request.setAttribute("queryStringFilter", queryStringFilter);
 
-        String queryStringFilter = request.getQueryString();
-        String regex = "page=\\d+&";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(queryStringFilter);
-        queryStringFilter = matcher.replaceFirst("");
-
-        request.setAttribute("queryStringFilter", queryStringFilter);
         if (arrCheckedDeliveryMethods != null) {
             List<String> listCheckedDeliveryMethods = new ArrayList<>(Arrays.asList(arrCheckedDeliveryMethods));
             mapOrderFilter.put(new DeliveryMethod(), listCheckedDeliveryMethods);
@@ -65,11 +63,13 @@ public class SearchFilterOrderAdmin extends HttpServlet {
         }
 
         request.setAttribute("searchSelect", searchSelect);
-        request.setAttribute("contentSearch", contentSearch);
+        request.setAttribute("contentSearch", (contentSearch == null) ? "" : contentSearch);
         request.setAttribute("mapOrderFilter", mapOrderFilter);
         request.setAttribute("startDateFilter", startDateFilter);
         request.setAttribute("endDateFilter", endDateFilter);
         request.setAttribute("servletProcess", getServletName());
+        request.setAttribute("start", start);
+        request.setAttribute("length", length);
 //        jsonObject.addProperty("searchSelect", searchSelect);
 //        jsonObject.addProperty("contentSearch", contentSearch);
 //        jsonObject.add("mapOrderFilter", gson.toJsonTree(mapOrderFilter));
@@ -98,8 +98,4 @@ public class SearchFilterOrderAdmin extends HttpServlet {
         processRequest(request, response);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
-    }
 }

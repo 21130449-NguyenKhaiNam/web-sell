@@ -1,11 +1,10 @@
-import {addParam, convertFormToObject} from "../base.js";
+import {addParam, convertFormDataToObject, formatDate} from "../base.js";
 
 $(document).ready(function () {
         $.validator.addMethod("notEqual", function (value, element, param) {
             return value !== param;
         }, "Please select an option.");
-    $.fn.select2.defaults.set("theme", "bootstrap-5");
-    $.fn.select2.defaults.set("width", "resolve");
+        $.fn.select2.defaults.set("width", "resolve");
 
         const configDatatable = {
             paging: true,
@@ -24,7 +23,7 @@ $(document).ready(function () {
                         if (data == null) {
                             return "Không có hạn sử dụng"
                         } else {
-                            return convertDateFormat(data)
+                            return formatDate(data)
                         }
                     }
                 }, {
@@ -34,7 +33,7 @@ $(document).ready(function () {
                         if (data == null) {
                             return "Không có hạn sử dụng"
                         } else {
-                            return convertDateFormat(data)
+                            return formatDate(data)
                         }
                     }
                 }, {
@@ -236,7 +235,7 @@ $(document).ready(function () {
                                     // Thêm dòng mới vào bảng
                                     datatable.row.add(
                                         {
-                                            ...convertFormToObject(form)
+                                            ...convertFormDataToObject(form)
                                         }
                                     ).draw(false);
                                     $("#modal").modal("hide");
@@ -274,7 +273,7 @@ $(document).ready(function () {
                                     datatable.row(row.rowIndexSelected).data(
                                         {
                                             ...row.rowDataSelected,
-                                            ...convertFormToObject(form)
+                                            ...convertFormDataToObject(form)
                                         }
                                     ).draw(false);
                                     $("#modal").modal("hide");
@@ -341,7 +340,6 @@ $(document).ready(function () {
                     rowDataSelected: datatable.row(indexes).data(),
                     rowIndexSelected: datatable.row(indexes).index()
                 }
-                console.log(row)
                 button.text("Cập nhật mã giảm giá");
             }).on('deselect', function (e, dt, type, indexes) {
                 row = {
@@ -401,7 +399,6 @@ $(document).ready(function () {
             Swal.fire({
                 title: `Bạn có muốn ${type == "visible" ? "hiện thị" : "ẩn"} mã giảm giá này không?`,
                 showDenyButton: true,
-                showCancelButton: true,
                 confirmButtonText: "Có",
                 denyButtonText: `Không`
             }).then((result) => {
@@ -439,19 +436,6 @@ $(document).ready(function () {
                     })
                 }
             });
-        }
-
-        function convertDateFormat(dateString) {
-            // Split the input string by the hyphen (-)
-            const parts = dateString.split('-');
-
-            // Extract the year, month, and day parts
-            const year = parts[0];
-            const month = parts[1];
-            const day = parts[2];
-
-            // Rearrange the parts to the format DD/MM/YYYY
-            return day + '/' + month + '/' + year;
         }
 
         // Tải tất cả sản phẩm vào select2

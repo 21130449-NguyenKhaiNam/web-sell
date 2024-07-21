@@ -47,10 +47,12 @@ body {
 #main {
     background-color: #e7e9ec;
     height: 100%;
+    display: flex !important;
 }
 
 .content {
     padding: 50px 0;
+    min-height: 100vh;
 }
 
 /*Form*/
@@ -172,11 +174,6 @@ body {
     top: 50%;
     left: 10px;
     transform: translateY(-50%);
-}
-
-div:has(>h1) {
-    display: flex;
-    align-items: center;
 }
 
 h1 {
@@ -302,16 +299,16 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
 }
 
 /*Product form edit info*/
-.modal {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: unset;
-    height: unset;
-}
+/*.modal {*/
+/*    display: none;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    bottom: 0;*/
+/*    width: unset;*/
+/*    height: unset;*/
+/*}*/
 
 
 .modal__product div:has(.modal__product-close) {
@@ -343,15 +340,10 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
     opacity: 0.5;
 }
 
-.form__label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.form__label ~ .form__label {
-    margin-top: 10px;
-}
+/*.form__label ~ .form__label {*/
+/*    margin-top: 10px;*/
+/*}*/
 
 .form__title {
     position: relative;
@@ -447,10 +439,15 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
     color: #fff;
     transition: all 0.3s;
     box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.4);
-    float: left;
+    /*float: left;*/
     width: 100%;
     height: 100%;
     overflow: auto;
+
+    /*position: fixed;*/
+    /*top: 115px;*/
+    /*left: 0;*/
+    /*bottom: 0;*/
 }
 
 .sidebar_active {
@@ -462,6 +459,7 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
 .sidebar_blog_3 {
     float: left;
     width: 100%;
+    min-height: 100vh;
 }
 
 #sidebar ul li a {

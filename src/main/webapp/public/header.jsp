@@ -5,24 +5,24 @@
     <nav class="nav">
         <div class="container-xl">
             <div class="nav__inner">
-                <a href="<c:url value=" /" />" class="logo"></a>
+                <a href="${pageContext.request.contextPath}/" class="logo"></a>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="<c:url value=" /" />" class="nav__link hvr-grow-shadow">Trang chủ</a>
+                        <a href="${pageContext.request.contextPath}/" class="nav__link hvr-grow-shadow">Trang chủ</a>
                     </li>
                     <li class="nav__item">
-                        <a href="<c:url value=" /public/product/productBuying.jsp" />"
+                        <a href="${pageContext.request.contextPath}/public/product/productBuying.jsp"
                            class="nav__link hvr-grow-shadow">
                             Gian hàng
                         </a>
                     </li>
                     <li class="nav__item">
-                        <a href="<c:url value=" /public/contact.jsp" />" class="nav__link hvr-grow-shadow">
+                        <a href="${pageContext.request.contextPath}/public/contact.jsp" class="nav__link hvr-grow-shadow">
                             Liên hệ
                         </a>
                     </li>
                     <li class="nav__item">
-                        <a href="<c:url value=" /public/about.jsp" />" class="nav__link hvr-grow-shadow"> Về
+                        <a href="<c:url value="/public/about.jsp" />" class="nav__link hvr-grow-shadow"> Về
                             chúng tôi
                         </a>
                     </li>
@@ -32,11 +32,11 @@
                 <c:choose>
                     <c:when test="${empty auth}"> <!--cta == call to action-->
                         <div class="nav__cta">
-                            <a href="<c:url value=" /public/auth/signIn.jsp" />"
+                            <a href="<c:url value="/public/auth/signIn.jsp" />"
                                class="me-3 nav__button nav__button--signIn hvr-ripple-in">
                                 Đăng nhập
                             </a>
-                            <a href="<c:url value=" /public/auth/signUp.jsp" />"
+                            <a href="${pageContext.request.contextPath}/public/auth/signUp.jsp"
                                class="nav__button nav__button--signUp button button button--hover hvr-round-corners
                                     hvr-radial-out">
                                 Đăng ký
@@ -47,7 +47,7 @@
                         <div class="account__wrapper">
                             <!--Giỏ hàng-->
                             <div class="cart__wrapper">
-                                <a href="<c:url value=" /public/user/shoppingCart.jsp" />" class="cart">
+                                <a href="<c:url value="/public/user/shoppingCart.jsp" />" class="cart">
                                         <span class="cart__content">
                                             <i class="cart__icon fa-solid fa-cart-shopping"></i>
                                             Giỏ hàng
@@ -68,7 +68,7 @@
                             <div class="account hvr-grow">
                                 <i class="account__icon fa-regular fa-user"></i>
                                 <div class="setting__list">
-                                    <a href="<c:url value=" /public/user/accountInfo.jsp" />"
+                                    <a href="${pageContext.request.contextPath}/public/user/accountInfo.jsp"
                                        class="setting__item">
                                         <div class="setting__link">
                                             <div class="account__info">
@@ -77,7 +77,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="<c:url value=" /public/user/accountInfo.jsp" />"
+                                    <a href="${pageContext.request.contextPath}/public/user/accountInfo.jsp"
                                        class="setting__item">
                                         <div class="setting__link">Tài khoản của tôi</div>
                                     </a>
@@ -86,7 +86,7 @@
                                         <div class="setting__link">Quản lý</div>
                                     </a>
                                     </c:if>
-                                    <a href="<c:url value=" /signOut" />" class="setting__item">
+                                    <a href="<c:url value="/signOut" />" class="setting__item">
                                         <div class="setting__link setting__logOut">Đăng xuất</div>
                                     </a>
                                 </div>

@@ -42,15 +42,14 @@ public class SignUp extends HttpServlet {
         Validation validation = AuthenticateServices.getINSTANCE().checkSignUp(user, confirmPassword);
 
         Map<String, String> mapErrorPassword = AuthenticateServices.getINSTANCE().checkPasswordTemplate(password);
-
-
-// Đăng nhập thành công khi: mapErrorPassword == null và validation.getObjReturn() != null
-
-
+        Map<String, Integer> managerIp = (Map<String, Integer>) request.getAttribute("managerIp");
+        // Đăng nhập thành công khi: mapErrorPassword == null và validation.getObjReturn() != null
         if (validation.getObjReturn() != null && mapErrorPassword == null) {
             User newUser = (User) validation.getObjReturn();
             AuthenticateServices.getINSTANCE().createUser(newUser);
             request.setAttribute("sendMail", "Send Mail Success");
+            if(managerIp != null)
+                managerIp.put(request.getRemoteAddr(), 0);
         } else {
             request.setAttribute("usernameError", validation.getFieldUsername());
             request.setAttribute("emailError", validation.getFieldEmail());
@@ -66,6 +65,8 @@ public class SignUp extends HttpServlet {
                 request.setAttribute("charSpecial", mapErrorPassword.get("char-special"));
                 request.setAttribute("noSpace", mapErrorPassword.get("no-space"));
             }
+            if(managerIp != null)
+                managerIp.put(request.getRemoteAddr(), managerIp.get(request.getRemoteAddr()));
         }
         request.getRequestDispatcher(ConfigPage.SIGN_UP).forward(request, response);
     }

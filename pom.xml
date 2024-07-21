@@ -88,97 +88,6 @@
             <version>0.12.0</version>
         </dependency>
 
-        <!--Ckfinder 2 lib local-->
-        <dependency>
-            <groupId>system.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>1.1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/activation-1.1.jar</systemPath>
-        </dependency>
-        <dependency>
-
-            <groupId>system.ckfinder</groupId>
-            <artifactId>ckfinder</artifactId>
-            <version>2.6.2.1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/CKFinder-2.6.2.1.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>system.CKFinderPlugin-FileEditor</groupId>
-            <artifactId>CKFinderPlugin-FileEditor</artifactId>
-            <version>2.6.2.1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/CKFinderPlugin-FileEditor-2.6.2.1.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>system.CKFinderPlugin-ImageResize</groupId>
-            <artifactId>CKFinderPlugin-ImageResize</artifactId>
-            <version>2.6.2.1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/CKFinderPlugin-ImageResize-2.6.2.1.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>system.CKFinderPlugin-Watermark</groupId>
-            <artifactId>CKFinderPlugin-Watermark</artifactId>
-            <version>2.6.2.1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/CKFinderPlugin-Watermark-2.6.2.1.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>system.commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.2.2</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/commons-fileupload-1.2.2.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>system.commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.0.1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/commons-io-2.0.1.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>system.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.5</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/gson-2.5.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>system.jboss-logging</groupId>
-            <artifactId>jboss-logging</artifactId>
-            <version>3.1.4.GA</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/jboss-logging-3.1.4.GA.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>system.jboss-vfs</groupId>
-            <artifactId>jboss-vfs</artifactId>
-            <version>3.2.11.Final</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/jboss-vfs-3.2.11.Final.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>mail-1.4.1</artifactId>
-            <version>1.4.1</version>
-            <systemPath>${basedir}/lib/mail-1.4.1.jar</systemPath>
-            <scope>system</scope>
-        </dependency>
-
-
-        <dependency>
-            <groupId>system.thumbnailator</groupId>
-            <artifactId>thumbnailator</artifactId>
-            <version>0.4.8</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/thumbnailator-0.4.8.jar</systemPath>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -280,12 +189,27 @@
             <artifactId>google-api-services-drive</artifactId>
             <version>v3-rev197-1.25.0</version>
         </dependency>
-        
+
         <!-- https://mvnrepository.com/artifact/com.google.auth/google-auth-library-oauth2-http -->
         <dependency>
             <groupId>com.google.auth</groupId>
             <artifactId>google-auth-library-oauth2-http</artifactId>
             <version>1.23.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.17.2</version>
         </dependency>
 
     </dependencies>

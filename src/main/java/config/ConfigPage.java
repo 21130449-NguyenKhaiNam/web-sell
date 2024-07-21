@@ -17,7 +17,9 @@ public class ConfigPage implements ServletContextListener {
     //    Product
     public static String HOME, PRODUCT_BUYING, PRODUCT_DETAIL, PRODUCT_ORDER, PRODUCT_NEW, PRODUCT_TRENDING;
     //    Admin/Product
-    public static String ADMIN_PRODUCT, ADMIN_CATEGORY, ADMIN_CATEGORY_FORM, ADMIN_ORDER, ADMIN_PRODUCT_FORM, ADMIN_PRODUCT_UPDATE_FORM, ADMIN_REVIEW_FORM, ADMIN_REVIEW, ADMIN_USER, ADMIN_MATERIAL, DASHBOARD;
+    public static String ADMIN_PRODUCT, ADMIN_CATEGORY, ADMIN_ORDER, ADMIN_REVIEW, ADMIN_USER, ADMIN_MATERIAL, DASHBOARD;
+
+    public static String ERROR_404;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -61,16 +63,15 @@ public class ConfigPage implements ServletContextListener {
 //        Config path /public/admin/product/
         String folderAdminProduct = "/public/admin/";
         ADMIN_CATEGORY = folderAdminProduct + "adminCategories.jsp";
-        ADMIN_CATEGORY_FORM = folderAdminProduct + "adminCategoryForm.jsp";
         ADMIN_ORDER = folderAdminProduct + "adminOrders.jsp";
         ADMIN_PRODUCT = folderAdminProduct + "adminProducts.jsp";
-        ADMIN_PRODUCT_FORM = folderAdminProduct + "adminProductForm.jsp";
-        ADMIN_PRODUCT_UPDATE_FORM = folderAdminProduct + "adminProductUpdateForm.jsp";
         ADMIN_REVIEW = folderAdminProduct + "adminReviews.jsp";
-        ADMIN_REVIEW_FORM = folderAdminProduct + "adminReviewForm.jsp";
         ADMIN_USER = folderAdminProduct + "adminUsers.jsp";
         ADMIN_MATERIAL = folderAdminProduct + "adminImportMaterial.jsp";
-        DASHBOARD = folderAdminProduct + "dashboard.jsp";
+        DASHBOARD = folderAdminProduct + "adminDashboard.jsp";
+
+        String folderError = "/public/error/";
+        ERROR_404 = folderError + "error404.jsp";
     }
 
 }

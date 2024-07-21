@@ -1,11 +1,9 @@
 package config;
 
-import models.Category;
-import models.OrderStatus;
-import models.PaymentMethod;
-import models.TransactionStatus;
+import models.*;
 import services.CheckoutServices;
 import services.ProductCardServices;
+import services.admin.AdminOrderServices;
 import utils.MoneyRange;
 
 import javax.servlet.ServletContext;
@@ -29,6 +27,18 @@ public class ServletContextConfig implements ServletContextListener {
 //Category
         List<Category> categoryList = ProductCardServices.getINSTANCE().getAllCategory();
         context.setAttribute("categoryList", categoryList);
+
+        List<OrderStatus> listAllOrderStatus = AdminOrderServices.getINSTANCE().getListAllOrderStatus();
+        context.setAttribute("listAllOrderStatus", listAllOrderStatus);
+
+        List<TransactionStatus> listAllTransactionStatus = AdminOrderServices.getINSTANCE().getListAllTransactionStatus();
+        context.setAttribute("listAllTransactionStatus", listAllTransactionStatus);
+
+        List<DeliveryMethod> listAllDeliveryMethodManage = AdminOrderServices.getINSTANCE().getListAllDeliveryMethodManage();
+        context.setAttribute("listAllDeliveryMethodManage", listAllDeliveryMethodManage);
+
+        List<PaymentMethod> listAllPaymentMethodManage = AdminOrderServices.getINSTANCE().getListAllPaymentMethodManage();
+        context.setAttribute("listAllPaymentMethodManage", listAllPaymentMethodManage);
     }
 
     @Override

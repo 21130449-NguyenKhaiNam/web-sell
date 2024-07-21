@@ -36,7 +36,7 @@ public class GeneralDao {
             }
             List<T> list = query.mapToBean(type).list();
             try {
-//                LogService.getINSTANCE().insertLogForSelect(sql, list);
+                LogService.getINSTANCE().insertLogForSelect(sql, list);
             } catch (Exception e) {
                 System.out.println("Lỗi bởi ghi log trong general dao [executeQueryWithSingleTable] >> " + e.getMessage());
             }
@@ -56,7 +56,7 @@ public class GeneralDao {
             }
             List<Map<String, Object>> list = query.mapToMap().list();
             try {
-//                LogService.getINSTANCE().insertLogForSelect(sql, list);
+                LogService.getINSTANCE().insertLogForSelect(sql, list);
             } catch (Exception e) {
                 System.out.println("Lỗi bởi ghi log trong general dao [executeQueryWithJoinTables]>> " + e.getMessage());
             }
@@ -96,12 +96,20 @@ public class GeneralDao {
             }
         }
         try {
-//            LogService.getINSTANCE().insertLog(sql, params);
+            LogService.getINSTANCE().insertLog(sql, params);
         } catch (Exception e) {
             System.out.println("Lỗi bởi ghi log trong general dao [executeInsert]>> " + e.getMessage());
         }
         return insert.executeAndReturnGeneratedKeys("id") // "id" is the column name of the generated key
                 .mapTo(Integer.class)
                 .one();
+    }
+
+    public static <T> T executeSelectOne(String sql, Class<T> type, Object... params) {
+        List<T> list = executeQueryWithSingleTable(sql, type, params);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 }

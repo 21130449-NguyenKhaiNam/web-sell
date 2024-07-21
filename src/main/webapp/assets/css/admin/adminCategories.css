@@ -1,9 +1,5 @@
-div:has(> h1) {
-    margin-top: 20px;
-}
 
 .category__list {
-    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px 30px;
@@ -26,6 +22,10 @@ div:has(> h1) {
     font-size: 20px;
     font-weight: 500;
     padding-bottom: 20px;
+}
+
+table.dataTable>tbody>tr {
+    background-color: white;
 }
 
 .category__icon-detail {

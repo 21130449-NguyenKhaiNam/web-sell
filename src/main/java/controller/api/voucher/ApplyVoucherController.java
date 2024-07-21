@@ -37,13 +37,15 @@ public class ApplyVoucherController extends HttpServlet {
             if (idsParam != null) {
                 List<Integer> ids = List.of(idsParam).stream().map(Integer::parseInt).collect(Collectors.toList());
                 VoucherDTO voucherDTO = VoucherServices.getINSTANCE().canApply(user, code, ids);
-                JsonElement jsonElement = gson.toJsonTree(voucherDTO);
-                jsonObject.add("result", jsonElement);
+                jsonObject.add("result", gson.toJsonTree(voucherDTO));
+                jsonObject.addProperty("code", 200);
+            } else {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                jsonObject.addProperty("code", 1005);
             }
-            jsonObject.addProperty("success", true);
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            jsonObject.addProperty("success", false);
+            jsonObject.addProperty("code", 1005);
         }
         resp.getWriter().write(gson.toJson(jsonObject));
     }

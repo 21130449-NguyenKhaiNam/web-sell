@@ -114,7 +114,7 @@ public class BackupTask implements Runnable {
                     initializer)
                     .build();
         } catch (Exception e) {
-            System.out.println("BackupTask >> Có vẻ thiếu đường file credentials.json");
+            System.out.println("BackupTask >> Có vẻ thiếu file credentials.json");
             e.printStackTrace();
         }
         return null;

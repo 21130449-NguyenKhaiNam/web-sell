@@ -21,6 +21,8 @@ public class UserDAO {
         StringBuilder query = new StringBuilder();
         query.append("SELECT id, username, fullName, passwordEncoding, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE username = ?")
                 .append(isVerify == null ? "" : " AND isVerify = ?");
+        if (isVerify == null)
+            return GeneralDao.executeQueryWithSingleTable(query.toString(), User.class, username);
         return GeneralDao.executeQueryWithSingleTable(query.toString(), User.class, username, isVerify);
     }
 
@@ -28,6 +30,8 @@ public class UserDAO {
         StringBuilder query = new StringBuilder();
         query.append("SELECT id, username, fullName, passwordEncoding, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE email = ?")
                 .append(isVerify == null ? "" : " AND isVerify = ?");
+        if (isVerify == null)
+            return GeneralDao.executeQueryWithSingleTable(query.toString(), User.class, email);
         return GeneralDao.executeQueryWithSingleTable(query.toString(), User.class, email, isVerify);
     }
 

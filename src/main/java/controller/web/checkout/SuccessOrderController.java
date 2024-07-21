@@ -82,7 +82,7 @@ public class SuccessOrderController extends HttpServlet {
                 session.removeAttribute("successApplied");
                 request.setAttribute("invoiceNo", order.getInvoiceNo());
                 // Cần điều chỉnh khi có voucher
-                CheckoutServices.getINSTANCE().addNewOrder(order.getInvoiceNo(), user.getId(), order.getDateOrder(), user.getFullName(), user.getEmail(), user.getPhone(), user.getAddress(), order.getDelivery(), order.getPayment(), null);
+                CheckoutServices.getINSTANCE().addNewOrder(order.getInvoiceNo(), user.getId(), order.getDateOrder(), user.getFullName(), user.getEmail(), user.getPhone(), order.getAddress(), order.getDelivery(), order.getPayment(), null);
                 Map<Integer, Integer> counts = new HashMap<>();
                 for (int i = 0; i < tempOrders.length; i++) {
                     int id = tempOrders[i].getId();
@@ -137,6 +137,7 @@ public class SuccessOrderController extends HttpServlet {
     class OrderSuccess {
         private int delivery;
         private int payment;
+        private String address;
         private TempOrder[] orders;
         private int invoiceNo;
         private String dateOrder;

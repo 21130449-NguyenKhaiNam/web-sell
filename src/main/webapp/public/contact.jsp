@@ -22,7 +22,7 @@
                         đủ thông tin vào form và chúng tôi sẽ cố gắng phản hồi sớm nhất trong vòng 24h. Hoặc bạn
                         có thể liên hệ thông qua các thông tin về công ty của chúng tôi</p>
                     <span class="success__notification"></span>
-                    <form method="post" class="form" action="<c:url value="/Contact"/>" id="contact__form">
+                    <form method="post" class="form" action="<c:url value="/contact"/>" id="contact__form">
                         <div class="form__block">
                             <label for="fullName" class="form__label">Họ và tên
                                 <span class="compulsory__mark">*</span>
@@ -73,6 +73,7 @@
                                 Chúng tôi có thể giúp gì được cho bạn?
                                 <span class="compulsory__mark">*</span>
                             </label>
+
                             <textarea id="message" name="message" class="form__textarea" rows="8"
                                       placeholder="Lời nhắn của bạn" required></textarea>
                         </div>

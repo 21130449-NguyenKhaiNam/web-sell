@@ -13,7 +13,7 @@ public class ContactDao {
     }
 
     public List<SubjectContact> getListContactSubjects(){
-        String sql = "SELECT id , subjectName FROM contact_subjects";
+        String sql = "SELECT id, subjectName FROM contact_subjects";
         return GeneralDao.executeQueryWithSingleTable(sql, SubjectContact.class);
     }
 
@@ -23,6 +23,6 @@ public class ContactDao {
     }
 
     public void addNewRecordUserContact(Integer userId, String fullName, String phone, String email, int subjectId, String message){
-        GeneralDao.executeAllTypeUpdate("INSERT INTO contact(userId, fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subjectId, message);
+        GeneralDao.executeAllTypeUpdate("INSERT INTO contacts(userId, fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subjectId, message);
     }
 }

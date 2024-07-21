@@ -9,7 +9,7 @@ import java.util.List;
 
 public class VoucherDAO {
     public List<Voucher> selectAll() {
-        String sql = "SELECT id, code, minimumPrice,discountPercent, expired_date,createAt, status FROM vouchers";
+        String sql = "SELECT id, code, minimumPrice,discountPercent, expiryDate, description, state FROM vouchers WHERE state = 1 AND expiryDate >= NOW() AND availableTurns > 0";
         List<Voucher> vouchers = new ArrayList<>();
         vouchers = GeneralDao.executeQueryWithSingleTable(sql, Voucher.class);
         return vouchers;
@@ -90,11 +90,14 @@ public class VoucherDAO {
 
     public void save(Integer voucherId, List<Integer> listProductId) {
         String sql = "INSERT INTO voucher_products (voucherId, productId) VALUES ";
+        List<Integer> params = new ArrayList<>();
         for (Integer productId : listProductId) {
-            sql += " (" + voucherId + ", " + productId + "),";
+            sql += " ( ?, ? ),";
+            params.add(voucherId);
+            params.add(productId);
         }
         sql = sql.substring(0, sql.length() - 1);
-        GeneralDao.executeAllTypeUpdate(sql);
+        GeneralDao.executeAllTypeUpdate(sql, params.toArray());
     }
 
     public List<CartItem> getCartItemCanApply(List<Integer> cartItemId, Integer voucherId) {
@@ -151,32 +154,43 @@ public class VoucherDAO {
 
     public void deleteProductVoucher(Integer code, List<Integer> delete) {
         String sql = "DELETE FROM voucher_products WHERE voucherId = ? AND productId IN (";
+        List<Integer> params = new ArrayList<>();
+        params.add(code);
         for (int i = 0; i < delete.size(); i++) {
-            sql += delete.get(i);
+            sql += "?";
+            params.add(delete.get(i));
             if (i != delete.size() - 1) {
                 sql += ",";
             }
         }
         sql += ")";
-        GeneralDao.executeAllTypeUpdate(sql, code);
+        GeneralDao.executeAllTypeUpdate(sql, params.toArray(new Object[0]));
     }
 
     public void insertProductVoucher(Integer code, List<Integer> insert) {
         String sql = "INSERT INTO voucher_products (voucherId, productId) VALUES ";
+        List<Integer> params = new ArrayList<>();
         for (Integer productId : insert) {
-            sql += " (" + code + ", " + productId + "),";
+            sql += " ( ? ,  ? ),";
+            params.add(code);
+            params.add(productId);
         }
+
         sql = sql.substring(0, sql.length() - 1);
-        GeneralDao.executeAllTypeUpdate(sql);
+        GeneralDao.executeAllTypeUpdate(sql, params.toArray(new Object[0]));
     }
 
     public void updateProductVoucher(Integer code, List<Integer> update) {
         String sql = "UPDATE voucher_products SET productId = CASE";
+        List<Integer> params = new ArrayList<>();
         for (Integer productId : update) {
-            sql += " WHEN productId = " + productId + " THEN " + productId;
+            sql += " WHEN productId = ? THEN ? ";
+            params.add(productId);
+            params.add(productId);
         }
         sql += " END WHERE voucherId = ?";
-        GeneralDao.executeAllTypeUpdate(sql, code);
+        params.add(code);
+        GeneralDao.executeAllTypeUpdate(sql, params.toArray(new Object[0]));
     }
 
 }

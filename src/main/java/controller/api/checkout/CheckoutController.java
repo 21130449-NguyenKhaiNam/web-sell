@@ -10,7 +10,6 @@ import models.Address;
 import models.DeliveryMethod;
 import models.PaymentMethod;
 import models.User;
-import models.shoppingCart.ShoppingCart;
 import services.AddressServices;
 import services.CheckoutServices;
 import services.ProductServices;

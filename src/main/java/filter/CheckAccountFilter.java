@@ -1,6 +1,5 @@
 package filter;
 
-import com.mysql.cj.Session;
 import models.User;
 import models.shoppingCart.ShoppingCart;
 import session.SessionManager;
@@ -18,6 +17,7 @@ public class CheckAccountFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         User user = SessionManager.getInstance((HttpServletRequest) request, (HttpServletResponse) response).getUser();
+
         if(user != null) {
             HttpSession session = ((HttpServletRequest) request).getSession();
             if(session.getAttribute(user.getId() + "") == null) {

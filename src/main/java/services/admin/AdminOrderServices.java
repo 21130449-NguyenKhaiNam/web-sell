@@ -5,18 +5,21 @@ import dao.OrderDaoAdmin;
 import dao.OrderStatusDao;
 import dao.TransactionStatusDao;
 import models.*;
+import services.state.OrderState;
+import services.state.TransactionState;
 import utils.FormatCurrency;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class AdminOrderServices {
 
-    private OrderDaoAdmin orderDao;
-    private OrderStatusDao orderStatusDao;
-    private TransactionStatusDao transactionStatusDao;
+    private final OrderDaoAdmin orderDao;
+    private final OrderStatusDao orderStatusDao;
+    private final TransactionStatusDao transactionStatusDao;
 
-    private OrderDetailDAO orderDetailDAO;
+    private final OrderDetailDAO orderDetailDAO;
 
     private static AdminOrderServices INSTANCE;
 
@@ -106,8 +109,79 @@ public class AdminOrderServices {
         return orderDetailDAO.getListOrderDetailByOrderId(orderId);
     }
 
-    public void updateStatusByOrderId(String orderId, int orderStatusId, int transactionStatusId) {
-        orderDao.updateStatusByOrderId(orderId, orderStatusId, transactionStatusId);
+    public boolean updateOrder(String orderId, Integer orderStatusId, Integer transactionStatusId) {
+        Order order = orderDao.getOrderById(orderId);
+        if (orderStatusId != null && transactionStatusId != null) {
+            return updateStatusAndOrderTransaction(order, orderStatusId, transactionStatusId);
+        }
+        if (orderStatusId != null) {
+            return updateOrderStatus(order, orderStatusId);
+        }
+        if (transactionStatusId != null) {
+            return updateOrderTransaction(order, transactionStatusId);
+        }
+        return false;
+    }
+
+    private boolean updateStatusAndOrderTransaction(Order order, Integer orderStatusId, Integer transactionStatusId) {
+        if (canUpdateStatusByOrderId(order, orderStatusId) && canUpdateTransactionByOrderId(order, transactionStatusId)) {
+            orderDao.updateStatusByOrderId(order.getId(), orderStatusId, transactionStatusId);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean canUpdateStatusByOrderId(Order order, int orderStatusId) {
+        OrderState orderState = OrderState.getByValue(orderStatusId);
+        if (orderState == null) return false;
+        List<OrderState> orderStateCanChange = new ArrayList<>();
+        switch (OrderState.getByValue(order.getOrderStatusId())) {
+            case PENDING:
+                orderStateCanChange.add(OrderState.PENDING);
+                orderStateCanChange.add(OrderState.CONFIRMED);
+                orderStateCanChange.add(OrderState.CANCELLED);
+                break;
+            case CONFIRMED:
+                orderStateCanChange.add(OrderState.DELIVERY);
+                orderStateCanChange.add(OrderState.CONFIRMED);
+                break;
+            case DELIVERY:
+                orderStateCanChange.add(OrderState.DELIVERY);
+                orderStateCanChange.add(OrderState.CANCELLED);
+                orderStateCanChange.add(OrderState.COMPLETED);
+                break;
+        }
+        return orderStateCanChange.contains(orderState);
+    }
+
+    private boolean canUpdateTransactionByOrderId(Order order, int transactionStatusId) {
+        TransactionState transactionState = TransactionState.getByValue(transactionStatusId);
+        if (transactionState == null) return false;
+        List<TransactionState> transactionStateCanChange = new ArrayList<>();
+        switch (TransactionState.getByValue(order.getTransactionStatusId())) {
+            case UN_PAID, PROCESSING:
+                transactionStateCanChange.add(TransactionState.UN_PAID);
+                transactionStateCanChange.add(TransactionState.PROCESSING);
+                transactionStateCanChange.add(TransactionState.PAID);
+                break;
+        }
+        return transactionStateCanChange.contains(transactionState);
+    }
+
+    public boolean updateOrderTransaction(Order order, int transactionStatusId) {
+        if (canUpdateTransactionByOrderId(order, transactionStatusId)) {
+            orderDao.updateOrderTransaction(order.getId(), transactionStatusId);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateOrderStatus(Order order, int statusId) {
+        if (canUpdateStatusByOrderId(order, statusId)) {
+            orderDao.updateOrderStatus(order.getId(), statusId);
+            return true;
+        }
+        return false;
     }
 
     public Voucher getVoucherById(int id) {
@@ -136,6 +210,4 @@ public class AdminOrderServices {
     public List<Order> getLimit(int limit, int offset) {
         return orderDao.getLimit(limit, offset);
     }
-
-
 }

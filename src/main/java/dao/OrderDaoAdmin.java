@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import models.*;
 import services.admin.AdminOrderServices;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,65 +15,73 @@ public class OrderDaoAdmin {
         return GeneralDao.executeQueryWithSingleTable(sql, Order.class);
     }
 
-    public List<PaymentMethod> getListAllPaymentMethodManage(){
+    public List<PaymentMethod> getListAllPaymentMethodManage() {
         String sql = "SELECT id, typePayment FROM payment_methods";
         return GeneralDao.executeQueryWithSingleTable(sql, PaymentMethod.class);
     }
 
-    public List<DeliveryMethod> getListAllDeliveryMethodManage(){
+    public List<DeliveryMethod> getListAllDeliveryMethodManage() {
         String sql = "SELECT id, typeShipping, description, shippingFee FROM delivery_methods";
         return GeneralDao.executeQueryWithSingleTable(sql, DeliveryMethod.class);
     }
 
     public List<Order> getListOrdersBySearchFilter(Map<Object, List<String>> mapFilterSectionOrders, String contentSearch, String searchSelect, String startDate, String endDate) {
         StringBuilder sql = new StringBuilder("SELECT id, userId, dateOrder, deliveryMethodId, paymentMethodId, fullName, email, phone, address, orderStatusId, transactionStatusId, voucherId FROM orders WHERE 1=1");
-        if(searchSelect.equals("orderId")){
+        if (searchSelect.equals("orderId")) {
             sql.append(" AND id LIKE ?");
-        }else if(searchSelect.equals("customerName")){
+        } else if (searchSelect.equals("customerName")) {
             sql.append(" AND fullName LIKE ?");
         }
 
-        for(Object objectRepresent : mapFilterSectionOrders.keySet()){
+        for (Object objectRepresent : mapFilterSectionOrders.keySet()) {
             List<String> arrayIdSectionFilter = mapFilterSectionOrders.get(objectRepresent);
             String fillEntry = String.join(",", arrayIdSectionFilter);
-            if(objectRepresent instanceof DeliveryMethod){
-                sql.append(" AND deliveryMethodId");
-            }else if(objectRepresent instanceof PaymentMethod){
-                sql.append(" AND paymentMethodId");
-            } else if (objectRepresent instanceof OrderStatus) {
-                sql.append(" AND orderStatusId");
-            } else if (objectRepresent instanceof TransactionStatus) {
-                sql.append(" AND transactionStatusId");
+            switch (objectRepresent.getClass().getSimpleName()) {
+                case "DeliveryMethod":
+                    sql.append(" AND deliveryMethodId");
+                    break;
+                case "PaymentMethod":
+                    sql.append(" AND paymentMethodId");
+                    break;
+                case "OrderStatus":
+                    sql.append(" AND orderStatusId");
+                    break;
+                case "TransactionStatus":
+                    sql.append(" AND transactionStatusId");
+                    break;
             }
             sql.append(" IN(").append(fillEntry).append(")");
         }
 
-        String surrStartDateFmt = String.format("'%s'", startDate);
-        String surrEndDateFmt = String.format("'%s'", endDate);
-
-        if(!startDate.isEmpty() && !endDate.isEmpty()) {
+        try {
+            Date surrStartDateFmt = Date.valueOf(startDate);
+            Date surrEndDateFmt = Date.valueOf(endDate);
             sql.append(" AND dateOrder BETWEEN ").append(surrStartDateFmt).append(" AND ").append(surrEndDateFmt);
-        }else if(!startDate.isEmpty()){
-            sql.append(" AND dateOrder >= ").append(surrStartDateFmt);
-        }else if(!endDate.isEmpty()){
-            sql.append(" AND dateOrder <= ").append(surrEndDateFmt);
+//            if (!startDate.isEmpty() && !endDate.isEmpty()) {
+//
+//            } else if (!startDate.isEmpty()) {
+//                sql.append(" AND dateOrder >= ").append(surrStartDateFmt);
+//            } else if (!endDate.isEmpty()) {
+//                sql.append(" AND dateOrder <= ").append(surrEndDateFmt);
+//            }
+        } catch (IllegalArgumentException | NullPointerException e) {
         }
 
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Order.class, "%" + contentSearch + "%");
     }
 
-    public PaymentMethod getPaymentMethodMangeById(int id){
+    public PaymentMethod getPaymentMethodMangeById(int id) {
         String sql = "SELECT id, typePayment FROM payment_methods WHERE id = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, PaymentMethod.class, id).get(0);
     }
 
-    public DeliveryMethod getDeliveryMethodManageById(int id){
+    public DeliveryMethod getDeliveryMethodManageById(int id) {
         String sql = "SELECT id, typeShipping, description, shippingFee FROM delivery_methods WHERE id = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, DeliveryMethod.class, id).get(0);
     }
 
-    public Order getOrderById(String id){
-        StringBuilder sql = new StringBuilder("SELECT id, userId, dateOrder, deliveryMethodId, paymentMethodId, fullName, email, phone, address, orderStatusId, transactionStatusId, voucherId");
+    public Order getOrderById(String id) {
+        StringBuilder sql = new StringBuilder("SELECT id, userId, dateOrder, deliveryMethodId, paymentMethodId, fullName, email, phone, address, orderStatusId, transactionStatusId, voucherId, province, district, ward, detail");
         sql.append(" FROM orders WHERE id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Order.class, id).get(0);
     }
@@ -101,37 +110,47 @@ public class OrderDaoAdmin {
 //        GeneralDao.executeAllTypeUpdate(sql, transactionStatusId, orderId);
 //    }
 
-    public void removeOrderByMultipleId(String[] multipleId){
+    public void removeOrderByMultipleId(String[] multipleId) {
         String fillEntry = String.format("'%s'", String.join("','", multipleId));
         StringBuilder sql = new StringBuilder("DELETE FROM orders");
         sql.append(" WHERE id IN(" + fillEntry + ")");
         GeneralDao.executeAllTypeUpdate(sql.toString());
     }
 
-    public void cancelOrderByArrayMultipleId(String[] multipleId){
+    public void cancelOrderByArrayMultipleId(String[] multipleId) {
         String fillEntry = String.format("'%s'", String.join("','", multipleId));
         String sql = "UPDATE orders SET orderStatusId = 5 WHERE id IN (" + fillEntry + ")";
         GeneralDao.executeAllTypeUpdate(sql);
     }
 
-    public static void updateStatusByOrderId(String orderId, int orderStatusId, int transactionStatusId){
+    public void updateStatusByOrderId(String orderId, int orderStatusId, int transactionStatusId) {
         String sql = "UPDATE orders SET orderStatusId = ?, transactionStatusId = ? WHERE id = ?";
         GeneralDao.executeAllTypeUpdate(sql, orderStatusId, transactionStatusId, orderId);
     }
 
-    public Voucher getVoucherById(int id){
+    public void updateOrderStatus(String orderId, int orderStatusId) {
+        String sql = "UPDATE orders SET orderStatusId = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(sql, orderStatusId, orderId);
+    }
+
+    public void updateOrderTransaction(String orderId, int transactionStatusId) {
+        String sql = "UPDATE orders SET transactionStatusId = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(sql, transactionStatusId, orderId);
+    }
+
+    public Voucher getVoucherById(int id) {
         String sql = "SELECT id, code, description, minimumPrice, discountPercent FROM vouchers WHERE id = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, id).get(0);
     }
 
-    public List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder){
+    public List<Order> getOrderByUserIdAndStatusOrder(int userId, int statusOrder) {
         String querry = "SELECT id FROM orders WHERE userId = ? AND orderStatusId = ?";
-        return GeneralDao.executeQueryWithSingleTable(querry,Order.class, userId,statusOrder);
+        return GeneralDao.executeQueryWithSingleTable(querry, Order.class, userId, statusOrder);
     }
 
-    public List<Order> getOrderByUserId(int userId){
+    public List<Order> getOrderByUserId(int userId) {
         String querry = "SELECT id FROM orders WHERE userId = ? ";
-        return GeneralDao.executeQueryWithSingleTable(querry,Order.class, userId);
+        return GeneralDao.executeQueryWithSingleTable(querry, Order.class, userId);
     }
 
     public List<OrderDetail> getOrderDetailByOrderId(List<String> listId) {
@@ -147,12 +166,12 @@ public class OrderDaoAdmin {
         return GeneralDao.executeQueryWithSingleTable(query, OrderDetail.class);
     }
 
-    public List<Product> getProductInOrderDetail(int id){
+    public List<Product> getProductInOrderDetail(int id) {
         String query = "SELECT DISTINCT id, name, categoryId " +
                 "FROM products " +
                 "WHERE id =?";
 
-        return  GeneralDao.executeQueryWithSingleTable(query, Product.class,id);
+        return GeneralDao.executeQueryWithSingleTable(query, Product.class, id);
     }
 
     public List<Image> getNameImageByProductId(int id) {
@@ -166,7 +185,7 @@ public class OrderDaoAdmin {
                 "FROM orders JOIN order_details ON orders.id = order_details.orderId " +
                 "WHERE orders.userId = ? AND orders.orderStatusId = 4 " +
                 "AND order_details.id NOT IN (SELECT reviews.orderDetailId FROM reviews) ";
-        return GeneralDao.executeQueryWithSingleTable(querry, OrderDetail.class,userId);
+        return GeneralDao.executeQueryWithSingleTable(querry, OrderDetail.class, userId);
     }
 
     public List<OrderDetail> getOrderDetailHasReview(int userId) {
@@ -194,7 +213,4 @@ public class OrderDaoAdmin {
     }
 
 
-    public static void main(String[] args) {
-        System.out.println(AdminOrderServices.getINSTANCE().getQuantity());
-    }
 }

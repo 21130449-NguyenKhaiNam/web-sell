@@ -1,9 +1,10 @@
-import {getImageProduct} from "../images.js";
+import {getImageProduct} from "../uploadImage.js";
 import {getFeeAndLeadTime} from "../shipping.js";
 
 $(document).ready(function () {
     // Lấy ra trạng thái đơn hàng chưa xác nhận khi mới vào trang
     let statusId = 1;
+    let totalPrice = 0;
     getOrders(statusId);
     $('.list-group-item-action').click(function () {
         $('.list-group-item-action').removeClass('active');
@@ -74,6 +75,7 @@ $(document).ready(function () {
             const temporary = order.items.reduce(function (total, item) {
                 return total + item.price * item.quantity;
             }, 0);
+            totalPrice += temporary;
             modal.find("#order__temporary").text(formatCurrency(temporary));
         }
 
@@ -93,12 +95,14 @@ $(document).ready(function () {
         loadAddress(order.address)
         loadPrice(order);
         loadContact(order);
-        console.log(order.address)
+        console.log(JSON.stringify(order.address))
         getFeeAndLeadTime(order.address).then(data => {
             console.log(data.feeShipping, data.leadDate);
+            totalPrice -= data.feeShipping
             modal.find("#order__shipping-fee").text(formatCurrency(data.feeShipping));
             modal.find("#order__lead-date").text(convertUnixToDate(data.leadDate));
         })
+        modal.find("#order__total").text(formatCurrency(totalPrice))
     }
 
     function addEventViewDetail() {

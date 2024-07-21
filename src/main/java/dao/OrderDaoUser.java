@@ -67,7 +67,7 @@ public class OrderDaoUser {
 
     public Optional<OrderDetailResponseDTO> getOrderByOrderDetailId(String orderId) {
         StringBuilder query = new StringBuilder();
-        query.append("SELECT orders.dateOrder, order_statuses.typeStatus, orders.fullName, orders.phone, orders.voucherId, orders.province, orders.district, orders.ward, orders.detail, orders.dateOrder AS orderDate\t\n" +
+        query.append("SELECT orders.id, order_statuses.typeStatus, orders.fullName, orders.phone, orders.email, orders.province, orders.district, orders.ward, orders.detail, orders.voucherId, orders.dateOrder AS orderDate\t\n" +
                 "FROM orders JOIN order_statuses ON orders.orderStatusId = order_statuses.id\n" +
                 "WHERE orders.id = ?");
         List<OrderDetailResponseDTO> orderDetail = GeneralDao.executeQueryWithSingleTable(query.toString(), OrderDetailResponseDTO.class, orderId);

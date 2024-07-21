@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AddressServices {
     private static AddressServices INSTANCE;
-    private AddressDAO addressDAO ;
+    private AddressDAO addressDAO;
 
     private AddressServices() {
         this.addressDAO = new AddressDAO();
@@ -35,12 +35,11 @@ public class AddressServices {
         return statusCode == 200;
     }
 
-    public boolean insertAddress(Address address) throws URISyntaxException, IOException {
+    public Integer insertAddress(Address address) throws URISyntaxException, IOException {
         if (!AddressServices.getINSTANCE().validateAddress(address.exportAddressString())) {
-            return false;
+            return -1;
         }
-        addressDAO.insertAddress(address);
-        return true;
+        return addressDAO.insertAddress(address);
     }
 
     public boolean updateAddress(Address address) throws URISyntaxException, IOException {
@@ -66,5 +65,12 @@ public class AddressServices {
             return false;
         addressDAO.deleteAddress(addressId);
         return true;
+    }
+
+    public Address getAddressById(String address) {
+        List<Address> addressList = addressDAO.getAddressById(address);
+        if (addressList.isEmpty())
+            return null;
+        return addressList.get(0);
     }
 }

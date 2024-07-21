@@ -54,104 +54,103 @@
         </div>
     </section>
 
-    <!-- Modal Create-->
-    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
-        <div class="modal-dialog" style="max-width: 80%">
-            <form id="form" class="modal-content needs-validation">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modal-label">Thêm mã giảm giá</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <label for="code" class="form-label">Code</label>
-                                        <input type="text" class="form-control" name="code" id="code" value="">
-                                        <div class="valid-feedback">
+</main>
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="staticBackdropLabel"  aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <form id="form" class="modal-content needs-validation">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Thêm mã giảm giá</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="code" class="form-label">Code</label>
+                                    <input type="text" class="form-control" name="code" id="code" value="">
+                                    <div class="valid-feedback">
 
-                                        </div>
                                     </div>
-                                    <div class="col-12 mt-2">
-                                        <label for="description" class="form-label">Mô tả </label>
-                                        <textarea class="form-control" name="description" id="description"></textarea>
-                                        <div class="valid-feedback">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-4 mt-2">
-                                        <label for="minimumPrice" class="form-label">Giá trị tối thiểu áp dụng</label>
-                                        <input type="text" class="form-control" name="minimumPrice" id="minimumPrice"
-                                               value="">
-                                        <div class="valid-feedback">
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-4 mt-2">
-                                        <label for="discountPercent" class="form-label">Phần trăm giảm giá </label>
-                                        <input type="text" class="form-control" id="discountPercent" value=""
-                                               name="discountPercent">
-                                        <div class="valid-feedback">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-4 mt-2">
-                                        <label for="availableTurns" class="form-label text-nowrap">Số lượt sử
-                                            dụng</label>
-                                        <input type="text" class="form-control" id="availableTurns"
-                                               name="availableTurns" value="">
-                                        <div class="valid-feedback">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mt-2">
-                                        <label for="expiryDate" class="form-label text-nowrap">Ngày hết hạn</label>
-                                        <input type="date" class="form-control" name="expiryDate" id="expiryDate">
-                                        <div class="valid-feedback">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mt-2">
-                                        <label for="state" class="form-label text-nowrap">Trạng thái </label>
-                                        <select id="state" name="state" class="form-select" aria-label="Chọn">
-                                            <option value="-1" id="">-- Chọn trạng thái --
-                                            </option>
-                                            <option value="1">Hoạt động</option>
-                                            <option value="2">Khóa</option>
-                                        </select>
-                                        <div class="valid-feedback">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-12 mt-2 pb-4">
-                                        <label for="productId" class="form-label  py-1">Các sản phẩm áp
-                                            dụng</label>
-                                        <select id="productId" name="productId" class="form-select" aria-label="Chọn"
-                                                style="width: 100%" multiple="multiple">
-                                            <option value=""></option>
-                                        </select>
-                                        <div class="valid-feedback">
-
-                                        </div>
-                                    </div>
-
                                 </div>
+                                <div class="col-12 mt-2">
+                                    <label for="description" class="form-label">Mô tả </label>
+                                    <textarea class="form-control" name="description" id="description"></textarea>
+                                    <div class="valid-feedback">
+
+                                    </div>
+                                </div>
+                                <div class="col-4 mt-2">
+                                    <label for="minimumPrice" class="form-label">Giá trị tối thiểu áp dụng</label>
+                                    <input type="text" class="form-control" name="minimumPrice" id="minimumPrice"
+                                           value="">
+                                    <div class="valid-feedback">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-4 mt-2">
+                                    <label for="discountPercent" class="form-label">Phần trăm giảm giá </label>
+                                    <input type="text" class="form-control" id="discountPercent" value=""
+                                           name="discountPercent">
+                                    <div class="valid-feedback">
+
+                                    </div>
+                                </div>
+                                <div class="col-4 mt-2">
+                                    <label for="availableTurns" class="form-label text-nowrap">Số lượt sử
+                                        dụng</label>
+                                    <input type="text" class="form-control" id="availableTurns"
+                                           name="availableTurns" value="">
+                                    <div class="valid-feedback">
+
+                                    </div>
+                                </div>
+                                <div class="col-6 mt-2">
+                                    <label for="expiryDate" class="form-label text-nowrap">Ngày hết hạn</label>
+                                    <input type="date" class="form-control" name="expiryDate" id="expiryDate">
+                                    <div class="valid-feedback">
+
+                                    </div>
+                                </div>
+                                <div class="col-6 mt-2">
+                                    <label for="state" class="form-label text-nowrap">Trạng thái </label>
+                                    <select id="state" name="state" class="form-select" aria-label="Chọn">
+                                        <option value="-1" id="">-- Chọn trạng thái --
+                                        </option>
+                                        <option value="1">Hoạt động</option>
+                                        <option value="2">Khóa</option>
+                                    </select>
+                                    <div class="valid-feedback">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 mt-2 pb-4">
+                                    <label for="productId" class="form-label  py-1">Các sản phẩm áp
+                                        dụng</label>
+                                    <select id="productId" name="productId" class="form-select" aria-label="Chọn"
+                                            style="width: 100%" multiple="multiple">
+                                        <option value=""></option>
+                                    </select>
+                                    <div class="valid-feedback">
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary">Lưu</button>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </form>
     </div>
-</main>
-
+</div>
 <script type="module" src="<c:url value="/js/admin/adminVoucher.js"/>">
 </script>
 

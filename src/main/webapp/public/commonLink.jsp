@@ -29,14 +29,16 @@
 <link rel="apple-touch-icon" sizes="180x180" href=<c:url value="/assets/favicon/apple-touch-icon.png"/>>
 <link rel="icon" type="image/png" sizes="32x32" href=<c:url value="/assets/favicon/favicon-32x32.png"/>>
 <link rel="icon" type="image/png" sizes="16x16" href=<c:url value="/assets/favicon/favicon-16x16.png"/>>
-<link rel="manifest" href=<c:url value="/assets/favicon/site.webmanifest"/>>
+<link rel="icon" type="image/png" sizes="192x192" href=
+<c:url value="/assets/favicon/android-chrome-192x192.png"/>
+        <link rel="manifest" href=<c:url value="/assets/favicon/site.webmanifest"/>>
 <!--Web font-->
 <%--jquery--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!--Font-->
-<link rel="stylesheet" href="<c:url value=" /assets/font/webfonts/Montserrat.css" />">
+<link rel="stylesheet" href="<c:url value="/assets/font/webfonts/Montserrat.css" />">
 <!--CSS-->
 <link rel="stylesheet" href=<c:url value="/assets/css/reset.css"/>>
 <link rel="stylesheet" href=<c:url value="/assets/css/base.css"/>>
@@ -47,8 +49,21 @@
 <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css"/>
 <!-- Datatable + Select-->
 <link href="https://cdn.datatables.net/v/dt/dt-2.0.8/sl-2.0.3/datatables.min.css" rel="stylesheet">
-<script src="https://cdn.datatables.net/v/dt/dt-2.0.8/sl-2.0.3/datatables.min.js"></script>
+<!--gasparesganga-->
+<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
 <%--Sweetalert--%>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css" rel="stylesheet">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8C4K8R0X5G"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
 
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-8C4K8R0X5G');
+</script>
